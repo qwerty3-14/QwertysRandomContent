@@ -1,0 +1,158 @@
+﻿using System;
+
+using Microsoft.Xna.Framework;
+
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace QwertysRandomContent
+{
+    public class NPCItemSales : GlobalNPC
+    {
+
+
+        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        {
+
+            if (type == NPCID.SkeletonMerchant)
+            {
+
+                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.ConjureBone>());
+                nextSlot++;
+
+            }
+            if (type == NPCID.Cyborg)
+            {
+
+                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Ammo.TeleportationArrow>());
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Ammo.TeleportationArrowGrab>());
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Ammo.TeleportationArrowSwap>());
+                nextSlot++;
+
+            }
+            if (type == NPCID.WitchDoctor)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Accesories.MinionFang>());
+                nextSlot++;
+            }
+            if (type == NPCID.Dryad && NPC.downedMechBossAny)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Weapons.MiscBows.BloomingBow>());
+                nextSlot++;
+            }
+            if (type == NPCID.Dryad )
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("DecorativePlant"));
+                nextSlot++;
+            }
+            if (type == NPCID.Mechanic)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Fan"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("VFan"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Illuminator"));
+                nextSlot++;
+            }
+            if (type == NPCID.ArmsDealer)
+            {
+                if(QwertyWorld.downedAncient)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("TankShift"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("MiniTankStaff"));
+                    nextSlot++;
+                }
+            }
+                if (type == NPCID.Merchant)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Flechettes"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Flashlight"));
+                nextSlot++;
+
+            }
+            if (type == NPCID.Wizard)
+            {
+                
+                shop.item[nextSlot].SetDefaults(ItemID.MagicMirror);
+                nextSlot++;
+            }
+            if (type == NPCID.Steampunker)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Steambath"));
+                nextSlot++;
+            }
+            if(type == NPCID.DyeTrader)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("CustomDye"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("CustomDye2"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("CustomDye3"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("CustomDye4"));
+                nextSlot++;
+            }
+            if (type == NPCID.Clothier)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("SRobe"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("DressB"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("DressC"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Miniskirt"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("Shorts"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("SwimsuitTop"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("SwimsuitBottom"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherBelt"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherShoesMale"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherShoesFemale"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherBootsMale"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherBootsFemale"));
+                nextSlot++;
+            }
+        }
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        {
+            if (Main.rand.Next(0, 5) == 0)
+            {
+                shop[nextSlot] = mod.ItemType<Items.Accesories.Metronome>();
+                nextSlot++;
+            }
+            int selectAccesory = Main.rand.Next(4);
+            switch (selectAccesory)
+            {
+                case 0:
+                    shop[nextSlot] = mod.ItemType("SwordEmbiggenner");
+                    nextSlot++;
+                    break;
+                case 1:
+                    shop[nextSlot] = mod.ItemType("Gemini");
+                    nextSlot++;
+                    break;
+                case 2:
+                    shop[nextSlot] = mod.ItemType("QuestionableSubstance");
+                    nextSlot++;
+                    break;
+                case 4:
+                    shop[nextSlot] = mod.ItemType("BookOfMinionTactics");
+                    nextSlot++;
+                    break;
+
+            }
+        }
+    }
+}

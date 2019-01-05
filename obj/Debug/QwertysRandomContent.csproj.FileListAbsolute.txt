@@ -1,0 +1,2 @@
+C:\Users\Dad\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csprojResolveAssemblyReference.cache
+C:\Users\Dad\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csproj.CoreCompileInputs.cache

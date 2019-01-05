@@ -1,0 +1,364 @@
+This mod adds whatever I feel like adding. I generally try to make the content I add feel unique. 
+I have a forum page and discord server for the mod where you can read up on the content, leave suggestions, or report bugs
+Also working on a wiki
+
+Includes
+-7 bosses with custom AI!
+-A new sky fortress biome/strucutre!
+-A new event the dino militia!
+-28 new accesory prefixes!
+-over 300 items total! including...
+-7 armor sets and 31 armor pieces!
+-some vanity items!
+-19 new ammos!
+-LOADS of cool and unique weapons!
+
+I'm not that good of a spriter so here I'll give thanks to the spriters who helped!
+-Havoc (notable sprites: O.L.O.R.D.)
+-Liquidated Assets 
+-SUS (notable sprites: Almost everything related to the sky fortress, most dino Militia enemies, Hydra, Polar Exterminator)
+-Darkpuppey (notable sprites: Imperious)
+-FazerGamer (notable sprites: Ancient Machine)
+-GamingWithZack (notable sprites: Music boxes)
+-ShockedHorizon5 (notable sprites: Rune Ghost and Runes)
+-FailureOfMankind (notable sprites: Rhuthinium Weapons)
+-Raz (notable sprites: Penguin club and generator, Cholorphyte sniper staff, Pumpkin Items)
+-Kerdo (notable sprites: Banners, fortress furniture)
+-Phobostar (notable sprites:Ancient Items)
+
+Extra thanks
+-Turquiose (for writing custom themes)
+-Kerdo (Russian Translations)
+
+
+
+changelog
+0.16.9
+-added Dnas, It's like sand but it falls up! and you can walk... on the bottom of it!
+-added Dnas painted fortress brick it has the walk on bottom of it effect as Dnas but it won't fall up. (crafted from fortress brick and dnas)
+-added Dnas Transmutator which turns sand into Dnas (crafted from fortress brick and shining cores)
+-added Dnas lantern, when placed it will reverse the gravity of all players nearby (crafted from fortress brick, dnas, and shining cores)
+
+-fixed fortress candle and candelabra not emitting light
+-Emerald Eye accesory is now craftable (I forgot last update)
+-Reverse arrows are now crafted with Dnas instead of chaos fish and sprite changed slightly
+
+0.16.8
+-slowed down the divine light's fire rate a little (from 1.5 sec to 2 sec)
+-fixed the sky boun spiral staff not working sometimes
+-added Fortress furniture (thanks Kerdo for spriting)
+-added clay armor the first shapeshifter armor set
+
+0.16.7
+-added mini tank staff (sold by arms dealer after Ancient machine is defeated) (sprites by Raz)
+-Added prefixes for shapeshifter weapons!
+--Stable morphs have 14 unique prefixes they can modify Morp damage, Morph Crit, and Morph defense (try to get Excelllent)
+--Quick morphs have the 14 universal modifiers + 7 unique modifiers that alter the cooldown (try to get Rigorous)
+
+-New sprites for Ancient Items (thanks Phobostar)
+-fix some layer drawing issues with caelite and gale armor
+-renamed the runic minion staff to leech rune staff and changed the sprite
+-fixed penguin club doing ranged damage instead of melee damage
+-fixed fortress wall's description being from example wall
+
+0.16.6
+-added Shape Shift: Tank! (sold by arms dealer after Ancient Machine is defeated) (sprites by Raz)
+-added frostburn staff (sprite by Kerdo)
+
+-Sneaking ghost won't spawn until plantera is defeated
+-The Divine Light's deflected projectile now do a max of 50/(100 in expert) damamge
+-fixed bug where there was a small chance of getting two of the same item from Ancient machine on expert mode
+-new sprite for Shape Shift: Cthulu's stare (thanks WhoAmI)
+
+0.16.5
+-fixed sky fotress not generating high enough on calamity's heightened worlds
+-added music box for Imperious's theme (Thank GamingWithZack for spriting)
+-new sprite for Cobalt Shuriken
+-cobalt Shuriken has smalle hitbox (should make the collision with tiles look less off)
+
+0.16.4
+-fixed decorative plant dropping 6 copies of itslef when destroyed
+-added banners (sprited by Kerdo)
+-added Gore to O.L.O.R.D.
+-some fortress enemies can now be confused
+-Imperious now has its own theme "Blade of a God" (Thanks Turquiose)
+-divine light now has a chance to drop a light pet
+-new enemy added to the fortress (sprited by SUS)
+
+0.16.3
+-fixed bug where Ancient machine didn't drop weapons in normal (non expert) mode
+-I'm suprised no one reported this I guess no one plays normal mode
+
+-0.16.2
+-new sprite for runic sniper, Icicle(Cold front projectile), Sanstorm (the sand gun upgrade), Dino bone (thanks Kerdo)
+-More russian translations! (thanks Kerdo)
+-added a decorative plant (sprite by Kerdo)
+-added dev item for Kerdo
+
+-0.16.1
+-added Russian translations for most item names (thanks Kerdo)
+-new sprites for Rush potion, Dragon Fire, Bloddy/blessed Medalion, book of minion tactics (thanks Kerdo)
+-added dodge potion (sprite by Kerdo)
+-added throw reduction potion (sprite by Kerdo)
+-Luneshine now works during the day
+
+-0.16.0 O.L.O.R.D. an O.L.O.R.D. reboot! (part 1 the fight)
+-new sprite for lune staff (thanks raz)
+-Completely redid O.L.O.R.D.'s AI it is now much more optimised and stable
+--now randomly cycles through his 4 attacks instead of having the same order over and over
+--transition between attacks is faster
+--all attacks have the same length and have the eye expsed for the same legth
+-slight tweaks to each attack
+--Turret beams look better
+--added dusts
+--removed the parts where OLORD would disapear and have you fight his minion (I never like how basic the minion was and people said OLORD was harder than moonlord which is why I removed it)
+-Works in multiplayer!
+
+
+
+
+-0.15.6
+-fixed a harmless (but somewhat annoying) bug that would spam chat with an error
+-added Ancient Missile staff (Sprited by Raz)
+-added Ancient Longbow
+-added Shape Shift: Ancient Nuke (Warhead sprited by SUS)
+-anceint machine now drops any 2 (3 in expert) weapons from its pool of 8 weapon drops (no repeats)
+-item's with usestyle 5 (guns, bows, staffs, tomes, etc.) that have glowmasks will now glow when used!
+-0.15.5
+-improved ancient machine's use of dusts, animations, and other minor visuals.
+
+-0.15.4
+-added Shape Shift: Anvil (crafted from 10 iron/lead bars)
+
+-0.15.3
+-new map sprite for ancient machine (thanks GamingWithZack)
+-added Shape Shift: Cthulhu's Stare (drops from Eye of Cthulhu)
+
+-0.15.2
+-fixed biomass accesory's effect alway being active even when accesory wasn't equiped
+-0.15.1
+Before I even started modding I had the idea of adding a new shapeshifter class to terraria. The class will focus on turning into other things with unique movement and attacks.
+This update I added the first offical shapeshifter weapon! The bunny stone, this is an early game shapeshift weapon that turns the player into a bunny that can kick things!
+It's crafted from a bunny and 16 stone at a workbench.
+
+-0.15.0
+-Added a new hardmode boss, Imperious (Thanks darkpuppey for spriting)
+-Ruthinium no longer generates in the underworld
+-resprited Chlorophyte sniper staff (thanks raz)
+-O.L.O.R.D. now has a unique theme instead of using a tune from a free music site (thanks turquiose)
+-Items with glowmask now have there glowmask shwon when used unless they have usestyle 5.... (guns, bows, magic staffs, tomes, etc)
+-fixed hydra hook's glowmask drawing slightly below where it should
+-fixed hydra armor's glowmask and Tricerashield not flipping with gravity
+-hydra wings now glow!
+-ancient machine trophy and music box (BuiltToDestoy) now have glowmasks
+-fixed Tricerashield not being dyeable
+-added an early game thrower accesory
+
+-0.14.11
+-added chlorophyte sentry staff
+-added chlorophyte sniper staff
+
+-0.14.10
+-added hallowed sentry staff
+
+-0.14.9
+-Rhuthinium Armor resprited
+-Gun Chakaram resprited (thanks darkpuppy)
+-The Divine light now has its own theme (thanks turquiose)
+- and Music Box (thanks GamingWithZack)
+
+v0.14.8
+-added Jack-o'-Lantern senrty staff
+v0.14.7
+-added music box (Old Dinos New Guns)
+-music box (zig zag) now has proper sprite
+-fixed some drawing issues with hydra armor's glowmasks
+-fixed angelic tracker's targeting and orichalcum bullets' tracking
+-Tricerashield has new sprite
+-Ancient Machine, ancient minion, and ancient energy has new sprite (thanks fazergamer)
+-ancient machine trophy has new sprite (thanks GamingWithZack)
+
+v0.14.5
+-added 3 pumpkin weapons (sprited by Raz)
+--pumpkin pike
+--pumpgun
+--pumbkin weaver
+
+-added 3 music boxes (sprited by GamingWithZack)
+--music box (The Conjurer) 
+--music box (Built to Destroy)
+--music box (Heavenly Fortress)
+
+v0.14.4
+-added flashlight (sold by merchant)
+-fixed polar exterminator in multiplayer
+v0.14.3
+-added Orichalchum Drifter Staff
+v0.14.2
+-added mythril prism staff
+-admantite punisher and titanium grinder staves now have the same value as their ore's respective sword
+v0.14.1
+-fixed major bug where the mod couldn't be loaded on a server
+
+v0.14.0 many penguins were harmed in the making of this update
+-added a new early game boss to the underground tundra
+-added frost compasses found in ice chests they will help you find the ne boss
+-Added Rune Ghost Mask (Sprited by Raz)
+
+
+-Rhuthinium weapons have been repsrited(thanks Failure of Mankind)
+-Rhuthinium arrows now apply bonus damage based on distance instead of time
+-fixed hydra missile rod doin WAY to much damage (I think I accidently typed an extra 0)
+
+
+
+v0.13.23
+-The Hydra's necks now draw in front of its body
+-added some early game flechettes
+-added Book of Minion Tactics
+-fixed gale armor's set bonus not working at all in multiplayer
+v0.13.22
+-added boss mask for divine light
+-added Gale Armor as an early hardmode thrower set (It basicly makes you a sky ninja, sprited by SUS)
+-added Divine Blade (suggested by cataclysm, sprited by SUS)
+v0.13.21
+-Rhuthinium and hydra javelins now apply DoT
+-Ancient Machine has a new background theme
+-hydra armor and hook now have glowmasks
+-reduced the cahnce of The Great Tyrannosaurus dropping the worn prehistoric bow
+-hydra missile rod shoots slower but does more damage (this is to reduce lag)
+-ninja like prefix gives 2% chance to dodge attack instead of 2% Crit chance now
+-Buffeted now gives 1% chance to dodge an attack
+
+-added 4 new accesory prefixes
+-added beak tipped javelin (sprite made by SUS)
+-added The Tyrant's Extinction Gun (drops from The Great Tyrannosaurus)
+-added Ankylosaurus Tail (drops from The Great Tyrannosaurus)
+
+v0.13.20
+-added a RegenFortress Command
+To use this command press enter when you're in your world then type /RegenFortress
+This command will clear the area where the fortress will spawn then generate a new fortress! So worlds that were made 
+before the sky fortress update or worlds that had their fortress broken in some way can regenerate their fortress
+
+-changed a lot of spellings that lolsteringo pointed out
+v0.13.18
+-fixed issue with hydra head staff causing the game to freeze (never trust while loops!)
+
+v0.13.17
+-fixed the sky fortress's spawn rates being way to low
+-fixed the divine light's healing barrier having way to much health in hardmode
+-fixed some drawing issues with the chain that the hydra hook and head staff used
+-palladium flechettes have a new sprite (thanks SUS)
+-palladium flechettes now do more damage as their velocity speeds up from gravity
+
+-added guard Tiles a new hardmode enemy for the sky fortress (sprite made by SUS)
+-added fortress harpy a hardmode enemy drops its beak when killed which is used for crafting (sprite made by SUS)
+-added Beak Tipped Flechettes (sprite made by SUS)
+-Added Beak Spinner (sprite made by SUS)
+-will probably add more beak weapons once SUS is able to sprite more
+
+v0.13.16
+-added titanium grinder staff
+-added adamantite punnisher staff
+v0.13.15
+-added gold and platinum boomerangs
+-added gold and platinum dagger staffs
+v0.13.14
+-Rhuthinium crates are now obtainable earlier, once skeletron is defeated instead of when hardmode starts.
+-Chaged the chances of fishing up rhuthinium crates
+-Rhuthinium crate have a much wider variety of items they can contain as you progress in the game
+
+-reduced the ancient minion minion's targeting range from 10,000 to 1000 (they were literally targeting things so far away that they despawned)
+
+v0.13.13
+-added coblat shuriken
+-added palladium flechettes
+
+v0.13.12
+-fixed bug where rhuthinium greaves and vargule leggings throwing item reduction could prevent placed tiles from being consumed
+-Rune Ghost finally has all runes resprited now (Thanks ShockedHorizon5)
+-New sprite for Ancient Miner (Thanks SUS)
+
+v0.13.11
+-buffed The Divine Light's health
+-increased The Divine Light's fire rate
+-increased The Divine Light's contact damage in expert mode
+
+-fixed aoe pickaxes being able to chop trees and break demon altars with their aoe
+
+v0.13.10
+-added 3 new pickaxes with aoe mining!!
+--added caelite pickaxe
+--added ancient miner (dropped from ancient machine)
+--added The Devourer (dropped from O.L.O.R.D.)
+
+
+-fixed a drawing bug with O.L.O.R.D.'s right wall
+-attempted to fix O.L.O.R.D.'s multiplayer (still NOT finished the boss breaks down completely when summoning its minion)
+
+v0.13.9
+-Custom dyes apply much more saturation. Saturation can easily be reduced with the middle slider of the dresser.
+-When O.L.O.R.D. is positioning himself the player will be inflicted with Healing Halt wich prevents healing and freezes the potion sickness timer
+-O.L.O.R.D.'s Suoer Laser will now be canceled when repositioning
+-O.L.O.R.D.'s homing projectiles have their acceleration reduced a bit and they now have a top speed (High velocity projectiles + black hole was just cruel)
+v0.13.8
+-added 4 new custom dyes wich will dye using the color of the player's default clothes
+-they are sold by the dye trader
+
+v0.13.7
+-added visual effects to the lune and caelite armor sets
+-restless sun projectiles now emit light
+-The player will now face the direction they face when using the soul rod
+
+v0.13.6
+-removed the inventory slot messege spam that was used for debugging
+
+v0.13.5
+-fixed high preist freezing the game if there are no valid tiles to telport to
+-bouncy arrows will only bounce 3 times now (they used to bounce off enemies 4 times and tiles infinitly)
+-fixed a bug that allowed the sword enlarger effect to be applied over and over resulting in absurbly large swords
+v0.13.4
+-added 3 new accesories sold by the traveling merchant
+--Gemini's Quiver
+--Questionable Substance
+--Sword Enlarger
+v0.13.3
+-fixed possesing bow in multiplayer
+-fixed jabber in multiplayer
+-finned arrows' random swimming movement when no valid targets are found desync has been fixed in multiplayer
+
+v0.13.2
+-fixed a lot of accesory/armor effects effecting all players in multiplayer
+-fixed dino vulcan shooting extra projectiles in multiplayer
+-cobalt arrows and pallidium bullets now work in multiplayer
+
+v0.13.1
+-sky bound spiral staff has a recipe now so it's obtainable (I forgot the recipe last upadte)
+
+v0.13.0 Sky Fortress Update!
+-Added the sky fortress biome/structure it generates in the sky opposite dungeon side
+-3 new enemies will spawn in this fortress
+-The fortress will have treasure rooms with a valuable new bar!
+-The fortress will have an altar used to summon a new boss!
+-Huge thanks to SUS for almost all the fortress related sprites!
+
+
+-new sprite for The Great Tyrannosaurus(thanks SUS)
+-prefixes from the mod now work properly with the reforge armor mod
+-Rhuthinium, Vargule, and Lune bars now have the same placement prorperties as vanilla bars
+-Added Lune Bracelet
+-Orichalchum bullets work differently now
+-nerfed the ammo and throw reduction on Rhuthinium greaves and Vargule leggings
+-dino anti air will now only attack things actually in the air instead of just things high above them
+-changed Rhuthinium mouthguard's set bonus
+-varglue helix shot nerfed
+-Rune Ghost has new sprite (thanks ShockHorizon5)
+-ice runes are now 'cold'
+
+
+
+
+
+
+

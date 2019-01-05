@@ -1,0 +1,79 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace QwertysRandomContent.Items.Armor.Rhuthinium
+{
+	[AutoloadEquip(EquipType.Head)]
+	public class RhuthiniumMask : ModItem
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Rhuthinium Mask");
+			Tooltip.SetDefault("+1 max minions and 8% increaesd minion damage");
+			
+		}
+		
+
+		public override void SetDefaults()
+		{
+			
+			item.value = 50000;
+			item.rare = 3;
+			
+			
+			item.width = 22;
+			item.height = 14;
+			item.defense = 2;
+			
+			
+			
+		}
+		
+		public override void UpdateEquip(Player player)
+		{
+			player.minionDamage += .08f;
+			player.maxMinions +=1;
+			
+		}
+		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
+		{
+			drawHair=true;
+			
+		}
+		
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return body.type == mod.ItemType("RhuthiniumChestplate") && legs.type == mod.ItemType("RhuthiniumGreaves");
+			
+		}
+		
+	
+		
+		public override void UpdateArmorSet(Player player)
+		{
+			player.setBonus = "Minion attacks inflict ichor and +1 max minions";
+			player.maxMinions +=1;
+			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			modPlayer.minionIchor = true;
+			
+		}
+		
+		
+		
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 12);
+			
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+			
+	}
+		
+	
+}
+

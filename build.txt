@@ -1,0 +1,8 @@
+author = qwerty3.14
+version = 0.16.9
+displayName = Qwerty's Bosses and Items
+includeSource = true
+hideCode = false
+homepage = https://discord.gg/sxEz4aY
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
+includePDB = true
