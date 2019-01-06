@@ -88,8 +88,59 @@ namespace QwertysRandomContent.NPCs.Fortress
         float aggroDistanceY = 200;
         bool jump;
         float gravity = .3f;
+        bool runOnce = true;
+        bool flipped = false;
         public override void AI()
         {
+            if(runOnce)
+            {
+                switch(Main.rand.Next(3))
+                {
+                    case 0:
+
+                    int children = Main.rand.Next(3);
+                    for(int i =0; i< children; i++ )
+                    {
+                        NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile"));
+                    }
+                        break;
+                    case 1:
+                        Point origin = npc.Center.ToTileCoordinates();
+                        Point point;
+                        for (int s = 0; s < 200; s++)
+                        {
+                            if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Up(2), new GenCondition[]
+                            {
+                                            new Conditions.IsSolid()
+                            }), out point))
+                            {
+                                npc.position.Y--;
+                                origin = npc.Center.ToTileCoordinates();
+                            }
+                            else
+                            {
+                                flipped = true;
+                                break;
+                            }
+                        }
+                        break;
+                }
+                if(!flipped)
+                {
+                    Point origin = npc.Center.ToTileCoordinates();
+                    Point point;
+
+                    while (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(4), new GenCondition[]
+                    {
+                                            new Conditions.IsSolid()
+                    }), out point))
+                    {
+                        npc.position.Y++;
+                        origin = npc.Center.ToTileCoordinates();
+                    }
+                }
+                runOnce = false;
+            }
             if(frame ==0)
             {
                 npc.dontTakeDamage = true;
@@ -98,81 +149,100 @@ namespace QwertysRandomContent.NPCs.Fortress
             {
                 npc.dontTakeDamage = false;
             }
-            gravity = .3f;
-            float worldSizeModifier = (float)(Main.maxTilesX / 4200);
-            worldSizeModifier *= worldSizeModifier;
-            //small =1
-            //medium =2.25
-            //large =4
-            float num2 = (float)((double)(npc.position.Y / 16f - (60f + 10f * worldSizeModifier)) / (Main.worldSurface / 6.0));
-            if ((double)num2 < 0.25)
+            if (flipped)
             {
-                num2 = 0.25f;
-            }
-            if (num2 > 1f)
-            {
-                num2 = 1f;
-            }
-            gravity *= num2;
-            jumpSpeedY = gravity * -35;
-            //Main.NewText("gravity: " +gravity);
-            //Main.NewText("jump: " +jumpSpeedY);
-            Player player = Main.player[npc.target];
-            npc.TargetClosest(true);
-            //Main.NewText(Math.Abs(player.Center.X - npc.Center.X));
-            if(Math.Abs(player.Center.X-npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
-            {
-                jumpSpeedX =Math.Abs(player.Center.X - npc.Center.X) / 70 * (npc.confused ? -1 : 1);
-                timer++;
-                if (timer > 30)
+                gravity = 0f;
+                npc.rotation = (float)Math.PI;
+                Player player = Main.player[npc.target];
+                npc.TargetClosest(true);
+                if (Collision.CheckAABBvLineCollision(player.position, player.Size, npc.Center, npc.Center + new Vector2(0, 1000)) && Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0))
                 {
-                    frame = 3;
-                    if (!jump)
+                    flipped = false;
+                    timer = 63;
+                    jump = true;
+                    npc.velocity.Y = 9;
+                }
+            }
+            else
+            {
+
+                npc.rotation = 0f;
+                gravity = .3f;
+                float worldSizeModifier = (float)(Main.maxTilesX / 4200);
+                worldSizeModifier *= worldSizeModifier;
+                //small =1
+                //medium =2.25
+                //large =4
+                float num2 = (float)((double)(npc.position.Y / 16f - (60f + 10f * worldSizeModifier)) / (Main.worldSurface / 6.0));
+                if ((double)num2 < 0.25)
+                {
+                    num2 = 0.25f;
+                }
+                if (num2 > 1f)
+                {
+                    num2 = 1f;
+                }
+                gravity *= num2;
+                jumpSpeedY = gravity * -35;
+                //Main.NewText("gravity: " +gravity);
+                //Main.NewText("jump: " +jumpSpeedY);
+                Player player = Main.player[npc.target];
+                npc.TargetClosest(true);
+                //Main.NewText(Math.Abs(player.Center.X - npc.Center.X));
+                if (Math.Abs(player.Center.X - npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
+                {
+                    jumpSpeedX = Math.Abs(player.Center.X - npc.Center.X) / 70 * (npc.confused ? -1 : 1);
+                    timer++;
+                    if (timer > 30)
                     {
-                        
-                        if (player.Center.X > npc.Center.X)
+                        frame = 3;
+                        if (!jump)
                         {
-                            npc.velocity.X = jumpSpeedX ;
-                            npc.velocity.Y = jumpSpeedY;
+
+                            if (player.Center.X > npc.Center.X)
+                            {
+                                npc.velocity.X = jumpSpeedX;
+                                npc.velocity.Y = jumpSpeedY;
+                            }
+                            else
+                            {
+                                npc.velocity.X = -jumpSpeedX;
+                                npc.velocity.Y = jumpSpeedY;
+                            }
+                            jump = true;
                         }
-                        else
-                        {
-                            npc.velocity.X = -jumpSpeedX ;
-                            npc.velocity.Y = jumpSpeedY;
-                        }
-                        jump = true;
+                    }
+                    else if (timer > 20)
+                    {
+                        frame = 1;
+                    }
+                    else if (timer > 10)
+                    {
+                        frame = 2;
+                    }
+                    else
+                    {
+                        frame = 1;
                     }
                 }
-                else if(timer >20)
+                else if (!jump)
                 {
-                    frame = 1;
+                    frame = 0;
+                    timer = 0;
                 }
-                else if(timer >10)
+                if (npc.collideX)
                 {
-                    frame = 2;
+                    npc.velocity.X *= -1;
                 }
-                else
+                if (timer > 62 && npc.collideY)
                 {
-                    frame = 1;
+                    npc.velocity.X = 0;
+                    npc.velocity.Y = 0;
+                    jump = false;
+                    timer = 0;
                 }
+                npc.velocity.Y += gravity;
             }
-            else if(!jump)
-            {
-                frame = 0;
-                timer = 0;
-            }
-            if(npc.collideX)
-            {
-                npc.velocity.X *= -1;
-            }
-            if(timer >62  && npc.collideY)
-            {
-                npc.velocity.X = 0;
-                npc.velocity.Y = 0;
-                jump = false;
-                timer = 0;
-            }
-            npc.velocity.Y += gravity;
         }
         public override void FindFrame(int frameHeight)
         {

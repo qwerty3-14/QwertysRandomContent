@@ -218,6 +218,7 @@
     <Compile Include="Items\Fortress\DivineLightMask.cs" />
     <Compile Include="Items\Fortress\DnasBrick.cs" />
     <Compile Include="Items\Fortress\ExpertChalice.cs" />
+    <Compile Include="Items\Fortress\FakeFortressBrick.cs" />
     <Compile Include="Items\Fortress\FortressBossBag.cs" />
     <Compile Include="Items\Fortress\FortressBossSummon.cs" />
     <Compile Include="Items\Fortress\FortressBossTrophy.cs" />
@@ -509,6 +510,7 @@
     <Compile Include="Tiles\DnasBrick.cs" />
     <Compile Include="Tiles\DnasLantern.cs" />
     <Compile Include="Tiles\DnasTransmutator.cs" />
+    <Compile Include="Tiles\FakeFortressBrick.cs" />
     <Compile Include="Tiles\Fan.cs" />
     <Compile Include="Tiles\FortressAltar.cs" />
     <Compile Include="Tiles\FortressBossTrophy.cs" />

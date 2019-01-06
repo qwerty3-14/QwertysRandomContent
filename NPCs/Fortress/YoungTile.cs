@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.World.Generation;
+using System.IO;
 
 namespace QwertysRandomContent.NPCs.Fortress
 {
@@ -21,7 +22,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         public override void SetDefaults()
         {
             npc.width = 16;
-            npc.height = 20;
+            npc.height = 22;
             npc.aiStyle = -1;
             npc.damage = 28;
             npc.defense = 18;
@@ -80,8 +81,25 @@ namespace QwertysRandomContent.NPCs.Fortress
         float aggroDistanceY = 200;
         bool jump;
         float gravity = .3f;
+        bool runOnce=true;
         public override void AI()
         {
+            if(runOnce)
+            {
+                Point origin = npc.Center.ToTileCoordinates();
+                Point point;
+
+                while (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(4), new GenCondition[]
+                {
+                                            new Conditions.IsSolid()
+                }), out point))
+                {
+                    npc.position.Y++;
+                    origin = npc.Center.ToTileCoordinates();
+                }
+                runOnce = false;
+            }
+
             if(frame ==0)
             {
                 npc.dontTakeDamage = true;
@@ -110,11 +128,16 @@ namespace QwertysRandomContent.NPCs.Fortress
             //Main.NewText("gravity: " +gravity);
             //Main.NewText("jump: " +jumpSpeedY);
             Player player = Main.player[npc.target];
+            
             npc.TargetClosest(true);
             //Main.NewText(Math.Abs(player.Center.X - npc.Center.X));
             if(Math.Abs(player.Center.X-npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
             {
-                jumpSpeedX =Math.Abs(player.Center.X - npc.Center.X) / 70 * (npc.confused ? -1 : 1);
+                if (Main.netMode != 1)
+                {
+                    jumpSpeedX = Math.Abs((player.Center.X + Main.rand.Next(-100, 100)) - npc.Center.X) / 70 * (npc.confused ? -1 : 1);
+                    npc.netUpdate = true;
+                }
                 timer++;
                 if (timer > 30)
                 {
@@ -170,6 +193,15 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             npc.frame.Y = frame * frameHeight;
         }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(jumpSpeedX);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            jumpSpeedX = reader.ReadSingle();
+        }
     }
+    
     
 }

@@ -33,6 +33,14 @@ Extra thanks
 
 
 changelog
+0.16.10
+-added a new enemey young tile
+-Enchanted tiles have a chance of spawning upside down
+-Enchanted tiles have a chance of 0-2 young tiles spawning near them
+
+-added enchanted fortress brick
+-Hydra has its own theme and music box now! (thanks turquoise)
+
 0.16.9
 -added Dnas, It's like sand but it falls up! and you can walk... on the bottom of it!
 -added Dnas painted fortress brick it has the walk on bottom of it effect as Dnas but it won't fall up. (crafted from fortress brick and dnas)

@@ -25,8 +25,8 @@ namespace QwertysRandomContent.Items.HydraItems
 			item.createTile = mod.TileType("MusicBoxBeastOfThreeHeads");
 			item.width = 24;
 			item.height = 24;
-			item.rare = 4;
-			item.value = 100000;
+            item.rare = 5;
+            item.value = 100000;
 			item.accessory = true;
             
         }

@@ -352,7 +352,7 @@ ItemName.B4MusicBox=Музыкальная шкатулка (E.P.I.C)
 ItemName.DecorativePlant=Декоративное растение
 ItemName.AntiAirBanner=Знамя противо-воздушной пушки
 ItemName.CasterBanner=Знамя Заклинателя
-ItemName.CrawlerBanner=Знамя боевой улитки
+ItemName.CrawlerBanner=Знамя моллюска
 ItemName.FortressFlierBanner=Знамя крепостной гарпии
 ItemName.GuardTileBanner=Знамя Блока стража
 ItemName.HopperBanner=Знамя ожившего блока
@@ -392,7 +392,7 @@ ItemName.ReverseSand=Анти-гравитационный песок
 ItemName.DnasBrick=Анти-гравитационный кирпич крепости
 ItemName.DnasTransmutator=Трансмутатор анти гравитации
 ItemName.DnasLantern=Лампа анти-гравитации
-
+ItemName.FakeFortressBrick=Зачарованный Кирпич Крепости
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -433,11 +433,12 @@ ProjectileName.BlackHole=Чёрная дыра
 
 
 NPC
+NPCName.YoungTile=Маленькая плиточка
 NPCName.Caster=Заклинатель
-NPCName.Crawler=Боевая улитка
+NPCName.Crawler=Моллюск
 NPCName.FortressFlier=Крепостная гарпия
 NPCName.GuardTile=Блок страж
-NPCName.Hopper=Оживший блок
+NPCName.Hopper=Зачарованная плитка
 NPCName.FortressBoss=Божественный свет
 NPCName.HealingBarrier=Барьер исцеления
 NPCName.RuneSpector=Рунный призрак
@@ -474,6 +475,9 @@ NPCName.OLORDv2=О.Л.О.Р.Д
 NPCName.BladeMinion=Властный III
 NPCName.Swarmer=Крепостной светляк
 NPCName.Swarm=Рой светляков
+
+
+
 
 Buffs
 
@@ -799,3 +803,6 @@ ItemTooltip.DnasBrick=Нижняя часть покрыта анти грави
 ItemTooltip.DnasTransmutator=Песок поставленый над ним со времем покроется анти-грави веществом 
 ItemTooltip.DnasLantern=Изменяет гравитацию ближайших игроков
 ItemTooltip.ReverseSand=Если вы встанете на него то он поменяет вашу гравитацию
+ItemTooltip.FakeFortressBrick=Оживает, когда сломан или включают!
+
+
