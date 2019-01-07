@@ -62,8 +62,17 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
 		{
 			num = fail ? 1 : 3;
 		}
-
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            Tile tile = Main.tile[i, j];
+            if (tile.frameX < 36)
+            {
+                r = 0.9f;
+                g = 0.9f;
+                b = 0.9f;
+            }
+        }
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("FortressCandelabra"));
 		}

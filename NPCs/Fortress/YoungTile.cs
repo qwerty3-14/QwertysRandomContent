@@ -84,18 +84,21 @@ namespace QwertysRandomContent.NPCs.Fortress
         bool runOnce=true;
         public override void AI()
         {
-            if(runOnce)
+            if(runOnce )
             {
-                Point origin = npc.Center.ToTileCoordinates();
-                Point point;
+                if (npc.ai[3] == 0)
+                {
+                    Point origin = npc.Center.ToTileCoordinates();
+                    Point point;
 
-                while (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(4), new GenCondition[]
-                {
+                    while (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(4), new GenCondition[]
+                    {
                                             new Conditions.IsSolid()
-                }), out point))
-                {
-                    npc.position.Y++;
-                    origin = npc.Center.ToTileCoordinates();
+                    }), out point))
+                    {
+                        npc.position.Y++;
+                        origin = npc.Center.ToTileCoordinates();
+                    }
                 }
                 runOnce = false;
             }

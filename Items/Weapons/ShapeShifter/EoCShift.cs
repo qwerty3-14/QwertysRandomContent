@@ -148,14 +148,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
     }
     public class EoCBagDrop : GlobalItem
     {
-        /*
-        public override void RightClick(Item item, Player player)
-        {
-            if(item.type == ItemID.EyeOfCthulhuBossBag && Main.rand.Next(4)==0)
-            {
-                player.QuickSpawnItem(mod.ItemType("EoCShift"));
-            }
-        }*/
+       
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
             if(context == "bossBag" && arg == ItemID.EyeOfCthulhuBossBag && Main.rand.Next(4) == 0)

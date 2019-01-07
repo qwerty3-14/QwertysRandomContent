@@ -71,6 +71,16 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
 		{
 			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("FortressCandle"));
 		}*/
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            Tile tile = Main.tile[i, j];
+            if (tile.frameX < 18)
+            {
+                r = 0.9f;
+                g = 0.9f;
+                b = 0.9f;
+            }
+        }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));

@@ -45,6 +45,10 @@ namespace QwertysRandomContent
             BitsByte flags = reader.ReadByte();
             TheFortress = flags[0];
         }
+        public override void PostUpdate()
+        {
+           
+        }
     }
     public class FortressSpawn : GlobalNPC
     {

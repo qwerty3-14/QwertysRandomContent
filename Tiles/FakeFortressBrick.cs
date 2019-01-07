@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Tiles
             //HitWire(i, j);
             if (Main.netMode != 1)
             {
-                NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile"))];
+                NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile"), ai3: 1)];
                 youngTile.velocity = QwertyMethods.PolarVector(2, (float)Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI));
             }
         }

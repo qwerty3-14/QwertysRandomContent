@@ -228,6 +228,7 @@
     <Compile Include="Items\Fortress\FortressCarving3.cs" />
     <Compile Include="Items\Fortress\FortressPillar.cs" />
     <Compile Include="Items\Fortress\FortressPlatform.cs" />
+    <Compile Include="Items\Fortress\FortressTrap.cs" />
     <Compile Include="Items\Fortress\FortressWall.cs" />
     <Compile Include="Items\Fortress\GaleArmor\GaleSwiftHelm.cs" />
     <Compile Include="Items\Fortress\GaleArmor\GaleSwiftplate.cs" />
@@ -537,6 +538,7 @@
     <Compile Include="Tiles\FortressFurniture\FortressTable.cs" />
     <Compile Include="Tiles\FortressPillar.cs" />
     <Compile Include="Tiles\FortressPlatform.cs" />
+    <Compile Include="Tiles\FortressTrap.cs" />
     <Compile Include="Tiles\FortressWall.cs" />
     <Compile Include="Tiles\HydraMusicBox.cs" />
     <Compile Include="Tiles\HydraTrophy.cs" />

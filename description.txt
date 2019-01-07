@@ -33,6 +33,10 @@ Extra thanks
 
 
 changelog
+0.16.11
+-fixed lighting on some fortress furniture
+-added Caelite puls trap (sprite by SUS)
+
 0.16.10
 -added a new enemey young tile
 -Enchanted tiles have a chance of spawning upside down
