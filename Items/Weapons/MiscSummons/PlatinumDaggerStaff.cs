@@ -153,7 +153,7 @@ using Microsoft.Xna.Framework.Graphics;
                     moveTo = new Vector2(player.Center.X + Xvar, player.Center.Y - Yvar);
                     if(attackTimer > attackCooldown)
                     {
-                        if (QwertyMethods.ClosestNPC(ref target, targetDistanceFromPlayer, player.Center, false, player.MinionAttackTargetNPC))
+                        if (QwertyMethods.ClosestNPC(ref target, targetMaxDistanceFromPlayer, player.Center, false, player.MinionAttackTargetNPC))
                         {
                             chargeTime = (int)((targetMaxDistanceFromPlayer + 100) / chargeSpeed) ;
                             for (int k = 0; k < 200; k++)

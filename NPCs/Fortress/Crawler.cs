@@ -20,8 +20,8 @@ namespace QwertysRandomContent.NPCs.Fortress
 
         public override void SetDefaults()
         {
-            npc.width = 38;
-            npc.height = 38;
+            npc.width = 36 + 24;
+            npc.height = 36 + 24;
             npc.aiStyle = -1;
             npc.damage = 20;
             npc.defense = 18;
@@ -40,6 +40,8 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.buffImmune[mod.BuffType("PowerDown")] = true;
             banner = npc.type;
             bannerItem = mod.ItemType("CrawlerBanner");
+            npc.noTileCollide = true;
+            //npc.scale = 1.2f;
         }
         public override void HitEffect(int hitDirection, double damage)
         {
@@ -90,11 +92,13 @@ namespace QwertysRandomContent.NPCs.Fortress
         bool alternateColor;
         int startDirection = -1;
         Vector2 shootFrom;
-        float gunShift = 6;
+        float gunShift = -5.5f;
+        float gunShiftUp = 11.5f;
         float aimDirection;
         public override void AI()
         {
-            
+
+           
             if (npc.ai[0] == 0f)
             {
                 npc.TargetClosest(true);
@@ -110,7 +114,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 Point origin = npc.Center.ToTileCoordinates();
                 Point point;
                 
-                while (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(2), new GenCondition[]
+                while (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(1), new GenCondition[]
                 {
                                             new Conditions.IsSolid()
                 }), out point))
@@ -120,7 +124,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
                 
             }
-            shootFrom = npc.Center + QwertyMethods.PolarVector(gunShift, npc.rotation) * -startDirection;
+            shootFrom = npc.Center + QwertyMethods.PolarVector(gunShift, npc.rotation) * -startDirection + QwertyMethods.PolarVector(gunShiftUp, npc.rotation - (float)Math.PI/2);
             int speed = 2;
             if (npc.ai[1] == 0f)
             {
@@ -162,7 +166,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             //npc.TargetClosest(true);
             Player player = Main.player[npc.target];
-            if(Collision.CanHit(npc.position, 0, 0, player.position, 0, 0) && Collision.CanHit(new Vector2(npc.position.X+npc.width, npc.position.Y), 0, 0, player.position, 0, 0) && Collision.CanHit(new Vector2(npc.position.X + npc.width, npc.position.Y), 0, 0, player.position, 0, 0) && Collision.CanHit(new Vector2(npc.position.X, npc.position.Y), 0, 0, player.position, 0, 0) && (player.Center-npc.Center).Length() <1000)
+            if(Collision.CanHit(shootFrom, 0, 0, player.Center, 0, 0) && (player.Center-npc.Center).Length() <1000)
             {
                 npc.velocity.X = 0;
                 npc.velocity.Y = 0;
@@ -174,7 +178,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                      
                     float shootSpeed = 24;
                    
-                    Projectile.NewProjectile(shootFrom.X, shootFrom.Y, (float)Math.Cos(aimDirection) * shootSpeed, (float)Math.Sin(aimDirection) * shootSpeed, mod.ProjectileType("MollusketSnipe"), 10, 0, player.whoAmI);
+                    Projectile.NewProjectile(shootFrom.X, shootFrom.Y, (float)Math.Cos(aimDirection) * shootSpeed, (float)Math.Sin(aimDirection) * shootSpeed, mod.ProjectileType("MollusketSnipe"), 15, 0, player.whoAmI);
                     timer = 0;
                 }
                 if(timer>60)
@@ -229,6 +233,24 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             
             float num281 = (float)(270 - (int)Main.mouseTextColor) / 400f;
+
+            npc.oldVelocity = npc.velocity;
+            npc.collideX = false;
+            npc.collideY = false;
+            Vector2 position = npc.Center;
+            int num = 12;
+            int num2 = 12;
+            position.X -= (float)(num / 2);
+            position.Y -= (float)(num2 / 2);
+            npc.velocity = Collision.noSlopeCollision(position, npc.velocity, num, num2, true, true);
+            if (npc.oldVelocity.X != npc.velocity.X)
+            {
+                npc.collideX = true;
+            }
+            if (npc.oldVelocity.Y != npc.velocity.Y)
+            {
+                npc.collideY = true;
+            }
             //Lighting.AddLight((int)(npc.position.X + (float)(npc.width / 2)) / 16, (int)(npc.position.Y + (float)(npc.height / 2)) / 16, 0.9f, 0.3f + num281, 0.2f);
             return;
         }
@@ -304,8 +326,8 @@ namespace QwertysRandomContent.NPCs.Fortress
 
             drawLine = false;
             spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler_Turret"), new Vector2(shootFrom.X - Main.screenPosition.X, shootFrom.Y - Main.screenPosition.Y + 2f),
-                        npc.frame, drawColor, aimDirection,
-                        new Vector2(5, 5), 1f, 0, 0f);
+                        new Rectangle(0, 0, 28, 14), drawColor, aimDirection,
+                        new Vector2(5, 9), 1f, 0, 0f);
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -345,7 +367,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             projectile.scale = 1.2f;
             projectile.timeLeft = 600;
             projectile.ranged = true;
-            projectile.extraUpdates = 1;
+            projectile.extraUpdates = 3;
 
 
 

@@ -58,6 +58,7 @@ namespace QwertysRandomContent
                 {
                     WorldGen.KillTile(i+x, j+y, false, false, true);
                     WorldGen.KillWall(i + x, j + y, false);
+                    Main.tile[i + x, j + y].liquid = 0;
                 }
 
             }

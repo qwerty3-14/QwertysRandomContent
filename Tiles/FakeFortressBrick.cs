@@ -36,8 +36,8 @@ namespace QwertysRandomContent.Tiles
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            //HitWire(i, j);
-            if (Main.netMode != 1)
+           
+            if (Main.netMode != 1 && !fail)
             {
                 NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile"), ai3: 1)];
                 youngTile.velocity = QwertyMethods.PolarVector(2, (float)Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI));

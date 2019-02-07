@@ -33,6 +33,59 @@ Extra thanks
 
 
 changelog
+0.17.0
+-Complete restructure of the sky fortress, it is now much less flat and has a lot more interesting things
+-It has many different rooms in 5 differnet sizes
+--Tiny up to 20x10 9 varients!
+--Small up to 40x20 6 varients!
+--Medium up to 60x30 5 varients!
+--Large up to 80x40  4 varients!
+--Altar up to 100x50 2 varients!
+--more can easily be added in the future!
+--if you're a builder you can help the mod and build more rooms for the fortress! see the discord server for more information.
+
+-can easily be expanded on in future updates just add another room to its selection and it's ready!
+-If you want the fortress to have even more rooms you can build some and easily send them to me to add in (see the discord server for more info)
+
+-the /regenFortress command has been replaced!!
+--use /buildfortress to regenerate the new fortress
+--use /buildoldfortress to regenerate the old fortress
+
+-buffed resltess sun damage 17 -> 20
+-fixed bug with young tiles' fortress brick drop not being collectable
+-fixed bug where if you have enough items added by mods then the young tiles would drop an item from one of the mods as a banner
+-fixed fortress walls emitting a small amiunt of light
+-fixed placement issues with various tiles (caelite pulse traps no longer require a tile beneth them, illuminator, fortress pillar, transmutator and fan can't be place in air anymore)
+-caelite pulse trap's projectile hitbox shrunk making it much easier to fit in compact areas
+-exporting rooms now supports actuators
+-fixed mollusket collision with sloped tiles (very important for the new fortress)
+-mollusket's bullet does 50% more damage and travels much faster!
+-updated ancient item sprites (thanks phobostar)
+
+0.16.13
+-fixed gold/platinum dagger staffs not working
+-started messing with new fortress generation (not finished yet)
+
+
+0.16.12
+-added Launchpad it will launch players that step on it
+
+The fortress will be remodeled!
+Rooms have been made but they aren't generated in the fortress yet...
+-Use one of the following commads to place rooms
+-- /generateTinyRoom (size 20x10) 5 rooms currently
+-- /generateSmallRoom (size 40x20) 1 room currently
+-- /generateMediumRoom (size 60x30) 1 room currently
+-- /generateLargeRoom (size 80x40) 1 room currently
+-- /generateAltarRoom (size 100x50) 1 room currently
+
+Builders Wanted!!
+If you want to make some rooms for the new fortress visit the discord server for more information! 
+(You don't need to code anything)
+
+
+
+
 0.16.11
 -fixed lighting on some fortress furniture
 -added Caelite puls trap (sprite by SUS)

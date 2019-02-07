@@ -75,6 +75,9 @@
     <Compile Include="Dusts\PumkinDust.cs" />
     <Compile Include="Dusts\TurretLaserDust.cs" />
     <Compile Include="Experiments\GlassPrism.cs" />
+    <Compile Include="Fortress2Blueprints.cs" />
+    <Compile Include="Fortress2Builder.cs" />
+    <Compile Include="Fortress2Commands.cs" />
     <Compile Include="FrozenDen.cs" />
     <Compile Include="Items\AbstractiveBlock.cs" />
     <Compile Include="Items\Accesories\Biomass.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Items\Fortress\GaleArmor\GaleSwiftHelm.cs" />
     <Compile Include="Items\Fortress\GaleArmor\GaleSwiftplate.cs" />
     <Compile Include="Items\Fortress\GaleArmor\GaleSwiftRobes.cs" />
+    <Compile Include="Items\Fortress\Launchpad.cs" />
     <Compile Include="Items\Fortress\Lightling.cs" />
     <Compile Include="Items\Fortress\MusicBoxHeavenlyFortress.cs" />
     <Compile Include="Items\Fortress\MusicBoxHigherBeing.cs" />
@@ -543,6 +547,7 @@
     <Compile Include="Tiles\HydraMusicBox.cs" />
     <Compile Include="Tiles\HydraTrophy.cs" />
     <Compile Include="Tiles\Illuminator.cs" />
+    <Compile Include="Tiles\LaunchPad.cs" />
     <Compile Include="Tiles\LuneBar.cs" />
     <Compile Include="Tiles\MusicBoxBeastOfThreeHeads.cs" />
     <Compile Include="Tiles\MusicBoxBladeOfAGod.cs" />

@@ -19,7 +19,11 @@ namespace QwertysRandomContent.Tiles
             //Main.tileLavaDeath[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
-            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, 0, 0);
+            TileObjectData.newTile.AnchorTop = default(AnchorData);
+            TileObjectData.newTile.AnchorBottom = default(AnchorData);
+            TileObjectData.newTile.AnchorLeft = default(AnchorData);
+            TileObjectData.newTile.AnchorRight = default(AnchorData);
+            
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<FanE>().Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
@@ -39,7 +43,10 @@ namespace QwertysRandomContent.Tiles
             //adjTiles = new int[]{ TileID.Chairs };
             animationFrameHeight = 38;
         }
-        
+        public override bool CanPlace(int i, int j)
+        {
+            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i + 1, j - 1].active() || Main.tile[i - 1, j - 1].active() || Main.tile[i, j - 2].active();
+        }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;

@@ -30,7 +30,10 @@ namespace QwertysRandomContent.Tiles
             
            
         }
-        
+        public override bool CanPlace(int i, int j)
+        {
+            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active(); ;
+        }
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
             if (Main.tile[i, j + 1].type == mod.TileType("FortressPillar"))

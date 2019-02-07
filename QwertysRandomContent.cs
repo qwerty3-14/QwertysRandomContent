@@ -9,21 +9,18 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
-
 using Terraria.UI;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI;
 using System;
-using Terraria.Graphics;
 using QwertysRandomContent.Items.B4Items;
 using QwertysRandomContent.Items.Dyes;
-using Terraria.GameContent.Dyes;
 
 
 namespace QwertysRandomContent
 {
 	public class QwertysRandomContent : Mod
 	{
+        public static QwertysRandomContent Instance;
+
         public static Effect CustomEffect;
         public static ModHotKey YetAnotherSpecialAbility;
         public override void AddRecipeGroups()
@@ -59,7 +56,7 @@ namespace QwertysRandomContent
         {
             ModRecipe recipe = new ModRecipe(this);
         }
-        internal static QwertysRandomContent instance;
+        //internal static QwertysRandomContent instance;
 		public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
 		public const string Head1Head = "QwertysRandomContent/NPCs/HydraBoss/Head1_Head_Boss";
 		public const string Head2Head = "QwertysRandomContent/NPCs/HydraBoss/Head2_Head_Boss";
@@ -75,7 +72,7 @@ namespace QwertysRandomContent
 			
 			
 		}
-
+        
         
         public override void UpdateUI(GameTime gameTime)
         {
@@ -96,6 +93,7 @@ namespace QwertysRandomContent
         }
         public override void PostSetupContent()
         {
+            
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
@@ -115,6 +113,7 @@ namespace QwertysRandomContent
         public override void Load()
 		{
             Config.Load();
+            Instance = this;
         
         // Registers a new hotkey
         YetAnotherSpecialAbility = RegisterHotKey("Yet Another Special Ability", "Mouse3");
@@ -131,23 +130,15 @@ namespace QwertysRandomContent
                 CustomEffect = GetEffect("Effects/CustomEffect");
                 Ref<Effect> CustomEffectRef = new Ref<Effect>();
                 CustomEffectRef.Value = CustomEffect;
-                /*
-                LegacyHairShaderData coloredShader = new LegacyHairShaderData().UseLegacyMethod(delegate (Player player, Color newColor, ref bool lighting)
-                {
-                    newColor.R = player.shirtColor.R;
-                    newColor.B = player.shirtColor.G;
-                    newColor.G = player.shirtColor.B;
-                    return newColor;
-                })
-                //GameShaders.Armor.BindShader<ArmorShaderData>(ItemType("CustomDye"), );
-                */
+                
+                
                 GameShaders.Armor.BindShader<CustomArmorShader>(ItemType("CustomDye"), new CustomArmorShader(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader2>(ItemType("CustomDye2"), new CustomArmorShader2(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader3>(ItemType("CustomDye3"), new CustomArmorShader3(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader4>(ItemType("CustomDye4"), new CustomArmorShader4(Main.PixelShaderRef, "ArmorColored"));
             }
             
-            instance = this;
+            //instance = this;
 			
 			ModTranslation text = CreateTranslation("DinoDefeat");
 			text.SetDefault("You drove the Dinosaurs to extinction!");
@@ -243,6 +234,7 @@ namespace QwertysRandomContent
             // You need to clear static references to assets (Texture2D, SoundEffects, Effects). 
             CustomEffect = null;
             YetAnotherSpecialAbility = null;
+            Instance = null; 
 
         }
         public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -425,11 +417,7 @@ namespace QwertysRandomContent
     }
     public class RhuthiniumGreavesMale : EquipTexture
     {
-        /*
-        public override bool DrawLegs()
-        {
-            return false;
-        }*/
+       
     }
 
     public class RhuthiniumGreavesFemale : EquipTexture

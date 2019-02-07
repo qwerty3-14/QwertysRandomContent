@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,13 +20,20 @@ namespace QwertysRandomContent.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileSolid[Type] = true;
             
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.AnchorTop = default(AnchorData);
+            TileObjectData.newTile.AnchorBottom = default(AnchorData);
+            TileObjectData.newTile.AnchorLeft = default(AnchorData);
+            TileObjectData.newTile.AnchorRight = default(AnchorData);
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
             TileObjectData.newTile.StyleHorizontal = true;
+           
             TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; 
             TileObjectData.addAlternate(1); 
             TileObjectData.addTile(Type);
+            
+           
             dustType = mod.DustType("FortressDust");
             soundType = 21;
             soundStyle = 2;
@@ -35,6 +43,11 @@ namespace QwertysRandomContent.Tiles
             drop = mod.ItemType("FortressTrap");
 
         }
+        public override bool CanPlace(int i, int j)
+        {
+            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active(); ;
+        }
+        
         public override bool Slope(int i, int j)
         {
             int num248 = 0;
@@ -137,8 +150,8 @@ namespace QwertysRandomContent.Tiles
         {
             projectile.aiStyle = -1;
             //aiType = ProjectileID.Bullet;
-            projectile.width = 22;
-            projectile.height = 22;
+            projectile.width = 10;
+            projectile.height = 10;
             projectile.friendly = true;
             projectile.hostile = true;
             projectile.penetrate = 1;
@@ -177,8 +190,15 @@ namespace QwertysRandomContent.Tiles
             }
             timer++;
         }
-        
-       
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Texture2D texture = mod.GetTexture("Tiles/FortressTrapP");
+            spriteBatch.Draw(texture, new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+                        new Rectangle(0, projectile.frame* texture.Height / 2, texture.Width, texture.Height/2 ), Color.Lerp(lightColor, new Color(0, 0, 0, 0), (float)projectile.alpha / 255f), projectile.rotation,
+                        new Vector2(texture.Width * 0.5f, texture.Height * 0.25f), 1f, SpriteEffects.None, 0f);
+            return false;
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 1200);

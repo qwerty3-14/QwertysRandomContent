@@ -31,7 +31,8 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.DeathSound = SoundID.NPCDeath1; // sfx when killed
             npc.knockBackResist = 0f; //knockback reducion 0 means it takes no knockback
             npc.noGravity = true; // recommended for flying enemies
-            npc.dontCountMe = true;
+            //npc.dontCountMe = true;
+            npc.npcSlots = 0.05f;
             npc.noTileCollide = true;
             npc.buffImmune[BuffID.Confused] = false;
         }

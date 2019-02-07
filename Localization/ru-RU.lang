@@ -79,9 +79,9 @@ ItemName.Flashlight=Фонарик
 ItemName.Illuminator=Светильник
 ItemName.LuneBar=Лунный слиток
 ItemName.LuneOre=Лунная руда
-ItemName.RhuthiniumOre=Рутиниумная руда
-ItemName.RhuthiniumBar=Рутиниумный слиток
-ItemName.RhuthiniumCrate=Рутиниумный ящик
+ItemName.RhuthiniumOre=Рутиумовая руда
+ItemName.RhuthiniumBar=Рутиумовый слиток
+ItemName.RhuthiniumCrate=Рутиумовый ящик
 ItemName.Transmutator=Трансмутатор
 ItemName.VarguleBar=Варгулевый слиток
 ItemName.VFan=Вертикальный вентилятор
@@ -351,7 +351,7 @@ ItemName.AerousLongbowWithStormEnchantment=Длинный лук эриуса С
 ItemName.B4MusicBox=Музыкальная шкатулка (E.P.I.C)
 ItemName.DecorativePlant=Декоративное растение
 ItemName.AntiAirBanner=Знамя противо-воздушной пушки
-ItemName.CasterBanner=Знамя Заклинателя
+ItemName.CasterBanner=Знамя Высшего священника
 ItemName.CrawlerBanner=Знамя моллюска
 ItemName.FortressFlierBanner=Знамя крепостной гарпии
 ItemName.GuardTileBanner=Знамя Блока стража
@@ -393,6 +393,9 @@ ItemName.DnasBrick=Анти-гравитационный кирпич крепо
 ItemName.DnasTransmutator=Трансмутатор анти гравитации
 ItemName.DnasLantern=Лампа анти-гравитации
 ItemName.FakeFortressBrick=Зачарованный Кирпич Крепости
+ItemName.FortressTrap-Каелитовая импульсная ловушка
+ItemName.Launchpad=Воздушная панель
+
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -434,7 +437,7 @@ ProjectileName.BlackHole=Чёрная дыра
 
 NPC
 NPCName.YoungTile=Маленькая плиточка
-NPCName.Caster=Заклинатель
+NPCName.Caster=Высший священник
 NPCName.Crawler=Моллюск
 NPCName.FortressFlier=Крепостная гарпия
 NPCName.GuardTile=Блок страж
@@ -560,6 +563,12 @@ MapObject.=WeakPoint_Head_Boss=О.Л.О.Р.Д
 MapObject.=OLORDv2_Head_Boss=О.Л.О.Р.Д
 MapObject.=BladeBoss_Head_Boss=Повелитель меч
 MapObject.=AncientMachine_Head_Boss=Древняя машина
+MapObject.=RhuthiniumOre=Рутиниумовая руда
+
+
+
+
+
 
 Tooltips
 

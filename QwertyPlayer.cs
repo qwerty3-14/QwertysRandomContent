@@ -295,6 +295,7 @@ namespace QwertysRandomContent
         
         public override void PreUpdate()
         {
+           // Main.NewText(player.inventory[0].type);
             /*
             if (Main.netMode == 1)
             {

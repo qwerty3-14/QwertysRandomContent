@@ -19,7 +19,10 @@ namespace QwertysRandomContent.Tiles
             //Main.tileLavaDeath[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
-            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, 0, 0);
+            TileObjectData.newTile.AnchorTop = default(AnchorData);
+            TileObjectData.newTile.AnchorBottom = default(AnchorData);
+            TileObjectData.newTile.AnchorLeft = default(AnchorData);
+            TileObjectData.newTile.AnchorRight = default(AnchorData);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<VFanE>().Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
@@ -40,7 +43,10 @@ namespace QwertysRandomContent.Tiles
             animationFrameHeight = 20;
 
         }
-
+        public override bool CanPlace(int i, int j)
+        {
+            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active()  || Main.tile[i, j - 1].active() || Main.tile[i+1, j + 1].active() || Main.tile[i-1, j + 1].active() || Main.tile[i, j + 2].active();
+        }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
@@ -106,8 +112,18 @@ namespace QwertysRandomContent.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("VFan"));
-            mod.GetTileEntity<VFanE>().Kill(i, j);
+            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("VFan"));
+            int left = i - (Main.tile[i, j].frameX / 16) % 2;
+            int top = j;
+
+            int index = mod.GetTileEntity<VFanE>().Find(left, top);
+            if (index == -1)
+            {
+                return;
+            }
+            VFanE VfanE = (VFanE)TileEntity.ByID[index];
+            VfanE.blowing = false;
+            VfanE.Kill(i, j);
         }
     }
     public class VFanE : ModTileEntity

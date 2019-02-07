@@ -36,9 +36,10 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.noGravity = true;
             //npc.dontTakeDamage = true;
             //npc.scale = 1.2f;
+            npc.npcSlots = 0.00f;
             npc.buffImmune[20] = true;
             npc.buffImmune[24] = true;
-            banner = npc.type;
+            //banner = npc.type;
             //bannerItem = mod.ItemType("HopperBanner");
             npc.buffImmune[BuffID.Confused] = false;
         }
@@ -70,7 +71,11 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(1));
+            if(Main.rand.NextBool())
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), 1);
+            }
+            
         }
        
         int frame;
