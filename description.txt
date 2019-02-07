@@ -61,6 +61,8 @@ changelog
 -fixed mollusket collision with sloped tiles (very important for the new fortress)
 -mollusket's bullet does 50% more damage and travels much faster!
 -updated ancient item sprites (thanks phobostar)
+-new sprite for frostburn staff (thanks kerdo)
+-fixed hydra sometimes playing queen bee theme
 
 0.16.13
 -fixed gold/platinum dagger staffs not working

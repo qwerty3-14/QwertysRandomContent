@@ -32,7 +32,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             npc.noGravity = true;
             npc.dontTakeDamage = false;
             npc.noTileCollide = true;
-            music = MusicID.Boss5;
+            
             npc.lifeMax = 6000;
 
 
