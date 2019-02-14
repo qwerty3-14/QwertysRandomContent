@@ -97,7 +97,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                         break;
                 }
             }
-            }
+        }
         float bladeWidth = 74;
         float HiltLength = 94;
         float HiltWidth = 84;

@@ -33,6 +33,13 @@ Extra thanks
 
 
 changelog
+0.17.2
+-add Shape Shift: Spiked Slime
+
+0.17.1
+-added lune boomerang (sprite by Kerdo)
+-added a new type of medium room to the fortress (designed by Shadowdragon)
+
 0.17.0
 -Complete restructure of the sky fortress, it is now much less flat and has a lot more interesting things
 -It has many different rooms in 5 differnet sizes

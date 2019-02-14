@@ -101,7 +101,7 @@ namespace QwertysRandomContent.Items.B4Items
             if(frameTimer % 1 ==0)
             {
                 projectile.frame++;
-                if(projectile.frame>17)
+                if(projectile.frame>= Main.projFrames[projectile.type])
                 {
                     projectile.frame = 0;
                 }

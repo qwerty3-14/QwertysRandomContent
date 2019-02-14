@@ -244,6 +244,7 @@
     <Compile Include="Items\HydraItems\MusicBoxBeastOfThreeHeads.cs" />
     <Compile Include="Items\Illuminator.cs" />
     <Compile Include="Items\LuneOre.cs" />
+    <Compile Include="Items\LuneTorch.cs" />
     <Compile Include="Items\ReverseSand.cs" />
     <Compile Include="Items\RuneGhostItems\MusicBoxTheConjurer.cs" />
     <Compile Include="Items\RuneGhostItems\RuneGhostMask.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Items\Weapons\ChaosRifle.cs" />
     <Compile Include="Items\Weapons\GunChakram.cs" />
     <Compile Include="Items\Weapons\Lune\LuneArcherStaff.cs" />
+    <Compile Include="Items\Weapons\Lune\LuneBoomerang.cs" />
     <Compile Include="Items\Weapons\Lune\LuneStaff.cs" />
     <Compile Include="Items\Weapons\Lune\LuneTop.cs" />
     <Compile Include="Items\Weapons\Lune\LuneTrickshooter.cs" />
@@ -296,6 +298,7 @@
     <Compile Include="Items\Weapons\ShapeShifter\MorphCooldown.cs" />
     <Compile Include="Items\Weapons\ShapeShifter\MorphSickness.cs" />
     <Compile Include="Items\Weapons\ShapeShifter\NewClassDamageTest.cs" />
+    <Compile Include="Items\Weapons\ShapeShifter\SpikedSlimeShift.cs" />
     <Compile Include="Items\Weapons\ShapeShifter\TankShift.cs" />
     <Compile Include="Items\Weapons\Thrown\AdamantiteThrowingHand.cs" />
     <Compile Include="Items\Weapons\Thrown\CobaltShuriken.cs" />
@@ -549,6 +552,7 @@
     <Compile Include="Tiles\Illuminator.cs" />
     <Compile Include="Tiles\LaunchPad.cs" />
     <Compile Include="Tiles\LuneBar.cs" />
+    <Compile Include="Tiles\LuneTorch.cs" />
     <Compile Include="Tiles\MusicBoxBeastOfThreeHeads.cs" />
     <Compile Include="Tiles\MusicBoxBladeOfAGod.cs" />
     <Compile Include="Tiles\MusicBoxBuiltToDestroy.cs" />

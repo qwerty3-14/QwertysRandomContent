@@ -91,6 +91,100 @@ namespace QwertysRandomContent
             }
             return foundTarget;
         }
-        
+        /*
+        private struct ColorTriplet
+        {
+            public float r;
+
+            public float g;
+
+            public float b;
+
+            public ColorTriplet(float R, float G, float B)
+            {
+                this.r = R;
+                this.g = G;
+                this.b = B;
+            }
+
+            public ColorTriplet(float averageColor)
+            {
+                this.b = averageColor;
+                this.g = averageColor;
+                this.r = averageColor;
+            }
+        }
+        private static int firstTileX = 0;
+        private static int firstTileY = 0;
+        private static int maxTempLights = 2000;
+		private static Dictionary<Point16, ColorTriplet> tempLights;
+        public static void AntiLight(Vector2 position, Vector3 rgb)
+        {
+            Lighting.AddLight((int)(position.X / 16f), (int)(position.Y / 16f), rgb.X, rgb.Y, rgb.Z);
+        }
+
+        public static void AntiLight(Vector2 position, float R, float G, float B)
+        {
+            Lighting.AddLight((int)(position.X / 16f), (int)(position.Y / 16f), R, G, B);
+        }
+        public static void AntiLight(int i, int j, float R, float G, float B)
+        {
+            if (Main.gamePaused)
+            {
+                return;
+            }
+            if (Main.netMode == 2)
+            {
+                return;
+            }
+            if (i - firstTileX + Lighting.offScreenTiles >= 0 && i - firstTileX + Lighting.offScreenTiles < Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 && j - firstTileY + Lighting.offScreenTiles >= 0 && j - firstTileY + Lighting.offScreenTiles < Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10)
+            {
+                if (tempLights.Count == maxTempLights)
+                {
+                    return;
+                }
+                Point16 key = new Point16(i, j);
+                ColorTriplet value;
+                if (tempLights.TryGetValue(key, out value))
+                {
+                    if (Lighting.RGB)
+                    {
+                        if (value.r < R)
+                        {
+                            value.r = R;
+                        }
+                        if (value.g < G)
+                        {
+                            value.g = G;
+                        }
+                        if (value.b < B)
+                        {
+                            value.b = B;
+                        }
+                        tempLights[key] = value;
+                        return;
+                    }
+                    float num = (R + G + B) / 3f;
+                    if (value.r < num)
+                    {
+                        tempLights[key] = new ColorTriplet(num);
+                        return;
+                    }
+                }
+                else
+                {
+                    if (Lighting.RGB)
+                    {
+                        value = new ColorTriplet(R, G, B);
+                    }
+                    else
+                    {
+                        value = new ColorTriplet((R + G + B) / 3f);
+                    }
+                    tempLights.Add(key, value);
+                }
+            }
+        }*/
     }
+
 }
