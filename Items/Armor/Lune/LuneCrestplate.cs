@@ -56,7 +56,10 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
 
         }
-        
+        public override bool IsVanitySet(int head, int body, int legs)
+        {
+            return base.IsVanitySet(head, body, legs);
+        }
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
            

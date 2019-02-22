@@ -93,15 +93,15 @@ using Microsoft.Xna.Framework.Graphics;
 		{
 			DisplayName.SetDefault("Ancient Minion");
 			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-            Main.projFrames[projectile.type] = 3;
+            Main.projFrames[projectile.type] = 1;
         }
           
         public override void SetDefaults()
         {
  
 			
-            projectile.width = 46; //Set the hitbox width
-            projectile.height = 64;   //Set the hitbox height
+            projectile.width = 42; //Set the hitbox width
+            projectile.height = 56;   //Set the hitbox height
             projectile.hostile = false;    //Tells the game if is hostile or not.
             projectile.friendly = true;   //Tells the game whether it is friendly to players/friendly projectiles or not
             projectile.ignoreWater = true;    //Tells the game whether or not projectile will be affected by water
@@ -299,15 +299,7 @@ using Microsoft.Xna.Framework.Graphics;
             }
             foundTarget = false;
             projectile.frameCounter++;
-            if (projectile.frameCounter > 10)
-            {
-                projectile.frame++;
-                if (projectile.frame >= 3)
-                {
-                    projectile.frame = 0;
-                }
-                projectile.frameCounter = 0;
-            }
+            
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

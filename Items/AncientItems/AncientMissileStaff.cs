@@ -96,8 +96,8 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             projectile.aiStyle = 1;
             aiType = ProjectileID.Bullet;
-            projectile.width = 12;
-            projectile.height = 12;
+            projectile.width = 20;
+            projectile.height = projectile.width;
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.timeLeft = 240;
@@ -160,7 +160,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
             }
             //int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AncientGlow"), 0, 0, 0, default(Color), .4f);
-            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(30, projectile.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(Main.rand.Next(-6, 6), projectile.rotation), mod.DustType("AncientGlow"));
+            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(26, projectile.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(Main.rand.Next(-6, 6), projectile.rotation), mod.DustType("AncientGlow"));
             maxDistance = 10000;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -187,10 +187,10 @@ namespace QwertysRandomContent.Items.AncientItems
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMissile"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * 36, 12, 36), drawColor, projectile.rotation,
+                        new Rectangle(0, projectile.frame * 36, projectile.width, 36), drawColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMissile_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * 36, 12, 36), Color.White, projectile.rotation,
+                        new Rectangle(0, projectile.frame * 36, projectile.width, 36), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }

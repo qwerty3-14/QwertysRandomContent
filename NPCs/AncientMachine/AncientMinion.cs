@@ -12,13 +12,13 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Minion");
-            Main.npcFrameCount[npc.type] = 3;
+            Main.npcFrameCount[npc.type] = 1;
         }
 
         public override void SetDefaults()
         {
-            npc.width = 46;
-            npc.height = 64;
+            npc.width = 42;
+            npc.height = 56;
             npc.damage = 40;
             npc.defense = 8;
 
@@ -50,11 +50,11 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             if(npc.life <=0)
             {
                 Vector2 pos = npc.Center + QwertyMethods.PolarVector(-16, npc.rotation + (float)Math.PI / 2);
-                Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris1"), 1f)];
+                Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_1"), 1f)];
                 gore.rotation = npc.rotation;
 
                 pos = npc.Center + QwertyMethods.PolarVector(14, npc.rotation + (float)Math.PI / 2);
-                gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris2"), 1f)];
+                gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_2"), 1f)];
                 gore.rotation = npc.rotation;
                 for (int i = 0; i < 180; i++)
                 {
@@ -200,29 +200,6 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
 
 
-
-
-        }
-        int frame;
-        public override void FindFrame(int frameHeight)
-        {
-
-
-            npc.frameCounter++;
-
-            if (npc.frameCounter > 10)
-            {
-                frame++;
-                if (frame >= 3)
-                {
-                    frame = 0;
-                }
-                npc.frameCounter = 0;
-            }
-            
-            
-                npc.frame.Y = frame * frameHeight;
-               
 
 
         }

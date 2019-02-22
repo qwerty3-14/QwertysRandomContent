@@ -14,17 +14,17 @@ Includes
 -LOADS of cool and unique weapons!
 
 I'm not that good of a spriter so here I'll give thanks to the spriters who helped!
--Havoc (notable sprites: O.L.O.R.D.)
+-Havoc 
 -Liquidated Assets 
--SUS (notable sprites: Almost everything related to the sky fortress, most dino Militia enemies, Hydra, Polar Exterminator)
--Darkpuppey (notable sprites: Imperious)
--FazerGamer (notable sprites: Ancient Machine)
--GamingWithZack (notable sprites: Music boxes)
--ShockedHorizon5 (notable sprites: Rune Ghost and Runes)
--FailureOfMankind (notable sprites: Rhuthinium Weapons)
--Raz (notable sprites: Penguin club and generator, Cholorphyte sniper staff, Pumpkin Items)
--Kerdo (notable sprites: Banners, fortress furniture)
--Phobostar (notable sprites:Ancient Items)
+-SUS
+-Darkpuppey
+-FazerGamer 
+-GamingWithZack 
+-ShockedHorizon5 
+-FailureOfMankind 
+-Raz 
+-Kerdo
+-Phobostar 
 
 Extra thanks
 -Turquiose (for writing custom themes)
@@ -33,6 +33,11 @@ Extra thanks
 
 
 changelog
+0.17.3
+-fixed some merging issues that fortress bricks had with other tiles
+-new sprite for Ancient Machine (thanks Darkpuppey)
+-fixed updates not automaticly updateing to github
+
 0.17.2
 -add Shape Shift: Spiked Slime
 

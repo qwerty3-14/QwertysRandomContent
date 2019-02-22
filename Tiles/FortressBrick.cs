@@ -23,7 +23,7 @@ namespace QwertysRandomContent.Tiles
             Main.tileMergeDirt[Type] = false;
             //Main.tileSpelunker[Type] = true;
             Main.tileBrick[Type] = true;
-            Main.tileBlendAll[Type] = true;
+            Main.tileBlendAll[Type] = false;
 
             dustType = mod.DustType("FortressDust");
             soundType = 21;
