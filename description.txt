@@ -33,6 +33,15 @@ Extra thanks
 
 
 changelog
+0.17.4
+-added some new loot to the dugeon's prehardmode chests ( 6 items total!)
+--use the command /AddDungeonLoot to add the items to worlds made before this update
+
+-fixed imperious flipping onscreen on some resolutions
+-extra arrows fired from gemini's quiver only do 30% damage now
+-The number of healing barriers Divine Light summons is now based on the dps it recieves
+-Divine light's projectiles despawn when the boss is no longer active (dead or despawned)
+
 0.17.3
 -fixed some merging issues that fortress bricks had with other tiles
 -new sprite for Ancient Machine (thanks Darkpuppey)

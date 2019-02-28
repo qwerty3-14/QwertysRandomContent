@@ -47,7 +47,7 @@ using Terraria.ModLoader;
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float trueSpeed = new Vector2(speedX, speedY).Length();
-            Vector2 Rposition = new Vector2(position.X, position.Y - 400);
+            Vector2 Rposition = new Vector2(position.X, position.Y - 500);
             for (int i = 0; i < 15; i++)
             {
                 

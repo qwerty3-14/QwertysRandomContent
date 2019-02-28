@@ -257,6 +257,13 @@
     <Compile Include="Items\TundraBossItems\TundraBossBag.cs" />
     <Compile Include="Items\VFan.cs" />
     <Compile Include="Items\Weapons\ChaosRifle.cs" />
+    <Compile Include="Items\Weapons\DungeonLoot.cs" />
+    <Compile Include="Items\Weapons\Dungeon\AmuletOfPatience.cs" />
+    <Compile Include="Items\Weapons\Dungeon\Aqueous.cs" />
+    <Compile Include="Items\Weapons\Dungeon\BurstMiner.cs" />
+    <Compile Include="Items\Weapons\Dungeon\Hydrospear.cs" />
+    <Compile Include="Items\Weapons\Dungeon\LaunchingHook.cs" />
+    <Compile Include="Items\Weapons\Dungeon\Riptide.cs" />
     <Compile Include="Items\Weapons\GunChakram.cs" />
     <Compile Include="Items\Weapons\Lune\LuneArcherStaff.cs" />
     <Compile Include="Items\Weapons\Lune\LuneBoomerang.cs" />
@@ -798,6 +805,8 @@
     <Content Include="Items\Fortress\GaleArmor\GaleSwiftRobes.png" />
     <Content Include="Items\Fortress\GaleArmor\GaleSwiftRobes_Legs.png" />
     <Content Include="Items\RuneGhostItems\CraftingRune.png" />
+    <Content Include="Items\Weapons\Dungeon\Riptide.png" />
+    <Content Include="Items\Weapons\Dungeon\RiptideP.png" />
     <Content Include="Items\Weapons\Lune\LuneTrickshooter.png" />
     <Content Include="Items\Weapons\MiscBoomerangs\GoldBoomerang.png" />
     <Content Include="Items\Weapons\MiscBoomerangs\GoldBoomerangP.png" />

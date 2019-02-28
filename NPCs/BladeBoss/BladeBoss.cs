@@ -183,7 +183,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                             directionOfAcceleration = preSwingPlayerDirection + (float)Math.PI / 4;
                             hitSpot = QwertyMethods.PolarVector(BladeLength, preSwingPlayerDirection) + player.Center;
                             hitSpot2 = QwertyMethods.PolarVector(BladeLength, preSwingPlayerDirection + (float)Math.PI / 2) + player.Center;
-                            postSwingSpot = QwertyMethods.PolarVector(1000, preSwingPlayerDirection + (float)Math.PI / 2) + player.Center;
+                            postSwingSpot = QwertyMethods.PolarVector(1200, preSwingPlayerDirection + (float)Math.PI / 2) + player.Center;
                             npc.rotation = preSwingPlayerDirection + (float)Math.PI;
                             //npc.velocity = QwertyMethods.PolarVector(intialBoost, directionOfAcceleration);
                             //npc.velocity -= QwertyMethods.PolarVector(10, directionOfAcceleration + (float)Math.PI / 2);
@@ -197,7 +197,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                             npc.velocity = (postSwingSpot - npc.Center) * acceleration;
                             if ((npc.Center - postSwingSpot).Length() < 100 || rocketMode)
                             {
-                                if ((npc.Center - player.Center).Length() < 900)
+                                if ((npc.Center - player.Center).Length() < 1100)
                                 {
                                     rocketMode = true;
                                     float goTo = ((npc.Center - player.Center).ToRotation() + (float)Math.PI / 2);
