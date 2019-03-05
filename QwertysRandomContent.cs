@@ -51,6 +51,13 @@ namespace QwertysRandomContent
 
             });
             RecipeGroup.RegisterGroup("QwertysrandomContent:EvilPowder", group);
+            group = new RecipeGroup(() => Lang.misc[37].Value + " Silver Bar", new int[]
+           {
+                ItemID.SilverBar,
+                ItemID.TungstenBar,
+
+           });
+            RecipeGroup.RegisterGroup("QwertysrandomContent:SilverBar", group);
         }
         public override void AddRecipes()
         {

@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Tiles
         {
             if (Config.alternateFortressLook)
             {
-                texture = "QwertysRandomContent/Tiles/FortressBrick_Alternate";
+                texture += "_Alternate";
             }
             return base.Autoload(ref name, ref texture);
         }

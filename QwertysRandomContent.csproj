@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="AccessoryPrefix.cs" />
     <Compile Include="Buffs\AncientMinion.cs" />
+    <Compile Include="Buffs\ArcanelyTuned.cs" />
     <Compile Include="Buffs\CaeliteImbune.cs" />
     <Compile Include="Buffs\ChlorophyteSniper.cs" />
     <Compile Include="Buffs\DinoPox.cs" />
@@ -69,8 +70,10 @@
     <Compile Include="Dusts\AncientGlow.cs" />
     <Compile Include="Dusts\BlackHoleMatter.cs" />
     <Compile Include="Dusts\CaeliteDust.cs" />
+    <Compile Include="Dusts\DazzleSparkle.cs" />
     <Compile Include="Dusts\DnasDust.cs" />
     <Compile Include="Dusts\FortressDust.cs" />
+    <Compile Include="Dusts\GlassSmoke.cs" />
     <Compile Include="Dusts\LuneDust.cs" />
     <Compile Include="Dusts\PumkinDust.cs" />
     <Compile Include="Dusts\TurretLaserDust.cs" />
@@ -99,6 +102,9 @@
     <Compile Include="Items\Armor\Clay\ClayKneecaps.cs" />
     <Compile Include="Items\Armor\Clay\ClayMask.cs" />
     <Compile Include="Items\Armor\Clay\ClayPlate.cs" />
+    <Compile Include="Items\Armor\Glass\GlassAbsorber.cs" />
+    <Compile Include="Items\Armor\Glass\GlassHelm.cs" />
+    <Compile Include="Items\Armor\Glass\GlassLimbguards.cs" />
     <Compile Include="Items\Armor\Lune\LuneBracelet.cs" />
     <Compile Include="Items\Armor\Lune\LuneCrestplate.cs" />
     <Compile Include="Items\Armor\Lune\LuneHat.cs" />
@@ -264,6 +270,9 @@
     <Compile Include="Items\Weapons\Dungeon\Hydrospear.cs" />
     <Compile Include="Items\Weapons\Dungeon\LaunchingHook.cs" />
     <Compile Include="Items\Weapons\Dungeon\Riptide.cs" />
+    <Compile Include="Items\Weapons\Glass\GlassBlade.cs" />
+    <Compile Include="Items\Weapons\Glass\GlassCannon.cs" />
+    <Compile Include="Items\Weapons\Glass\GlassSpikeStaff.cs" />
     <Compile Include="Items\Weapons\GunChakram.cs" />
     <Compile Include="Items\Weapons\Lune\LuneArcherStaff.cs" />
     <Compile Include="Items\Weapons\Lune\LuneBoomerang.cs" />
@@ -616,6 +625,9 @@
     <Content Include="Items\Armor\Clay\ClayPlate.png" />
     <Content Include="Items\Armor\Clay\ClayPlate_Arms.png" />
     <Content Include="Items\Armor\Clay\ClayPlate_Body.png" />
+    <Content Include="Items\Armor\Glass\GlassAbsorber.png" />
+    <Content Include="Items\Armor\Glass\GlassAbsorber_Arms.png" />
+    <Content Include="Items\Armor\Glass\GlassAbsorber_Body.png" />
     <Content Include="Items\Armor\Lune\LuneBracelet.png" />
     <Content Include="Items\Armor\Lune\LuneBracelet_HandsOff.png" />
     <Content Include="Items\Armor\Lune\LuneBracelet_HandsOn.png" />
@@ -807,6 +819,7 @@
     <Content Include="Items\RuneGhostItems\CraftingRune.png" />
     <Content Include="Items\Weapons\Dungeon\Riptide.png" />
     <Content Include="Items\Weapons\Dungeon\RiptideP.png" />
+    <Content Include="Items\Weapons\Glass\GlassBlade.png" />
     <Content Include="Items\Weapons\Lune\LuneTrickshooter.png" />
     <Content Include="Items\Weapons\MiscBoomerangs\GoldBoomerang.png" />
     <Content Include="Items\Weapons\MiscBoomerangs\GoldBoomerangP.png" />

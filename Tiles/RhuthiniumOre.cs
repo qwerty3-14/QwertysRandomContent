@@ -5,50 +5,51 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
-	public class RhuthiniumOre: ModTile
-{
-    public override void SetDefaults()
+    public class RhuthiniumOre : ModTile
     {
-        Main.tileSolid[Type] = true;
-        Main.tileMergeDirt[Type] = true;
-		Main.tileSpelunker[Type] = true;
+        public override void SetDefaults()
+        {
+            Main.tileSolid[Type] = true;
+            Main.tileMergeDirt[Type] = true;
+            Main.tileSpelunker[Type] = true;
 
-		ModTranslation name = CreateMapEntryName();
-        dustType = mod.DustType("RhuthiniumDust");
-        soundType = 21;
-        soundStyle = 2;
-        
-        AddMapEntry(new Color(39, 129, 129), name);
-		name.SetDefault("Rhuthinium Ore");
-        drop = mod.ItemType("RhuthiniumOre");
-            
-            
-                minPick = 1;
-            
+            ModTranslation name = CreateMapEntryName();
+            dustType = mod.DustType("RhuthiniumDust");
+            soundType = 21;
+            soundStyle = 2;
+
+            AddMapEntry(new Color(39, 129, 129), name);
+            name.SetDefault("Rhuthinium Ore");
+            drop = mod.ItemType("RhuthiniumOre");
+
+
+            minPick = 1;
+
         }
-	
 
-    public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-    {
-        r = 0.5f;
-        g = 0.5f;
-        b = 0.5f;
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            r = 0.5f;
+            g = 0.5f;
+            b = 0.5f;
+        }
+        public override bool CanExplode(int i, int j)
+        {
+
+            if (!NPC.downedBoss3)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+
+
+        }
+
+
     }
-	 public override bool CanExplode(int i, int j)
-	{
-		
-		if(!NPC.downedBoss3)
-	    {
-		   return false;
-	    }
-		else
-		{
-			return true;
-		}
-	    
-		
-		
-	}
-
-  
-}}
+}

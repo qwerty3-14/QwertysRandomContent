@@ -27,8 +27,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.rare = 6;
 			item.UseSound = SoundID.Item5;
 			
-			item.width = 22;
-			item.height = 72;
+			item.width = 32;
+			item.height = 74;
 			
 			item.shoot = 40;
 			item.useAmmo = 40;

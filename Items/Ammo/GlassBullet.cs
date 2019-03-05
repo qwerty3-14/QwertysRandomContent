@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Items.Ammo
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Glass, 1);
-			recipe.AddTile(TileID.Furnaces);
+			recipe.AddTile(TileID.GlassKiln);
 			recipe.SetResult(this, 40);
 			recipe.AddRecipe();
 		}

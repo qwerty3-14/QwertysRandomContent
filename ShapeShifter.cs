@@ -36,6 +36,7 @@ namespace QwertysRandomContent
         public int morphTime = 0;
         public bool EyeBlessing = false;
         public bool EyeEquiped = false;
+        public bool glassCannon = false;
         public override void ResetEffects()
         {
             ResetVariables();
@@ -63,11 +64,12 @@ namespace QwertysRandomContent
         }
         private void ResetVariables()
         {
-            if (!drawTankCannon)
+            if (!drawTankCannon && !glassCannon)
             {
 
                 tankCannonRotation = (player.direction == -1 ? (float)Math.PI : 0f);
             }
+            glassCannon = false;
             drawTankCannon = false;
             morphDamage = 1f;
             morphed = false;
@@ -177,6 +179,22 @@ namespace QwertysRandomContent
                 Main.playerDrawData.Add(value);
 
             }
+            else if(drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).glassCannon)
+            {
+                Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon");
+
+                DrawData value = new DrawData(texture,
+                    new Vector2(drawInfo.position.X+15, drawInfo.position.Y) - Main.screenPosition,
+                    new Rectangle(0, 0, 30, 8),
+                    color12,
+                    drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation,
+                    new Vector2(4, 4),
+                    1f,
+                    0,
+                    0);
+                value.shader = drawPlayer.miscDyes[3].dye;
+                Main.playerDrawData.Add(value);
+            }
         });
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
@@ -220,7 +238,20 @@ namespace QwertysRandomContent
                 crit = true;
             }
         }
-
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            if(glassCannon)
+            {
+                damage *= 3;
+            }
+        }
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            if (glassCannon)
+            {
+                damage *= 3;
+            }
+        }
     }
     public class MorphProjectile : GlobalProjectile
     {

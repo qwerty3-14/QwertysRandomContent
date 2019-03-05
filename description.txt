@@ -33,6 +33,19 @@ Extra thanks
 
 
 changelog
+0.17.5
+-added glass weapons (you need a glass kiln to craft them, some items may also need silver/tungsten bars)
+--Shape shift: Glass Cannon
+--Glass Spike staff
+--Glass blade
+
+-glass bullets now need a glass kiln to be crafted
+
+-new icon (sprited by darkpuppey)
+-Blooming bow and True blooming bow have new sprites (sprited by raz)
+
+-Darkpuppey is doing a WIP resprite of the fortress, if you want to use some of the new sprites active "AlternateFortressLook" in the config
+
 0.17.4
 -added some new loot to the dugeon's prehardmode chests ( 6 items total!)
 --use the command /AddDungeonLoot to add the items to worlds made before this update

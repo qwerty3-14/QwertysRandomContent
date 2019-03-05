@@ -81,6 +81,7 @@ namespace QwertysRandomContent
         public bool Lightling = false;
         public bool miniTank = false;
         public int forcedAntiGravity = 0;
+        public bool GlassSpike = false;
         public override void ResetEffects()
         {
             ninjaSabatoge = false;
@@ -135,6 +136,7 @@ namespace QwertysRandomContent
             chlorophyteSniper = false;
             Lightling = false;
             miniTank = false;
+            GlassSpike = false;
             if (!player.channel)
             {
                 shotNumber = 0;
