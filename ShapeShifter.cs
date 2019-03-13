@@ -37,6 +37,7 @@ namespace QwertysRandomContent
         public bool EyeBlessing = false;
         public bool EyeEquiped = false;
         public bool glassCannon = false;
+        public bool hovercraft = false;
         public override void ResetEffects()
         {
             ResetVariables();
@@ -64,13 +65,14 @@ namespace QwertysRandomContent
         }
         private void ResetVariables()
         {
-            if (!drawTankCannon && !glassCannon)
+            if (!drawTankCannon && !glassCannon && ! hovercraft)
             {
 
                 tankCannonRotation = (player.direction == -1 ? (float)Math.PI : 0f);
             }
             glassCannon = false;
             drawTankCannon = false;
+            hovercraft = false;
             morphDamage = 1f;
             morphed = false;
             morphCrit = 4;
@@ -161,7 +163,25 @@ namespace QwertysRandomContent
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).drawTankCannon)
+            if (drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).hovercraft)
+            {
+                //Main.NewText("Tank!!");
+                Texture2D texture = mod.GetTexture("Items/Weapons/Meteor/Hovercraft_Cannon");
+
+                DrawData value = new DrawData(texture,
+                    new Vector2(drawInfo.position.X + 20, drawInfo.position.Y+8) - Main.screenPosition,
+                    new Rectangle(0, 0, 24, 10),
+                    color12,
+                    drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation,
+                    new Vector2(5, 5),
+                    1f,
+                    0,
+                    0);
+                value.shader = drawPlayer.miscDyes[3].dye;
+                Main.playerDrawData.Add(value);
+
+            }
+            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).drawTankCannon)
             {
                 //Main.NewText("Tank!!");
                 Texture2D texture = mod.GetTexture("Items/Weapons/ShapeShifter/TankMorph_Cannon");
@@ -220,7 +240,15 @@ namespace QwertysRandomContent
             if (mountLayer != -1)
             {
                 TankCannon.visible = true;
-                layers.Insert(mountLayer - 1, TankCannon);
+                if(hovercraft)
+                {
+                    layers.Insert(mountLayer + 1, TankCannon);
+                }
+                else
+                {
+                    layers.Insert(mountLayer - 1, TankCannon);
+                }
+                
             }
 
 

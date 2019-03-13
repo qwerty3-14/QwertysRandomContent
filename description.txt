@@ -33,6 +33,16 @@ Extra thanks
 
 
 changelog
+0.17.7
+-added meteorite weapons
+--Shape Shift: Hovercraft
+--Meteor grenade
+--Space Fighter Staff
+
+0.17.6
+-fixed Ancient Emblem not working...
+-Darkpuppey finished his fortress resprites
+
 0.17.5
 -added glass weapons (you need a glass kiln to craft them, some items may also need silver/tungsten bars)
 --Shape shift: Glass Cannon

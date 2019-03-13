@@ -8,8 +8,15 @@ namespace QwertysRandomContent.Tiles
 {
     public class DnasBrick : ModTile
     {
-        
-        
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.alternateFortressLook)
+            {
+                texture += "_Alternate";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;

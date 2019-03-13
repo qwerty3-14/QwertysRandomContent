@@ -8,7 +8,15 @@ namespace QwertysRandomContent.Tiles
 {
 	public class FortressPlatform : ModTile
 	{
-		public override void SetDefaults()
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.alternateFortressLook)
+            {
+                texture += "_Alternate";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
+        public override void SetDefaults()
 		{
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;

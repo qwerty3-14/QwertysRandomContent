@@ -279,6 +279,9 @@
     <Compile Include="Items\Weapons\Lune\LuneStaff.cs" />
     <Compile Include="Items\Weapons\Lune\LuneTop.cs" />
     <Compile Include="Items\Weapons\Lune\LuneTrickshooter.cs" />
+    <Compile Include="Items\Weapons\Meteor\HovercraftShift.cs" />
+    <Compile Include="Items\Weapons\Meteor\MeteorGrenade.cs" />
+    <Compile Include="Items\Weapons\Meteor\SpaceFighterStaff.cs" />
     <Compile Include="Items\Weapons\MiscBoomerangs\GoldBoomerang.cs" />
     <Compile Include="Items\Weapons\MiscBoomerangs\PlatinumBoomerang.cs" />
     <Compile Include="Items\Weapons\MiscGuns\RunicSniper.cs" />
@@ -821,6 +824,9 @@
     <Content Include="Items\Weapons\Dungeon\RiptideP.png" />
     <Content Include="Items\Weapons\Glass\GlassBlade.png" />
     <Content Include="Items\Weapons\Lune\LuneTrickshooter.png" />
+    <Content Include="Items\Weapons\Meteor\HovercraftMorphB.png" />
+    <Content Include="Items\Weapons\Meteor\HovercraftMorph_Back.png" />
+    <Content Include="Items\Weapons\Meteor\HovercraftShift.png" />
     <Content Include="Items\Weapons\MiscBoomerangs\GoldBoomerang.png" />
     <Content Include="Items\Weapons\MiscBoomerangs\GoldBoomerangP.png" />
     <Content Include="Items\Weapons\MiscBows\AerousLongbow.png" />

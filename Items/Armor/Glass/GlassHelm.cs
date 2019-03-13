@@ -253,6 +253,15 @@ namespace QwertysRandomContent.Items.Armor.Glass
                 d.position = projectile.Center;
                 d.shader = GameShaders.Armor.GetSecondaryShader(Main.player[projectile.owner].dye[3].dye, Main.player[projectile.owner]);
             }
+            for (int k = 0; k < 200; k++)
+            {
+                
+                if (!Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, Main.npc[k].position, Main.npc[k].Size))
+                {
+                    projectile.localNPCImmunity[k] = 0;
+                }
+
+            }
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -261,7 +270,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
             {
                 target.AddBuff(mod.BuffType("Stunned"), 120);
             }
-            projectile.localNPCImmunity[target.whoAmI] = 30;
+            projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
         

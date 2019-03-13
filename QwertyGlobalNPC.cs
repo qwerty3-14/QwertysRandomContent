@@ -79,24 +79,15 @@ namespace QwertysRandomContent
             }
 
         }
-       
+
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if(npc.HasBuff(mod.BuffType("LuneCurse")) && crit)
+            if (npc.HasBuff(mod.BuffType("LuneCurse")) && crit)
             {
                 //Main.NewText("Boost!");
-                 damage = (int)(damage * 1.5f);
-                
-            }
-            if (projectile.type == mod.ProjectileType("Steam"))
-            {
+                damage = (int)(damage * 1.5f);
 
-                
             }
-        }
-        public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
-        {
-            
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {

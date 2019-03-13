@@ -56,9 +56,15 @@ namespace QwertysRandomContent.Items.AncientItems
 			
 			return !NPC.AnyNPCs(mod.NPCType("AncientMachine"));
 		}
+        public override bool UseItem(Player player)
+        {
+            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
+            
+            Main.PlaySound(SoundID.Roar, player.position, 0);
+            return true;
+        }
 
-		
-		public override void AddRecipes()
+        public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 10);
