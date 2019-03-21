@@ -32,6 +32,7 @@ namespace QwertysRandomContent
                 ItemID.DemonBow,
                 ItemID.TendonBow,
             });
+            
             RecipeGroup.RegisterGroup("QwertysrandomContent:EvilBows", group);
 
             group = new RecipeGroup(() => Lang.misc[37].Value + " Aerous Bow", new int[]
@@ -134,6 +135,7 @@ namespace QwertysRandomContent
                 AddEquipTexture(new RhuthiniumGreavesMale(), GetItem("RhuthiniumGreaves"), EquipType.Legs, "RhuthiniumGreaves", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_Legs");
                 AddEquipTexture(new RhuthiniumGreavesFemale(), GetItem("RhuthiniumGreaves"), EquipType.Legs, "RhuthiniumGreaves_FemaleLegs", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_FemaleLegs");
                 AddEquipTexture(GetItem("HydraLeggings"), EquipType.Legs, "HydraLeggings_Female", "QwertysRandomContent/Items/HydraItems/HydraLeggings_FemaleLegs");
+                AddEquipTexture(GetItem("ShamanLegs"), EquipType.Legs, "ShamanLegs_Female", "QwertysRandomContent/Items/Armor/Shaman/ShamanLegs_FemaleLegs");
                 CustomEffect = GetEffect("Effects/CustomEffect");
                 Ref<Effect> CustomEffectRef = new Ref<Effect>();
                 CustomEffectRef.Value = CustomEffect;
@@ -401,6 +403,7 @@ namespace QwertysRandomContent
                 }
             }
         }
+        
 
     }
     enum ModMessageType : byte

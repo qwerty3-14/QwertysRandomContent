@@ -178,6 +178,7 @@ namespace QwertysRandomContent
                 }
                 player.lifeRegenTime = 0;
             }
+            
 		}
         /*
         public override bool PreItemCheck()
@@ -477,21 +478,21 @@ namespace QwertysRandomContent
             }
            
         }
-		
-		
-		
-		
-		
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
-		{
-            if(blessedMedalion && damage > player.statLife && Main.rand.Next(100)<30)
+
+
+
+
+
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (blessedMedalion && damage > player.statLife && Main.rand.Next(100) < 30)
             {
                 player.NinjaDodge();
                 return false;
             }
             int dodgeRng = Main.rand.Next(100);
             //Main.NewText(dodgeChance);
-            if (dodgeRng < dodgeChance && dodgeRng <80)
+            if (dodgeRng < dodgeChance && dodgeRng < 80)
             {
                 player.immune = true;
                 player.immuneTime = 80;
@@ -499,11 +500,11 @@ namespace QwertysRandomContent
                 {
                     player.immuneTime += 40;
                 }
-                if(dodgeDamageBoost)
+                if (dodgeDamageBoost)
                 {
                     damageBoostFromDodge = true;
                 }
-                if(dodgeImmuneBoost)
+                if (dodgeImmuneBoost)
                 {
                     player.immuneTime += 60;
                 }
@@ -560,10 +561,10 @@ namespace QwertysRandomContent
             }
 
 
-		if (damageSource.SourceProjectileType == mod.ProjectileType("SnowFlake")) 
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by climate change!"); // change death message
-		}
+            if (damageSource.SourceProjectileType == mod.ProjectileType("SnowFlake"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by climate change!"); // change death message
+            }
             if (damageSource.SourceProjectileType == mod.ProjectileType("DinoBomb") || damageSource.SourceProjectileType == mod.ProjectileType("DinoBombExplosion"))
             {
                 damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by dino bomb"); // change death message
@@ -572,42 +573,42 @@ namespace QwertysRandomContent
             {
                 damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by triceratank's cannon"); // change death message
             }
-            if (damageSource.SourceProjectileType == mod.ProjectileType("MeteorFall")) 
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by meteor!"); // change death message
-		}
-		if (damageSource.SourceProjectileType == mod.ProjectileType("MeteorLaunch")) 
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by meteor!"); // change death message
-		}
-		if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("TheGreatTyrannosaurus"))
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by The Great Tyrannosaurus!");
-		}
-		if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("Triceratank"))
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by Triceratank");
-		}
-		if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("Utah"))
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by Utah");
-		}
-		if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("Velocichopper"))
-		{
-        damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by Velocichopper");
-		}
-		
-		if(Metronome && killCount !=0)
-		{
-		CombatText.NewText(player.getRect(), Color.DarkRed, "Reset!", true, false);
-		}
+            if (damageSource.SourceProjectileType == mod.ProjectileType("MeteorFall"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by meteor!"); // change death message
+            }
+            if (damageSource.SourceProjectileType == mod.ProjectileType("MeteorLaunch"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by meteor!"); // change death message
+            }
+            if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("TheGreatTyrannosaurus"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by The Great Tyrannosaurus!");
+            }
+            if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("Triceratank"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by Triceratank");
+            }
+            if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("Utah"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by Utah");
+            }
+            if (damageSource.SourceNPCIndex >= 0 && Main.npc[damageSource.SourceNPCIndex].type == mod.NPCType("Velocichopper"))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by Velocichopper");
+            }
+
+            if (Metronome && killCount != 0)
+            {
+                CombatText.NewText(player.getRect(), Color.DarkRed, "Reset!", true, false);
+            }
             if (gemRegen)
             {
                 regenTimer = 0;
             }
             killCount = 0;
-		return true;
-		}
+            return true;
+        }
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
 			if (player.HasBuff(mod.BuffType("DinoPox")))

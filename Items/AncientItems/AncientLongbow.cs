@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.ranged = true;
             item.channel = true;
             item.useAmmo = AmmoID.Arrow;
-
+            
             item.autoReuse = true;
         }
         
@@ -139,6 +139,7 @@ namespace QwertysRandomContent.Items.AncientItems
         int weaponDamage = 10;
         int Ammo = 0;
         float weaponKnockback = 0;
+        bool giveTileCollision = false;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -237,9 +238,15 @@ namespace QwertysRandomContent.Items.AncientItems
                 arrow.Center = projectile.Center + QwertyMethods.PolarVector(40-2*speed, projectile.rotation - (float)Math.PI / 2);
                 arrow.friendly = false;
                 arrow.rotation = projectile.rotation;
-                arrow.timeLeft++;
+                arrow.timeLeft+= arrow.extraUpdates +1;
                 arrow.alpha = 1- (int)(((float)timer / maxTime) * 255f);
                 speed = (8f * (float)timer / maxTime) + 7f;
+               // Main.NewText("AI0: " + arrow.ai[0] + ", AI1: " + arrow.ai[1] + ", LocalAI0: " + arrow.localAI[0] + ", LocalAI1: " + arrow.localAI[1]);
+                if(arrow.tileCollide)
+                {
+                    giveTileCollision = true;
+                    arrow.tileCollide = false;
+                }
                 if (timer<maxTime)
                 {
                     timer++;
@@ -263,7 +270,10 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             else
             {
-                
+                if(arrow != null && giveTileCollision)
+                {
+                    arrow.tileCollide = true;
+                }
 
                 projectile.Kill();
             }

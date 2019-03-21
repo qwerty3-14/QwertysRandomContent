@@ -23,17 +23,11 @@ namespace QwertysRandomContent.Items.Armor.Glass
 
 		public override void SetDefaults()
 		{
-
             item.value = 10000;
             item.rare = 1;
-
-
             item.width = 22;
 			item.height = 14;
 			item.defense = 4;
-            
-
-
         }
 		
 		public override void UpdateEquip(Player player)
@@ -45,25 +39,15 @@ namespace QwertysRandomContent.Items.Armor.Glass
             drawAltHair = true;
 			
 		}
-		
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
 			return body.type == mod.ItemType("GlassAbsorber") && legs.type == mod.ItemType("GlassLimbguards");
 			
 		}
-		
-	
-		
 		public override void UpdateArmorSet(Player player)
 		{
-			
 			player.setBonus = "Ranged attacks Inflict 'Arcanely tuned' \nMagic attacks chase enemies inflicted with 'Arcanely tuned'";
             player.GetModPlayer<HelmEffects>().setBonus = true;
-
-
-
-
-
         }
         public override void AddRecipes()
         {
@@ -114,7 +98,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if(proj.ranged)
+            if(proj.ranged && setBonus)
             {
                 target.AddBuff(mod.BuffType("ArcanelyTuned"), 360);
             }
@@ -290,7 +274,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
         {
             float maxDistance = 10000;
             foundTarget = false;
-            if (projectile.magic)
+            if (projectile.magic && projectile.friendly)
             {
                 
                
@@ -308,14 +292,15 @@ namespace QwertysRandomContent.Items.Armor.Glass
                     }
 
                 }
+                if (foundTarget)
+                {
+                    float aimToward = (target.Center - projectile.Center).ToRotation();
+                    float dir = projectile.velocity.ToRotation();
+                    dir = QwertyMethods.SlowRotation(dir, aimToward, 2);
+                    projectile.velocity = QwertyMethods.PolarVector(projectile.velocity.Length(), dir);
+                }
             }
-            if(foundTarget)
-            {
-                float aimToward = (target.Center - projectile.Center).ToRotation();
-                float dir = projectile.velocity.ToRotation();
-                dir = QwertyMethods.SlowRotation(dir, aimToward, 2);
-                projectile.velocity = QwertyMethods.PolarVector(projectile.velocity.Length(), dir);
-            }
+            
         }
 
     }

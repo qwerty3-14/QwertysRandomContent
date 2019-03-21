@@ -198,7 +198,7 @@ namespace QwertysRandomContent.Tiles
                         new Vector2(texture.Width * 0.5f, texture.Height * 0.25f), 1f, SpriteEffects.None, 0f);
             return false;
         }
-
+        
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 1200);

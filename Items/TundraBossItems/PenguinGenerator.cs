@@ -39,6 +39,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
         {
             
             player.GetModPlayer<PenguinEffect>(mod).effect = true;
+            player.GetModPlayer<PenguinEffect>(mod).noSound = hideVisual;
         }
 
 
@@ -58,16 +59,21 @@ namespace QwertysRandomContent.Items.TundraBossItems
     public class PenguinEffect : ModPlayer
     {
         public bool effect;
+        public bool noSound;
         public override void ResetEffects()
         {
             effect = false;
-
+            noSound = false;
         }
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             if(Main.rand.Next(10) == 0 && effect && !target.immortal)
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
+                if(!noSound)
+                {
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
+                }
+                
                 Projectile penguin = Main.projectile[Projectile.NewProjectile(player.Center, new Vector2(6, 0), mod.ProjectileType("SlidingPenguin"), item.damage, item.knockBack, player.whoAmI)];
                 penguin.melee = item.melee;
                 penguin.ranged = item.ranged;
@@ -88,8 +94,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
         {
             if (Main.rand.Next(10)==0 && effect && !target.immortal && !proj.GetGlobalProjectile<PenguinLimit>().realeasedPenguin)
             {
-                
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
+                if (!noSound)
+                {
+                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
+                }
                 Projectile penguin = Main.projectile[Projectile.NewProjectile(player.Center, new Vector2(6, 0), mod.ProjectileType("SlidingPenguin"), damage, proj.knockBack, player.whoAmI)];
                 penguin.melee = proj.melee;
                 penguin.ranged = proj.ranged;

@@ -27,7 +27,7 @@ namespace QwertysRandomContent
         private byte dodgeChance;
         public override float RollChance(Item item)
         {
-            return 1f;
+            return Config.disableModAccesoryPrefixes ? 0 : 1f;
         }
         public override bool CanRoll(Item item)
         {

@@ -8,14 +8,7 @@ namespace QwertysRandomContent.Tiles
 {
     public class FakeFortressBrick : ModTile
     {
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            if (Config.alternateFortressLook)
-            {
-                texture = "QwertysRandomContent/Tiles/FortressBrick_Alternate";
-            }
-            return base.Autoload(ref name, ref texture);
-        }
+        
         
         public override void SetDefaults()
         {

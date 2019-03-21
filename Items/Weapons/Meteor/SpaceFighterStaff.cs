@@ -138,7 +138,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                         shotCounter = 0;
                         Projectile l = Main.projectile[Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(12f, projectile.rotation), ProjectileID.GreenLaser, projectile.damage, projectile.knockBack, projectile.owner)];
                         l.magic = false;
-                        l.minion = false;
+                        l.minion = true;
                         //l.scale = .5f;
                         l.penetrate = 1;
                         //l.alpha = 0;

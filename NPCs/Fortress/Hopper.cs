@@ -12,14 +12,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class Hopper : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            if (Config.alternateFortressLook)
-            {
-                name += "_Alternate";
-            }
-            return base.Autoload(ref name);
-        }
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Enchanted Tile");

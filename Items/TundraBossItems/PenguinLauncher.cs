@@ -70,7 +70,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cryonic BoltP");
+            DisplayName.SetDefault("Sliding Penguin");
 
 
         }

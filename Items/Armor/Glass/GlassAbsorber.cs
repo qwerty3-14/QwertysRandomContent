@@ -56,7 +56,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
 
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
-            drawArms = true;
+            
             drawHands = true;
 
         }

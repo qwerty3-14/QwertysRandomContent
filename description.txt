@@ -33,6 +33,33 @@ Extra thanks
 
 
 changelog
+0.17.12
+-added Shaman Armor It's a melee/summon hybrid armor (crafted from bones and jungle spores)
+
+-updated fortress swarmer AI
+-fortress swarmer has less health
+-The Penguin call noise the Penguin generator make can now be disabled by toggling the accesory's hide visual
+-fixed some ancient longbow bugs
+-fixed support cactus staff not being able to replace old sentries
+
+0.17.11
+-fixed bug where sky island houses wouldn;t generate
+-added darkpuppey's enchanted tile sprite (I forgot to add this earlier)
+
+0.17.10
+-added Cactus tools
+--added barrel cactus
+--added Cactum and cactus needles
+--added support cactus staff
+
+0.17.9
+-fixed bug where glass armor's set bonus was always active even without the armor...
+-fixed bug where glass armor's set bonus would effect hostile magic projectiles
+
+0.17.8
+-removed the 'alternateFortressLoook' config option as it was obsolete and sing it would cause issues
+-added "Disable Mod Accesory Prefixes" config option, it won't remove the prefixees completely but will stop them from rolling from the tinkerer and new items
+
 0.17.7
 -added meteorite weapons
 --Shape Shift: Hovercraft

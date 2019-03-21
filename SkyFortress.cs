@@ -243,6 +243,25 @@ namespace QwertysRandomContent
                             }
                         }
                     }));
+                    ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Jungle Trees"));
+                    if (ShiniesIndex != -1)
+                    {
+                        #region
+
+                        tasks.Insert(ShiniesIndex + 1, new PassLegacy("Giving Sky Fortress space", delegate (GenerationProgress progress)
+                        {
+                            for (int k = 0; k < numIslandHouses; k++)
+                            {
+                                if (!skyLake[k])
+                                {
+                                    WorldGen.IslandHouse(fihX[k], fihY[k]);
+                                }
+                            }
+                        }));
+
+                        #endregion
+
+                    }
                 }
                 #endregion
                
@@ -1113,122 +1132,8 @@ namespace QwertysRandomContent
             
         }
     }
-    public class SkyRNG : ModCommand
-    {
-        private static int numIslandHouses = 0;
-
-        private static int houseCount = 0;
-        private static bool[] skyLake = new bool[30];
-        private static int[] fihX = new int[30];
-
-        private static int[] fihY = new int[30];
-        public override CommandType Type
-        {
-            get { return CommandType.Chat; }
-        }
-
-        public override string Command
-        {
-            get { return "skyrng"; }
-        }
-
-        public override string Description
-        {
-            get { return "Stimulates sky island generation and give the coordinates"; }
-        }
-
-        public override void Action(CommandCaller caller, string input, string[] args)
-        {
-            Main.NewText("player: " + Main.player[Main.myPlayer].Center.ToPoint16());
-            numIslandHouses = 0;
-            houseCount = 0;
-            int skyLakes = 1;
-            if (Main.maxTilesX > 8000)
-            {
-                int skyLakes2 = skyLakes;
-                skyLakes = skyLakes2 + 1;
-            }
-            if (Main.maxTilesX > 6000)
-            {
-                int skyLakes2 = skyLakes;
-                skyLakes = skyLakes2 + 1;
-            }
-            for (int k = 0; k < (int)((double)Main.maxTilesX * 0.0008) + skyLakes; k++)
-            {
-                int num = 1000;
-                int num2 = WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.1), (int)((double)Main.maxTilesX * 0.9));
-                if (WorldGen.dungeonX < Main.maxTilesX * .5f)
-                {
-                    num2 = WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.1), (int)((double)Main.maxTilesX * 0.7));
-                }
-                else
-                {
-                    num2 = WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.3), (int)((double)Main.maxTilesX * 0.9));
-                }
-
-                while (--num > 0)
-                {
-                    bool flag2 = true;
-                    while (num2 > Main.maxTilesX / 2 - 80 && num2 < Main.maxTilesX / 2 + 80)
-                    {
-                        if (WorldGen.dungeonX < Main.maxTilesX * .5f)
-                        {
-                            num2 = WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.1), (int)((double)Main.maxTilesX * 0.7));
-                        }
-                        else
-                        {
-                            num2 = WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.3), (int)((double)Main.maxTilesX * 0.9));
-                        }
-                    }
-                    for (int l = 0; l < numIslandHouses; l++)
-                    {
-                        if (num2 > fihX[l] - 180 && num2 < fihX[l] + 180)
-                        {
-                            flag2 = false;
-                            break;
-                        }
-                    }
-                    if (flag2)
-                    {
-                        flag2 = false;
-                        int num3 = 0;
-                        int num4 = 200;
-                        while ((double)num4 < Main.worldSurface)
-                        {
-                            if (Main.tile[num2, num4].active())
-                            {
-                                num3 = num4;
-                                flag2 = true;
-                                break;
-                            }
-                            num4++;
-                        }
-                        if (flag2)
-                        {
-                            int num5 = WorldGen.genRand.Next(90, num3 - 100);
-                            num5 = Math.Min(num5, (int)WorldGen.worldSurfaceLow - 50);
-                            if (k < skyLakes)
-                            {
-                                skyLake[numIslandHouses] = true;
-                                WorldGen.CloudLake(num2, num5);
-                                Main.NewText("Lake: " + new Vector2(num2, num5));
-                            }
-                            else
-                            {
-                                WorldGen.CloudIsland(num2, num5);
-                                //Main.NewText(new Vector2(num2, num5));
-                                Main.NewText("Island: " + new Vector2(num2, num5));
-                            }
-                            fihX[numIslandHouses] = num2;
-                            fihY[numIslandHouses] = num5;
-                            numIslandHouses++;
-                        }
-                    }
-                }
-            }
-
-        }
-    }
+    
+    
 
 
 }

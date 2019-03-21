@@ -39,6 +39,7 @@
     <Compile Include="Buffs\ArcanelyTuned.cs" />
     <Compile Include="Buffs\CaeliteImbune.cs" />
     <Compile Include="Buffs\ChlorophyteSniper.cs" />
+    <Compile Include="Buffs\Decay.cs" />
     <Compile Include="Buffs\DinoPox.cs" />
     <Compile Include="Buffs\DodgeBuff.cs" />
     <Compile Include="Buffs\EyeBless.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Buffs\RhuthiniumMagic.cs" />
     <Compile Include="Buffs\RhuthiniumMight.cs" />
     <Compile Include="Buffs\Rush.cs" />
+    <Compile Include="Buffs\SpiritCallCooldown.cs" />
     <Compile Include="Buffs\Stunned.cs" />
     <Compile Include="Buffs\ThrowReduction.cs" />
     <Compile Include="Buffs\TitanicGrasp.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Dusts\GlassSmoke.cs" />
     <Compile Include="Dusts\LuneDust.cs" />
     <Compile Include="Dusts\PumkinDust.cs" />
+    <Compile Include="Dusts\SpiritDust.cs" />
     <Compile Include="Dusts\TurretLaserDust.cs" />
     <Compile Include="Experiments\GlassPrism.cs" />
     <Compile Include="Fortress2Blueprints.cs" />
@@ -127,6 +130,9 @@
     <Compile Include="Items\Armor\Robes\DressC.cs" />
     <Compile Include="Items\Armor\Robes\GypsyTweak.cs" />
     <Compile Include="Items\Armor\Robes\Reagal.cs" />
+    <Compile Include="Items\Armor\Shaman\ShamanBody.cs" />
+    <Compile Include="Items\Armor\Shaman\ShamanHead.cs" />
+    <Compile Include="Items\Armor\Shaman\ShamanLegs.cs" />
     <Compile Include="Items\Armor\Vargule\VarguleCharm.cs" />
     <Compile Include="Items\Armor\Vargule\VarguleChestplate.cs" />
     <Compile Include="Items\Armor\Vargule\VarguleCrown.cs" />
@@ -262,6 +268,9 @@
     <Compile Include="Items\TundraBossItems\PenguinWhistle.cs" />
     <Compile Include="Items\TundraBossItems\TundraBossBag.cs" />
     <Compile Include="Items\VFan.cs" />
+    <Compile Include="Items\Weapons\Cactus\BarrelCactus.cs" />
+    <Compile Include="Items\Weapons\Cactus\Cactum.cs" />
+    <Compile Include="Items\Weapons\Cactus\SupportCactusStaff.cs" />
     <Compile Include="Items\Weapons\ChaosRifle.cs" />
     <Compile Include="Items\Weapons\DungeonLoot.cs" />
     <Compile Include="Items\Weapons\Dungeon\AmuletOfPatience.cs" />
@@ -719,6 +728,9 @@
     <Content Include="Items\Armor\Robes\SRobe_FemaleBody.png" />
     <Content Include="Items\Armor\Robes\SRobe_FemaleLegs.png" />
     <Content Include="Items\Armor\Robes\SRobe_Legs.png" />
+    <Content Include="Items\Armor\Shaman\ShamanBody_Arms.png" />
+    <Content Include="Items\Armor\Shaman\ShamanBody_Body.png" />
+    <Content Include="Items\Armor\Shaman\ShamanLegs_Legs.png" />
     <Content Include="Items\Armor\Vargule\VarguleCharm.png" />
     <Content Include="Items\Armor\Vargule\VarguleCharm_Head.png" />
     <Content Include="Items\Armor\Vargule\VarguleChestplate.png" />
@@ -820,6 +832,10 @@
     <Content Include="Items\Fortress\GaleArmor\GaleSwiftRobes.png" />
     <Content Include="Items\Fortress\GaleArmor\GaleSwiftRobes_Legs.png" />
     <Content Include="Items\RuneGhostItems\CraftingRune.png" />
+    <Content Include="Items\Weapons\Cactus\Cactum.png" />
+    <Content Include="Items\Weapons\Cactus\CactusNeedle.png" />
+    <Content Include="Items\Weapons\Cactus\CactusNeedleP.png" />
+    <Content Include="Items\Weapons\Cactus\SupportCactus.png" />
     <Content Include="Items\Weapons\Dungeon\Riptide.png" />
     <Content Include="Items\Weapons\Dungeon\RiptideP.png" />
     <Content Include="Items\Weapons\Glass\GlassBlade.png" />

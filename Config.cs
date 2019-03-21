@@ -13,7 +13,7 @@ namespace QwertysRandomContent
     public static class Config
     {
         static string filename = "Qwerty's Bosses and Items.json";
-        public static bool alternateFortressLook = false;
+        public static bool disableModAccesoryPrefixes = false;
         static string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", filename);
 
         static Preferences Configuration = new Preferences(ConfigPath);
@@ -36,7 +36,7 @@ namespace QwertysRandomContent
         {
             if (Configuration.Load())
             {
-                Configuration.Get("Alternate Fortress Look", ref alternateFortressLook);
+                Configuration.Get("Disable Mod Accesory Prefixes", ref disableModAccesoryPrefixes);
                 return true;
             }
             else
@@ -47,7 +47,7 @@ namespace QwertysRandomContent
         static void CreateConfig()
         {
             Configuration.Clear();
-            Configuration.Put("Alternate Fortress Look", alternateFortressLook);
+            Configuration.Put("Disable Mod Accesory Prefixes", disableModAccesoryPrefixes);
             Configuration.Save();
         }
     }

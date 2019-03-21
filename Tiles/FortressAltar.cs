@@ -11,14 +11,7 @@ namespace QwertysRandomContent.Tiles
 {
     public class FortressAltar : ModTile
     {
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            if (Config.alternateFortressLook)
-            {
-                texture += "_Alternate";
-            }
-            return base.Autoload(ref name, ref texture);
-        }
+        
         public override void SetDefaults()
         {
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);

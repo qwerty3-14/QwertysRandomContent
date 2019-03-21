@@ -25,13 +25,12 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.aiStyle = -1; // -1 is blank (we will write our own)
             npc.damage = 20; // damage the enemy does on contact automaticly doubled in expert
             npc.defense = 3; // defense of enemy
-            npc.lifeMax = 25; //maximum life doubled automaticly in expert
+            npc.lifeMax = 14; //maximum life doubled automaticly in expert
             npc.value = 3; // how much $$ it drops
             npc.HitSound = SoundID.NPCHit1; //sfx when hit
             npc.DeathSound = SoundID.NPCDeath1; // sfx when killed
             npc.knockBackResist = 0f; //knockback reducion 0 means it takes no knockback
             npc.noGravity = true; // recommended for flying enemies
-            //npc.dontCountMe = true;
             npc.npcSlots = 0.05f;
             npc.noTileCollide = true;
             npc.buffImmune[BuffID.Confused] = false;
@@ -42,14 +41,12 @@ namespace QwertysRandomContent.NPCs.Fortress
         int antiTileChecks = 8;
         bool runOnce = true;
         int freindCount = 0;
-        bool hitCalc = false;
-        int counter;
         int totalCount;
         public override void AI()
         {
             if(Main.expertMode)
             {
-                npc.lifeMax = 40;
+                npc.lifeMax = 20;
                 npc.damage = 30;
                 if(Main.hardMode)
                 {
@@ -58,7 +55,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             else
             {
-                npc.lifeMax = 25;
+                npc.lifeMax = 14;
                 npc.damage = 15;
                 if (Main.hardMode)
                 {
@@ -68,22 +65,8 @@ namespace QwertysRandomContent.NPCs.Fortress
             if (npc.life > npc.lifeMax)
             {
                 npc.life = npc.lifeMax;
-                    }
-            counter++;
-            if (runOnce)
-            {
-                if(Main.netMode !=1)
-                {
-                    npc.ai[0] = Main.rand.NextBool() ? 1 : -1;
-                    npc.netUpdate = true;
-                }
-                runOnce = false;
             }
-            if(counter %180==0 && Main.netMode != 1)
-            {
-                npc.ai[0] *= -1;
-                npc.netUpdate = true;
-            }
+            
             npc.TargetClosest(true);
             freindCount = 0;
             for (int n = 0; n < 200; n++)
@@ -140,48 +123,47 @@ namespace QwertysRandomContent.NPCs.Fortress
                     foundfriend = true;
                 }
             }
-            hitCalc = false;
-            
-            for (int n = 0; n < antiTileChecks; n++)
+           
+          
+            if (npc.velocity.Length() > maxSpeed)
             {
-                if(!Collision.CanHit(npc.Center, 0, 0, npc.Center + QwertyMethods.PolarVector(20, n / 8f * 2f * (float)Math.PI), 0, 0))
+                npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * maxSpeed;
+            }
+            
+            if (npc.velocity != Collision.TileCollision(npc.position, npc.velocity, npc.width, npc.height, true, true))
+            {
+                maxSpeed = 1;
+            }
+            else
+            {
+                for(int p =0; p <1000; p++)//cycle through every projectile index
                 {
-                    npc.velocity += QwertyMethods.PolarVector(6 * npc.ai[0], (n / (float)antiTileChecks * 2f * (float)Math.PI) + (float)Math.PI/2);
-                    hitCalc = true;
+                    float CollisionLineLength = Main.projectile[p].velocity.Length() * 60 * (1 + Main.projectile[p].extraUpdates); //this is basicly how far the selected projectile will travel in 1 second
+                    float maxProjectileWidth = Main.projectile[p].Size.Length() * 5f; // fly further away from larger projectiles
+                    float col=0f;
+                    if (Main.projectile[p].friendly&& Main.projectile[p].active && Collision.CheckAABBvLineCollision(npc.position, npc.Size, Main.projectile[p].Center + QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2), Main.projectile[p].Center + QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2) + QwertyMethods.PolarVector(CollisionLineLength, Main.projectile[p].velocity.ToRotation()), maxProjectileWidth/2f, ref col))
+                    {
+                        npc.velocity += QwertyMethods.PolarVector(maxSpeed, Main.projectile[p].velocity.ToRotation()+(float)Math.PI/2);
+                    }
+                    else if (Main.projectile[p].friendly && Main.projectile[p].active && Collision.CheckAABBvLineCollision(npc.position, npc.Size, Main.projectile[p].Center - QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2), Main.projectile[p].Center - QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2) + QwertyMethods.PolarVector(CollisionLineLength, Main.projectile[p].velocity.ToRotation()), maxProjectileWidth / 2f, ref col))
+                    {
+                        npc.velocity += QwertyMethods.PolarVector(maxSpeed, Main.projectile[p].velocity.ToRotation() - (float)Math.PI / 2);
+                    }
+
+
                 }
             }
-           
+            
             if (npc.velocity.Length() > maxSpeed)
             {
                 npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * maxSpeed;
             }
             npc.velocity *= (npc.confused ? -1 : 1);
-            npc.velocity = Collision.TileCollision(npc.position, npc.velocity, npc.width, npc.height, true, true);
             npc.rotation = npc.velocity.ToRotation() + (float)Math.PI / 2;
+            maxSpeed = 4;
         }
         
-        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            /*
-            for (int n = 0; n < antiTileChecks; n++)
-            {
-                for (int i = 0; i < 25; i++)
-                {
-                    Texture2D texture = mod.GetTexture("Items/Weapons/Rhuthinium/laser");
-                    float rotation = n / (float)antiTileChecks * 2f * (float)Math.PI;
-                    Vector2 pos = npc.Center + QwertyMethods.PolarVector(i, rotation) - Main.screenPosition;
-                    spriteBatch.Draw(texture,
-                        pos, //position
-                        new Rectangle(0, 0, 2, 2), //source Rectangle
-                        Color.Red,
-                        rotation, //rotation
-                        new Vector2(1, 1), //origin
-                        1f, //scale
-                        SpriteEffects.None, 0f);
-                }
-
-            }*/
-        }
+       
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float
         {
             return 0f;

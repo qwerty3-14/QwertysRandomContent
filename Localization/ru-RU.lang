@@ -411,9 +411,16 @@ ItemName.AncientNuke=Превращение:Древняя ракета
 ItemName.GlassCannon=Превращение:Стеклянная пушка
 ItemName.GlassSpikeStaff=Посох стеклянного шипа
 ItemName.GlassBlade=Стеклянный меч
-ItemName.
-
-
+ItemName.HovercraftShift=Превращение:ХоверТанк
+ItemName.SpaceFighterStaff=Посох космического корабля
+ItemName.MeteorGrenade=Метеоритная граната
+ItemName.Cactum=Колючкомёт
+ItemName.SupportCactusStaff=Кактусовый посох исцеления
+ItemName.BarrelCactus=Метательный кактус
+ItemName.CactusNeedle=Игла кактуса
+ItemName.ShamanBody=Боевой доспех шамана
+ItemName.ShamanLegs=Штаны шамана
+ItemName.ShamanHead=Шаманский череп
 
 
 
@@ -540,7 +547,7 @@ BuffName.MorphSickness=Болезнь оборотня
 BuffName.MorphCooldown=Восстановление оборотня
 BuffName.GlassCannonMorph=Стеклянная пушка
 BuffName.GlassSpike=Стеклянный шип
-
+BuffName.SpaceFighter= ХоверТанк
 
 
 BuffDescription.AncientMinion=Древний прислужник сражается за вас!
@@ -848,4 +855,12 @@ ItemTooltip.AmuletOfPatience=Если прошло некоторое время
 ItemTooltip.BurstMiner=Капает быстро но перезаряжается долго
 ItemTooltip.Aqueous=Из лука нормальные а возвращаются бумерангом
 ItemTooltip.GlassSpikeStaff=Призывает шипы появляющиеся на земле и наносит урон мобам которые наступят\nСледуют за тобой куда бы ты не пошёл
-ItemTooltip.
+ItemTooltip.HovercraftShift=Превращает в ХоверТанк с неплохой мобильностью и огневой мощью
+ItemTooltip.MeteorGrenade=Вызывает метеоры!
+ItemTooltip.SpaceFighterStaff=Призывает космический корабль сражающийся за вас!
+ItemTooltip.Cactum=Быстро стреляет иглами кактуса на очень высокой скорости
+ItemTooltip.SupportCactusStaff=Используй это когда нету друзей
+ItemTooltip.BarrelCactus=Катись как бочка!\nОтскакивает от стен и врагов
+ItemTooltip.ShamanBody=3% увеличение урона миньонов и вероятность критического удара в ближнем бою\n+1 макс прислужник\n14% увеличение скорости ближнего боя
+ItemTooltip.ShamanLegs=2% увеличение урона миньонов и вероятность критического удара в ближнем бою\n+1 макс турелей\nАтака в ближнем бою наложит на врагов гниение\nГниение уменьшает урон и защиту врага
+ItemTooltip.ShamanHead=2% увеличение урона миньонов и вероятность критического удара в ближнем бою\nДлительность действия флаконов увеличивается
