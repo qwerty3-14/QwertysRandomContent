@@ -12,6 +12,14 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class GuardTile : ModNPC
     {
+        public override bool Autoload(ref string name)
+        {
+            if (Config.classicFortress)
+            {
+                name += "_Classic";
+            }
+            return base.Autoload(ref name);
+        }
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Guard Tile");

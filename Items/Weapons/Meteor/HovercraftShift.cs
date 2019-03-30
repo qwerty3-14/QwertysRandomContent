@@ -134,89 +134,10 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-        int shotCooldown = 0;
-        float hoverHeight = 80;
-        float hoverTo = 0;
-        float hoverDrift = 0f;
-        float currentHeight = 0;
-        const int maxHoverHeight = 160;
-        const int minHoverHeight = 20;
-        float hoverSpeed = 3f;
+       
         public override void UpdateEffects(Player player)
         {
-            player.noFallDmg = true;
-            
-            player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-            
-            player.GetModPlayer<ShapeShifterPlayer>().hovercraft = true;
-            Mount mount = player.mount;
-            player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-            player.GetModPlayer<ShapeShifterPlayer>().overrideWidth = 40;
-            //player.height = 30;
-            player.noItems = true;
-            hoverDrift += (float)Math.PI / 60;
-            player.statDefense = 14 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-            if((player.controlUp || player.controlJump) && hoverHeight < maxHoverHeight)
-            {
-                hoverHeight++;
-            }
-            else if(player.controlDown && hoverHeight> minHoverHeight)
-            {
-                hoverHeight--;
-            }
-            for(; currentHeight< (maxHoverHeight +10); currentHeight++)
-            {
-                if(!Collision.CanHit(player.Center, 0, 0, player.Center + new Vector2(0, currentHeight), 0, 0))
-                {
-                    break;
-                }
-            }
-            hoverTo = hoverHeight + (float)Math.Sin(hoverDrift)*16;
-            //player.velocity.Y = ( currentHeight-hoverHeight) * .1f;
-            if(Math.Abs(currentHeight - hoverTo) > hoverSpeed*4)
-            {
-                if(currentHeight - hoverTo > 0)
-                {
-                    player.velocity.Y = hoverSpeed;
-                    hoverSpeed = 6f;
-                }
-                if (currentHeight - hoverTo < 0)
-                {
-                    player.velocity.Y = -hoverSpeed;
-                    hoverSpeed = 6f;
-                }
-            }
-            else
-            {
-                player.velocity.Y = (currentHeight - hoverTo) *.1f;
-            }
-            
-            Vector2 shootFrom = player.Top;
-            shootFrom.Y += 8;
-            float pointAt = (Main.MouseWorld - shootFrom).ToRotation();
-            
-
-            player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation, pointAt, 3);
-            //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation);
-            
-            if (shotCooldown > 0)
-            {
-                shotCooldown--;
-            }
-            if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
-            {
-                shotCooldown = 12;
-                Projectile p = Main.projectile[Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(19, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), QwertyMethods.PolarVector(12, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), ProjectileID.GreenLaser, (int)(HovercraftShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), HovercraftShift.kb, player.whoAmI)];
-                p.magic = false;
-                p.GetGlobalProjectile<MorphProjectile>().morph = true;
-                p.penetrate = 1;
-                p.alpha = 0;
-                Main.PlaySound(SoundID.Item12);
-            }
-            
-            currentHeight = 0; //reset
-            hoverTo = 0;
-            hoverSpeed = 3f;
+            player.GetModPlayer<HovercraftControl>().controlled = true;
         }
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
@@ -243,6 +164,105 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             return true;
         }
 
+    }
+    public class HovercraftControl : ModPlayer
+    {
+        public bool controlled = false;
+        public override void ResetEffects()
+        {
+            controlled = false;
+        }
+        int shotCooldown = 0;
+        float hoverHeight = 80;
+        float hoverTo = 0;
+        float hoverDrift = 0f;
+        float currentHeight = 0;
+        const int maxHoverHeight = 160;
+        const int minHoverHeight = 20;
+        float hoverSpeed = 3f;
+        public override void PostUpdateMiscEffects()
+        {
+            if (controlled)
+            {
+                player.noFallDmg = true;
+
+                player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
+
+                player.GetModPlayer<ShapeShifterPlayer>().hovercraft = true;
+                Mount mount = player.mount;
+                player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
+                player.GetModPlayer<ShapeShifterPlayer>().overrideWidth = 40;
+                //player.height = 30;
+                player.noItems = true;
+                hoverDrift += (float)Math.PI / 60;
+                player.statDefense = 14 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
+                if ((player.controlUp || player.controlJump) && hoverHeight < maxHoverHeight)
+                {
+                    hoverHeight++;
+                }
+                else if (player.controlDown && hoverHeight > minHoverHeight)
+                {
+                    hoverHeight--;
+                }
+                for (; currentHeight < (maxHoverHeight + 10); currentHeight++)
+                {
+                    if (!Collision.CanHit(player.Center, 0, 0, player.Center + new Vector2(0, currentHeight), 0, 0))
+                    {
+                        break;
+                    }
+                }
+                hoverTo = hoverHeight + (float)Math.Sin(hoverDrift) * 16;
+                //player.velocity.Y = ( currentHeight-hoverHeight) * .1f;
+                if (Math.Abs(currentHeight - hoverTo) > hoverSpeed * 4)
+                {
+                    if (currentHeight - hoverTo > 0)
+                    {
+                        player.velocity.Y = hoverSpeed;
+                        hoverSpeed = 6f;
+                    }
+                    if (currentHeight - hoverTo < 0)
+                    {
+                        player.velocity.Y = -hoverSpeed;
+                        hoverSpeed = 6f;
+                    }
+                }
+                else
+                {
+                    player.velocity.Y = (currentHeight - hoverTo) * .1f;
+                }
+
+                Vector2 shootFrom = player.Top;
+                shootFrom.Y += 8;
+                float pointAt = (QwertysRandomContent.LocalCursor[player.whoAmI] - shootFrom).ToRotation();
+
+
+                player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation, pointAt, 3);
+                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation);
+
+                if (shotCooldown > 0)
+                {
+                    shotCooldown--;
+                }
+                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
+                {
+                    shotCooldown = 12;
+                    Projectile p = Main.projectile[Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(19, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), QwertyMethods.PolarVector(12, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), ProjectileID.GreenLaser, (int)(HovercraftShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), HovercraftShift.kb, player.whoAmI)];
+                    p.magic = false;
+                    p.GetGlobalProjectile<MorphProjectile>().morph = true;
+                    p.penetrate = 1;
+                    p.alpha = 0;
+                    if (Main.netMode == 1)
+                    {
+                        QwertysRandomContent.UpdateProjectileClass(p);
+                    }
+                    Main.PlaySound(SoundID.Item12);
+                }
+
+                currentHeight = 0; //reset
+                hoverTo = 0;
+                hoverSpeed = 3f;
+            }
+        }
     }
 
 }

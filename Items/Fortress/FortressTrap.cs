@@ -5,7 +5,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class FortressTrap : ModItem
 	{
-		public override void SetStaticDefaults()
+        
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Caelite Pulse Trap");
 			Tooltip.SetDefault("Shoots 2 pulses");

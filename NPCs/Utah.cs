@@ -45,8 +45,8 @@ namespace QwertysRandomContent.NPCs
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-            QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-            if (modWorld.DinoEvent)
+            
+            if (QwertyWorld.DinoEvent)
 			{
 				return 45f;
 			}
@@ -59,11 +59,7 @@ namespace QwertysRandomContent.NPCs
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (npc.life <= 0)
-			{
-                QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-                modWorld.DinoKillCount += 1;
-			}
+			
 			for (int i = 0; i < 10; i++)
 			{
 				int dustType = mod.DustType("DinoSkin");
@@ -110,9 +106,10 @@ namespace QwertysRandomContent.NPCs
 		}
 		public override void NPCLoot()
 		{
-			if (Main.netMode != 1)
-			{
-				if (Main.rand.Next(0, 100) == 1)
+            QwertyWorld.DinoKillCount += 1;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            if (Main.rand.Next(0, 100) == 1)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoTooth"));
 				}
@@ -125,7 +122,7 @@ namespace QwertysRandomContent.NPCs
 
 
 
-            }
+            
 		}
 	}
 }

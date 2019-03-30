@@ -232,7 +232,11 @@ namespace QwertysRandomContent.Items.AncientItems
                     {
                         Ammo = mod.ProjectileType("AncientArrow");
                     }
-                    arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];
+                    if(Main.netMode != 2)
+                    {
+                        arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];
+                    }
+                    
                 }
                 arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI/2);
                 arrow.Center = projectile.Center + QwertyMethods.PolarVector(40-2*speed, projectile.rotation - (float)Math.PI / 2);
@@ -270,10 +274,7 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             else
             {
-                if(arrow != null && giveTileCollision)
-                {
-                    arrow.tileCollide = true;
-                }
+                
 
                 projectile.Kill();
             }
@@ -283,6 +284,10 @@ namespace QwertysRandomContent.Items.AncientItems
             Main.PlaySound(SoundID.Item5);
             arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI / 2);
             arrow.friendly = true;
+            if (arrow != null && giveTileCollision)
+            {
+                arrow.tileCollide = true;
+            }
             if (timer >= maxTime)
             {
                 Projectile.NewProjectile(arrow.Center, arrow.velocity*.8f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);

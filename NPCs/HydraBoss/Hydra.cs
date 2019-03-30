@@ -22,26 +22,34 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             npc.damage = 0;
             npc.defense = 18;
             npc.boss = true;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
+           
             npc.value = 60f;
-            npc.knockBackResist = 0f;
+            npc.knockBackResist = 40;
             npc.aiStyle = -1;
 
             animationType = -1;
             npc.noGravity = true;
-            npc.dontTakeDamage = true;
+            //npc.dontTakeDamage = true;
             npc.noTileCollide = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/BeastOfThreeHeads");
-            npc.lifeMax = 999999;
+            npc.lifeMax = 20;
             bossBag = mod.ItemType("HydraBag");
+          npc.immortal = true;
 
         }
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override bool? CanBeHitByItem(Player player, Item item)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 1.2f);
+            return false;
         }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            return false;
+        }
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
+        
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -70,114 +78,61 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
-
+       
 
 
 
         public int damage = 30;
-        public NPC Head1;
-        public NPC Head2;
-        public NPC Head3;
-        public NPC Head4;
-        public NPC Head5;
-        public NPC Head6;
-        public NPC Head7;
-        public NPC Head8;
-        public NPC Head9;
-        public bool Head1JustDied = true;
-        public bool Head2JustDied = true;
-        public bool Head3JustDied = true;
-        public int headCheck = 0;
-        public bool runOnce = true;
-        public int head1wait;
-        public int head2wait;
-        public int head3wait;
+        bool runOnce = true;
+        public override bool PreAI()
+        {
+            Player player = Main.player[npc.target];
+            if (npc.dontTakeDamage)
+            {
+                npc.velocity = new Vector2(0, -10);
+                if ((player.Center - npc.Center).Length() > 1000f)
+                {
+                    npc.life = 0;
+                    npc.checkDead();
+
+                }
+                for (int n = 0; n < 200; n++)
+                {
+                    if (Main.npc[n].type == mod.NPCType("HydraHead") && Main.npc[n].active && Main.npc[n].ai[0] == npc.whoAmI)
+                    {
+
+                        Main.npc[n].DeathSound = null;
+                    }
+                }
+            }
+           
+            return !npc.dontTakeDamage;
+        }
         public override void AI()
         {
-
             if (runOnce)
             {
-                if (Main.netMode != 1)
+                if (Main.expertMode)
                 {
-                    Head1 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head1"), 0, npc.whoAmI)];
-                    Head2 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head2"), 0, npc.whoAmI)];
-                    Head3 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head3"), 0, npc.whoAmI)];
-                }
-                Head4 = new NPC();
-                Head5 = new NPC();
-                Head6 = new NPC();
-                Head7 = new NPC();
-                Head8 = new NPC();
-                Head9 = new NPC();
-                
-
-                //
-                //
-                runOnce = false;
-            }
-
-
-
-
-            if (Main.netMode != 1)
-            {
-                if (!Head1.active && Head1JustDied)
-                {
-                    head1wait++;
-                    if (head1wait > 2)
+                    
+                    for (int p = 0; p < Main.player.Length; p++)
                     {
-                        Head4 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head4"), 0, npc.whoAmI)];
-                        Head5 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head5"), 0, npc.whoAmI)];
-
-                        Head1JustDied = false;
-                    }
-                }
-
-
-
-                if (!Head2.active && Head2JustDied)
-                {
-                    head2wait++;
-                    if (head2wait > 2)
-                    {
-                        Head6 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head6"), 0, npc.whoAmI)];
-                        Head7 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head7"), 0, npc.whoAmI)];
-
-
-                        Head2JustDied = false;
-                    }
-                }
-
-                if (!Head3.active && Head3JustDied)
-                {
-                    head3wait++;
-                    if (head3wait > 2)
-                    {
-                        Head8 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head8"), 0, npc.whoAmI)];
-                        Head9 = Main.npc[NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 100, mod.NPCType("Head9"), 0, npc.whoAmI)];
-
-                        Head3JustDied = false;
-                    }
-                }
-
-                if (head3wait > 2 && head2wait > 2 && head1wait > 2)
-                {
-                    if (Head1.active || Head2.active || Head3.active || Head4.active || Head5.active || Head6.active || Head7.active || Head8.active || Head9.active)
-                    {
-                        headCheck = 0;
-                    }
-                    else
-                    {
-                        headCheck++;
-                        if (headCheck > 60)
+                        if (Main.player[p].active)
                         {
-
-                            npc.life = 0;
-                            //QwertyWorld.downedhydra = true;
-                            npc.checkDead();
+                            npc.lifeMax += 5;
                         }
                     }
+                    npc.life = npc.lifeMax;
                 }
+                for (int h = 0; h < 3; h++)
+                {
+
+                    if (Main.netMode != 1)
+                    {
+                        NPC.NewNPC((int)npc.Center.X + h, (int)npc.Center.Y, mod.NPCType("HydraHead"), ai0: npc.whoAmI, ai1: h);
+                    }
+                }
+                runOnce = false;
             }
 
             Player player = Main.player[npc.target];
@@ -202,26 +157,21 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
             }
 
-            Vector2 target = new Vector2(player.Center.X, player.Center.Y);
-            Vector2 moveTo = new Vector2(target.X, target.Y) - npc.Center;
 
+
+
+
+            Vector2 target = player.Center;
+            Vector2 moveTo = target - npc.Center;
 
             npc.velocity = (moveTo) * .04f;
-
-
-
-
-
-
-
-
-
-
-
-
+            
+            
+            
 
 
         }
+
         public override void FindFrame(int frameHeight)
         {
 
@@ -251,70 +201,12 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 npc.frameCounter = 0;
             }
         }
-        public void DrawHead(SpriteBatch spriteBatch, string headTexture, string glowMaskTexture, NPC head, Color drawColor)
-        {
-            if (head.active)
-            {
-                Vector2 neckOrigin = new Vector2(npc.Center.X, npc.Center.Y - 50);
-                Vector2 center = head.Center;
-                Vector2 distToProj = neckOrigin - head.Center;
-                float projRotation = distToProj.ToRotation() - 1.57f;
-                float distance = distToProj.Length();
-                spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraNeckBase"), neckOrigin - Main.screenPosition,
-                            new Rectangle(0, 0, 52, 30), drawColor, projRotation,
-                            new Vector2(52 * 0.5f, 30 * 0.5f), 1f, SpriteEffects.None, 0f);
-                while (distance > 30f && !float.IsNaN(distance))
-                {
-                    distToProj.Normalize();                 //get unit vector
-                    distToProj *= 30f;                      //speed = 30
-                    center += distToProj;                   //update draw position
-                    distToProj = neckOrigin - center;    //update distance
-                    distance = distToProj.Length();
-
-
-                    //Draw chain
-                    spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraNeck"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, 0, 52, 30), drawColor, projRotation,
-                        new Vector2(52 * 0.5f, 30 * 0.5f), 1f, SpriteEffects.None, 0f);
-
-                }
-                spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraNeckBase"), neckOrigin - Main.screenPosition,
-                            new Rectangle(0, 0, 52, 30), drawColor, projRotation,
-                            new Vector2(52 * 0.5f, 30 * 0.5f), 1f, SpriteEffects.None, 0f);
-
-                spriteBatch.Draw(mod.GetTexture(headTexture), new Vector2(head.Center.X - Main.screenPosition.X, head.Center.Y - Main.screenPosition.Y),
-                            head.frame, drawColor, head.rotation,
-                            new Vector2(106 * 0.5f, 72 * 0.5f), 1f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(mod.GetTexture(glowMaskTexture), new Vector2(head.Center.X - Main.screenPosition.X, head.Center.Y - Main.screenPosition.Y),
-                        head.frame, Color.White, head.rotation,
-                        new Vector2(106 * 0.5f, 72 * 0.5f), 1f, SpriteEffects.None, 0f);
-            }
-        }
+       
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
            
-            spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/Hydra"), new Vector2(npc.position.X - Main.screenPosition.X, npc.position.Y - Main.screenPosition.Y),
-                        npc.frame, drawColor, npc.rotation,
-                        new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/Hydra_Glow"), new Vector2(npc.position.X - Main.screenPosition.X, npc.position.Y - Main.screenPosition.Y),
-                        npc.frame, Color.White, npc.rotation,
-                        new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-            if (Main.netMode == 0)
-            {
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head1", "NPCs/HydraBoss/Head1_Glow", Head1, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head2", "NPCs/HydraBoss/Head2_Glow", Head2, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head3", "NPCs/HydraBoss/Head3_Glow", Head3, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head1", "NPCs/HydraBoss/Head1_Glow", Head4, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head1", "NPCs/HydraBoss/Head1_Glow", Head5, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head2", "NPCs/HydraBoss/Head2_Glow", Head6, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head2", "NPCs/HydraBoss/Head2_Glow", Head7, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head3", "NPCs/HydraBoss/Head3_Glow", Head8, drawColor);
-                DrawHead(spriteBatch, "NPCs/HydraBoss/Head3", "NPCs/HydraBoss/Head3_Glow", Head9, drawColor);
-
-              
-                
-                
-            }
+            
+            
             return false;
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -381,7 +273,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
 
 
 
-                }
+        }
                 else
                 {
 

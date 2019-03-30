@@ -5,20 +5,22 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent;
+using System.IO;
+
 namespace QwertysRandomContent.NPCs
 {
-	public class Velocichopper : ModNPC
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Velocichopper");
-			Main.npcFrameCount[npc.type] = 4;
-		}
+    public class Velocichopper : ModNPC
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Velocichopper");
+            Main.npcFrameCount[npc.type] = 4;
+        }
 
-		public override void SetDefaults()
-		{
-			npc.width = 286;
-			npc.height = 104;
+        public override void SetDefaults()
+        {
+            npc.width = 286;
+            npc.height = 104;
             if (NPC.downedMoonlord)
             {
                 npc.damage = 100;
@@ -35,145 +37,142 @@ namespace QwertysRandomContent.NPCs
             npc.noTileCollide = true;
             npc.noGravity = true;
             npc.HitSound = SoundID.NPCHit4;
-			npc.DeathSound = SoundID.NPCDeath14;
-			npc.value = 6000f;
-			npc.knockBackResist = 0.5f;
-			npc.aiStyle = -1;
-			//aiType = 86;
-			//animationType = 3;
-			npc.buffImmune[BuffID.Confused] = false;
+            npc.DeathSound = SoundID.NPCDeath14;
+            npc.value = 6000f;
+            npc.knockBackResist = 0.5f;
+            npc.aiStyle = -1;
+            //aiType = 86;
+            //animationType = 3;
+            npc.buffImmune[BuffID.Confused] = false;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/OldDinosNewGuns");
             banner = npc.type;
             bannerItem = mod.ItemType("VelocichopperBanner");
         }
-		public override void HitEffect(int hitDirection, double damage)
-		{
-			if (npc.life <= 0)
-			{
-                QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-                modWorld.DinoKillCount += 5;
-			}
-			
-		}
+        public override void HitEffect(int hitDirection, double damage)
+        {
 
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
-		{
-            QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-            if (modWorld.DinoEvent)
-			{
-				if(!NPC.AnyNPCs(mod.NPCType<Velocichopper>()) && !NPC.downedMoonlord)
-				{
-				return 7f;
-				}
-				else
-				{
+
+        }
+
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+
+            if (QwertyWorld.DinoEvent)
+            {
+                if (!NPC.AnyNPCs(mod.NPCType<Velocichopper>()) && !NPC.downedMoonlord)
+                {
+                    return 7f;
+                }
+                else
+                {
                     if (NPC.downedMoonlord)
                     {
                         return 7f;
                     }
                     return 0f;
-				}
-			}
-			else
-			{
-                
-                return 0f;
-			}
-			
-		}
+                }
+            }
+            else
+            {
 
-		
-		
-		
-		
-		
-		
-		
-		public int Pos = 1;
-		public int damage = 40;
-		public int reloadTime = 2;
-		public int moveCount = 0;
-		public int fireCount = 0;
-		public int attackType = 1;
-		public int AI_Timer = 0;
-		public int Reload_Timer = 0;
-		public int attackTime = 300;
-		public int numberOfShots = 0;
+                return 0f;
+            }
+
+        }
+
+
+
+
+
+
+
+
+        public int Pos = 1;
+        public int damage = 40;
+        public int reloadTime = 2;
+        public int moveCount = 0;
+        public int fireCount = 0;
+        public int attackType = 1;
+        public int AI_Timer = 0;
+        public int Reload_Timer = 0;
+        public int attackTime = 300;
+        public int numberOfShots = 0;
         public int rushDirection = 1;
         public int bombTimer;
         public int bombReload = 30;
-		public override void AI()
-		{
-           
-            if(NPC.downedMoonlord)
+        public override void AI()
+        {
+
+            if (NPC.downedMoonlord)
             {
                 damage = 45;
             }
-			AI_Timer++;
-			
-			Player player = Main.player[npc.target];
-			npc.TargetClosest(true);
-			
-			if(AI_Timer > 481)
+            AI_Timer++;
+
+            Player player = Main.player[npc.target];
+            npc.TargetClosest(true);
+
+            if (AI_Timer > 481)
             {
                 bombTimer++;
                 npc.direction = rushDirection;
-                npc.velocity = new Vector2(10*rushDirection, 0f);
-                if((npc.Center.X > player.Center.X +1200 && rushDirection==1)|| (npc.Center.X < player.Center.X - 1200 && rushDirection == -1))
+                npc.velocity = new Vector2(10 * rushDirection, 0f);
+                if ((npc.Center.X > player.Center.X + 1200 && rushDirection == 1) || (npc.Center.X < player.Center.X - 1200 && rushDirection == -1) && Main.netMode != 1)
                 {
                     AI_Timer = 0;
+                    npc.netUpdate = true;
                 }
-                if(bombTimer> bombReload && Main.netMode !=1)
+                if (bombTimer > bombReload && Main.netMode != 1)
                 {
                     Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 0, mod.ProjectileType("DinoBomb"), damage, 3f, Main.myPlayer);
                     bombTimer = 0;
                 }
-                
+
             }
-			else if(AI_Timer > 480)
+            else if (AI_Timer > 480)
             {
-                if(npc.Center.X < player.Center.X)
+                if (npc.Center.X < player.Center.X)
                 {
                     rushDirection = 1;
-                    
+
                 }
                 else
                 {
                     rushDirection = -1;
-                    
+
                 }
-            }	
-			else if(AI_Timer> 420)
+            }
+            else if (AI_Timer > 420)
             {
                 Vector2 moveTo = new Vector2(player.Center.X - (900f * npc.direction), player.Center.Y + -300f) - npc.Center;
                 npc.velocity = (moveTo) * .03f;
             }
-			else if( AI_Timer > attackTime)
-			{
+            else if (AI_Timer > attackTime)
+            {
                 npc.velocity = new Vector2(0, 0f);
 
-                    Reload_Timer++;
-					if(Reload_Timer >reloadTime && Main.netMode !=1)
-					{
-						int Xvar =Main.rand.Next(-50, 50);
+                Reload_Timer++;
+                if (Reload_Timer > reloadTime && Main.netMode != 1)
+                {
+                    int Xvar = Main.rand.Next(-50, 50);
 
-						int Yvar =50-Xvar;
+                    int Yvar = 50 - Xvar;
 
-						Projectile.NewProjectile(npc.Center.X+(100f*npc.direction), npc.Center.Y, 5.00f*(1+ Xvar*.01f)*npc.direction, 5.00f*(1+ Yvar*.01f), 110, damage, 3f, Main.myPlayer);
-					
-					
-						
-						
-					
-					
-					
-						Reload_Timer =0;
-					
-					}
-					
-					
-			}
-            else if (AI_Timer > attackTime-120)
+                    Projectile.NewProjectile(npc.Center.X + (100f * npc.direction), npc.Center.Y, 5.00f * (1 + Xvar * .01f) * npc.direction, 5.00f * (1 + Yvar * .01f), 110, damage, 3f, Main.myPlayer);
+
+
+
+
+
+
+
+                    Reload_Timer = 0;
+
+                }
+
+
+            }
+            else if (AI_Timer > attackTime - 120)
             {
                 npc.velocity = new Vector2(0, 0f);
             }
@@ -182,84 +181,93 @@ namespace QwertysRandomContent.NPCs
                 Vector2 moveTo = new Vector2(player.Center.X - (300f * npc.direction), player.Center.Y + -300f) - npc.Center;
                 npc.velocity = (moveTo) * .03f;
             }
-		}
-		
-		
-		
-		public override void FindFrame(int frameHeight)
-		{
-			// This makes the sprite flip horizontally in conjunction with the npc.direction.
-			npc.spriteDirection = npc.direction;
-			npc.frameCounter++;
-				if (npc.frameCounter < 1)
-				{
-					npc.frame.Y = 0 * frameHeight;
-				}
-				else if (npc.frameCounter < 2)
-				{
-					npc.frame.Y = 1 * frameHeight;
-				}
-				else if (npc.frameCounter < 3)
-				{
-					npc.frame.Y = 2 * frameHeight;
-				}
-				else if (npc.frameCounter < 4)
-				{
-					npc.frame.Y = 3 * frameHeight;
-				}
-				if (npc.frameCounter < 5)
-				{
-					npc.frame.Y = 2 * frameHeight;
-				}
-				else if (npc.frameCounter < 6)
-				{
-					npc.frame.Y = 1 * frameHeight;
-				}
-				else if (npc.frameCounter < 7)
-				{
-					npc.frame.Y = 0 * frameHeight;
-				}
-				
-				else
-				{
-					npc.frameCounter = 0;
-				}
-		}
-		public override void NPCLoot()
-		{
-			if (Main.netMode != 1)
-			{
-				if (Main.rand.Next(0, 100) == 1)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoTooth"));
-				}
-                if (Main.rand.Next(0, 100) == 1)
+            QwertyMethods.ServerClientCheck(AI_Timer);
+        }
+        
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(AI_Timer);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            AI_Timer = reader.ReadInt32();
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            // This makes the sprite flip horizontally in conjunction with the npc.direction.
+            npc.spriteDirection = npc.direction;
+            npc.frameCounter++;
+            if (npc.frameCounter < 1)
+            {
+                npc.frame.Y = 0 * frameHeight;
+            }
+            else if (npc.frameCounter < 2)
+            {
+                npc.frame.Y = 1 * frameHeight;
+            }
+            else if (npc.frameCounter < 3)
+            {
+                npc.frame.Y = 2 * frameHeight;
+            }
+            else if (npc.frameCounter < 4)
+            {
+                npc.frame.Y = 3 * frameHeight;
+            }
+            if (npc.frameCounter < 5)
+            {
+                npc.frame.Y = 2 * frameHeight;
+            }
+            else if (npc.frameCounter < 6)
+            {
+                npc.frame.Y = 1 * frameHeight;
+            }
+            else if (npc.frameCounter < 7)
+            {
+                npc.frame.Y = 0 * frameHeight;
+            }
+
+            else
+            {
+                npc.frameCounter = 0;
+            }
+        }
+        public override void NPCLoot()
+        {
+            QwertyWorld.DinoKillCount += 5;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            if (Main.rand.Next(0, 100) == 1)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoTooth"));
+            }
+            if (Main.rand.Next(0, 100) == 1)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WornPrehistoricBow"));
+            }
+            if (Main.expertMode)
+            {
+                if (Main.rand.Next(0, 100) <= 15)
                 {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WornPrehistoricBow"));
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoVulcan"));
                 }
-                if (Main.expertMode)
-				{
-					if (Main.rand.Next(0, 100) <= 15)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoVulcan"));
-					}
-				}
-				else
-				{
-					if (Main.rand.Next(0, 100) <= 10)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoVulcan"));
-					}
-				}
+            }
+            else
+            {
+                if (Main.rand.Next(0, 100) <= 10)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoVulcan"));
+                }
+            }
 
-				
 
-				
-				
-			}
-		}
-		
-	}
+
+
+
+
+        }
+
+    }
     public class DinoBomb : ModProjectile
     {
         public override void SetStaticDefaults()

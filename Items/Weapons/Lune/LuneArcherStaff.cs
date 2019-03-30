@@ -174,6 +174,10 @@ using Microsoft.Xna.Framework.Graphics;
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];
                         bul.ranged = false;
                         bul.minion = true;
+                        if (Main.netMode == 1)
+                        {
+                            QwertysRandomContent.UpdateProjectileClass(bul);
+                        }
                     }
                     timer = 0;
                 }

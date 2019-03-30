@@ -6,7 +6,15 @@ namespace QwertysRandomContent.Tiles
 {
 	public class FortressWall : ModWall
 	{
-		public override void SetDefaults()
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.classicFortress)
+            {
+                texture += "_Classic";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
+        public override void SetDefaults()
 		{
 			Main.wallHouse[Type] = true;
 			dustType = mod.DustType("FortressDust");

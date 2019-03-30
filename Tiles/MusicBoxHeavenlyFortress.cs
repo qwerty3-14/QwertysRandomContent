@@ -8,7 +8,15 @@ namespace QwertysRandomContent.Tiles
 {
 	class MusicBoxHeavenlyFortress : ModTile
 	{
-		public override void SetDefaults()
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.classicFortress)
+            {
+                texture += "_Classic";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
+        public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileObsidianKill[Type] = true;

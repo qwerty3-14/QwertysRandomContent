@@ -121,7 +121,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
         {
 
             Player player = Main.player[projectile.owner];
-            //Main.NewText(moveTo);
+            
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
             shotCounter++;
             if (modPlayer.SpaceFighter)
@@ -142,6 +142,10 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                         //l.scale = .5f;
                         l.penetrate = 1;
                         //l.alpha = 0;
+                        if (Main.netMode == 1)
+                        {
+                            QwertysRandomContent.UpdateProjectileClass(l);
+                        }
                         Main.PlaySound(SoundID.Item12);
                     }
                     
@@ -168,7 +172,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
 
                 }
             }
-            for (int k = 0; k < 200; k++)
+            for (int k = 0; k < 1000; k++)
             {
                 if (Main.projectile[k].type == projectile.type && k != projectile.whoAmI)
                 {

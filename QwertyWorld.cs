@@ -15,9 +15,9 @@ namespace QwertysRandomContent
 {
     public class QwertyWorld : ModWorld
     {
-        public bool DinoEvent = false;
-        public int DinoKillCount = 0;
-        public int MaxDinoKillCount;
+        public static bool DinoEvent = false;
+        public static int DinoKillCount = 0;
+        public static int MaxDinoKillCount;
         public static int AbstractiveBlock = 0;
         public bool hasGeneratedRhuthinium;
         public static bool downedAncient;
@@ -79,6 +79,47 @@ namespace QwertysRandomContent
             downedBear = tag.GetBool("downedBear");
             downedBlade = tag.GetBool("downedBlade");
         }
+        public override void NetSend(BinaryWriter writer)
+        {
+            BitsByte flags = new BitsByte();
+            flags[0] = hasGeneratedRhuthinium;
+            flags[1] = downedAncient;
+            flags[2] = downedhydra;
+            flags[3] = downedRuneGhost;
+            flags[4] = downedB4;
+            flags[5] = downedDinoMilitia;
+            flags[6] = downedDinoMilitiaHard;
+            flags[7] = downedTyrant;
+            writer.Write(flags);
+            flags = new BitsByte();
+            flags[0] = hasSummonedFortressBoss;
+            flags[1] = downedFortressBoss;
+            flags[2] = downedBear;
+            flags[3] = downedBlade;
+            flags[4] = DinoEvent;
+            writer.Write(flags);
+            writer.Write(DinoKillCount);
+        }
+        public override void NetReceive(BinaryReader reader)
+        {
+            BitsByte flags = reader.ReadByte();
+            hasGeneratedRhuthinium = flags[0];
+            downedAncient = flags[1];
+            downedhydra = flags[2];
+            downedRuneGhost = flags[3];
+            downedRuneGhost = flags[4];
+            downedB4 = flags[5];
+            downedDinoMilitia = flags[6];
+            downedDinoMilitiaHard = flags[7];
+            flags = reader.ReadByte();
+            hasSummonedFortressBoss = flags[0];
+            downedFortressBoss = flags[1];
+            downedBear = flags[2];
+            downedBlade = flags[3];
+            DinoEvent = flags[4];
+            DinoKillCount = reader.ReadInt32();
+
+        }
         public static void FortressBossQuotes()
         {
             string key;
@@ -114,8 +155,9 @@ namespace QwertysRandomContent
         
         public override void PreUpdate()
         {
-            
-           
+
+            //QwertyMethods.ServerClientCheck(DinoKillCount);
+
             if (DinoEvent)
             {
 
@@ -128,6 +170,8 @@ namespace QwertysRandomContent
                     DinoEvent = false;
                     downedDinoMilitia = true;
                     downedDinoMilitiaHard = true;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
                     string key = "Mods.QwertysRandomContent.DinoDefeat";
                     Color messageColor = Color.Orange;
                     if (Main.netMode == 2) // Server
@@ -149,6 +193,8 @@ namespace QwertysRandomContent
                 {
                     DinoEvent = false;
                     downedDinoMilitia = true;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
                     string key = "Mods.QwertysRandomContent.DinoDefeat";
                     Color messageColor = Color.Orange;
                     if (Main.netMode == 2) // Server

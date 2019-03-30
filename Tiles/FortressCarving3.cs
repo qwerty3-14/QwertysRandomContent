@@ -9,7 +9,14 @@ namespace QwertysRandomContent.Tiles
 {
     public class FortressCarving3 : ModTile
     {
-        
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.classicFortress)
+            {
+                texture += "_Classic";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
         public override void SetDefaults()
         {
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);

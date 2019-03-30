@@ -143,60 +143,15 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 				mountData.textureHeight = mountData.backTexture.Height;
 			}
 		}
-        bool kicking =false;
-        int kickTimer;
-        bool forcedRunKick = false;
+       
 		public override void UpdateEffects(Player player)
 		{
-            //player.Hitbox.Height = 30;
-            player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-            Mount mount = player.mount;
-            player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-            //player.height = 30;
-            player.noItems = true;
-            player.statDefense = 6 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-            if(player.whoAmI == Main.myPlayer && Main.mouseLeft && Main.mouseLeftRelease && !kicking && !player.HasBuff(mod.BuffType("MorphSickness")))
-            {
-                kicking = true;
-                //Main.NewText("kick");
-            }
-            if(kicking)
-            {
-                
-               
-                kickTimer++;
-                if (player.whoAmI == Main.myPlayer)
-                {
-                    
-                   // mount._flipDraw = true;
-                }
-                if (kickTimer>=30)
-                {
-                    kicking = false;
-                }
-                else if(kickTimer ==10 && player.whoAmI == Main.myPlayer)
-                {
-                    Projectile.NewProjectile(new Vector2(player.Center.X + player.direction * 8, player.Center.Y), Vector2.Zero, mod.ProjectileType("Kick"), (int)(BunnyStone.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), BunnyStone.kb, player.whoAmI, player.direction);
-                }
-                if(kickTimer >= 10 && kickTimer <= 20)
-                {
-                    forcedRunKick = true;
-                }
-                else
-                {
-                    forcedRunKick = false;
-                }
-            }
-            else
-            {
-                kickTimer = 0;
-                forcedRunKick = false;
-            }
+            player.GetModPlayer<BunnyControl>().controlled = true;
         }
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
             //Main.NewText(state);
-            if(kicking)
+            if(mountedPlayer.GetModPlayer<BunnyControl>().kicking)
             {
                 //state = 0;
                 //velocity.X = 0;
@@ -210,7 +165,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.standingFrameCount = count;
                 mountData.standingFrameDelay = delay;
                 mountData.standingFrameStart = start;
-                if(forcedRunKick)
+                if(mountedPlayer.GetModPlayer<BunnyControl>().forcedRunKick)
                 {
                     mountData.runningFrameCount = 1;
                     mountData.runningFrameDelay = delay;
@@ -257,11 +212,66 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             
         }
     }
-    public class BunnyShiftEffects : ModPlayer
+    public class BunnyControl : ModPlayer
     {
-        
-        
-        
+        public bool controlled = false;
+        public override void ResetEffects()
+        {
+            controlled = false;
+        }
+        public bool kicking = false;
+        int kickTimer;
+        public bool forcedRunKick = false;
+        public override void PostUpdateMiscEffects()
+        {
+            if (controlled)
+            {
+                //player.Hitbox.Height = 30;
+                player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
+                Mount mount = player.mount;
+                player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
+                //player.height = 30;
+                player.noItems = true;
+                player.statDefense = 6 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
+                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && Main.mouseLeftRelease && !kicking && !player.HasBuff(mod.BuffType("MorphSickness")))
+                {
+                    kicking = true;
+                    //Main.NewText("kick");
+                }
+                if (kicking)
+                {
+
+
+                    kickTimer++;
+                    if (player.whoAmI == Main.myPlayer)
+                    {
+
+                        // mount._flipDraw = true;
+                    }
+                    if (kickTimer >= 30)
+                    {
+                        kicking = false;
+                    }
+                    else if (kickTimer == 10 && player.whoAmI == Main.myPlayer)
+                    {
+                        Projectile.NewProjectile(new Vector2(player.Center.X + player.direction * 8, player.Center.Y), Vector2.Zero, mod.ProjectileType("Kick"), (int)(BunnyStone.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), BunnyStone.kb, player.whoAmI, player.direction);
+                    }
+                    if (kickTimer >= 10 && kickTimer <= 20)
+                    {
+                        forcedRunKick = true;
+                    }
+                    else
+                    {
+                        forcedRunKick = false;
+                    }
+                }
+                else
+                {
+                    kickTimer = 0;
+                    forcedRunKick = false;
+                }
+            }
+        }
     }
     public class Kick : ModProjectile
     {

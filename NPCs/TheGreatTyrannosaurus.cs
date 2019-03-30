@@ -55,12 +55,12 @@ namespace QwertysRandomContent.NPCs
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-            QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-            if (modWorld.DinoEvent)
+            
+            if (QwertyWorld.DinoEvent)
 			{
 				if(!NPC.AnyNPCs(mod.NPCType<Velocichopper>()) && !NPC.downedMoonlord)
 				{
-                    if (modWorld.DinoKillCount >= 140 && !NPC.downedMoonlord)
+                    if (QwertyWorld.DinoKillCount >= 140 && !NPC.downedMoonlord)
                     {
                         return 50f;
                     }
@@ -106,8 +106,8 @@ namespace QwertysRandomContent.NPCs
 		{
             if (npc.life <= 0)
             {
-                QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-                modWorld.DinoKillCount += 10;
+                
+                
                 
             }
             for (int i = 0; i < 10; i++)
@@ -372,6 +372,7 @@ namespace QwertysRandomContent.NPCs
 		public override void NPCLoot()
 		{
             QwertyWorld.downedTyrant = true;
+            QwertyWorld.DinoKillCount += 10;
             if (Main.netMode == NetmodeID.Server)
                 NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
             if (Main.netMode != 1)

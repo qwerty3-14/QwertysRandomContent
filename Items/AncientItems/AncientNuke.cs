@@ -166,10 +166,10 @@ namespace QwertysRandomContent.Items.AncientItems
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientNukeMorph"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, 0, 46, 56), drawColor, projectile.rotation,
+                        new Rectangle(0, 0, 38, 56), drawColor, projectile.rotation,
                         new Vector2(46 * 0.5f, 56 * 0.5f), 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientNukeMorph_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, 0, 46, 56), Color.White, projectile.rotation,
+                        new Rectangle(0, 0, 38, 56), Color.White, projectile.rotation,
                         new Vector2(46 * 0.5f, 56 * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }

@@ -126,16 +126,15 @@ using Microsoft.Xna.Framework.Graphics;
         public int attackType = 1;
         public bool charging;
         public NPC target;
-        public NPC possibleTarget;
+        
         int waitTime = 5;
         int chargeTime = 15;
         Vector2 moveTo;
         bool justTeleported;
         float chargeSpeed = 12;
         bool runOnce = true;
-        bool foundTarget;
+       
         float maxDistance = 1000f;
-        float distance;
         int frame;
         int noTargetTimer = 0;
         public override void AI()
@@ -147,30 +146,8 @@ using Microsoft.Xna.Framework.Graphics;
             {
                 projectile.timeLeft = 2;
             }
-            if (player.MinionAttackTargetNPC != -1)
-            {
-                target = Main.npc[player.MinionAttackTargetNPC];
-                foundTarget = true;
-
-            }
-            else
-            {
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - player.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal)
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - player.Center).Length();
-                    }
-
-                }
-            }
-            maxDistance = 1000f;
+            
+            
             if (runOnce)
             {
                 //Main.PlaySound(SoundID.Item8);
@@ -184,7 +161,7 @@ using Microsoft.Xna.Framework.Graphics;
                 runOnce = false;
             }
 
-            if (foundTarget)
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, true, player.MinionAttackTargetNPC))
             {
                 timer++;
                 if (timer > waitTime + chargeTime)
@@ -297,7 +274,7 @@ using Microsoft.Xna.Framework.Graphics;
                 
                 justTeleported = false;
             }
-            foundTarget = false;
+            
             projectile.frameCounter++;
             
         }

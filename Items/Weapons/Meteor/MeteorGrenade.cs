@@ -111,6 +111,11 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 meteor.magic = false;
                 meteor.thrown = true;
                 
+                if (Main.netMode ==1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(meteor);
+                }
+                
             }
            
         }

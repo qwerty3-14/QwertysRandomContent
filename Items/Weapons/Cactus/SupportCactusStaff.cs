@@ -165,7 +165,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             Player player = Main.player[projectile.owner];
             if(Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, player.position, player.Size))
             {
-                player.HealEffect(2);
+                player.HealEffect(2, false);
                 projectile.Kill();
                 player.statLife += 2;
 

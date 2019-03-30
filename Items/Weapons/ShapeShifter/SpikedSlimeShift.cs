@@ -156,12 +156,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.noItems = true;
             player.statDefense = SpikedSlimeShift.def + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
         }
-        int count;
+       
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
-            if(count >0)
+            
+            if (mountedPlayer.GetModPlayer<SpikedSlimeControl>().count > 0)
             {
-                count--;
+                mountedPlayer.GetModPlayer<SpikedSlimeControl>().count--;
             }
             if(mountedPlayer.wet)
             {
@@ -178,9 +179,9 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.runSpeed = 0f;
                 mountData.dashSpeed = 0f;
                 mountedPlayer.velocity.X *= .9f;
-                if(count <=0 && mountedPlayer.whoAmI == Main.myPlayer && Main.mouseLeft && !mountedPlayer.HasBuff(mod.BuffType("MorphSickness")))
+                if(mountedPlayer.GetModPlayer<SpikedSlimeControl>().count <= 0 && mountedPlayer.whoAmI == Main.myPlayer && Main.mouseLeft && !mountedPlayer.HasBuff(mod.BuffType("MorphSickness")))
                 {
-                    count = 12;
+                    mountedPlayer.GetModPlayer<SpikedSlimeControl>().count = 12;
                     Projectile.NewProjectile(mountedPlayer.Center, QwertyMethods.PolarVector(10, (Main.MouseWorld - mountedPlayer.Center).ToRotation() + Main.rand.NextFloat(-1, 1) * (float)Math.PI/16), mod.ProjectileType("PlayerSlimeSpike"), SpikedSlimeShift.dmg, SpikedSlimeShift.kb, mountedPlayer.whoAmI);
                 }
             }
@@ -188,6 +189,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             return base.UpdateFrame(mountedPlayer, state, velocity);
         }
 
+    }
+    public class SpikedSlimeControl : ModPlayer
+    {
+        public int count = 0;
     }
     public class PlayerSlimeSpike : ModProjectile
     {

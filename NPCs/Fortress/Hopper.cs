@@ -12,7 +12,15 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class Hopper : ModNPC
     {
-        
+        public override bool Autoload(ref string name)
+        {
+            if (Config.classicFortress)
+            {
+                name += "_Classic";
+            }
+            return base.Autoload(ref name);
+        }
+       
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Enchanted Tile");
@@ -102,7 +110,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                     int children = Main.rand.Next(3);
                     for(int i =0; i< children; i++ )
                     {
-                        NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile"));
+                        NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")));
                     }
                         break;
                     case 1:

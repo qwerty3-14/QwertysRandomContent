@@ -4,14 +4,19 @@ Also working on a wiki
 
 Includes
 -7 bosses with custom AI!
--A new sky fortress biome/strucutre!
+-A new sky fortress biome/strucutre with randomised layouts, and new enemeis with custom AI!
 -A new event the dino militia!
 -28 new accesory prefixes!
--over 300 items total! including...
--7 armor sets and 31 armor pieces!
--some vanity items!
--19 new ammos!
+-over 340 items total! including...
+-9 armor sets
 -LOADS of cool and unique weapons!
+-Diverse melee weapons with a mix of swords, spears,  boomerangs, and yoyos instead of just a bunch of projectile swords like in some other mods.
+-9 new arrows and 6 new bullets giving rangers much more to play with on top of the ranged weapons added!
+-plenty of magic weapons to shoot interesting projectiles in interesting ways!
+-A bunch of new summons with unique AIs and quirks to make them feel fresh from the vanilla clones of other mods!
+-More throwing weapons, currently gets up to early hardmode more throwing weapons are planned!
+-A new 'shapeshifter' class! (WIP)
+
 
 I'm not that good of a spriter so here I'll give thanks to the spriters who helped!
 -Havoc 
@@ -33,6 +38,33 @@ Extra thanks
 
 
 changelog
+0.18.1
+-redid hydra AI
+-fixed the hydra beam weapon
+
+0.17.15
+-fixed drawing issue with clay mask, glass helm, and shaman skull 'bobbing' the wrong way when upside down
+-gemeini's quiver can no longer be used to mass replicate aqueous arrows
+-added the option to use older fortress Tile and enemy sprites via config (can't replace item sprites withou breaking recipes)
+-fixed Ancient Machine having a rare chance to drop 2 Ancient blades
+-fixed lightling not being dyeable
+-removed gale swifthelm's uncresed immune time after dodging
+-fixed dino militia progress bar in multiplayer
+-fixed serveral dino milita enemy AIs in multiplayer
+-added Man Eater staff
+-added frog grenade, Ribbit!!
+
+0.17.14
+-fixed boss checklist not working with the mod's bosses in multiplayer
+-fixed The Divine Light's summoning in multiplayer
+-lowered Fortress swarm spawn rate a bit
+
+-removed 'ranger' armor, the sprite was bad and effects were boring I made it back when I was new to modding
+
+0.17.13
+-fixed many multiplayer bugs
+-added pvp functionality to teleportation arrows and divine blade
+
 0.17.12
 -added Shaman Armor It's a melee/summon hybrid armor (crafted from bones and jungle spores)
 

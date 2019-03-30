@@ -120,7 +120,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                             streamCounter++;
                             if (streamCounter % 16 == 0)
                             {
-                                if (Main.netMode != 1)
+                                //if (Main.netMode != 1)
                                 {
                                     Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(180, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(5, projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(1, projectile.rotation - (3*(float)Math.PI/4)), mod.ProjectileType("HydrospearStream"), projectile.damage, projectile.knockBack, projectile.owner);
                                 }

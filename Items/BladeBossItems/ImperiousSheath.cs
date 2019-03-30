@@ -51,17 +51,19 @@ namespace QwertysRandomContent.Items.BladeBossItems
         //this changes the tooltip based on what the hotkey is configured to
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            String s = "Please go to conrols and bind the 'Yet another special ability key'";
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
-                
-                foreach (TooltipLine line in tooltips) //runs through all tooltip lines
+                s = "After dealing 10,000 damage you can summon Imperious to fight for you breifly with the " + "'" + key + "' key";
+
+            }
+            foreach (TooltipLine line in tooltips) //runs through all tooltip lines
+            {
+                if (line.mod == "Terraria" && line.Name == "Tooltip0") //this checks if it's the line we're interested in
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0") //this checks if it's the line we're interested in
-                    {
-                        line.text = "After dealing 10,000 damage you can summon Imperious to fight for you breifly with the " + "'" + key + "' key"; //change tooltip
-                    }
-                    
+                    line.text = s;//change tooltip
                 }
+
             }
         }
         

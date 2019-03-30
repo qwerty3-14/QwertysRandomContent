@@ -108,7 +108,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         float maxDistance = 1000f;
         
         int timer;
-        float bladeStartDist = 100;
+        
         
         public override void AI()
         {
@@ -128,6 +128,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         Projectile s = Main.projectile[Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(Main.rand.NextFloat(4, 16), projectile.rotation - (float)Math.PI / 8 + Main.rand.NextFloat((float)Math.PI / 4)), ProjectileID.SporeCloud, projectile.damage, projectile.knockBack, player.whoAmI)];
                         s.melee = false;
                         s.minion = true;
+                        if (Main.netMode == 1)
+                        {
+                            QwertysRandomContent.UpdateProjectileClass(s);
+                        }
                     }
                 }
 

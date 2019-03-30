@@ -23,6 +23,7 @@ namespace QwertysRandomContent
 
         public static Effect CustomEffect;
         public static ModHotKey YetAnotherSpecialAbility;
+        public static Vector2[] LocalCursor = new Vector2[Main.player.Length];
         public override void AddRecipeGroups()
         {
            
@@ -66,10 +67,10 @@ namespace QwertysRandomContent
         }
         //internal static QwertysRandomContent instance;
 		public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
-		public const string Head1Head = "QwertysRandomContent/NPCs/HydraBoss/Head1_Head_Boss";
-		public const string Head2Head = "QwertysRandomContent/NPCs/HydraBoss/Head2_Head_Boss";
-		public const string Head3Head = "QwertysRandomContent/NPCs/HydraBoss/Head3_Head_Boss";
-		public QwertysRandomContent()
+        public const string HydraHead1 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
+        public const string HydraHead2 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
+        public const string HydraHead3 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
+        public QwertysRandomContent()
 		{
 			Properties = new ModProperties()
 			{
@@ -118,13 +119,22 @@ namespace QwertysRandomContent
                 bossChecklist.Call("AddBossWithInfo", "Imperious", 9.4f, (Func<bool>)(() => QwertyWorld.downedBlade), "Use the [i:" + ItemType("BladeBossSummon") + "], and accept its challenge");
             }
         }
+        public static Deck<string> AMLoot = new Deck<string>();
         public override void Load()
 		{
             Config.Load();
             Instance = this;
-        
-        // Registers a new hotkey
-        YetAnotherSpecialAbility = RegisterHotKey("Yet Another Special Ability", "Mouse3");
+            AMLoot.Add("AncientBlade");
+            AMLoot.Add("AncientSniper");
+            AMLoot.Add("AncientWave");
+            AMLoot.Add("AncientThrow");
+            AMLoot.Add("AncientMinionStaff");
+            AMLoot.Add("AncientMissileStaff");
+            AMLoot.Add("AncientLongbow");
+            AMLoot.Add("AncientNuke");
+
+            // Registers a new hotkey
+            YetAnotherSpecialAbility = RegisterHotKey("Yet Another Special Ability", "Mouse3");
             if (!Main.dedServ)
             {
                 // Add the female leg variants
@@ -212,10 +222,11 @@ namespace QwertysRandomContent
 
 
             AddBossHeadTexture(AncientMachineHead);
-			AddBossHeadTexture(Head1Head);
-			AddBossHeadTexture(Head2Head);
-			AddBossHeadTexture(Head3Head);
-			if (!Main.dedServ)
+            AddBossHeadTexture(HydraHead1);
+            AddBossHeadTexture(HydraHead2);
+            AddBossHeadTexture(HydraHead3);
+
+            if (!Main.dedServ)
 			{
 				// Register a new music box
 				//AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/HydraBoss"), ItemType("HydraMusicBox"), TileType("HydraMusicBox"));
@@ -268,19 +279,19 @@ namespace QwertysRandomContent
                         packet.Send();
                     }
                     break;
-                    
+
                 case ModMessageType.FinnedRandomSwimMessage:
-                    
+
                     int identity2 = reader.ReadInt32();
                     byte owner2 = reader.ReadByte();
                     float randomSwim = reader.Read();
                     int realIdentity2 = Projectile.GetByUUID(owner2, identity2);
-                    
+
                     if (realIdentity2 != -1)
                     {
                         Main.projectile[realIdentity2].ai[1] = randomSwim;
                     }
-                    
+
                     if (Main.netMode == 2)
                     {
                         ModPacket packet = GetPacket();
@@ -295,12 +306,12 @@ namespace QwertysRandomContent
 
                     int identity3 = reader.ReadInt32();
                     byte owner3 = reader.ReadByte();
-                    
+
                     int realIdentity3 = Projectile.GetByUUID(owner3, identity3);
 
                     if (realIdentity3 != -1)
                     {
-                        Main.projectile[realIdentity3].scale = 3 ;
+                        Main.projectile[realIdentity3].scale = 3;
                     }
 
                     if (Main.netMode == 2)
@@ -309,9 +320,97 @@ namespace QwertysRandomContent
                         packet.Write((byte)ModMessageType.ScaleMessage);
                         packet.Write(identity3);
                         packet.Write(owner3);
-                        
+
                         packet.Send();
                     }
+                    break;
+                case ModMessageType.UpdateClassBools:
+                    int identity4 = reader.ReadInt32();
+                    byte owner4 = reader.ReadByte();
+                    int realIdentity4 = Projectile.GetByUUID(owner4, identity4);
+                    if (realIdentity4 != -1)
+                    {
+                        BitsByte flags = reader.ReadByte();
+                        Main.projectile[realIdentity4].melee = flags[0];
+                        Main.projectile[realIdentity4].ranged = flags[1];
+                        Main.projectile[realIdentity4].magic = flags[2];
+                        Main.projectile[realIdentity4].minion = flags[3];
+                        Main.projectile[realIdentity4].thrown = flags[4];
+                        Main.projectile[realIdentity4].GetGlobalProjectile<MorphProjectile>().morph = flags[5];
+                    }
+                    if (Main.netMode == 2)
+                    {
+                        UpdateProjectileClass(Main.projectile[realIdentity4]);
+                    }
+                    break;
+                case ModMessageType.UpdateLocalCursor:
+                    byte playerIndex = reader.ReadByte();
+                    Vector2 Cursor = reader.ReadVector2();
+
+                    LocalCursor[playerIndex] = Cursor;
+                    if (Main.netMode == 2)
+                    {
+                        ModPacket packet = GetPacket();
+                        packet.Write((byte)ModMessageType.UpdateLocalCursor); // Message type, you would need to create an enum for this
+                        packet.Write(playerIndex);
+                        packet.WriteVector2(Cursor);
+                        packet.Send();
+                    }
+                    break;
+                case ModMessageType.UpdatePlayerVelocity:
+                    byte playerIndex2 = reader.ReadByte();
+                    Vector2 vel = reader.ReadVector2();
+
+                    Main.player[playerIndex2].velocity = vel;
+                    if (Main.netMode == 2)
+                    {
+                        UpdatePlayerVelocity(playerIndex2, vel);
+                        NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, playerIndex2);
+                    }
+                    break;
+                case ModMessageType.UpdatePlayerPosition:
+                    byte playerIndex3 = reader.ReadByte();
+                    Vector2 pos = reader.ReadVector2();
+
+                    Main.player[playerIndex3].position = pos;
+                    
+                    if (Main.netMode == 2)
+                    {
+                        UpdatePlayerPosition(playerIndex3, pos);
+                        NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, playerIndex3);
+                        
+                    }
+                    break;
+                case ModMessageType.ProjectileAIUpdate:
+                    int identity6 = reader.ReadInt32();
+                    byte owner6 = reader.ReadByte();
+                    int realIdentity6 = Projectile.GetByUUID(owner6, identity6);
+                    float ai0 = reader.ReadSingle();
+                    float ai1 = reader.ReadSingle();
+                    if (realIdentity6 != -1)
+                    {
+                        Main.projectile[realIdentity6].ai[0] = ai0;
+                        Main.projectile[realIdentity6].ai[1] = ai1;
+                        if (Main.netMode == 2)
+                        {
+                            ProjectileAIUpdate(Main.projectile[realIdentity6]);
+                        }
+                    }
+                    
+                    break;
+                case ModMessageType.DivineCall:
+                    QwertyWorld.FortressBossQuotes();
+                    Vector2 summonAt = reader.ReadVector2();
+                    int npcID = NPC.NewNPC((int)summonAt.X, (int)summonAt.Y, NPCType("FortressBoss"));
+                    break;
+                case ModMessageType.StartDinoEvent:
+                    QwertyWorld.DinoEvent = true;
+                    QwertyWorld.DinoKillCount = 0;
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+                    }
+                        
                     break;
 
             }
@@ -320,7 +419,7 @@ namespace QwertysRandomContent
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             QwertyWorld modWorld = (QwertyWorld)GetModWorld("QwertyWorld");
-            if (modWorld.DinoEvent)
+            if (QwertyWorld.DinoEvent)
             {
                 int index = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
                 LegacyGameInterfaceLayer orionProgress = new LegacyGameInterfaceLayer("Dino Militia",
@@ -336,8 +435,8 @@ namespace QwertysRandomContent
         
         public void DrawDinoEvent(SpriteBatch spriteBatch)
         {
-            QwertyWorld modWorld = (QwertyWorld)GetModWorld("QwertyWorld");
-            if (modWorld.DinoEvent && !Main.gameMenu)
+           
+            if (QwertyWorld.DinoEvent && !Main.gameMenu)
             {
                 float scaleMultiplier = 0.5f + 1 * 0.5f;
                 float alpha = 0.5f;
@@ -362,18 +461,18 @@ namespace QwertysRandomContent
 
                     //draw wave text
 
-                    string waveText = "Cleared " + (int)(((float)modWorld.DinoKillCount / (float)modWorld.MaxDinoKillCount)*100) + "%";
+                    string waveText = "Cleared " + (int)(((float)QwertyWorld.DinoKillCount / (NPC.downedMoonlord ? 300:150))*100) + "%";
                     Utils.DrawBorderString(spriteBatch, waveText, new Vector2(waveBackground.X + waveBackground.Width / 2, waveBackground.Y), Color.White, scaleMultiplier, 0.5f, -0.1f);
 
                     //draw the progress bar
 
-                    if (modWorld.DinoKillCount == 0)
+                    if (QwertyWorld.DinoKillCount == 0)
                     {
 
                     }
                    // Main.NewText(MathHelper.Clamp((modWorld.DinoKillCount/modWorld.MaxDinoKillCount), 0f, 1f));
                     Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(waveBackground.X + waveBackground.Width * 0.5f, waveBackground.Y + waveBackground.Height * 0.75f), new Vector2(progressColor.Width, progressColor.Height));
-                    Rectangle waveProgressAmount = new Rectangle(0, 0, (int)(progressColor.Width  * MathHelper.Clamp(((float)modWorld.DinoKillCount / (float)modWorld.MaxDinoKillCount), 0f, 1f)), progressColor.Height);
+                    Rectangle waveProgressAmount = new Rectangle(0, 0, (int)(progressColor.Width  * MathHelper.Clamp(((float)QwertyWorld.DinoKillCount / (float)(NPC.downedMoonlord ? 300 : 150)), 0f, 1f)), progressColor.Height);
                     Vector2 offset = new Vector2((waveProgressBar.Width - (int)(waveProgressBar.Width * scaleMultiplier)) * 0.5f, (waveProgressBar.Height - (int)(waveProgressBar.Height * scaleMultiplier)) * 0.5f);
 
                     spriteBatch.Draw(progressBg, waveProgressBar.Location.ToVector2() + offset, null, Color.White * alpha, 0f, new Vector2(0f), scaleMultiplier, SpriteEffects.None, 0f);
@@ -403,7 +502,50 @@ namespace QwertysRandomContent
                 }
             }
         }
-        
+        public static void UpdateProjectileClass(Projectile projectile)
+        {
+
+            ModPacket packet = Instance.GetPacket();
+            packet.Write((byte)ModMessageType.UpdateClassBools); // Message type, you would need to create an enum for this
+            packet.Write(projectile.identity); // tells which projectile is being modified by the effect, the effect is then applied on the receiving end
+            packet.Write((byte)projectile.owner);
+            BitsByte flags = new BitsByte();
+            flags[0] = projectile.melee;
+            flags[1] = projectile.ranged;
+            flags[2] = projectile.magic;
+            flags[3] = projectile.minion;
+            flags[4] = projectile.thrown;
+            flags[5] = projectile.GetGlobalProjectile<MorphProjectile>().morph;
+            packet.Write(flags);
+            packet.Send();
+
+        }
+        public static void UpdatePlayerVelocity(int playerIndex, Vector2 velocity)
+        {
+            ModPacket packet = Instance.GetPacket();
+            packet.Write((byte)ModMessageType.UpdatePlayerVelocity);
+            packet.Write((byte)playerIndex);
+            packet.WriteVector2(velocity);
+            packet.Send();
+        }
+        public static void UpdatePlayerPosition(int playerIndex, Vector2 position)
+        {
+            ModPacket packet = Instance.GetPacket();
+            packet.Write((byte)ModMessageType.UpdatePlayerPosition);
+            packet.Write((byte)playerIndex);
+            packet.WriteVector2(position);
+            packet.Send();
+        }
+        public static void ProjectileAIUpdate(Projectile projectile)
+        {
+            ModPacket packet = Instance.GetPacket();
+            packet.Write((byte)ModMessageType.ProjectileAIUpdate); // Message type, you would need to create an enum for this
+            packet.Write(projectile.identity); // tells which projectile is being modified by the effect, the effect is then applied on the receiving end
+            packet.Write((byte)projectile.whoAmI); // the player that shot the projectile, will be useful later
+            packet.Write(projectile.ai[0]);
+            packet.Write(projectile.ai[1]);
+            packet.Send();
+        }
 
     }
     enum ModMessageType : byte
@@ -411,8 +553,15 @@ namespace QwertysRandomContent
         ArrowMessage,
         FinnedRandomSwimMessage,
         ScaleMessage,
-        TurretSetupMessage
-            
+        TurretSetupMessage,
+        UpdateClassBools,
+        UpdateLocalCursor,
+        UpdatePlayerVelocity,
+        UpdatePlayerPosition,
+        ProjectileAIUpdate,
+        DivineCall,
+        StartDinoEvent
+
     }
     public class CaeliteGreavesMale : EquipTexture
     {

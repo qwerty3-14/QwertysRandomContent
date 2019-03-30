@@ -5,7 +5,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class DnasBrick : ModItem
 	{
-		public override void SetStaticDefaults()
+        
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dnas painted Fortress Brick");
 			Tooltip.SetDefault("The underside of the brick is painted with Dnas you know what will happen if you bonk your head on it...");

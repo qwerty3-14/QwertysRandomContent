@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
- 
- 
- namespace QwertysRandomContent.Items.Weapons.MiscSummons       
+using System.IO;
+
+namespace QwertysRandomContent.Items.Weapons.MiscSummons       
 {
     public class GoldDaggerStaff : ModItem
     {
@@ -106,8 +106,7 @@ using Microsoft.Xna.Framework.Graphics;
         const int idle = 1;
         const int charging = 2;
         const int returning = 3;
-        float Xvar =0;
-        float Yvar =0;
+        
         Vector2 moveTo;
         float acceleration = .3f;
         float maxSpeed = 6f;
@@ -143,14 +142,20 @@ using Microsoft.Xna.Framework.Graphics;
                     attackTimer++;
                     if (timer > 60)
                     {
-                        if (Main.netMode != 2)
+                        if (Main.netMode != 2 && projectile.owner == Main.myPlayer)
                         {
-                            Yvar = Main.rand.Next(0, 80);
-                            Xvar = Main.rand.Next(-80, 80);
+                            projectile.ai[0] = Main.rand.Next(0, 80);
+                            projectile.ai[1] = Main.rand.Next(-80, 80);
+                            if(Main.netMode == 1)
+                            {
+                                QwertysRandomContent.ProjectileAIUpdate(projectile);
+                            }
+                            projectile.netUpdate = true;
+                            
                         }
                         timer = 0;
                     }
-                    moveTo = new Vector2(player.Center.X + Xvar, player.Center.Y - Yvar);
+                    moveTo = new Vector2(player.Center.X + projectile.ai[1], player.Center.Y - projectile.ai[0]);
                     if(attackTimer > attackCooldown)
                     {
                         
@@ -172,6 +177,7 @@ using Microsoft.Xna.Framework.Graphics;
                     {
                         AttackMode = returning;
                     }
+                    
                     break;
                 case charging:
                     projectile.tileCollide = true;

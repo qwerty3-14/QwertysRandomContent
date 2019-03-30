@@ -67,7 +67,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void AI(Projectile projectile)
         {
             
-            if(Main.player[projectile.owner].GetModPlayer<GeminiEffect>(mod).effect && runOnce && projectile.arrow && projectile.type != mod.ProjectileType("HydraArrowP2") && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
+            if(Main.player[projectile.owner].GetModPlayer<GeminiEffect>(mod).effect && runOnce && projectile.arrow && projectile.type != mod.ProjectileType("HydraArrowP2") && projectile.type != mod.ProjectileType("AqueousP") && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
             {
                 if(projectile.type == mod.ProjectileType("CobaltArrowP"))
                 {

@@ -8,6 +8,14 @@ namespace QwertysRandomContent.Tiles
 {
     public class ChiselledFortressBrick : ModTile
     {
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.classicFortress)
+            {
+                texture += "_Classic";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
         public override void SetDefaults()
         {
             Main.tileLighted[Type] = true;

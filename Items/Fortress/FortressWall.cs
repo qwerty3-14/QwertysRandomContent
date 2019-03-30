@@ -5,7 +5,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class FortressWall : ModItem
 	{
-		public override void SetStaticDefaults()
+        
+        public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("");
 		}

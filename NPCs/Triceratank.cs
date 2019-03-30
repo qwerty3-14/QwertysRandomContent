@@ -47,8 +47,8 @@ namespace QwertysRandomContent.NPCs
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-            QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-            if (modWorld.DinoEvent)
+            
+            if (QwertyWorld.DinoEvent)
 			{
 				return 35f;
 			}
@@ -61,11 +61,7 @@ namespace QwertysRandomContent.NPCs
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (npc.life <= 0)
-			{
-                QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-                modWorld.DinoKillCount += 3;
-			}
+			
 			for (int i = 0; i < 10; i++)
 			{
 				int dustType = mod.DustType("DinoSkin2");
@@ -103,10 +99,13 @@ namespace QwertysRandomContent.NPCs
 				
 				
 				//Projectile.NewProjectile(npc.Center.X+(78f*npc.direction), npc.Center.Y-34f, 1f*npc.direction, 0, 102, damage, 3f, Main.myPlayer);
-				
-				Projectile.NewProjectile(npc.Center.X+(78f*npc.direction), npc.Center.Y-34f, 10f*npc.direction, 0, mod.ProjectileType("TankCannonBall"), damage, 3f, Main.myPlayer);
-				
-				AI_Timer =0;
+				if(Main.netMode !=1)
+                {
+                    Projectile.NewProjectile(npc.Center.X + (78f * npc.direction), npc.Center.Y - 34f, 10f * npc.direction, 0, mod.ProjectileType("TankCannonBall"), damage, 3f, Main.myPlayer);
+
+                }
+
+                AI_Timer =0;
 					
 				
 			}	
@@ -142,9 +141,10 @@ namespace QwertysRandomContent.NPCs
 		}
 		public override void NPCLoot()
 		{
-			if (Main.netMode != 1)
-			{
-				if (Main.rand.Next(0, 100) == 1)
+            QwertyWorld.DinoKillCount += 5;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            if (Main.rand.Next(0, 100) == 1)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoTooth"));
 				}
@@ -171,7 +171,7 @@ namespace QwertysRandomContent.NPCs
 
 				
 				
-			}
+			
 		}
 	}
     public class TankCannonBall : ModProjectile

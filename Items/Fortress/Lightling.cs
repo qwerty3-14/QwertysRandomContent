@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -66,10 +68,11 @@ namespace QwertysRandomContent.Items.Fortress
         }
 
 
-
+        int shader = 0;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
+            shader = player.miscDyes[1].dye;
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
             if (!player.active)
             {
@@ -105,6 +108,29 @@ namespace QwertysRandomContent.Items.Fortress
             {
                 projectile.frame = 0;
             }
+        }
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            // As mentioned above, be sure not to forget this step.
+            Player player = Main.player[projectile.owner];
+            if (shader != 0)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.Transform);
+            }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Player player = Main.player[projectile.owner];
+
+            if (shader != 0)
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+                GameShaders.Armor.GetSecondaryShader(shader, player).Apply(null);
+            }
+            return true;
         }
     }
     public class LightlingBuff : ModBuff

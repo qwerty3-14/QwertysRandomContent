@@ -73,7 +73,7 @@ namespace QwertysRandomContent.Items.Ammo
 		}
         public float swimSpeed=10;
         public float swimDirection;
-        public bool foundTarget;
+        
        
         public int wanderTimer=61;
         public bool runOnce = true;
@@ -83,9 +83,8 @@ namespace QwertysRandomContent.Items.Ammo
         public float wiggleTime;
         public float maxDistance = 1000f;
         public NPC prey;
-        public NPC possiblePrey;
-        public float distance;
-        float wander;
+        
+        
         public override void AI()
 		{
             if(runOnce)
@@ -99,19 +98,16 @@ namespace QwertysRandomContent.Items.Ammo
             wanderTimer++;
             if (wanderTimer > 60 )
             {
-                if (Main.netMode == 1)
+                if (Main.netMode == 1 && projectile.owner == Main.myPlayer)
                 {
                     projectile.ai[1]= Main.rand.NextFloat(2 * (float)Math.PI);
-                    
-                    ModPacket packet = mod.GetPacket();
-                    packet.Write((byte)ModMessageType.ArrowMessage); // Message type, you would need to create an enum for this
-                    packet.Write(projectile.identity); // tells which projectile is being modified by the effect, the effect is then applied on the receiving end
-                    packet.Write((byte)projectile.whoAmI); // the player that shot the projectile, will be useful later
-                    packet.Write(projectile.ai[1]);
-                    packet.Send();
-                    
+
+                    if (Main.netMode == 1)
+                    {
+                        QwertysRandomContent.ProjectileAIUpdate(projectile);
+                    }
+
                     projectile.netUpdate = true;
-                    //projectile.netUpdate2 = true;
                 }
                 else if(Main.netMode ==0)
                 {
@@ -122,28 +118,16 @@ namespace QwertysRandomContent.Items.Ammo
             }
             if (projectile.wet)
             {
-                for (int k = 0; k < 200; k++)
+                
+                if(QwertyMethods.ClosestNPC(ref prey, 10000, projectile.Center))
                 {
-                    possiblePrey = Main.npc[k];
-                    distance= (possiblePrey.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possiblePrey.active && !possiblePrey.dontTakeDamage && !possiblePrey.friendly && possiblePrey.lifeMax > 5 && !possiblePrey.immortal && Collision.CanHit(projectile.Center, 0, 0, possiblePrey.Center, 0, 0))
-                    {
-                        prey = Main.npc[k];
-                        foundTarget = true;
-                       
-                        swimDirection = (projectile.Center - prey.Center).ToRotation() - (float)Math.PI;
-                        maxDistance = (prey.Center - projectile.Center).Length();
-                    }
-
+                    swimDirection = (projectile.Center - prey.Center).ToRotation() - (float)Math.PI;
                 }
-                maxDistance = 10000f;
-                if (!foundTarget)
+                else
                 {
-
-                    
                     swimDirection = projectile.ai[1] - (float)Math.PI;
-                    
                 }
+               
 
 
                 actDirection = QwertyMethods.SlowRotation(actDirection, swimDirection, 4);
@@ -160,29 +144,13 @@ namespace QwertysRandomContent.Items.Ammo
             
 
 
-            foundTarget = false;
-            
-            if (Main.netMode == 1)
-            {
-                Main.NewText("client: " + projectile.ai[1]);
-            }
+           
             
             
-            if (Main.netMode == 2) // Server
-            {
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + projectile.ai[1]), Color.White);
-            }
             
 
         }
-        public override void SendExtraAI(BinaryWriter writer)
-        {
-            writer.Write(wander);
-        }
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            wander = reader.Read();
-        }
+        
         public override void Kill(int timeLeft)
         {
             

@@ -130,7 +130,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * maxSpeed;
             }
             
-            if (npc.velocity != Collision.TileCollision(npc.position, npc.velocity, npc.width, npc.height, true, true))
+            if (npc.velocity != Collision.TileCollision(npc.position, npc.velocity, npc.width, npc.height, false, false))
             {
                 maxSpeed = 1;
             }
@@ -223,7 +223,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             if (spawnInfo.player.GetModPlayer<FortressBiome>(mod).TheFortress )
             {
-                return 12f;
+                return 5f;
             }
             return 0f;
 

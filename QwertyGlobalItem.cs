@@ -5,6 +5,7 @@ namespace QwertysRandomContent
 {
     public class QwertyGlobalItem : GlobalItem
     {
+        
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);

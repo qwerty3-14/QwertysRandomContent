@@ -5,7 +5,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class FortressBrick : ModItem
 	{
-		public override void SetStaticDefaults()
+        
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fortress Brick");
 			Tooltip.SetDefault("");

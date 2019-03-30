@@ -5,7 +5,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class FakeFortressBrick : ModItem
 	{
-		public override void SetStaticDefaults()
+       
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Fortress Brick");
 			Tooltip.SetDefault("Comes alive when broken or powered!");

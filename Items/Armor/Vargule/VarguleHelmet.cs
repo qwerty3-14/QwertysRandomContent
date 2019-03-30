@@ -29,23 +29,23 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 			
 			
 		}
-		
-		public override void UpdateEquip(Player player)
-		{
-			//player.AddBuff(11, 10);
-			//player.AddBuff(12, 10);
+
+        public override void UpdateEquip(Player player)
+        {
+            //player.AddBuff(11, 10);
+            //player.AddBuff(12, 10);
             player.nightVision = true;
             Lighting.AddLight(player.Center, 1.0f, 1.0f, 1.0f);
             if (player.whoAmI == Main.myPlayer && (player.HeldItem.pick > 0 || player.HeldItem.axe > 0 || player.HeldItem.hammer > 0))
-				{
-				Player.tileRangeX+= 3;
-				Player.tileRangeY+= 3;
-				}
+            {
+                Player.tileRangeX += 3;
+                Player.tileRangeY += 3;
+            }
 
-			
-			
-			
-		}
+
+
+
+        }
 		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
 		{
 			drawAltHair=true;

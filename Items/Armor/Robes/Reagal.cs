@@ -27,7 +27,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reagal Armor");
+			DisplayName.SetDefault("Unfinished, mostly did this as an experiment");
 			
 			
 		}

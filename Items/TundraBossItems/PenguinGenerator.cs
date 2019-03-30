@@ -81,6 +81,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 penguin.minion = item.summon;
                 penguin.magic = item.magic;
                 penguin.GetGlobalProjectile<PenguinLimit>().realeasedPenguin = true;
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(penguin);
+                }
                 penguin = Main.projectile[Projectile.NewProjectile(player.Center, new Vector2(-6, 0), mod.ProjectileType("SlidingPenguin"), item.damage, item.knockBack, player.whoAmI)];
                 penguin.melee = item.melee;
                 penguin.ranged = item.ranged;
@@ -88,6 +92,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 penguin.minion = item.summon;
                 penguin.magic = item.magic;
                 penguin.GetGlobalProjectile<PenguinLimit>().realeasedPenguin = true;
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(penguin);
+                }
             }
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -105,6 +113,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 penguin.minion = proj.minion;
                 penguin.magic = proj.magic;
                 penguin.GetGlobalProjectile<PenguinLimit>().realeasedPenguin = true;
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(penguin);
+                }
                 penguin = Main.projectile[Projectile.NewProjectile(player.Center, new Vector2(-6, 0), mod.ProjectileType("SlidingPenguin"), damage, proj.knockBack, player.whoAmI)];
                 penguin.melee = proj.melee;
                 penguin.ranged = proj.ranged;
@@ -113,6 +125,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 penguin.magic = proj.magic;
                 penguin.GetGlobalProjectile<PenguinLimit>().realeasedPenguin = true;
                 proj.GetGlobalProjectile<PenguinLimit>().realeasedPenguin = true;
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(penguin);
+                }
             }
         }
     }

@@ -4,7 +4,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class MusicBoxHeavenlyFortress : ModItem
 	{
-		public override void SetStaticDefaults()
+        
+        public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Music Box (Heavenly Fortress)");
             

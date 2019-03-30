@@ -57,12 +57,12 @@ namespace QwertysRandomContent.Items.Fortress
             for (int p = 0; p < 1000; p++)
             {
                 clearCheck = Main.projectile[p];
-                if (clearCheck.hostile  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size))
+                if ((clearCheck.hostile ||(clearCheck.friendly && !clearCheck.minion&& (Main.player[clearCheck.owner].team !=Main.player[item.owner].team) || (Main.player[item.owner].team==0 && clearCheck.owner != item.owner)))  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size))
                 {
                     clearCheck.Kill();
-                    if (clearCheck.velocity.Length() > 1f)
+                    if (clearCheck.velocity.Length() > 0f)
                     {
-                        Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity, mod.ProjectileType("FriendlyDeflected"), clearCheck.damage * 2, clearCheck.knockBack, clearCheck.owner);
+                        Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity, mod.ProjectileType("FriendlyDeflected"), clearCheck.damage * 2, clearCheck.knockBack, item.owner);
                     }
                 }
             }

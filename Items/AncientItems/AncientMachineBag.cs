@@ -6,23 +6,23 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-	public class AncientMachineBag : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-		}
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 48;
-			item.height = 32;
-			item.rare = 9;
-			item.expert = true;
-			bossBagNPC = mod.NPCType("AncientMachine");
-		}
+    public class AncientMachineBag : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Bag");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+        }
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 48;
+            item.height = 32;
+            item.rare = 9;
+            item.expert = true;
+            bossBagNPC = mod.NPCType("AncientMachine");
+        }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
@@ -46,69 +46,26 @@ namespace QwertysRandomContent.Items.AncientItems
         }
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
-            int numOfWeapons = 3;
-            int weaponPoolCount = 8;
-            int[] weaponLoot = new int[numOfWeapons];
-            for (int n = 0; n < numOfWeapons; n++)
+        public override void OpenBossBag(Player player)
+        {
+            
+            string[] loot = QwertysRandomContent.AMLoot.Draw(3);
+            
+            foreach(string item in loot)
             {
-                weaponLoot[n] = Main.rand.Next(weaponPoolCount - n);
-                for (int j = 0; j < n; j++)
-                {
-                    if (weaponLoot[n] >= weaponLoot[j])
-                    {
-                        weaponLoot[n]++;
-                    }
-                }
-                Array.Sort(weaponLoot);
+                player.QuickSpawnItem(mod.ItemType(item));
             }
-            for (int i = 0; i < weaponLoot.Length; i++)
-            {
-                string dropName ="none";
-                switch (weaponLoot[i])
-                {
-                    case 0:
-                        dropName = "AncientBlade";
-                        break;
-                    case 1:
-                        dropName = "AncientSniper";
-                        break;
-                    case 2:
-                        dropName = "AncientWave";
-                        break;
-                    case 3:
-                        dropName = "AncientThrow";
-                        break;
-                    case 4:
-                        dropName = "AncientMinionStaff";
-                        break;
-                    case 5:
-                        dropName = "AncientMissileStaff";
-                        break;
-                    case 6:
-                        dropName = "AncientLongbow";
-                        break;
-                    case 7:
-                        dropName = "AncientNuke";
-                        break;
-                }
-                if (dropName != "none")
-                {
-                    player.QuickSpawnItem(mod.ItemType(dropName));
-                }
-                
-            }
-            if (Main.rand.Next(100) <18)
+            
+            if (Main.rand.Next(100) < 18)
             {
                 player.QuickSpawnItem(mod.ItemType("AncientMiner"));
             }
             player.QuickSpawnItem(73, 8);
-				player.QuickSpawnItem(mod.ItemType("AncientGemstone"));
-		}
-	}
+            player.QuickSpawnItem(mod.ItemType("AncientGemstone"));
+        }
+    }
 }

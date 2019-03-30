@@ -62,10 +62,12 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void UpdateArmorSet(Player player)
         {
+            String s = "Please go to conrols and bind the 'Yet another special ability key'";
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
-                player.setBonus = "Press the " + key + " key to to call war spirits which temporarily make minions attack much faster and you gain 40% melee speed! \n 60 second cooldown";
+                s = "Press the " + key + " key to to call war spirits which temporarily make minions attack much faster and you gain 40% melee speed! \n 60 second cooldown";
             }
+            player.setBonus = s;
             player.GetModPlayer<ShamanHeadEffects>().setBonus = true;
         }
 
@@ -176,7 +178,14 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                 if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
                 {
-                    pos.Y -= 2;
+                    if (drawPlayer.gravDir == -1)
+                    {
+                        pos.Y += 2;
+                    }
+                    else
+                    {
+                        pos.Y -= 2;
+                    }
 
                 }
                 Rectangle frame = new Rectangle(0, 0, 40, fHeight);
@@ -213,7 +222,14 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                 if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
                 {
-                    pos.Y -= 2;
+                    if (drawPlayer.gravDir == -1)
+                    {
+                        pos.Y += 2;
+                    }
+                    else
+                    {
+                        pos.Y -= 2;
+                    }
 
                 }
                 Rectangle frame = new Rectangle(0, 0, 40, fHeight);
@@ -258,7 +274,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             if(haste>0)
             {
                 haste--;
-                if (haste == 1)
+                if (haste == 1 && projectile.extraUpdates>0)
                 {
                     projectile.extraUpdates--;
                     

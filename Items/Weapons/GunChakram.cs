@@ -200,6 +200,10 @@ namespace QwertysRandomContent.Items.Weapons
                 Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir)*BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
                 bul.melee = true;
                 bul.ranged = false;
+                if(Main.netMode ==1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(bul);
+                }
                 dir += bulletSpacing;
             }
 
@@ -232,6 +236,10 @@ namespace QwertysRandomContent.Items.Weapons
                 Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
                 bul.melee = true;
                 bul.ranged = false;
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(bul);
+                }
                 dir += bulletSpacing;
             }
             projectile.velocity.X = -projectile.velocity.X;

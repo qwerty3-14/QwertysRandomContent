@@ -84,13 +84,13 @@ namespace QwertysRandomContent.Tiles.Banners
 				switch (style)
 				{
 					case 0:
-						type = "Hopper";
+						type = "Hopper" + (Config.classicFortress ? "_Classic":"");
 						break;
 					case 1:
 						type = "Crawler";
 						break;
                     case 2:
-                        type = "GuardTile";
+                        type = "GuardTile" + (Config.classicFortress ? "_Classic" : "");
                         break;
                     case 3:
                         type = "FortressFlier";

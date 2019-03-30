@@ -93,7 +93,73 @@ namespace QwertysRandomContent
             }
             return foundTarget;
         }
-        
+        public static void ServerClientCheck()
+        {
+            if (Main.netMode == 1)
+            {
+                Main.NewText("Client says Hello!", Color.Pink);
+            }
+
+
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says Hello!"), Color.Green);
+            }
+        }
+        public static void ServerClientCheck(bool q)
+        {
+            if (Main.netMode == 1)
+            {
+                Main.NewText("Client says It's " +  q, Color.Pink);
+            }
+
+
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says It's " + q), Color.Green);
+            }
+        }
+        public static void ServerClientCheck(int q)
+        {
+            if (Main.netMode == 1)
+            {
+                Main.NewText("Client says It's " + q, Color.Pink);
+            }
+
+
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says It's " + q), Color.Green);
+            }
+        }
+        public static void ServerClientCheck(string q)
+        {
+            if (Main.netMode == 1)
+            {
+                Main.NewText("Client says It's " + q, Color.Pink);
+            }
+
+
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
+            }
+        }
+        public static void ServerClientCheck(Vector2 q)
+        {
+            if (Main.netMode == 1)
+            {
+                Main.NewText("Client says It's" + q, Color.Pink);
+            }
+
+
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
+            }
+        }
+
     }
+    
 
 }

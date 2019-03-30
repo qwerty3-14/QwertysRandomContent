@@ -164,6 +164,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(projectile.rotation) * speed, (float)Math.Sin(projectile.rotation) * speed), Ammo, projectile.damage, projectile.knockBack, player.whoAmI)];
                         bul.magic = true;
                         bul.ranged = false;
+                        if (Main.netMode == 1)
+                        {
+                            QwertysRandomContent.UpdateProjectileClass(bul);
+                        }
                     }
                     
                 }

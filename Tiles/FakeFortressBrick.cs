@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -8,8 +9,15 @@ namespace QwertysRandomContent.Tiles
 {
     public class FakeFortressBrick : ModTile
     {
-        
-        
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.classicFortress)
+            {
+                texture += "_Classic";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
@@ -32,13 +40,14 @@ namespace QwertysRandomContent.Tiles
            
             if (Main.netMode != 1 && !fail)
             {
-                NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile"), ai3: 1)];
+                NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")), ai3: 1)];
                 youngTile.velocity = QwertyMethods.PolarVector(2, (float)Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI));
             }
         }
         public override void HitWire(int i, int j)
         {
             WorldGen.KillTile(i, j);
+            NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)i, (float)j);
         }
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {

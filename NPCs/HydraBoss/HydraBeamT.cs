@@ -48,6 +48,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             
             float rOffset = 0;
             shooter = Main.npc[(int)projectile.ai[0]];
+            
             Vector2 mousePos = Main.MouseWorld;
             Player player = Main.player[projectile.owner];
             if (!shooter.active || shooter.life <=0)
@@ -100,19 +101,12 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             for (Distance = MoveDistance; Distance <= 2200f; Distance += 5f)
             {
                 start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
-                if (!Collision.CanHit(new Vector2(shooter.Center.X, shooter.Center.Y), 1, 1, start, 1, 1))
-                {
-                    Distance -= 5f;
-                    break;
-                }
+                
             }
 
 
 
-            //Add lights
-            DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
-            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
-                DelegateMethods.CastLight);
+            
 
         }
         public int colorCounter;
@@ -121,7 +115,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         {
 
             
-                DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], new Vector2(shooter.Center.X, shooter.Center.Y),
+                DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], shooter.Center,
                     projectile.velocity, 10, projectile.damage, -1.57f, 1f, 4000f, Color.White, (int)MoveDistance);
             
             

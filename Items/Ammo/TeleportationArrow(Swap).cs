@@ -94,22 +94,31 @@ namespace QwertysRandomContent.Items.Ammo
 			player.position.Y=jumpY-30;
 			Main.PlaySound(25, target.position, 0);
 			Main.PlaySound(25, player.position, 0);
-			}
+               
+            }
 		}
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
-			float jumpX = target.Center.X;
-			float jumpY = target.Center.Y;
-			Player player = Main.player[projectile.owner];
-			target.position.X=player.Center.X;
-			target.position.Y=player.Center.Y-30;
-			
-			player.position.X=jumpX;
-			player.position.Y=jumpY-30;
-			Main.PlaySound(25, target.position, 0);
-			Main.PlaySound(25, player.position, 0);
-		}
-		 public override void Kill(int timeLeft)
+        public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
+        {
+            
+            float jumpX = target.Center.X;
+            float jumpY = target.Center.Y;
+            Player player = Main.player[projectile.owner];
+            target.position.X = player.Center.X;
+            target.position.Y = player.Center.Y - 30;
+
+            player.position.X = jumpX;
+            player.position.Y = jumpY - 30;
+            Main.PlaySound(25, target.position, 0);
+            Main.PlaySound(25, player.position, 0);
+
+            QwertysRandomContent.UpdatePlayerPosition(target.whoAmI, target.position);
+            QwertysRandomContent.UpdatePlayerPosition(player.whoAmI, player.position);
+
+
+
+        }
+        
+        public override void Kill(int timeLeft)
         {
             
 			

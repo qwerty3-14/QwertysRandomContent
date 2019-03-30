@@ -40,16 +40,20 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
 
         }
 
-        public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
-
-
-           
-
-
-
-
+            position = Main.MouseWorld;
+            Point point;
+            Point origin = position.ToTileCoordinates();
+            while (!WorldUtils.Find(position.ToTileCoordinates(), Searches.Chain(new Searches.Down(1), new GenCondition[]
+                {
+                                            new Conditions.IsSolid()
+                }), out point))
+            {
+                position.Y++;
+                origin = position.ToTileCoordinates();
+            }
+            position.Y -= 16;
             return true;
         }
         public override void AddRecipes()
@@ -116,7 +120,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             flameRange = 400f;
             frameTimer++;
-            projectile.velocity.Y = 5;
+            
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             if (player.MinionAttackTargetNPC != -1)

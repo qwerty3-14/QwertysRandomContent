@@ -544,42 +544,14 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                         Array.Sort(weaponLoot);
                     }
                 }
-                for (int i = 0; i < weaponLoot.Length; i++)
-                {
-                    string dropName = "none";
-                    switch (weaponLoot[i])
-                    {
-                        case 0:
-                            dropName = "AncientBlade";
-                            break;
-                        case 1:
-                            dropName = "AncientSniper";
-                            break;
-                        case 2:
-                            dropName = "AncientWave";
-                            break;
-                        case 3:
-                            dropName = "AncientThrow";
-                            break;
-                        case 4:
-                            dropName = "AncientMinionStaff";
-                            break;
-                        case 5:
-                            dropName = "AncientMissileStaff";
-                            break;
-                        case 6:
-                            dropName = "AncientLongbow";
-                            break;
-                        case 7:
-                            dropName = "AncientNuke";
-                            break;
-                    }
-                    if (dropName != "none")
-                    {
-                        Item.NewItem(npc.getRect(), mod.ItemType(dropName));
-                    }
+                string[] loot = QwertysRandomContent.AMLoot.Draw(2);
 
+                foreach (string item in loot)
+                {
+                    Item.NewItem(npc.getRect(), mod.ItemType(item));
                 }
+                  
+               
 
                 if (Main.rand.Next(100) < 15)
                 {

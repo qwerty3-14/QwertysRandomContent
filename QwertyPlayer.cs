@@ -83,6 +83,7 @@ namespace QwertysRandomContent
         public int forcedAntiGravity = 0;
         public bool GlassSpike = false;
         public bool SpaceFighter = false;
+        //public Vector2[] LocalCursor = new Vector2[Main.player.Length];
         public override void ResetEffects()
         {
             ninjaSabatoge = false;
@@ -191,7 +192,10 @@ namespace QwertysRandomContent
             return true;
         }
         */
-        
+        public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
+        {
+            base.ModifyDrawHeadLayers(layers);
+        }
         public void PickRandomAmmo(Item sItem, ref int shoot, ref float speed, ref bool canShoot, ref int Damage, ref float KnockBack, bool dontConsume = false)
         {
             Item item = new Item();
@@ -300,19 +304,20 @@ namespace QwertysRandomContent
         
         public override void PreUpdate()
         {
-           // Main.NewText(player.mount.Type);
-           // Main.NewText(player.inventory[0].type);
-            /*
-            if (Main.netMode == 1)
+            if(Main.myPlayer == player.whoAmI)
             {
-                Main.NewText("client: " + FrozenDen.BearSpawn);
+                //QwertyMethods.ServerClientCheck(Main.myPlayer);
+                QwertysRandomContent.LocalCursor[Main.myPlayer] = Main.MouseWorld;
+
+                if(Main.netMode ==1)
+                {
+                    ModPacket packet = mod.GetPacket();
+                    packet.Write((byte)ModMessageType.UpdateLocalCursor); // Message type, you would need to create an enum for this
+                    packet.Write((byte)Main.myPlayer);
+                    packet.WriteVector2(QwertysRandomContent.LocalCursor[Main.myPlayer]);
+                    packet.Send();
+                }
             }
-
-
-            if (Main.netMode == 2) // Server
-            {
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + FrozenDen.BearSpawn), Color.Black);
-            }*/
             mythrilPrismRotation += (float)Math.PI / 90f;
             if (grappleBoost)
             {

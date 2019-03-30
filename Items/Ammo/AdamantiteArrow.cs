@@ -100,6 +100,11 @@ namespace QwertysRandomContent.Items.Ammo
 				
 				target.velocity.X=projectile.velocity.X*1f;
 				target.velocity.Y=projectile.velocity.Y*.5f;
+                if(Main.netMode==1)
+                {
+                    QwertysRandomContent.UpdatePlayerVelocity(target.whoAmI, target.velocity);
+                }
+                
 					
 				
 			}
@@ -109,9 +114,13 @@ namespace QwertysRandomContent.Items.Ammo
 				
 				target.velocity.X=projectile.velocity.X*.5f;
 				target.velocity.Y=projectile.velocity.Y*.25f;
-					
-					
-			}
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdatePlayerVelocity(target.whoAmI, target.velocity);
+                }
+
+
+            }
 		}
         
 

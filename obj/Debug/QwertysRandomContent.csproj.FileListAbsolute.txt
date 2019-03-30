@@ -1,2 +1,10 @@
 C:\Users\Dad\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csprojResolveAssemblyReference.cache
 C:\Users\Dad\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csproj.CoreCompileInputs.cache
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csprojAssemblyReference.cache
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csproj.CoreCompileInputs.cache
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\bin\Debug\QwertysRandomContent.dll
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\bin\Debug\QwertysRandomContent.pdb
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\bin\Debug\Terraria.exe
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.csproj.CopyComplete
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.dll
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\QwertysRandomContent.pdb

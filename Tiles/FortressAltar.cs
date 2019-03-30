@@ -11,6 +11,14 @@ namespace QwertysRandomContent.Tiles
 {
     public class FortressAltar : ModTile
     {
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (Config.classicFortress)
+            {
+                texture += "_Classic";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
         
         public override void SetDefaults()
         {
@@ -37,21 +45,29 @@ namespace QwertysRandomContent.Tiles
         public override void RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            if (!NPC.AnyNPCs(mod.NPCType("FortressBoss")) && Main.netMode == 0)
+            //QwertyMethods.ServerClientCheck();
+            if (!NPC.AnyNPCs(mod.NPCType("FortressBoss")))
             {
                 for (int b = 0; b < 58; b++) // this searches every invintory slot
                 {
                     if (player.inventory[b].type == mod.ItemType("FortressBossSummon") && player.inventory[b].stack > 0) //this checks if the slot has the valid item
                     {
 
-                        QwertyWorld.FortressBossQuotes();
-
-                        int npcID = NPC.NewNPC(i * 16 + 400, j * 16, mod.NPCType("FortressBoss"));
-                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                        
+                        if(Main.netMode ==0)
                         {
-
-                            NetMessage.SendData(61, -1, -1, null, player.whoAmI, npcID);
+                            QwertyWorld.FortressBossQuotes();
+                            int npcID = NPC.NewNPC(i * 16 + 400, j * 16, mod.NPCType("FortressBoss"));
                         }
+                        else
+                        {
+                            ModPacket packet = mod.GetPacket();
+                            packet.Write((byte)ModMessageType.DivineCall);
+                            packet.WriteVector2(new Vector2(i * 16 + 400, j * 16));
+                            packet.Send();
+                        }
+                        
+                        
 
 
                         player.inventory[b].stack--;

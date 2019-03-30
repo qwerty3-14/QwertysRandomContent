@@ -113,7 +113,14 @@ namespace QwertysRandomContent.Items.Armor.Clay
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                 if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
                 {
-                    pos.Y -= 2;
+                    if (drawPlayer.gravDir == -1)
+                    {
+                        pos.Y += 2;
+                    }
+                    else
+                    {
+                        pos.Y -= 2;
+                    }
 
                 }
                 Rectangle frame = new Rectangle(0,  0, 40, fHeight);

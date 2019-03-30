@@ -5,7 +5,8 @@ namespace QwertysRandomContent.Items.Fortress
 {
 	public class FortressCarving3 : ModItem
 	{
-		public override void SetStaticDefaults()
+       
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fortress Carving");
 			Tooltip.SetDefault("");

@@ -90,14 +90,20 @@ namespace QwertysRandomContent.Items.Ammo
 			Main.PlaySound(25, target.position, 0);
 			}
 		}
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
-			
-			Player player = Main.player[projectile.owner];
-			target.position.X=player.Center.X;
-			target.position.Y=player.Center.Y-200f;
-			Main.PlaySound(25, target.position, 0);
-		}
+        public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
+        {
+            //QwertyMethods.ServerClientCheck();
+            
+            Player player = Main.player[projectile.owner];
+            target.position.X = player.Center.X;
+            target.position.Y = player.Center.Y - 200f;
+            Main.PlaySound(25, target.position, 0);
+            QwertysRandomContent.UpdatePlayerPosition(target.whoAmI, target.position);
+
+
+
+        }
+        
 		 public override void Kill(int timeLeft)
         {
             

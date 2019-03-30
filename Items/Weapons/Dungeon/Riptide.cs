@@ -40,14 +40,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.sentry = true;
 
         }
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HallowedBar, 12);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+       
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
@@ -128,7 +121,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     }
 
                     Vector2 shootFrom = projectile.Center + QwertyMethods.PolarVector(12, projectile.rotation) + QwertyMethods.PolarVector(si * 4, projectile.rotation + (float)Math.PI / 2);
-                    if (Main.netMode != 1)
+                    //if (Main.netMode != 1)
                     {
                         Projectile.NewProjectile(shootFrom, QwertyMethods.PolarVector(1, projectile.rotation), mod.ProjectileType("RiptideStream"), projectile.damage, projectile.knockBack, projectile.owner);
                     }

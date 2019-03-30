@@ -82,11 +82,20 @@ namespace QwertysRandomContent.Items.DinoItems
                 }
             }
 
-					
-			Main.PlaySound(SoundID.Roar, player.position, 0);
-			QwertyWorld modWorld = (QwertyWorld)mod.GetModWorld("QwertyWorld");
-			modWorld.DinoEvent = true;
-			modWorld.DinoKillCount = 0;
+			if(Main.netMode ==0)
+            {
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                QwertyWorld.DinoEvent = true;
+            }
+            if(Main.netMode ==1 && player.whoAmI == Main.myPlayer)
+            {
+                ModPacket packet = mod.GetPacket();
+                packet.Write((byte)ModMessageType.StartDinoEvent);
+                packet.Send();
+            }
+			
+            
+			
 			return true;
 		}
 		public override void AddRecipes()
