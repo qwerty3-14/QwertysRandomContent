@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Enums;
 using System.IO;
+using System.Collections.Generic;
 
 namespace QwertysRandomContent.NPCs.BossFour
 {
@@ -391,11 +392,22 @@ namespace QwertysRandomContent.NPCs.BossFour
             projectile.penetrate = -1;
             projectile.timeLeft = 360;
             projectile.tileCollide = false;
+            //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
 
-
+        }
+        /*
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        {
+            drawCacheProjsOverWiresUI.Add(index);
+        }*/
+        public override bool PreAI()
+        {
+           
+            return base.PreAI();
         }
         public override void AI()
         {
+            
             projectile.rotation += (float)Math.PI/30;
             for (int i = 0; i < 1; i++)
             {

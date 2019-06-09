@@ -101,6 +101,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         int frameTimer;
         public override void AI()
         {
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
             timer++;

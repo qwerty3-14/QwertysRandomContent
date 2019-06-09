@@ -10,6 +10,7 @@ using Terraria.ModLoader.IO;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using Terraria.Graphics.Shaders;
 
 namespace QwertysRandomContent
 {
@@ -31,6 +32,7 @@ namespace QwertysRandomContent
         public static bool downedFortressBoss;
         public static bool downedBear;
         public static bool downedBlade;
+        public static bool downedNoetnap;
         public override void Initialize()
         {
             hasGeneratedRhuthinium = false;
@@ -45,6 +47,7 @@ namespace QwertysRandomContent
             downedFortressBoss = false;
             downedBear = false;
             downedBlade = false;
+            downedNoetnap = false;
         }
         public override TagCompound Save()
         {
@@ -61,7 +64,8 @@ namespace QwertysRandomContent
                 {"summonedFortressBoss",  hasSummonedFortressBoss},
                 {"downedFortressBoss", downedFortressBoss },
                 {"downedBear", downedBear},
-                {"downedBlade", downedBlade }
+                {"downedBlade", downedBlade },
+                {"downedNoehtnap", downedNoetnap }
             };
         }
         public override void Load(TagCompound tag)
@@ -78,6 +82,7 @@ namespace QwertysRandomContent
             downedFortressBoss = tag.GetBool("downedFortressBoss");
             downedBear = tag.GetBool("downedBear");
             downedBlade = tag.GetBool("downedBlade");
+            downedNoetnap = tag.GetBool("downedNoehtnap");
         }
         public override void NetSend(BinaryWriter writer)
         {
@@ -97,6 +102,7 @@ namespace QwertysRandomContent
             flags[2] = downedBear;
             flags[3] = downedBlade;
             flags[4] = DinoEvent;
+            flags[5] = downedNoetnap;
             writer.Write(flags);
             writer.Write(DinoKillCount);
         }
@@ -117,6 +123,7 @@ namespace QwertysRandomContent
             downedBear = flags[2];
             downedBlade = flags[3];
             DinoEvent = flags[4];
+            downedNoetnap = flags[5];
             DinoKillCount = reader.ReadInt32();
 
         }
@@ -152,9 +159,10 @@ namespace QwertysRandomContent
         {
             AbstractiveBlock = tileCounts[mod.TileType("Abstractive")];
         }
-        
+
         public override void PreUpdate()
         {
+            
 
             //QwertyMethods.ServerClientCheck(DinoKillCount);
 

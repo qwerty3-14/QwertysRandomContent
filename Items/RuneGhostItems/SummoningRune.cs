@@ -12,6 +12,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 			DisplayName.SetDefault("Summoning Rune");
 			Tooltip.SetDefault("Summons The Rune Ghost" + "\nExpect Duke Fishron levels of difficulty");
             ItemID.Sets.ItemNoGravity[item.type] = true;
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
 
 		public override void SetDefaults()

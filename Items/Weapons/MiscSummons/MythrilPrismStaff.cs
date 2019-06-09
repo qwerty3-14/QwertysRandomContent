@@ -182,7 +182,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.ai[0] = 40f;
                 if (foundTarget)
                 {
-                    flyTo = target.Center + QwertyMethods.PolarVector(maxDistance / 2f, (player.Center - target.Center).ToRotation() + (.5f * (float)Math.PI * (identity + 1)) / (prismCount + 2) - (float)Math.PI * .25f);
+                    flyTo = target.Center + QwertyMethods.PolarVector(maxDistance / 2f, (player.Center - target.Center).ToRotation() + (.5f * (float)Math.PI * (identity + 1)) / (prismCount + 1) - (float)Math.PI * .25f);
 
                     Beam.ai[1] = target.whoAmI;
 

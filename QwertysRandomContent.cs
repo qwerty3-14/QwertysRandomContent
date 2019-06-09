@@ -117,6 +117,7 @@ namespace QwertysRandomContent
                 bossChecklist.Call("AddBossWithInfo", "The Divine Light", 4f, (Func<bool>)(() => QwertyWorld.downedFortressBoss), "Use a [i:" + ItemType("FortressBossSummon") + "]" + " at the altar in the sky fortress");
                 bossChecklist.Call("AddBossWithInfo", "Polar Exterminator", .7f, (Func<bool>)(() => QwertyWorld.downedBear), "Hibernates in the underground tundra, [i:" + ItemType("FrostCompass") + "]Helps find it");
                 bossChecklist.Call("AddBossWithInfo", "Imperious", 9.4f, (Func<bool>)(() => QwertyWorld.downedBlade), "Use the [i:" + ItemType("BladeBossSummon") + "], and accept its challenge");
+                bossChecklist.Call("AddBossWithInfo", "Noetnap", 5.7f, (Func<bool>)(() => QwertyWorld.downedNoetnap), "Just use the [i:" + ItemType("RitualInterupter") + "] mortal!");
             }
         }
         public static Deck<string> AMLoot = new Deck<string>();
@@ -142,6 +143,10 @@ namespace QwertysRandomContent
                 AddEquipTexture(GetItem("GaleSwiftRobes"), EquipType.Legs, "GaleSwiftRobes_Female", "QwertysRandomContent/Items/Fortress/GaleArmor/GaleSwiftRobes_FemaleLegs");
                 AddEquipTexture(new CaeliteGreavesMale(), GetItem("CaeliteGreaves"), EquipType.Legs, "CaeliteGreaves_Legs", "QwertysRandomContent/Items/Fortress/CaeliteArmor/CaeliteGreaves_Legs");
                 AddEquipTexture(new CaeliteGreavesFemale(), GetItem("CaeliteGreaves"), EquipType.Legs, "CaeliteGreaves_FemaleLegs", "QwertysRandomContent/Items/Fortress/CaeliteArmor/CaeliteGreaves_FemaleLegs");
+
+                AddEquipTexture(new TwistedDarkLegs(), GetItem("TwistedDarkLegs"), EquipType.Legs, "TwistedDarkLegs_Legs", "QwertysRandomContent/Items/Armor/TwistedDark/TwistedDarkLegs_Legs");
+                AddEquipTexture(new TwistedDarkLegsFemale(), GetItem("TwistedDarkLegs"), EquipType.Legs, "TwistedDarkLegs_FemaleLegs", "QwertysRandomContent/Items/Armor/TwistedDark/TwistedDarkLegs_FemaleLegs");
+
                 AddEquipTexture(new RhuthiniumGreavesMale(), GetItem("RhuthiniumGreaves"), EquipType.Legs, "RhuthiniumGreaves", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_Legs");
                 AddEquipTexture(new RhuthiniumGreavesFemale(), GetItem("RhuthiniumGreaves"), EquipType.Legs, "RhuthiniumGreaves_FemaleLegs", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_FemaleLegs");
                 AddEquipTexture(GetItem("HydraLeggings"), EquipType.Legs, "HydraLeggings_Female", "QwertysRandomContent/Items/HydraItems/HydraLeggings_FemaleLegs");
@@ -568,6 +573,17 @@ namespace QwertysRandomContent
     }
 
     public class CaeliteGreavesFemale : EquipTexture
+    {
+        public override bool DrawLegs()
+        {
+            return false;
+        }
+    }
+    public class TwistedDarkLegs : EquipTexture
+    {
+    }
+
+    public class TwistedDarkLegsFemale : EquipTexture
     {
         public override bool DrawLegs()
         {

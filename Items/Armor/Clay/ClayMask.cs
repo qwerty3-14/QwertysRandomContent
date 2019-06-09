@@ -94,8 +94,9 @@ namespace QwertysRandomContent.Items.Armor.Clay
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
+
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.head == mod.GetEquipSlot("ClayMask", EquipType.Head))
+            if (drawPlayer.head == mod.GetEquipSlot("ClayMask", EquipType.Head) || drawPlayer.head == mod.GetEquipSlot("TwistedDarkMask", EquipType.Head)|| drawPlayer.head == mod.GetEquipSlot("DuelistHeadband", EquipType.Head) || drawPlayer.head == mod.GetEquipSlot("TankCommanderHelmet", EquipType.Head))
             {
                 //Main.NewText("Pug!");
                 //Main.NewText(drawPlayer.bodyFrame);
@@ -103,6 +104,18 @@ namespace QwertysRandomContent.Items.Armor.Clay
                 int fHeight = 56;
 
                 Texture2D texture = mod.GetTexture("Items/Armor/Clay/ClayMask_HeadSimple");
+                if (drawPlayer.head == mod.GetEquipSlot("TwistedDarkMask", EquipType.Head))
+                {
+                    texture = mod.GetTexture("Items/Armor/TwistedDark/TwistedDarkMask_HeadSimple");
+                }
+                if(drawPlayer.head == mod.GetEquipSlot("DuelistHeadband", EquipType.Head))
+                {
+                    texture = mod.GetTexture("Items/Armor/Duelist/DuelistHeadband_HeadSimple");
+                }
+                if(drawPlayer.head == mod.GetEquipSlot("TankCommanderHelmet", EquipType.Head))
+                {
+                    texture = mod.GetTexture("Items/Armor/TankCommander/TankCommanderHelmet_HeadSimple");
+                }
                 Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
@@ -134,6 +147,10 @@ namespace QwertysRandomContent.Items.Armor.Clay
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
+            if(player.head == mod.GetEquipSlot("TwistedDarkMask", EquipType.Head)|| player.head == mod.GetEquipSlot("DuelistHeadband", EquipType.Head))
+            {
+                headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Face"));
+            }
             if (headLayer != -1)
             {
                 Mask.visible = true;

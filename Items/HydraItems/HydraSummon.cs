@@ -11,7 +11,8 @@ namespace QwertysRandomContent.Items.HydraItems
 		{
 			DisplayName.SetDefault("Hydra Food");
 			Tooltip.SetDefault("Summons The Hydra");
-		}
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
+        }
 
 		public override void SetDefaults()
 		{

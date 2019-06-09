@@ -44,13 +44,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         const int delay = 60;
         public override bool CanUseItem(Player player)
         {
-            
+            if (player.selectedItem == 58)
+            {
+                return false;
+            }
             if (useCounter >= maxUses)
             {
                 return false;
             }
             useCounter++;
-            
+
             return true;
         }
         public override void UpdateInventory(Player player)

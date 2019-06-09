@@ -43,7 +43,7 @@ namespace QwertysRandomContent
                 return true;
             }
         }
-
+        public int age= 0;
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
             
@@ -79,7 +79,7 @@ namespace QwertysRandomContent
             }
 
         }
-
+     
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (npc.HasBuff(mod.BuffType("LuneCurse")) && crit)
@@ -88,7 +88,12 @@ namespace QwertysRandomContent
                 damage = (int)(damage * 1.5f);
 
             }
+            if(projectile.melee && projectile.minion)
+            {
+                crit = false;
+            }
         }
+        
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             if (npc.HasBuff(mod.BuffType("LuneCurse")) && crit)
@@ -98,6 +103,7 @@ namespace QwertysRandomContent
         }
         public override bool PreAI(NPC npc)
         {
+            age++;
             //Main.NewText(npc.lifeRegenExpectedLossPerSecond);
             if (npc.HasBuff(mod.BuffType("TitanicGrasp")) || npc.HasBuff(mod.BuffType("Stunned")))
             {

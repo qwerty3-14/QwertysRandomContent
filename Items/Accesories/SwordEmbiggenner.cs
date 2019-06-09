@@ -65,7 +65,7 @@ namespace QwertysRandomContent.Items.Accesories
         {
             if (!player.HeldItem.IsAir)
             {
-                if (Enlarger && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing) && player.HeldItem.melee && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
+                if (Enlarger && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101) && player.HeldItem.melee && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
                 {
                     size += 1f;
                 }

@@ -20,6 +20,15 @@ namespace QwertysRandomContent
 
                 shop.item[nextSlot].SetDefaults(mod.ItemType<Items.ConjureBone>());
                 nextSlot++;
+                if(NPC.downedBoss1)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("DuelistHeadband"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("DuelistShirt"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("DuelistPants"));
+                    nextSlot++;
+                }
 
             }
             if (type == NPCID.Cyborg)
@@ -64,6 +73,12 @@ namespace QwertysRandomContent
                     shop.item[nextSlot].SetDefaults(mod.ItemType("TankShift"));
                     nextSlot++;
                     shop.item[nextSlot].SetDefaults(mod.ItemType("MiniTankStaff"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("TankCommanderHelmet"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("TankCommanderJacket"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("TankCommanderPants"));
                     nextSlot++;
                 }
             }
@@ -122,6 +137,8 @@ namespace QwertysRandomContent
                 shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherBootsMale"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherBootsFemale"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("HighHeels"));
                 nextSlot++;
             }
         }

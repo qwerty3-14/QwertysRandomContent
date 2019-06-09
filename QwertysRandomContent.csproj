@@ -59,6 +59,7 @@
     <Compile Include="Buffs\RhuthiniumMagic.cs" />
     <Compile Include="Buffs\RhuthiniumMight.cs" />
     <Compile Include="Buffs\Rush.cs" />
+    <Compile Include="Buffs\ShieldMinion.cs" />
     <Compile Include="Buffs\SpiritCallCooldown.cs" />
     <Compile Include="Buffs\Stunned.cs" />
     <Compile Include="Buffs\ThrowReduction.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Deck.cs" />
     <Compile Include="Dusts\AncientGlow.cs" />
     <Compile Include="Dusts\BlackHoleMatter.cs" />
+    <Compile Include="Dusts\BloodforceDust.cs" />
     <Compile Include="Dusts\CaeliteDust.cs" />
     <Compile Include="Dusts\DazzleSparkle.cs" />
     <Compile Include="Dusts\DnasDust.cs" />
@@ -106,6 +108,9 @@
     <Compile Include="Items\Armor\Clay\ClayKneecaps.cs" />
     <Compile Include="Items\Armor\Clay\ClayMask.cs" />
     <Compile Include="Items\Armor\Clay\ClayPlate.cs" />
+    <Compile Include="Items\Armor\Duelist\DuelistHeadband.cs" />
+    <Compile Include="Items\Armor\Duelist\DuelistPants.cs" />
+    <Compile Include="Items\Armor\Duelist\DuelistShirt.cs" />
     <Compile Include="Items\Armor\Glass\GlassAbsorber.cs" />
     <Compile Include="Items\Armor\Glass\GlassHelm.cs" />
     <Compile Include="Items\Armor\Glass\GlassLimbguards.cs" />
@@ -132,6 +137,12 @@
     <Compile Include="Items\Armor\Shaman\ShamanBody.cs" />
     <Compile Include="Items\Armor\Shaman\ShamanHead.cs" />
     <Compile Include="Items\Armor\Shaman\ShamanLegs.cs" />
+    <Compile Include="Items\Armor\TankCommander\TankCommanderHelmet.cs" />
+    <Compile Include="Items\Armor\TankCommander\TankCommanderJacket.cs" />
+    <Compile Include="Items\Armor\TankCommander\TankCommanderPants.cs" />
+    <Compile Include="Items\Armor\TwistedDark\TwistedDarkBody.cs" />
+    <Compile Include="Items\Armor\TwistedDark\TwistedDarkLegs.cs" />
+    <Compile Include="Items\Armor\TwistedDark\TwistedDarkMask.cs" />
     <Compile Include="Items\Armor\Vargule\VarguleCharm.cs" />
     <Compile Include="Items\Armor\Vargule\VarguleChestplate.cs" />
     <Compile Include="Items\Armor\Vargule\VarguleCrown.cs" />
@@ -191,6 +202,14 @@
     <Compile Include="Items\Dyes\CustomDye2.cs" />
     <Compile Include="Items\Dyes\CustomDye3.cs" />
     <Compile Include="Items\Dyes\CustomDye4.cs" />
+    <Compile Include="Items\Etims\Etims.cs" />
+    <Compile Include="Items\Etims\EtimsSword.cs" />
+    <Compile Include="Items\Etims\EyeOfDarkness.cs" />
+    <Compile Include="Items\Etims\NoehtnapBag.cs" />
+    <Compile Include="Items\Etims\RitualInterupter.cs" />
+    <Compile Include="Items\Etims\ShieldMinionStaff.cs" />
+    <Compile Include="Items\Etims\ShotgunOfExcessiveForce.cs" />
+    <Compile Include="Items\Etims\StaffOfJob.cs" />
     <Compile Include="Items\Fan.cs" />
     <Compile Include="Items\Flashlight.cs" />
     <Compile Include="Items\FortressFurniture\FortressBathtub.cs" />
@@ -266,11 +285,16 @@
     <Compile Include="Items\TundraBossItems\PenguinLauncher.cs" />
     <Compile Include="Items\TundraBossItems\PenguinWhistle.cs" />
     <Compile Include="Items\TundraBossItems\TundraBossBag.cs" />
+    <Compile Include="Items\Vanity\HighHeels.cs" />
     <Compile Include="Items\VFan.cs" />
     <Compile Include="Items\Weapons\Cactus\BarrelCactus.cs" />
     <Compile Include="Items\Weapons\Cactus\Cactum.cs" />
     <Compile Include="Items\Weapons\Cactus\SupportCactusStaff.cs" />
     <Compile Include="Items\Weapons\ChaosRifle.cs" />
+    <Compile Include="Items\Weapons\Crimtane\BloodSeeker.cs" />
+    <Compile Include="Items\Weapons\Crimtane\BloodTuner.cs" />
+    <Compile Include="Items\Weapons\Demonite\DarkDrop.cs" />
+    <Compile Include="Items\Weapons\Demonite\PlagueFlechettes.cs" />
     <Compile Include="Items\Weapons\DungeonLoot.cs" />
     <Compile Include="Items\Weapons\Dungeon\AmuletOfPatience.cs" />
     <Compile Include="Items\Weapons\Dungeon\Aqueous.cs" />
@@ -320,6 +344,7 @@
     <Compile Include="Items\Weapons\Pumpkin\PumpkinPike.cs" />
     <Compile Include="Items\Weapons\Pumpkin\PumpkinSentryStaff.cs" />
     <Compile Include="Items\Weapons\Rhuthinium\RhuthiniumArrow.cs" />
+    <Compile Include="Items\Weapons\Rhuthinium\RhuthiniumBarrage.cs" />
     <Compile Include="Items\Weapons\SandStorm.cs" />
     <Compile Include="Items\Weapons\ShapeShifter\AnvilShift.cs" />
     <Compile Include="Items\Weapons\ShapeShifter\BunnyShift.cs" />
@@ -354,6 +379,7 @@
     <Compile Include="NPCs\Fortress\Caster.cs" />
     <Compile Include="NPCs\Fortress\Crawler.cs" />
     <Compile Include="NPCs\Fortress\FortressFlier.cs" />
+    <Compile Include="NPCs\Fortress\FortressNPCGeneral.cs" />
     <Compile Include="NPCs\Fortress\GuardTile.cs" />
     <Compile Include="NPCs\Fortress\Hopper.cs" />
     <Compile Include="NPCs\Fortress\Swarmer.cs" />
@@ -506,6 +532,7 @@
     <Compile Include="QwertysRandomContent.cs" />
     <Compile Include="QwertyWorld.cs" />
     <Compile Include="ShapeShifter.cs" />
+    <Compile Include="Silhouette.cs" />
     <Compile Include="SkyFortress.cs" />
     <Compile Include="Sounds\SoundEffects\PUNCH.cs" />
     <Compile Include="Stuff.cs" />
@@ -609,6 +636,8 @@
     <Content Include="Items\Armor\Clay\ClayPlate.png" />
     <Content Include="Items\Armor\Clay\ClayPlate_Arms.png" />
     <Content Include="Items\Armor\Clay\ClayPlate_Body.png" />
+    <Content Include="Items\Armor\Duelist\DuelistPants.png" />
+    <Content Include="Items\Armor\Duelist\DuelistPants_Legs.png" />
     <Content Include="Items\Armor\Glass\GlassAbsorber.png" />
     <Content Include="Items\Armor\Glass\GlassAbsorber_Arms.png" />
     <Content Include="Items\Armor\Glass\GlassAbsorber_Body.png" />
@@ -696,6 +725,12 @@
     <Content Include="Items\Armor\Shaman\ShamanBody_Arms.png" />
     <Content Include="Items\Armor\Shaman\ShamanBody_Body.png" />
     <Content Include="Items\Armor\Shaman\ShamanLegs_Legs.png" />
+    <Content Include="Items\Armor\TankCommander\TankCommanderHelmet.png" />
+    <Content Include="Items\Armor\TankCommander\TankCommanderHelmet_Head.png" />
+    <Content Include="Items\Armor\TankCommander\TankCommanderHelmet_HeadSimple.png" />
+    <Content Include="Items\Armor\TwistedDark\TwistedDarkLegs.png" />
+    <Content Include="Items\Armor\TwistedDark\TwistedDarkLegs_FemaleLegs.png" />
+    <Content Include="Items\Armor\TwistedDark\TwistedDarkLegs_Legs.png" />
     <Content Include="Items\Armor\Vargule\VarguleCharm.png" />
     <Content Include="Items\Armor\Vargule\VarguleCharm_Head.png" />
     <Content Include="Items\Armor\Vargule\VarguleChestplate.png" />
@@ -774,6 +809,7 @@
     <Content Include="Items\DevItems\ShockedHorizon\DragonScale_Arms.png" />
     <Content Include="Items\DevItems\SUS\SUSsFishbowl.png" />
     <Content Include="Items\DevItems\SUS\SUSsFishbowl_Head.png" />
+    <Content Include="Items\Etims\ShotgunOfExcessiveForce.png" />
     <Content Include="Items\FortressFurniture\FortressClock.png" />
     <Content Include="Items\FortressFurniture\FortressDoor.png" />
     <Content Include="Items\FortressFurniture\FortressDresser.png" />
@@ -801,6 +837,9 @@
     <Content Include="Items\Weapons\Cactus\CactusNeedle.png" />
     <Content Include="Items\Weapons\Cactus\CactusNeedleP.png" />
     <Content Include="Items\Weapons\Cactus\SupportCactus.png" />
+    <Content Include="Items\Weapons\Crimtane\BloodTuner.png" />
+    <Content Include="Items\Weapons\Demonite\DarkDrop.png" />
+    <Content Include="Items\Weapons\Demonite\DarkDropP.png" />
     <Content Include="Items\Weapons\Dungeon\Riptide.png" />
     <Content Include="Items\Weapons\Dungeon\RiptideP.png" />
     <Content Include="Items\Weapons\Glass\GlassBlade.png" />

@@ -3,16 +3,16 @@ I have a forum page and discord server for the mod where you can read up on the 
 Also working on a wiki
 
 Includes
--7 bosses with custom AI!
+-8 bosses with custom AI!
 -A new sky fortress biome/strucutre with randomised layouts, and new enemeis with custom AI!
 -A new event the dino militia!
 -28 new accesory prefixes!
 -over 340 items total! including...
--9 armor sets
+-12 armor sets
 -LOADS of cool and unique weapons!
 -Diverse melee weapons with a mix of swords, spears,  boomerangs, and yoyos instead of just a bunch of projectile swords like in some other mods.
 -9 new arrows and 6 new bullets giving rangers much more to play with on top of the ranged weapons added!
--plenty of magic weapons to shoot interesting projectiles in interesting ways!
+-Plenty of magic weapons to shoot interesting projectiles in interesting ways!
 -A bunch of new summons with unique AIs and quirks to make them feel fresh from the vanilla clones of other mods!
 -More throwing weapons, currently gets up to early hardmode more throwing weapons are planned!
 -A new 'shapeshifter' class! (WIP)
@@ -38,6 +38,43 @@ Extra thanks
 
 
 changelog
+0.19.0 The update that took way too long
+
+-added a new boss Noehtnap and drops
+
+-added 3 new armor sets
+-Etimsic: pure shapeshifter 
+-duelist: melee shapeshifter hybrid
+-tank commander: summon shapeshifter hybrid
+
+-added Shape Shift: Rhuthinium Barrage
+
+-fixed ring of guns general buggyness
+-lune crestplate's set bonus is now activated via 'yet another special ability key' instead of double right click
+-Recoded the bloody medalion greatly reducing its general buggyness and more
+-The O.L.O.R.D. hired its own camera man  
+
+
+
+0.18.4
+-Fixed Antiaris mod causeing hydra to be unkillabe
+-Hydra heads now have more halth but the number of heads killed needed to defeat hydra has been reduced (even without the bug it got ridiculus)
+
+0.18.3
+-fixed bug where game would crash when hovering over a vanilla summon
+-fixed velocichopper spamming chat with debug messages in multiplayer
+-fixed vargule megashot
+
+0.18.2
+-aadded dark drop
+-added blood tuner
+-added plague flechettes
+-added blood seeker
+
+-fixed Dnas dust not disobeying gravity
+-fixed summons from the mod having a '1 minute duration'
+-fixed minion fang allowing minions to crit
+
 0.18.1
 -redid hydra AI
 -fixed the hydra beam weapon

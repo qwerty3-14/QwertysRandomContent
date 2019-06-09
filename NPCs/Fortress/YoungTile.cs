@@ -97,7 +97,8 @@ namespace QwertysRandomContent.NPCs.Fortress
         bool runOnce=true;
         public override void AI()
         {
-            if(runOnce )
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
+            if (runOnce )
             {
                 if (npc.ai[3] == 0)
                 {

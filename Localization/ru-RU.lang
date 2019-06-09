@@ -421,7 +421,21 @@ ItemName.CactusNeedle=Игла кактуса
 ItemName.ShamanBody=Боевой доспех шамана
 ItemName.ShamanLegs=Штаны шамана
 ItemName.ShamanHead=Шаманский череп
-
+ItemName.Etims=Жертвенный материал
+ItemName.EtimsSword=Жертвенный меч
+ItemName.ShieldMinionStaff=Посох щитового прислужника
+ItemName.ShotgunOfExcessiveForce=Дробовик чрезмерной силы
+ItemName.StaffOfJob=Посох страданий
+ItemName.DuelistHeadband=Повязка дуэлянта
+ItemName.DuelistPants=Штаны дуэлянта
+ItemName.DuelistShirt=Рубашка дуэлянта
+ItemName.TankCommanderHelmet=Шлем командира танка
+ItemName.TankCommanderJacket=Униформа командира танка
+ItemName.TankCommanderPants=Штаны командира танка
+ItemName.TwistedDarkBody=Искажённо тёмный нагрудник
+ItemName.TwistedDarkLegs=Искажённо тёмные роба
+ItemName.TwistedDarkMask=Искажённо тёмная маска
+ItemName.
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -460,6 +474,11 @@ ProjectileName.SnowFlake=Снежинка
 ProjectileName.AncientMissile=Древняя ракета
 ProjectileName.BlackHole=Чёрная дыра
 ProjectileName.GlassSpike=Стеклянный шип
+ProjectileName.Cloak=Тёмный покров
+ProjectileName.Tripwire=Растяжка
+ProjectileName.Cannon=Пушка
+ProjectileName.
+
 
 
 NPC
@@ -505,7 +524,8 @@ NPCName.OLORDv2=О.Л.О.Р.Д
 NPCName.BladeMinion=Великий III
 NPCName.Swarmer=Крепостной светляк
 NPCName.Swarm=Рой светляков
-
+NPCName.CloakedDarkBoss=Живая тьма
+NPCName.Cannon=Пушка
 
 
 
@@ -864,3 +884,13 @@ ItemTooltip.BarrelCactus=Катись как бочка!\nОтскакивает
 ItemTooltip.ShamanBody=3% увеличение урона миньонов и вероятность критического удара в ближнем бою\n+1 макс прислужник\n14% увеличение скорости ближнего боя
 ItemTooltip.ShamanLegs=2% увеличение урона миньонов и вероятность критического удара в ближнем бою\n+1 макс турелей\nАтака в ближнем бою наложит на врагов гниение\nГниение уменьшает урон и защиту врага
 ItemTooltip.ShamanHead=2% увеличение урона миньонов и вероятность критического удара в ближнем бою\nДлительность действия флаконов увеличивается
+ItemTooltip.DuelistHeadband=Постоянно атакуя того же врага атаками ближнего боя увеличивает урон, наносимый этому врагу\nсбрасывается при переключении целей \n6%  сокращает время восстановления быстрых превращений
+ItemTooltip.DuelistPants=Атаки ближнего боя уменьшают перезарядку быстрых превращений \n4% Увеличенный урон ближнего боя
+ItemTooltip.DuelistShirt=Постоянно атакуя врага в ближнем бою уменьшается урон получаемый этим врагом\сбрасывается при переключении целей\n7% увеличенный шанс крита ближнего боя и превращений
+ItemTooltip.TankCommanderHelmet=+1 макс прислужников\nПРевращаясь вы иногда будете получать воздушную поддержку
+ItemTooltip.TankCommanderJacket=+1 макс прислужников\n7% Увеличение урона оборотаня и ближнего боя и шанс крита
+ItemTooltip.TankCommanderPants=Прислужники наносят на 20% урона когда вы в другом облике\nВ облике танка вы можете лететь на короткие расстояния
+ItemTooltip.TwistedDarkBody=Эффект изумрудного глаза\nБлагословение глаза сохраняет бонусы маски и робы
+ItemTooltip.TwistedDarkLegs=Увеличивается урон оборотня пока ты в чьём то облике Макс: 30% +
+ItemTooltip.TwistedDarkMask=Увеличивается крит урон оборотня пока вы в чьём то облике Макс: 30% +
+

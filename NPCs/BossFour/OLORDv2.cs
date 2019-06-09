@@ -263,6 +263,8 @@ namespace QwertysRandomContent.NPCs.BossFour
                 }
                 if (timer > 300)
                 {
+                    player.GetModPlayer<OLORDScreenLock>().screenLock = npc.whoAmI;
+                    
                     activeWalls = true;
                     npc.velocity = Vector2.Zero;
                     if (player.Center.Y - npc.Center.Y > 1000)
@@ -922,6 +924,9 @@ namespace QwertysRandomContent.NPCs.BossFour
             else
             {
                 AtMaxCharge = true;
+               
+                   
+                
             }
 
             int chargeFact = (int)(Charge / 20f);
@@ -1211,6 +1216,8 @@ namespace QwertysRandomContent.NPCs.BossFour
 
 
             if (Charge < MaxChargeValue) return;
+
+            Main.LocalPlayer.GetModPlayer<OLORDScreenLock>().shake = true;
             Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
             Vector2 unit = projectile.velocity;
             unit *= -1;
@@ -1345,5 +1352,33 @@ namespace QwertysRandomContent.NPCs.BossFour
             Utils.PlotTileLine(projectile.Center, projectile.Center + unit * Distance, (projectile.width + 16) * projectile.scale, DelegateMethods.CutTiles);
         }
     }
-
+    public class OLORDScreenLock : ModPlayer
+    {
+        public int screenLock = -1;
+        public bool shake = false;
+        public override void ResetEffects()
+        {
+            screenLock = -1;
+            shake = false;
+        }
+        public override void ModifyScreenPosition()
+        {
+            if(screenLock != -1 && player.active && player.statLife >0)
+            {
+                NPC OLORD = Main.npc[screenLock];
+                if(OLORD.active)
+                {
+                    Main.screenPosition.X = OLORD.Center.X - Main.screenWidth / 2;
+                    Main.screenPosition.Y = OLORD.position.Y - 100;
+                    
+                }
+               
+            }
+            if (shake)
+            {
+                Main.screenPosition.X += Main.rand.Next(-20, 21);
+                Main.screenPosition.Y += Main.rand.Next(-20, 21);
+            }
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace QwertysRandomContent
@@ -73,5 +74,23 @@ namespace QwertysRandomContent
                 return true;
             }
         }
+        
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            if (item.type > ItemID.Count &&item.summon && item.modItem.mod.Name == "QwertysRandomContent")
+            {
+                foreach (TooltipLine line in tooltips) //runs through all tooltip lines
+                {
+                    if (line.mod == "Terraria" && line.Name == "BuffTime") //this checks if it's the line we're interested in
+                    {
+                        //tooltips.Remove(line);
+                        line.text = "";
+                    }
+
+                }
+            }
+            
+        }
+        
     }
 }

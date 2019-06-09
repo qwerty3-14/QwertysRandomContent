@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Items.Accesories;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -59,13 +61,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         float radius = 125;
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
+            
+            
             position = Main.MouseWorld;
             for (int n = 0; n < 6; n++)
             {
                 gun = Main.projectile[Projectile.NewProjectile(Main.MouseWorld.X + (float)Math.Cos((float)(n * Math.PI / 3f)) * radius, Main.MouseWorld.Y + (float)Math.Sin((float)(n * Math.PI / 3f)) * radius, 0, 0, mod.ProjectileType("RingGun"), damage, knockBack, player.whoAmI)];
                 gun.ai[1] = n;
             }
+            
+            
             return false;
         }
 
@@ -132,7 +137,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
            
             Player player = Main.player[projectile.owner];
-            //player.itemAnimation = 2;
+            player.itemAnimation = 2;
+            player.itemTime = 2;
             bool firing = player.channel && player.HasAmmo(GetReference(95), true) && !player.noItems && !player.CCed ;
             int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             int Ammo = 14;
@@ -156,8 +162,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 if (reloadTimer % 15 == 0)
                 {
                     player.PickAmmo(GetReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
-                    if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), true))
+                    if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), !player.GetModPlayer<BloodMedalionEffect>(mod).effect))
                     {
+                        if(player.GetModPlayer<BloodMedalionEffect>(mod).effect)
+                        {
+                            player.statLife -= (int)(player.inventory[player.selectedItem].mana / 6f * player.manaCost);
+                            if (player.statLife <= 0)
+                            {
+                                player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " madly drained " + (player.Male ? "his " : "her") + " lifeforce!"), (int)(player.inventory[player.selectedItem].mana * player.manaCost), 0);
+                            }
+                        }
                         player.manaRegenDelay = (int)player.maxRegenDelay;
                         Main.PlaySound(SoundID.Item11);
                         
@@ -169,12 +183,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                             QwertysRandomContent.UpdateProjectileClass(bul);
                         }
                     }
+                   
                     
                 }
             }
             else
             {
-                projectile.Kill();
+                
             }
         }
         

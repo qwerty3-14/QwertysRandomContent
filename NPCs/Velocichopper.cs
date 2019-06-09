@@ -181,7 +181,7 @@ namespace QwertysRandomContent.NPCs
                 Vector2 moveTo = new Vector2(player.Center.X - (300f * npc.direction), player.Center.Y + -300f) - npc.Center;
                 npc.velocity = (moveTo) * .03f;
             }
-            QwertyMethods.ServerClientCheck(AI_Timer);
+           
         }
         
         public override void SendExtraAI(BinaryWriter writer)

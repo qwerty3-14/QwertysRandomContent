@@ -11,7 +11,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
 		{
 			DisplayName.SetDefault("Icon of the Conqueror");
 			Tooltip.SetDefault("Summons Imperious");
-		}
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
+        }
 
 		public override void SetDefaults()
 		{

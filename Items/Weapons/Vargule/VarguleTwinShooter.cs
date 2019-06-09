@@ -60,9 +60,9 @@ namespace QwertysRandomContent.Items.Weapons.Vargule
 
             for (int s = -5; s <= 5; s++)
             {
-                Vector2 normalizedSpeed = new Vector2(speedX, speedY).SafeNormalize(-Vector2.UnitY);
+                
                 float direction = new Vector2(speedX, speedY).ToRotation();
-                Vector2 shiftedPosition = new Vector2(position.X + (float)Math.Cos(direction + Math.PI / 2), position.Y + (float)Math.Sin(direction + Math.PI / 2)) * s * 2;
+                Vector2 shiftedPosition = new Vector2(position.X + (float)Math.Cos(direction + Math.PI / 2) * s * 2, position.Y + (float)Math.Sin(direction + Math.PI / 2) * s * 2) ;
                 Projectile.NewProjectile(shiftedPosition.X, shiftedPosition.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 
             }

@@ -10,7 +10,8 @@ namespace QwertysRandomContent.Items.Fortress
 		{
 			DisplayName.SetDefault("Pendant of the sky god");
 			Tooltip.SetDefault("Can be used at the altar");
-		}
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
+        }
 		
 		public override void SetDefaults()
 		{

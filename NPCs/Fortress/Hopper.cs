@@ -101,7 +101,8 @@ namespace QwertysRandomContent.NPCs.Fortress
         bool flipped = false;
         public override void AI()
         {
-            if(runOnce)
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
+            if (runOnce)
             {
                 switch(Main.rand.Next(3))
                 {

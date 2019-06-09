@@ -58,7 +58,7 @@ namespace QwertysRandomContent
         public int hyperRuneTimer=0;
         public bool hyperRune = false;
         public bool noRegen = false;
-        public bool bloodyMedalion = false;
+        
         public bool cantUse = false;
         public bool blessedMedalion = false;
         public Projectile signalRune;
@@ -83,6 +83,7 @@ namespace QwertysRandomContent
         public int forcedAntiGravity = 0;
         public bool GlassSpike = false;
         public bool SpaceFighter = false;
+        public bool ShieldMinion = false;
         //public Vector2[] LocalCursor = new Vector2[Main.player.Length];
         public override void ResetEffects()
         {
@@ -118,7 +119,7 @@ namespace QwertysRandomContent
             customDashBonusSpeed = 0;
             hyperRune = false;
             noRegen = false;
-            bloodyMedalion = false;
+           
             cantUse = false;
             blessedMedalion = false;
             rangedVelocity = 1f;
@@ -140,6 +141,7 @@ namespace QwertysRandomContent
             miniTank = false;
             GlassSpike = false;
             SpaceFighter = false;
+            ShieldMinion = false;
             if (!player.channel)
             {
                 shotNumber = 0;
@@ -181,17 +183,7 @@ namespace QwertysRandomContent
             }
             
 		}
-        /*
-        public override bool PreItemCheck()
-        {
-
-            if(player.inventory[player.selectedItem].ranged)
-            {
-                player.inventory[player.selectedItem].shootSpeed *= rangedVelocity;
-            }
-            return true;
-        }
-        */
+      
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             base.ModifyDrawHeadLayers(layers);
@@ -304,7 +296,8 @@ namespace QwertysRandomContent
         
         public override void PreUpdate()
         {
-            if(Main.myPlayer == player.whoAmI)
+            
+            if (Main.myPlayer == player.whoAmI)
             {
                 //QwertyMethods.ServerClientCheck(Main.myPlayer);
                 QwertysRandomContent.LocalCursor[Main.myPlayer] = Main.MouseWorld;
@@ -450,15 +443,7 @@ namespace QwertysRandomContent
             {
                 customDashSpeedMovement();
             }
-            if (bloodyMedalion)
-            {
-                if (player.inventory[player.selectedItem].mana >= player.statLife)
-                {
-                    cantUse = true;
-                    
-                }
-
-            }
+           
 
 
         }
@@ -960,7 +945,7 @@ namespace QwertysRandomContent
                         {
                             NPC nPC = Main.npc[i];
                             Rectangle rect = nPC.getRect();
-                            if (rectangle.Intersects(rect) && (nPC.noTileCollide || player.CanHit(nPC)))
+                            if (rectangle.Intersects(rect) && (nPC.noTileCollide || player.CanHit(nPC) && nPC.type != mod.NPCType("Hydra")))
                             {
                                 float num = customDashRam * player.meleeDamage;
                                 float num2 = 9f;

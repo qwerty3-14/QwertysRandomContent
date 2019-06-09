@@ -12,7 +12,8 @@ namespace QwertysRandomContent.Items.AncientItems
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Summons The Ancient Machine");
-		}
+            ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
+        }
 
 		public override void SetDefaults()
 		{

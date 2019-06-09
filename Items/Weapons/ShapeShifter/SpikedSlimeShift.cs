@@ -56,6 +56,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override bool CanUseItem(Player player)
         {
+            player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
@@ -288,7 +289,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
     {
         public override void NPCLoot(NPC npc)
         {
-            if (npc.type == NPCID.EyeofCthulhu && Main.rand.Next(3) == 0 && !Main.expertMode)
+            if (npc.type == NPCID.KingSlime && Main.rand.Next(3) == 0 && !Main.expertMode)
             {
                 Item.NewItem(npc.Hitbox, mod.ItemType("SpikedSlimeShift"));
             }

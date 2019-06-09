@@ -90,7 +90,7 @@ namespace QwertysRandomContent.Items.B4Items
             projectile.tileCollide = true;
             projectile.usesLocalNPCImmunity = true;
             projectile.light = 1f;
-
+            
         }
         public bool runOnce = true;
         int frameTimer;

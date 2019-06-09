@@ -70,6 +70,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         bool castingFrames;
         public override void AI()
         {
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             timer++;
             npc.TargetClosest(true);
             npc.spriteDirection = npc.direction;

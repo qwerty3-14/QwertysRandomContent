@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameInput;
 
 namespace QwertysRandomContent.Items.Armor.Lune
 {
@@ -92,6 +93,23 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
 
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            String s = "Please go to conrols and bind the 'Yet another special ability key'";
+            foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
+            {
+                s = "Set Bonus: Shoot the moon!" + "\nPress the " + key +" key to summon a moon"+ "\nRanged attacks shot through the moon will be boosted";
+
+            }
+            foreach (TooltipLine line in tooltips) //runs through all tooltip lines
+            {
+                if (line.mod == "Terraria" && line.Name == "SetBonus") //this checks if it's the line we're interested in
+                {
+                    line.text = s;//change tooltip
+                }
+
+            }
+        }
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
             drawArms = true;
@@ -163,58 +181,29 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
             setBonus = false;
         }
-        int num;
-        public int rightclickTimer;
-        bool resetRTimer;
+       
         public bool justSummonedMoon;
-        public override void PreUpdate()
+        public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
         {
             justSummonedMoon = false;
-            if (Main.mouseRight && Main.mouseRightRelease)
+            if (QwertysRandomContent.YetAnotherSpecialAbility.JustPressed) //hotkey is pressed
             {
-
-
-                if (rightclickTimer > 0)
+                if (setBonus)
                 {
-
-                    //Main.NewText("Double tap!");
-                    rightclickTimer = 0;
-                    if(setBonus)
+                    if (player.HasBuff(mod.BuffType("MoonCooldown")))
                     {
-                        if (player.HasBuff(mod.BuffType("MoonCooldown")))
-                        {
 
-                        }
-                        else
-                        {
-                            Projectile.NewProjectile(Main.MouseWorld, new Vector2(0, 0), mod.ProjectileType("MoonTarget"), 0, 0, player.whoAmI, 0, 0);
-                            player.AddBuff(mod.BuffType("MoonCooldown"), 3 * 60);
-                            justSummonedMoon = true;
-                        }
+                    }
+                    else
+                    {
+                        Projectile.NewProjectile(Main.MouseWorld, new Vector2(0, 0), mod.ProjectileType("MoonTarget"), 0, 0, player.whoAmI, 0, 0);
+                        player.AddBuff(mod.BuffType("MoonCooldown"), 3 * 60);
+                        justSummonedMoon = true;
                     }
                 }
             }
-            if (rightclickTimer > 0)
-            {
-                rightclickTimer--;
-                //Main.NewText(rightclickTimer);
-            }
-            if (Main.mouseRight && resetRTimer)
-            {
-                //Main.NewText("Double tap!");
-                
-                    rightclickTimer = 15;
-                
-                resetRTimer = false;
-            }
-            else if(!Main.mouseRight)
-            {
-                resetRTimer = true;
-            }
-
-            
-
         }
+        
 
 
     }
@@ -252,6 +241,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             if (runOnce)
             {
                 shader = player.ArmorSetDye();
+                //Main.NewText(shader);
                 runOnce = false;
             }
             //Main.NewText(projectile.timeLeft + ", " + player.ArmorSetDye());
@@ -270,7 +260,6 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 {
                     Main.projectile[i].GetGlobalProjectile<moonBoost>(mod).boosted = true;
                 }
-
             }
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)

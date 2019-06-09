@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Items.AncientItems
 			item.damage = 18;
 			item.melee = true;
 			
-			item.useTime = 35;
+			item.useTime = 1;
 			item.useAnimation = 35;
 			item.useStyle = 1;
 			item.knockBack = 5;
@@ -66,16 +66,16 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			int numberProjectiles = 8 + Main.rand.Next(6); 
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15)); // 30 degree spread.
-				// If you want to randomize the speed to stagger the projectiles
-				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				perturbedSpeed = perturbedSpeed * scale; 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-			}
-			return false; // return false because we don't want tmodloader to shoot projectile
+            float outAmount = 10f;
+            float direction = new Vector2(speedX, speedY).ToRotation();
+            position += new Vector2((float)Math.Cos(direction), (float)Math.Sin(direction)) * outAmount;
+            int percentage = (int)(player.itemAnimationMax * .1f);
+            if(player.itemAnimation == player.itemAnimationMax- percentage || player.itemAnimation == player.itemAnimationMax - 2 * percentage || player.itemAnimation == player.itemAnimationMax - 3* percentage)
+            {
+                return true;
+            }
+            return false;
+            
 		}
 		
 		

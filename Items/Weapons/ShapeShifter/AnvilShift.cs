@@ -44,6 +44,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
 
             player.AddBuff(mod.BuffType("MorphSickness"), 0);
+          
 
             return base.CanUseItem(player);
         }

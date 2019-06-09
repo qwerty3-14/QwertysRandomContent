@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.NPCs.CloakedDarkBoss;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,6 +39,8 @@ namespace QwertysRandomContent
         public bool EyeEquiped = false;
         public bool glassCannon = false;
         public bool hovercraft = false;
+        public bool TwistedDarkSetBonus = false;
+        bool healMe = false;
         public override void ResetEffects()
         {
             ResetVariables();
@@ -63,6 +66,19 @@ namespace QwertysRandomContent
                 }
             }
         }
+        public void justStableMorphed()
+        {
+            
+            if(EyeBlessing && TwistedDarkSetBonus)
+            {
+                
+                player.statLifeMax2 += 100;
+              
+                healMe = true;
+
+
+            }
+        }
         private void ResetVariables()
         {
             if (!drawTankCannon && !glassCannon && ! hovercraft)
@@ -84,14 +100,21 @@ namespace QwertysRandomContent
             {
                 EyeBlessing = false;
             }
-            EyeEquiped = false;
             
+            EyeEquiped = false;
+            TwistedDarkSetBonus = false;
+
         }
         public override void PreUpdate()
         {
             
             //player.gravControl2 = true;
-            
+            if(healMe)
+            {
+                player.statLife += 100;
+                player.HealEffect(100, true);
+                healMe = false;
+            }
             if (!player.HeldItem.IsAir)
             {
                // Main.NewText(player.HeldItem.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier);
@@ -218,14 +241,13 @@ namespace QwertysRandomContent
         });
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-            //layers.Insert(4, MorphLayer);
-
             if (noDraw)
             {
                 foreach (PlayerLayer l in layers)
                 {
-
-                    if (l.Name.Equals("MountBack"))
+                    //Main.NewText(l.Name);
+                    
+                    if (l.Name.Equals("MountBack") || l.Name.Equals("cl"))
                     {
                         l.visible = true;
 
@@ -250,9 +272,6 @@ namespace QwertysRandomContent
                 }
                 
             }
-
-
-
 
         }
         public override void PostUpdate()

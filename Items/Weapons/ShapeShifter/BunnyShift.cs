@@ -42,8 +42,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override bool CanUseItem(Player player)
         {
+            player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
+                
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
             }
             else

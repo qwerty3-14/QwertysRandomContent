@@ -44,7 +44,8 @@ namespace QwertysRandomContent.NPCs.Fortress
         int totalCount;
         public override void AI()
         {
-            if(Main.expertMode)
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
+            if (Main.expertMode)
             {
                 npc.lifeMax = 20;
                 npc.damage = 30;

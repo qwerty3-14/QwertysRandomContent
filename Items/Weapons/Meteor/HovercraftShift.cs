@@ -42,7 +42,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
         }
         public override bool CanUseItem(Player player)
         {
-
+            player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;

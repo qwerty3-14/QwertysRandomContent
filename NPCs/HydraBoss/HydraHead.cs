@@ -36,7 +36,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             npc.dontTakeDamage = false;
             npc.noTileCollide = true;
             npc.rotation = (float)Math.PI / 2;
-            npc.lifeMax = 1000;
+            npc.lifeMax = 2000;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/BeastOfThreeHeads");
 
         }
@@ -310,7 +310,8 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
                 else
                 {
-                    Body.dontTakeDamage = true;
+                    //Body.dontTakeDamage = true;
+                    Body.ai[3]++;
                 }
                 
                 for (int h = 0; h < 2; h++)

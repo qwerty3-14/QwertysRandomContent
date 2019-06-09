@@ -22,7 +22,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             npc.damage = 0;
             npc.defense = 18;
             npc.boss = true;
-           
+
             npc.value = 60f;
             npc.knockBackResist = 40;
             npc.aiStyle = -1;
@@ -32,9 +32,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             //npc.dontTakeDamage = true;
             npc.noTileCollide = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/BeastOfThreeHeads");
-            npc.lifeMax = 20;
+            npc.lifeMax = 12;
             bossBag = mod.ItemType("HydraBag");
-          npc.immortal = true;
+            npc.immortal = true;
 
         }
         public override bool? CanBeHitByItem(Player player, Item item)
@@ -49,7 +49,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         {
             return false;
         }
-        
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
@@ -78,7 +78,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
-       
+
 
 
 
@@ -87,8 +87,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         public override bool PreAI()
         {
             Player player = Main.player[npc.target];
-            if (npc.dontTakeDamage)
+            if (npc.ai[3] > 0)
             {
+                npc.dontTakeDamage = true;
                 npc.velocity = new Vector2(0, -10);
                 if ((player.Center - npc.Center).Length() > 1000f)
                 {
@@ -105,21 +106,22 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                     }
                 }
             }
-           
-            return !npc.dontTakeDamage;
+
+            return !(npc.ai[3]>0);
         }
         public override void AI()
         {
+            
             if (runOnce)
             {
                 if (Main.expertMode)
                 {
-                    
+
                     for (int p = 0; p < Main.player.Length; p++)
                     {
                         if (Main.player[p].active)
                         {
-                            npc.lifeMax += 5;
+                            npc.lifeMax += 3;
                         }
                     }
                     npc.life = npc.lifeMax;
@@ -165,9 +167,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             Vector2 moveTo = target - npc.Center;
 
             npc.velocity = (moveTo) * .04f;
-            
-            
-            
+
+
+
 
 
         }
@@ -201,19 +203,19 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 npc.frameCounter = 0;
             }
         }
-       
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-           
-            
-            
+
+
+
             return false;
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            
+
         }
-        
+
         public override void NPCLoot()
         {
             QwertyWorld.downedhydra = true;
@@ -230,50 +232,31 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 if (Main.expertMode)
                 {
                     //npc.DropBossBags();
-                    
+
                     if (Main.netMode == 0)
                     {
                         npc.DropBossBags();
                     }
                     else
                     {
-                    npc.value = 0f;
+                        npc.value = 0f;
                         for (int i = 0; i < 200; i++)
                         {
-                            if(Main.player[i].active)
+                            if (Main.player[i].active)
                             {
                                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraBag"));
                             }
                         }
 
                     }
-                    
-                    /*
-                        if (Main.netMode == 2)
-                        {
-                            int num = Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraBag"));
-                            Main.itemLockoutTime[num] = 54000;
-                            for (int i = 0; i < 255; i++)
-                            {
-                                if (Main.player[i].active)
-                                {
-                                    NetMessage.SendData(90, i, -1, null, num, 0f, 0f, 0f, 0, 0, 0);
-                                }
-                            }
-                            Main.item[num].active = false;
-                        }
-                        else if (Main.netMode == 0)
-                        {
-                            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraBag"));
-                        }
-                        */
 
 
 
 
 
 
-        }
+
+                }
                 else
                 {
 

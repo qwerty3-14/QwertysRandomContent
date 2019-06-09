@@ -516,12 +516,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             QwertyWorld.downedAncient = true;
             if (Main.netMode == NetmodeID.Server)
-                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-
-           
-           
-            
-
+                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
 
             if (Main.expertMode)
             {
@@ -529,21 +524,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             }
             else
             {
-                int numOfWeapons = 2;
-                int weaponPoolCount = 8;
-                int[] weaponLoot = new int[numOfWeapons];
-                for (int n = 0; n < numOfWeapons; n++)
-                {
-                    weaponLoot[n] = Main.rand.Next(weaponPoolCount - n);
-                    for (int j = 0; j < n; j++)
-                    {
-                        if (weaponLoot[n] >= weaponLoot[j])
-                        {
-                            weaponLoot[n]++;
-                        }
-                        Array.Sort(weaponLoot);
-                    }
-                }
+               
                 string[] loot = QwertysRandomContent.AMLoot.Draw(2);
 
                 foreach (string item in loot)

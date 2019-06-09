@@ -71,7 +71,8 @@ namespace QwertysRandomContent.NPCs.Fortress
         int attackTimer;
         public override void AI() //this will run every frame
         {
-            if(runOnce)
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
+            if (runOnce)
             {
                 //I put stuff here I want to only run once
                 runOnce = false;

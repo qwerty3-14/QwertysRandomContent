@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Localization;
 using System.IO;
+using QwertysRandomContent.NPCs.Fortress;
 
 namespace QwertysRandomContent.NPCs.FortressBoss
 {
@@ -141,7 +142,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         float dps = 0;
         public override void AI()
         {
-            
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             Lighting.AddLight(npc.Center, new Vector3(1.2f, 1.2f, 1.2f));
             if(npc.life> npc.lifeMax)
             {

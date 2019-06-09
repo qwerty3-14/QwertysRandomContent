@@ -98,7 +98,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         public override void AI()
         {
 
-           
+            npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             if (npc.ai[0] == 0f)
             {
                 npc.TargetClosest(true);

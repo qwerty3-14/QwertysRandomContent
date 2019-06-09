@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Items.Armor.TankCommander;
+using Terraria.Graphics.Shaders;
 
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
@@ -42,7 +44,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override bool CanUseItem(Player player)
         {
-
+            player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
@@ -141,6 +143,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             controlled = false;
         }
         int shotCooldown = 0;
+        float flightTime = 0;
         public override void PostUpdateMiscEffects()
         {
             if(controlled)
@@ -192,6 +195,49 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 {
                     shotCooldown = 26;
                     Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(112, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), mod.ProjectileType("TankCannonBallFreindly"), (int)(TankShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), TankShift.kb, player.whoAmI);
+                }
+                
+                if(player.controlJump && player.GetModPlayer<TankComPantsEffects>().effect && flightTime <120)
+                {
+                    Main.PlaySound(SoundID.Item24, player.position);
+                    if (player.velocity.Y > -2)
+                    {
+                        player.velocity.Y = -2f;
+                        flightTime++;
+                    }
+                    for (int num104 = 0; num104 < 2; num104++)
+                    {
+                        int type3 = 6;
+                        float scale2 = 2.5f;
+                        int alpha2 = 100;
+
+
+                        if (num104 == 0)
+                        {
+                            int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width/2 -15) *player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
+                            Main.dust[num105].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+                            Main.dust[num105].noGravity = true;
+                           
+                            Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+
+                        }
+                        else
+                        {
+                            int num106 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15)  * -player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
+                            Main.dust[num106].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+
+                            Main.dust[num106].noGravity = true;
+
+                            
+                            Main.dust[num106].velocity.Y = Main.dust[num106].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+
+                        }
+                    }
+                }
+
+                if(player.velocity.Y ==0 && player.oldVelocity.Y ==0)
+                {
+                    flightTime = 0;
                 }
             }
         }

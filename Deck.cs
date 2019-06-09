@@ -54,5 +54,19 @@ namespace QwertysRandomContent
             return selection;
 
         }
+        public void Shuffle()
+        {
+            Deck<F> g = new Deck<F>();
+            while(Count>0)
+            {
+                int r = Main.rand.Next(Count);
+                g.Add(this[r]);
+                RemoveAt(r);
+            }
+            foreach(F item in g)
+            {
+                Add(item);
+            }
+        }
     }
 }
