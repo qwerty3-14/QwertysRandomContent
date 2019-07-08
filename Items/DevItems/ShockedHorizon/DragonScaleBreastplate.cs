@@ -9,7 +9,7 @@ namespace QwertysRandomContent.Items.DevItems.ShockedHorizon
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("DragonScale Chestplate");
+			DisplayName.SetDefault("Dragonscale Chestplate");
 			Tooltip.SetDefault("Good for shocking the horizons" + "\nDev Item");
 			
 		}

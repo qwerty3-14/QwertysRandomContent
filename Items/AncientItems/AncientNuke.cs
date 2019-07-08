@@ -192,7 +192,6 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.penetrate = -1;
-            projectile.magic = true;
             projectile.tileCollide = false;
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;

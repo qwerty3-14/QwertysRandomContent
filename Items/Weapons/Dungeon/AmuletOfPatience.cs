@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Amulet Of Patience");
-            Tooltip.SetDefault("If it's been a while since you dealt throwing damage you'll deal more damage on your next throwing attack");
+            Tooltip.SetDefault("Deal more throwing damage if you do not deal throwing damage for a while");
 
         }
 

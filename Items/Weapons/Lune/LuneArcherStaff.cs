@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lune Archer Staff");
-			Tooltip.SetDefault("Summons a Lune archer to shoot arrows at your enemies!" + "\n50% chance not to consume ammo" + "\nREQUIRES AMMO in your inventory");
+			Tooltip.SetDefault("Summons a lune archer to shoot arrows from your inventory at enemies");
 
 
         }
@@ -100,31 +100,7 @@ using Microsoft.Xna.Framework.Graphics;
 			projectile.timeLeft = 2;
             
         }
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+       
         NPC target;
        
        
@@ -168,7 +144,7 @@ using Microsoft.Xna.Framework.Graphics;
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(GetReference(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) ==0);
+                    player.PickAmmo(QwertyMethods.GetAmmoReference(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) ==0);
                     if (Main.netMode != 1)
                     {
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];

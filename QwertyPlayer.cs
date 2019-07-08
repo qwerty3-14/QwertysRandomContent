@@ -183,7 +183,14 @@ namespace QwertysRandomContent
             }
             
 		}
-      
+        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        {
+            damage += (int)(damage * .02f * killCount);
+        }
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            damage += (int)(damage * .02f * killCount);
+        }
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             base.ModifyDrawHeadLayers(layers);
@@ -244,7 +251,7 @@ namespace QwertysRandomContent
                 {
                     item.stack--;
                 }
-                ItemLoader.PickAmmo(item, player, ref shoot, ref speed, ref Damage, ref KnockBack);
+                ItemLoader.PickAmmo(sItem, item, player, ref shoot, ref speed, ref Damage, ref KnockBack);
                 bool flag2 = dontConsume;
                 
                 

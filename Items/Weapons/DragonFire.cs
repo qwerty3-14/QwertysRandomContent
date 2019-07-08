@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dragon Fire");
+			DisplayName.SetDefault("Dragonfire");
 			Tooltip.SetDefault("Launches flaming dragon heads which spit explosive fireballs!");
 			
 		}

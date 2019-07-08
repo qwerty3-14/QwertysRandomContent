@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using QwertysRandomContent;
+using Terraria.Localization;
+
 namespace QwertysRandomContent.Items.Armor.Vargule
 {
 	[AutoloadEquip(EquipType.Head)]
@@ -62,7 +64,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Spelunker effect and +40% mining speed";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VHelmetSet");
 			 player.findTreasure = true;
 			player.pickSpeed -= 0.4f;
 			

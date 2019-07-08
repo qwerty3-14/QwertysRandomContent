@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameInput;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.Armor.Lune
 {
@@ -16,7 +17,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lune Crestplate");
-            Tooltip.SetDefault("Ranged atttacks pierce an extra enemy and use local immunity");
+            Tooltip.SetDefault("Ranged attacks pierce an extra enemy and use local immunity");
 
         }
 
@@ -85,7 +86,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = "Shoot the moon!" +"\nDouble right click summon a moon" + "\nRanged attacks shot through the moon will be boosted";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.LuneCrestSet");
             player.GetModPlayer<crestSet>(mod).setBonus = true;
             //Main.NewText(player.ArmorSetDye());
 

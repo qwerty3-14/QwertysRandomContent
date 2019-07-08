@@ -18,12 +18,12 @@ namespace QwertysRandomContent.Items.HydraItems
 			item.height = 35;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("Hydra");
+			//bossBagNPC = mod.NPCType("Hydra");
 		}
+        public override int BossBagNPC => mod.NPCType("Hydra");
 
-		
 
-		public override bool CanRightClick()
+        public override bool CanRightClick()
 		{
 			return true;
 		}

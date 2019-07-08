@@ -158,8 +158,32 @@ namespace QwertysRandomContent
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
             }
         }
-
+        //Thanks Mirsario for this chunk of code
+        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
+        public static Item GetAmmoReference(int type)
+        {
+            if (type <= 0)
+            {
+                return null;
+            }
+            if (type >= ItemID.Count)
+            {
+                return ItemLoader.GetItem(type).item;
+            }
+            else
+            {
+                Item item;
+                if (!vanillaItemCache.TryGetValue(type, out item))
+                {
+                    item = new Item();
+                    item.SetDefaults(type, true);
+                    vanillaItemCache[type] = item;
+                }
+                return item;
+            }
+        }
+        /*------------------------------------------------- */
     }
-    
+
 
 }

@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 48;
+			item.damage = 30;
 			item.magic = true;
 			
 			item.useTime = 5;
@@ -155,24 +155,8 @@ namespace QwertysRandomContent.Items.Weapons
             target.AddBuff(BuffID.Frostburn, 120);
 
         }
-        public bool hasCollided = false;
-        public override bool OnTileCollide(Vector2 velocityChange)
-        {
-            if (hasCollided)
-            {
-                return true;
-            }
-            if (projectile.velocity.X != velocityChange.X)
-            {
-                projectile.velocity.X = -velocityChange.X;
-            }
-            if (projectile.velocity.Y != velocityChange.Y)
-            {
-                projectile.velocity.Y = -velocityChange.Y;
-            }
-            hasCollided = true;
-            return false;
-        }
+        
+        
 
 
     }
@@ -199,29 +183,13 @@ namespace QwertysRandomContent.Items.Weapons
 
 
         }
-        public override bool OnTileCollide(Vector2 velocityChange)
-        {
-            if (projectile.velocity.X != velocityChange.X)
-            {
-                projectile.velocity.X = -velocityChange.X;
-            }
-            if (projectile.velocity.Y != velocityChange.Y)
-            {
-                projectile.velocity.Y = -velocityChange.Y;
-            }
-            return false;
-        }
+       
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 120);
 
         }
-        public override void Kill(int timeLeft)
-        {
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X +(float)Math.Cos(MathHelper.ToRadians(0)), -projectile.velocity.Y + (float)Math.Sin(MathHelper.ToRadians(0)), mod.ProjectileType("Icicle"), (int)(projectile.damage * .8f), projectile.knockBack, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X + (float)Math.Cos(MathHelper.ToRadians(45)), -projectile.velocity.Y + (float)Math.Sin(MathHelper.ToRadians(45)), mod.ProjectileType("Icicle"), (int)(projectile.damage * .8f), projectile.knockBack, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X + (float)Math.Cos(MathHelper.ToRadians(-45)), -projectile.velocity.Y + (float)Math.Sin(MathHelper.ToRadians(-45)), mod.ProjectileType("Icicle"), (int)(projectile.damage * .8f), projectile.knockBack, Main.myPlayer, 0f, 0f);
-        }
+        
 
 
     }

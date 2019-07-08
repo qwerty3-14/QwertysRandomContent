@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Clay
@@ -56,7 +57,7 @@ namespace QwertysRandomContent.Items.Armor.Clay
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = "Be like a clay statue and... \n Increased morph damage and morph defense when not moving";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.ClaySet");
 			if(player.velocity.Length() <2f)
             {
                 player.GetModPlayer<ShapeShifterPlayer>().morphDamage += .18f;

@@ -47,9 +47,10 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         {
             potionType = ItemID.HealingPotion;
         }
+        bool canDespawn = false;
         public override bool CheckActive()
         {
-            return false;
+            return canDespawn;
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
@@ -126,253 +127,271 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             {
                 frame = 0;
             }
-            
-            if ((cloak == null || cloak.type != mod.ProjectileType("Cloak") || !cloak.active )&& Main.netMode != 1)
+            if (!player.active || player.dead)
             {
-                
-                cloak = Main.projectile[ cloakID = Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Cloak"), 0, 0, Main.myPlayer, npc.whoAmI)];
-            }
-            if (attacks.Count > 0)
-            {
-               
-                if (!rage && (float)npc.life / (float)npc.lifeMax < .2f)
+                npc.TargetClosest(false);
+                player = Main.player[npc.target];
+                if (!player.active || player.dead)
                 {
-                    rage = true;
-                    attacks.Clear();
-                }
-                timer++;
-                if (timer > timeBetweenAttacks + startAttacksDelay + forecastTime)
-                {
-                    switch ((int)attacks[0].X)
+                    canDespawn = true;
+                    npc.velocity = new Vector2(0f, 10f);
+                    if (npc.timeLeft > 10)
                     {
-                        case 0:
-                            if(Main.netMode != 1)
-                            {
-                                for (int t = 0; t < 4; t++)
-                                {
-
-                                    float r = attacks[0].Y + t * (float)Math.PI / 2;
-                                    Projectile turret = Main.projectile[Projectile.NewProjectile(player.Center + QwertyMethods.PolarVector(orbitDistance, r), Vector2.Zero, mod.ProjectileType("Cannon"), Main.expertMode ? 22 : 35, 0f, Main.myPlayer)];
-                                    turret.rotation = r + (float)Math.PI;
-                                    turret.netUpdate = true;
-                                }
-                            }
-                            break;
-                        case 1:
-                            chargeTime = 60;
-                            npc.Center = player.Center + QwertyMethods.PolarVector(-600, attacks[0].Y);
-                            npc.velocity = QwertyMethods.PolarVector(20, attacks[0].Y);
-                            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Warp"), npc.Center);
-                            break;
-                        case 2:
-                            if(Main.netMode != 1)
-                            {
-                                Projectile catalyst = Main.projectile[Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("BloodforceCatalyst"), Main.expertMode ? 20 : 34, 0f, Main.myPlayer)];
-                                catalyst.rotation = attacks[0].Y - (float)Math.PI / 4;
-                                catalyst.netUpdate = true;
-                            }
-                           
-                            break;
-                        case 3:
-                            if (Main.netMode != 1)
-                            {
-                                Projectile tripwire = Main.projectile[Projectile.NewProjectile(player.Center + QwertyMethods.PolarVector(300, attacks[0].Y), Vector2.Zero, mod.ProjectileType("Tripwire"), Main.expertMode ? 30 : 45, 0f, Main.myPlayer)];
-                                tripwire.rotation = attacks[0].Y + (float)Math.PI / 2;
-                                tripwire.timeLeft = timeBetweenAttacks * attacks.Count + 60;
-                                tripwire.netUpdate = true;
-                            }
-                            
-                            break;
+                        npc.timeLeft = 10;
                     }
-                    attacks.RemoveAt(0);
-                    timer = startAttacksDelay + forecastTime;
+                    return;
                 }
-                else if (timer > startAttacksDelay + forecastTime)
-                {
-
-                }
-                else if (timer < forecastTime)
-                {
-
-                }
-
             }
             else
             {
 
-                timer = -retreatTime;
+                canDespawn = false;
+                if ((cloak == null || cloak.type != mod.ProjectileType("Cloak") || !cloak.active) && Main.netMode != 1)
+                {
+
+                    cloak = Main.projectile[cloakID = Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Cloak"), 0, 0, Main.myPlayer, npc.whoAmI)];
+                }
+                if (attacks.Count > 0)
+                {
+
+                    if (!rage && (float)npc.life / (float)npc.lifeMax < .2f)
+                    {
+                        rage = true;
+                        attacks.Clear();
+                    }
+                    timer++;
+                    if (timer > timeBetweenAttacks + startAttacksDelay + forecastTime)
+                    {
+                        switch ((int)attacks[0].X)
+                        {
+                            case 0:
+                                if (Main.netMode != 1)
+                                {
+                                    for (int t = 0; t < 4; t++)
+                                    {
+
+                                        float r = attacks[0].Y + t * (float)Math.PI / 2;
+                                        Projectile turret = Main.projectile[Projectile.NewProjectile(player.Center + QwertyMethods.PolarVector(orbitDistance, r), Vector2.Zero, mod.ProjectileType("Cannon"), Main.expertMode ? 22 : 35, 0f, Main.myPlayer)];
+                                        turret.rotation = r + (float)Math.PI;
+                                        turret.netUpdate = true;
+                                    }
+                                }
+                                break;
+                            case 1:
+                                chargeTime = 60;
+                                npc.Center = player.Center + QwertyMethods.PolarVector(-600, attacks[0].Y);
+                                npc.velocity = QwertyMethods.PolarVector(20, attacks[0].Y);
+                                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Warp"), npc.Center);
+                                break;
+                            case 2:
+                                if (Main.netMode != 1)
+                                {
+                                    Projectile catalyst = Main.projectile[Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("BloodforceCatalyst"), Main.expertMode ? 20 : 34, 0f, Main.myPlayer)];
+                                    catalyst.rotation = attacks[0].Y - (float)Math.PI / 4;
+                                    catalyst.netUpdate = true;
+                                }
+
+                                break;
+                            case 3:
+                                if (Main.netMode != 1)
+                                {
+                                    Projectile tripwire = Main.projectile[Projectile.NewProjectile(player.Center + QwertyMethods.PolarVector(300, attacks[0].Y), Vector2.Zero, mod.ProjectileType("Tripwire"), Main.expertMode ? 30 : 45, 0f, Main.myPlayer)];
+                                    tripwire.rotation = attacks[0].Y + (float)Math.PI / 2;
+                                    tripwire.timeLeft = timeBetweenAttacks * attacks.Count + 60;
+                                    tripwire.netUpdate = true;
+                                }
+
+                                break;
+                        }
+                        attacks.RemoveAt(0);
+                        timer = startAttacksDelay + forecastTime;
+                    }
+                    else if (timer > startAttacksDelay + forecastTime)
+                    {
+
+                    }
+                    else if (timer < forecastTime)
+                    {
+
+                    }
+
+                }
+                else
+                {
+
+                    timer = -retreatTime;
+                    if (Main.netMode != 1)
+                    {
+
+
+                        float ratio = (float)npc.life / (float)npc.lifeMax;
+                        if (ratio > .9f)
+                        {
+                            attacks.Add(new Vector2(0, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(0, randomRotation()));
+                        }
+                        else if (ratio > .8f)
+                        {
+
+                            attacks.Add(new Vector2(0, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Shuffle();
+                        }
+                        else if (ratio > .7f)
+                        {
+
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Shuffle();
+                        }
+                        else if (ratio > .6f)
+                        {
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                        }
+                        else if (ratio > .5f)
+                        {
+
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(0, randomRotation()));
+                            attacks.Add(new Vector2(0, randomRotation()));
+                            attacks.Add(new Vector2(0, randomRotation()));
+                            attacks.Add(new Vector2(0, randomRotation()));
+                            attacks.Shuffle();
+                            attacks.Insert(0, new Vector2(3, randomRotation()));
+                        }
+                        else if (ratio > .4f)
+                        {
+
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                        }
+                        else if (ratio > .3f)
+                        {
+
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Shuffle();
+                            attacks.Insert(0, new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+
+                        }
+                        else if (ratio > .2f)
+                        {
+
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(2, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+                            attacks.Add(new Vector2(1, randomRotation()));
+
+                        }
+                        else if (ratio > .1f)
+                        {
+                            for (int i = 0; i < 12; i++)
+                            {
+                                attacks.Add(new Vector2(2, randomRotation()));
+                            }
+                        }
+                        else
+                        {
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            attacks.Add(new Vector2(3, randomRotation()));
+                            for (int i = 0; i < 10; i++)
+                            {
+                                attacks.Add(new Vector2(2, randomRotation()));
+                            }
+                        }
+                        forecastTime = foreCastTimePerAttack * attacks.Count + BoxDrawTime;
+                        npc.netUpdate = true;
+                    }
+                }
+                if (playerviewRadius > 80 && timer > forecastTime)
+                {
+                    playerviewRadius -= 10;
+                }
+                else if (playerviewRadius < 1200 && timer < forecastTime && timer > -120)
+                {
+                    playerviewRadius += 10;
+                }
+
                 if (Main.netMode != 1)
                 {
-
-
-                    float ratio = (float)npc.life / (float)npc.lifeMax;
-                    if (ratio > .9f)
-                    {
-                        attacks.Add(new Vector2(0, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(0, randomRotation()));
-                    }
-                    else if (ratio > .8f)
-                    {
-
-                        attacks.Add(new Vector2(0, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Shuffle();
-                    }
-                    else if (ratio > .7f)
-                    {
-
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Shuffle();
-                    }
-                    else if (ratio > .6f)
-                    {
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                    }
-                    else if (ratio > .5f)
-                    {
-
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(0, randomRotation()));
-                        attacks.Add(new Vector2(0, randomRotation()));
-                        attacks.Add(new Vector2(0, randomRotation()));
-                        attacks.Add(new Vector2(0, randomRotation()));
-                        attacks.Shuffle();
-                        attacks.Insert(0, new Vector2(3, randomRotation()));
-                    }
-                    else if (ratio > .4f)
-                    {
-
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                    }
-                    else if (ratio > .3f)
-                    {
-
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Shuffle();
-                        attacks.Insert(0, new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-
-                    }
-                    else if (ratio > .2f)
-                    {
-
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(2, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-                        attacks.Add(new Vector2(1, randomRotation()));
-
-                    }
-                    else if (ratio > .1f)
-                    {
-                        for (int i = 0; i < 12; i++)
-                        {
-                            attacks.Add(new Vector2(2, randomRotation()));
-                        }
-                    }
-                    else
-                    {
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        attacks.Add(new Vector2(3, randomRotation()));
-                        for (int i = 0; i < 10; i++)
-                        {
-                            attacks.Add(new Vector2(2, randomRotation()));
-                        }
-                    }
-                    forecastTime = foreCastTimePerAttack * attacks.Count + BoxDrawTime;
-                    npc.netUpdate = true;
+                    cloak.ai[1] = playerviewRadius;
+                    cloak.timeLeft = 2;
                 }
-            }
-            if (playerviewRadius > 80 && timer > forecastTime)
-            {
-                playerviewRadius -= 10;
-            }
-            else if (playerviewRadius < 1200 && timer < forecastTime && timer > -120)
-            {
-                playerviewRadius += 10;
-            }
-           
-           if(Main.netMode != 1)
-            {
-                cloak.ai[1] = playerviewRadius;
-                cloak.timeLeft = 2;
-            }
-                
-            
-           
-            
-            npc.dontTakeDamage = false;
-            if (playerviewRadius > 500)
-            {
-                orbitDistance = 1200;
-                retreatApproachSpeed = 8f;
-                if ((player.Center - npc.Center).Length() > 1000)
+
+
+
+
+                npc.dontTakeDamage = false;
+                if (playerviewRadius > 500)
                 {
-                    npc.dontTakeDamage = true;
+                    orbitDistance = 1200;
+                    retreatApproachSpeed = 8f;
+                    if ((player.Center - npc.Center).Length() > 1000)
+                    {
+                        npc.dontTakeDamage = true;
+                    }
+
                 }
+                else
+                {
+                    retreatApproachSpeed = 4f;
+                    orbitDistance = 500;
+                }
+                npc.ai[3] = 0;
+                if (chargeTime > 0)
+                {
+                    chargeTime--;
+                    if (chargeTime > 45)
+                    {
+                        npc.ai[3] = (60 - chargeTime) * 7;
+                    }
+                    else if (chargeTime > 30)
+                    {
+                        npc.ai[3] = 210 - (60 - chargeTime) * 7;
+                    }
+
+                }
+                else
+                {
+
+                    chargeTime = 0;
+                    npc.velocity = QwertyMethods.PolarVector(orbitalVelocity, (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2);
+                    if (Main.netMode != 1 && Main.rand.Next(200) == 0)
+                    {
+                        orbitalVelocity *= -1;
+                        npc.netUpdate = true;
+                    }
+                    if ((player.Center - npc.Center).Length() < orbitDistance - 50)
+                    {
+                        npc.velocity += QwertyMethods.PolarVector(-retreatApproachSpeed, (player.Center - npc.Center).ToRotation());
+                    }
+                    else if ((player.Center - npc.Center).Length() > orbitDistance + 50)
+                    {
+                        npc.velocity += QwertyMethods.PolarVector(retreatApproachSpeed, (player.Center - npc.Center).ToRotation());
+                    }
+                }
+
 
             }
-            else
-            {
-                retreatApproachSpeed = 4f;
-                orbitDistance = 500;
-            }
-            npc.ai[3] = 0;
-            if (chargeTime > 0)
-            {
-                chargeTime--;
-                if (chargeTime > 45)
-                {
-                    npc.ai[3] = (60 - chargeTime) * 7;
-                }
-                else if (chargeTime > 30)
-                {
-                    npc.ai[3] = 210 - (60 - chargeTime) * 7;
-                }
-
-            }
-            else
-            {
-
-                chargeTime = 0;
-                npc.velocity = QwertyMethods.PolarVector(orbitalVelocity, (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2);
-                if (Main.netMode != 1 && Main.rand.Next(200) == 0)
-                {
-                    orbitalVelocity *= -1;
-                    npc.netUpdate = true;
-                }
-                if ((player.Center - npc.Center).Length() < orbitDistance - 50)
-                {
-                    npc.velocity += QwertyMethods.PolarVector(-retreatApproachSpeed, (player.Center - npc.Center).ToRotation());
-                }
-                else if ((player.Center - npc.Center).Length() > orbitDistance + 50)
-                {
-                    npc.velocity += QwertyMethods.PolarVector(retreatApproachSpeed, (player.Center - npc.Center).ToRotation());
-                }
-            }
-
-
-
 
 
         }

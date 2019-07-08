@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shape shift: Cthulhu's Stare");
+			DisplayName.SetDefault("Shape Shift: Cthulhu's Stare");
 			Tooltip.SetDefault("Breifly turns you into the eye of cthulhu charging toward where you point");
 
 

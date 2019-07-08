@@ -13,7 +13,7 @@ using Terraria.ModLoader;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordpocalypse");
-            Tooltip.SetDefault("Good for covering the screen in SWORDS!");
+            Tooltip.SetDefault("Covers the screen in swords!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
 
         }

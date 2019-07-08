@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Runic Wave");
-            Tooltip.SetDefault("Cast a wave that draws runes in fligt" + "\nRight click to switch runes");
+            Tooltip.SetDefault("Cast a wave that draws runes in flight" + "\nRight click to switch runes");
 
         }
         public override void SetDefaults()

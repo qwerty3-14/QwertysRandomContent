@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lune Hat");
-			Tooltip.SetDefault("+35% ranged velocity" + "\nimproves vision");
+			Tooltip.SetDefault("+35% ranged velocity" + "\nImproves vision");
 			
 		}
 		

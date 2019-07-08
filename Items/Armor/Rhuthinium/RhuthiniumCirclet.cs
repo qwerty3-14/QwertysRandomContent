@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
@@ -59,7 +60,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = "Melee attacks boost magic damage and max mana" + "\nMagic attacks boost melee damage";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RCircletSet");
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.circletSetBonus = true;
 			modPlayer.meleeCircletSetBonus = true;

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
@@ -51,7 +52,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "20% bonus magic damage, but this bonus goes down as your mana goes down";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RHatSet");
 			player.magicDamage += ((player.statMana*1.0f) / (player.statManaMax2*1.0f)*.2f);
 			
 			

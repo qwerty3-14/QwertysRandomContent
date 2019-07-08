@@ -35,6 +35,8 @@ namespace QwertysRandomContent.Items.Etims
             item.useTime = 1;
             item.useAnimation = 10;
             item.UseSound = SoundID.Item20;
+            item.rare = 3;
+            item.value = 120000;
         }
         public override void AddRecipes()
         {

@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Runic Throw");
-			Tooltip.SetDefault("Ridiculously long string" + "\nright click to zoom");
+			Tooltip.SetDefault("Ridiculously long string" + "\nRight click to zoom");
 
 			// These are all related to gamepad controls and don't seem to affect anything else
 			ItemID.Sets.Yoyo[item.type] = true;

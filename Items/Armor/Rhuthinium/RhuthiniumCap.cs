@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
@@ -10,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rhuthinium Cap");
-			Tooltip.SetDefault("+12% ranged damage" + "\n10% increaesed move speed");
+			Tooltip.SetDefault("+12% ranged damage" + "\n10% increased move speed");
 			
 		}
 		
@@ -51,7 +52,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "100% ranged crit chance when at 100% life";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RCapSet");
 			if ( (player.statLife*1.0f) / (player.statLifeMax2*1.0f) == 1.0f)
 			{
 				player.rangedCrit = 100;

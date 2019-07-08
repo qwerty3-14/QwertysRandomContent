@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Beak Spinner");
-			Tooltip.SetDefault("Gains momentum as it hits enemies but wears out faster than other tops when sliding on the ground");
+			Tooltip.SetDefault("Gains momentum as it hits enemies but wears out faster than other tops");
 			
 		}
 		public override void SetDefaults()

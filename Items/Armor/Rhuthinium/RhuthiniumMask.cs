@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
@@ -10,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rhuthinium Mask");
-			Tooltip.SetDefault("+1 max minions and 8% increaesd minion damage");
+			Tooltip.SetDefault("+1 max minions and 8% increased minion damage");
 			
 		}
 		
@@ -52,7 +53,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Minion attacks inflict ichor and +1 max minions";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RMaskSet"); 
 			player.maxMinions +=1;
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.minionIchor = true;

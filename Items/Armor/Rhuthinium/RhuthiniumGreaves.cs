@@ -25,7 +25,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rhuthinium Greaves");
-			Tooltip.SetDefault("Lets you dash (4 dash power)" + "\n10% chance not to consume ammo" + "\n15% reduced mana usage" + "\n+60 max mana" + "\n20% chance not to consume thrown items");
+			Tooltip.SetDefault("Lets you dash (4 dash power)" + "\n10% chance not to consume ammo" + "\n15% reduced mana usage" + "\n+60 mana" + "\n20% chance not to consume thrown items");
 			
 		}
 		

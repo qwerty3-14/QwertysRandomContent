@@ -21,12 +21,12 @@ namespace QwertysRandomContent.Items.TundraBossItems
 			item.height = 34;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("PolarBear"); 
+			//bossBagNPC = mod.NPCType("PolarBear"); 
 		}
+        public override int BossBagNPC => mod.NPCType("PolarBear");
 
-		
 
-		public override bool CanRightClick()
+        public override bool CanRightClick()
 		{
 			return true;
 		}

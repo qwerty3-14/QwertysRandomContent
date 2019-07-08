@@ -555,8 +555,8 @@ namespace QwertysRandomContent.NPCs
 		{
 			projectile.aiStyle = 0;
 			
-			projectile.width = 22;
-			projectile.height = 22;
+			projectile.width = 30;
+			projectile.height = 30;
 			projectile.friendly = false;
 			projectile.hostile = true;
 			projectile.penetrate = -1;

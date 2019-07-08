@@ -18,12 +18,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
 			item.height = 34;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("BladeBoss");
+			//bossBagNPC = mod.NPCType("BladeBoss");
 		}
+        public override int BossBagNPC => mod.NPCType("BladeBoss");
 
-		
 
-		public override bool CanRightClick()
+        public override bool CanRightClick()
 		{
 			return true;
 		}

@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cobalt Arrow");
-			Tooltip.SetDefault("Remains stationarry until you right click, wich sends it flying at your cursor");
+			Tooltip.SetDefault("Remains stationarry until you right click, which sends it flying at your cursor");
 			
 		}
 		public override void SetDefaults()

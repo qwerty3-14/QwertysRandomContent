@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rhuthinium Bracelet");
-			Tooltip.SetDefault("Just aesthetic for now");
+			
 			
 		}
 		

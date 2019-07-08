@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using QwertysRandomContent;
+using Terraria.Localization;
+
 namespace QwertysRandomContent.Items.Armor.Vargule
 {
 	[AutoloadEquip(EquipType.Head)]
@@ -52,7 +54,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Melee attacks will continually increase your ranged damage, resets when you do a ranged attack";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VVisorSet");
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.VarguleCrownSetBonus = true;
 			player.rangedDamage += modPlayer.VarguleRangedBoost; 

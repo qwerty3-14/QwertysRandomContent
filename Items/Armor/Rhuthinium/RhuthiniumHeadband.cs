@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
@@ -55,7 +56,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "every 1% of life missing is converted to 1% extra melee speed";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RHeadbandSet");
             float speedBonus = (1.0f - ((player.statLife * 1.0f) / (player.statLifeMax2 * 1.0f)));
             if(speedBonus >0)
             {

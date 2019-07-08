@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Glass Bullet");
-			Tooltip.SetDefault("Shaters upon fire realeasing 9 short ranged shards that each do 40% the guns damage");
+			Tooltip.SetDefault("Shatters upon firing, releasing 9 short-ranged shards dealing 40% damage each");
 			
 		}
 		public override void SetDefaults()

@@ -7,7 +7,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aerous Bow");
+			DisplayName.SetDefault("Aerous");
 			Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats");
 			
 		}

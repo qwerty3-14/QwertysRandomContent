@@ -7,7 +7,7 @@ namespace QwertysRandomContent.Items.Fortress
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chiselled Fortress Brick");
+			DisplayName.SetDefault("Chiseled Fortress Brick");
 			Tooltip.SetDefault("");
 		}
 		

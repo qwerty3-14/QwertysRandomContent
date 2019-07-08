@@ -15,7 +15,7 @@ using Terraria.ModLoader;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rhuthinium Guardian Staff");
-			Tooltip.SetDefault("Summons a stationary Rhuthinium Guardian to shoot at your enemies" + "\nSuper high damage and range but VERY slow reload time");
+			Tooltip.SetDefault("Summons an extremely slow guardian to shoot at your enemies");
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(38, 2));
 
         }

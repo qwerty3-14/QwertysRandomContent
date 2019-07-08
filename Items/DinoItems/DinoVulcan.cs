@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.DinoItems
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'As heavy as a dinosaur'" + "\nSlows you down when used... unless you're riding a dinosaur" + "\nWhen used the gun will slowely build up fire rate maxing out at 100 rounds/sec" + "\n50% chance not to consume ammo");
+            Tooltip.SetDefault("'As heavy as a dinosaur'" + "\nSlows you down when used... unless you're riding a dinosaur" + "\nBuilds up in speed while used, up to 100 rounds a second!" + "\n50% chance not to consume ammo");
 
         }
 

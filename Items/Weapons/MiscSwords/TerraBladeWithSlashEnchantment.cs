@@ -19,9 +19,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.TerraBlade);
-            projOnSwing = true;
+           
 
         }
+        public override bool OnlyShootOnSwing => true;
 
         public override bool AltFunctionUse(Player player)
         {

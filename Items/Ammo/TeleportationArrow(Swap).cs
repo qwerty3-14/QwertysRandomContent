@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Teleportation Arrow (Swap)");
-			Tooltip.SetDefault("Swaps your position with what the arrow hits(does not effect blocks)");
+			Tooltip.SetDefault("Swaps your position with the enemy hit");
 			
 		}
 		public override void SetDefaults()

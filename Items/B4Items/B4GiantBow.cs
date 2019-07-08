@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.B4Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Giant Bow");
-			Tooltip.SetDefault("Arrows fired from this are YUUUUUGE! which split into more arrows!");
+			Tooltip.SetDefault("Arrows fired from this are MASSIVE and split into more arrows");
 			
 		}
 		public override void SetDefaults()

@@ -88,31 +88,7 @@ namespace QwertysRandomContent.Items.Ammo
 		}
 
 
-		//Thanks Mirsario for this chunk of code
-		private static Dictionary<int,Item> vanillaItemCache=    new Dictionary<int,Item>();
-		public static Item GetReference(int type)
-		{
-    		if(type<=0) 
-			{
-        		return null;
-    		}
-    		if(type>=ItemID.Count) 
-			{
-        		return ItemLoader.GetItem(type).item;
-    		}
-			else
-			{
-        		Item item;
-        		if(!vanillaItemCache.TryGetValue(type,out item)) 
-				{
-        	    	item=    new Item();
-        	    	item.SetDefaults(type,true);
-        	    	vanillaItemCache[type]=    item;
-        		}
-       		 return item;
-   	 		}
-		}
-		/*------------------------------------------------- */
+		
 
 
 
@@ -129,10 +105,10 @@ namespace QwertysRandomContent.Items.Ammo
 			int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
 			float weaponKnockback = player.inventory[player.selectedItem].knockBack;
 			
-			canShoot = player.HasAmmo(GetReference(95), true)  && player.inventory[player.selectedItem+10].useAmmo ==97; 
+			canShoot = player.HasAmmo(QwertyMethods.GetAmmoReference(95), true)  && player.inventory[player.selectedItem+10].useAmmo ==97; 
 			if(timer ==30)
 			{
-				player.PickAmmo(GetReference(95), ref bullet, ref speed, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
+				player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speed, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
 					
 					Projectile b = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
                 if (projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow)
@@ -146,7 +122,7 @@ namespace QwertysRandomContent.Items.Ammo
             }
 			if(timer ==60)
 			{
-				player.PickAmmo(GetReference(95), ref bullet, ref speed, ref canShoot, ref weaponDamage, ref weaponKnockback, true);
+				player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speed, ref canShoot, ref weaponDamage, ref weaponKnockback, true);
 
                 Projectile b = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
                 if (projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow)

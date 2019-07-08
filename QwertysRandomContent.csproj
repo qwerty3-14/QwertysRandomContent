@@ -76,6 +76,7 @@
     <Compile Include="Dusts\BloodforceDust.cs" />
     <Compile Include="Dusts\CaeliteDust.cs" />
     <Compile Include="Dusts\DazzleSparkle.cs" />
+    <Compile Include="Dusts\DeathWaveSmoke.cs" />
     <Compile Include="Dusts\DnasDust.cs" />
     <Compile Include="Dusts\FortressDust.cs" />
     <Compile Include="Dusts\GlassSmoke.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Items\Accesories\BookOfMinionTactics.cs" />
     <Compile Include="Items\Accesories\CursedMedalion.cs" />
     <Compile Include="Items\Accesories\EmeraldEye.cs" />
+    <Compile Include="Items\Accesories\EnchantedWhetstone.cs" />
     <Compile Include="Items\Accesories\Gemini.cs" />
     <Compile Include="Items\Accesories\QuestionableSubstance.cs" />
     <Compile Include="Items\Accesories\SwordEmbiggenner.cs" />
@@ -137,6 +139,9 @@
     <Compile Include="Items\Armor\Shaman\ShamanBody.cs" />
     <Compile Include="Items\Armor\Shaman\ShamanHead.cs" />
     <Compile Include="Items\Armor\Shaman\ShamanLegs.cs" />
+    <Compile Include="Items\Armor\StarSage\StarSage.cs" />
+    <Compile Include="Items\Armor\StarSage\StarSageCape.cs" />
+    <Compile Include="Items\Armor\StarSage\StarSageGloves.cs" />
     <Compile Include="Items\Armor\TankCommander\TankCommanderHelmet.cs" />
     <Compile Include="Items\Armor\TankCommander\TankCommanderJacket.cs" />
     <Compile Include="Items\Armor\TankCommander\TankCommanderPants.cs" />
@@ -187,6 +192,8 @@
     <Compile Include="Items\Consumables\ThrowReductionPotion.cs" />
     <Compile Include="Items\Decorations\DecorativePlant.cs" />
     <Compile Include="Items\DevItems\Kerdo\PugMask.cs" />
+    <Compile Include="Items\DevItems\Kerdo\Urizel.cs" />
+    <Compile Include="Items\DevItems\Kerdo\WaveOfDeathUrizel.cs" />
     <Compile Include="Items\DevItems\qwerty\Toga.cs" />
     <Compile Include="Items\DevItems\Raz\CryonicBolt.cs" />
     <Compile Include="Items\DevItems\ShockedHorizon\DragonScaleBreastplate.cs" />
@@ -291,6 +298,7 @@
     <Compile Include="Items\Weapons\Cactus\Cactum.cs" />
     <Compile Include="Items\Weapons\Cactus\SupportCactusStaff.cs" />
     <Compile Include="Items\Weapons\ChaosRifle.cs" />
+    <Compile Include="Items\Weapons\ChromeShotgun\ChromeShotgun.cs" />
     <Compile Include="Items\Weapons\Crimtane\BloodSeeker.cs" />
     <Compile Include="Items\Weapons\Crimtane\BloodTuner.cs" />
     <Compile Include="Items\Weapons\Demonite\DarkDrop.cs" />
@@ -325,6 +333,7 @@
     <Compile Include="Items\Weapons\MiscSpells\RunicWave.cs" />
     <Compile Include="Items\Weapons\MiscSpells\Steambath.cs" />
     <Compile Include="Items\Weapons\MiscSummons\AdamantitePunnisher.cs" />
+    <Compile Include="Items\Weapons\MiscSummons\AshFellStaff.cs" />
     <Compile Include="Items\Weapons\MiscSummons\ChlorophyteSentryStaff.cs" />
     <Compile Include="Items\Weapons\MiscSummons\ChlorophyteSniperStaff.cs" />
     <Compile Include="Items\Weapons\MiscSummons\GoldDaggerStaff.cs" />
@@ -725,6 +734,15 @@
     <Content Include="Items\Armor\Shaman\ShamanBody_Arms.png" />
     <Content Include="Items\Armor\Shaman\ShamanBody_Body.png" />
     <Content Include="Items\Armor\Shaman\ShamanLegs_Legs.png" />
+    <Content Include="Items\Armor\StarSage\StarSage.png" />
+    <Content Include="Items\Armor\StarSage\StarSageGloves.png" />
+    <Content Include="Items\Armor\StarSage\StarSageGloves_HandsOff.png" />
+    <Content Include="Items\Armor\StarSage\StarSageGloves_HandsOn.png" />
+    <Content Include="Items\Armor\StarSage\StarSage_Arms.png" />
+    <Content Include="Items\Armor\StarSage\StarSage_Body.png" />
+    <Content Include="Items\Armor\StarSage\StarSage_FemaleBody.png" />
+    <Content Include="Items\Armor\StarSage\StarSage_FemaleLegs.png" />
+    <Content Include="Items\Armor\StarSage\StarSage_Legs.png" />
     <Content Include="Items\Armor\TankCommander\TankCommanderHelmet.png" />
     <Content Include="Items\Armor\TankCommander\TankCommanderHelmet_Head.png" />
     <Content Include="Items\Armor\TankCommander\TankCommanderHelmet_HeadSimple.png" />
@@ -837,6 +855,9 @@
     <Content Include="Items\Weapons\Cactus\CactusNeedle.png" />
     <Content Include="Items\Weapons\Cactus\CactusNeedleP.png" />
     <Content Include="Items\Weapons\Cactus\SupportCactus.png" />
+    <Content Include="Items\Weapons\ChromeShotgun\ChromeShotgunDefault.png" />
+    <Content Include="Items\Weapons\ChromeShotgun\ChromeShotgunReverseFire.png" />
+    <Content Include="Items\Weapons\ChromeShotgun\ChromeShotgunTight.png" />
     <Content Include="Items\Weapons\Crimtane\BloodTuner.png" />
     <Content Include="Items\Weapons\Demonite\DarkDrop.png" />
     <Content Include="Items\Weapons\Demonite\DarkDropP.png" />

@@ -14,7 +14,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Etimsic Facemask");
-			Tooltip.SetDefault("Morph critiacl strike chance increases to long you're morphed. Max: 30%" + "\n");
+			Tooltip.SetDefault("Morph critiacl strike chance increases the longer you're morphed. Max: 30%" + "\n");
 			
 		}
 		

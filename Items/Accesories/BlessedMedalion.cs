@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Accesories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blessed medallion");
+			DisplayName.SetDefault("Blessed Medallion");
 			Tooltip.SetDefault("30% chance to dodge an otherwise lethal attack");
 			
 		}

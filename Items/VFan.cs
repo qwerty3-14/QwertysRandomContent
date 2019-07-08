@@ -8,7 +8,7 @@ namespace QwertysRandomContent.Items
 		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Vertical Fan");
-			Tooltip.SetDefault("Blows things away can be toggled on and of by right clicking or by wire" + "\nFor the love of Fandom don't break this when it's blowing! your game will crash");
+			Tooltip.SetDefault("Blows things away" + "\nToggled by right clicking or by wire device" + "\nCrashes the game when broken while in use");
 
         }
 

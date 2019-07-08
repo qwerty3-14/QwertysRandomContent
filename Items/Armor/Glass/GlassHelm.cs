@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Glass
@@ -46,7 +47,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
 		}
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Ranged attacks Inflict 'Arcanely tuned' \nMagic attacks chase enemies inflicted with 'Arcanely tuned'";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.GlassSet");
             player.GetModPlayer<HelmEffects>().setBonus = true;
         }
         public override void AddRecipes()

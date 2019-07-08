@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Armor.Clay
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Clay Plate");
-            Tooltip.SetDefault("Grants Knockback immunity when morphed");
+            Tooltip.SetDefault("Grants knockback immunity when morphed");
 
         }
 

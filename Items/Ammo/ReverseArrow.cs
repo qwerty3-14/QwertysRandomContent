@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reverse Arrow");
-			Tooltip.SetDefault("Flys backwards into your bow!");
+			Tooltip.SetDefault("Flies backwards into your bow!");
 			
 		}
 		public override void SetDefaults()

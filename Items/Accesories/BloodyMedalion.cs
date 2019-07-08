@@ -14,7 +14,7 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloody medallion");
+            DisplayName.SetDefault("Bloody Medallion");
             Tooltip.SetDefault("80% increased magic damage" + "\nWhat normaly drains mana drains you instead!");
 
 

@@ -40,6 +40,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 			
 			
 		}
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-6, -0);
+        }
         public float alt = 1;
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {

@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.B4Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("O.L.O.R.D. summon");
-			Tooltip.SetDefault("Summons the Oversized Laser-emitting Obliteration Radiation-emitting Destroyer" + "\nWorks in multiplayer now!");
+			Tooltip.SetDefault("Summons the Oversized Laser-emitting Obliteration Radiation-emitting Destroyer");
             Item.staff[item.type] = true;
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }

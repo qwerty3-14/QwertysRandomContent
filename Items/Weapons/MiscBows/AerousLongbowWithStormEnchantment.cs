@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aerous Bow With Storm Enchantment");
+			DisplayName.SetDefault("Storm Enchanted Aerous");
 			Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nKilling enemies builds up a charge right click to shoot a powerful storm arrow using this charge");
 
 

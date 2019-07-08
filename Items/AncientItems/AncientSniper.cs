@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.AncientItems
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Sniper");
-			Tooltip.SetDefault("Harness the ancient power of sniping" + "\nright click to zoom");
+			Tooltip.SetDefault("Harness the ancient power of sniping" + "\nRight click to zoom");
 			
 		}
 		public override void SetDefaults()

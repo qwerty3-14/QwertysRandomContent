@@ -20,12 +20,12 @@ namespace QwertysRandomContent.Items.Fortress
 			item.height = 34;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("FortressBoss"); 
+			//bossBagNPC = mod.NPCType("FortressBoss"); 
 		}
+        public override int BossBagNPC => mod.NPCType("FortressBoss");
 
-		
 
-		public override bool CanRightClick()
+        public override bool CanRightClick()
 		{
 			return true;
 		}

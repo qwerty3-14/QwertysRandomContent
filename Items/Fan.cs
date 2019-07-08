@@ -7,7 +7,7 @@ namespace QwertysRandomContent.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Blows things away can be toggled on and of by right clicking or by wire");
+			Tooltip.SetDefault("Blows things away" + "\nToggled by right clicking or by wire device");
 
         }
 

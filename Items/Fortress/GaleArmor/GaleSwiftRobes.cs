@@ -25,7 +25,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gale Swift Robes");
-			Tooltip.SetDefault("Who needs defense when enemies can't hit you?" + "\n+10% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nLets you dash (4.8 dash power)");
+			Tooltip.SetDefault("+10% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nLets you dash (4.8 dash power)");
 			
 		}
 

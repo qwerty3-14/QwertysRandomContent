@@ -421,8 +421,8 @@ ItemName.CactusNeedle=Игла кактуса
 ItemName.ShamanBody=Боевой доспех шамана
 ItemName.ShamanLegs=Штаны шамана
 ItemName.ShamanHead=Шаманский череп
-ItemName.Etims=Жертвенный материал
-ItemName.EtimsSword=Жертвенный меч
+ItemName.EtimsMaterial=Жертвенный материал
+ItemName.EtimsSword=Резня
 ItemName.ShieldMinionStaff=Посох щитового прислужника
 ItemName.ShotgunOfExcessiveForce=Дробовик чрезмерной силы
 ItemName.StaffOfJob=Посох страданий
@@ -435,7 +435,30 @@ ItemName.TankCommanderPants=Штаны командира танка
 ItemName.TwistedDarkBody=Искажённо тёмный нагрудник
 ItemName.TwistedDarkLegs=Искажённо тёмные роба
 ItemName.TwistedDarkMask=Искажённо тёмная маска
-ItemName.
+ItemName.NoehtnapBag=Мешок с сокровищами
+ItemName.EyeOfDarkness=Глаз Тьмы
+ItemName.RitualInterupter=Ритуальный прерыватель
+ItemName.EnchantedWhetstone=Зачарованный точильный камень
+ItemName.AdamantitePunnisher=Адамантиновый палач
+ItemName.RhuthiniumBarrage=Рутиниумовый шквал
+ItemName.ManEaterStaff=Посох людоеда
+ItemName.FrogGrenade=Лягушачья граната
+ItemName.GlassCannon=Превращение:Стеклянная пушка
+ItemName.PlagueFlechettes=Чумные иглы
+ItemName.DarkDrop=Тёмная капля
+ItemName.BloodTuner=Кровавый механизм
+ItemName.BloodSeeker=Искатель крови
+ItemName.MusicBoxBeastOfThreeHeads=Музыкальная шкатулка (Beast Of Three Heads)
+ItemName.FortressTrap=Каелитовая пульсовая ловушка
+ItemName.GlassAbsorber=Стеклянный нагрудник
+ItemName.GlassHelm=Стеклянный шлем
+ItemName.GlassLimbguards=Стеклянные ботинки
+
+
+
+
+
+
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -445,6 +468,9 @@ ItemName.RuneGhostBag={$Mods.QwertysRandomContent.Common.TreasureBag}
 ItemName.TundraBossBag={$Mods.QwertysRandomContent.Common.TreasureBag}
 ItemName.B4Bag={$Mods.QwertysRandomContent.Common.TreasureBag}
 ItemName.BladeBossBag{$Mods.QwertysRandomContent.Common.TreasureBag}
+ItemName.NoehtnapBag{$Mods.QwertysRandomContent.Common.TreasureBag}
+
+
 
 Projectiles
 ProjectileName.GlassBulletShard=Осколок стеклянной пули
@@ -568,6 +594,7 @@ BuffName.MorphCooldown=Восстановление оборотня
 BuffName.GlassCannonMorph=Стеклянная пушка
 BuffName.GlassSpike=Стеклянный шип
 BuffName.SpaceFighter= ХоверТанк
+BuffName.ShieldMinion=Щит-миньон
 
 
 BuffDescription.AncientMinion=Древний прислужник сражается за вас!
@@ -604,7 +631,9 @@ BuffDescription.LightlingBuff=Излучает свет
 BuffDescription.EyeBless=Предотвращает болезнь оборотня
 BuffDescription.MorphSickness=Вы все еще приспосабливаетесь к своему новому телу!
 BuffDescription.MorphCooldown=Вы не можете использовать быстрые превращения!
-BuffDescription.GlassCannonMorph=Тебя очень ранимый
+BuffDescription.GlassCannonMorph=Ты очень ранимый
+BuffDescription.ShieldMinion=Вы получили свою личную фалангу!
+
 
 
 MapObjects
@@ -620,6 +649,7 @@ MapObject.=OLORDv2_Head_Boss=О.Л.О.Р.Д
 MapObject.=BladeBoss_Head_Boss=Великий
 MapObject.=AncientMachine_Head_Boss=Древняя машина
 MapObject.=RhuthiniumOre=Рутиниумовая руда
+MapObject.TheGreatTyrannosaurus_Head_Boss=Великий тираннозавр
 
 
 
@@ -893,4 +923,30 @@ ItemTooltip.TankCommanderPants=Прислужники наносят на 20% у
 ItemTooltip.TwistedDarkBody=Эффект изумрудного глаза\nБлагословение глаза сохраняет бонусы маски и робы
 ItemTooltip.TwistedDarkLegs=Увеличивается урон оборотня пока ты в чьём то облике Макс: 30% +
 ItemTooltip.TwistedDarkMask=Увеличивается крит урон оборотня пока вы в чьём то облике Макс: 30% +
+ItemTooltip.EyeOfDarkness=У вас больше шансов нанести крит удар в темноте\nТемнота была первым, что боги пытались изгнать... Им этого не удалось.
+ItemTooltip.RitualInterupter=Вызывает живую тьму
+ItemTooltip.EtimsMaterial=Выкован из крови убитых богов!
+ItemTooltip.StaffOfJob=Причиняет невыносимые мучения врагам которые возле курсора!
+ItemTooltip.EnchantedWhetstone=Позволяет наносить магический урон и в ближнем бою!
+ItemTooltip.B4GiantBow=Стрелы выпущенные из этого огромного лука разделяются на несколько стрел!
+ItemTooltip.TitaniumGrinder=Очень пугающий и эффективный часовой\nИгнорирует защиту!
+ItemTooltip.AdamantitePunnisher=Запрещён в турнирах по боксу!
+ItemTooltip.RhuthiniumBarrage=Выпускает ОГРОМНЫЙ шквал дротиков наносящих большой урон!
+ItemTooltip.ManEaterStaff=Призывает людоеда который будет жевать близлежайших врагов\nСчитается часовым
+ItemTooltip.CactusNeedle=Прилипает к врагам и колит
+ItemTooltip.GlassCannon=Мне вообще нужно что-то объяснять?
+ItemTooltip.PlagueFlechettes=Иглы наносят больше урона, когда набирают скорость от силы тяжести\nБольше чем обычные иглы
+ItemTooltip.BloodSeeker=Имеет небольшое самонаведение
+ItemTooltip.HighHeels=Туфельки с каблуками
+ItemTooltip.HydraBeam=Создает луч разрушительной энергии с неба
+ItemTooltip.LuneOre=Используйте трансмутатор чтобы превратить демонит/кримтан в лунную руду
+ItemTooltip.AntiAirSentry=Вызов стационарной противовоздушной турели
+ItemTooltip.
+ItemTooltip.
+
+
+
+
+
+
 

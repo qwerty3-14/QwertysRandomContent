@@ -21,8 +21,9 @@ namespace QwertysRandomContent.Items.AncientItems
             item.height = 32;
             item.rare = 9;
             item.expert = true;
-            bossBagNPC = mod.NPCType("AncientMachine");
+           // bossBagNPC = mod.NPCType("AncientMachine");
         }
+        public override int BossBagNPC => mod.NPCType("AncientMachine");
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

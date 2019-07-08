@@ -32,12 +32,8 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		
 		public override void UpdateEquip(Player player)
 		{
-			
-			player.rangedDamage  +=0.2f;
-			player.magicDamage  +=0.2f;
-			player.meleeDamage  +=0.2f;
-			player.minionDamage  +=0.2f;
-			player.thrownDamage  +=0.2f;
+
+            player.allDamage += .2f;
 			player.maxMinions +=1;
 		}
 		public override void DrawHands(ref bool drawHands, ref bool drawArms)

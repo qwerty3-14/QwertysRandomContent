@@ -14,7 +14,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Duelist Shirt");
-			Tooltip.SetDefault("Attacking the same enemy continually with melee attaks reduces damage recieved from that enemy\nResets when you switch targets\n7% increased morph and melee crit chance");
+			Tooltip.SetDefault("Attacking the same enemy continually with melee attaks reduces damage recieved from that enemy\n7% increased morph and melee crit chance");
 			
 		}
 		

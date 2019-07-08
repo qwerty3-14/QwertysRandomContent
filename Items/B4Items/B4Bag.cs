@@ -20,12 +20,12 @@ namespace QwertysRandomContent.Items.B4Items
 			item.height = 34;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("WeakPoint"); 
+			//bossBagNPC = mod.NPCType("WeakPoint"); 
 		}
+        public override int BossBagNPC => mod.NPCType("OLORDv2");
 
-		
 
-		public override bool CanRightClick()
+        public override bool CanRightClick()
 		{
 			return true;
 		}
@@ -97,6 +97,8 @@ namespace QwertysRandomContent.Items.B4Items
                 if (devItemSelect == 5)
                 {
                     player.QuickSpawnItem(mod.ItemType("PugMask"));
+                    player.QuickSpawnItem(mod.ItemType("Urizel"));
+                    player.QuickSpawnItem(mod.ItemType("WaveOfDeathUrizel"));
                 }
             }
         }

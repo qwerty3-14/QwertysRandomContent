@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using QwertysRandomContent;
+using Terraria.Localization;
+
 namespace QwertysRandomContent.Items.Armor.Vargule
 {
 	[AutoloadEquip(EquipType.Head)]
@@ -58,7 +60,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Melee attacks boost magic damage and max mana" + "\nMagic attacks boost melee damage";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VCrownSet");
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.visorSetBonus = true;
 			

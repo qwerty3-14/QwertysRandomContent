@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.Armor.Lune
 {
@@ -93,7 +94,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = "Attacking enemies far away from you with ranged attacks will take 20% more damage and get Lune cursed";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.LuneJacketSet");
             //player.GetModPlayer<crestSet>(mod).setBonus = true;
             player.GetModPlayer<JacketBonuses>(mod).setBonus = true;
 

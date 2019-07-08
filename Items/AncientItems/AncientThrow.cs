@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.AncientItems
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ancient Throw");
-			Tooltip.SetDefault("Its string has been stretched for thousands of years" + "\nright click to zoom");
+			Tooltip.SetDefault("Its string has been stretched for thousands of years" + "\nRight click to zoom");
 
 			// These are all related to gamepad controls and don't seem to affect anything else
 			ItemID.Sets.Yoyo[item.type] = true;

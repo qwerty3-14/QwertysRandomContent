@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vargule Staff");
-			Tooltip.SetDefault("Summons a Vargule disc that explodes into a bunch of shards, good dps but hard to time");
+			Tooltip.SetDefault("Summons a Vargule disc that explodes into a bunch of shards");
 			Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
 			
 		}

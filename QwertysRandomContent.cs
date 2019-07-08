@@ -224,7 +224,135 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Russian, "... Так тому и быть");
             AddTranslation(text);
 
+            text = CreateTranslation("BindKey");
+            text.SetDefault("Please go to conrols and bind the 'Yet another special ability key'");
+            text.AddTranslation(GameCulture.Russian, "... Так тому и быть");
+            AddTranslation(text);
 
+
+
+            #region set Bonus Translations
+            text = CreateTranslation("ClaySet");
+            text.SetDefault("Be like a clay statue and... \n Increased morph damage and morph defense when not moving");
+            text.AddTranslation(GameCulture.Russian, "\n Увеличение урона оборотня и защита оборотня когда не двигаешься");
+            AddTranslation(text);
+
+            text = CreateTranslation("DuelistSet");
+            text.SetDefault("Morph attacks against a max combo enemy always crit");    //!!(I can't translate it yet.)!!
+            text.AddTranslation(GameCulture.Russian, "");
+            AddTranslation(text);
+
+            text = CreateTranslation("GlassSet");
+            text.SetDefault("Ranged attacks Inflict 'Arcanely tuned' \nMagic attacks chase enemies inflicted with 'Arcanely tuned'");
+            text.AddTranslation(GameCulture.Russian, "Тайно настроенные \nМагические атаки преследуют врагов, нанесенных 'Тайно настроенными'");
+            AddTranslation(text);
+
+            text = CreateTranslation("LuneCrestSet");
+            text.SetDefault("Shoot the moon!" + "\nDouble right click summon a moon" + "\nRanged attacks shot through the moon will be boosted");
+            text.AddTranslation(GameCulture.Russian, "Двойной щелчок правой кнопкой мыши вызывает луну "+" \nДальние атаки, прошедшие сквозь луну, будут усилены");
+            AddTranslation(text);
+
+            text = CreateTranslation("LuneJacketSet");
+            text.SetDefault("Attacking enemies far away from you with ranged attacks will take 20% more damage and get Lune cursed");
+            text.AddTranslation(GameCulture.Russian, "Атакуя врагов с дальнего расстояния вы наносите +20% урона и лунное проклятие");
+            AddTranslation(text);
+
+            text = CreateTranslation("RCapSet");
+            text.SetDefault("100% ranged crit chance when at 100% life");
+            text.AddTranslation(GameCulture.Russian, "100%-й шанс критического удара при 100% жизни");
+            AddTranslation(text);
+
+            text = CreateTranslation("RCircletSet");
+            text.SetDefault("Melee attacks boost magic damage and max mana" + "\nMagic attacks boost melee damage");
+            text.AddTranslation(GameCulture.Russian, "Атаки ближнего боя увеличивают магический урон и максимальную Ману " + " \nМагические атаки увеличивают урон ближнего боя");
+            AddTranslation(text);
+
+            text = CreateTranslation("RGogglesSet");
+            text.SetDefault("Throwing attacks confuse and poison enemies" + "\n+10% throwing damage");
+            text.AddTranslation(GameCulture.Russian, "Метательные атаки сбивают с толку и отравляют врагов "+" \n + 10% к урону");
+            AddTranslation(text);
+
+            text = CreateTranslation("RHatSet");
+            text.SetDefault("20% bonus magic damage, but this bonus goes down as your mana goes down");
+            text.AddTranslation(GameCulture.Russian, "20% бонусного магического урона, но этот бонус уменьшается с уменьшением вашей маны");
+            AddTranslation(text);
+
+            text = CreateTranslation("RHeadbandSet");
+            text.SetDefault("every 1% of life missing is converted to 1% extra melee speed");
+            text.AddTranslation(GameCulture.Russian, "каждый 1% пропавшей жизни конвертируется в 1% к дополнительной скорости ближнего боя");
+            AddTranslation(text);
+
+            text = CreateTranslation("RMaskSet");
+            text.SetDefault("Minion attacks inflict ichor and +1 max minions");
+            text.AddTranslation(GameCulture.Russian, "Атаки прислужников накладывают ихор и +1 прислужник");
+            AddTranslation(text);
+
+            text = CreateTranslation("RMouthguardkSet");
+            text.SetDefault("+10% throwing damage and +100% throwing velocity when near a sentry");
+            text.AddTranslation(GameCulture.Russian, "+ 10% к урону и + 100% к скорости при нахождении рядом с турелью");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShamanSet1");
+            text.SetDefault("Press the ");
+            text.AddTranslation(GameCulture.Russian, "Нажмите на...");
+            AddTranslation(text);
+
+            text = CreateTranslation("ShamanSet2");
+            text.SetDefault(" key to to call war spirits which temporarily make minions attack much faster and you gain 40% melee speed! \n 60 second cooldown");
+            text.AddTranslation(GameCulture.Russian, "Ключ к призыву военных духов, которые временно заставляют миньонов атаковать намного быстрее, и вы получаете 40% скорости ближнего боя! \n60 секунд перезарядки");
+            AddTranslation(text);
+
+            text = CreateTranslation("TankSet");
+            text.SetDefault("Blitzkreig!- Morph attacks deal increased damage and stun newly spawned enemies\n minions deal bonus damage against stunned enemies");
+            text.AddTranslation(GameCulture.Russian, "Blitzkreig!- При атаках оборотня наносится повышенный урон и оглушаются вновь появившиеся враги \nМиньоны наносят дополнительный урон против оглушенных врагов");
+            AddTranslation(text);
+
+            text = CreateTranslation("DarkSet");
+            text.SetDefault("+100 max life when morphed \nWith Eye's knowledge this extra health will be filled instantly upon morphing");
+            text.AddTranslation(GameCulture.Russian, "+100 макс. Жизни при трансформации \nС благославлением глаза это дополнительное здоровье будет мгновенно восполнено при трансформации");
+            AddTranslation(text);
+
+
+            text = CreateTranslation("VCharmSet");
+            text.SetDefault("+1 max minions and sentries");
+            text.AddTranslation(GameCulture.Russian, "+1 прислужник и турель");
+            AddTranslation(text);
+
+            text = CreateTranslation("VCrownSet");
+            text.SetDefault("Melee attacks boost magic damage and max mana" + "\nMagic attacks boost melee damage");
+            text.AddTranslation(GameCulture.Russian, "Атаки ближнего боя увеличивают магический урон и максимальную Ману" + " \nМагические атаки увеличивают урон ближнего боя");
+            AddTranslation(text);
+
+            text = CreateTranslation("VHelmetSet");
+            text.SetDefault("Spelunker effect and +40% mining speed");
+            text.AddTranslation(GameCulture.Russian, "эффект зелья шахтёра и +40% к скорости копания");
+            AddTranslation(text);
+
+            text = CreateTranslation("VSombreroSSet");
+            text.SetDefault("Magic attacks casted soon after ranged attacks consume no mana" + "\n25% chance not to consume ammo");
+            text.AddTranslation(GameCulture.Russian, "Магические атаки, применяемые вскоре после атак дальнего боя, не расходуют маны" + "\n25% шанс не использовать боеприпасы");
+            AddTranslation(text);
+
+            text = CreateTranslation("VVisorSet");
+            text.SetDefault("Melee attacks will continually increase your ranged damage, resets when you do a ranged attack");
+            text.AddTranslation(GameCulture.Russian, "");
+            AddTranslation(text);
+
+            text = CreateTranslation("CaeliteSet");
+            text.SetDefault("Effects granted by this armor are 25% more effective!");
+            text.AddTranslation(GameCulture.Russian, "Эффекты от этой брони на 25% эффективнее!");
+            AddTranslation(text);
+
+            text = CreateTranslation("GaleSet");
+            text.SetDefault("You generate gale rings over time" + "\n+1% dodge chance for each active ring" + "\nDouble right click to turn the rings into knives and send them flying at your cursor");
+            text.AddTranslation(GameCulture.Russian, "Вы генерируете кольца бури со временем" + "\n+ 1% шанс уклонения для каждого активного кольца" + "\nДвойной щелчок правой кнопкой мыши превращает кольца в ножи и отправляет их летать под вашим курсором");
+            AddTranslation(text);
+
+            text = CreateTranslation("HydraSet");
+            text.SetDefault("Like a hydra, you get more 'heads' the more injured you are." + "\n+1 max minions when below 80% life" + "\n+2 max minions when below 60% life" + "\n+3 max minions when below 40% life" + "\n+4 max minions when below 20% life" + "\n+20 max minions when below 1% life");
+            text.AddTranslation(GameCulture.Russian, "Подобно гидре вы получаете больше 'голов' когда вас ранят" + "\n+1 Макс количество прислужников, когда уровень жизни ниже 80%" + "\n+2 Макс количество прислужников, когда уровень жизни ниже 60%" + "\n+3 Макс количество прислужников, когда жизнь ниже 40%" + "\n+4 Макс количество прислужников, когда жизнь ниже 20%" + "\n+20 макс количество прилужников, когда жизнь ниже 1%");
+            AddTranslation(text);
+            #endregion
 
             AddBossHeadTexture(AncientMachineHead);
             AddBossHeadTexture(HydraHead1);

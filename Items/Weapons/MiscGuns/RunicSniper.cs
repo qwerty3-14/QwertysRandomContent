@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Runic Sniper");
-			Tooltip.SetDefault("x2 damage to enemies far away from you" + "\nright click to zoom");
+			Tooltip.SetDefault("x2 damage to enemies far away from you" + "\nRight click to zoom");
 			
 		}
 		public override void SetDefaults()

@@ -24,7 +24,6 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.AnchorLeft = default(AnchorData);
             TileObjectData.newTile.AnchorRight = default(AnchorData);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<VFanE>().Hook_AfterPlacement, 0, 0, true);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
             //TileObjectData.newTile.StyleWrapLimit = 2; //not really necessary but allows me to add more subtypes of chairs below the example chair texture
             //TileObjectData.newTile.StyleMultiplier = 2; //same as above

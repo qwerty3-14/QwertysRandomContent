@@ -57,7 +57,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CactusNeedle");
+            DisplayName.SetDefault("Cactus Needle");
             Tooltip.SetDefault("Sticks to enemies dealing stacking DOT");
         }
         public override void SetDefaults()

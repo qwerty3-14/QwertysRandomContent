@@ -144,24 +144,7 @@ namespace QwertysRandomContent
         public override void PostUpdateEquips()
         {
             
-            float m = player.magicDamage;
-            if (player.armor[0].type == ItemID.SpectreHood)
-            {
-                m += .4f;
-            }
-            if (player.meleeDamage > 1f && m > 1f && player.rangedDamage > 1f && player.minionDamage > 1f)
-            {
-                float[] damages = { player.meleeDamage, m, player.rangedDamage, player.minionDamage, player.thrownDamage };
-                int smallest = 0;
-                for (int d = 0; d < damages.Length; d++)
-                {
-                    if (damages[d] < damages[smallest])
-                    {
-                        smallest = d;
-                    }
-                }
-                morphDamage += damages[smallest] - 1f;
-            }
+           
             if (player.meleeCrit > 4 && player.magicCrit > 4 && player.rangedCrit > 4 && player.thrownCrit > 4)
             {
                 int[] crits = { player.meleeCrit, player.magicCrit, player.rangedCrit };
@@ -571,13 +554,22 @@ namespace QwertysRandomContent
             prefixMorphCrit = 0;
             return base.NewPreReforge(item);
         }
+        public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult)
+        {
+            if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)
+            {
+                mult *= player.GetModPlayer<ShapeShifterPlayer>().morphDamage;
+            }
+        }
+        /*
+        [Obsolete]
         public override void GetWeaponDamage(Item item, Player player, ref int damage)
         {
             if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)
             {
                 damage = (int)(damage * ShapeShifterPlayer.ModPlayer(player).morphDamage + 5E-06f);
             }
-        }
+        }*/
         public override void GetWeaponCrit(Item item, Player player, ref int crit)
         {
             if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)

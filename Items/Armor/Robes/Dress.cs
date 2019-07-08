@@ -33,7 +33,8 @@ namespace QwertysRandomContent.Items.Armor.Robes
 			item.width = 34;
 			item.height = 30;
 			item.rare = 1;
-			item.vanity = true;
+            item.value = 10000;
+            item.vanity = true;
 		}
 		
 		public override void SetMatch(bool male, ref int equipSlot, ref bool robes)

@@ -93,31 +93,7 @@ namespace QwertysRandomContent.Items.Weapons
             
 
 		}
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+        
 
         public bool runOnce = true;
         public int rotationDirection = 1;
@@ -194,7 +170,7 @@ namespace QwertysRandomContent.Items.Weapons
             
             float bulletSpacing = 2*(float)Math.PI / bulletCount;
             //CombatText.NewText(player.getRect(), new Color(38, 126, 126), bulletCount, true, false);
-            player.PickAmmo(GetReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
+            player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
             for (; bulletCount > 0; bulletCount--)
             {
                 Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir)*BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
@@ -230,7 +206,7 @@ namespace QwertysRandomContent.Items.Weapons
 
             float bulletSpacing = 2 * (float)Math.PI / bulletCount;
 
-            player.PickAmmo(GetReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
+            player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
             for (; bulletCount > 0; bulletCount--)
             {
                 Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];

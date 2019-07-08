@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.HydraItems
 {
@@ -15,7 +16,7 @@ namespace QwertysRandomContent.Items.HydraItems
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hydra Helmet");
-			Tooltip.SetDefault("Good for summoning and defense!" + "\n+1 life/sec regen" + "\n+10% summon damage");
+			Tooltip.SetDefault( "+1 life/sec regen rate" + "\n+10% summon damage");
 			
 		}
 		public override bool Autoload(ref string name)
@@ -67,7 +68,7 @@ namespace QwertysRandomContent.Items.HydraItems
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Like a hydra, you get more 'heads' the more injured you are." + "\n+1 max minions when below 80% life" + "\n+2 max minions when below 60% life" + "\n+3 max minions when below 40% life" + "\n+4 max minions when below 20% life" + "\n+20 max minions when below 1% life";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.HydraSet");
 			if (((player.statLife*1.0f) / (player.statLifeMax2*1.0f))<.01f)
 			{
 				player.maxMinions +=20;

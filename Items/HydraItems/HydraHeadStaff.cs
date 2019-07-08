@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hydra Head Staff");
-			Tooltip.SetDefault("Summons a hydra head" + "\nThe Hydra Head will shoot toward your cursor" + "\nThe Hydra Head will automaticly summon more heads if there are empty minion slots");
+			Tooltip.SetDefault("Summons a hydra head to shoot towards your cursor" + "\nThe hydra head will automatically summon more heads if there are empty minion slots");
 			
 		}
  

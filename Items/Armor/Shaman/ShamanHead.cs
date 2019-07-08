@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Shaman
@@ -62,10 +63,10 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void UpdateArmorSet(Player player)
         {
-            String s = "Please go to conrols and bind the 'Yet another special ability key'";
+            String s = Language.GetTextValue("Mods.QwertysRandomContent.BindKey");
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
-                s = "Press the " + key + " key to to call war spirits which temporarily make minions attack much faster and you gain 40% melee speed! \n 60 second cooldown";
+                s = Language.GetTextValue("Mods.QwertysRandomContent.ShamanSet1") + key + Language.GetTextValue("Mods.QwertysRandomContent.ShamanSet2");
             }
             player.setBonus = s;
             player.GetModPlayer<ShamanHeadEffects>().setBonus = true;

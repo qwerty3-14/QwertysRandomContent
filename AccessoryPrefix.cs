@@ -260,12 +260,7 @@ namespace QwertysRandomContent
         {
             if (item.prefix > 0)
             {
-                
-                player.rangedDamage += damage * .01f;
-                player.minionDamage += damage * .01f;
-                player.meleeDamage += damage * .01f;
-                player.magicDamage += damage * .01f;
-                player.thrownDamage += damage * .01f;
+                player.allDamage += damage * .01f;
                 player.meleeCrit += crit;
                 player.rangedCrit += crit;
                 player.magicCrit += crit;

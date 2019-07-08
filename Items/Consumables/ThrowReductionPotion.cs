@@ -9,8 +9,8 @@ namespace QwertysRandomContent.Items.Consumables
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Throw Reduction potion");
-			Tooltip.SetDefault("40% chane not to consume thrown items");
+			DisplayName.SetDefault("Throw Reduction Potion");
+			Tooltip.SetDefault("40% chance not to consume thrown items");
 		}
 
 		public override void SetDefaults()

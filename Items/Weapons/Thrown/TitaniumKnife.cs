@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Titanium Knife");
-			Tooltip.SetDefault("Flys straight and reverses direction soon after hitting an enemy");
+			Tooltip.SetDefault("Flies straight and reverses direction soon after hitting an enemy");
 			
 		}
 		public override void SetDefaults()

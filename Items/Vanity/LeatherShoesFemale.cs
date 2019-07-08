@@ -23,7 +23,6 @@ namespace QwertysRandomContent.Items.Vanity
 			
 			item.width = 32;
 			item.height = 32;
-			item.defense = 1;
 			item.accessory = true;
 			item.vanity = true;
 			

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.TankCommander
@@ -41,7 +42,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Blitzkreig!- Morph attacks deal increased damage and stun newly spawned enemies\n minions deal bonus damage against stunned enemies";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.TankSet");
             player.GetModPlayer<TankComHelmEffects>().setBonus = true;
         }
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)

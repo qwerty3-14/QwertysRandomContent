@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Duelist
@@ -14,8 +15,8 @@ namespace QwertysRandomContent.Items.Armor.Duelist
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DuelistHeadband");
-            Tooltip.SetDefault("Attacking the same enemy continually with melee attaks increases damage dealt to that enemy\nResets when you switch targets \n6% reduced cooldown on quick morphs");
+            DisplayName.SetDefault("Duelist Headband");
+            Tooltip.SetDefault("Attacking the same enemy continually with melee attaks increases damage dealt to that enemy \n6% reduced cooldown on quick morphs");
 
         }
 
@@ -53,7 +54,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Morph attacks against a max combo enemy always crit";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DuelistSet"); 
             player.GetModPlayer<DuelistEffects>().set = true;
         }
 

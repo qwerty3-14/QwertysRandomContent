@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Finned Arrow");
-			Tooltip.SetDefault("Awkward in the air but swims toward enemies when submerged");
+			Tooltip.SetDefault("Excels in water");
 			
 		}
 		public override void SetDefaults()

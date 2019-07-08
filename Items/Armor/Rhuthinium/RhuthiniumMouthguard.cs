@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
 {
@@ -56,7 +57,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "+10 throwing damage and +100% throwing velocity when near a sentry";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RMouthguardkSet");
             
             for (int p = 0; p < 1000; p++)
             {

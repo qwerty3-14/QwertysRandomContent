@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
@@ -54,7 +55,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void UpdateArmorSet(Player player)
 		{
 			
-			player.setBonus = "Throwing attacks confuse and poison enemies" + "\n+10% throwing damage";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RGogglesSet");
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.ninjaSabatoge = true;
 			player.thrownDamage += .1f;			

@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.Armor.TwistedDark
 {
@@ -15,7 +16,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Etimsic Half Plate");
-            Tooltip.SetDefault("Emerald Eye affect \nEye's knowledge preserve's the mask and robe bonuses \n10% reduced cooldown on quick morphs");
+            Tooltip.SetDefault("Emerald Eye effect \nEye's knowledge preserve's the mask and robe bonuses \n10% reduced cooldown on quick morphs");
 
         }
         public override void SetDefaults()
@@ -47,7 +48,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "+100 max life when morphed \nWith Eye's knowledge this extra health will be filled instantly upon morphing";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DarkSet");
             player.GetModPlayer<ShapeShifterPlayer>().TwistedDarkSetBonus = true;
             if(player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {

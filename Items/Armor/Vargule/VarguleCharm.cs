@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using QwertysRandomContent;
+using Terraria.Localization;
+
 namespace QwertysRandomContent.Items.Armor.Vargule
 {
 	[AutoloadEquip(EquipType.Head)]
@@ -52,7 +54,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "+1 max minions and sentries";
+			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VCharmSet");
 			player.maxMinions +=1;
 			player.maxTurrets +=1;
 			

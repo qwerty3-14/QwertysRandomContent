@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Weapons.Vargule
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vargule Boomerang Duo");
-			Tooltip.SetDefault("Flys toward you cursor returning if it reaches it or hits something" + "\nThe second boomerang will be thrown when the origonal is on its way back" + "\nright click to make the boomerangs orbit you");
+			Tooltip.SetDefault("Flys toward you cursor returning if it reaches it or hits something" + "\nThe second boomerang will be thrown when the origonal is on its way back" + "\nRight click to make the boomerangs orbit you");
 
 
         }

@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Ammo
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Teleportation Arrow (Grab)");
-			Tooltip.SetDefault("Teleports what you hit above you (does not effect blocks)");
+			Tooltip.SetDefault("Teleports the enemy hit above you");
 			
 		}
 		public override void SetDefaults()

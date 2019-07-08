@@ -24,10 +24,10 @@ namespace QwertysRandomContent.Items.Etims
             item.height = 32;
             item.rare = 9;
             item.expert = true;
-            bossBagNPC = mod.NPCType("CloakedDarkBoss");
+            //bossBagNPC = mod.NPCType("CloakedDarkBoss");
         }
+        public override int BossBagNPC => mod.NPCType("CloakedDarkBoss");
 
-       
 
         public override bool CanRightClick()
         {

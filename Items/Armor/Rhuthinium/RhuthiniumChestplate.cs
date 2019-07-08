@@ -32,12 +32,8 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		
 		public override void UpdateEquip(Player player)
 		{
-			
-			player.rangedDamage  +=0.1f;
-			player.magicDamage  +=0.1f;
-			player.meleeDamage  +=0.1f;
-			player.minionDamage  +=0.1f;
-			player.thrownDamage  +=0.1f;
+
+            player.allDamage += .1f;
 		}
 		public override void DrawHands(ref bool drawHands, ref bool drawArms)
 		{

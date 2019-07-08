@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Burst Miner");
-			Tooltip.SetDefault("Mines really fast then has a long cooldown");
+			Tooltip.SetDefault("Mines quickly with a cooldown");
 			
 		}
 		public override void SetDefaults()

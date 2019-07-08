@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Accesories
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed medallion");
+			DisplayName.SetDefault("Cursed Medallion");
 			Tooltip.SetDefault("Disables life regeneration");
 			
 		}

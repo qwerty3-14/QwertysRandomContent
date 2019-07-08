@@ -109,8 +109,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
            
             Player player = Main.player[projectile.owner];
             player.Center = projectile.Center;
-            player.immune = true;
-            player.immuneTime = 2;
+           
             player.statDefense = 0;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
             projectile.rotation = (QwertysRandomContent.LocalCursor[projectile.owner]-projectile.Center).ToRotation();

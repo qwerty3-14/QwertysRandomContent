@@ -38,6 +38,30 @@ Extra thanks
 
 
 changelog
+0.19.5
+-added chrome shotgun
+
+0.19.4
+-updated for tmodloader 0.11
+-kerdo updated some sprites
+-minor bug fixes
+-tweaked Metronome
+
+0.19.3
+-Kerdo resprited some things
+-added 2 dev items for Kerdo
+-added 3 new fortress rooms designed by Kerdo
+-fixed and tweaked some descriptions (thanks kharkov72)
+0.19.2
+-added Ash Fell staff (summoner's night's edge)
+-nerfed cold front
+-new sprite for Aerous Bow (thanks Kerdo)
+
+0.19.1
+-added Enchanted Whetstone
+-fixed Noehtnap not depawning when player was killed
+
+
 0.19.0 The update that took way too long
 
 -added a new boss Noehtnap and drops

@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.World.Generation;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
 {
@@ -14,7 +15,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Armor");
-            Tooltip.SetDefault("Magic attacks against airborn enemies do 20% more damage" + "\nThrown attacks done against grounded enemies do 20% more damage" + "\n+3 recovery");
+            Tooltip.SetDefault("Magic attacks against airborn enemies do 20% more damage" + "\nThrown attacks against grounded enemies do 20% more damage" + "\n+3 recovery");
 
         }
 
@@ -70,7 +71,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Effects granted by this armor are 25% more effective!";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.CaeliteSet");
             player.GetModPlayer<QwertyPlayer>(mod).recovery += 2;
             player.GetModPlayer<CaeliteSetBonus>(mod).setBonus = true;
 

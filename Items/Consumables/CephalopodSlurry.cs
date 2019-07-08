@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Consumables
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cephalopod Slurry");
-			//Tooltip.SetDefault("30 minute duration");
+			Tooltip.SetDefault("");
 		}
 
 		public override void SetDefaults()

@@ -2,6 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using QwertysRandomContent;
+using Terraria.Localization;
+
 namespace QwertysRandomContent.Items.Armor.Vargule
 {
 	[AutoloadEquip(EquipType.Head)]
@@ -61,7 +63,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			 player.setBonus = "magic attacks casted soon after ranged attacks consume no mana" + "\n25% chance not to consume ammo";
+			 player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VSombreroSSet");
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.SombreroSetBonus = true;
 			player.ammoCost75 = true;

@@ -14,7 +14,7 @@ namespace QwertysRandomContent.Items.HydraItems
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hydra Scalemail");
-			Tooltip.SetDefault("Good for summoning and defense!" + "\n+1 life/sec regen" + "\n+1 max minions");
+			Tooltip.SetDefault("+1 life/sec regen rate" + "\n+1 max minions");
 			
 		}
 		

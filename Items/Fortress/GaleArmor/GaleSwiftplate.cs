@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress.GaleArmor
@@ -15,7 +16,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gale Swiftplate");
-			Tooltip.SetDefault("You're basicly a sky ninja." + "\n+12% chance to dodge an attack" + "\n+15% thrown critical strike chance and velocity" + "\n20% chance not to consume thrown items" + "\nAllows you to cling to walls" + "\nThrowing damage increased by 25% when clinged to walls");
+			Tooltip.SetDefault("+12% chance to dodge an attack" + "\n+15% thrown critical strike chance and velocity" + "\n20% chance not to consume thrown items" + "\nAllows you to cling to walls" + "\nThrowing damage increased by 25% while clinging to walls");
 
 
         }
@@ -43,7 +44,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "You generate gale rings over time" + "\n+1% dodge chance for each active ring" + "\nDouble right click to turn the rings into knives and send them flying at your cursor";
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.GaleSet");
             player.GetModPlayer<GaleSetBonus>().setBonus = true;
         }
         public override void UpdateEquip(Player player)

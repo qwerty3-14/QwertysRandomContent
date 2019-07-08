@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ring of Guns");
-            Tooltip.SetDefault("A ring of guns apears around your cursor shooting inwards");
+            Tooltip.SetDefault("A ring of guns appears around your cursor shooting inwards");
 
         }
         public override void SetDefaults()

@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gale Swift Helm");
-			Tooltip.SetDefault("Who needs defense when enemies can't hit you?" + "\n+8% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nGreatly increased throwing velocity, and damage after dodging");
+			Tooltip.SetDefault("+8% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nGreatly increased throwing velocity and damage after dodging");
 
 
         }

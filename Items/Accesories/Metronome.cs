@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +12,7 @@ namespace QwertysRandomContent.Items.Accesories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Metronome");
-			Tooltip.SetDefault("Each kill grant +2% non summon damage up to a max of 200%" + "\nBonus resets when you take damage or switch weapons");
+			Tooltip.SetDefault("Kills grant +2% damage up to 200%" + "\nBonus resets when you take damage or switch weapons" + "\n");
 			
 		}
 		
@@ -30,15 +31,23 @@ namespace QwertysRandomContent.Items.Accesories
 			
 			
 		}
-		
-		public override void UpdateEquip(Player player)
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+
+            foreach (TooltipLine line in tooltips) //runs through all tooltip lines
+            {
+                if (line.mod == "Terraria" && line.Name == "Tooltip2") //this checks if it's the line we're interested in
+                {
+                    line.text = "Current Bonus: " + (Main.player[item.owner].GetModPlayer<QwertyPlayer>().killCount * 2) + "% increased damage";//change tooltip
+                }
+
+            }
+        }
+        public override void UpdateEquip(Player player)
 		{
 			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
 			modPlayer.Metronome = true;
-			player.magicDamage += modPlayer.killCount*.02f;
-			player.meleeDamage += modPlayer.killCount*.02f;
-			player.rangedDamage += modPlayer.killCount*.02f;
-			player.thrownDamage += modPlayer.killCount*.02f;
+			
 			
 		}
 		

@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Scroll");
-            Tooltip.SetDefault("Makes two ice runes orbit you damaging enemeies that get too close");
+            Tooltip.SetDefault("Summons two ice runes to orbit you");
 
         }
 

@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aerous Bow With Random Enchantment");
+			DisplayName.SetDefault("Irregular Enchanted Aerous");
 			Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nRight click to shoot a random arrow");
 
 

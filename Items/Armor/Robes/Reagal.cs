@@ -85,7 +85,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if ((drawPlayer.legs == mod.GetEquipSlot("DuelistPants_FemaleLegs", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && !drawPlayer.Male) || (drawPlayer.shoe == mod.GetEquipSlot("HighHeels", EquipType.Shoes)) || (drawPlayer.legs == mod.GetEquipSlot("TwistedDarkLegs_FemaleLegs", EquipType.Legs)))
+            if ((drawPlayer.legs == mod.GetEquipSlot("DuelistPants_FemaleLegs", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && !drawPlayer.Male) || (drawPlayer.legs == mod.GetEquipSlot("ConduitRobes_Female", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.shoe == mod.GetEquipSlot("HighHeels", EquipType.Shoes)) || (drawPlayer.legs == mod.GetEquipSlot("TwistedDarkLegs_FemaleLegs", EquipType.Legs)))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/HeelLegs");
                 Vector2 Position = drawInfo.position;

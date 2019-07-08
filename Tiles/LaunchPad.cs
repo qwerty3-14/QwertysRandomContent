@@ -28,8 +28,6 @@ namespace QwertysRandomContent.Tiles
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, 0, 0);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<VFanE>().Hook_AfterPlacement, 0, 0, true);
-            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
             TileObjectData.addTile(Type);
             ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("CaeliteDust");
@@ -40,6 +38,10 @@ namespace QwertysRandomContent.Tiles
             name.SetDefault("Launchpad");
             
 
+        }
+        public override bool CanPlace(int i, int j)
+        {
+            return  Main.tile[i, j + 1].active();
         }
         public override void FloorVisuals(Player player)
         {
