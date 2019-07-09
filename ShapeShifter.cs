@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using Terraria.Localization;
 
 namespace QwertysRandomContent
 {
@@ -591,7 +592,7 @@ namespace QwertysRandomContent
                     string damageValue = splitText.First();
                     string damageWord = splitText.Last();
                     // Change the tooltip text
-                    tt.text = damageValue + " morph " + damageWord;
+                    tt.text = damageValue + Language.GetTextValue("Mods.QwertysRandomContent.morph") + damageWord;
                 }
             }
             if(equipedMorphDefense>0)
@@ -605,6 +606,7 @@ namespace QwertysRandomContent
                 {
                     tooltips.Insert(Index + 1, line);
                 }
+                line.text=equipedMorphDefense + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
             }
             if (item.GetGlobalItem<ShapeShifterItem>().morphType != 0)
             {
@@ -613,9 +615,10 @@ namespace QwertysRandomContent
                 {
                     line.overrideColor = Color.Orange;
                 }
+                line.text=Language.GetTextValue("Mods.QwertysRandomContent.MorphTypeStable");
                 if (item.GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.QuickShiftType)
                 {
-                    line.text = "Morph Type: Quick";
+                    line.text = Language.GetTextValue("Mods.QwertysRandomContent.MorphTypeQuick");
                 }
                 tooltips.Insert(KBIndex + 1, line);
                 if (item.GetGlobalItem<ShapeShifterItem>().morphDef == -1)
@@ -626,6 +629,7 @@ namespace QwertysRandomContent
                         line.overrideColor = Color.Orange;
                         tooltips.Insert(KBIndex + 2, line);
                     }
+                    line.text = Language.GetTextValue("Mods.QwertysRandomContent.MorphTypeInvulnerable");
                 }
                 else
                 {
@@ -635,6 +639,7 @@ namespace QwertysRandomContent
                         line.overrideColor = Color.Orange;
                         tooltips.Insert(KBIndex + 2, line);
                     }
+                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef) + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
                 }
 
                 if (item.GetGlobalItem<ShapeShifterItem>().morphCooldown != 0)
@@ -644,6 +649,7 @@ namespace QwertysRandomContent
                         line.overrideColor = Color.Orange;
                         tooltips.Insert(KBIndex + 3, line);
                     }
+                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphCooldown * PrefixorphCooldownModifier * Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().coolDownDuration) + Language.GetTextValue("Mods.QwertysRandomContent.Morphcooldown");
                 }
             }
             if (prefixMorphDamage > 0)
@@ -651,6 +657,8 @@ namespace QwertysRandomContent
                 TooltipLine line = new TooltipLine(mod, "morphDamage", "+" + prefixMorphDamage + "% morph damage");
                 line.isModifier = true;
                 tooltips.Add(line);
+
+                line.text = "+" + prefixMorphDamage + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDamage");
             }
             else if (prefixMorphDamage < 0)
             {
@@ -658,12 +666,14 @@ namespace QwertysRandomContent
                 line.isModifierBad = true;
                 line.overrideColor = Color.Red;
                 tooltips.Add(line);
+                line.text = prefixMorphDamage + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDamage");
             }
             if (prefixMorphDef > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "morphDefense", "+" + prefixMorphDef + " defense when morphed");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text = "+" + prefixMorphDef + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDef");
             }
             else if (prefixMorphDef < 0)
             {
@@ -671,12 +681,14 @@ namespace QwertysRandomContent
                 line.isModifierBad = true;
                 line.overrideColor = Color.Red;
                 tooltips.Add(line);
+                line.text = prefixMorphDef + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDef");
             }
             if (prefixMorphCrit > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "morphCrit", "+" + prefixMorphCrit + "% morph critical strike chance");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text = "+" + prefixMorphCrit + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphCrit");
             }
             if(PrefixorphCooldownModifier >1f)
             {
@@ -684,12 +696,14 @@ namespace QwertysRandomContent
                 line.isModifier = true;
                 line.overrideColor = Color.Red;
                 tooltips.Add(line);
+                line.text = (int)(PrefixorphCooldownModifier * 100f)-100 + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierLonger");
             }
             else if(PrefixorphCooldownModifier < 1f)
             {
                 TooltipLine line = new TooltipLine(mod, "PrefixorphCooldownModifier",  100-(int)(PrefixorphCooldownModifier*100f) + "% shorter cooldown");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text = 100-(int)(PrefixorphCooldownModifier*100f) + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierShorter");
             }
 
         }
