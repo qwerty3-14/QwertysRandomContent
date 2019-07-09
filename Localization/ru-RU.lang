@@ -394,7 +394,7 @@ ItemName.DnasBrick=Анти-гравитационный кирпич крепо
 ItemName.DnasTransmutator=Трансмутатор анти гравитации
 ItemName.DnasLantern=Лампа анти-гравитации
 ItemName.FakeFortressBrick=Зачарованный Кирпич Крепости
-ItemName.FortressTrap-Каелитовая импульсная ловушка
+ItemName.FortressTrap=Каелитовая импульсная ловушка
 ItemName.Launchpad=Воздушная панель
 ItemName.LuneBoomerang=Лунный бумеранг
 ItemName.CustomDye2=Стандартный краситель
@@ -449,7 +449,6 @@ ItemName.DarkDrop=Тёмная капля
 ItemName.BloodTuner=Кровавый механизм
 ItemName.BloodSeeker=Искатель крови
 ItemName.MusicBoxBeastOfThreeHeads=Музыкальная шкатулка (Beast Of Three Heads)
-ItemName.FortressTrap=Каелитовая пульсовая ловушка
 ItemName.GlassAbsorber=Стеклянный нагрудник
 ItemName.GlassHelm=Стеклянный шлем
 ItemName.GlassLimbguards=Стеклянные ботинки
@@ -468,7 +467,7 @@ ItemName.RuneGhostBag={$Mods.QwertysRandomContent.Common.TreasureBag}
 ItemName.TundraBossBag={$Mods.QwertysRandomContent.Common.TreasureBag}
 ItemName.B4Bag={$Mods.QwertysRandomContent.Common.TreasureBag}
 ItemName.BladeBossBag{$Mods.QwertysRandomContent.Common.TreasureBag}
-ItemName.NoehtnapBag{$Mods.QwertysRandomContent.Common.TreasureBag}
+ItemName.NoehtnapBag={$Mods.QwertysRandomContent.Common.TreasureBag}
 
 
 
@@ -830,7 +829,7 @@ ItemTooltip.HydraMissileStaff=Запускает голову Гидры\nкот
 ItemTooltip.RingOfGuns=Вокруг курсора появляются пистолеты которыми можно управлять
 ItemTooltip.RunicWave=Создайте волну, которая создаёт руны в полете\nЩелкните правой кнопкой мыши, чтобы переключить руны.
 ItemTooltip.Steambath=Игнорирует защиту
-ItemTooltip.AdamantitePunnisher=Запрещен на боксерских турнирах
+ItemTooltip.AdamantitePunnisherStaff=Запрещен на боксерских турнирах
 ItemTooltip.ChlorophyteSentryStaff=Призывает хлорофитовую турель которая вызывает облака спор
 ItemTooltip.ChlorophyteSniperStaff=Призывает хлорофитового стрелка который призван что бы убивать твоих врагов
 ItemTooltip.GoldDaggerStaff=Призывает золотой кинжал сражающийся за тебя
@@ -839,7 +838,7 @@ ItemTooltip.MythrilPrismStaff=Призывает мифриловую призм
 ItemTooltip.OrichalcumDrifterStaff=Призывает орихалкового летуна сражающегося на твоей стороне
 ItemTooltip.PlatinumDaggerStaff=Призывает платиновый кинжал сражающийся за тебя
 ItemTooltip.RunicMinionStaff=ризывает рунического прислужника который сражается за вас!
-ItemTooltip.TitaniumGrinder=Очень ужасающая и эффективная ловушка\nИгнорирует защиту
+ItemTooltip.TitaniumGrinderStaff=Очень ужасающая и эффективная ловушка\nИгнорирует защиту
 ItemTooltip.RunicBlade=Запускает мини-ледяные руны
 ItemTooltip.TerraBladeWithSlashEnchantment=Щелкните правой кнопкой мыши для мощной слеш атаки
 ItemTooltip.Arachnophobia=Бросает 8 йо-йо одновременно!
@@ -929,7 +928,6 @@ ItemTooltip.EtimsMaterial=Выкован из крови убитых богов
 ItemTooltip.StaffOfJob=Причиняет невыносимые мучения врагам которые возле курсора!
 ItemTooltip.EnchantedWhetstone=Позволяет наносить магический урон и в ближнем бою!
 ItemTooltip.B4GiantBow=Стрелы выпущенные из этого огромного лука разделяются на несколько стрел!
-ItemTooltip.TitaniumGrinder=Очень пугающий и эффективный часовой\nИгнорирует защиту!
 ItemTooltip.AdamantitePunnisher=Запрещён в турнирах по боксу!
 ItemTooltip.RhuthiniumBarrage=Выпускает ОГРОМНЫЙ шквал дротиков наносящих большой урон!
 ItemTooltip.ManEaterStaff=Призывает людоеда который будет жевать близлежайших врагов\nСчитается часовым
