@@ -255,7 +255,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                     {
                         QwertysRandomContent.UpdateProjectileClass(p);
                     }
-                    Main.PlaySound(SoundID.Item12);
+                    Main.PlaySound(SoundID.Item12, player.Center);
                 }
 
                 currentHeight = 0; //reset

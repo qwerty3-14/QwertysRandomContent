@@ -173,7 +173,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                             }
                         }
                         player.manaRegenDelay = (int)player.maxRegenDelay;
-                        Main.PlaySound(SoundID.Item11);
+                        Main.PlaySound(SoundID.Item11, player.position);
                         
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(projectile.rotation) * speed, (float)Math.Sin(projectile.rotation) * speed), Ammo, projectile.damage, projectile.knockBack, player.whoAmI)];
                         bul.magic = true;

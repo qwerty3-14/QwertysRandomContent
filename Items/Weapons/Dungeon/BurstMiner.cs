@@ -64,7 +64,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 if(useCounter>= maxUses + delay)
                 {
                     useCounter = 0;
-                    Main.PlaySound(25, -1, -1, 1, 1f, 0f);
+                    Main.PlaySound(25, (int)player.position.X, (int)player.position.Y, 1, 1f, 0f);
                     for (int num71 = 0; num71 < 5; num71++)
                     {
                         int num72 = Dust.NewDust(player.position, player.width, player.height, 45, 0f, 0f, 255, default(Color), (float)Main.rand.Next(20, 26) * 0.1f);

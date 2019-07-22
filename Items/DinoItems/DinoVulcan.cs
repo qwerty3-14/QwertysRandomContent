@@ -279,7 +279,7 @@ namespace QwertysRandomContent.Items.DinoItems
                     float SspeedC = .05f * Main.rand.Next(15, 41);
                     float SspeedD = .05f * Main.rand.Next(15, 41);
                     float SspeedE = .05f * Main.rand.Next(15, 41);
-                    Main.PlaySound(SoundID.Item11);
+                    Main.PlaySound(SoundID.Item11, projectile.Center);
                     player.PickAmmo(GetReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
                     if (player.whoAmI == Main.myPlayer)
                     {

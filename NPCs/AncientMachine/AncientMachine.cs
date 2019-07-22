@@ -458,7 +458,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
             if(justTeleported)
             {
-                Main.PlaySound(SoundID.Item8);
+                Main.PlaySound(SoundID.Item8, npc.position);
                 for (int i = 0; i < RingDustQty; i++)
                 {
                     float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);

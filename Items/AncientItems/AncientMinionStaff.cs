@@ -204,7 +204,7 @@ using Microsoft.Xna.Framework.Graphics;
                 {
                     if (timer == 2)
                     {
-                        Main.PlaySound(SoundID.Item8);
+                        Main.PlaySound(SoundID.Item8, projectile.Center);
                         for (int i = 0; i < minionRingDustQty; i++)
                         {
                             float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);

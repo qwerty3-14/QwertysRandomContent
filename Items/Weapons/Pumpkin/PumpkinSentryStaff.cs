@@ -191,7 +191,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
                 if(faceDirection == frameposition && faceDirection !=0)
                 {
                     attacking = true;
-                    Main.PlaySound(SoundID.Item34);
+                    Main.PlaySound(SoundID.Item34, projectile.position);
                     flameRange = 0;
                     for (int f =0; f <400; f++)
                     {
