@@ -177,6 +177,7 @@ using Microsoft.Xna.Framework.Graphics;
 
                         Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius/10, theta));
                         dust.noGravity = true;
+                       
                     }
                     if (Main.netMode != 2)
                     {

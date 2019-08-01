@@ -141,52 +141,8 @@ namespace QwertysRandomContent.Items.Etims
                             {
                                 damageBeforeVariance = (int)((float)item.damage * player.thrownDamage);
                             }
-                            float num314 = item.knockBack;
-                            float num315 = 1f;
-                            if (player.kbGlove)
-                            {
-                                num315 += 1f;
-                            }
-                            if (player.kbBuff)
-                            {
-                                num315 += 0.5f;
-                            }
-                            num314 *= num315;
-                            bool crit = false;
-                            if (item.melee && Main.rand.Next(1, 101) <= player.meleeCrit)
-                            {
-                                crit = true;
-                            }
-                            if (item.ranged && Main.rand.Next(1, 101) <= player.rangedCrit)
-                            {
-                                crit = true;
-                            }
-                            if (item.magic && Main.rand.Next(1, 101) <= player.magicCrit)
-                            {
-                                crit = true;
-                            }
-                            if (item.thrown && Main.rand.Next(1, 101) <= player.thrownCrit)
-                            {
-                                crit = true;
-                            }
-                            int num324 = Item.NPCtoBanner(Main.npc[n].BannerID());
-                            if (num324 > 0 && player.NPCBannerBuff[num324])
-                            {
-                                if (Main.expertMode)
-                                {
-                                    damageBeforeVariance = (int)((float)damageBeforeVariance * ItemID.Sets.BannerStrength[Item.BannerToItem(num324)].ExpertDamageDealt);
-                                }
-                                else
-                                {
-                                    damageBeforeVariance = (int)((float)damageBeforeVariance * ItemID.Sets.BannerStrength[Item.BannerToItem(num324)].NormalDamageDealt);
-                                }
-                            }
-                            if (player.parryDamageBuff && item.melee)
-                            {
-                                damageBeforeVariance *= 5;
-                                player.parryDamageBuff = false;
-                                player.ClearBuff(198);
-                            }
+                            
+                            
                             //////////////////////
                             if(Main.npc[n].GetGlobalNPC<FortressNPCGeneral>().fortressNPC)
                             {
@@ -197,74 +153,7 @@ namespace QwertysRandomContent.Items.Etims
                                 }
                                 damageBeforeVariance *= 2;
                             }
-                            int damageAfterVariation = Main.DamageVar((float)damageBeforeVariance);
-                            player.StatusNPC(item.type, n);
-                            player.OnHit(Main.npc[n].Center.X, Main.npc[n].Center.Y, Main.npc[n]);
-                            if (player.armorPenetration > 0)
-                            {
-                                damageAfterVariation += Main.npc[n].checkArmorPenetration(player.armorPenetration);
-                            }
-                            int num326 = (int)Main.npc[n].StrikeNPC(damageAfterVariation, num314, player.direction, crit, false, false);
-                            bool flag28 = !Main.npc[n].immortal;
-                            if (player.beetleOffense && flag28)
-                            {
-                                player.beetleCounter += (float)num326;
-                                player.beetleCountdown = 0;
-                            }
-                            
-                            if (player.meleeEnchant == 7)
-                            {
-                                Projectile.NewProjectile(Main.npc[n].Center.X, Main.npc[n].Center.Y, Main.npc[n].velocity.X, Main.npc[n].velocity.Y, 289, 0, 0f, player.whoAmI, 0f, 0f);
-                            }
-                            if (player.inventory[player.selectedItem].type == 3106)
-                            {
-                                player.stealth = 1f;
-                                if (Main.netMode == 1)
-                                {
-                                    NetMessage.SendData(84, -1, -1, null, player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-                                }
-                            }
-                            
-                            if (Main.npc[n].value > 0f && player.coins && Main.rand.Next(5) == 0)
-                            {
-                                int type11 = 71;
-                                if (Main.rand.Next(10) == 0)
-                                {
-                                    type11 = 72;
-                                }
-                                if (Main.rand.Next(100) == 0)
-                                {
-                                    type11 = 73;
-                                }
-                                int num331 = Item.NewItem((int)Main.npc[n].position.X, (int)Main.npc[n].position.Y, Main.npc[n].width, Main.npc[n].height, type11, 1, false, 0, false, false);
-                                Main.item[num331].stack = Main.rand.Next(1, 11);
-                                Main.item[num331].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
-                                Main.item[num331].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)player.direction;
-                                if (Main.netMode == 1)
-                                {
-                                    NetMessage.SendData(21, -1, -1, null, num331, 0f, 0f, 0f, 0, 0, 0);
-                                }
-                            }
-                            int num332 = Item.NPCtoBanner(Main.npc[n].BannerID());
-                            if (num332 >= 0)
-                            {
-                                player.lastCreatureHit = num332;
-                            }
-                            if (Main.netMode != 0)
-                            {
-                                if (crit)
-                                {
-                                    NetMessage.SendData(28, -1, -1, null, n, (float)damageAfterVariation, num314, (float)player.direction, 1, 0, 0);
-                                }
-                                else
-                                {
-                                    NetMessage.SendData(28, -1, -1, null, n, (float)damageAfterVariation, num314, (float)player.direction, 0, 0, 0);
-                                }
-                            }
-                            if (player.accDreamCatcher)
-                            {
-                                player.addDPS(damageAfterVariation);
-                            }
+                            QwertyMethods.PokeNPC(player, Main.npc[n], damageBeforeVariance, item.knockBack, true);
                         }
                     }
 

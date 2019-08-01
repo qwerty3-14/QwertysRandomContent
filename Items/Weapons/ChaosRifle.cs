@@ -55,31 +55,7 @@ namespace QwertysRandomContent.Items.Weapons
 			return new Vector2(-28, -1);
 		}
         
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+       
         public override bool ConsumeAmmo(Player player)
         {
             return false;
@@ -96,7 +72,7 @@ namespace QwertysRandomContent.Items.Weapons
                 bool yes = true;
                 float anotherSpeedVariable = trueSpeed.Length();
 
-                modPlayer.PickRandomAmmo(GetReference(95), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2) == 0);
+                modPlayer.PickRandomAmmo(QwertyMethods.GetAmmoReference(95), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2) == 0);
                 Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
             
             return false;

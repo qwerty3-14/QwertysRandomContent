@@ -68,31 +68,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
 	public class BowyoP : ModProjectile
 	{
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+       
         public override void SetStaticDefaults()
 		{
 			// The following sets are only applicable to yoyo that use aiStyle 99.
@@ -162,7 +138,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(GetReference(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
+                    player.PickAmmo(QwertyMethods.GetAmmoReference(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
                     if (Main.netMode != 1)
                     {
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];

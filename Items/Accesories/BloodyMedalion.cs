@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace QwertysRandomContent.Items.Accesories
 {
@@ -88,7 +89,7 @@ namespace QwertysRandomContent.Items.Accesories
                 player.statLife -= (int)(item.mana * Main.player[item.owner].manaCost);
                 if (player.statLife <= 0)
                 {
-                    player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " madly drained " + (player.Male ? "his" : "her") + " lifeforce!"), (int)(item.mana * Main.player[item.owner].manaCost), 0);
+                    player.KillMe(PlayerDeathReason.ByCustomReason(player.name + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo1") + (player.Male ? Language.GetTextValue("Mods.QwertysRandomContent.his") : Language.GetTextValue("Mods.QwertysRandomContent.her")) + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo2")), (int)(item.mana * Main.player[item.owner].manaCost), 0);
                 }
                 return true;
             }
@@ -103,7 +104,7 @@ namespace QwertysRandomContent.Items.Accesories
                 {
                     if (line.mod == "Terraria" && line.Name == "UseMana") //this checks if it's the line we're interested in
                     {
-                        line.text = "Uses " + (int)(item.mana * Main.player[item.owner].manaCost) + " life!";//change tooltip
+                        line.text = Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo3") + (int)(item.mana * Main.player[item.owner].manaCost) + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo4");//change tooltip
                         line.overrideColor = Color.Crimson;
                     }
 

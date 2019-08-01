@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blooming Bow");
-			Tooltip.SetDefault("Randomly picks 2-12 random arrows to fire in random directions at random velocities randomly!");
+			Tooltip.SetDefault("Randomly picks 2-8 random arrows to fire in random directions at random velocities randomly!");
 			
 		}
 		public override void SetDefaults()
@@ -72,7 +72,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
             
 
-            int numberProjectiles = 2 + Main.rand.Next(11); 
+            int numberProjectiles = 2 + Main.rand.Next(7); 
             for (int i = 0; i < numberProjectiles; i++)
             {
                 QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);

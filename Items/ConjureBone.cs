@@ -8,7 +8,7 @@ namespace QwertysRandomContent.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Conjure Bone");
-			Tooltip.SetDefault("Not the best damage but easy on the mana");
+			Tooltip.SetDefault("");
 			
 		}
 		public override void SetDefaults()

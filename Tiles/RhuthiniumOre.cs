@@ -12,6 +12,7 @@ namespace QwertysRandomContent.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileSpelunker[Type] = true;
+            Main.tileValue[Type]=550;
 
             ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("RhuthiniumDust");

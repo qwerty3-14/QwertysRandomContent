@@ -6,6 +6,7 @@ using Terraria.ModLoader.Exceptions;
 using System.IO;
 using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace QwertysRandomContent
 {
@@ -182,30 +183,35 @@ namespace QwertysRandomContent
                 TooltipLine line = new TooltipLine(mod, "damage", "+" + damage + "% damage");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + damage + Language.GetTextValue("Mods.QwertysRandomContent.Perfixdamage");
             }
             if (crit > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "crit", "+" + crit + "% critical strike chance");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + crit + Language.GetTextValue("Mods.QwertysRandomContent.Perfixcriticalstrikechance");
             }
             if (moveSpeed > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "moveSpeed", "+" + moveSpeed + "% movement speed");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + moveSpeed + Language.GetTextValue("Mods.QwertysRandomContent.Perfixmovementspeed");
             }
             if (meleeSpeed > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "meleeSpeed", "+" + meleeSpeed + "% melee speed");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + meleeSpeed + Language.GetTextValue("Mods.QwertysRandomContent.PerfixmeleeSpeed");
             }
             if (defense > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "defense", "+" + defense + " defense");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + defense + Language.GetTextValue("Mods.QwertysRandomContent.Perfixdefense");
             }
 
             if (manaReduction > 0)
@@ -213,42 +219,49 @@ namespace QwertysRandomContent
                 TooltipLine line = new TooltipLine(mod, "manaReduction", "+" + manaReduction + "% reduced mana usage");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + manaReduction + Language.GetTextValue("Mods.QwertysRandomContent.PerfixmanaReduction");
             }
             if (ammoReduction > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "ammoReduction", "+" + ammoReduction + "% reduced ammo usage");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + ammoReduction + Language.GetTextValue("Mods.QwertysRandomContent.PerfixammoReduction");
             }
             if (throwVel > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "throwVel", "+" + throwVel + "% throwing velocity");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + throwVel + Language.GetTextValue("Mods.QwertysRandomContent.PerfixthrowVel");
             }
             if (rangedVel > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "rangedVel", "+" + rangedVel + "% ranged velocity");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + rangedVel + Language.GetTextValue("Mods.QwertysRandomContent.PerfixrangedVel");
             }
             if (dashPower > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "dashPower", "+" + dashPower + " dash power");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + dashPower + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdashPower");
             }
             if (recovery > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "recovery", "+" + recovery + " recovery");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + recovery + Language.GetTextValue("Mods.QwertysRandomContent.Perfixrecovery");
             }
             if (dodgeChance > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "recovery", "+" + dodgeChance + "% dodge chance");
                 line.isModifier = true;
                 tooltips.Add(line);
+                line.text="+" + dodgeChance + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdodgeChance");
             }
 
 
