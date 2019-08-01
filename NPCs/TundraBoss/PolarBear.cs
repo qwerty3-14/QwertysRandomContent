@@ -148,7 +148,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                                 
                                 NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y+14, mod.NPCType("SlidingPenguin"), ai0: npc.direction);
                             }
-                            Main.PlaySound(SoundID.Item11);
+                            Main.PlaySound(SoundID.Item11, npc.position);
                             for (int i = 0; i < 8; i++)
                             {
                                 Dust.NewDustPerfect(new Vector2((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y + 14), DustID.Ice, new Vector2(npc.direction * (2 + Main.rand.NextFloat() * 2f), 0).RotatedByRandom(Math.PI / 8));
@@ -169,7 +169,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                                     NPC.NewNPC((int)npc.Center.X + 34 * npc.direction, (int)npc.Center.Y , mod.NPCType("FlyingPenguin"), 0, i);
 
                                 }
-                                Main.PlaySound(SoundID.Item11);
+                                Main.PlaySound(SoundID.Item11, npc.position);
                             }
                             for (int i = 0; i < 8; i++)
                             {

@@ -108,7 +108,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             }
             if(hasHit)
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f));
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f), (int)target.position.X, (int)target.position.Y);
             }
             
         }

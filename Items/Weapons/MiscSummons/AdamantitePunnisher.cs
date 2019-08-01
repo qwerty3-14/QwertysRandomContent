@@ -244,7 +244,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             knockback = 0;
             if (crit)
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f));
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f), (int)target.position.X, (int)target.position.Y);
                 if (!target.boss && !target.immortal)
                 {
                     target.velocity = QwertyMethods.PolarVector( 2f, projectile.rotation - (float)Math.PI/2);
@@ -254,7 +254,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             else
             {
-                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.4f).WithPitchVariance(.5f));
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.4f).WithPitchVariance(.5f), (int)target.position.X, (int)target.position.Y);
                 if (!target.boss && !target.immortal)
                 {
                     target.velocity = QwertyMethods.PolarVector(4f, projectile.rotation - (float)Math.PI / 2);
