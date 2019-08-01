@@ -22,7 +22,7 @@ namespace QwertysRandomContent.Buffs
 		{
            
                 var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
-
+                  
                 modPlayer.recovery += 8;
             
         }

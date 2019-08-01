@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("True Blooming Bow");
-			Tooltip.SetDefault("Randomly picks 1-16 randomly random arrows to fire in randomly random directions at randomly random velocities randomly!");
+			Tooltip.SetDefault("Randomly picks 1-11 randomly random arrows to fire in randomly random directions at randomly random velocities randomly!");
 			
 		}
 		public override void SetDefaults()
@@ -52,37 +52,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+       
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
             
 
-            int numberProjectiles = 1+ Main.rand.Next(16); 
+            int numberProjectiles = 1 + Main.rand.Next(11); 
             for (int i = 0; i < numberProjectiles; i++)
             {
                 QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
@@ -92,7 +68,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 bool yes = true;
                 float anotherSpeedVariable = trueSpeed.Length();
                 
-                modPlayer.PickRandomAmmo(GetReference(39), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2)==0);
+                modPlayer.PickRandomAmmo(QwertyMethods.GetAmmoReference(39), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2)==0);
                 Projectile.NewProjectile(position.X + Main.rand.Next(-18,18), position.Y + Main.rand.Next(-18, 18), trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
             return false;

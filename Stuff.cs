@@ -77,7 +77,7 @@ namespace QwertysRandomContent
                 }
                 
             }
-            for (int k = 0; k < 200; k++)
+            for (int k = 0; k < Main.npc.Length; k++)
             {
                 NPC possibleTarget = Main.npc[k];
                 float distance = (possibleTarget.Center - position).Length();
@@ -183,7 +183,43 @@ namespace QwertysRandomContent
             }
         }
         /*------------------------------------------------- */
+        public static void PokeNPC(Player player, NPC npc, float damage, float knockback = 0f, bool melee = false, bool ranged = false, bool magic = false, bool summon = false, bool morph = false)
+        {
+            Projectile p = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, QwertysRandomContent.Instance.ProjectileType("Poke"), (int)damage, knockback, player.whoAmI)];
+            for (int n = 0; n < 200; n++)
+            {
+                if (Main.npc[n] != npc)
+                {
+                    p.localNPCImmunity[n] = -1;
+                }
+            }
+            p.melee = melee;
+            p.ranged = ranged;
+            p.magic = magic;
+            p.minion = summon;
+            p.GetGlobalProjectile<MorphProjectile>().morph = morph;
+            if (Main.netMode == 1)
+            {
+                QwertysRandomContent.UpdateProjectileClass(p);
+            }
+        }
     }
-
+    public class Poke : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            projectile.width = 2;
+            projectile.height = 2;
+            
+            projectile.friendly = true;
+            projectile.timeLeft = 2;
+            projectile.usesLocalNPCImmunity = true;
+            projectile.tileCollide = false;
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            return false;
+        }
+    }
 
 }

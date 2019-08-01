@@ -392,7 +392,7 @@ namespace QwertysRandomContent
             AddTranslation(text);
             #endregion
 
-            //playermale
+            #region gender Translation
 
             text = CreateTranslation("his");
             text.SetDefault("his");
@@ -404,9 +404,9 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Chinese, "她的");
             AddTranslation(text);
 
-            //endplayermale
+            #endregion
 
-            //BloodyMedalion
+            #region BloodyMedalionTranslation
             text = CreateTranslation("BloodyMedalionInfo1");
             text.SetDefault(" madly drained ");
             text.AddTranslation(GameCulture.Chinese, "疯狂的消耗");
@@ -426,9 +426,9 @@ namespace QwertysRandomContent
             text.SetDefault(" life!");
             text.AddTranslation(GameCulture.Chinese, "生命!");
             AddTranslation(text);
-            //EndBloodyMedalion
+            #endregion
 
-            //PrefixInfo
+            #region prefixInfoTranslation
             text = CreateTranslation("Perfixdamage");
             text.SetDefault("% damage");
             text.AddTranslation(GameCulture.Chinese, "%伤害");
@@ -488,9 +488,9 @@ namespace QwertysRandomContent
             text.SetDefault("% dodge chance");
             text.AddTranslation(GameCulture.Chinese, "%闪避几率");
             AddTranslation(text);
-            //EndPrefixInfo
+            #endregion
 
-            //ShapeShifter
+            #region shapershifter translation
             text = CreateTranslation("morph");
             text.SetDefault(" morph ");
             text.AddTranslation(GameCulture.Chinese, "化形");
@@ -545,10 +545,10 @@ namespace QwertysRandomContent
             text.SetDefault("% shorter cooldown");
             text.AddTranslation(GameCulture.Chinese, "%闪避几率");
             AddTranslation(text);
-            
-            //EndShapeShifter
 
-            //DinoMilitia
+            #endregion
+
+            #region dino militia
             text = CreateTranslation("DinoMilitia");
             text.SetDefault("Dino Militia");
             text.AddTranslation(GameCulture.Chinese, "恐龙自卫军");
@@ -558,7 +558,7 @@ namespace QwertysRandomContent
             text.SetDefault("Cleared ");
             text.AddTranslation(GameCulture.Chinese, "已清理 ");
             AddTranslation(text);
-            //EndDinoMilitia
+            #endregion
 
 
 
@@ -569,8 +569,6 @@ namespace QwertysRandomContent
 
             if (!Main.dedServ)
 			{
-				// Register a new music box
-				//AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/HydraBoss"), ItemType("HydraMusicBox"), TileType("HydraMusicBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/EnergisedPlanetaryIncinerationClimax"), ItemType("B4MusicBox"), TileType("B4MusicBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BuiltToDestroy"), ItemType("AncientMusicBox"), TileType("MusicBoxBuiltToDestroy"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/HeavenlyFortress"), ItemType("MusicBoxHeavenlyFortress"), TileType("MusicBoxHeavenlyFortress"));
@@ -579,9 +577,8 @@ namespace QwertysRandomContent
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/HigherBeing"), ItemType("MusicBoxHigherBeing"), TileType("MusicBoxHigherBeing"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BladeOfAGod"), ItemType("MusicBoxBladeOfAGod"), TileType("MusicBoxBladeOfAGod"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BeastOfThreeHeads"), ItemType("MusicBoxBeastOfThreeHeads"), TileType("MusicBoxBeastOfThreeHeads"));
+                AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheGodsBleed"), ItemType("MusicBoxTheGodsBleed"), TileType("MusicBoxTheGodsBleed"));
 
-                //Main.playerTextures[1, 10] = TextureManager.Load("Images/Player_6_6");
-                //Main.playerTextures[1, PlayerTextureID.LegSkin] = GetTexture("Items/Vanity/AltLegs"); 
 
 
             }

@@ -117,32 +117,7 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.ignoreWater = true;
             
         }
-        
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+       
 
         public int timer = 0;
         public int reloadTime;
@@ -171,7 +146,7 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.timeLeft = 10;
             timer++;
             var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
-            bool firing = player.channel && player.HasAmmo(GetReference(95), true) && !player.noItems && !player.CCed;
+            bool firing = player.channel && player.HasAmmo(QwertyMethods.GetAmmoReference(95), true) && !player.noItems && !player.CCed;
 
             int Ammo = 14;
             float speed = 14f;
@@ -279,8 +254,10 @@ namespace QwertysRandomContent.Items.DinoItems
                     float SspeedC = .05f * Main.rand.Next(15, 41);
                     float SspeedD = .05f * Main.rand.Next(15, 41);
                     float SspeedE = .05f * Main.rand.Next(15, 41);
+
                     Main.PlaySound(SoundID.Item11, projectile.Center);
-                    player.PickAmmo(GetReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
+                    player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
+
                     if (player.whoAmI == Main.myPlayer)
                     {
                         Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(VarA) * speed, (float)Math.Sin(VarA) * speed, Ammo, weaponDamage, weaponKnockback, Main.myPlayer);

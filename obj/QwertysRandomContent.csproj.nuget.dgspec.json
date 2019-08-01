@@ -1,0 +1,46 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
+        "projectName": "QwertysRandomContent",
+        "projectPath": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
+        "packagesPath": "C:\\Users\\noahg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\noahg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net45"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net45": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net45": {}
+      }
+    }
+  }
+}
