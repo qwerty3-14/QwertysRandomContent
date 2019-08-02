@@ -457,6 +457,10 @@ ItemName.StarSageGloves=星圣手套
 ItemName.StarSage=星圣宽袍
 ItemName.Urizel=乌里森之刃
 ItemName.WaveOfDeathUrizel=乌里森死亡邪能的波动
+ItemName.WoodenMirror=木框镜
+ItemName.FortressMirror=天堂堡垒镜
+ItemName.ArcherGlove=射手手套
+ItemName.MusicBoxTheGodsBleed=八音盒(众神之血)
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -977,3 +981,4 @@ ItemTooltip.ChromeShotgunDefault=右键切换四种形态
 ItemTooltip.NewClassDamageTest=一个模组测试用剑\n开发者武器
 ItemTooltip.Urizel=这把剑曾经杀死一个沉睡者\n开发者武器
 ItemTooltip.WaveOfDeathUrizel=这个神奇的符文包含了古老的乌里森之剑的力量\n开发者武器
+ItemTooltip.ArcherGlove=弓的射击速度加快
