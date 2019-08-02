@@ -72,54 +72,27 @@ namespace QwertysRandomContent.Items.Accesories
             effect = 0f;
 
         }
-        void Hit(NPC target,  int damage)
-        {
-            Projectile p = Main.projectile[Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("WhetstoneSpell"), (int)(damage * player.magicDamage), 0f, player.whoAmI)];
-            for (int n = 0; n < 200; n++)
-            {
-                if (Main.npc[n] != target)
-                {
-                    p.localNPCImmunity[n] = -1;
-                }
-            }
-        }
+        
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (effect != 0f && proj.melee)
             {
-                Hit(target,  proj.GetGlobalProjectile<MagicBonusOnProj>().magicBoost);
+                QwertyMethods.PokeNPC(player, target, proj.GetGlobalProjectile<MagicBonusOnProj>().magicBoost * player.magicDamage, magic: true);
+               
             }
         }
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
             if(effect != 0f && item.melee)
             {
-                Hit(target,  (int)(damage * effect));
+                QwertyMethods.PokeNPC(player, target, damage * effect, magic: true);
+                
             }
         }
         
 
     }
-    public class WhetstoneSpell : ModProjectile
-    {
-        public override void SetDefaults()
-        {
-            projectile.width = 2;
-            projectile.height = 2;
-            projectile.magic = true;
-            projectile.friendly = true;
-            projectile.timeLeft = 2;
-            projectile.usesLocalNPCImmunity = true;
-            for(int n = 0; n< Main.npc.Length; n++)
-           
-            projectile.tileCollide = false;
-        }
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
-        {
-            return false;
-        }
-
-    }
+    
     public class WhetstoneTooltips : GlobalItem
     {
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

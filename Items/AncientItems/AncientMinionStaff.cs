@@ -177,6 +177,7 @@ using Microsoft.Xna.Framework.Graphics;
 
                         Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius/10, theta));
                         dust.noGravity = true;
+                       
                     }
                     if (Main.netMode != 2)
                     {
@@ -204,7 +205,7 @@ using Microsoft.Xna.Framework.Graphics;
                 {
                     if (timer == 2)
                     {
-                        Main.PlaySound(SoundID.Item8);
+                        Main.PlaySound(SoundID.Item8, projectile.Center);
                         for (int i = 0; i < minionRingDustQty; i++)
                         {
                             float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);

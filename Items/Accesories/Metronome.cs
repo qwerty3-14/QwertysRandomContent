@@ -31,6 +31,7 @@ namespace QwertysRandomContent.Items.Accesories
 			
 			
 		}
+       
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
 

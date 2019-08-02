@@ -38,6 +38,15 @@ Extra thanks
 
 
 changelog
+0.19.7
+-Released for tmodloader 0.11.3 
+-nerfed blooming and true blooming bow
+-Divine blade swings slower but does a little more damage, projectile collision for deflecting tweaked.
+	  You'll now have to time your swings to properly deflect projectiles.
+
+0.19.6
+-added Chinese Localization
+
 0.19.5
 -added chrome shotgun
 
@@ -77,7 +86,6 @@ changelog
 -lune crestplate's set bonus is now activated via 'yet another special ability key' instead of double right click
 -Recoded the bloody medalion greatly reducing its general buggyness and more
 -The O.L.O.R.D. hired its own camera man  
-
 
 
 0.18.4

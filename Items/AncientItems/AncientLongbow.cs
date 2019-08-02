@@ -101,31 +101,7 @@ namespace QwertysRandomContent.Items.AncientItems
             
         }
         
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+        
 
         public int timer = 0;
         public int reloadTime;
@@ -152,7 +128,7 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.timeLeft = 2;
             
             var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
-            bool firing = (player.channel||timer<30) && player.HasAmmo(GetReference(39), true) && !player.noItems && !player.CCed;
+            bool firing = (player.channel||timer<30) && player.HasAmmo(QwertyMethods.GetAmmoReference(39), true) && !player.noItems && !player.CCed;
 
             Ammo = AmmoID.Arrow;
 
@@ -227,7 +203,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 
                 if(timer ==0)
                 {
-                    player.PickAmmo(GetReference(39), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
+                    player.PickAmmo(QwertyMethods.GetAmmoReference(39), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
                     if(Ammo == ProjectileID.WoodenArrowFriendly)
                     {
                         Ammo = mod.ProjectileType("AncientArrow");
@@ -281,7 +257,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item5);
+            Main.PlaySound(SoundID.Item5, projectile.position);
             arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI / 2);
             arrow.friendly = true;
             if (arrow != null && giveTileCollision)

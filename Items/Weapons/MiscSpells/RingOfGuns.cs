@@ -79,31 +79,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
     }
     public class RingGun : ModProjectile
     {
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
+       
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gun");
@@ -139,7 +115,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             Player player = Main.player[projectile.owner];
             player.itemAnimation = 2;
             player.itemTime = 2;
-            bool firing = player.channel && player.HasAmmo(GetReference(95), true) && !player.noItems && !player.CCed ;
+            bool firing = player.channel && player.HasAmmo(QwertyMethods.GetAmmoReference(95), true) && !player.noItems && !player.CCed ;
             int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             int Ammo = 14;
             float speed = 14f;
@@ -161,7 +137,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 projectile.timeLeft = 2;
                 if (reloadTimer % 15 == 0)
                 {
-                    player.PickAmmo(GetReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
+                    player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
                     if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), !player.GetModPlayer<BloodMedalionEffect>(mod).effect))
                     {
                         if(player.GetModPlayer<BloodMedalionEffect>(mod).effect)
@@ -173,7 +149,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                             }
                         }
                         player.manaRegenDelay = (int)player.maxRegenDelay;
-                        Main.PlaySound(SoundID.Item11);
+                        Main.PlaySound(SoundID.Item11, player.position);
                         
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(projectile.rotation) * speed, (float)Math.Sin(projectile.rotation) * speed), Ammo, projectile.damage, projectile.knockBack, player.whoAmI)];
                         bul.magic = true;

@@ -17,11 +17,11 @@ namespace QwertysRandomContent.Items.Fortress
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 29;
+			item.damage = 33;
 			item.melee = true;
 			
-			item.useTime = 27;
-			item.useAnimation = 27;
+			item.useTime = 41;
+			item.useAnimation = 41;
 			item.useStyle = 1;
 			item.knockBack = 3;
 			item.value = 25000;
@@ -48,6 +48,17 @@ namespace QwertysRandomContent.Items.Fortress
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+        public bool HittingBlade(Projectile target)
+        {
+            Player player = Main.player[item.owner];
+            float swordLength = item.Size.Length() * item.scale;
+            float r = player.direction == 1 ? player.itemRotation - (float)Math.PI / 4 : player.itemRotation + 5 * (float)Math.PI / 4;
+            if (player.gravDir == -1)
+            {
+                r += MathHelper.PiOver2 * player.direction;
+            }
+            return Collision.CheckAABBvLineCollision(target.position, target.Size, player.MountedCenter, player.MountedCenter + new Vector2((float)Math.Cos(r), (float)Math.Sin(r)) * swordLength);
+        }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             Lighting.AddLight(hitbox.Center.ToVector2(), 1f, 1f, 1f);
@@ -57,7 +68,7 @@ namespace QwertysRandomContent.Items.Fortress
             for (int p = 0; p < 1000; p++)
             {
                 clearCheck = Main.projectile[p];
-                if ((clearCheck.hostile ||(clearCheck.friendly && !clearCheck.minion&& (Main.player[clearCheck.owner].team !=Main.player[item.owner].team) || (Main.player[item.owner].team==0 && clearCheck.owner != item.owner)))  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size))
+                if ((clearCheck.hostile ||(clearCheck.friendly && !clearCheck.minion&& (Main.player[clearCheck.owner].team !=Main.player[item.owner].team) || (Main.player[item.owner].team==0 && clearCheck.owner != item.owner)))  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck))
                 {
                     clearCheck.Kill();
                     if (clearCheck.velocity.Length() > 0f)
