@@ -81,7 +81,7 @@ namespace QwertysRandomContent
             {
                 NPC possibleTarget = Main.npc[k];
                 float distance = (possibleTarget.Center - position).Length();
-                if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0)|| ignoreTiles))
+                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0)|| ignoreTiles))
                 {
                     target = Main.npc[k];
                     foundTarget = true;
@@ -183,7 +183,7 @@ namespace QwertysRandomContent
             }
         }
         /*------------------------------------------------- */
-        public static void PokeNPC(Player player, NPC npc, float damage, float knockback = 0f, bool melee = false, bool ranged = false, bool magic = false, bool summon = false, bool morph = false)
+        public static Projectile PokeNPC(Player player, NPC npc, float damage, float knockback = 0f, bool melee = false, bool ranged = false, bool magic = false, bool summon = false, bool morph = false)
         {
             Projectile p = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, QwertysRandomContent.Instance.ProjectileType("Poke"), (int)damage, knockback, player.whoAmI)];
             for (int n = 0; n < 200; n++)
@@ -202,6 +202,7 @@ namespace QwertysRandomContent
             {
                 QwertysRandomContent.UpdateProjectileClass(p);
             }
+            return p;
         }
     }
     public class Poke : ModProjectile

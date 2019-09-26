@@ -14,6 +14,7 @@ namespace QwertysRandomContent.Items.Etims
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Summons Noehtnap");
+            DisplayName.SetDefault("Ritual Interrupter");
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
 

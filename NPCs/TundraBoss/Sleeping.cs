@@ -20,7 +20,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             npc.width = 94;
             npc.height = 70;
             npc.HitSound = SoundID.NPCHit1;
-
+            npc.chaseable = false;
             //npc.value = 6000f;
             npc.knockBackResist = 0f;
             npc.aiStyle = 0;

@@ -22,7 +22,7 @@ namespace QwertysRandomContent
 	{
         public static QwertysRandomContent Instance;
 
-        public static Effect CustomEffect;
+        
         public static ModHotKey YetAnotherSpecialAbility;
         public static Vector2[] LocalCursor = new Vector2[Main.player.Length];
         public override void AddRecipeGroups()
@@ -118,7 +118,7 @@ namespace QwertysRandomContent
                 bossChecklist.Call("AddBossWithInfo", "The Divine Light", 4f, (Func<bool>)(() => QwertyWorld.downedFortressBoss), "Use a [i:" + ItemType("FortressBossSummon") + "]" + " at the altar in the sky fortress");
                 bossChecklist.Call("AddBossWithInfo", "Polar Exterminator", .7f, (Func<bool>)(() => QwertyWorld.downedBear), "Hibernates in the underground tundra, [i:" + ItemType("FrostCompass") + "]Helps find it");
                 bossChecklist.Call("AddBossWithInfo", "Imperious", 9.4f, (Func<bool>)(() => QwertyWorld.downedBlade), "Use the [i:" + ItemType("BladeBossSummon") + "], and accept its challenge");
-                bossChecklist.Call("AddBossWithInfo", "Noetnap", 5.7f, (Func<bool>)(() => QwertyWorld.downedNoetnap), "Just use the [i:" + ItemType("RitualInterupter") + "] mortal!");
+                bossChecklist.Call("AddBossWithInfo", "Noehtnap", 5.7f, (Func<bool>)(() => QwertyWorld.downedNoetnap), "Just use the [i:" + ItemType("RitualInterupter") + "] mortal!");
             }
         }
         public static Deck<string> AMLoot = new Deck<string>();
@@ -152,9 +152,7 @@ namespace QwertysRandomContent
                 AddEquipTexture(new RhuthiniumGreavesFemale(), GetItem("RhuthiniumGreaves"), EquipType.Legs, "RhuthiniumGreaves_FemaleLegs", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_FemaleLegs");
                 AddEquipTexture(GetItem("HydraLeggings"), EquipType.Legs, "HydraLeggings_Female", "QwertysRandomContent/Items/HydraItems/HydraLeggings_FemaleLegs");
                 AddEquipTexture(GetItem("ShamanLegs"), EquipType.Legs, "ShamanLegs_Female", "QwertysRandomContent/Items/Armor/Shaman/ShamanLegs_FemaleLegs");
-                CustomEffect = GetEffect("Effects/CustomEffect");
-                Ref<Effect> CustomEffectRef = new Ref<Effect>();
-                CustomEffectRef.Value = CustomEffect;
+               
                 
                 
                 GameShaders.Armor.BindShader<CustomArmorShader>(ItemType("CustomDye"), new CustomArmorShader(Main.PixelShaderRef, "ArmorColored"));
@@ -590,7 +588,7 @@ namespace QwertysRandomContent
 
             // Unload static references
             // You need to clear static references to assets (Texture2D, SoundEffects, Effects). 
-            CustomEffect = null;
+            
             YetAnotherSpecialAbility = null;
             Instance = null; 
 

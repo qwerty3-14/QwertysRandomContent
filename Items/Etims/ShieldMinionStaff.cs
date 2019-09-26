@@ -14,9 +14,13 @@ namespace QwertysRandomContent.Items.Etims
 {
     public class ShieldMinionStaff : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("protects you from foes and projectiles alike" + "\nCan only block projectiles weaker than the minion");
+        }
         public override void SetDefaults()
         {
-            item.damage = 36;
+            item.damage = 30;
             item.mana = 20;
             item.width = 34;
             item.height = 34;
@@ -132,7 +136,7 @@ namespace QwertysRandomContent.Items.Etims
                 }
 
                 float myOffset = (((float)Math.PI / 2) * (float)(identity + 1)) / (ShieldCount + 1) - (float)Math.PI / 4;
-                flyTo = player.Center + QwertyMethods.PolarVector(projectile.ai[1] == guarding ? 120 : -50, LatestValidVelocity.ToRotation() + myOffset);
+                flyTo = player.Center + QwertyMethods.PolarVector(projectile.ai[1] == guarding ? 120 : -50, (QwertysRandomContent.LocalCursor[projectile.owner] - player.Center).ToRotation() + myOffset);
 
                 if (flyTo != null && flyTo != Vector2.Zero)
                 {
@@ -144,6 +148,19 @@ namespace QwertysRandomContent.Items.Etims
 
                 case guarding:
                     projectile.frame = 0;
+                    foreach(Projectile OtherProjectile in Main.projectile)
+                    {
+                        if(OtherProjectile.hostile && OtherProjectile.active && OtherProjectile.velocity != Vector2.Zero && OtherProjectile.damage > 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, OtherProjectile.position, OtherProjectile.Size))
+                        {
+                            if(OtherProjectile.damage * 2  * (Main.expertMode ? 2 : 1)< projectile.damage)
+                            {
+                                OtherProjectile.Kill();
+                            }
+                            projectile.ai[1] = cooling;
+                            chargeTimer = -300;
+                            break;
+                        }
+                    }
                     if (QwertyMethods.ClosestNPC(ref target, 1000, player.Center, true, player.MinionAttackTargetNPC))
                     {
                         eyeOffset = (target.Center - projectile.Center).SafeNormalize(-Vector2.UnitY);
@@ -191,7 +208,7 @@ namespace QwertysRandomContent.Items.Etims
         {
             projectile.localNPCImmunity[target.whoAmI] = 10;
             target.immune[projectile.owner] = 0;
-            if(Main.rand.Next(100)==0 && !target.boss)
+            if(Main.rand.Next(10)==0 && !target.boss)
             {
                 target.AddBuff(mod.BuffType("Stunned"), 120);
             }

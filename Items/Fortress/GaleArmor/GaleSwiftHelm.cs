@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gale Swift Helm");
-			Tooltip.SetDefault("+8% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nGreatly increased throwing velocity and damage after dodging");
+			Tooltip.SetDefault("+6% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nGreatly increased throwing velocity and damage after dodging");
 
 
         }
@@ -37,7 +37,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<QwertyPlayer>().dodgeChance += 8;
+            player.GetModPlayer<QwertyPlayer>().dodgeChance += 6;
             player.thrownCrit += 10;
             player.thrownVelocity += .1f;
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .85f;

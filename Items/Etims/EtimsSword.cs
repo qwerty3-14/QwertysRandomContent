@@ -10,6 +10,8 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.World.Generation;
+using static QwertysRandomContent.Items.Accesories.SkywardHilt;
 
 namespace QwertysRandomContent.Items.Etims
 {
@@ -18,6 +20,7 @@ namespace QwertysRandomContent.Items.Etims
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Massacre");
+            Tooltip.SetDefault("Right click on the ground for an uppercut" + "\nRight click in the air to slam down!");
         }
         public override void SetDefaults()
         {
@@ -34,8 +37,9 @@ namespace QwertysRandomContent.Items.Etims
             item.useAnimation = 18;
             item.rare = 3;
             item.value = 120000;
-
+            item.useTurn = true;
         }
+        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -46,60 +50,145 @@ namespace QwertysRandomContent.Items.Etims
         }
         public override bool CanUseItem(Player player)
         {
-
+            
             return player.itemAnimation == 0;
         }
-       
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
 
     }
     public class AltSword : ModPlayer
     {
         int[] localNPCImmunity = new int[Main.npc.Length];
+        bool uppercut = false;
+        bool slam = false;
+        bool hasRightClicked = false;
         public override void PostItemCheck()
         {
 
             if (!player.inventory[player.selectedItem].IsAir)
             {
+                Point origin = player.Bottom.ToTileCoordinates();
+                Point point;
                 Item item = player.inventory[player.selectedItem];
-
+                //Main.NewText(player.itemAnimation  + " / " + player.itemAnimationMax);
+                
                 if (item.useStyle == 101)
                 {
-                    float shift = 0f;
-                    if (player.itemAnimation < player.itemAnimationMax * .25f)
+                    if (Main.mouseRight && Main.myPlayer == item.owner && !hasRightClicked)
                     {
-                        shift = (float)Math.PI / -4 * ((player.itemAnimation) / (player.itemAnimationMax * .25f));
-                    }
-                    else if (player.itemAnimation < player.itemAnimationMax * .75f)
-                    {
-                        shift = (float)Math.PI / -2 * (1 - (player.itemAnimation - (player.itemAnimationMax * .25f)) / (player.itemAnimationMax * .5f)) + (float)Math.PI / 4;
-                    }
-                    else
-                    {
-                        shift = (float)Math.PI / 4 * (1 - (player.itemAnimation - (player.itemAnimationMax * .75f)) / (player.itemAnimationMax * .25f));
-                    }
-                    player.itemRotation = (float)Math.PI / -4 + player.direction * ((float)Math.PI / 2 + shift);
-                    //Main.NewText(MathHelper.ToDegrees(player.itemRotation));
-                    if (player.itemAnimation < player.itemAnimationMax * .15f)
-                    {
-                        player.bodyFrame.Y = player.bodyFrame.Height * 3;
 
+
+                        if (WorldUtils.Find(origin, Searches.Chain(new Searches.Down(3), new GenCondition[]
+                                            {
+                                            new Conditions.IsSolid()
+                                            }), out point))
+                        {
+                            player.itemAnimation = player.itemAnimationMax;
+                            player.velocity.Y = -10 - player.jumpSpeedBoost;
+                            uppercut = true;
+                            slam = false;
+                        }
+                        else
+                        {
+                            player.velocity.Y = 10;
+                            slam = true;
+                            uppercut = false;
+                        }
                     }
-                    else if (player.itemAnimation < player.itemAnimationMax * .35f)
+                    float shift = 0f;
+                    if (player.itemAnimation > 0 && uppercut || slam)
                     {
-                        player.bodyFrame.Y = player.bodyFrame.Height * 2;
-                    }
-                    else if (player.itemAnimation < player.itemAnimationMax * .65f)
-                    {
-                        player.bodyFrame.Y = player.bodyFrame.Height * 3;
-                    }
-                    else if (player.itemAnimation < player.itemAnimationMax * .85f)
-                    {
-                        player.bodyFrame.Y = player.bodyFrame.Height * 4;
+                        if(slam)
+                        {
+                            //Main.NewText("Slamming");
+                            player.bodyFrame.Y = player.bodyFrame.Height * 4;
+                            shift = (float)Math.PI / 2;
+                            
+                            if (player.velocity.Y != 0)
+                            {
+                                player.itemAnimation = 2;
+                            }
+                            else
+                            {
+                                player.itemAnimation = 0;
+                                slam = false;
+                            }
+                        }
+                        else if(uppercut)
+                        {
+                            
+                            shift = (float)Math.PI / 2 * ((float)player.itemAnimation / (float)player.itemAnimationMax) - (float)Math.PI/4;
+                            
+                            if (player.itemAnimation < player.itemAnimationMax * .5f)
+                            {
+                                player.bodyFrame.Y = player.bodyFrame.Height * 2;
+                            }
+                            else if (player.itemAnimation < player.itemAnimationMax * .25f)
+                            {
+                                player.bodyFrame.Y = player.bodyFrame.Height * 3;
+                            }
+                            else
+                            {
+                                player.bodyFrame.Y = player.bodyFrame.Height * 4;
+                            }
+                            if(player.itemAnimation < 2)
+                            {
+                                player.itemAnimation = 2;
+                            }
+                            if(player.velocity.Y >= 0)
+                            {
+                                player.itemAnimation = 0;
+                                uppercut = false;
+                            }
+                        }
                     }
                     else
                     {
-                        player.bodyFrame.Y = player.bodyFrame.Height * 3;
+                        if (player.itemAnimation < player.itemAnimationMax * .25f)
+                        {
+                            shift = (float)Math.PI / -4 * ((player.itemAnimation) / (player.itemAnimationMax * .25f));
+                        }
+                        else if (player.itemAnimation < player.itemAnimationMax * .75f)
+                        {
+                            shift = (float)Math.PI / -2 * (1 - (player.itemAnimation - (player.itemAnimationMax * .25f)) / (player.itemAnimationMax * .5f)) + (float)Math.PI / 4;
+                        }
+                        else
+                        {
+                            shift = (float)Math.PI / 4 * (1 - (player.itemAnimation - (player.itemAnimationMax * .75f)) / (player.itemAnimationMax * .25f));
+                        }
+                        if (player.itemAnimation < player.itemAnimationMax * .15f)
+                        {
+                            player.bodyFrame.Y = player.bodyFrame.Height * 3;
+
+                        }
+                        else if (player.itemAnimation < player.itemAnimationMax * .35f)
+                        {
+                            player.bodyFrame.Y = player.bodyFrame.Height * 2;
+                        }
+                        else if (player.itemAnimation < player.itemAnimationMax * .65f)
+                        {
+                            player.bodyFrame.Y = player.bodyFrame.Height * 3;
+                        }
+                        else if (player.itemAnimation < player.itemAnimationMax * .85f)
+                        {
+                            player.bodyFrame.Y = player.bodyFrame.Height * 4;
+                        }
+                        else
+                        {
+                            player.bodyFrame.Y = player.bodyFrame.Height * 3;
+                        }
                     }
+                    if (Main.mouseRight && Main.myPlayer == item.owner && !slam && !uppercut)
+                    {
+                        player.itemAnimation = 0;
+                    }
+
+                        player.itemRotation = (float)Math.PI / -4 + player.direction * ((float)Math.PI / 2 + shift);
+                    //Main.NewText(MathHelper.ToDegrees(player.itemRotation));
+                    
                     Vector2 vector24 = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
                     if (player.direction != 1)
                     {
@@ -141,22 +230,29 @@ namespace QwertysRandomContent.Items.Etims
                             {
                                 damageBeforeVariance = (int)((float)item.damage * player.thrownDamage);
                             }
-                            
-                            
-                            //////////////////////
-                            if(Main.npc[n].GetGlobalNPC<FortressNPCGeneral>().fortressNPC)
+                            if(slam || uppercut)
                             {
-                                for (int i = 0; i < damageBeforeVariance / 3; i++)
-                                {
-                                    Dust d = Dust.NewDustPerfect(Main.npc[n].Center, mod.DustType("BloodforceDust"));
-                                    d.velocity *= 5f;
-                                }
+                                damageBeforeVariance *= 2;
+                                
+                            }
+                            if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(3), new GenCondition[]
+                                            {
+                                            new Conditions.IsSolid()
+                                            }), out point) && player.GetModPlayer<SkywardHiltEffect>().effect && player.grappling[0] == -1)
+                            {
                                 damageBeforeVariance *= 2;
                             }
-                            QwertyMethods.PokeNPC(player, Main.npc[n], damageBeforeVariance, item.knockBack, true);
+                            //////////////////////
+                            
+                            Projectile p = QwertyMethods.PokeNPC(player, Main.npc[n], damageBeforeVariance, item.knockBack, true);
+                            if(item.type == mod.ItemType("EtimsSword"))
+                            {
+                                p.GetGlobalProjectile<Etims>().effect = true;
+                            }
+                            
                         }
                     }
-
+                    hasRightClicked = (Main.mouseRight && Main.myPlayer == item.owner);
                 }
 
 

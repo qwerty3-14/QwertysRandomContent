@@ -254,8 +254,10 @@ namespace QwertysRandomContent.Items.DinoItems
                     float SspeedC = .05f * Main.rand.Next(15, 41);
                     float SspeedD = .05f * Main.rand.Next(15, 41);
                     float SspeedE = .05f * Main.rand.Next(15, 41);
-                    Main.PlaySound(SoundID.Item11);
+
+                    Main.PlaySound(SoundID.Item11, projectile.Center);
                     player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
+
                     if (player.whoAmI == Main.myPlayer)
                     {
                         Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(VarA) * speed, (float)Math.Sin(VarA) * speed, Ammo, weaponDamage, weaponKnockback, Main.myPlayer);

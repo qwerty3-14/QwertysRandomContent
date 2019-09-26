@@ -37,7 +37,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             npc.noGravity = true;
             npc.noTileCollide = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/TheGodsBleed");
-            npc.lifeMax = 8000;
+            npc.lifeMax = 7000;
             bossBag = mod.ItemType("NoehtnapBag");
 
 
@@ -59,7 +59,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
 
-            npc.lifeMax = (int)(10000 * bossLifeScale);
+            npc.lifeMax = (int)(9000 * bossLifeScale);
             npc.damage = 65;
 
         }
@@ -99,6 +99,22 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 timeBetweenAttacks = 60;
             }
             Player player = Main.player[npc.target];
+            npc.chaseable = false;
+            if (chargeTime > 0)
+            {
+                npc.chaseable = true;
+            }
+            else
+            {
+                for (int i = 0; i < Main.player.Length; i++)
+                {
+                    if ((Main.player[i].active && (QwertysRandomContent.LocalCursor[i] - npc.Center).Length() < 180) || (Main.player[i].Center - npc.Center).Length() < playerviewRadius)
+                    {
+                        npc.chaseable = true;
+                        break;
+                    }
+                }
+            }
             npc.TargetClosest(false);
             pupilDirection = (player.Center - npc.Center).ToRotation();
             pulseCounter += (float)Math.PI / 30;
@@ -340,15 +356,12 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
 
 
 
-                npc.dontTakeDamage = false;
+                
                 if (playerviewRadius > 500)
                 {
                     orbitDistance = 1200;
                     retreatApproachSpeed = 8f;
-                    if ((player.Center - npc.Center).Length() > 1000)
-                    {
-                        npc.dontTakeDamage = true;
-                    }
+                    
 
                 }
                 else

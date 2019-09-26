@@ -14,7 +14,7 @@ namespace QwertysRandomContent
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
-
+            
             if (type == NPCID.SkeletonMerchant)
             {
 
@@ -172,4 +172,5 @@ namespace QwertysRandomContent
             }
         }
     }
+    
 }

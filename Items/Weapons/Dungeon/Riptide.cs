@@ -22,7 +22,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         public override void SetDefaults()
         {
 
-            item.damage = 7;
+            item.damage = 4;
             item.mana = 20;
             item.width = 32;
             item.height = 32;
@@ -82,7 +82,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.friendly = false;  
             projectile.ignoreWater = true;   
             projectile.timeLeft = Projectile.SentryLifeTime;
-            projectile.knockBack = 10f;
             projectile.penetrate = -1; 
             projectile.tileCollide = true; 
             projectile.sentry = true;

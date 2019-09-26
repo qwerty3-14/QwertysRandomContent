@@ -280,7 +280,7 @@ using Microsoft.Xna.Framework.Graphics;
             if (justTeleported)
             {
                 projectile.alpha = 255;
-                Main.PlaySound(SoundID.Item8);
+                Main.PlaySound(SoundID.Item8, projectile.position);
                 for (int d = 0; d < 300; d++)
                 {
                     Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));

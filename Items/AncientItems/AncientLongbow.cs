@@ -257,7 +257,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item5);
+            Main.PlaySound(SoundID.Item5, projectile.position);
             arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI / 2);
             arrow.friendly = true;
             if (arrow != null && giveTileCollision)
