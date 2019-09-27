@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
+    /*
     public class InfernalGems : ModItem
     {
         public override void SetStaticDefaults()
@@ -18,7 +19,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             Tooltip.SetDefault("Gain flight and the ability to shoot fire! /nThis form require constant feeding from either attacking your foes or your own life!");
 
         }
-        public const int dmg = 69;
+        public const int dmg = 43;
         public const int crt = 0;
         public const float kb = 1f;
         public const int def = 13;
@@ -57,7 +58,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             return base.CanUseItem(player);
         }
-        /*
+        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -65,7 +66,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }*/
+        }
     }
     public class GemsB : ModBuff
     {
@@ -215,4 +216,5 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+    */
 }

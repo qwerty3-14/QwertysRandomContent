@@ -10,63 +10,49 @@ namespace QwertysRandomContent
     public class Deck<F> : List<F>
     {
         //This class is inspired and tries to simulate drawing from a deck of cards
-        
-        
-        void fillIndexes(ref int[] Indexes, int count)
+
+
+        public F[] Draw(int n)
         {
-            for (int n = 0; n < count; n++)
+
+
+
+            F[] selection = new F[n];
+
+            Deck<F> g = ShuffledCopy();
+
+            for (int i = 0; i < n; i++)
             {
-                Indexes[n] = Main.rand.Next(this.Count - n);
-                for (int j = 0; j < n; j++)
-                {
-                    if (Indexes[n] >= Indexes[j])
-                    {
-                        Indexes[n]++;
-                    }
-                }
-                Array.Sort(Indexes);
+                selection[i] = g[i];
             }
-        }
-        public F[] Draw(int count)
-        {
-            
-            
-            int[] Indexes = new int[count];
-            F[] selection = new F[count];
-            if(count ==1)
-            {
-                fillIndexes(ref Indexes, count);
-            }
-            else
-            {
-                while (Indexes[0] == Indexes[1])//I couldn't figure out why on rare occasion you can get 2 of the first index so this just hard checks and forces a redo
-                {
-                    fillIndexes(ref Indexes, count);
-                }
-            }
-            
-            
-            for (int i = 0; i < Indexes.Length; i++)
-            {
-                selection[i] = this[Indexes[i]];
-            }
-            
+
             return selection;
 
         }
         public void Shuffle()
         {
-            Deck<F> g = new Deck<F>();
-            while(Count>0)
-            {
-                int r = Main.rand.Next(Count);
-                g.Add(this[r]);
-                RemoveAt(r);
-            }
-            foreach(F item in g)
+            Deck<F> g = ShuffledCopy();
+            Clear();
+            foreach (F item in g)
             {
                 Add(item);
             }
+        }
+        public Deck<F> ShuffledCopy()
+        {
+            Deck<F> g = new Deck<F>();
+            Deck<F> c = new Deck<F>();
+            foreach (F item in this)
+            {
+                c.Add(item);
+            }
+            while (c.Count > 0)
+            {
+                int r = Main.rand.Next(c.Count);
+                g.Add(c[r]);
+                c.RemoveAt(r);
+            }
+            return g;
         }
     }
 }

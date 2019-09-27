@@ -92,7 +92,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.friendly = false;   
             projectile.ignoreWater = true;    
             Main.projFrames[projectile.type] = 1; 
-            projectile.knockBack = 10f;
             projectile.penetrate = -1; 
             projectile.tileCollide = false; 
 			projectile.minion = true;

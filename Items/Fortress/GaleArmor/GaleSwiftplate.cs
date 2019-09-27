@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gale Swiftplate");
-			Tooltip.SetDefault("+12% chance to dodge an attack" + "\n+15% thrown critical strike chance and velocity" + "\n20% chance not to consume thrown items" + "\nAllows you to cling to walls" + "\nThrowing damage increased by 25% while clinging to walls");
+			Tooltip.SetDefault("+10% chance to dodge an attack" + "\n+15% thrown critical strike chance and velocity" + "\n20% chance not to consume thrown items" + "\nAllows you to cling to walls" + "\nThrowing damage increased by 25% while clinging to walls");
 
 
         }
@@ -49,7 +49,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<QwertyPlayer>().dodgeChance += 12;
+            player.GetModPlayer<QwertyPlayer>().dodgeChance += 10;
             player.thrownCrit += 15;
             player.thrownVelocity += .15f;
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .8f;

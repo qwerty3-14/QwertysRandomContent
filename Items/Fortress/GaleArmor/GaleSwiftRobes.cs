@@ -25,7 +25,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gale Swift Robes");
-			Tooltip.SetDefault("+10% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nLets you dash (4.8 dash power)");
+			Tooltip.SetDefault("+9% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nLets you dash (4.8 dash power)");
 			
 		}
 
@@ -51,7 +51,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
 		}
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<QwertyPlayer>().dodgeChance += 10;
+            player.GetModPlayer<QwertyPlayer>().dodgeChance += 9;
             player.thrownCrit += 10;
             player.thrownVelocity += .1f;
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .85f;

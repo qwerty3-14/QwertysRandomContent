@@ -28,26 +28,24 @@ namespace QwertysRandomContent.Items.BladeBossItems
 			return true;
 		}
 
-		public override void OpenBossBag(Player player)
-		{
-			
-			
-				
-				player.QuickSpawnItem(73, 15);
-				
-				player.QuickSpawnItem(mod.ItemType("ImperiousSheath"));
-            switch(Main.rand.Next(3))
-            {
-                case 0:
-                    player.QuickSpawnItem(mod.ItemType("SwordStormStaff"));
-                    break;
-                case 1:
-                    player.QuickSpawnItem(mod.ItemType("ImperiousTheIV"));
-                    break;
-                case 2:
-                    player.QuickSpawnItem(mod.ItemType("FlailSword"));
-                    break;
-            }
-		}
+        public override void OpenBossBag(Player player)
+        {
+            Deck<string> itemNames = new Deck<string>();
+            itemNames.Add("SwordStormStaff");
+            itemNames.Add("ImperiousTheIV");
+            itemNames.Add("FlailSword");
+            itemNames.Add("SwordMinionStaff");
+            itemNames.Add("SwordsmanBadge");
+            itemNames.Add("BladedArrowShaft");
+
+            string[] spawnThese = itemNames.Draw(2);
+            player.QuickSpawnItem(mod.ItemType(spawnThese[0]));
+            player.QuickSpawnItem(mod.ItemType(spawnThese[1]));
+
+            player.QuickSpawnItem(73, 15);
+
+            player.QuickSpawnItem(mod.ItemType("ImperiousSheath"));
+
+        }
 	}
 }

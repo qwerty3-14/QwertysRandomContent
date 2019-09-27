@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.Fortress
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Divine Blade");
-			Tooltip.SetDefault("Deflects projectiles");
+			Tooltip.SetDefault("Deflects projectiles" + "\nCan only deflect projectiles weaker than the sword");
 			
 		}
 		public override void SetDefaults()
@@ -68,7 +68,7 @@ namespace QwertysRandomContent.Items.Fortress
             for (int p = 0; p < 1000; p++)
             {
                 clearCheck = Main.projectile[p];
-                if ((clearCheck.hostile ||(clearCheck.friendly && !clearCheck.minion&& (Main.player[clearCheck.owner].team !=Main.player[item.owner].team) || (Main.player[item.owner].team==0 && clearCheck.owner != item.owner)))  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck))
+                if ((clearCheck.hostile  ||(clearCheck.friendly && !clearCheck.minion&& (Main.player[clearCheck.owner].team !=Main.player[item.owner].team) || (Main.player[item.owner].team==0 && clearCheck.owner != item.owner)))  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck) && clearCheck.damage*2 * (Main.expertMode ? 2 : 1) < item.damage *player.meleeDamage  && clearCheck.velocity.Length() > .1f)
                 {
                     clearCheck.Kill();
                     if (clearCheck.velocity.Length() > 0f)

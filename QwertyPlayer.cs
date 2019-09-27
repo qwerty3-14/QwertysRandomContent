@@ -84,7 +84,8 @@ namespace QwertysRandomContent
         public bool GlassSpike = false;
         public bool SpaceFighter = false;
         public bool ShieldMinion = false;
-        //public Vector2[] LocalCursor = new Vector2[Main.player.Length];
+        public bool SwordMinion = false;
+       
         public override void ResetEffects()
         {
             ninjaSabatoge = false;
@@ -142,6 +143,7 @@ namespace QwertysRandomContent
             GlassSpike = false;
             SpaceFighter = false;
             ShieldMinion = false;
+            SwordMinion = false;
             if (!player.channel)
             {
                 shotNumber = 0;

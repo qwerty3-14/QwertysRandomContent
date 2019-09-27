@@ -84,7 +84,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             }
             else
             {
-                switch (Main.rand.Next(3))
+                switch (Main.rand.Next(6))
                 {
                     case 0:
                         Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("SwordStormStaff"));
@@ -94,6 +94,15 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                         break;
                     case 2:
                         Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("FlailSword"));
+                        break;
+                    case 3:
+                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("SwordMinionStaff"));
+                        break;
+                    case 4:
+                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("SwordsmanBadge"));
+                        break;
+                    case 5:
+                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("BladedArrowShaft"));
                         break;
                 }
             }

@@ -34,10 +34,26 @@ I'm not that good of a spriter so here I'll give thanks to the spriters who help
 Extra thanks
 -Turquiose (for writing custom themes)
 -Kerdo (Russian Translations)
+-Divine blade can now only deflect projectiles 'weaker' than the sword
+-Shield minions can now block projectiles weaker than themselves, damage reduced from 36 -> 30, chance to stun enemies increased
+-In expert mode some of Divine light's attacks will now have a 'minimum damage' of around 14-18 (regardless of defense you'll take that much damage at least)
+-added uppercut and slam abilities to The Massacre
+-minions and other homing attacks can now only see Noehtnap when you do
+-reduced Noehtnap's health a bit
+-minions/homing attacks won't chase down sleeping polar extreminator
 
+-added skyward hilt (rare drop from divine light)
+-added 3 more Imperious drops (thanks for spriting Darkpuppey)
 
 
 changelog
+
+0.19.8
+-fixed Ancient Machine always dropping Acncient blade.
+-nerfed riptide sentry damage 7 -> 4
+-nerfed gale armor's dodge chance from 30% -> 25%
+
+
 0.19.7
 -Released for tmodloader 0.11.3 
 -nerfed blooming and true blooming bow

@@ -46,7 +46,11 @@ namespace QwertysRandomContent.Items.Fortress
             {
                 player.QuickSpawnItem(mod.ItemType("Lightling"));
             }
-            
+            if (Main.rand.Next(5) == 0)
+            {
+                player.QuickSpawnItem(mod.ItemType("SkywardHilt"));
+            }
+
         }
 	}
 }

@@ -106,6 +106,10 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Lightling"));
                 }
+                if (Main.rand.Next(20) < 3)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SkywardHilt"));
+                }
             }
             
             int trophyChance = Main.rand.Next(0, 10);
@@ -476,7 +480,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.friendly = false;
             projectile.hostile = true;
             projectile.penetrate = -1;
-
+            projectile.timeLeft = 1200;
             projectile.tileCollide = false;
 
 
@@ -511,6 +515,20 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 projectile.Kill();
             }
         }
+        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        {
+            if(Main.expertMode)
+            {
+                int estimatedDamage = (4*damage) - (int)((float)target.statDefense / 4f * 3f);
+               
+                if(estimatedDamage < 18f)
+                {
+
+                    damage = (int)((((float) target.statDefense / 4f * 3f) + 18f)/4f);
+                }
+            }
+            
+        }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (target.HasBuff(BuffID.PotionSickness))
@@ -543,7 +561,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.penetrate = -1;
             projectile.light = .6f;
             projectile.tileCollide = false;
-
+            projectile.timeLeft = 1200;
 
         }
 
@@ -605,7 +623,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.penetrate = -1;
             projectile.light = .6f;
             projectile.tileCollide = false;
-
+            projectile.timeLeft = 600;
 
         }
         public override void AI()
@@ -749,7 +767,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.penetrate = -1;
             projectile.light = .6f;
             projectile.tileCollide = true;
-
+            projectile.timeLeft = 600;
 
         }
         int timer;
@@ -778,6 +796,20 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 projectile.velocity.Y = -velocityChange.Y;
             }
             return false;
+        }
+        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        {
+            if (Main.expertMode)
+            {
+                int estimatedDamage = (4 * damage) - (int)((float)target.statDefense / 4f * 3f);
+
+                if (estimatedDamage < 18f)
+                {
+
+                    damage = (int)((((float)target.statDefense / 4f * 3f) + 18f) / 4f);
+                }
+            }
+
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {

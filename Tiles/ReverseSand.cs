@@ -158,18 +158,25 @@ namespace QwertysRandomContent.Tiles
 
         public override void PostUpdateEquips()
         {
-            if(Main.tile[(int)(player.Top.X)/16, (int)(player.Top.Y )/16 - 1].type == mod.TileType("ReverseSand") || Main.tile[(int)(player.Top.X) / 16, (int)(player.Top.Y) / 16].type == mod.TileType("ReverseSand")||
-                Main.tile[(int)(player.Top.X) / 16, (int)(player.Top.Y) / 16 - 1].type == mod.TileType("DnasBrick") || Main.tile[(int)(player.Top.X) / 16, (int)(player.Top.Y) / 16].type == mod.TileType("DnasBrick"))
+            int xPos = (int)(player.Top.X) / 16;
+            int yPos = (int)(player.Top.Y) / 16;
+            int yUpper = (int)(player.Top.Y) / 16 - 1;
+            if(xPos < Main.tile.GetLength(0) && yPos < Main.tile.GetLength(1) && yUpper < Main.tile.GetLength(1) && xPos > 0 && yPos > 0 && yUpper > 0) //hopefully this prevents index outside bounds of array error
             {
-                //player.gravDir = -1f;
-                //player.gravControl2 = true;
-                if(player.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity ==0)
+                if (Main.tile[xPos, yUpper].type == mod.TileType("ReverseSand") || Main.tile[xPos, yPos].type == mod.TileType("ReverseSand") ||
+                Main.tile[xPos, yUpper].type == mod.TileType("DnasBrick") || Main.tile[xPos, yPos].type == mod.TileType("DnasBrick"))
                 {
-                    player.velocity.Y = 0;
+                    //player.gravDir = -1f;
+                    //player.gravControl2 = true;
+                    if (player.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity == 0)
+                    {
+                        player.velocity.Y = 0;
 
+                    }
+                    player.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity = 10;
                 }
-                player.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity = 10;
             }
+            
             
         }
     }

@@ -28,8 +28,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 			item.shootSpeed =12f;
             item.useTime = 100;
 			
-			//item.shoot = mod.ProjectileType("AqueousP");
-			
 			item.maxStack = 1;
 			
 			
@@ -40,7 +38,13 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
         Player player = Main.player[0];
         float closestDistance = 10000;
-        
+        public virtual void ReturningDust()
+        {
+            if (Main.rand.Next(6) == 0)
+            {
+                Dust.NewDust(item.position, item.width, item.height, 172);
+            }
+        }
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {
 
@@ -64,11 +68,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.position += v * .1f; 
             
             item.beingGrabbed = true;
-            //item.velocity = Collision.TileCollision(item.position, item.velocity, item.width, item.height);
-            if (Main.rand.Next(6) == 0)
-            {
-                Dust.NewDust(item.position, item.width, item.height, 172);
-            }
+            
+            ReturningDust();
            
 
             closestDistance = 10000;
@@ -77,7 +78,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
             r += (float)Math.PI / 60f * (100 / (float)item.useTime);
-            Texture2D texture = mod.GetTexture("Items/Weapons/Dungeon/Aqueous");
+            Texture2D texture = Main.itemTexture[item.type];
             spriteBatch.Draw
             (
                 texture,
@@ -99,15 +100,25 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
     }
     public class AqueousShot : ModPlayer
     {
+        protected int arrowID = -1;
+        protected int shootID = -1;
+
         public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            if(arrowID == -1)
+            {
+                arrowID = mod.ItemType("Aqueous");
+                shootID = mod.ProjectileType("AqueousP");
+            }
             if (item.useAmmo == 40)
             {
                 for (int i = 0; i < 58; i++)
                 {
-                    if (player.inventory[i].type == mod.ItemType("Aqueous") && player.inventory[i].stack > 0 && Main.LocalPlayer ==player)
-                    {
-                        Projectile p = Main.projectile[Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 32).SafeNormalize(default(Vector2))* player.inventory[i].shootSpeed , mod.ProjectileType("AqueousP"), player.inventory[i].damage, player.inventory[i].knockBack, player.whoAmI)];
+                    if (player.inventory[i].type == arrowID && player.inventory[i].stack > 0 && Main.LocalPlayer ==player)
+                    { 
+                        
+                        
+                        Projectile p = Main.projectile[Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 32).SafeNormalize(default(Vector2))* player.inventory[i].shootSpeed , shootID, player.inventory[i].damage, player.inventory[i].knockBack, player.whoAmI)];
                         p.localAI[1] = player.inventory[i].prefix;
                         p.localAI[0] = player.inventory[i].crit;
                         player.inventory[i].stack--;
@@ -125,6 +136,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 			
 			
 		}
+                
+        protected int assosiatedItemID = -1;
 		public override void SetDefaults()
 		{
 			projectile.aiStyle = 1;
@@ -136,15 +149,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 			projectile.arrow=true;
 			
 			projectile.tileCollide = true;
-
-            //Main.PlaySound(2, -1, -1, 59, 1f, -.2f);
         }
         public override void Kill(int timeLeft)
         {
+            if(assosiatedItemID == -1)
+            {
+                assosiatedItemID = mod.ItemType("Aqueous");
+            }
             if(Main.netMode != 1)
             {
-                Item i = Main.item[Item.NewItem(projectile.Center, mod.ItemType("Aqueous"))];
-                //i.prefix = (byte)projectile.localAI[1];
+                Item i = Main.item[Item.NewItem(projectile.Center, assosiatedItemID)];
                 i.Prefix((int)projectile.localAI[1]);
             }
             
@@ -159,7 +173,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-           // Main.NewText((int)projectile.localAI[0] + Main.player[projectile.owner].rangedCrit);
             crit = Main.rand.Next(100)< ((int)projectile.localAI[0]+Main.player[projectile.owner].rangedCrit);
         }
 
