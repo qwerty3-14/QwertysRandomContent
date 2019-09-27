@@ -220,7 +220,7 @@ namespace QwertysRandomContent
             text = CreateTranslation("DivineMock");
             text.SetDefault("Either you're slower than a mollusket or you're trying to heal, you know I'll do that if you don't keep up...");
             text.AddTranslation(GameCulture.Russian, "Либо ты медленнее моллюска, либо ты пытаешься выздороветь, ты знаешь, я сделаю это, если ты не поспеешь ... ");
-            text.AddTranslation(GameCulture.Chinese, "要么你比慢的跟蜗牛一样，要么你在想着回血，你应该知道如果你不跟上我，我会…");
+            text.AddTranslation(GameCulture.Chinese, "要么你慢的跟蜗牛一样，要么你在想着回血，你应该知道如果你不跟上我，我会…");
             AddTranslation(text);
 
             text = CreateTranslation("DivineLeave");
@@ -247,7 +247,7 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClaySet");
             text.SetDefault("Be like a clay statue and... \n Increased morph damage and morph defense when not moving");
             text.AddTranslation(GameCulture.Russian, "\n Увеличение урона оборотня и защита оборотня когда не двигаешься");
-            text.AddTranslation(GameCulture.Chinese, "像一个泥雕一样\n不移动时增加啊化形伤害和化形防御");
+            text.AddTranslation(GameCulture.Chinese, "像一个泥雕一样\n不移动时增加化形伤害和化形防御");
             AddTranslation(text);
 
             text = CreateTranslation("DuelistSet");
@@ -454,12 +454,12 @@ namespace QwertysRandomContent
 
             text = CreateTranslation("PerfixmanaReduction");
             text.SetDefault("% reduced mana usage");
-            text.AddTranslation(GameCulture.Chinese, "%减少魔力消耗");
+            text.AddTranslation(GameCulture.Chinese, "%魔力消耗降低");
             AddTranslation(text);
 
             text = CreateTranslation("PerfixammoReduction");
             text.SetDefault("% reduced ammo usage");
-            text.AddTranslation(GameCulture.Chinese, "%减少弹药消耗");
+            text.AddTranslation(GameCulture.Chinese, "%弹药消耗降低");
             AddTranslation(text);
 
             text = CreateTranslation("PerfixthrowVel");
@@ -511,7 +511,7 @@ namespace QwertysRandomContent
 
             text = CreateTranslation("MorphTypeInvulnerable");
             text.SetDefault("Invulnerable when morphed");
-            text.AddTranslation(GameCulture.Chinese, "出于化形时无敌");
+            text.AddTranslation(GameCulture.Chinese, "处于化形时无敌");
             AddTranslation(text);
 
             text = CreateTranslation("Morphcooldown");

@@ -80,6 +80,7 @@ ItemName.Illuminator=照明叠叠灯
 ItemName.LuneBar=月月锭
 ItemName.LuneOre=月月矿
 ItemName.RhuthiniumOre=鲁锡金矿
+ItemTooltip.RhuthiniumOre=(骷髅王后，地下，青绿色)
 ItemName.RhuthiniumBar=鲁锡金锭
 ItemName.RhuthiniumCrate=鲁锡金板条箱
 ItemName.Transmutator=转化机
@@ -457,6 +458,10 @@ ItemName.StarSageGloves=星圣手套
 ItemName.StarSage=星圣宽袍
 ItemName.Urizel=乌里森之刃
 ItemName.WaveOfDeathUrizel=乌里森死亡邪能的波动
+ItemName.WoodenMirror=木框镜
+ItemName.FortressMirror=天堂堡垒镜
+ItemName.ArcherGlove=射手手套
+ItemName.MusicBoxTheGodsBleed=八音盒(众神之血)
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -582,7 +587,7 @@ BuffName.VarguleMight=瓦古尔的威能
 BuffName.MorphSickness=化形病
 BuffName.DodgeBuff=躲闪
 BuffName.ThrowReduction=低耗投掷
-BuffName.TankShift=变成坦克
+BuffName.TankMorphB=变成坦克
 BuffName.MiniTank=迷你坦克
 BuffName.EyeBless=眼之真知
 BuffName.MorphCooldown=快速化形病
@@ -590,6 +595,13 @@ BuffName.GlassCannonMorphB=玻璃加农
 BuffName.GlassSpike=玻璃尖刺
 BuffName.SpaceFighter=宇宙战机
 BuffName.LightlingBuff=发光
+BuffName.ShieldMinion=盾之仆从
+
+
+BuffName.AnvilMorphB=一个砧
+BuffName.BunnyShiftB=兔兔变形
+BuffName.HovercraftMorphB=气垫船
+BuffName.SpikedSlimeMorphB=尖刺史莱姆变形
 
 
 BuffDescription.AncientMinion=古代召唤物为你而战!
@@ -620,7 +632,7 @@ BuffDescription.UrQuan=要么屈服，要么去死，愚蠢的人类!
 BuffDescription.VarguleMagic=+400魔法上限并增加30%魔法伤害
 BuffDescription.VarguleMana=魔法攻击不消耗魔力
 BuffDescription.VarguleMight=增加30%近战伤害
-BuffDescription.Tank Shift=坦克!乌拉!
+BuffDescription.TankMorphB=坦克!乌拉!
 BuffDescription.MiniTank=建立一个军队...别信任何人!
 BuffDescription.LightlingBuff=在发光
 BuffDescription.EyeBless=免疫化形病
@@ -629,6 +641,10 @@ BuffDescription.MorphCooldown=还无法进行第二次化形
 BuffDescription.GlassCannonMorphB=你很容易破
 BuffDescription.GlassSpike=比踩在乐高上面还糟糕
 BuffDescription.SpaceFighter=爆炸性新闻，你在宇宙里
+BuffDescription.ShieldMinion=你有你自己的护卫!
+
+
+BuffDescription.BunnyShiftB=你是一个兔兔
 
 
 MapObjects
@@ -751,7 +767,7 @@ ItemTooltip.ExplosivePierce=发射穿透敌人的炮弹，击中什么任何都�
 ItemTooltip.Jabber=长矛中的达斯摩尔!\n(译者注：Darth Maul 达斯摩尔，《星球大战》中的人物，创建银河系最大黑帮“血红黎明”)
 ItemTooltip.MissileStrike=从空中降下导弹!
 ItemTooltip.TheDevourer=可以挖掘13х13的范围!
-ItemTooltip.ImperiousSheath=造成10000点伤害后，你可以召唤一个蛮横之剑为你而战，并获得“特殊能力”键\n可在控制面板中更改
+ItemTooltip.ImperiousSheath=\n造成10000点伤害后，你可以召唤一个蛮横之剑为你而战，并获得“特殊能力”键\n可在控制面板中更改
 ItemTooltip.ImperiousTheIV=攻击敌人产生剑，右键发射
 ItemTooltip.SwordStormStaff=弄得满屏幕都是剑!!\n别割到自己!
 ItemTooltip.CephalopodSlurry=提升生命回复
@@ -839,8 +855,8 @@ ItemTooltip.PlatinumBoomerang=这种回旋镖可以扔得特别远，但比大�
 ItemTooltip.AerousLongbow=疯狂的弓很酷，但是实际上往往需要的是一个有着良好性能的普通的弓
 ItemTooltip.AerousLongbowWithRandomEnchantment=疯狂的弓很酷，但是实际上往往需要的是一个有着良好性能的普通的弓\n右键发射随机箭矢
 ItemTooltip.AerousLongbowWithStormEnchantment=疯狂的弓很酷，但是实际上往往需要的是一个有着良好性能的普通的弓\n杀死敌人获得一个充能，右键使用充能来发射一个强大的风暴箭
-ItemTooltip.BloomingBow=随机选取2-12个随机箭矢\n以随机速度向随机方向射击！
-ItemTooltip.TrueBloomingBow=随机选取1-16个随机箭矢\n以随机速度向随机方向射击！
+ItemTooltip.BloomingBow=随机选取2-8个随机箭矢\n以随机速度向随机方向射击！
+ItemTooltip.TrueBloomingBow=随机选取1-11个随机箭矢\n以随机速度向随机方向射击！
 ItemTooltip.DeathString=死亡之息吹...我是说弓\n射击时会有两个头骨向四周敌人攻击
 ItemTooltip.TrueDeathString=死亡之息吹...我是说弓\n射击时会有四个头骨向四周敌人攻击\n50%几率不消耗弹药
 ItemTooltip.FossilBow=射击时会有一个头骨向四周敌人攻击
@@ -966,3 +982,4 @@ ItemTooltip.ChromeShotgunDefault=右键切换四种形态
 ItemTooltip.NewClassDamageTest=一个模组测试用剑\n开发者武器
 ItemTooltip.Urizel=这把剑曾经杀死一个沉睡者\n开发者武器
 ItemTooltip.WaveOfDeathUrizel=这个神奇的符文包含了古老的乌里森之剑的力量\n开发者武器
+ItemTooltip.ArcherGlove=弓的射击速度加快
