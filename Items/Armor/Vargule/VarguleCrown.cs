@@ -38,7 +38,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 			
 			player.meleeDamage += .15f;
 			player.magicCrit += 40;
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.siphon2 = true;
 			
 			player.manaRegenBonus = -999;
@@ -61,7 +61,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VCrownSet");
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.visorSetBonus = true;
 			
 			

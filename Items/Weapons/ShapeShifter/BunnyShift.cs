@@ -86,7 +86,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.mount.SetMount(mod.MountType<BunnyShift>(), player);
+			player.mount.SetMount(mod.MountType("BunnyShift"), player);
 			player.buffTime[buffIndex] = 10;
 		}
 	}

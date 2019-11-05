@@ -41,7 +41,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
 			item.UseSound = SoundID.Item1;
             item.useAmmo = AmmoID.Arrow;
-			item.shoot = mod.ProjectileType<BowyoP>();
+			item.shoot = mod.ProjectileType("BowyoP");
 		}
         public override void AddRecipes()
         {
@@ -59,7 +59,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            type = mod.ProjectileType<BowyoP>();
+            //reset damage and knockback to avoid ammo modifing
+            damage = (int)(item.damage * player.meleeDamage);
+            knockBack = item.knockBack * knockBack;
+            type = mod.ProjectileType("BowyoP");
             return true;
         }
 
@@ -138,7 +141,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(QwertyMethods.GetAmmoReference(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
+                    player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.WoodenBow), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
                     if (Main.netMode != 1)
                     {
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];

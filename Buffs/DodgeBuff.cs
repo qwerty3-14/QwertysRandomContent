@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 
-            player.GetModPlayer<QwertyPlayer>(mod).dodgeChance += 10;
+            player.GetModPlayer<QwertyPlayer>().dodgeChance += 10;
         }
 
 		

@@ -12,10 +12,11 @@ namespace QwertysRandomContent.Items.Vitallum
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vitallum");
+            DisplayName.SetDefault("Vitallum (WIP)");
             Tooltip.SetDefault("");
 
         }
+        /*
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -25,6 +26,7 @@ namespace QwertysRandomContent.Items.Vitallum
             recipe.SetResult(this, 40);
             recipe.AddRecipe();
         }
+        */
         public override void SetDefaults()
         {
             item.value = 30000;

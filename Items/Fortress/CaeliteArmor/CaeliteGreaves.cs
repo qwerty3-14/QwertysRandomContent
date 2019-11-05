@@ -53,8 +53,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         public override void UpdateEquip(Player player)
 		{
 
-            player.GetModPlayer<QwertyPlayer>(mod).recovery += 3;
-            player.GetModPlayer<CaeliteGreavesEffect>(mod).hasEffect = true;
+            player.GetModPlayer<QwertyPlayer>().recovery += 3;
+            player.GetModPlayer<CaeliteGreavesEffect>().hasEffect = true;
 
         }
 		public override void SetMatch(bool male, ref int equipSlot, ref bool robes)

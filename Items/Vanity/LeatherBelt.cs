@@ -74,7 +74,7 @@ namespace QwertysRandomContent.Items.Vanity
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             Vector2 Position = drawInfo.position;
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)Position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)Position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
             int shader8 = 0;

@@ -41,7 +41,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             
             modPlayer.leechScroll = true;
             

@@ -33,7 +33,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
 		}
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 3f)
             {
                 modPlayer.customDashSpeed = 3f;

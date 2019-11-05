@@ -29,7 +29,7 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
             TileObjectData.newTile.AnchorLeft = default(AnchorData);
             TileObjectData.newTile.AnchorRight = default(AnchorData);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<DnasTransmutatorE>().Hook_AfterPlacement, 0, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("DnasTransmutatorE").Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.Height = 1;
             TileObjectData.addTile(Type);
 
@@ -44,8 +44,7 @@ namespace QwertysRandomContent.Tiles
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            //Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("Fan"));
-            mod.GetTileEntity<DnasTransmutatorE>().Kill(i, j);
+            mod.GetTileEntity("DnasTransmutatorE").Kill(i, j);
         }
 
         

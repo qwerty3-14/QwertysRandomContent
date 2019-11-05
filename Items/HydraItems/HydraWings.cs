@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.HydraItems
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.wingTimeMax = 15;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 5f)
             {
                 modPlayer.customDashSpeed = 5f;
@@ -66,7 +66,7 @@ namespace QwertysRandomContent.Items.HydraItems
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.wings == mod.GetEquipSlot("HydraWings", EquipType.Wings))
             {
                 //Main.NewText("Legs!");

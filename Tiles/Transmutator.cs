@@ -22,7 +22,7 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.AnchorLeft = default(AnchorData);
             TileObjectData.newTile.AnchorRight = default(AnchorData);
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, 0, 0);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TransmutatorE>().Hook_AfterPlacement, 0, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("TransmutatorE").Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.Height = 1;
             TileObjectData.addTile(Type);
 
@@ -38,7 +38,7 @@ namespace QwertysRandomContent.Tiles
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             //Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("Fan"));
-            mod.GetTileEntity<TransmutatorE>().Kill(i, j);
+            mod.GetTileEntity("TransmutatorE").Kill(i, j);
         }
 
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)

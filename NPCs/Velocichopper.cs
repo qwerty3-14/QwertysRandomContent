@@ -59,7 +59,7 @@ namespace QwertysRandomContent.NPCs
 
             if (QwertyWorld.DinoEvent)
             {
-                if (!NPC.AnyNPCs(mod.NPCType<Velocichopper>()) && !NPC.downedMoonlord)
+                if (!NPC.AnyNPCs(mod.NPCType("Velocichopper")) && !NPC.downedMoonlord)
                 {
                     return 7f;
                 }

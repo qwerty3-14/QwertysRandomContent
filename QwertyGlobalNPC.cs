@@ -47,11 +47,11 @@ namespace QwertysRandomContent
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
 		{
             
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			if(QwertyWorld.DinoEvent)
 			{
 				
-				if(NPC.AnyNPCs(mod.NPCType<TheGreatTyrannosaurus>()) && !NPC.downedMoonlord)
+				if(NPC.AnyNPCs(mod.NPCType("TheGreatTyrannosaurus")) && !NPC.downedMoonlord)
 				{
 					spawnRate = 0;
 					maxSpawns = 0;

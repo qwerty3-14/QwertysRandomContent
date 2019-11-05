@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-            player.GetModPlayer<BiomassEffect>(mod).effect = true;
+            player.GetModPlayer<BiomassEffect>().effect = true;
         }
 
 

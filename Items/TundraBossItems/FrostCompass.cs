@@ -41,7 +41,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-            player.GetModPlayer<FrostCompassEffect>(mod).effect = true;
+            player.GetModPlayer<FrostCompassEffect>().effect = true;
         }
 
 
@@ -64,8 +64,8 @@ namespace QwertysRandomContent.Items.TundraBossItems
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.GetModPlayer<FrostCompassEffect>(mod).effect && FrozenDen.BearSpawn.X != -1 && FrozenDen.BearSpawn.Y != -1)
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            if (drawPlayer.GetModPlayer<FrostCompassEffect>().effect && FrozenDen.BearSpawn.X != -1 && FrozenDen.BearSpawn.Y != -1)
             {
                 //Main.NewText("Legs!");
                 //Main.NewText(drawPlayer.bodyFrame);

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-
+using Terraria.ID;
 namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class SwordsmanBadge : ModItem
@@ -43,9 +43,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 effect = false;
 
             }
+            bool DoEffect()
+            {
+                return effect && Math.Abs(player.velocity.X) < 1f && !player.HeldItem.IsAir && !player.HeldItem.noMelee && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101);
+            }
             public override void PostItemCheck()
             {
-                if (effect && Math.Abs(player.velocity.X) < 1f && !player.HeldItem.IsAir && (player.HeldItem.useStyle == 1 || player.HeldItem.useStyle == 3 || player.HeldItem.useStyle == 101))
+                if (DoEffect())
                 {
                     if (player.itemAnimation > 0)
                     {
@@ -60,7 +64,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
             {
 
-                if(effect)
+                if(DoEffect())
                 {
                     target.immune[player.whoAmI] = player.itemAnimation / 2;
                 }

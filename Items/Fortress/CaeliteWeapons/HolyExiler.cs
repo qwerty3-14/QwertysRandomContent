@@ -55,7 +55,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             
             //Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
             arrow= Main.projectile[Projectile.NewProjectile(position.X , position.Y , speedX, speedY, type, damage, knockBack, player.whoAmI)];
-            arrow.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow = true;
+            arrow.GetGlobalProjectile<ArrowWarping>().warpedArrow = true;
             return false;
         }
 

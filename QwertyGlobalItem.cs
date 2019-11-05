@@ -9,7 +9,7 @@ namespace QwertysRandomContent
         
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (item.type == ItemID.Tabi || item.type == ItemID.MasterNinjaGear)
             {
                
@@ -26,12 +26,12 @@ namespace QwertysRandomContent
             }
             if(player.ammoCost75)
             {
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .75f;
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= .75f;
                 player.ammoCost75 = false;
             }
             if (player.ammoCost80)
             {
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .8f;
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= .8f;
                 player.ammoCost80 = false;
             }
 
@@ -40,12 +40,12 @@ namespace QwertysRandomContent
         {
             if (player.ammoCost75)
             {
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .75f;
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= .75f;
                 player.ammoCost75 = false;
             }
             if (player.ammoCost80)
             {
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .8f;
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= .8f;
                 player.ammoCost80 = false;
             }
         }
@@ -53,18 +53,18 @@ namespace QwertysRandomContent
         {
             if (player.ammoCost75)
             {
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .75f;
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= .75f;
                 player.ammoCost75 = false;
             }
             if (player.ammoCost80)
             {
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .8f;
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= .8f;
                 player.ammoCost80 = false;
             }
         }
         public override bool CanUseItem(Item item, Player player)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.cantUse)
             {
                 return false;

@@ -58,7 +58,7 @@ namespace QwertysRandomContent.NPCs
             
             if (QwertyWorld.DinoEvent)
 			{
-				if(!NPC.AnyNPCs(mod.NPCType<Velocichopper>()) && !NPC.downedMoonlord)
+				if(!NPC.AnyNPCs(mod.NPCType("Velocichopper")) && !NPC.downedMoonlord)
 				{
                     if (QwertyWorld.DinoKillCount >= 140 && !NPC.downedMoonlord)
                     {

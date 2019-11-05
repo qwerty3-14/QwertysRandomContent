@@ -376,12 +376,12 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 XDirection = -npc.direction;
                 npc.velocity = new Vector2(speedX * XDirection, speedY * YDirection);
                 //Main.NewText(Xdistance);
-                //Main.NewText(player.GetModPlayer<FortressBiome>(mod).TheFortress);
+                //Main.NewText(player.GetModPlayer<FortressBiome>().TheFortress);
             }
             else
             {
 
-                //Main.NewText(player.GetModPlayer<FortressBiome>(mod).TheFortress);
+                //Main.NewText(player.GetModPlayer<FortressBiome>().TheFortress);
                 QwertyWorld.hasSummonedFortressBoss = true;
                 if (Main.netMode != 2)
                 {
@@ -402,7 +402,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                         npc.netUpdate = true;
 
                     }
-                    else if (!player.GetModPlayer<FortressBiome>(mod).TheFortress && aggressionTimer > 10)
+                    else if (!player.GetModPlayer<FortressBiome>().TheFortress && aggressionTimer > 10)
                     {
                         string key = "Mods.QwertysRandomContent.DivineLeave";
                         Color messageColor = Color.Orange;

@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 			player.magicDamage += .10f;
 			player.meleeDamage += .10f;
 			player.magicCrit += 10;
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.siphon = true;
 			modPlayer.meleeSiphon = true;
 			player.manaRegenBonus = -999;
@@ -61,7 +61,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		{
 			
 			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RCircletSet");
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.circletSetBonus = true;
 			modPlayer.meleeCircletSetBonus = true;
             

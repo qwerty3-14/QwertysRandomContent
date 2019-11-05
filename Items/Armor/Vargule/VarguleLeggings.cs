@@ -50,15 +50,15 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		{
 
 
-            player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .8f;
-            player.GetModPlayer<QwertyPlayer>(mod).throwReduction *= .7f;
+            player.GetModPlayer<QwertyPlayer>().ammoReduction *= .8f;
+            player.GetModPlayer<QwertyPlayer>().throwReduction *= .7f;
 
            
 			player.manaCost -= .2f;
 			player.statManaMax2 += 80;
 			player.meleeSpeed += .12f;
 			player.moveSpeed += .12f;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 5.4f)
             {
                 modPlayer.customDashSpeed = 5.4f;

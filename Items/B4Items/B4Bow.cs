@@ -58,7 +58,7 @@ namespace QwertysRandomContent.Items.B4Items
             
             Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
             arrow= Main.projectile[Projectile.NewProjectile(position.X , position.Y , trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI)];
-            arrow.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow=true;
+            arrow.GetGlobalProjectile<arrowHoming>().B4HomingArrow=true;
             if (Main.netMode == 1)
             {
                 ModPacket packet = mod.GetPacket();

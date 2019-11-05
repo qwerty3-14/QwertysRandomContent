@@ -38,8 +38,8 @@ namespace QwertysRandomContent.Items.TundraBossItems
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-            player.GetModPlayer<PenguinEffect>(mod).effect = true;
-            player.GetModPlayer<PenguinEffect>(mod).noSound = hideVisual;
+            player.GetModPlayer<PenguinEffect>().effect = true;
+            player.GetModPlayer<PenguinEffect>().noSound = hideVisual;
         }
 
 

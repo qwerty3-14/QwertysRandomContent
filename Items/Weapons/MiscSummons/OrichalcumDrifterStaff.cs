@@ -126,7 +126,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             Player player = Main.player[projectile.owner];
             
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             drifterCount = player.ownedProjectileCounts[mod.ProjectileType("OrichalcumDrifter")];
             if (modPlayer.OrichalcumDrifter)
             {

@@ -56,7 +56,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		{
 			
 			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RGogglesSet");
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.ninjaSabatoge = true;
 			player.thrownDamage += .1f;			
 			

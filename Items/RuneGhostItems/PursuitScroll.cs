@@ -41,7 +41,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             
             modPlayer.pursuitScroll = true;
             
@@ -162,7 +162,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (projectile.minion && projectile.minionSlots >0 && modPlayer.pursuitScroll)
             {
                 

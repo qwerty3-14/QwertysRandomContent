@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void UpdateEquip(Player player)
         {
             //player.HeldItem.scale = 2;
-            player.GetModPlayer<BigSword>(mod).Enlarger = true;
+            player.GetModPlayer<BigSword>().Enlarger += 1f;
             
         }
 
@@ -47,12 +47,13 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public float size = 1f;
         public float oldSize = 1f;
-        public bool Enlarger;
+        public float Enlarger = 0;
+        
         Item previousItem = new Item();
         public override void ResetEffects()
         {
             size = 1f;
-            Enlarger = false;
+            Enlarger = 0;
         }
         
         public override void PreUpdate()
@@ -65,10 +66,11 @@ namespace QwertysRandomContent.Items.Accesories
         {
             if (!player.HeldItem.IsAir)
             {
-                if (Enlarger && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101) && player.HeldItem.melee && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
+                if (Enlarger>0 && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101) && player.HeldItem.melee && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
                 {
-                    size += 1f;
+                    size += Enlarger;
                 }
+                
                 //Main.NewText(player.selectedItem);
                 if (player.selectedItem != 58)
                 {

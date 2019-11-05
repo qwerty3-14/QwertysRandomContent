@@ -628,14 +628,8 @@ namespace QwertysRandomContent
         public int runeRate;
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
 		{
-            /*
-            if(target.HasBuff(mod.BuffType("LuneCurse")) && crit)
-            {
-                //Main.NewText("Boost!");
-                damage = (int)(damage * 1.5f);
-            }
-            */
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (target.life <= 0 && !target.SpawnedFromStatue && stormEnchantment)
             {
                 if (modPlayer.charge >= 20)
@@ -842,12 +836,7 @@ namespace QwertysRandomContent
 		}
 		public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
 		{
-            /*
-            if (target.HasBuff(mod.BuffType("LuneCurse")) && crit)
-            {
-                damage = (int)(damage * 1.5f);
-            }
-            */
+            
             if (Metronome &&!target.immortal && target.life <=0 && !target.SpawnedFromStatue)
 			{
 				killCount++;

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.AbstractClasses;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -63,7 +64,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             return false;
         }
     }
-    public class BeakTippedFlechetteP : ModProjectile
+    public class BeakTippedFlechetteP : Flechette
     {
         public override void SetStaticDefaults()
         {
@@ -74,22 +75,18 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
         }
         public override void SetDefaults()
         {
-            //projectile.aiStyle = 1;
-            //aiType = ProjectileID.Shuriken;
             projectile.width = 6;
             projectile.height = 6;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.thrown = true;
-            //projectile.extraUpdates = 1;
-            //projectile.scale = .5f;
 
             projectile.tileCollide = true;
-
+            acceleration = .1f;
+            maxVerticalSpeed = 12f;
 
         }
-        float acceleration = .1f;
-        float maxVerticalSpeed = 12f;
+        
         bool runOnce = true;
         float initialVerticalVelocity;
         NPC target;
@@ -99,14 +96,9 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
         float distance;
         float horizontalMaxSpeed = 6f;
         float horizontalAcceleration = .15f;
-        public override void AI()
+        public override void ExtraAI()
         {
-            if (runOnce)
-            {
-                initialVerticalVelocity = projectile.velocity.Y;
-                runOnce = false;
-            }
-
+            
             for (int k = 0; k < 200; k++)
             {
                 possibleTarget = Main.npc[k];
@@ -140,13 +132,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
                     projectile.velocity.X = -horizontalMaxSpeed;
                 }
             }
-            projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI/2;
-            projectile.velocity.Y += acceleration;
-            if(projectile.velocity.Y> maxVerticalSpeed)
-            {
-                projectile.velocity.Y = maxVerticalSpeed;
-            }
-            //Main.NewText(projectile.velocity.Y);
+            
             maxDistance = 10000f;
             foundTarget = false;
         }

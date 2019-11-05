@@ -142,7 +142,7 @@ using Microsoft.Xna.Framework.Graphics;
         {
 
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.AncientMinion)
             {
                 projectile.timeLeft = 2;

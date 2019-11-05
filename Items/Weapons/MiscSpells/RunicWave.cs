@@ -92,16 +92,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 spriteBatch.Draw
                 (
                     texture,
-                    new Vector2
-                    (
-
-                        position.X + item.width * 0.5f,
-                        position.Y + item.height - (texture.Height / 4) * 0.5f
-                    ),
+                    position,
                     new Rectangle(0, runeMode * (texture.Height / 4), texture.Width, (texture.Height / 4)),
                     Color.White,
                     0,
-                    new Vector2(texture.Width / 2, (texture.Height / 8)) + origin,
+                     origin,
                     scale,
                     SpriteEffects.None,
                     0f
@@ -274,7 +269,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
 
             Player player = Main.player[projectile.owner];
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (runOnce)
             {
                 projectile.rotation = (player.Center - projectile.Center).ToRotation() - (float)Math.PI / 2;

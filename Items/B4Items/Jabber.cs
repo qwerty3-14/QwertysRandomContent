@@ -37,7 +37,7 @@ namespace QwertysRandomContent.Items.B4Items
             item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
             item.UseSound = SoundID.Item1;
-            item.shoot = mod.ProjectileType<JabberP>();
+            item.shoot = mod.ProjectileType("JabberP");
         }
 
         public override bool CanUseItem(Player player)
@@ -102,7 +102,7 @@ namespace QwertysRandomContent.Items.B4Items
             if (runOnce && Main.netMode !=2)
             {
 
-                Projectile.NewProjectile(ownerMountedCenter.X - (float)(projectile.width / 2), ownerMountedCenter.Y - (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType<JabberP2>(), projectile.damage, projectile.knockBack, projOwner.whoAmI);
+                Projectile.NewProjectile(ownerMountedCenter.X - (float)(projectile.width / 2), ownerMountedCenter.Y - (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("JabberP2"), projectile.damage, projectile.knockBack, projOwner.whoAmI);
                 runOnce = false;
             }
             // As long as the player isn't frozen, the spear can move

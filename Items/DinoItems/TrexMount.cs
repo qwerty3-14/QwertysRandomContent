@@ -43,7 +43,7 @@ namespace QwertysRandomContent.Items.DinoItems
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.mount.SetMount(mod.MountType<Items.DinoItems.TrexMount>(), player);
+			player.mount.SetMount(mod.MountType("TrexMount"), player);
 			player.buffTime[buffIndex] = 10;
 		}
 	}

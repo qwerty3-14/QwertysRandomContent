@@ -37,7 +37,7 @@ namespace QwertysRandomContent.Items.Accesories
         {
             player.thrownDamage += .2f;
             player.thrownVelocity += .2f;
-            player.GetModPlayer<BadAim>(mod).intoxicated = true;
+            player.GetModPlayer<BadAim>().intoxicated = true;
         }
 
 
@@ -57,7 +57,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if (player.GetModPlayer<BadAim>(mod).intoxicated && item.thrown)
+            if (player.GetModPlayer<BadAim>().intoxicated && item.thrown)
             {
                 float trueSpeed = new Vector2(speedX, speedY).Length();
                 float direction = new Vector2(speedX, speedY).ToRotation() + Main.rand.NextFloat(-(float)Math.PI/8, (float)Math.PI/8);

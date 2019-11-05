@@ -47,7 +47,7 @@ namespace QwertysRandomContent.Items.B4Items
             
             arrow= Main.projectile[Projectile.NewProjectile(position.X , position.Y , speedX, speedY, type, damage, knockBack, player.whoAmI)];
             arrow.scale *= 3;
-            arrow.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
+            arrow.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
             if (Main.netMode == 1)
             {
                 ModPacket packet = mod.GetPacket();

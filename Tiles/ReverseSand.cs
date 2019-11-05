@@ -54,7 +54,7 @@ namespace QwertysRandomContent.Tiles
 
             //if(Main.LocalPlayer.Top.Y- entityCoord.Y <16 && Main.LocalPlayer.Top.Y - entityCoord.Y >0 && Math.Abs(Main.LocalPlayer.Top.X-entityCoord.X)<16)
             {
-                //Main.LocalPlayer.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity = true;
+                //Main.LocalPlayer.GetModPlayer<QwertyPlayer>().forcedAntiGravity = true;
                // Main.LocalPlayer.gravDir = -1f;
                 //Main.LocalPlayer.gravControl2 = true;
             }
@@ -168,12 +168,12 @@ namespace QwertysRandomContent.Tiles
                 {
                     //player.gravDir = -1f;
                     //player.gravControl2 = true;
-                    if (player.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity == 0)
+                    if (player.GetModPlayer<QwertyPlayer>().forcedAntiGravity == 0)
                     {
                         player.velocity.Y = 0;
 
                     }
-                    player.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity = 10;
+                    player.GetModPlayer<QwertyPlayer>().forcedAntiGravity = 10;
                 }
             }
             

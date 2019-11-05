@@ -62,19 +62,19 @@ namespace QwertysRandomContent.Items.Weapons
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            //reset damage and knockback to avoid ammo modifing
+            damage = (int)(item.damage * player.meleeDamage);
+            knockBack = item.knockBack * knockBack;
 
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
+            Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
 
+            bool yes = true;
+            float anotherSpeedVariable = trueSpeed.Length();
 
-            
-                QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
-                Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
-                
-                bool yes = true;
-                float anotherSpeedVariable = trueSpeed.Length();
+            modPlayer.PickRandomAmmo(item, ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2) == 0);
+            Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
 
-                modPlayer.PickRandomAmmo(QwertyMethods.GetAmmoReference(95), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2) == 0);
-                Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
-            
             return false;
         }
 

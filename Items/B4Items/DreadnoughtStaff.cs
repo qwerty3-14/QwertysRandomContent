@@ -138,7 +138,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             {
                 projectile.position = player.Center;
             }
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.Dreadnought)
             {
                 projectile.timeLeft = 2;
@@ -374,7 +374,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
                 projectile.rotation = projectile.velocity.ToRotation();
                 runOnce = false;
             }
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (!parent.active)
             {
                 projectile.Kill();

@@ -232,5 +232,32 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
         }
 
     }
+    public class DrawHelmet : ModPlayer
+    {
+        public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("TankCommanderHelmet", "Items/Armor/TankCommander/TankCommanderHelmet_HeadSimple", glowmask: false);
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        {
+            int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
+            
+            if (headLayer != -1)
+            {
+                Head.visible = true;
+                layers.Insert(headLayer + 1, Head);
+            }
+
+        }
+
+        public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("TankCommanderHelmet", "Items/Armor/TankCommander/TankCommanderHelmet_HeadSimple");
+        public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
+        {
+            int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Armor"));
+            if (headLayer != -1)
+            {
+
+                MapMask.visible = true;
+                layers.Insert(headLayer + 1, MapMask);
+            }
+        }
+    }
 }
 

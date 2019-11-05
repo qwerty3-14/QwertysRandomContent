@@ -38,8 +38,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<AmuletOfPatienceEffect>(mod).effect = true;
-            if(!hideVisual && player.GetModPlayer<AmuletOfPatienceEffect>(mod).patienceCount == 180 && Main.rand.Next(6)==0)
+            player.GetModPlayer<AmuletOfPatienceEffect>().effect = true;
+            if(!hideVisual && player.GetModPlayer<AmuletOfPatienceEffect>().patienceCount == 180 && Main.rand.Next(6)==0)
             {
                 Dust d = Dust.NewDustPerfect(player.Center + new Vector2((2*player.direction) + (player.direction == -1 ? -1 : 0), 0), 172);
                 d.noGravity = true;

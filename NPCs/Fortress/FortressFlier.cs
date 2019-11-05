@@ -49,7 +49,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float
         {
-            if (spawnInfo.player.GetModPlayer<FortressBiome>(mod).TheFortress && Main.hardMode) // checks if it's hardmode and player is in the fortress biome
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress && Main.hardMode) // checks if it's hardmode and player is in the fortress biome
             {
                 return 100f;
             }

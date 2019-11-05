@@ -119,7 +119,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             yetAnotherTrigCounter += (float)Math.PI / 120;
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.SwordMinion)
             {
                 projectile.timeLeft = 2;

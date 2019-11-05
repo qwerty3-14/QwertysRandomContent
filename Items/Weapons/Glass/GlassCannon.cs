@@ -76,7 +76,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType<GlassCannonMorph>(), player);
+            player.mount.SetMount(mod.MountType("GlassCannonMorph"), player);
             player.buffTime[buffIndex] = 10;
         }
     }
@@ -176,17 +176,17 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                     }
                 }
 
-                player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation, pointAt, 3);
-                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation);
-                if (player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation > 0)
+                player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
+                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
+                if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
                 {
-                    if (player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation > (float)Math.PI / 2)
+                    if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > (float)Math.PI / 2)
                     {
-                        player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation = (float)Math.PI;
+                        player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = (float)Math.PI;
                     }
                     else
                     {
-                        player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation = 0;
+                        player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = 0;
                     }
                 }
                 if (shotCooldown > 0)
@@ -196,7 +196,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
                 {
                     shotCooldown = 21;
-                    Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(30, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), mod.ProjectileType("GlassCannonball"), (int)(GlassCannonShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), GlassCannonShift.kb, player.whoAmI);
+                    Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(30, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("GlassCannonball"), (int)(GlassCannonShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), GlassCannonShift.kb, player.whoAmI);
                 }
             }
         }

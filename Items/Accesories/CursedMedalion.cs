@@ -33,7 +33,7 @@ namespace QwertysRandomContent.Items.Accesories
 		
 		public override void UpdateEquip(Player player)
 		{
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.noRegen = true;
 			
 			

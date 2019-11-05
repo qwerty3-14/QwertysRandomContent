@@ -18,7 +18,7 @@ namespace QwertysRandomContent
             if (type == NPCID.SkeletonMerchant)
             {
 
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.ConjureBone>());
+                shop.item[nextSlot].SetDefaults(mod.ItemType("ConjureBone"));
                 nextSlot++;
                 if(NPC.downedBoss1)
                 {
@@ -34,22 +34,22 @@ namespace QwertysRandomContent
             if (type == NPCID.Cyborg)
             {
 
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Ammo.TeleportationArrow>());
+                shop.item[nextSlot].SetDefaults(mod.ItemType("TeleportationArrow"));
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Ammo.TeleportationArrowGrab>());
+                shop.item[nextSlot].SetDefaults(mod.ItemType("TeleportationArrowGrab"));
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Ammo.TeleportationArrowSwap>());
+                shop.item[nextSlot].SetDefaults(mod.ItemType("TeleportationArrowSwap"));
                 nextSlot++;
 
             }
             if (type == NPCID.WitchDoctor)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Accesories.MinionFang>());
+                shop.item[nextSlot].SetDefaults(mod.ItemType("MinionFang"));
                 nextSlot++;
             }
             if (type == NPCID.Dryad && NPC.downedMechBossAny)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType<Items.Weapons.MiscBows.BloomingBow>());
+                shop.item[nextSlot].SetDefaults(mod.ItemType("BloomingBow"));
                 nextSlot++;
             }
             if (type == NPCID.Dryad )
@@ -146,7 +146,7 @@ namespace QwertysRandomContent
         {
             if (Main.rand.Next(0, 5) == 0)
             {
-                shop[nextSlot] = mod.ItemType<Items.Accesories.Metronome>();
+                shop[nextSlot] = mod.ItemType("Metronome");
                 nextSlot++;
             }
             int selectAccesory = Main.rand.Next(4);

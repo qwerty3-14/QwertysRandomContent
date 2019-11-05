@@ -235,7 +235,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
                         float speedB = 14f;
                         int weaponDamage = projectile.damage;
                         float kb = projectile.knockBack;
-                        player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref kb, false);
+                        player.PickAmmo(QwertyMethods.MakeItemFromID(mod.ItemType("ChromeShotgunDefault")), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref kb, false);
                         if(canShoot)
                         {
                             Projectile.NewProjectile(GunPositions[i], QwertyMethods.PolarVector(16, GunRotations[i] + projectile.rotation + (float)Math.PI / 2 * (i == 0 ? 1 : -1)), bullet, weaponDamage, kb, projectile.owner);

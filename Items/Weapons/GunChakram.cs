@@ -58,6 +58,9 @@ namespace QwertysRandomContent.Items.Weapons
 		}
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            //reset damage and knockback to avoid ammo modifing
+            damage = (int)(item.damage * player.meleeDamage);
+            knockBack = item.knockBack * knockBack;
             type = mod.ProjectileType("GunChakramP");
             return true;
         }
@@ -170,7 +173,7 @@ namespace QwertysRandomContent.Items.Weapons
             
             float bulletSpacing = 2*(float)Math.PI / bulletCount;
             //CombatText.NewText(player.getRect(), new Color(38, 126, 126), bulletCount, true, false);
-            player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
+            player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
             for (; bulletCount > 0; bulletCount--)
             {
                 Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir)*BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
@@ -206,7 +209,7 @@ namespace QwertysRandomContent.Items.Weapons
 
             float bulletSpacing = 2 * (float)Math.PI / bulletCount;
 
-            player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
+            player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
             for (; bulletCount > 0; bulletCount--)
             {
                 Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];

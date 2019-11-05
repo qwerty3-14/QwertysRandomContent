@@ -55,7 +55,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VVisorSet");
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.VarguleCrownSetBonus = true;
 			player.rangedDamage += modPlayer.VarguleRangedBoost; 
 			

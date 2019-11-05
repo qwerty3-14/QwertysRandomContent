@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<QwertyPlayer>(mod).DinoPox = true;
+			player.GetModPlayer<QwertyPlayer>().DinoPox = true;
 		}
         public override void Update(NPC npc, ref int buffIndex)
         {

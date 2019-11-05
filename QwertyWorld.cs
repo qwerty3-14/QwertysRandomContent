@@ -151,7 +151,7 @@ namespace QwertysRandomContent
         }
         public override void ResetNearbyTileEffects()
         {
-            QwertyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<QwertyPlayer>();
 
             AbstractiveBlock = 0;
         }
@@ -225,11 +225,11 @@ namespace QwertysRandomContent
                 {
                     WorldGen.OreRunner(
                         WorldGen.genRand.Next(0, Main.maxTilesX), // X Coord of the tile
-                        WorldGen.genRand.Next((int)Main.rockLayer, Main.maxTilesY-200), // Y Coord of the tile
+                        WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY-200), // Y Coord of the tile
                         (double)WorldGen.genRand.Next(40, 40), // Strength (High = more)
                         WorldGen.genRand.Next(2, 6), // Steps 
                         (ushort)mod.TileType("RhuthiniumOre") // The tile type that will be spawned
-                       ); // Overrides existing tiles
+                       ); 
                 }
                 string key = "Mods.QwertysRandomContent.RhuthiniumGenerates";
                 Color messageColor = Color.Cyan;

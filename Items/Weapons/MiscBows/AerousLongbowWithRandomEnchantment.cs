@@ -33,13 +33,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
             if (player.altFunctionUse == 2)
             {
-                QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+                QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
                 Vector2 trueSpeed = new Vector2(speedX, speedY);
 
                 bool yes = true;
                 float anotherSpeedVariable = trueSpeed.Length();
-
-                modPlayer.PickRandomAmmo(QwertyMethods.GetAmmoReference(39), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2) == 0);
+                damage = (int)(item.damage * player.rangedDamage);
+                knockBack = item.knockBack * knockBack;
+                modPlayer.PickRandomAmmo(item, ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2) == 0);
                 Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 
                 return false;

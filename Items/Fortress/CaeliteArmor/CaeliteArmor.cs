@@ -45,12 +45,12 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<QwertyPlayer>(mod).recovery += 3;
+            player.GetModPlayer<QwertyPlayer>().recovery += 3;
             for (int i = 0; i < 1000; i++)
             {
-                if (Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI && !Main.projectile[i].GetGlobalProjectile<CaeliteArmorEffect>(mod).g)
+                if (Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI && !Main.projectile[i].GetGlobalProjectile<CaeliteArmorEffect>().g)
                 {
-                    Main.projectile[i].GetGlobalProjectile<CaeliteArmorEffect>(mod).g = true;
+                    Main.projectile[i].GetGlobalProjectile<CaeliteArmorEffect>().g = true;
                 }
             }
 
@@ -72,8 +72,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.CaeliteSet");
-            player.GetModPlayer<QwertyPlayer>(mod).recovery += 2;
-            player.GetModPlayer<CaeliteSetBonus>(mod).setBonus = true;
+            player.GetModPlayer<QwertyPlayer>().recovery += 2;
+            player.GetModPlayer<CaeliteSetBonus>().setBonus = true;
 
 
 
@@ -135,7 +135,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
                                             new Conditions.IsSolid()
                                             }), out point))
                 {
-                    if (Main.player[projectile.owner].GetModPlayer<CaeliteSetBonus>(mod).setBonus)
+                    if (Main.player[projectile.owner].GetModPlayer<CaeliteSetBonus>().setBonus)
                     {
                         damage = (int)(damage * 1.25f);
                     }
@@ -150,7 +150,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
                                             }), out point))
                 {
                     
-                    if(Main.player[projectile.owner].GetModPlayer<CaeliteSetBonus>(mod).setBonus)
+                    if(Main.player[projectile.owner].GetModPlayer<CaeliteSetBonus>().setBonus)
                     {
                         damage = (int)(damage * 1.25f);
                     }

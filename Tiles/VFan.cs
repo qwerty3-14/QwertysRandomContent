@@ -23,7 +23,7 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
             TileObjectData.newTile.AnchorLeft = default(AnchorData);
             TileObjectData.newTile.AnchorRight = default(AnchorData);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<VFanE>().Hook_AfterPlacement, 0, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("VFanE").Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
             //TileObjectData.newTile.StyleWrapLimit = 2; //not really necessary but allows me to add more subtypes of chairs below the example chair texture
             //TileObjectData.newTile.StyleMultiplier = 2; //same as above
@@ -76,7 +76,7 @@ namespace QwertysRandomContent.Tiles
             int left = i - (Main.tile[i, j].frameX / 16) % 2;
             int top = j;
 
-            int index = mod.GetTileEntity<VFanE>().Find(left, top);
+            int index = mod.GetTileEntity("VFanE").Find(left, top);
             if (index == -1)
             {
                 return;
@@ -90,7 +90,7 @@ namespace QwertysRandomContent.Tiles
             int left = i - (Main.tile[i, j].frameX / 16) % 2;
             int top = j;
 
-            int index = mod.GetTileEntity<VFanE>().Find(left, top);
+            int index = mod.GetTileEntity("VFanE").Find(left, top);
             if (index == -1)
             {
                 return;
@@ -115,7 +115,7 @@ namespace QwertysRandomContent.Tiles
             int left = i - (Main.tile[i, j].frameX / 16) % 2;
             int top = j;
 
-            int index = mod.GetTileEntity<VFanE>().Find(left, top);
+            int index = mod.GetTileEntity("VFanE").Find(left, top);
             if (index == -1)
             {
                 return;

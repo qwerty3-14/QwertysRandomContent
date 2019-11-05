@@ -182,15 +182,35 @@ namespace QwertysRandomContent.Items.Armor.Duelist
             }
 
         });
-         public override void ModifyDrawLayers(List<PlayerLayer> layers)
+        
+        public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("DuelistHeadband", "Items/Armor/Duelist/DuelistHeadband_HeadSimple", glowmask: false);
+        public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
+            int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Face"));
 
+            if (headLayer != -1)
+            {
+                Head.visible = true;
+                layers.Insert(headLayer + 1, Head);
+            }
+            
 
-            int frontLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("MiscEffectsFront"));
+        int frontLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("MiscEffectsFront"));
             if (frontLayer != -1)
             {
                 DuelistIcon.visible = true;
                 layers.Insert(frontLayer + 1, DuelistIcon);
+            }
+        }
+        public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("DuelistHeadband", "Items/Armor/Duelist/DuelistHeadband_HeadSimple");
+        public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
+        {
+            int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Head"));
+            if (headLayer != -1)
+            {
+
+                MapMask.visible = true;
+                layers.Insert(headLayer + 1, MapMask);
             }
         }
     }

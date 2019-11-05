@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 			item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
 			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType<RhuthiniumLanceP>();
+			item.shoot = mod.ProjectileType("RhuthiniumLanceP");
 		}
 
 		public override bool CanUseItem(Player player)
@@ -128,7 +128,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 		}
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            var modPlayer = Main.player[projectile.owner].GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = Main.player[projectile.owner].GetModPlayer<QwertyPlayer>();
 
             if (target.life <= 0 && !target.SpawnedFromStatue)
             {

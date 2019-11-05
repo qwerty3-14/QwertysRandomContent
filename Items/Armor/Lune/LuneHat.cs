@@ -41,7 +41,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         }
         public override void UpdateEquip(Player player)
 		{
-            player.GetModPlayer<QwertyPlayer>(mod).rangedVelocity += .35f;
+            player.GetModPlayer<QwertyPlayer>().rangedVelocity += .35f;
             /*
             if(player.HeldItem.ranged)
             {
@@ -78,8 +78,8 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
             if(item.ranged)
             {
-                speedX *= player.GetModPlayer<QwertyPlayer>(mod).rangedVelocity;
-                speedY *= player.GetModPlayer<QwertyPlayer>(mod).rangedVelocity;
+                speedX *= player.GetModPlayer<QwertyPlayer>().rangedVelocity;
+                speedY *= player.GetModPlayer<QwertyPlayer>().rangedVelocity;
             }
             return true;
         }

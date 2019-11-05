@@ -145,8 +145,8 @@ namespace QwertysRandomContent.Items.DinoItems
             }
             projectile.timeLeft = 10;
             timer++;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
-            bool firing = player.channel && player.HasAmmo(QwertyMethods.GetAmmoReference(95), true) && !player.noItems && !player.CCed;
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
+            bool firing = player.channel && player.HasAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), true) && !player.noItems && !player.CCed;
 
             int Ammo = 14;
             float speed = 14f;
@@ -256,7 +256,7 @@ namespace QwertysRandomContent.Items.DinoItems
                     float SspeedE = .05f * Main.rand.Next(15, 41);
 
                     Main.PlaySound(SoundID.Item11, projectile.Center);
-                    player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
+                    player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
 
                     if (player.whoAmI == Main.myPlayer)
                     {

@@ -19,7 +19,7 @@ namespace QwertysRandomContent.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<QwertyPlayer>(mod).noRegen=true;
+			player.GetModPlayer<QwertyPlayer>().noRegen=true;
             if(player.HasBuff(BuffID.PotionSickness))
             {
                 player.buffTime[player.FindBuffIndex(BuffID.PotionSickness)]++;

@@ -94,7 +94,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.head == mod.GetEquipSlot("RhuthiniumHeadband", EquipType.Head))
             {
                 //Main.NewText("Helmet!");

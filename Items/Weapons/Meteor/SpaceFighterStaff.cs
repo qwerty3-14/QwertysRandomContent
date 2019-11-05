@@ -122,7 +122,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
 
             Player player = Main.player[projectile.owner];
             
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             shotCounter++;
             if (modPlayer.SpaceFighter)
             {

@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.magic = false;
             item.thrown = false;
             item.summon = false;
-            item.GetGlobalItem<ShapeShifterItem>(mod).morph = true;
+            item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.width = 40;            //Weapon's texture's width
             item.height = 40;           //Weapon's texture's height
             item.useTime = 20;          //The time span of using the weapon. Remember in terraria, 60 frames is a second.

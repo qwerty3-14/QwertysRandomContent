@@ -127,7 +127,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             Player player = Main.player[projectile.owner];
             //Main.NewText(moveTo);
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.PlatinumDagger)
             {
                 projectile.timeLeft = 2;

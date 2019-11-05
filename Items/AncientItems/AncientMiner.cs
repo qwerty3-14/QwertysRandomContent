@@ -72,13 +72,13 @@ namespace QwertysRandomContent.Items.AncientItems
             {
                 item.useTime = 24;
                 item.useAnimation = 24;
-                item.GetGlobalItem<AoePick>(mod).miningRadius = 1;
+                item.GetGlobalItem<AoePick>().miningRadius = 1;
             }
             else
             {
                 item.useTime = 14;
                 item.useAnimation = 14;
-                item.GetGlobalItem<AoePick>(mod).miningRadius = 0;
+                item.GetGlobalItem<AoePick>().miningRadius = 0;
             }
             return base.CanUseItem(player);
         }

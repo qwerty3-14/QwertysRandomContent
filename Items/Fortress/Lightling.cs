@@ -73,7 +73,7 @@ namespace QwertysRandomContent.Items.Fortress
         {
             Player player = Main.player[projectile.owner];
             shader = player.miscDyes[1].dye;
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (!player.active)
             {
                 projectile.active = false;
@@ -145,7 +145,7 @@ namespace QwertysRandomContent.Items.Fortress
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<QwertyPlayer>(mod).Lightling = true;
+            player.GetModPlayer<QwertyPlayer>().Lightling = true;
             player.buffTime[buffIndex] = 18000;
             bool petProjectileNotSpawned = player.ownedProjectileCounts[mod.ProjectileType("LightlingP")] <= 0;
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)

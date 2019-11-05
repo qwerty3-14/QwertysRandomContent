@@ -27,14 +27,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         }
         public override void HoldItem(Player player)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.stormEnchantment = true;
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
 
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (player.altFunctionUse == 2)
             {
                 if (modPlayer.charge > 0)

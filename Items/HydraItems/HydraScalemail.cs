@@ -66,67 +66,8 @@ namespace QwertysRandomContent.Items.HydraItems
     {
 
 
-        public static readonly PlayerLayer HydraBody = new PlayerLayer("QwertysRandomContent", "Body", PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.body == mod.GetEquipSlot("HydraScalemail", EquipType.Body))
-            {
-                //Main.NewText("Helmet!");
-                //Main.NewText(drawPlayer.bodyFrame);
-                Texture2D texture = mod.GetTexture("Items/HydraItems/HydraScalemail_Body_Glow");
-                if (!drawPlayer.Male)
-                {
-                    texture = mod.GetTexture("Items/HydraItems/HydraScalemail_FemaleBody_Glow");
-                }
-
-
-                int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
-                int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
-                Vector2 Position = drawInfo.position;
-                Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
-                Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                //pos.Y -= drawPlayer.mount.PlayerOffset;
-                DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, Color.White, 0f, origin, 1f, drawInfo.spriteEffects, 0);
-                data.shader = drawInfo.bodyArmorShader;
-                Main.playerDrawData.Add(data);
-            }
-        });
-        public static readonly PlayerLayer HydraArm = new PlayerLayer("QwertysRandomContent", "HydraArm", PlayerLayer.Arms, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.body == mod.GetEquipSlot("HydraScalemail", EquipType.Body))
-            {
-                //Main.NewText("Helmet!");
-                //Main.NewText(drawPlayer.bodyFrame);
-                Texture2D texture = mod.GetTexture("Items/HydraItems/HydraScalemail_Arms_Glow");
-                
-
-                
-                int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
-                int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
-                Vector2 Position = drawInfo.position;
-                Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
-                Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                //pos.Y -= drawPlayer.mount.PlayerOffset;
-                
-                DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, Color.White, 0f, origin, 1f, drawInfo.spriteEffects, 0);
-                data.shader = drawInfo.bodyArmorShader;
-                Main.playerDrawData.Add(data);
-                
-            }
-        });
+        public static readonly PlayerLayer HydraBody = LayerDrawing.DrawOnBody("HydraScalemail", "Items/HydraItems/HydraScalemail_Body_Glow", "Items/HydraItems/HydraScalemail_FemaleBody_Glow");
+        public static readonly PlayerLayer HydraArm = LayerDrawing.DrawOnArms("HydraScalemail", "Items/HydraItems/HydraScalemail_Arms_Glow");
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int bodyLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Body"));

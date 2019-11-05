@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
 			item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
 			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType<PumpkinPikeP>();
+			item.shoot = mod.ProjectileType("PumpkinPikeP");
 		}
         public override void AddRecipes()
         {

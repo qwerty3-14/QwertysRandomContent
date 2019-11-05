@@ -38,9 +38,9 @@ namespace QwertysRandomContent
         {
             if(input != "/generateTinyRoom")
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomType = int.Parse(args[0]);
+                caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
-            caller.Player.GetModPlayer<RoomPlacement>(mod).placeTinyRoom = true;
+            caller.Player.GetModPlayer<RoomPlacement>().placeTinyRoom = true;
             // create a writer and open the file
             TextWriter tw = new StreamWriter("Hi.txt");
 
@@ -79,8 +79,8 @@ namespace QwertysRandomContent
             }
             else
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).exportTinyRoom = true;
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomName = args[0];
+                caller.Player.GetModPlayer<RoomPlacement>().exportTinyRoom = true;
+                caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
                 
             }
             
@@ -111,9 +111,9 @@ namespace QwertysRandomContent
         {
             if (input != "/generateSmallRoom")
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomType = int.Parse(args[0]);
+                caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
-            caller.Player.GetModPlayer<RoomPlacement>(mod).placeSmallRoom = true;
+            caller.Player.GetModPlayer<RoomPlacement>().placeSmallRoom = true;
             
         }
     }
@@ -145,8 +145,8 @@ namespace QwertysRandomContent
             }
             else
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).exportSmallRoom = true;
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomName = args[0];
+                caller.Player.GetModPlayer<RoomPlacement>().exportSmallRoom = true;
+                caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
 
             }
 
@@ -177,9 +177,9 @@ namespace QwertysRandomContent
         {
             if (input != "/generateMediumRoom")
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomType = int.Parse(args[0]);
+                caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
-            caller.Player.GetModPlayer<RoomPlacement>(mod).placeMediumRoom = true;
+            caller.Player.GetModPlayer<RoomPlacement>().placeMediumRoom = true;
 
         }
     }
@@ -211,8 +211,8 @@ namespace QwertysRandomContent
             }
             else
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).exportMediumRoom = true;
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomName = args[0];
+                caller.Player.GetModPlayer<RoomPlacement>().exportMediumRoom = true;
+                caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
 
             }
 
@@ -243,9 +243,9 @@ namespace QwertysRandomContent
         {
             if (input != "/generateLargeRoom")
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomType = int.Parse(args[0]);
+                caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
-            caller.Player.GetModPlayer<RoomPlacement>(mod).placeLargeRoom = true;
+            caller.Player.GetModPlayer<RoomPlacement>().placeLargeRoom = true;
 
         }
     }
@@ -277,8 +277,8 @@ namespace QwertysRandomContent
             }
             else
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).exportLargeRoom = true;
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomName = args[0];
+                caller.Player.GetModPlayer<RoomPlacement>().exportLargeRoom = true;
+                caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
 
             }
 
@@ -309,9 +309,9 @@ namespace QwertysRandomContent
         {
             if (input != "/generateAltarRoom")
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomType = int.Parse(args[0]);
+                caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
-            caller.Player.GetModPlayer<RoomPlacement>(mod).placeAltarRoom = true;
+            caller.Player.GetModPlayer<RoomPlacement>().placeAltarRoom = true;
 
         }
     }
@@ -343,8 +343,8 @@ namespace QwertysRandomContent
             }
             else
             {
-                caller.Player.GetModPlayer<RoomPlacement>(mod).exportAltarRoom = true;
-                caller.Player.GetModPlayer<RoomPlacement>(mod).roomName = args[0];
+                caller.Player.GetModPlayer<RoomPlacement>().exportAltarRoom = true;
+                caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
 
             }
 
@@ -371,7 +371,7 @@ namespace QwertysRandomContent
         public override void Action(CommandCaller caller, string input, string[] args)
         {
            
-            caller.Player.GetModPlayer<RoomPlacement>(mod).placeAltar = true;
+            caller.Player.GetModPlayer<RoomPlacement>().placeAltar = true;
 
         }
     }
@@ -412,7 +412,7 @@ namespace QwertysRandomContent
         {
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Vector2 dimensions = drawPlayer.GetModPlayer<RoomPlacement>(mod).UIDimensions;
+            Vector2 dimensions = drawPlayer.GetModPlayer<RoomPlacement>().UIDimensions;
             float r = 0.24f;
             float g = 0.8f;
             float b = 0.9f;

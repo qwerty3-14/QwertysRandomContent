@@ -127,8 +127,8 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             projectile.timeLeft = 2;
             
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
-            bool firing = (player.channel||timer<30) && player.HasAmmo(QwertyMethods.GetAmmoReference(39), true) && !player.noItems && !player.CCed;
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
+            bool firing = (player.channel||timer<30) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
 
             Ammo = AmmoID.Arrow;
 
@@ -136,6 +136,7 @@ namespace QwertysRandomContent.Items.AncientItems
             weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             direction = (Main.MouseWorld - player.Center).ToRotation();
             weaponKnockback = player.inventory[player.selectedItem].knockBack;
+            
             if (firing)
             {
                 #region drill ai
@@ -203,14 +204,17 @@ namespace QwertysRandomContent.Items.AncientItems
                 
                 if(timer ==0)
                 {
-                    player.PickAmmo(QwertyMethods.GetAmmoReference(39), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
-                    if(Ammo == ProjectileID.WoodenArrowFriendly)
+                    player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
+                    
+                    if (Ammo == ProjectileID.WoodenArrowFriendly)
                     {
                         Ammo = mod.ProjectileType("AncientArrow");
                     }
                     if(Main.netMode != 2)
                     {
+                        
                         arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];
+                        
                     }
                     
                 }
@@ -221,6 +225,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 arrow.timeLeft+= arrow.extraUpdates +1;
                 arrow.alpha = 1- (int)(((float)timer / maxTime) * 255f);
                 speed = (8f * (float)timer / maxTime) + 7f;
+                //Main.NewText(arrow.damage);
                // Main.NewText("AI0: " + arrow.ai[0] + ", AI1: " + arrow.ai[1] + ", LocalAI0: " + arrow.localAI[0] + ", LocalAI1: " + arrow.localAI[1]);
                 if(arrow.tileCollide)
                 {

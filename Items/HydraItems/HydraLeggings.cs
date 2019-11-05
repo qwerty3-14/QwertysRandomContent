@@ -73,45 +73,7 @@ namespace QwertysRandomContent.Items.HydraItems
 	}
     public class HydraLeggingsGlowmask : ModPlayer
     {
-        /*
-        public override void PreUpdate()
-        {
-            Main.NewText("Legs: " +player.legs);
-            Main.NewText("male hydra legs: " + mod.GetEquipSlot("HydraLeggings", EquipType.Legs));
-            Main.NewText("female hydra legs: " + mod.GetEquipSlot("HydraLeggings_Female", EquipType.Legs));
-        }
-        */
-        public static readonly PlayerLayer HydraShoes = new PlayerLayer("QwertysRandomContent", "HydraShoes", PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.legs == mod.GetEquipSlot("HydraLeggings", EquipType.Legs) || drawPlayer.legs == mod.GetEquipSlot("HydraLeggings_Female", EquipType.Legs))
-            {
-                //Main.NewText("Legs!");
-                //Main.NewText(drawPlayer.bodyFrame);
-                Texture2D texture = mod.GetTexture("Items/HydraItems/HydraLeggings_Legs_Glow");
-                if (!drawPlayer.Male)
-                {
-                    texture = mod.GetTexture("Items/HydraItems/HydraLeggings_FemaleLegs_Glow");
-                }
-                
-                
-                int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
-                int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
-                Vector2 Position = drawInfo.position;
-                Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
-                Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                //pos.Y -= drawPlayer.mount.PlayerOffset;
-                DrawData data = new DrawData(texture, pos, drawPlayer.legFrame, Color.White, 0f, origin, 1f, drawInfo.spriteEffects, 0);
-                data.shader = drawInfo.legArmorShader;
-                Main.playerDrawData.Add(data);
-            }
-        });
+        public static readonly PlayerLayer HydraShoes = LayerDrawing.DrawOnLegs("HydraLeggings", "Items/HydraItems/HydraLeggings_Legs_Glow", "HydraLeggings_Female", "Items/HydraItems/HydraLeggings_FemaleLegs_Glow");
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int legLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Legs"));
