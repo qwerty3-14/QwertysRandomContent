@@ -38,6 +38,9 @@ Extra thanks
 
 
 changelog
+0.19.11
+-fixed a bug some people got that caused the mod to not build with thorium
+
 0.19.10
 -Lune's pallette tweaked (added hueshift)
 -Fixed runic waves in inventory glowing sprite not lining up

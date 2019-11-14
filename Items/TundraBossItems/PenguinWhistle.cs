@@ -38,11 +38,8 @@ using Terraria.ModLoader;
             item.knockBack = 1f;
             item.value = 100000;
             item.rare = 1;
-            if (!Main.dedServ)
-            {
-                item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0);
-            }
-                item.autoReuse = true;
+
+            item.autoReuse = true;
             item.shoot = mod.ProjectileType("PenguinFall");
             item.magic = true;
             item.shootSpeed = 0;
@@ -50,7 +47,12 @@ using Terraria.ModLoader;
             item.noUseGraphic = true;
 
         }
-        
+        public override bool UseItem(Player player)
+        {
+            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
+            return base.UseItem(player);
+        }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberOfProjectiles = 5;

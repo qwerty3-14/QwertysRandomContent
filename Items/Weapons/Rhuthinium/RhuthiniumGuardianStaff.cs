@@ -84,16 +84,16 @@ using Terraria.ModLoader;
 
     public class RhuthiniumGuardian : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Rhuthinium Guardian");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Rhuthinium Guardian");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+        }
+
         public override void SetDefaults()
         {
-            
-            
+
+
             projectile.width = 30; //Set the hitbox width
             projectile.height = 30;   //Set the hitbox heinght
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -108,76 +108,31 @@ using Terraria.ModLoader;
         }
 
 
-        public bool runOnce = true;
-        public NPC target;
-        public NPC confirmTarget;
-        public Projectile projB;
-        public int timer;
-        public float shootToX;
-        public float shootToY;
-        public float distance;
-        public Color lineColor;
-        public bool drawLine;
-        public bool alternateColor = false;
-        public int colorCounter;
-        public int targetLimit;
-        
-        public bool startCountdown;
-        public int countdownTimer;
-        public float maxDistance= 10000f;
-        public float Aim;
-        public float shardVelocity = 30f;
-        public float lineLength;
+         NPC confirmTarget;
+         int timer;
+         Color lineColor;
+         bool drawLine;
+         bool alternateColor = false;
+         int colorCounter;
+
+         bool startCountdown;
+         int countdownTimer;
+         float Aim;
+         float shardVelocity = 30f;
+         float lineLength = 0;
         public override void AI()
         {
             Main.player[projectile.owner].UpdateMaxTurrets();
             Player player = Main.player[projectile.owner];
-           
-            
-            projectile.rotation += (float)Math.PI/60;   //this make the projctile to rotate
-            if (player.MinionAttackTargetNPC != -1)
+
+
+            projectile.rotation += (float)Math.PI / 60;   //this make the projctile to rotate
+
+            if (QwertyMethods.ClosestNPC(ref confirmTarget, 100000, projectile.Center, false, player.MinionAttackTargetNPC))
             {
-                confirmTarget = Main.npc[player.MinionAttackTargetNPC];
                 drawLine = true;
-                maxDistance = (confirmTarget.Center - projectile.Center).Length();
-            }
-            else
-            {
-                for (int i = 0; i < 200; i++)
-                {
-
-                    target = Main.npc[i];
-
-                    distance = (target.Center - projectile.Center).Length();
-
-                    if (distance < maxDistance && !target.friendly && target.active && !target.immortal && !target.dontTakeDamage && Collision.CanHit(projectile.Center, 0, 0, target.position, target.width, target.height))
-                    {
-
-                        drawLine = true;
-                        //Dividing the factor of 2f which is the desired velocity by distance
-
-                        confirmTarget = Main.npc[i];
-
-                        //Multiplying the shoot trajectory with distance times a multiplier if you so choose to
-
-                        maxDistance = (confirmTarget.Center - projectile.Center).Length();
-
-
-                    }
-
-
-
-
-
-
-                }
-            }
-            if(drawLine)
-            {
-                lineLength = maxDistance;
+                lineLength = (confirmTarget.Center - projectile.Center).Length();
                 Aim = (confirmTarget.Center - projectile.Center).ToRotation();
-                shootToX = (float)Math.Cos(Aim) * shardVelocity;
-                shootToY = (float)Math.Sin(Aim) * shardVelocity;
                 timer++;
                 if (timer == 420)
                 {
@@ -186,30 +141,17 @@ using Terraria.ModLoader;
                 if (timer >= 600)
                 {
                     if (Main.netMode != 1)
-                        Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, shootToX, shootToY, mod.ProjectileType("RhuthiniumShard"), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
+                        Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(shardVelocity, Aim), mod.ProjectileType("RhuthiniumShard"), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
                     timer = 0;
                 }
             }
-            if(startCountdown)
+            if (startCountdown)
             {
                 alternateColor = true;
-                if (countdownTimer == 0)
-                {
-                    //CombatText.NewText(projectile.getRect(), new Color(39, 129, 129), 3, false, false);
-                }
                 countdownTimer++;
-                if(countdownTimer ==60)
-                {
-                    //CombatText.NewText(projectile.getRect(), new Color(39, 129, 129), 2, false, false);
-                }
-                if (countdownTimer == 120)
-                {
-                    //CombatText.NewText(projectile.getRect(), new Color(39, 129, 129), 1, false, false);
-                    
-                }
                 if (countdownTimer == 180)
                 {
-                    
+
                     startCountdown = false;
                 }
             }
@@ -220,7 +162,7 @@ using Terraria.ModLoader;
             }
 
 
-            
+
 
 
 
@@ -230,7 +172,7 @@ using Terraria.ModLoader;
 
 
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
 
@@ -242,80 +184,63 @@ using Terraria.ModLoader;
                     new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
 
 
-            Player player = Main.player[projectile.owner];
 
-                
-            /*
-                if (distance < 10000f && !target.friendly && target.active && !target.immortal && timer >= 480)
+
+
+
+            if (alternateColor)
+            {
+
+                colorCounter++;
+
+                if (colorCounter >= 20)
                 {
-                    drawLine = true;
-                    alternateColor = true;
+                    colorCounter = 0;
                 }
-                else if (distance < 10000f && !target.friendly && target.active && !target.immortal && timer >= 120)
+                else if (colorCounter >= 10)
                 {
-                    drawLine = true;
-                }
-                else
-                {
-                    drawLine = false;
-                }
-                */
-
-
-                if (alternateColor)
-                {
-
-                    colorCounter++;
-
-                    if (colorCounter >= 20)
-                    {
-                        colorCounter = 0;
-                    }
-                    else if (colorCounter >= 10)
-                    {
-                        lineColor = Color.White;
-                    }
-                    else
-                    {
-                        lineColor = Color.Red;
-                    }
+                    lineColor = Color.White;
                 }
                 else
                 {
                     lineColor = Color.Red;
                 }
-                //Draw chain
-                if (drawLine)
-                {
-                    Vector2 center = projectile.Center;
-                    Vector2 distToProj = confirmTarget.Center - center;
-                    float projRotation = distToProj.ToRotation() - 1.57f;
-                    distToProj.Normalize();                 //get unit vector
-                    distToProj *= 12f;                      //speed = 12
-                    center += distToProj;                   //update draw position
-                    distToProj = target.Center - center;    //update distance
-                    distance = distToProj.Length();
-                    Color drawColor = lightColor;
+            }
+            else
+            {
+                lineColor = Color.Red;
+            }
+            //Draw chain
+            if (drawLine)
+            {
+                Vector2 center = projectile.Center;
+                Vector2 distToProj = confirmTarget.Center - center;
+                float projRotation = distToProj.ToRotation() - 1.57f;
+                distToProj.Normalize();                 //get unit vector
+                distToProj *= 12f;                      //speed = 12
+                center += distToProj;                   //update draw position
+                distToProj = confirmTarget.Center - center;    //update distance
+                Color drawColor = lightColor;
 
 
-                    spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/laser"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, 0, 1, (int)lineLength-10), lineColor, projRotation,
-                        new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-                }
+                spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/laser"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
+                    new Rectangle(0, 0, 1, (int)lineLength - 10), lineColor, projRotation,
+                    new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
+            }
             spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardian"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                     new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), lightColor, projectile.rotation,
                     new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             drawLine = false;
-            maxDistance = 10000f;
+           
             return false;
-            
-            
-        }
-        
-        
-        
 
-        
+
+        }
+
+
+
+
+
 
 
 

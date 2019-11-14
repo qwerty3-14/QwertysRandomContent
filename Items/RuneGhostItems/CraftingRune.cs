@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 			DisplayName.SetDefault("Rune");
 			Tooltip.SetDefault("");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(54, 4));
-            ItemID.Sets.ItemNoGravity[item.type] = true;
+            ItemID.Sets.ItemNoGravity[item.type] = true; 
         }
 		
 		public override void SetDefaults()
