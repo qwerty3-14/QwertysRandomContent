@@ -467,7 +467,10 @@ ItemName.BladedArrow=刃箭
 ItemName.BladedArrowShaft=刃箭轴
 ItemName.SwordMinionStaff=长剑之杖
 ItemName.SwordsmanBadge=剑侠徽章
-ItemName.Vitallum=Виталлум
+ItemName.Vitallum=瓦塔勒姆
+ItemName.VitallumLifeguard=瓦塔勒姆生命护盾
+
+ItemName.SwordmastersSeal=剑圣刻印
 
 
 ItemName.AncientMachineBag={$Mods.QwertysRandomContent.Common.TreasureBag}
@@ -998,3 +1001,7 @@ ItemTooltip.BladedArrow=从你的弓侧射出普通箭矢
 ItemTooltip.BladedArrowShaft=用于创造强大的箭矢
 ItemTooltip.SwordMinionStaff=当你有一把巨大的长剑时，谁还需要一堆召唤物？
 ItemTooltip.SwordsmanBadge=站立不动时挥剑速度增加
+
+ItemTooltip.VitallumLifeguard=增加150生命上限\n增加25%投掷伤害
+
+ItemTooltip.SwordmastersSeal=极大提升你的剑术水平\n让你的剑更大\n从空中降落攻击物体造成更多伤害\n站立不动时挥动剑更快
