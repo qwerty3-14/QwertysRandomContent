@@ -169,8 +169,8 @@ namespace QwertysRandomContent
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).hovercraft)
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().hovercraft)
             {
                 //Main.NewText("Tank!!");
                 Texture2D texture = mod.GetTexture("Items/Weapons/Meteor/Hovercraft_Cannon");
@@ -179,7 +179,7 @@ namespace QwertysRandomContent
                     new Vector2(drawInfo.position.X + 20, drawInfo.position.Y+8) - Main.screenPosition,
                     new Rectangle(0, 0, 24, 10),
                     color12,
-                    drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation,
+                    drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
                     new Vector2(5, 5),
                     1f,
                     0,
@@ -188,7 +188,7 @@ namespace QwertysRandomContent
                 Main.playerDrawData.Add(value);
 
             }
-            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).drawTankCannon)
+            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawTankCannon)
             {
                 //Main.NewText("Tank!!");
                 Texture2D texture = mod.GetTexture("Items/Weapons/ShapeShifter/TankMorph_Cannon");
@@ -197,7 +197,7 @@ namespace QwertysRandomContent
                     new Vector2(drawInfo.position.X + 75, drawInfo.position.Y - 4) - Main.screenPosition,
                     new Rectangle(0, 0, 130, 34),
                     color12,
-                    drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation,
+                    drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
                     new Vector2(18, 18),
                     1f,
                     0,
@@ -206,7 +206,7 @@ namespace QwertysRandomContent
                 Main.playerDrawData.Add(value);
 
             }
-            else if(drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).glassCannon)
+            else if(drawPlayer.GetModPlayer<ShapeShifterPlayer>().glassCannon)
             {
                 Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon");
 
@@ -214,7 +214,7 @@ namespace QwertysRandomContent
                     new Vector2(drawInfo.position.X+15, drawInfo.position.Y) - Main.screenPosition,
                     new Rectangle(0, 0, 30, 8),
                     color12,
-                    drawPlayer.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation,
+                    drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
                     new Vector2(4, 4),
                     1f,
                     0,
@@ -557,7 +557,7 @@ namespace QwertysRandomContent
         }
         public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult)
         {
-            if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)
+            if (item.GetGlobalItem<ShapeShifterItem>().morph)
             {
                 mult *= player.GetModPlayer<ShapeShifterPlayer>().morphDamage;
             }
@@ -566,14 +566,14 @@ namespace QwertysRandomContent
         [Obsolete]
         public override void GetWeaponDamage(Item item, Player player, ref int damage)
         {
-            if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)
+            if (item.GetGlobalItem<ShapeShifterItem>().morph)
             {
                 damage = (int)(damage * ShapeShifterPlayer.ModPlayer(player).morphDamage + 5E-06f);
             }
         }*/
         public override void GetWeaponCrit(Item item, Player player, ref int crit)
         {
-            if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)
+            if (item.GetGlobalItem<ShapeShifterItem>().morph)
             {
                 crit = crit + ShapeShifterPlayer.ModPlayer(player).morphCrit;
             }
@@ -581,7 +581,7 @@ namespace QwertysRandomContent
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (item.GetGlobalItem<ShapeShifterItem>(mod).morph)
+            if (item.GetGlobalItem<ShapeShifterItem>().morph)
             {
                 TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
                 if (tt != null)

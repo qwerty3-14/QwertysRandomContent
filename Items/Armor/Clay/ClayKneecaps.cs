@@ -82,7 +82,7 @@ namespace QwertysRandomContent.Items.Armor.Clay
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.legs == mod.GetEquipSlot("ClayKneecaps", EquipType.Legs) || drawPlayer.legs == mod.GetEquipSlot("ClayKneecaps_Female", EquipType.Legs))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Clay/Pants");

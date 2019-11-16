@@ -56,7 +56,7 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void UpdateEquip(Player player)
 		{
 			player.statLifeMax2 /= 2;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.gemRegen = true;
 
         }

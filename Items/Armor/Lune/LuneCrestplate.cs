@@ -49,9 +49,9 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
             for (int i = 0; i < 1000; i++)
             {
-                if (Main.projectile[i].active && Main.projectile[i].ranged && Main.projectile[i].owner == player.whoAmI && !Main.projectile[i].GetGlobalProjectile<LunePierce>(mod).lunePierce)
+                if (Main.projectile[i].active && Main.projectile[i].ranged && Main.projectile[i].owner == player.whoAmI && !Main.projectile[i].GetGlobalProjectile<LunePierce>().lunePierce)
                 {
-                    Main.projectile[i].GetGlobalProjectile<LunePierce>(mod).lunePierce = true;
+                    Main.projectile[i].GetGlobalProjectile<LunePierce>().lunePierce = true;
                 }
             }
             
@@ -87,7 +87,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
 
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.LuneCrestSet");
-            player.GetModPlayer<crestSet>(mod).setBonus = true;
+            player.GetModPlayer<crestSet>().setBonus = true;
             //Main.NewText(player.ArmorSetDye());
 
 
@@ -248,7 +248,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             //Main.NewText(projectile.timeLeft + ", " + player.ArmorSetDye());
             //projectile.rotation += (float)Math.PI / 30;
             timer++;
-            if((timer>10 && player.GetModPlayer<crestSet>(mod).justSummonedMoon) ||!player.GetModPlayer<crestSet>(mod).setBonus)
+            if((timer>10 && player.GetModPlayer<crestSet>().justSummonedMoon) ||!player.GetModPlayer<crestSet>().setBonus)
             {
                 projectile.Kill();
             }
@@ -259,7 +259,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             {
                 if (Main.projectile[i].ranged && Main.projectile[i].owner == projectile.owner && Collision.CheckAABBvAABBCollision(Main.projectile[i].position, new Vector2(Main.projectile[i].width, Main.projectile[i].height), projectile.position, new Vector2(projectile.width, projectile.height)))
                 {
-                    Main.projectile[i].GetGlobalProjectile<moonBoost>(mod).boosted = true;
+                    Main.projectile[i].GetGlobalProjectile<moonBoost>().boosted = true;
                 }
             }
         }

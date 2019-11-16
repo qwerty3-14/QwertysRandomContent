@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
 			item.UseSound = SoundID.Item1;
 			
-			item.shoot = mod.ProjectileType<RunicThrowP>();
+			item.shoot = mod.ProjectileType("RunicThrowP");
 		}
 		public override void HoldItem(Player player)
 		{

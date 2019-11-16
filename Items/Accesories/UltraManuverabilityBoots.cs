@@ -43,7 +43,7 @@ namespace QwertysRandomContent.Items.Accesories
 			player.jumpSpeedBoost += 2.5f;
 			player.accFlipper = true;
 
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 6.9f)
             {
                 modPlayer.customDashSpeed = 6.9f;

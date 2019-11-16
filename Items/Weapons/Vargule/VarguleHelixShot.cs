@@ -87,13 +87,13 @@ namespace QwertysRandomContent.Items.Weapons.Vargule
 				float V =8;
 				Projectile b = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation+MathHelper.ToRadians(-90))*V, (float)Math.Sin(projectile.rotation+MathHelper.ToRadians(-90))*V, mod.ProjectileType("Helix1"), (int)(projectile.damage * .8f), projectile.knockBack, Main.myPlayer)];
                 Projectile b2 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation+MathHelper.ToRadians(-90))*V, (float)Math.Sin(projectile.rotation+MathHelper.ToRadians(-90))*V, mod.ProjectileType("Helix2"), (int)(projectile.damage * .8f), projectile.knockBack, Main.myPlayer)];
-                if (projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow)
+                if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
                 {
                     b.scale *= 3;
                     b2.scale *= 3;
-                    b.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
-                    b2.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
-                    projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = false;
+                    b.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    b2.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow = false;
 
                 }
 

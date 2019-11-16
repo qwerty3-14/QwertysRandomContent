@@ -38,7 +38,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 			player.magicDamage += .35f;
 			player.magicCrit = -999;
 			player.rangedCrit = -999;
-            player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .8f;
+            player.GetModPlayer<QwertyPlayer>().ammoReduction *= .8f;
 
 
         }
@@ -64,7 +64,7 @@ namespace QwertysRandomContent.Items.Armor.Vargule
 		public override void UpdateArmorSet(Player player)
 		{
 			 player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.VSombreroSSet");
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.SombreroSetBonus = true;
 			player.ammoCost75 = true;
 			

@@ -113,7 +113,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
             spin = true;
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.GlassSpike)
             {
                 projectile.timeLeft = 2;

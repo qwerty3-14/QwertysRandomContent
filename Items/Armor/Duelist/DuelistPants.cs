@@ -75,36 +75,9 @@ namespace QwertysRandomContent.Items.Armor.Duelist
     }
     public class DuelestRobeDrawing : ModPlayer
     {
+
+        public static readonly PlayerLayer Pants = LayerDrawing.DrawOnLegs("DuelistPants_Legs", "Items/Armor/Duelist/DuelistRobeFront", "DuelistPants_FemaleLegs", "Items/Armor/Duelist/DuelistRobeFront_Female", "Pants", false, 1);
         
-        public static readonly PlayerLayer Pants = new PlayerLayer("QwertysRandomContent", "Pants", PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            if (drawPlayer.legs == mod.GetEquipSlot("DuelistPants_Legs", EquipType.Legs)|| drawPlayer.legs == mod.GetEquipSlot("DuelistPants_FemaleLegs", EquipType.Legs))
-            {
-                Texture2D texture = mod.GetTexture("Items/Armor/Duelist/DuelistRobeFront");
-                if (!drawPlayer.Male)
-                {
-                    texture = mod.GetTexture("Items/Armor/Duelist/DuelistRobeFront_Female");
-                }
-                Vector2 Position = drawInfo.position;
-                Position.Y += 14;
-                Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                DrawData value = new DrawData(texture, pos, new Microsoft.Xna.Framework.Rectangle?(drawPlayer.legFrame), color12, drawPlayer.legRotation, drawInfo.legOrigin, 1f, drawInfo.spriteEffects, 0);
-                value.shader = drawInfo.bodyArmorShader;
-                Main.playerDrawData.Add(value);
-
-                
-               
-
-            }
-        });
        
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
@@ -117,7 +90,12 @@ namespace QwertysRandomContent.Items.Armor.Duelist
                 layers.Insert(legLayer + 1, Pants);
             }
         }
+        public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
+        {
+            base.ModifyDrawHeadLayers(layers);
+        }
     }
+
 
 }
 

@@ -137,25 +137,14 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 for (int k = 0; k < 200; k++)
                 {
                     possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal  && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - projectile.Center).Length();
-                    }
                     if(!Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, possibleTarget.position, possibleTarget.Size))
                     {
                         projectile.localNPCImmunity[k] = 0;
                     }
-
                 }
-                if (foundTarget)
+                if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center))
                 {
                     direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 10f);
-
                 }
                 projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
                 foundTarget = false;

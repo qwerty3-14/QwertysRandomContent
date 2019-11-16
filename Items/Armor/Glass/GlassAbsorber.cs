@@ -38,7 +38,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .88f;
+            player.GetModPlayer<QwertyPlayer>().ammoReduction *= .88f;
             player.manaCost *= .88f;
 
         }
@@ -56,7 +56,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
 
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
-            
+
             drawHands = true;
 
         }
@@ -69,35 +69,10 @@ namespace QwertysRandomContent.Items.Armor.Glass
     }
     public class AbsorberDraw : ModPlayer
     {
-        public static readonly PlayerLayer GlassBack = new PlayerLayer("QwertysRandomContent", "GlassBack", PlayerLayer.BackAcc, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            //Main.NewText(drawPlayer.wings);
-            if (drawPlayer.body == mod.GetEquipSlot("GlassAbsorber", EquipType.Body) && drawPlayer.back == -1 && drawPlayer.wings == 0)
-            {
-                Texture2D texture = mod.GetTexture("Items/Armor/Glass/GlassAbsorber_Body_Glass");
-                /*
-                if (!drawPlayer.Male)
-                {
-                    texture = mod.GetTexture("Items/Armor/Robes/ReagalCape_Female");
-                }*/
-                DrawData value = new DrawData(texture, 
-                    new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2)), new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color12, drawPlayer.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0);
-
-                value.shader = (int)drawPlayer.dye[3].dye;
-                Main.playerDrawData.Add(value);
-
-            }
-        });
+        public static readonly PlayerLayer GlassBack = LayerDrawing.DrawOnBody("GlassAbsorber", "Items/Armor/Glass/GlassAbsorber_Body_Glass", name: "GlassBack", glowmask: false, useShader: 3);
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
+            
             int capeLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("BackAcc"));
             if (capeLayer != -1)
             {

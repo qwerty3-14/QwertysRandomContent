@@ -222,7 +222,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.GetModPlayer<FortressBiome>(mod).TheFortress )
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress )
             {
                 return 5f;
             }

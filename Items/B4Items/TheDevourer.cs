@@ -31,7 +31,7 @@ namespace QwertysRandomContent.Items.B4Items
 			item.autoReuse = true;
 			item.pick = 600;
 			item.tileBoost =8;
-            item.GetGlobalItem<AoePick>(mod).miningRadius = 6;
+            item.GetGlobalItem<AoePick>().miningRadius = 6;
 
 
 

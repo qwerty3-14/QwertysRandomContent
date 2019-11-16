@@ -85,7 +85,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.GetModPlayer<FortressBiome>(mod).TheFortress && Main.hardMode)
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress && Main.hardMode)
             {
                 return 40f;
             }

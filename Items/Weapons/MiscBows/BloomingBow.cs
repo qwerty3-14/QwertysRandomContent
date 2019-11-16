@@ -75,15 +75,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             int numberProjectiles = 2 + Main.rand.Next(7); 
             for (int i = 0; i < numberProjectiles; i++)
             {
-                QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+                QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
                 Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
                 float scale = Main.rand.NextFloat(1, 2);
                 trueSpeed = trueSpeed * scale;
                 bool yes = true;
                 float anotherSpeedVariable = trueSpeed.Length();
-                
-                modPlayer.PickRandomAmmo(GetReference(39), ref type, ref anotherSpeedVariable, ref yes, ref damage, ref knockBack, Main.rand.Next(2)==0);
-                Projectile.NewProjectile(position.X + Main.rand.Next(-12,12), position.Y + Main.rand.Next(-12, 12), trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
+                int currentDmg = (int)(item.damage * player.rangedDamage);
+                float currentKnockBack = item.knockBack * knockBack;
+                modPlayer.PickRandomAmmo(item, ref type, ref anotherSpeedVariable, ref yes, ref currentDmg, ref currentKnockBack, Main.rand.Next(2)==0);
+                Projectile.NewProjectile(position.X + Main.rand.Next(-12,12), position.Y + Main.rand.Next(-12, 12), trueSpeed.X, trueSpeed.Y, type, currentDmg, currentKnockBack, player.whoAmI);
             }
             return false;
         }

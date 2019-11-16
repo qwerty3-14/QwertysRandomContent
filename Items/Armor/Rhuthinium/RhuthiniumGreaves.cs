@@ -49,12 +49,12 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		public override void UpdateEquip(Player player)
 		{
 
-            player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= .9f;
-            player.GetModPlayer<QwertyPlayer>(mod).throwReduction *= .8f;
+            player.GetModPlayer<QwertyPlayer>().ammoReduction *= .9f;
+            player.GetModPlayer<QwertyPlayer>().throwReduction *= .8f;
             
 			player.manaCost -= .15f;
 			player.statManaMax2 += 60;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 4f)
             {
                 modPlayer.customDashSpeed = 4f;

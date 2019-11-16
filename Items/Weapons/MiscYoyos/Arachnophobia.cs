@@ -40,7 +40,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
 			item.UseSound = SoundID.Item1;
 			
-			item.shoot = mod.ProjectileType<ArachnophobiaP>();
+			item.shoot = mod.ProjectileType("ArachnophobiaP");
 		}
         Projectile yoyo;
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -391,7 +391,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             target.AddBuff(BuffID.Venom, 360);
             int num8 = Main.DamageVar((float)projectile.damage);
             //Main.player[projectile.owner].Counterweight(target.Center, projectile.damage, projectile.knockBack);
-            Main.player[projectile.owner].GetModPlayer<CustomYoyoPlayer>(mod).Counterweight(target.Center, projectile.damage, projectile.knockBack, projectile);
+            Main.player[projectile.owner].GetModPlayer<CustomYoyoPlayer>().Counterweight(target.Center, projectile.damage, projectile.knockBack, projectile);
             if (target.Center.X < Main.player[projectile.owner].Center.X)
             {
                 projectile.direction = -1;
@@ -1123,7 +1123,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             target.AddBuff(BuffID.Venom, 360);
             int num8 = Main.DamageVar((float)projectile.damage);
             //Main.player[projectile.owner].Counterweight(target.Center, projectile.damage, projectile.knockBack);
-            Main.player[projectile.owner].GetModPlayer<CustomYoyoPlayer>(mod).Counterweight(target.Center, projectile.damage, projectile.knockBack, projectile);
+            Main.player[projectile.owner].GetModPlayer<CustomYoyoPlayer>().Counterweight(target.Center, projectile.damage, projectile.knockBack, projectile);
             if (target.Center.X < Main.player[projectile.owner].Center.X)
             {
                 projectile.direction = -1;

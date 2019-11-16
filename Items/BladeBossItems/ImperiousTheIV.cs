@@ -109,7 +109,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
             Player player = Main.player[projectile.owner];
             //Main.NewText(moveTo);
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
            
             
             

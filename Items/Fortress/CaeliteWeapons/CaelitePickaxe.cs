@@ -33,7 +33,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 			item.autoReuse = true;
 			item.pick = 95;
 			item.tileBoost =2;
-            item.GetGlobalItem<AoePick>(mod).miningRadius = 1;
+            item.GetGlobalItem<AoePick>().miningRadius = 1;
 			
 			
 			
@@ -90,7 +90,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 if (flag18)
                 {
 
-                    if (item.GetGlobalItem<AoePick>(mod).miningRadius > 0)
+                    if (item.GetGlobalItem<AoePick>().miningRadius > 0)
                     {
 
                         if ((item.pick > 0 && !Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && !Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]) || (item.axe > 0 && Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]) || (item.hammer > 0 && Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
@@ -104,9 +104,9 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
                             if (item.pick > 0)
                             {
-                                for (int i = -item.GetGlobalItem<AoePick>(mod).miningRadius; i <= item.GetGlobalItem<AoePick>(mod).miningRadius; i++)
+                                for (int i = -item.GetGlobalItem<AoePick>().miningRadius; i <= item.GetGlobalItem<AoePick>().miningRadius; i++)
                                 {
-                                    for (int j = -item.GetGlobalItem<AoePick>(mod).miningRadius; j <= item.GetGlobalItem<AoePick>(mod).miningRadius; j++)
+                                    for (int j = -item.GetGlobalItem<AoePick>().miningRadius; j <= item.GetGlobalItem<AoePick>().miningRadius; j++)
                                     {
                                         if ((i != 0 || j != 0) && !Main.tileAxe[(int)Main.tile[Player.tileTargetX + i, Player.tileTargetY + j].type] && !Main.tileHammer[(int)Main.tile[Player.tileTargetX + i, Player.tileTargetY + j].type])
                                         {

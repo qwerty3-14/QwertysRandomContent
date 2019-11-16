@@ -206,7 +206,7 @@ namespace QwertysRandomContent.Items.Etims
                     for (int n = 0; n < Main.npc.Length; n++)
                     {
                         localNPCImmunity[n]--;
-                        if (!Main.npc[n].dontTakeDamage && (!Main.npc[n].friendly || (Main.npc[n].type == 22 && player.killGuide) || (Main.npc[n].type == 54 && player.killClothier)) && player.itemAnimation > 0 && localNPCImmunity[n] <= 0 && Collision.CheckAABBvLineCollision(Main.npc[n].position, Main.npc[n].Size, player.itemLocation, player.itemLocation + QwertyMethods.PolarVector(swordLength, player.itemRotation - (float)Math.PI / 4)))
+                        if (Main.npc[n].active &&!Main.npc[n].dontTakeDamage && (!Main.npc[n].friendly || (Main.npc[n].type == 22 && player.killGuide) || (Main.npc[n].type == 54 && player.killClothier)) && player.itemAnimation > 0 && localNPCImmunity[n] <= 0 && Collision.CheckAABBvLineCollision(Main.npc[n].position, Main.npc[n].Size, player.itemLocation, player.itemLocation + QwertyMethods.PolarVector(swordLength, player.itemRotation - (float)Math.PI / 4)))
                         {
                             localNPCImmunity[n] = item.useAnimation/3;
                             int damageBeforeVariance = item.damage;

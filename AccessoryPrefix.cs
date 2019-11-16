@@ -88,11 +88,11 @@ namespace QwertysRandomContent
                 mod.AddPrefix("Perscribed", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0));
                 mod.AddPrefix("Nursing", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0));
                 mod.AddPrefix("First Aid Trained", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0));
-                mod.AddPrefix("Ninja Like", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1));
+                mod.AddPrefix("Ninja-Like", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1));
                 mod.AddPrefix("Blurred", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
                 mod.AddPrefix("Evasive", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2));
                 mod.AddPrefix("Dodgy", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3));
-                mod.AddPrefix("Unobserved Quantum", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4));
+                mod.AddPrefix("Quantum", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4));
             }
             return false;
         }
@@ -282,12 +282,12 @@ namespace QwertysRandomContent
                 player.meleeSpeed += meleeSpeed * .01f;
                 player.statDefense += defense;
                 player.manaCost -= manaReduction * .01f;
-                player.GetModPlayer<QwertyPlayer>(mod).ammoReduction *= (1f - (ammoReduction * .01f));
+                player.GetModPlayer<QwertyPlayer>().ammoReduction *= (1f - (ammoReduction * .01f));
                 player.thrownVelocity += throwVel * .01f;
-                player.GetModPlayer<QwertyPlayer>(mod).rangedVelocity += rangedVel * .01f;
-                player.GetModPlayer<QwertyPlayer>(mod).customDashBonusSpeed += dashPower;
-                player.GetModPlayer<QwertyPlayer>(mod).recovery += recovery;
-                player.GetModPlayer<QwertyPlayer>(mod).dodgeChance += dodgeChance;
+                player.GetModPlayer<QwertyPlayer>().rangedVelocity += rangedVel * .01f;
+                player.GetModPlayer<QwertyPlayer>().customDashBonusSpeed += dashPower;
+                player.GetModPlayer<QwertyPlayer>().recovery += recovery;
+                player.GetModPlayer<QwertyPlayer>().dodgeChance += dodgeChance;
 
             }
         }
@@ -327,7 +327,7 @@ namespace QwertysRandomContent
         }
         public override bool ConsumeAmmo(Item item, Player player)
         {
-            if (Main.rand.NextFloat() > player.GetModPlayer<QwertyPlayer>(mod).ammoReduction)
+            if (Main.rand.NextFloat() > player.GetModPlayer<QwertyPlayer>().ammoReduction)
             {
                 return false;
             }
@@ -337,7 +337,7 @@ namespace QwertysRandomContent
         {
             if (item.thrown)
             {
-                return !(Main.rand.NextFloat() > player.GetModPlayer<QwertyPlayer>(mod).throwReduction);
+                return !(Main.rand.NextFloat() > player.GetModPlayer<QwertyPlayer>().throwReduction);
             }
             return base.ConsumeItem(item, player);
         }

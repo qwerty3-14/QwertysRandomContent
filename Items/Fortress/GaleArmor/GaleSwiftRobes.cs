@@ -55,7 +55,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
             player.thrownCrit += 10;
             player.thrownVelocity += .1f;
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .85f;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 4.8f)
             {
                 modPlayer.customDashSpeed = 4.8f;

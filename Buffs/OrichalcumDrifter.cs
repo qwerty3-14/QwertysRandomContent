@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
 			if (player.ownedProjectileCounts[mod.ProjectileType("OrichalcumDrifter")] > 0 )
 			{
 				modPlayer.OrichalcumDrifter = true;

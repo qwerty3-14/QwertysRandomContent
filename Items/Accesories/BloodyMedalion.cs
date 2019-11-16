@@ -40,7 +40,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void UpdateEquip(Player player)
         {
             player.magicDamage += .8f;
-            player.GetModPlayer<BloodMedalionEffect>(mod).effect = true;
+            player.GetModPlayer<BloodMedalionEffect>().effect = true;
 
         }
         public override void AddRecipes()

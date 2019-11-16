@@ -79,7 +79,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType<HovercraftMorph>(), player);
+            player.mount.SetMount(mod.MountType("HovercraftMorph"), player);
             player.buffTime[buffIndex] = 10;
         }
     }
@@ -236,8 +236,8 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 float pointAt = (QwertysRandomContent.LocalCursor[player.whoAmI] - shootFrom).ToRotation();
 
 
-                player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation, pointAt, 3);
-                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation);
+                player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
+                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
 
                 if (shotCooldown > 0)
                 {
@@ -246,7 +246,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
                 {
                     shotCooldown = 12;
-                    Projectile p = Main.projectile[Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(19, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), QwertyMethods.PolarVector(12, player.GetModPlayer<ShapeShifterPlayer>(mod).tankCannonRotation), ProjectileID.GreenLaser, (int)(HovercraftShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), HovercraftShift.kb, player.whoAmI)];
+                    Projectile p = Main.projectile[Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(19, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(12, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), ProjectileID.GreenLaser, (int)(HovercraftShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), HovercraftShift.kb, player.whoAmI)];
                     p.magic = false;
                     p.GetGlobalProjectile<MorphProjectile>().morph = true;
                     p.penetrate = 1;

@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
 			item.height = 30;
 			item.crit = 25;
 			item.shoot = 97;
-			item.useAmmo = 97;
+			item.useAmmo = AmmoID.Bullet;
 			item.shootSpeed =36;
 			item.noMelee=true;
 			

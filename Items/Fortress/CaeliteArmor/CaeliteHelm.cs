@@ -34,8 +34,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
 		{
 
 
-            player.GetModPlayer<CaeliteHelmEffect>(mod).hasEffect = true;
-            player.GetModPlayer<QwertyPlayer>(mod).recovery += 2;
+            player.GetModPlayer<CaeliteHelmEffect>().hasEffect = true;
+            player.GetModPlayer<QwertyPlayer>().recovery += 2;
 
         }
 		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )

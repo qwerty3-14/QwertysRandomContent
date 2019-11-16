@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
 			item.UseSound = SoundID.Item1;
 			
-			item.shoot = mod.ProjectileType<AncientThrowP>();
+			item.shoot = mod.ProjectileType("AncientThrowP");
 		}
 		public override void HoldItem(Player player)
 		{

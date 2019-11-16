@@ -48,7 +48,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 		}
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             
             if (target.life <= 0 && !target.SpawnedFromStatue)
             {

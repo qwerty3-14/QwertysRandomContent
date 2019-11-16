@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 
-            player.GetModPlayer<QwertyPlayer>(mod).throwReduction *= .6f;
+            player.GetModPlayer<QwertyPlayer>().throwReduction *= .6f;
         }
 
 		

@@ -116,33 +116,7 @@ namespace QwertysRandomContent.Items.HydraItems
     }
     public class HydraHelmetGlowmask : ModPlayer
     {
-       
-        
-        public static readonly PlayerLayer HydraEye = new PlayerLayer("QwertysRandomContent", "HydraEye", PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
-        {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
-            Player drawPlayer = drawInfo.drawPlayer;
-            Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
-            if (drawPlayer.head == mod.GetEquipSlot("HydraHelmet", EquipType.Head))
-            {
-                //Main.NewText("Helmet!");
-                //Main.NewText(drawPlayer.bodyFrame);
-                Texture2D texture = mod.GetTexture("Items/HydraItems/HydraHelmet_Glow");
-                int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
-                int drawY = (int)(drawPlayer.position.Y  - Main.screenPosition.Y);
-                Vector2 Position = drawInfo.position;
-                Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
-                Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                //pos.Y -= drawPlayer.mount.PlayerOffset;
-                DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, Color.White , 0f, origin, 1f, drawInfo.spriteEffects, 0);
-                data.shader = drawInfo.headArmorShader;
-                Main.playerDrawData.Add(data);
-            }
-        });
+        public static readonly PlayerLayer HydraEye = LayerDrawing.DrawOnHead("HydraHelmet", "Items/HydraItems/HydraHelmet_Glow");
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -154,6 +128,5 @@ namespace QwertysRandomContent.Items.HydraItems
             
         }
     }
-
 }
 

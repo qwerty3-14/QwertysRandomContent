@@ -56,7 +56,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.head == mod.GetEquipSlot("PugMask", EquipType.Head))
             {
                 //Main.NewText("Pug!");

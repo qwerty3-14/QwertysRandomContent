@@ -34,6 +34,25 @@ I'm not that good of a spriter so here I'll give thanks to the spriters who help
 Extra thanks
 -Turquiose (for writing custom themes)
 -Kerdo (Russian Translations)
+
+
+
+changelog
+0.19.11
+-fixed a bug some people got that caused the mod to not build with thorium
+
+0.19.10
+-Lune's pallette tweaked (added hueshift)
+-Fixed runic waves in inventory glowing sprite not lining up
+-tops now attack slower when they lose speed
+-fixed Gemini's quiver allowing for the duplication of bladed arrows
+-fixed resless sun not being 'blinded' by Noehtnap's darkness
+-fixed some custom ammo usage and ammo randomizing sometimes adding the ammo damage value multiple times
+
+0.19.9
+-fixed Ancient Machine always dropping Acncient blade.
+-nerfed riptide sentry damage 7 -> 4
+-nerfed gale armor's dodge chance from 30% -> 25%
 -Divine blade can now only deflect projectiles 'weaker' than the sword
 -Shield minions can now block projectiles weaker than themselves, damage reduced from 36 -> 30, chance to stun enemies increased
 -In expert mode some of Divine light's attacks will now have a 'minimum damage' of around 14-18 (regardless of defense you'll take that much damage at least)
@@ -44,15 +63,6 @@ Extra thanks
 
 -added skyward hilt (rare drop from divine light)
 -added 3 more Imperious drops (thanks for spriting Darkpuppey)
-
-
-changelog
-
-0.19.8
--fixed Ancient Machine always dropping Acncient blade.
--nerfed riptide sentry damage 7 -> 4
--nerfed gale armor's dodge chance from 30% -> 25%
-
 
 0.19.7
 -Released for tmodloader 0.11.3 

@@ -48,7 +48,7 @@ namespace QwertysRandomContent.Items.HydraItems
 			
 		public override void HoldItem(Player player)
 		{
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.HydraCannon = true;
 		}
 		public override bool ConsumeAmmo(Player player)

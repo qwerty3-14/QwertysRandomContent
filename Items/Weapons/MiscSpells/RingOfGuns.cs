@@ -115,7 +115,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             Player player = Main.player[projectile.owner];
             player.itemAnimation = 2;
             player.itemTime = 2;
-            bool firing = player.channel && player.HasAmmo(QwertyMethods.GetAmmoReference(95), true) && !player.noItems && !player.CCed ;
+            bool firing = player.channel && player.HasAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), true) && !player.noItems && !player.CCed ;
             int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             int Ammo = 14;
             float speed = 14f;
@@ -137,10 +137,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 projectile.timeLeft = 2;
                 if (reloadTimer % 15 == 0)
                 {
-                    player.PickAmmo(QwertyMethods.GetAmmoReference(95), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
-                    if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), !player.GetModPlayer<BloodMedalionEffect>(mod).effect))
+                    player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
+                    if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), !player.GetModPlayer<BloodMedalionEffect>().effect))
                     {
-                        if(player.GetModPlayer<BloodMedalionEffect>(mod).effect)
+                        if(player.GetModPlayer<BloodMedalionEffect>().effect)
                         {
                             player.statLife -= (int)(player.inventory[player.selectedItem].mana / 6f * player.manaCost);
                             if (player.statLife <= 0)

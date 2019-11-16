@@ -85,19 +85,19 @@ namespace QwertysRandomContent.Items.Ammo
 				
 				float V =30;
                 Projectile arrow1 = Main.projectile[Projectile.NewProjectile(projectile.Center.X+startX, projectile.Center.Y+startY, -(float)Math.Cos(projectile.rotation+MathHelper.ToRadians(-90))*V, -(float)Math.Sin(projectile.rotation+MathHelper.ToRadians(-90))*V, mod.ProjectileType("ReverseArrowP"), projectile.damage, projectile.knockBack, Main.myPlayer)];
-                if (projectile.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow)
+                if (projectile.GetGlobalProjectile<arrowHoming>().B4HomingArrow)
                 {
-                    arrow1.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow = true;
+                    arrow1.GetGlobalProjectile<arrowHoming>().B4HomingArrow = true;
                     
 
                 }
-                if (projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow)
+                if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
                 {
                     arrow1.scale *= 3;
                     
-                    arrow1.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
+                    arrow1.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
                     
-                    projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = false;
+                    projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow = false;
                 }
 
 

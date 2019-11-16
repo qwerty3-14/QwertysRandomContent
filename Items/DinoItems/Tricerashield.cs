@@ -38,7 +38,7 @@ namespace QwertysRandomContent.Items.DinoItems
 		
 		public override void UpdateEquip(Player player)
 		{
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 5.6f)
             {
                 modPlayer.customDashSpeed = 5.6f;
@@ -64,7 +64,7 @@ namespace QwertysRandomContent.Items.DinoItems
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>(mod);
+            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.shield == mod.GetEquipSlot("Tricerashield", EquipType.Shield))
             {
                 //Main.NewText("Hi");

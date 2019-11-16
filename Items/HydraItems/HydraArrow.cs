@@ -89,26 +89,26 @@ namespace QwertysRandomContent.Items.HydraItems
 				Projectile arrow1 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation+MathHelper.ToRadians(-90))*V, (float)Math.Sin(projectile.rotation+MathHelper.ToRadians(-90))*V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage*.7f), projectile.knockBack, Main.myPlayer)];
                 Projectile arrow2 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation+MathHelper.ToRadians(-80))*V, (float)Math.Sin(projectile.rotation+MathHelper.ToRadians(-80))*V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage*.7f), projectile.knockBack, Main.myPlayer)];
                 Projectile arrow3 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation+MathHelper.ToRadians(-100))*V, (float)Math.Sin(projectile.rotation+MathHelper.ToRadians(-100))*V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage*.7f), projectile.knockBack, Main.myPlayer)];
-				if(projectile.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow)
+				if(projectile.GetGlobalProjectile<arrowHoming>().B4HomingArrow)
                 {
-                    arrow1.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow = true;
-                    arrow2.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow = true;
-                    arrow3.GetGlobalProjectile<arrowHoming>(mod).B4HomingArrow = true;
+                    arrow1.GetGlobalProjectile<arrowHoming>().B4HomingArrow = true;
+                    arrow2.GetGlobalProjectile<arrowHoming>().B4HomingArrow = true;
+                    arrow3.GetGlobalProjectile<arrowHoming>().B4HomingArrow = true;
 
                 }
-                if (projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow)
+                if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
                 {
                     arrow1.scale *= 3;
                     arrow2.scale *= 3;
                     arrow3.scale *= 3;
-                    arrow1.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
-                    arrow2.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
-                    arrow3.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = true;
-                    projectile.GetGlobalProjectile<arrowgigantism>(mod).GiganticArrow = false;
+                    arrow1.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    arrow2.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    arrow3.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow = false;
                 }
-                arrow1.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow;
-                arrow2.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow;
-                arrow3.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>(mod).warpedArrow;
+                arrow1.GetGlobalProjectile<ArrowWarping>().warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>().warpedArrow;
+                arrow2.GetGlobalProjectile<ArrowWarping>().warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>().warpedArrow;
+                arrow3.GetGlobalProjectile<ArrowWarping>().warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>().warpedArrow;
 
             }
 		}

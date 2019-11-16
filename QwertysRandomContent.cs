@@ -65,6 +65,7 @@ namespace QwertysRandomContent
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(this);
+
         }
         //internal static QwertysRandomContent instance;
 		public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";

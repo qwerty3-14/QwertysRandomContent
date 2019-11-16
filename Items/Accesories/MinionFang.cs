@@ -33,7 +33,7 @@ namespace QwertysRandomContent.Items.Accesories
         }
         public override void UpdateEquip(Player player)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.minionFang = true;
         }
     }
@@ -43,7 +43,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if(modPlayer.minionFang && projectile.minion)
             {
                 projectile.melee = true;

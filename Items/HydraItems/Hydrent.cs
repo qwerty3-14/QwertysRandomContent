@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.HydraItems
 			item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
 			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType<HydrentP>();
+			item.shoot = mod.ProjectileType("HydrentP");
 		}
 
 		public override bool CanUseItem(Player player)

@@ -31,7 +31,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 		}
         public override void UpdateEquip(Player player)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.hyperRune = true;
             modPlayer.customDashBonusSpeed += 10;
             

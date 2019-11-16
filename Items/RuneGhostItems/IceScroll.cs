@@ -41,7 +41,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             
             modPlayer.iceScroll = true;
             
@@ -80,7 +80,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         {
             
             Player player = Main.player[projectile.owner];
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (runOnce)
             {
                 projectile.rotation = (player.Center - projectile.Center).ToRotation() - (float)Math.PI / 2;

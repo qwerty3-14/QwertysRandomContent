@@ -158,9 +158,8 @@ namespace QwertysRandomContent
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
             }
         }
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetAmmoReference(int type)
+        
+        public static Item MakeItemFromID(int type)
         {
             if (type <= 0)
             {
@@ -173,16 +172,11 @@ namespace QwertysRandomContent
             else
             {
                 Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
+                item = new Item();
+                item.SetDefaults(type, true);
                 return item;
             }
         }
-        /*------------------------------------------------- */
         public static Projectile PokeNPC(Player player, NPC npc, float damage, float knockback = 0f, bool melee = false, bool ranged = false, bool magic = false, bool summon = false, bool morph = false)
         {
             Projectile p = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, QwertysRandomContent.Instance.ProjectileType("Poke"), (int)damage, knockback, player.whoAmI)];

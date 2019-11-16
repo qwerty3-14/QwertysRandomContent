@@ -29,7 +29,7 @@ namespace QwertysRandomContent.Tiles
 			Main.tileLavaDeath[Type] = true;
             
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<DnasLanternE>().Hook_AfterPlacement, 0, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("DnasLanternE").Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.CoordinateHeights = new int[]
             {
                 16,
@@ -79,7 +79,7 @@ namespace QwertysRandomContent.Tiles
             }
             NetMessage.SendTileSquare(-1, left, top + 1, 2);
             */
-            int index = mod.GetTileEntity<DnasLanternE>().Find(left, top);
+            int index = mod.GetTileEntity("DnasLanternE").Find(left, top);
             if (index == -1)
             {
                 return;
@@ -135,7 +135,7 @@ namespace QwertysRandomContent.Tiles
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("DnasLantern"));
-            mod.GetTileEntity<DnasLanternE>().Kill(i, j);
+            mod.GetTileEntity("DnasLanternE").Kill(i, j);
         }
 	}
     public class DnasLanternE : ModTileEntity
@@ -166,11 +166,11 @@ namespace QwertysRandomContent.Tiles
                 Main.tile[Position.X+1, Position.Y+1].frameY = 18;
                 if ((Main.LocalPlayer.Center - ((Position.ToVector2() * 16) + new Vector2(16, 16))).Length() < 300)
                 {
-                    if (Main.LocalPlayer.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity == 0)
+                    if (Main.LocalPlayer.GetModPlayer<QwertyPlayer>().forcedAntiGravity == 0)
                     {
                         Main.LocalPlayer.velocity.Y = 0;
                     }
-                    Main.LocalPlayer.GetModPlayer<QwertyPlayer>(mod).forcedAntiGravity = 10;
+                    Main.LocalPlayer.GetModPlayer<QwertyPlayer>().forcedAntiGravity = 10;
                 }
             }
             else

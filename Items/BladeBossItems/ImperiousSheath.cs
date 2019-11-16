@@ -46,7 +46,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void UpdateEquip(Player player)
         {
             
-            player.GetModPlayer<ImperiousEffect>(mod).effect = true;
+            player.GetModPlayer<ImperiousEffect>().effect = true;
         }
         //this changes the tooltip based on what the hotkey is configured to
         public override void ModifyTooltips(List<TooltipLine> tooltips)

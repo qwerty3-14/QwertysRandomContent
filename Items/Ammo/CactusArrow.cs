@@ -69,7 +69,7 @@ namespace QwertysRandomContent.Items.Ammo
             target.AddBuff(30, 120);
 			
 		}
-		
+		 
 
 		
 	}

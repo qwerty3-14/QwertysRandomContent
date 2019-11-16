@@ -55,7 +55,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 		{
 			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RMaskSet"); 
 			player.maxMinions +=1;
-			var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+			var modPlayer = player.GetModPlayer<QwertyPlayer>();
 			modPlayer.minionIchor = true;
 			
 		}

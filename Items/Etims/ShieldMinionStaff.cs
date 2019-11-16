@@ -100,7 +100,7 @@ namespace QwertysRandomContent.Items.Etims
         {
 
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.ShieldMinion)
             {
                 projectile.timeLeft = 2;

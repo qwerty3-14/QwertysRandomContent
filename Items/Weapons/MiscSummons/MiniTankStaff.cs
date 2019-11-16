@@ -111,7 +111,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
            
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.miniTank)
             {
                 projectile.timeLeft = 2;

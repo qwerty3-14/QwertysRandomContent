@@ -23,13 +23,13 @@ namespace QwertysRandomContent
         }
         public override bool CustomBiomesMatch(Player other)
         {
-            FortressBiome modOther = other.GetModPlayer<FortressBiome>(mod);
+            FortressBiome modOther = other.GetModPlayer<FortressBiome>();
             return TheFortress == modOther.TheFortress;
         }
 
         public override void CopyCustomBiomesTo(Player other)
         {
-            FortressBiome modOther = other.GetModPlayer<FortressBiome>(mod);
+            FortressBiome modOther = other.GetModPlayer<FortressBiome>();
             modOther.TheFortress = TheFortress;
         }
 
@@ -58,9 +58,9 @@ namespace QwertysRandomContent
     {
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-            if (player.GetModPlayer<FortressBiome>(mod).TheFortress)
+            if (player.GetModPlayer<FortressBiome>().TheFortress)
             {
-                if (NPC.AnyNPCs(mod.NPCType<FortressBoss>()))
+                if (NPC.AnyNPCs(mod.NPCType("FortressBoss")))
                 {
                     spawnRate = 0;
                     maxSpawns = 0;
@@ -101,7 +101,7 @@ namespace QwertysRandomContent
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             
-            if (spawnInfo.player.GetModPlayer<FortressBiome>(mod).TheFortress)
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
             {
                 pool[0] = 0f;
             }
@@ -114,7 +114,7 @@ namespace QwertysRandomContent
         public static int fortressBrick;
         public override void ResetNearbyTileEffects()
         {
-            QwertyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<QwertyPlayer>();
 
             fortressBrick = 0;
         }

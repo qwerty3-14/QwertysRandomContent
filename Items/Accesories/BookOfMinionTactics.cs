@@ -38,7 +38,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void UpdateEquip(Player player)
         {
             
-            player.GetModPlayer<MinionBookEffect>(mod).effect = true;
+            player.GetModPlayer<MinionBookEffect>().effect = true;
         }
 
 
@@ -57,7 +57,7 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if(Main.player[projectile.owner].GetModPlayer<MinionBookEffect>(mod).effect)
+            if(Main.player[projectile.owner].GetModPlayer<MinionBookEffect>().effect)
             {
                 if(projectile.minion && target.whoAmI == Main.player[projectile.owner].MinionAttackTargetNPC)
                 {

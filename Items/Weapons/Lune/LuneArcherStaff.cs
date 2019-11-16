@@ -115,7 +115,7 @@ using Microsoft.Xna.Framework.Graphics;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             varTime++;
             if (varTime >= 60)
             {
@@ -144,7 +144,7 @@ using Microsoft.Xna.Framework.Graphics;
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(QwertyMethods.GetAmmoReference(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) ==0);
+                    player.PickAmmo(QwertyMethods.MakeItemFromID(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) ==0);
                     if (Main.netMode != 1)
                     {
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];

@@ -52,12 +52,12 @@ namespace QwertysRandomContent.Items.Armor.Lune
             {
                 if (Main.projectile[i].active && Main.projectile[i].owner == player.whoAmI)
                 {
-                    Main.projectile[i].GetGlobalProjectile<grappleBoost>(mod).DoubleGrapple = true;
+                    Main.projectile[i].GetGlobalProjectile<grappleBoost>().DoubleGrapple = true;
                 }
             }
             */
-            player.GetModPlayer<QwertyPlayer>(mod).grappleBoost =true;
-            player.GetModPlayer<JacketBonuses>(mod).hunt = true;
+            player.GetModPlayer<QwertyPlayer>().grappleBoost =true;
+            player.GetModPlayer<JacketBonuses>().hunt = true;
 
         }
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -95,8 +95,8 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
 
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.LuneJacketSet");
-            //player.GetModPlayer<crestSet>(mod).setBonus = true;
-            player.GetModPlayer<JacketBonuses>(mod).setBonus = true;
+            //player.GetModPlayer<crestSet>().setBonus = true;
+            player.GetModPlayer<JacketBonuses>().setBonus = true;
 
 
 
@@ -130,7 +130,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
         public override void GrapplePullSpeed(Projectile projectile, Player player, ref float speed)
         {
-            if (player.GetModPlayer<QwertyPlayer>(mod).grappleBoost)
+            if (player.GetModPlayer<QwertyPlayer>().grappleBoost)
             {
                 speed *= 2;
                 Dust dust = Main.dust[Dust.NewDust(player.position, player.width, player.height, mod.DustType("LuneDust"))];
@@ -142,7 +142,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void GrappleRetreatSpeed(Projectile projectile, Player player, ref float speed)
         {
             
-            if (player.GetModPlayer<QwertyPlayer>(mod).grappleBoost)
+            if (player.GetModPlayer<QwertyPlayer>().grappleBoost)
             {
                 speed *= 2;
 
@@ -153,7 +153,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            if (player.GetModPlayer<QwertyPlayer>(mod).grappleBoost && projectile.aiStyle == 7 && runOnce)
+            if (player.GetModPlayer<QwertyPlayer>().grappleBoost && projectile.aiStyle == 7 && runOnce)
             {
                 projectile.extraUpdates += 1;
                 runOnce = false;
@@ -195,7 +195,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[projectile.owner];
-            if((npc.Center - player.Center).Length() > 400 && player.GetModPlayer<JacketBonuses>(mod).setBonus && projectile.ranged)
+            if((npc.Center - player.Center).Length() > 400 && player.GetModPlayer<JacketBonuses>().setBonus && projectile.ranged)
             damage = (int)(damage * 1.2f);
         }
     }

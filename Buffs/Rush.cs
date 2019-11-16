@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 
-            var modPlayer = player.GetModPlayer<QwertyPlayer>(mod);
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
             
             modPlayer.customDashBonusSpeed += 2;
         }
