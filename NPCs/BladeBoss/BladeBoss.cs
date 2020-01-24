@@ -1,10 +1,10 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs.BladeBoss
 {
@@ -58,14 +58,14 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
 
-            npc.lifeMax = (int)(32000 *bossLifeScale);
+            npc.lifeMax = (int)(32000 * bossLifeScale);
             npc.damage = 100;
 
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            
-                return 0f;
+
+            return 0f;
 
         }
         bool activeCheck = false;
@@ -119,7 +119,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         Vector2 hitSpot;
         Vector2 hitSpot2;
         Vector2 postSwingSpot;
-        float intialBoost=10;
+        float intialBoost = 10;
         float directionOfAcceleration;
         float acceleration = .1f;
         int counter;
@@ -137,8 +137,8 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         int attack3Counter;
         public override bool PreAI()
         {
-           counter++;
-            if(counter < 60)
+            counter++;
+            if (counter < 60)
             {
                 return false;
             }
@@ -412,7 +412,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             float col = 0;
-            if ((attack2Timer < 60 || attack2Timer>600) && npc.ai[3] == 1)
+            if ((attack2Timer < 60 || attack2Timer > 600) && npc.ai[3] == 1)
             {
                 return false;
             }
@@ -434,7 +434,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             return Collision.CheckAABBvLineCollision(target.Hitbox.TopLeft(), target.Hitbox.Size(), BladeStart, BladeTip, bladeWidth, ref col);
         }
         Vector2 CollisionOffset;
-        
+
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (Main.netMode == 0)
@@ -454,15 +454,15 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 npc.position -= CollisionOffset;
             }
             Player player = Main.player[npc.target];
-            if(npc.ai[3]==1)
+            if (npc.ai[3] == 1)
             {
-                float c =0;
-                if (Collision.CheckAABBvLineCollision(player.position, player.Size, BladeStart + QwertyMethods.PolarVector(BladeLength/2, npc.rotation + (float)Math.PI/2), BladeStart + QwertyMethods.PolarVector(BladeLength / 2, npc.rotation + (float)Math.PI / 2) + -rotationDirection* QwertyMethods.PolarVector(300, npc.rotation), BladeLength, ref c))
+                float c = 0;
+                if (Collision.CheckAABBvLineCollision(player.position, player.Size, BladeStart + QwertyMethods.PolarVector(BladeLength / 2, npc.rotation + (float)Math.PI / 2), BladeStart + QwertyMethods.PolarVector(BladeLength / 2, npc.rotation + (float)Math.PI / 2) + -rotationDirection * QwertyMethods.PolarVector(300, npc.rotation), BladeLength, ref c))
                 {
                     if (rotationSpeed < (float)Math.PI / 1000f * 35)
                     {
-                        rotationSpeed += (float)Math.PI / 1000f *5;
-                        
+                        rotationSpeed += (float)Math.PI / 1000f * 5;
+
                     }
                     rotationDirection *= -1;
                 }

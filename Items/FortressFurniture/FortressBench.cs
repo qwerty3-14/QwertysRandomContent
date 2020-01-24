@@ -1,4 +1,3 @@
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.FortressFurniture
@@ -7,7 +6,7 @@ namespace QwertysRandomContent.Items.FortressFurniture
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
 
         public override void SetDefaults()

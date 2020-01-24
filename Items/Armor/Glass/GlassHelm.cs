@@ -11,43 +11,43 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Glass
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class GlassHelm : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Glass Helm");
-			Tooltip.SetDefault("A glass prism orbits you zapping enemies");
-			
-		}
-		
+    [AutoloadEquip(EquipType.Head)]
+    public class GlassHelm : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Glass Helm");
+            Tooltip.SetDefault("A glass prism orbits you zapping enemies");
 
-		public override void SetDefaults()
-		{
+        }
+
+
+        public override void SetDefaults()
+        {
             item.value = 10000;
             item.rare = 1;
             item.width = 22;
-			item.height = 14;
-			item.defense = 4;
+            item.height = 14;
+            item.defense = 4;
         }
-		
-		public override void UpdateEquip(Player player)
-		{
-            player.GetModPlayer<HelmEffects>().helmEffect = true ;
+
+        public override void UpdateEquip(Player player)
+        {
+            player.GetModPlayer<HelmEffects>().helmEffect = true;
         }
-		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
-		{
+        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+        {
             drawAltHair = true;
-			
-		}
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == mod.ItemType("GlassAbsorber") && legs.type == mod.ItemType("GlassLimbguards");
-			
-		}
-		public override void UpdateArmorSet(Player player)
-		{
-			player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.GlassSet");
+
+        }
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == mod.ItemType("GlassAbsorber") && legs.type == mod.ItemType("GlassLimbguards");
+
+        }
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.GlassSet");
             player.GetModPlayer<HelmEffects>().setBonus = true;
         }
         public override void AddRecipes()
@@ -83,29 +83,29 @@ namespace QwertysRandomContent.Items.Armor.Glass
         }
         public override void PreUpdate()
         {
-            if(helmEffect)
+            if (helmEffect)
             {
                 PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName += (float)MathHelper.Pi / 30;
                 prismDazzleCounter--;
                 NPC target = new NPC();
                 Vector2 prismCenter = player.Center + new Vector2((float)Math.Sin(PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName) * 40f, 0);
-                if (QwertyMethods.ClosestNPC(ref target, 4000, prismCenter) && prismDazzleCounter <=0)
+                if (QwertyMethods.ClosestNPC(ref target, 4000, prismCenter) && prismDazzleCounter <= 0)
                 {
                     Projectile.NewProjectile(prismCenter, QwertyMethods.PolarVector(1, (target.Center - prismCenter).ToRotation()), mod.ProjectileType("PrismDazzle"), (int)(10f * player.magicDamage), 0f, player.whoAmI);
                     prismDazzleCounter = 60;
                 }
             }
-            
+
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if(proj.ranged && setBonus)
+            if (proj.ranged && setBonus)
             {
                 target.AddBuff(mod.BuffType("ArcanelyTuned"), 360);
             }
-            
+
         }
-        
+
         public static readonly PlayerLayer PrismFront = new PlayerLayer("QwertysRandomContent", "PrismFront", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -116,7 +116,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             Texture2D texture = mod.GetTexture("Items/Armor/Glass/GlassPrism");
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            if (Math.Cos(drawPlayer.GetModPlayer<HelmEffects>().PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName ) >0 && drawPlayer.GetModPlayer<HelmEffects>().helmEffect)
+            if (Math.Cos(drawPlayer.GetModPlayer<HelmEffects>().PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName) > 0 && drawPlayer.GetModPlayer<HelmEffects>().helmEffect)
             {
                 Vector2 Center = drawInfo.position + new Vector2(drawPlayer.width / 2, drawPlayer.height / 2) - Main.screenPosition;
                 Center.X += (float)Math.Sin(drawPlayer.GetModPlayer<HelmEffects>().PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName) * 40;
@@ -163,8 +163,8 @@ namespace QwertysRandomContent.Items.Armor.Glass
         }
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-            
-            
+
+
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
             if (headLayer != -1)
             {
@@ -217,7 +217,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
             }
             for (int k = 0; k < 200; k++)
             {
-                
+
                 if (!Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, Main.npc[k].position, Main.npc[k].Size))
                 {
                     projectile.localNPCImmunity[k] = 0;
@@ -228,14 +228,14 @@ namespace QwertysRandomContent.Items.Armor.Glass
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.boss && Main.rand.Next(20)==0)
+            if (!target.boss && Main.rand.Next(20) == 0)
             {
                 target.AddBuff(mod.BuffType("Stunned"), 120);
             }
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-        
+
     }
     public class ArcanelyTunedHoming : GlobalProjectile
     {
@@ -254,13 +254,13 @@ namespace QwertysRandomContent.Items.Armor.Glass
             foundTarget = false;
             if (projectile.magic && projectile.friendly)
             {
-                
-               
+
+
                 for (int k = 0; k < 200; k++)
                 {
                     NPC possibleTarget = Main.npc[k];
                     float distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.HasBuff(mod.BuffType("ArcanelyTuned")) && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5  && (Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0) || !projectile.tileCollide))
+                    if (distance < maxDistance && possibleTarget.HasBuff(mod.BuffType("ArcanelyTuned")) && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && (Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0) || !projectile.tileCollide))
                     {
                         target = Main.npc[k];
                         foundTarget = true;
@@ -278,7 +278,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
                     projectile.velocity = QwertyMethods.PolarVector(projectile.velocity.Length(), dir);
                 }
             }
-            
+
         }
 
     }

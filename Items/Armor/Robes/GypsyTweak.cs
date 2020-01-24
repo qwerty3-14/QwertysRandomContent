@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Robes
 {
-	
+
     public class GypsyTweak : ModPlayer
     {
 
@@ -26,7 +24,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.body == 167)
             {
-                
+
                 if (drawPlayer.Male)
                 {
                     Texture2D texture = mod.GetTexture("Items/Armor/Robes/GypsyBody");
@@ -39,7 +37,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
                 {
                     texture2 = mod.GetTexture("Items/Armor/Robes/GypsyJewels_Female");
                 }
-                    DrawData value2 = new DrawData(texture2, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2)), new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color12, drawPlayer.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0);
+                DrawData value2 = new DrawData(texture2, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2)), new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color12, drawPlayer.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0);
                 value2.shader = (int)drawPlayer.dye[3].dye;
                 Main.playerDrawData.Add(value2);
 
@@ -53,7 +51,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            
+
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.body == 167)
@@ -64,7 +62,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
                 {
                     texture = mod.GetTexture("Items/Armor/Robes/GypsySkirt");
                 }
-                
+
                 Vector2 Position = drawInfo.position;
                 Position.Y += 14;
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
@@ -97,8 +95,8 @@ namespace QwertysRandomContent.Items.Armor.Robes
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-           
-            
+
+
             int legLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Legs"));
             if (legLayer != -1)
             {

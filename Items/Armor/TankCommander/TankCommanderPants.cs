@@ -1,12 +1,5 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 
 namespace QwertysRandomContent.Items.Armor.TankCommander
 {
@@ -33,15 +26,15 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
 
 
         }
-       
-       
+
+
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<TankComPantsEffects>().effect = true;
         }
 
     }
-   
+
     public class TankComPantsEffects : ModPlayer
     {
         public bool effect;
@@ -51,7 +44,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if(effect && player.GetModPlayer<ShapeShifterPlayer>().morphed && proj.minion)
+            if (effect && player.GetModPlayer<ShapeShifterPlayer>().morphed && proj.minion)
             {
                 damage = (int)(damage * 1.2f);
             }

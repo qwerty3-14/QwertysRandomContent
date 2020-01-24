@@ -1,43 +1,41 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
 
-namespace QwertysRandomContent.Items.Weapons.Glass       
+namespace QwertysRandomContent.Items.Weapons.Glass
 {
     public class GlassSpikeStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Glass Spike Staff");
-			Tooltip.SetDefault("Summon spikes that rest on the ground, damaging enemies that step on them \nWill reposition if you walk away");
-            
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Glass Spike Staff");
+            Tooltip.SetDefault("Summon spikes that rest on the ground, damaging enemies that step on them \nWill reposition if you walk away");
+
         }
- 
+
         public override void SetDefaults()
         {
 
-            item.damage = 12; 
-            item.mana = 20;      
-            item.width = 38;    
-            item.height = 38;     
-            item.useTime = 25;  
-            item.useAnimation = 25;   
-            item.useStyle = 1; 
-            item.noMelee = true; 
+            item.damage = 12;
+            item.mana = 20;
+            item.width = 38;
+            item.height = 38;
+            item.useTime = 25;
+            item.useAnimation = 25;
+            item.useStyle = 1;
+            item.noMelee = true;
             item.knockBack = 0f;
             item.value = 10000;
             item.rare = 1;
-            item.UseSound = SoundID.Item44;  
-            item.autoReuse = true;   
-            item.shoot = mod.ProjectileType("GlassSpike");  
-            item.summon = true;    
-            item.buffType = mod.BuffType("GlassSpike");	
-			item.buffTime = 3600;
+            item.UseSound = SoundID.Item44;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("GlassSpike");
+            item.summon = true;
+            item.buffType = mod.BuffType("GlassSpike");
+            item.buffTime = 3600;
         }
 
         public override void AddRecipes()
@@ -53,51 +51,51 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class GlassSpike : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Glass Spike");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Glass Spike");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
 
 
             projectile.width = 10;
-            projectile.height = 10;   
-            projectile.hostile = false;   
-            projectile.friendly = true;   
-            projectile.ignoreWater = true;    
-            Main.projFrames[projectile.type] = 1; 
-           
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.height = 10;
+            projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.ignoreWater = true;
+            Main.projFrames[projectile.type] = 1;
+
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             projectile.usesLocalNPCImmunity = true;
         }
@@ -119,12 +117,12 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 projectile.timeLeft = 2;
             }
 
-            if((player.Center-projectile.Center).Length()>400)
+            if ((player.Center - projectile.Center).Length() > 400)
             {
                 projectile.tileCollide = false;
             }
-            
-            if(projectile.tileCollide)
+
+            if (projectile.tileCollide)
             {
                 projectile.velocity.Y = 7;
                 projectile.velocity.X *= .9f;
@@ -132,18 +130,18 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             else
             {
                 Vector2 flyTo = player.Center + new Vector2(orientation, -20);
-                if((projectile.Center - flyTo).Length() <20)
+                if ((projectile.Center - flyTo).Length() < 20)
                 {
                     projectile.tileCollide = true;
                 }
                 Vector2 vel = (flyTo - projectile.Center) * .07f;
-                if(vel.Length()<3)
+                if (vel.Length() < 3)
                 {
                     vel = vel.SafeNormalize(-Vector2.UnitY) * 3;
                 }
                 projectile.velocity = vel;
             }
-            
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -156,7 +154,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.velocity = Vector2.Zero;
-            if(!orientationSet)
+            if (!orientationSet)
             {
                 orientation = projectile.Center.X - Main.player[projectile.owner].Center.X;
                 orientationSet = true;
@@ -174,6 +172,6 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
 
     }
-    
+
 
 }

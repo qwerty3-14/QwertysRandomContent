@@ -1,11 +1,9 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.World.Generation;
 using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.World.Generation;
 
 namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
 {
@@ -63,7 +61,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         public override void ArmorSetShadows(Player player)
         {
             //Main.NewText("active set effect");
-            
+
             player.armorEffectDrawOutlines = true;
         }
 
@@ -103,19 +101,19 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         {
             if (damage > target.life && (proj.magic || proj.thrown))
             {
-                target.value = (int)(target.value *1.25f);
+                target.value = (int)(target.value * 1.25f);
             }
             if (setBonus && (proj.thrown || proj.magic) && player.HasBuff(BuffID.PotionSickness))
             {
                 player.buffTime[player.FindBuffIndex(BuffID.PotionSickness)] -= damage / 8;
             }
         }
-       
+
     }
     public class CaeliteArmorEffect : GlobalProjectile
     {
         public bool g;
-        
+
         public override bool InstancePerEntity
         {
             get
@@ -149,8 +147,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
                                             new Conditions.IsSolid()
                                             }), out point))
                 {
-                    
-                    if(Main.player[projectile.owner].GetModPlayer<CaeliteSetBonus>().setBonus)
+
+                    if (Main.player[projectile.owner].GetModPlayer<CaeliteSetBonus>().setBonus)
                     {
                         damage = (int)(damage * 1.25f);
                     }
@@ -163,7 +161,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
 
         }
     }
-    
+
 
 }
 

@@ -7,7 +7,7 @@ namespace QwertysRandomContent.Items.FortressFurniture
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
 
         public override void SetDefaults()
@@ -31,7 +31,7 @@ namespace QwertysRandomContent.Items.FortressFurniture
             recipe.AddTile(TileID.Sawmill);
             recipe.SetResult(this);
             recipe.AddRecipe();
-            
+
         }
 
     }

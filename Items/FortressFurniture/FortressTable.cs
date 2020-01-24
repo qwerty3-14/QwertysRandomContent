@@ -7,7 +7,7 @@ namespace QwertysRandomContent.Items.FortressFurniture
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
 
         public override void SetDefaults()

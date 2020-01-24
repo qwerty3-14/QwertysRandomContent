@@ -1,11 +1,9 @@
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.ID;
-using System.IO;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class FortressPillar : ModTile
@@ -35,8 +33,8 @@ namespace QwertysRandomContent.Tiles
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            
-           
+
+
         }
         public override bool CanPlace(int i, int j)
         {
@@ -54,17 +52,17 @@ namespace QwertysRandomContent.Tiles
                 }
                 else
                 {
-                    
+
                     Main.tile[i, j].frameY = 18;
                     //top
                     if (Main.tile[i, j].frameX == 0)
                     {
-                        
+
                     }
-                    
+
                 }
             }
-            else if(Main.tile[i, j - 1].type == mod.TileType("FortressPillar"))
+            else if (Main.tile[i, j - 1].type == mod.TileType("FortressPillar"))
             {
                 Main.tile[i, j].frameY = 54;
                 Main.tile[i, j].frameX = 0;
@@ -74,12 +72,12 @@ namespace QwertysRandomContent.Tiles
             {
                 Main.tile[i, j].frameY = 0;
                 //solo
-                
+
             }
         }
 
 
     }
 
-    
+
 }

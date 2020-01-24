@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
@@ -39,16 +34,16 @@ namespace QwertysRandomContent.Items.Accesories
     }
     class FangEffect : GlobalProjectile
     {
-        
+
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if(modPlayer.minionFang && projectile.minion)
+            if (modPlayer.minionFang && projectile.minion)
             {
                 projectile.melee = true;
             }
-            else if(projectile.minion)
+            else if (projectile.minion)
             {
                 projectile.melee = false;
             }

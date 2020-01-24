@@ -5,45 +5,45 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Lune
 {
-	public class LuneTrickshooter : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Lune Trickshooter");
-			Tooltip.SetDefault("Musket balls are converted to Lune trick shots!" + "\nTrick shots can bounce off walls 3 times and gain significant damage if they do so");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 32;
-			item.ranged = true;
-			
-			item.useTime = 28;
-			item.useAnimation = 28;
-			item.useStyle = 5;
-			item.knockBack = 1;
-			item.value = 10000;
-			item.rare = 1;
-			item.UseSound = SoundID.Item11;
-			
-			item.width = 54;
-			item.height = 30;
-			
-			item.shoot = 97;
-			item.useAmmo = 97;
-			item.shootSpeed =9f;
-			item.noMelee=true;
-			
-			
-			
-		}
-		public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-4, 0);
-		}
+    public class LuneTrickshooter : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Lune Trickshooter");
+            Tooltip.SetDefault("Musket balls are converted to Lune trick shots!" + "\nTrick shots can bounce off walls 3 times and gain significant damage if they do so");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 32;
+            item.ranged = true;
+
+            item.useTime = 28;
+            item.useAnimation = 28;
+            item.useStyle = 5;
+            item.knockBack = 1;
+            item.value = 10000;
+            item.rare = 1;
+            item.UseSound = SoundID.Item11;
+
+            item.width = 54;
+            item.height = 30;
+
+            item.shoot = 97;
+            item.useAmmo = 97;
+            item.shootSpeed = 9f;
+            item.noMelee = true;
+
+
+
+        }
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-4, 0);
+        }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if(type == ProjectileID.Bullet)
+            if (type == ProjectileID.Bullet)
             {
                 type = mod.ProjectileType("Trickshot");
             }
@@ -61,7 +61,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
 
 
     }
-	public class Trickshot : ModProjectile
+    public class Trickshot : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -94,7 +94,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
                 projectile.damage = (int)(projectile.damage * 1.5f);
                 bounceCounter--;
                 return false;
-                
+
             }
 
             return true;
@@ -105,6 +105,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         }
 
     }
-	
+
 }
 

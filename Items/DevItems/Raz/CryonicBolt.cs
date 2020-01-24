@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
- 
- namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class CryonicBolt : ModItem
     {
@@ -44,7 +43,7 @@ using Terraria.ModLoader;
             item.shootSpeed = 14;
 
         }
-        
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 100f;
@@ -52,10 +51,10 @@ using Terraria.ModLoader;
             {
                 position += muzzleOffset;
             }
-            int numberOfProjectiles = Main.rand.Next(2, 4); 
-            for(int i =0; i < numberOfProjectiles; i++)
+            int numberOfProjectiles = Main.rand.Next(2, 4);
+            for (int i = 0; i < numberOfProjectiles; i++)
             {
-                Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom((float)Math.PI/16f), type, damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom((float)Math.PI / 16f), type, damage, knockBack, player.whoAmI);
             }
             return false;
 
@@ -94,10 +93,10 @@ using Terraria.ModLoader;
         public override void Kill(int timeLeft)
         {
             int numOfShards = Main.rand.Next(2, 5);
-            for(int i =0; i< numOfShards; i++)
+            for (int i = 0; i < numOfShards; i++)
             {
                 Vector2 vel = Vector2.UnitX.RotatedByRandom((float)Math.PI * 2) * 14;
-                Projectile.NewProjectile(projectile.Center , vel, mod.ProjectileType("CryonicShard"), (int)(projectile.damage *.67f), projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("CryonicShard"), (int)(projectile.damage * .67f), projectile.knockBack, projectile.owner);
             }
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -134,7 +133,7 @@ using Terraria.ModLoader;
 
 
         }
-        
+
 
 
     }

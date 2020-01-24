@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -62,19 +56,19 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
         }
         public override void Kill(int timeLeft)
         {
-           
+
             Main.PlaySound(SoundID.Frog, projectile.position);
             int frogCount = Main.rand.Next(3) + 2;
-            for(int i =0; i < frogCount; i++)
+            for (int i = 0; i < frogCount; i++)
             {
 
                 NPC frog = Main.npc[NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, NPCID.Frog)];
                 frog.SpawnedFromStatue = true;
-                frog.velocity.Y = -4f - 3f* Main.rand.NextFloat();
+                frog.velocity.Y = -4f - 3f * Main.rand.NextFloat();
                 frog.velocity.X = Main.rand.NextFloat(-6, 6);
-               
+
             }
-           
+
         }
     }
 }

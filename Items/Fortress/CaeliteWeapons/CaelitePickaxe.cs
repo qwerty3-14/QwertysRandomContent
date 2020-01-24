@@ -4,40 +4,40 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons 
+namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 {
-	public class CaelitePickaxe : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Caelite Pickaxe");
-			Tooltip.SetDefault("Mines a 3x3 area!!");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 7;
-			item.melee = true;
-			
-			item.useTime = 28;
-			item.useAnimation = 28;
-			item.useStyle = 1;
-			item.knockBack = 3;
-			item.value = 25000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			
-			item.width = 32;
-			item.height = 32;
-			//item.crit = 5;
-			item.autoReuse = true;
-			item.pick = 95;
-			item.tileBoost =2;
+    public class CaelitePickaxe : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Caelite Pickaxe");
+            Tooltip.SetDefault("Mines a 3x3 area!!");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 7;
+            item.melee = true;
+
+            item.useTime = 28;
+            item.useAnimation = 28;
+            item.useStyle = 1;
+            item.knockBack = 3;
+            item.value = 25000;
+            item.rare = 3;
+            item.UseSound = SoundID.Item1;
+
+            item.width = 32;
+            item.height = 32;
+            //item.crit = 5;
+            item.autoReuse = true;
+            item.pick = 95;
+            item.tileBoost = 2;
             item.GetGlobalItem<AoePick>().miningRadius = 1;
-			
-			
-			
-		}
+
+
+
+        }
 
         public override void AddRecipes()
         {
@@ -52,10 +52,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
 
             Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType("CaeliteDust"));
-            Lighting.AddLight( hitbox.Center.ToVector2(), new Vector3(.6f, .6f, .6f));
+            Lighting.AddLight(hitbox.Center.ToVector2(), new Vector3(.6f, .6f, .6f));
         }
     }
-	public class AoePick : GlobalItem
+    public class AoePick : GlobalItem
     {
         public override bool InstancePerEntity
         {
@@ -205,7 +205,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                     }
                 }
             }
-            
+
         }
     }
 }

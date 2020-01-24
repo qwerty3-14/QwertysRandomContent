@@ -2,9 +2,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
@@ -19,7 +16,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
-        
+
         public override void SetDefaults()
         {
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
@@ -53,8 +50,8 @@ namespace QwertysRandomContent.Tiles
                     if (player.inventory[b].type == mod.ItemType("FortressBossSummon") && player.inventory[b].stack > 0) //this checks if the slot has the valid item
                     {
 
-                        
-                        if(Main.netMode ==0)
+
+                        if (Main.netMode == 0)
                         {
                             QwertyWorld.FortressBossQuotes();
                             int npcID = NPC.NewNPC(i * 16 + 400, j * 16, mod.NPCType("FortressBoss"));
@@ -66,8 +63,8 @@ namespace QwertysRandomContent.Tiles
                             packet.WriteVector2(new Vector2(i * 16 + 400, j * 16));
                             packet.Send();
                         }
-                        
-                        
+
+
 
 
                         player.inventory[b].stack--;
@@ -96,9 +93,9 @@ namespace QwertysRandomContent.Tiles
         public override bool CanExplode(int i, int j)
         {
 
-            
-                return false;
-            
+
+            return false;
+
 
 
 

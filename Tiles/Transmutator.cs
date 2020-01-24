@@ -1,11 +1,11 @@
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using System.IO;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
@@ -43,9 +43,9 @@ namespace QwertysRandomContent.Tiles
 
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
-            
+
         }
-        
+
 
 
     }
@@ -69,7 +69,7 @@ namespace QwertysRandomContent.Tiles
                     {
                         if (Main.tile[i, j - g].type == TileID.Crimtane || Main.tile[i, j - g].type == TileID.Demonite)
                         {
-                            if (Main.rand.Next((int)Main.nightLength /2) == 0)
+                            if (Main.rand.Next((int)Main.nightLength / 2) == 0)
                             {
                                 //Main.tile[i, j - g].type = (ushort)mod.TileType("LuneOre");
                                 WorldGen.PlaceTile(i, j - g, (ushort)mod.TileType("LuneOre"), false, true);
@@ -83,7 +83,7 @@ namespace QwertysRandomContent.Tiles
                                 Dust.NewDust(new Vector2(i, j - g) * 16, 16, 16, mod.DustType("LuneDust"));
                             }
                             // Sending 86 aka, TileEntitySharing, triggers NetSend. Think of it like manually calling sync.
-                            NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y-g);
+                            NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y - g);
                         }
 
                         if (Main.tile[i, j - g].type == TileID.Dirt)
@@ -153,7 +153,7 @@ namespace QwertysRandomContent.Tiles
                                 else
                                 {
                                     WorldGen.PlaceTile(i, j - g, TileID.Lead, false, true);
-                                   // Main.tile[i, j - g].type = TileID.Lead;
+                                    // Main.tile[i, j - g].type = TileID.Lead;
                                 }
                                 for (int d = 0; d < 40; d++)
                                 {
@@ -174,7 +174,7 @@ namespace QwertysRandomContent.Tiles
                                 if (Main.rand.Next(2) == 0)
                                 {
                                     WorldGen.PlaceTile(i, j - g, TileID.Gold, false, true);
-                                   // Main.tile[i, j - g].type = TileID.Gold;
+                                    // Main.tile[i, j - g].type = TileID.Gold;
                                 }
                                 else
                                 {
@@ -201,18 +201,18 @@ namespace QwertysRandomContent.Tiles
             }
             // Sending 86 aka, TileEntitySharing, triggers NetSend. Think of it like manually calling sync.
             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
-            
+
         }
-        
+
         public override void NetSend(BinaryWriter writer, bool lightSend)
         {
             for (int g = 1; g < 6; g++)
             {
                 //NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y - g);
                 writer.Write(Main.tile[Position.X, Position.Y - g].type);
-                    
+
             }
-                
+
         }
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
@@ -223,7 +223,7 @@ namespace QwertysRandomContent.Tiles
                 Main.tile[Position.X, Position.Y - g].type = reader.ReadUInt16();
             }
         }
-        
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
             //Main.NewText("I'm a big fan!");

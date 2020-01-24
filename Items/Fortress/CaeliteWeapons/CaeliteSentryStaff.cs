@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 {
@@ -80,8 +75,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sky bound spiral");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; 
-            Main.projFrames[projectile.type] = 4; 
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            Main.projFrames[projectile.type] = 4;
         }
 
         public override void SetDefaults()
@@ -89,14 +84,14 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
             projectile.sentry = true;
             projectile.width = 32;
-            projectile.height = 32;  
-            projectile.hostile = false;   
-            projectile.friendly = false;  
-            projectile.ignoreWater = true;   
+            projectile.height = 32;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
             projectile.sentry = true;
             projectile.minion = true;
         }
@@ -117,14 +112,14 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 {
                     possibleTarget = Main.npc[k];
                     distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly  && !possibleTarget.immortal  && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
+                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
                     {
                         possibleTarget.StrikeNPC(projectile.damage, projectile.knockBack, 0, false, false);
 
                         //Projectile.NewProjectile(possibleTarget.Center, Vector2.Zero, mod.ProjectileType("CaeliteZap"), projectile.damage, 0, projectile.owner, k);
                         for (int d = 0; d < distance; d += 4)
                         {
-                            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(d, (possibleTarget.Center-projectile.Center).ToRotation()), mod.DustType("CaeliteDust"));
+                            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(d, (possibleTarget.Center - projectile.Center).ToRotation()), mod.DustType("CaeliteDust"));
                             dust.frame.Y = 0;
                         }
                     }
@@ -134,10 +129,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             Dust dust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
             dust2.scale = .5f;
             projectile.frameCounter++;
-            if(projectile.frameCounter>10)
+            if (projectile.frameCounter > 10)
             {
                 projectile.frame++;
-                if(projectile.frame >=4)
+                if (projectile.frame >= 4)
                 {
                     projectile.frame = 0;
                 }

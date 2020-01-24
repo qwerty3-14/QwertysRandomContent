@@ -1,39 +1,39 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 
-namespace QwertysRandomContent.Items.AncientItems 
+namespace QwertysRandomContent.Items.AncientItems
 {
-	public class AncientMiner : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Miner");
-			Tooltip.SetDefault("Right click to mine a 3x3 area");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 29;
-			item.melee = true;
-			
-			item.useTime = 14;
-			item.useAnimation = 14;
-			item.useStyle = 1;
-			item.knockBack = 3;
-			item.value = 25000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item1;
+    public class AncientMiner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Miner");
+            Tooltip.SetDefault("Right click to mine a 3x3 area");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 29;
+            item.melee = true;
+
+            item.useTime = 14;
+            item.useAnimation = 14;
+            item.useStyle = 1;
+            item.knockBack = 3;
+            item.value = 25000;
+            item.rare = 3;
+            item.UseSound = SoundID.Item1;
             //item.prefix = 0;
-			item.width = 16;
-			item.height = 16;
-			//item.crit = 5;
-			item.autoReuse = true;
-			item.pick = 100;
-			item.tileBoost =1;
+            item.width = 16;
+            item.height = 16;
+            //item.crit = 5;
+            item.autoReuse = true;
+            item.pick = 100;
+            item.tileBoost = 1;
             if (!Main.dedServ)
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
@@ -85,7 +85,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
 
     }
-		
-	
+
+
 }
 

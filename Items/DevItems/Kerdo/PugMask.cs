@@ -3,24 +3,23 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.DevItems.Kerdo
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class PugMask : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Pug Mask");
-			Tooltip.SetDefault("Kerdo Loves Pugs \nDev Item");
-			
-		}
-		
+    [AutoloadEquip(EquipType.Head)]
+    public class PugMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pug Mask");
+            Tooltip.SetDefault("Kerdo Loves Pugs \nDev Item");
 
-		public override void SetDefaults()
-		{
+        }
+
+
+        public override void SetDefaults()
+        {
 
             item.value = 0;
             item.rare = 10;
@@ -32,17 +31,17 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
 
 
         }
-		
-		
-		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
-		{
-			drawHair=false;
-			
-		}
-		
-		
-			
-	}
+
+
+        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+        {
+            drawHair = false;
+
+        }
+
+
+
+    }
 
     public class AnimatedPug : ModPlayer
     {
@@ -62,30 +61,30 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
                 //Main.NewText("Pug!");
                 //Main.NewText(drawPlayer.bodyFrame);
                 int f = 3;
-                if(drawPlayer.velocity.X ==0)
+                if (drawPlayer.velocity.X == 0)
                 {
                     f = 0;
                 }
-                if(drawPlayer.velocity.Y > 0)
+                if (drawPlayer.velocity.Y > 0)
                 {
                     f = 1;
                 }
-                else if(drawPlayer.velocity.Y < 0)
+                else if (drawPlayer.velocity.Y < 0)
                 {
                     f = 0;
                 }
                 int fHeight = 56;
-                
+
                 Texture2D texture = mod.GetTexture("Items/DevItems/Kerdo/PugMask_AnimatedHead");
                 Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                 Vector2 Position = drawInfo.position;
-                
-                
-                
+
+
+
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight )
+                if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
                 {
                     if (drawPlayer.gravDir == -1)
                     {

@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -92,9 +91,9 @@ namespace QwertysRandomContent.Items.HydraItems
                 runOnce = false;
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("HeadBeam"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI, 0f);
             }
-            
-                
-            
+
+
+
             projectile.velocity.X = 10f * player.direction;
             projectile.position.Y = player.Center.Y - 900;
         }
@@ -110,7 +109,7 @@ namespace QwertysRandomContent.Items.HydraItems
         // By making a property to handle this it makes our life easier, and the accessibility more readable
         public float Distance;
 
-        
+
         public Projectile shooter;
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -137,7 +136,7 @@ namespace QwertysRandomContent.Items.HydraItems
         {
 
 
-            float rOffset = (float)Math.PI/2;
+            float rOffset = (float)Math.PI / 2;
             shooter = Main.projectile[(int)projectile.ai[0]];
 
             Vector2 mousePos = Main.MouseWorld;

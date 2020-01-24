@@ -6,25 +6,25 @@ namespace QwertysRandomContent
 {
     public class QwertyGlobalItem : GlobalItem
     {
-        
+
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (item.type == ItemID.Tabi || item.type == ItemID.MasterNinjaGear)
             {
-               
-                
-                
-                    player.dash = 0;
-               
-                
-                    
+
+
+
+                player.dash = 0;
+
+
+
                 if (modPlayer.customDashSpeed < 6.9f)
                 {
                     modPlayer.customDashSpeed = 6.9f;
                 }
             }
-            if(player.ammoCost75)
+            if (player.ammoCost75)
             {
                 player.GetModPlayer<QwertyPlayer>().ammoReduction *= .75f;
                 player.ammoCost75 = false;
@@ -74,10 +74,10 @@ namespace QwertysRandomContent
                 return true;
             }
         }
-        
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (item.type > ItemID.Count &&item.summon && item.modItem.mod.Name == "QwertysRandomContent")
+            if (item.type > ItemID.Count && item.summon && item.modItem.mod.Name == "QwertysRandomContent")
             {
                 foreach (TooltipLine line in tooltips) //runs through all tooltip lines
                 {
@@ -89,8 +89,8 @@ namespace QwertysRandomContent
 
                 }
             }
-            
+
         }
-        
+
     }
 }

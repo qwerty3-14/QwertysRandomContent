@@ -1,43 +1,42 @@
-﻿using System;
-using QwertysRandomContent.Items;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
-namespace QwertysRandomContent.Items.Weapons.Pumpkin 
+namespace QwertysRandomContent.Items.Weapons.Pumpkin
 {
-	public class PumpkinPike : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Pumpkin Pike");
-			Tooltip.SetDefault("Uses two spears at once!");
-		}
+    public class PumpkinPike : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pumpkin Pike");
+            Tooltip.SetDefault("Uses two spears at once!");
+        }
 
-		public override void SetDefaults()
-		{
-			item.damage = 9;
-			item.useStyle = 5;
-			item.useAnimation = 30;
-			item.useTime = 30;
-			item.shootSpeed = 3.7f;
-			item.knockBack = 6.5f;
-			item.width = 70;
-			item.height = 70;
-			item.scale = 1f;
-			item.value = 1000;
-			item.rare = 1;
-			
+        public override void SetDefaults()
+        {
+            item.damage = 9;
+            item.useStyle = 5;
+            item.useAnimation = 30;
+            item.useTime = 30;
+            item.shootSpeed = 3.7f;
+            item.knockBack = 6.5f;
+            item.width = 70;
+            item.height = 70;
+            item.scale = 1f;
+            item.value = 1000;
+            item.rare = 1;
 
-			item.melee = true;
-			item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
-			item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
-			item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
-			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType("PumpkinPikeP");
-		}
+            item.melee = true;
+            item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
+            item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
+            item.autoReuse = true; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
+
+            item.UseSound = SoundID.Item1;
+            item.shoot = mod.ProjectileType("PumpkinPikeP");
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -47,10 +46,10 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             recipe.AddRecipe();
         }
         public override bool CanUseItem(Player player)
-		{
-			// Ensures no more than one spear can be thrown out, use this when using autoReuse
-			return player.ownedProjectileCounts[item.shoot] < 2; 
-		}
+        {
+            // Ensures no more than one spear can be thrown out, use this when using autoReuse
+            return player.ownedProjectileCounts[item.shoot] < 2;
+        }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedBy((float)Math.PI / 16), type, damage, knockBack, player.whoAmI);
@@ -59,12 +58,12 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
         }
     }
 
-	public class PumpkinPikeP : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Pumpkin Pike");
-		}
+    public class PumpkinPikeP : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pumpkin Pike");
+        }
 
         public override void SetDefaults()
         {
@@ -112,7 +111,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             projOwner.itemTime = projOwner.itemAnimation;
             projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
             projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
-            
+
             // As long as the player isn't frozen, the spear can move
             if (!projOwner.frozen)
             {

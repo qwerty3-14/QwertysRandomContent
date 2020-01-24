@@ -4,17 +4,17 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
 {
-	
-	public class ExpertChalice : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Chalice of the Light");
-			Tooltip.SetDefault("Reusable" + "\nGives you 4 seconds of invinsibility after drinking");
-		}
 
-		public override void SetDefaults()
-		{
+    public class ExpertChalice : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chalice of the Light");
+            Tooltip.SetDefault("Reusable" + "\nGives you 4 seconds of invinsibility after drinking");
+        }
+
+        public override void SetDefaults()
+        {
             item.UseSound = SoundID.Item3;
             item.healLife = 100;
             item.useStyle = 2;
@@ -34,7 +34,7 @@ namespace QwertysRandomContent.Items.Fortress
         public override bool ConsumeItem(Player player)
         {
             return false;
-            
+
         }
         public override bool UseItem(Player player)
         {
@@ -42,11 +42,11 @@ namespace QwertysRandomContent.Items.Fortress
             player.immuneTime = 240;
             return true;
         }
-        
 
-		
-		
-		
-		
-	}
+
+
+
+
+
+    }
 }

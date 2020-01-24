@@ -1,71 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Robes
 {
-	[AutoloadEquip(EquipType.Body)]
+    [AutoloadEquip(EquipType.Body)]
 
-	class Reagal : ModItem
-	{
-		
-		public override bool Autoload(ref string name)
+    class Reagal : ModItem
+    {
+
+        public override bool Autoload(ref string name)
         {
-		// All code below runs only if we're not loading on a server
-			if (!Main.dedServ)
-			{
-				// Add certain equip textures
-			mod.AddEquipTexture(new ReagalLegs(), null, EquipType.Legs, "Reagal_Legs", "QwertysRandomContent/Items/Armor/Robes/Reagal_Legs");
-			mod.AddEquipTexture(new ReagalLegsFemale(), null, EquipType.Legs, "Reagal_FemaleLegs", "QwertysRandomContent/Items/Armor/Robes/Reagal_FemaleLegs");
-			}
-			return true;
-		}
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Unfinished, mostly did this as an experiment");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-			item.width = 34;
-			item.height = 30;
-			item.rare = 1;
-			item.vanity = true;
-		}
-		
-		public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
-		{
-			robes = true;
-			
-			if (male) equipSlot = mod.GetEquipSlot("Reagal_Legs", EquipType.Legs);
-			if (!male) equipSlot = mod.GetEquipSlot("Reagal_FemaleLegs", EquipType.Legs);
-            
-		}
-		
-		public override void DrawHands(ref bool drawHands, ref bool drawArms)
-		{
-			drawHands = true;
-			drawArms = true;
-		}
-        
-		
-        
-		
-		
-		
-	}
-	
-	public class ReagalLegs : EquipTexture
-    {	
+            // All code below runs only if we're not loading on a server
+            if (!Main.dedServ)
+            {
+                // Add certain equip textures
+                mod.AddEquipTexture(new ReagalLegs(), null, EquipType.Legs, "Reagal_Legs", "QwertysRandomContent/Items/Armor/Robes/Reagal_Legs");
+                mod.AddEquipTexture(new ReagalLegsFemale(), null, EquipType.Legs, "Reagal_FemaleLegs", "QwertysRandomContent/Items/Armor/Robes/Reagal_FemaleLegs");
+            }
+            return true;
+        }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Unfinished, mostly did this as an experiment");
+
+
+        }
+        public override void SetDefaults()
+        {
+            item.width = 34;
+            item.height = 30;
+            item.rare = 1;
+            item.vanity = true;
+        }
+
+        public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
+        {
+            robes = true;
+
+            if (male) equipSlot = mod.GetEquipSlot("Reagal_Legs", EquipType.Legs);
+            if (!male) equipSlot = mod.GetEquipSlot("Reagal_FemaleLegs", EquipType.Legs);
+
+        }
+
+        public override void DrawHands(ref bool drawHands, ref bool drawArms)
+        {
+            drawHands = true;
+            drawArms = true;
+        }
+
+
+
+
+
+
     }
-	
-	public class ReagalLegsFemale : EquipTexture
+
+    public class ReagalLegs : EquipTexture
+    {
+    }
+
+    public class ReagalLegsFemale : EquipTexture
     {
         public override bool DrawLegs()
         {
@@ -105,7 +103,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            
+
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
@@ -113,7 +111,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Legs_Gold");
                 if (!drawPlayer.Male)
                 {
-                     texture = mod.GetTexture("Items/Armor/Robes/Reagal_FemaleLegs_Gold");
+                    texture = mod.GetTexture("Items/Armor/Robes/Reagal_FemaleLegs_Gold");
                 }
                 Vector2 Position = drawInfo.position;
                 Position.Y += 14;
@@ -139,7 +137,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Body_Gold");
                 if (!drawPlayer.Male)
                 {
-                     texture = mod.GetTexture("Items/Armor/Robes/Reagal_FemaleBody_Gold");
+                    texture = mod.GetTexture("Items/Armor/Robes/Reagal_FemaleBody_Gold");
                 }
                 DrawData value = new DrawData(texture, new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2)), new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color12, drawPlayer.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0);
                 value.shader = (int)drawPlayer.dye[2].dye;
@@ -158,10 +156,10 @@ namespace QwertysRandomContent.Items.Armor.Robes
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             //Main.NewText(drawPlayer.wings);
-            if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && drawPlayer.back ==-1 && drawPlayer.wings ==0)
+            if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && drawPlayer.back == -1 && drawPlayer.wings == 0)
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalCape");
-                if(!drawPlayer.Male)
+                if (!drawPlayer.Male)
                 {
                     texture = mod.GetTexture("Items/Armor/Robes/ReagalCape_Female");
                 }
@@ -203,7 +201,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalGloveF");
-                if(!drawPlayer.Male)
+                if (!drawPlayer.Male)
                 {
                     texture = mod.GetTexture("Items/Armor/Robes/ReagalGloveF_Female");
                 }
@@ -213,7 +211,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
 
             }
         });
-        
+
         public static readonly PlayerLayer ReagalGloveB = new PlayerLayer("QwertysRandomContent", "ReagalGloveB", PlayerLayer.HandOffAcc, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -239,7 +237,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
         });
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-            
+
             int armLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Arms"));
             if (armLayer != -1)
             {
@@ -257,7 +255,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             {
                 HeelLegs.visible = true;
                 layers.Insert(legLayer + 1, HeelLegs);
-                
+
             }
             legLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Legs"));
             if (legLayer != -1)

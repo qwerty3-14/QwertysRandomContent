@@ -1,21 +1,18 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
- 
- namespace QwertysRandomContent.Items.B4Items       
+
+
+namespace QwertysRandomContent.Items.B4Items
 {
     public class BlackHoleStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Black Hole Staff");
-			Tooltip.SetDefault("Summons a black hole to suck up your enemies!" + "\nThe higher the black hole's damage the stronger the pull strength");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Black Hole Staff");
+            Tooltip.SetDefault("Summons a black hole to suck up your enemies!" + "\nThe higher the black hole's damage the stronger the pull strength");
 
             Item.staff[item.type] = true;
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(30, 29));
@@ -25,27 +22,27 @@ using Terraria.ModLoader;
         public override void SetDefaults()
         {
 
-            item.damage = 40;  
-            item.mana = 14;      
-            item.width = 100;    
-            item.height = 114;     
-            item.useTime = 30;   
-            item.useAnimation = 30;    
-            item.useStyle = 5;  
-            item.noMelee = true; 
-            item.knockBack = 0f;  
+            item.damage = 40;
+            item.mana = 14;
+            item.width = 100;
+            item.height = 114;
+            item.useTime = 30;
+            item.useAnimation = 30;
+            item.useStyle = 5;
+            item.noMelee = true;
+            item.knockBack = 0f;
             item.value = 750000;
             item.rare = 10;
-            item.UseSound = SoundID.Item44;   
-            item.autoReuse = false;   
-            item.shoot = mod.ProjectileType("BlackHolePlayer");   
+            item.UseSound = SoundID.Item44;
+            item.autoReuse = false;
+            item.shoot = mod.ProjectileType("BlackHolePlayer");
             item.magic = true;
             item.channel = true;
         }
         public Projectile BlackHole;
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   
+            Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
             position = SPos;
             speedX = 0;
             speedY = 0;
@@ -60,10 +57,10 @@ using Terraria.ModLoader;
             return true;
 
         }
-		
-		
-		
-		
+
+
+
+
     }
 
     public class BlackHolePlayer : ModProjectile
@@ -103,7 +100,7 @@ using Terraria.ModLoader;
             pullSpeed = projectile.damage / 100f;
             projectile.velocity = new Vector2(0, 0);
             projectile.scale = projectile.damage / 40f;
-            
+
             Player player = Main.player[projectile.owner];
             player.itemAnimation = 2;
             if (!player.channel)
@@ -113,10 +110,10 @@ using Terraria.ModLoader;
             else
             {
                 manaTimer++;
-                if (manaTimer % 15 ==0 )
+                if (manaTimer % 15 == 0)
                 {
 
-                    if(player.statMana > player.inventory[player.selectedItem].mana)
+                    if (player.statMana > player.inventory[player.selectedItem].mana)
                     {
                         player.statMana -= player.inventory[player.selectedItem].mana;
                         projectile.timeLeft = 60;
@@ -125,11 +122,11 @@ using Terraria.ModLoader;
                     {
                         projectile.Kill();
                     }
-                    
+
                 }
                 else
                 {
-                    
+
                 }
             }
 
@@ -145,9 +142,9 @@ using Terraria.ModLoader;
                 dust.scale = 1f;
 
             }
-            
-            
-           
+
+
+
             for (int i = 0; i < Main.dust.Length; i++)
             {
                 dust = Main.dust[i];
@@ -205,7 +202,7 @@ using Terraria.ModLoader;
                             if (projectile.owner == Main.myPlayer && (player.inventory[player.selectedItem].type != 0 || player.itemAnimation <= 0))
                             {
 
-                                
+
 
                                 if (ItemID.Sets.NebulaPickup[item.type])
                                 {
@@ -235,9 +232,9 @@ using Terraria.ModLoader;
                                             item.position = player.Center;
                                         }
                                     }
-                                    
+
                                     //item = player.GetItem(projectile.owner, item, false, false);
-                                    
+
                                 }
 
 
@@ -273,17 +270,17 @@ using Terraria.ModLoader;
             }
 
 
-            
+
 
 
 
         }
-        
+
 
 
 
 
 
     }
-	
+
 }

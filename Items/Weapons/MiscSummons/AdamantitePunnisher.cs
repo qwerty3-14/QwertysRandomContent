@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
@@ -80,8 +78,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Adamantite Punnisher");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; 
-            Main.projFrames[projectile.type] = 1; 
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            Main.projFrames[projectile.type] = 1;
         }
 
         public override void SetDefaults()
@@ -89,14 +87,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             projectile.sentry = true;
             projectile.width = 42;
-            projectile.height = 42;  
-            projectile.hostile = false;   
-            projectile.friendly = false;  
-            projectile.ignoreWater = true;   
+            projectile.height = 42;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
             projectile.sentry = true;
             projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
@@ -104,8 +102,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         }
 
         NPC target;
-        
-       
+
+
         int timer;
         bool runOnce = true;
         Projectile Fist;
@@ -116,23 +114,23 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         int wait;
         public override void AI()
         {
-           
+
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
-            if(runOnce)
+            if (runOnce)
             {
                 Fist = Main.projectile[Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("PunnishFist"), projectile.damage, 0, player.whoAmI, projectile.whoAmI)];
                 runOnce = false;
             }
-           
 
-            if(projectile.ai[1] ==1)
+
+            if (projectile.ai[1] == 1)
             {
-                if(FistExtension <= 17)
+                if (FistExtension <= 17)
                 {
                     FistExtension = 17;
                     projectile.ai[1] = 0;
-                    
+
                 }
                 else
                 {
@@ -140,11 +138,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 }
                 wait = 0;
             }
-            else if(QwertyMethods.ClosestNPC(ref target, 800f, projectile.Center, false, player.MinionAttackTargetNPC))
+            else if (QwertyMethods.ClosestNPC(ref target, 800f, projectile.Center, false, player.MinionAttackTargetNPC))
             {
                 wait++;
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
-                if(wait ==10)
+                if (wait == 10)
                 {
                     for (int k = 0; k < 200; k++)
                     {
@@ -153,7 +151,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 }
                 if (wait > 10)
                 {
-                    
+
                     FistExtension += FistExtensionSpeed;
                     if (FistExtension > maxFistExtension)
                     {
@@ -165,13 +163,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             {
                 projectile.ai[1] = 1;
             }
-           
+
             Fist.timeLeft = 2;
             Fist.Center = projectile.Center + QwertyMethods.PolarVector(FistExtension, projectile.rotation);
             Fist.rotation = projectile.rotation + (float)Math.PI / 2;
 
         }
-        
+
         float sawRotation = 0;
         float sawRotation2 = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -204,9 +202,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            
-                
-            
+
+
+
         }
 
     }
@@ -240,15 +238,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            
+
             knockback = 0;
             if (crit)
             {
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f), (int)target.position.X, (int)target.position.Y);
                 if (!target.boss && !target.immortal)
                 {
-                    target.velocity = QwertyMethods.PolarVector( 2f, projectile.rotation - (float)Math.PI/2);
-                    
+                    target.velocity = QwertyMethods.PolarVector(2f, projectile.rotation - (float)Math.PI / 2);
+
 
                 }
             }
@@ -268,8 +266,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             parent.ai[1] = 1;
         }
-        
-        
+
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             parent.ai[1] = 1;

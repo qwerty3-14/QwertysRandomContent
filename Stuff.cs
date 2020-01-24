@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,7 +12,7 @@ namespace QwertysRandomContent
         public static float SlowRotation(float currentRotation, float targetAngle, float speed)
         {
             int f = 1; //this is used to switch rotation direction
-            float actDirection =  new Vector2((float)Math.Cos(currentRotation), (float)Math.Sin(currentRotation)).ToRotation();
+            float actDirection = new Vector2((float)Math.Cos(currentRotation), (float)Math.Sin(currentRotation)).ToRotation();
             targetAngle = new Vector2((float)Math.Cos(targetAngle), (float)Math.Sin(targetAngle)).ToRotation();
 
             //this makes f 1 or -1 to rotate the shorter distance
@@ -43,9 +38,10 @@ namespace QwertysRandomContent
                 actDirection -= MathHelper.ToRadians(speed) * f;
             }
             actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
-            
+
             return actDirection;
         }
+
         public static Vector2 PolarVector(float radius, float theta)
         {
 
@@ -54,34 +50,34 @@ namespace QwertysRandomContent
 
         public static void BreakTiles(int i, int j, int width, int height)
         {
-            for(int x =0; x < width; x++)
+            for (int x = 0; x < width; x++)
             {
-                for(int y =0; y<height; y++)
+                for (int y = 0; y < height; y++)
                 {
-                    WorldGen.KillTile(i+x, j+y, false, false, true);
+                    WorldGen.KillTile(i + x, j + y, false, false, true);
                     WorldGen.KillWall(i + x, j + y, false);
                     Main.tile[i + x, j + y].liquid = 0;
                 }
 
             }
         }
-        public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget =-1)
+        public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1)
         {
             bool foundTarget = false;
-            if(overrideTarget != -1)
+            if (overrideTarget != -1)
             {
                 if ((Main.npc[overrideTarget].Center - position).Length() < maxDistance)
                 {
                     target = Main.npc[overrideTarget];
                     return true;
                 }
-                
+
             }
             for (int k = 0; k < Main.npc.Length; k++)
             {
                 NPC possibleTarget = Main.npc[k];
                 float distance = (possibleTarget.Center - position).Length();
-                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0)|| ignoreTiles))
+                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0) || ignoreTiles))
                 {
                     target = Main.npc[k];
                     foundTarget = true;
@@ -110,7 +106,7 @@ namespace QwertysRandomContent
         {
             if (Main.netMode == 1)
             {
-                Main.NewText("Client says It's " +  q, Color.Pink);
+                Main.NewText("Client says It's " + q, Color.Pink);
             }
 
 
@@ -158,7 +154,7 @@ namespace QwertysRandomContent
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
             }
         }
-        
+
         public static Item MakeItemFromID(int type)
         {
             if (type <= 0)
@@ -198,6 +194,30 @@ namespace QwertysRandomContent
             }
             return p;
         }
+        public static float AngularDifference(float angle1, float angle2)
+        {
+            while(angle1 > (float)Math.PI)
+            {
+                angle1 -= (float)Math.PI * 2;
+            }
+            while (angle2 > (float)Math.PI)
+            {
+                angle2 -= (float)Math.PI * 2;
+            }
+            while (angle1 < -(float)Math.PI)
+            {
+                angle1 += (float)Math.PI * 2;
+            }
+            while (angle2 < -(float)Math.PI)
+            {
+                angle1 += (float)Math.PI * 2;
+            }
+            if (Math.Abs(angle1 - angle2) > Math.PI)
+            {
+                return (float)Math.PI * 2 - Math.Abs(angle1 - angle2);
+            }
+            return Math.Abs(angle1 - angle2);
+        }
     }
     public class Poke : ModProjectile
     {
@@ -205,7 +225,7 @@ namespace QwertysRandomContent
         {
             projectile.width = 2;
             projectile.height = 2;
-            
+
             projectile.friendly = true;
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;

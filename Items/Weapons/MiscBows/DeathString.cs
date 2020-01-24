@@ -6,40 +6,40 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscBows
 {
-	public class DeathString : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Death String");
-			Tooltip.SetDefault("Death's blow... I mean bow" + "\nWhile shooting two skulls will fly around bashing at enemies");
+    public class DeathString : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Death String");
+            Tooltip.SetDefault("Death's blow... I mean bow" + "\nWhile shooting two skulls will fly around bashing at enemies");
 
 
         }
-		public override void SetDefaults()
-		{
-			item.damage = 32;
-			item.ranged = true;
-			
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = 5;
-			item.knockBack = 2;
-			item.value = 54000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
-			item.width = 24;
-			item.height = 62;
-			
-			item.shoot = mod.ProjectileType("DeathSkull");
-			item.useAmmo = 40;
-			item.shootSpeed =8;
-			item.noMelee=true;
+        public override void SetDefaults()
+        {
+            item.damage = 32;
+            item.ranged = true;
+
+            item.useTime = 30;
+            item.useAnimation = 30;
+            item.useStyle = 5;
+            item.knockBack = 2;
+            item.value = 54000;
+            item.rare = 3;
+            item.UseSound = SoundID.Item5;
+            item.autoReuse = true;
+            item.width = 24;
+            item.height = 62;
+
+            item.shoot = mod.ProjectileType("DeathSkull");
+            item.useAmmo = 40;
+            item.shootSpeed = 8;
+            item.noMelee = true;
             item.channel = true;
-			
-			
-			
-		}
+
+
+
+        }
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-6, -0);
@@ -55,8 +55,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 Projectile proj = Main.projectile[l];
                 if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
                 {
-                    
-                    Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(10*alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(10*alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
+
+                    Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(10 * alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(10 * alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
                     alt *= -1;
                     return true;
                 }
@@ -70,18 +70,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         }
         //Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("Skull"), 0, 0, Main.myPlayer);
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
+        {
+            ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddRecipeGroup("QwertysrandomContent:EvilBows");
             recipe.AddIngredient(ItemID.MoltenFury);
             recipe.AddIngredient(mod.ItemType("RhuthiniumBow"));
             recipe.AddIngredient(mod.ItemType("FossilBow"));
             recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
     public class DeathSkull : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -123,7 +123,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
-                
+
                 runOnce = false;
             }
 
@@ -134,16 +134,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 {
                     target = Main.npc[k];
                     distance = (Main.MouseWorld - target.Center).Length();
-                    if (distance< maxDistance && target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal)
+                    if (distance < maxDistance && target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal)
                     {
                         confirm = Main.npc[k];
                         foundTarget = true;
                         direction = (confirm.Center - projectile.Center).ToRotation();
                         maxDistance = (Main.MouseWorld - target.Center).Length();
-            }
+                    }
 
                 }
-                if(!foundTarget)
+                if (!foundTarget)
                 {
                     direction = (player.Center - projectile.Center).ToRotation();
                 }
@@ -160,7 +160,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 projectile.rotation = direction;
 
             }
-            if(player.channel)
+            if (player.channel)
             {
                 projectile.timeLeft = 2;
             }
@@ -176,11 +176,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             if (projectile.velocity.X != velocityChange.X)
             {
-                projectile.velocity.X = -2*velocityChange.X;
+                projectile.velocity.X = -2 * velocityChange.X;
             }
             if (projectile.velocity.Y != velocityChange.Y)
             {
-                projectile.velocity.Y = -2*velocityChange.Y;
+                projectile.velocity.Y = -2 * velocityChange.Y;
             }
             return false;
         }
@@ -190,11 +190,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X, -projectile.velocity.Y, mod.ProjectileType("BouncyArrowP"), projectile.damage, projectile.knockBack, Main.myPlayer);
             projectile.velocity.X = -2 * projectile.velocity.X;
             projectile.velocity.Y = -2 * projectile.velocity.Y;
-            
+
         }
 
     }
-   
+
 
 
 }

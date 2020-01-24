@@ -38,8 +38,44 @@ Extra thanks
 
 
 changelog
+0.19.12
+-homepage has been moved to a new forum page for the mod, I'd still recommend going to the disscord for the speediests responses.
+
+Additions:
+-added vitallum armor a post plantera thrower armor. Just like with gale armor this one has 'Alternative defenses'
+-added shroomite turret a sentry that fire bullets from your inventory.
+-added Spectre flechettes
+-added shroomite javelin
+
+Fixes:
+-fixed dark drop, blood seeker, and blood tuner having a bit more crit than intended
+-fixed blood seeker hitbox
+-fixed rhuthinium barrage not having a recipe
+-fixed bullet damage from dino vulcan and gun chakram
+-fixed sword enlarger general buggyness
+
+Changes:
+-O.L.O.R.D. it happened! a resprite! Thanks Darkpuppey!
+-chaos rifle spread reduced 15degrees->1degree, should encourage the use of non homing bullets for more interesting bullet mixing
+-made many thrower weapons more expensive (still cheaper than most other mods throwing consumable weapons though).
+-nerfed many forms of 'burst' damage
+	-gale knifes from the gale armor setbonus damage reduced 100->75
+	-gale knifes from the gale armor set bonues no longer pierce tiles
+	-quick morphs have 50% longer cooldown
+	-ancient nuke can only hit enemies that are in direct line of sight of the center of the impact.
+	-imperious sheath 500->400 damage
+-Removed longbows and Vargule items, these are old items that don't fit the quality standards I set for myself now.
+-Helix bullets have been reworked and recipe has been changed due to the removal of Vargule
+-flechettes now have a sound when used
+-reduced the max number of beak tipped javelins that can stick to an enemy at once but the do a bit more dot.
+
+
+
+
+	
 0.19.11
 -fixed a bug some people got that caused the mod to not build with thorium
+-fixed rhuthinium guardian targetting
 
 0.19.10
 -Lune's pallette tweaked (added hueshift)

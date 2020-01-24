@@ -1,34 +1,31 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.TwistedDark
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class TwistedDarkMask : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Etimsic Facemask");
-			Tooltip.SetDefault("Morph critiacl strike chance increases the longer you're morphed. Max: 30%" + "\n");
-			
-		}
-		
+    [AutoloadEquip(EquipType.Head)]
+    public class TwistedDarkMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Etimsic Facemask");
+            Tooltip.SetDefault("Morph critiacl strike chance increases the longer you're morphed. Max: 30%" + "\n");
 
-		public override void SetDefaults()
-		{
+        }
+
+
+        public override void SetDefaults()
+        {
 
             item.value = 60000;
             item.rare = 3;
 
 
             item.width = 22;
-			item.height = 14;
-			item.defense = 1;
+            item.height = 14;
+            item.defense = 1;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 7;
 
 
@@ -53,9 +50,9 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         string end = "% morph critical strike chance (not morphed)";
         public override void UpdateEquip(Player player)
         {
-            
-            
-            if (player.GetModPlayer<ShapeShifterPlayer>().morphTime>0)
+
+
+            if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
                 b += .125f;
                 if (b > 30)
@@ -74,7 +71,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 end = "% morph critical strike chance (not morphed)";
             }
             bonus = (int)b;
-            
+
             player.GetModPlayer<ShapeShifterPlayer>().morphCrit += bonus;
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -89,14 +86,14 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 
             }
         }
-        public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
-		{
-			drawHair=true;
-			
-		}
+        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+        {
+            drawHair = true;
 
-			
-	}
+        }
+
+
+    }
     public class DrawHelmet : ModPlayer
     {
         public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("TwistedDarkMask", "Items/Armor/TwistedDark/TwistedDarkMask_HeadSimple", glowmask: false);

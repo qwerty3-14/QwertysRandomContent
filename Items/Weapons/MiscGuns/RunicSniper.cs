@@ -1,28 +1,27 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscGuns
 {
-	public class RunicSniper : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Runic Sniper");
-			Tooltip.SetDefault("x2 damage to enemies far away from you" + "\nRight click to zoom");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 190;
-			item.ranged = true;
+    public class RunicSniper : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Runic Sniper");
+            Tooltip.SetDefault("x2 damage to enemies far away from you" + "\nRight click to zoom");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 190;
+            item.ranged = true;
             item.autoReuse = true;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.useStyle = 5;
-			item.knockBack = 5;
+            item.useTime = 35;
+            item.useAnimation = 35;
+            item.useStyle = 5;
+            item.knockBack = 5;
             item.value = 500000;
             item.rare = 9;
             item.UseSound = SoundID.Item11;
@@ -33,16 +32,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
             //item.GetGlobalItem<ItemUseGlow>().glowOffsetX = -26;
             //item.GetGlobalItem<ItemUseGlow>().glowOffsetY = -2;
             item.width = 74;
-			item.height = 30;
-			item.crit = 25;
-			item.shoot = 97;
-			item.useAmmo = AmmoID.Bullet;
-			item.shootSpeed =36;
-			item.noMelee=true;
-			
-			
-			
-		}
+            item.height = 30;
+            item.crit = 25;
+            item.shoot = 97;
+            item.useAmmo = AmmoID.Bullet;
+            item.shootSpeed = 36;
+            item.noMelee = true;
+
+
+
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -75,29 +74,29 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
             );
         }*/
         public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-10, -6);
-		}
-		public override void HoldItem(Player player)
-		{
-			player.scope = true;
-		}	
+        {
+            return new Vector2(-10, -6);
+        }
+        public override void HoldItem(Player player)
+        {
+            player.scope = true;
+        }
 
-		
-	}
-	public class DoubleSnipeDamage : ModPlayer
+
+    }
+    public class DoubleSnipeDamage : ModPlayer
     {
-        
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if(proj.ranged && player.inventory[player.selectedItem].type ==mod.ItemType("RunicSniper"))
+            if (proj.ranged && player.inventory[player.selectedItem].type == mod.ItemType("RunicSniper"))
             {
                 if ((target.Center - player.Center).Length() > 700)
                     damage *= 2;
             }
         }
-        
+
     }
-	
+
 }
 

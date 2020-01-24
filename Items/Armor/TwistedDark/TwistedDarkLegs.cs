@@ -1,37 +1,35 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.TwistedDark
 {
-	
-	[AutoloadEquip(EquipType.Legs)]
-	public class TwistedDarkLegs : ModItem
-	{
-		
-		
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Etimsic Robes");
+
+    [AutoloadEquip(EquipType.Legs)]
+    public class TwistedDarkLegs : ModItem
+    {
+
+
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Etimsic Robes");
             Tooltip.SetDefault("Morph damage increases the longer you're morphed. Max: 30%" + "\n");
 
         }
-		
 
-		public override void SetDefaults()
-		{
-			
-			item.value = 90000;
-			item.rare = 3;
-			
-			
-			item.width = 22;
-			item.height = 18;
-			item.defense = 1;
+
+        public override void SetDefaults()
+        {
+
+            item.value = 90000;
+            item.rare = 3;
+
+
+            item.width = 22;
+            item.height = 18;
+            item.defense = 1;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 7;
 
 
@@ -81,9 +79,9 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 end = "% morph critical strike chance (not morphed)";
             }
             bonus = (int)b;
-           
-            player.GetModPlayer<ShapeShifterPlayer>().morphDamage += bonus*.01f;
-           
+
+            player.GetModPlayer<ShapeShifterPlayer>().morphDamage += bonus * .01f;
+
 
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -100,13 +98,13 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         }
         public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
         {
-			
-			if (male) equipSlot = mod.GetEquipSlot("TwistedDarkLegs_Legs", EquipType.Legs);
-            if (!male) equipSlot = mod.GetEquipSlot("TwistedDarkLegs_FemaleLegs", EquipType.Legs);
-			
-		}
 
-      
+            if (male) equipSlot = mod.GetEquipSlot("TwistedDarkLegs_Legs", EquipType.Legs);
+            if (!male) equipSlot = mod.GetEquipSlot("TwistedDarkLegs_FemaleLegs", EquipType.Legs);
+
+        }
+
+
 
 
 
@@ -115,8 +113,8 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 
 
     }
-   
-    
+
+
 
 }
 

@@ -1,11 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs
 {
@@ -181,9 +179,9 @@ namespace QwertysRandomContent.NPCs
                 Vector2 moveTo = new Vector2(player.Center.X - (300f * npc.direction), player.Center.Y + -300f) - npc.Center;
                 npc.velocity = (moveTo) * .03f;
             }
-           
+
         }
-        
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(AI_Timer);

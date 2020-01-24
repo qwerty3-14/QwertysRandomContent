@@ -6,39 +6,39 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscBows
 {
-	public class FossilBow : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Fossil Bow");
-			Tooltip.SetDefault("While shooting a skull will fly around bashing at enemies");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 16;
-			item.ranged = true;
-			
-			item.useTime = 14;
-			item.useAnimation = 14;
-			item.useStyle = 5;
-			item.knockBack = 2;
-			item.value = 25000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
-			item.width = 24;
-			item.height = 60;
-			
-			item.shoot = mod.ProjectileType("Skull");
-			item.useAmmo = 40;
-			item.shootSpeed =8;
-			item.noMelee=true;
+    public class FossilBow : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Fossil Bow");
+            Tooltip.SetDefault("While shooting a skull will fly around bashing at enemies");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 16;
+            item.ranged = true;
+
+            item.useTime = 14;
+            item.useAnimation = 14;
+            item.useStyle = 5;
+            item.knockBack = 2;
+            item.value = 25000;
+            item.rare = 3;
+            item.UseSound = SoundID.Item5;
+            item.autoReuse = true;
+            item.width = 24;
+            item.height = 60;
+
+            item.shoot = mod.ProjectileType("Skull");
+            item.useAmmo = 40;
+            item.shootSpeed = 8;
+            item.noMelee = true;
             item.channel = true;
-			
-			
-			
-		}
+
+
+
+        }
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = player.Center;
@@ -55,15 +55,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         }
         //Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("Skull"), 0, 0, Main.myPlayer);
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			
-			recipe.AddIngredient(ItemID.FossilOre, 30);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+
+            recipe.AddIngredient(ItemID.FossilOre, 30);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
     public class Skull : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -158,11 +158,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             if (projectile.velocity.X != velocityChange.X)
             {
-                projectile.velocity.X = -2*velocityChange.X;
+                projectile.velocity.X = -2 * velocityChange.X;
             }
             if (projectile.velocity.Y != velocityChange.Y)
             {
-                projectile.velocity.Y = -2*velocityChange.Y;
+                projectile.velocity.Y = -2 * velocityChange.Y;
             }
             return false;
         }
@@ -172,7 +172,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X, -projectile.velocity.Y, mod.ProjectileType("BouncyArrowP"), projectile.damage, projectile.knockBack, Main.myPlayer);
             projectile.velocity.X = -2 * projectile.velocity.X;
             projectile.velocity.Y = -2 * projectile.velocity.Y;
-            
+
         }
 
     }

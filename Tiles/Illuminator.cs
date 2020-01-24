@@ -1,11 +1,9 @@
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
-using System.IO;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class Illuminator : ModTile
@@ -31,7 +29,7 @@ namespace QwertysRandomContent.Tiles
         }
         public override bool CanPlace(int i, int j)
         {
-            return Main.tile[i+1,j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j +1].active() || Main.tile[i, j  - 1].active(); ;
+            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active(); ;
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
@@ -41,7 +39,7 @@ namespace QwertysRandomContent.Tiles
         public override void HitWire(int i, int j)
         {
             Main.tile[i, j].frameX += 18;
-            if (Main.tile[i, j].frameX >18)
+            if (Main.tile[i, j].frameX > 18)
             {
                 Main.tile[i, j].frameX = 0;
             }
@@ -58,7 +56,7 @@ namespace QwertysRandomContent.Tiles
                 }
                 else
                 {
-                    
+
                     Main.tile[i, j].frameY = 18;
                     //top
                     if (Main.tile[i, j].frameX == 0)
@@ -73,10 +71,10 @@ namespace QwertysRandomContent.Tiles
                         }
                         */
                     }
-                    
+
                 }
             }
-            else if(Main.tile[i, j - 1].type == mod.TileType("Illuminator"))
+            else if (Main.tile[i, j - 1].type == mod.TileType("Illuminator"))
             {
                 Main.tile[i, j].frameY = 54;
                 Main.tile[i, j].frameX = 0;
@@ -160,7 +158,7 @@ namespace QwertysRandomContent.Tiles
                     NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
                 }
             }
-            
+
 
         }
         /*

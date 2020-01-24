@@ -1,8 +1,8 @@
 author = qwerty3.14
-version = 0.19.11
+version = 0.19.12
 displayName = Qwerty's Bosses and Items
 includeSource = true
 hideCode = false
-homepage = https://discord.gg/sxEz4aY
+homepage = https://forums.terraria.org/index.php?threads/qwertys-bosses-and-items.84040/
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
 includePDB = true

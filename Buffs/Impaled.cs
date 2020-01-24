@@ -1,22 +1,20 @@
 using Terraria;
 using Terraria.ModLoader;
-using QwertysRandomContent.NPCs;
-using QwertysRandomContent;
 
 namespace QwertysRandomContent.Buffs
 {
-	public class Impaled : ModBuff
-	{
-		
-		public override void SetDefaults()
-		{
-			DisplayName.SetDefault("Impaled");
-			Description.SetDefault("Ouch!");
-			Main.debuff[Type] = true;
-			
-			
-			longerExpertDebuff = false;
-		}
+    public class Impaled : ModBuff
+    {
+
+        public override void SetDefaults()
+        {
+            DisplayName.SetDefault("Impaled");
+            Description.SetDefault("Ouch!");
+            Main.debuff[Type] = true;
+
+
+            longerExpertDebuff = false;
+        }
         public override void Update(NPC npc, ref int buffIndex)
         {
             //int num = npc.lifeRegenExpectedLossPerSecond;
@@ -31,7 +29,7 @@ namespace QwertysRandomContent.Buffs
             {
                 if (Main.projectile[i].active && Main.projectile[i].GetGlobalProjectile<ImplaingProjectile>().CanImpale && Main.projectile[i].ai[0] == 1f && Main.projectile[i].ai[1] == (float)npc.whoAmI)
                 {
-                    
+
                     impaleDamage += Main.projectile[i].GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler;
                     JavelinCount++;
                 }
@@ -48,7 +46,7 @@ namespace QwertysRandomContent.Buffs
 
 
     }
-    public class ImplaingProjectile :GlobalProjectile
+    public class ImplaingProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity
         {
@@ -59,6 +57,6 @@ namespace QwertysRandomContent.Buffs
         }
         public bool CanImpale = false;
         public int damagePerImpaler = 0;
-       // public int maxImpalers = 0;
+        // public int maxImpalers = 0;
     }
 }

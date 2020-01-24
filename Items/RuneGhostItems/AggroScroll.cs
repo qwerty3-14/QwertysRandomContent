@@ -1,12 +1,5 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace QwertysRandomContent.Items.RuneGhostItems
@@ -42,13 +35,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            
+
             modPlayer.aggroScroll = true;
-            
+
 
         }
 
-        
+
 
     }
     class AggroRuneFreindly : ModProjectile
@@ -94,13 +87,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                     Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AggroRuneLash"));
                 }
             }
-            
+
 
 
 
         }
-        
-        
+
+
     }
 
 

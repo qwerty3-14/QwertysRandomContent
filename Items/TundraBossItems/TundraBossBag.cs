@@ -1,38 +1,37 @@
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
 {
-	public class TundraBossBag : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-            
+    public class TundraBossBag : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Bag");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+
         }
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 60;
-			item.height = 34;
-			item.rare = 9;
-			item.expert = true;
-			//bossBagNPC = mod.NPCType("PolarBear"); 
-		}
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 60;
+            item.height = 34;
+            item.rare = 9;
+            item.expert = true;
+            //bossBagNPC = mod.NPCType("PolarBear"); 
+        }
         public override int BossBagNPC => mod.NPCType("PolarBear");
 
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
+        public override void OpenBossBag(Player player)
+        {
 
 
 
@@ -57,7 +56,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 player.QuickSpawnItem(mod.ItemType("DivineLightMask"));
                 */
             player.QuickSpawnItem(73, 4);
-            
+
         }
-	}
+    }
 }

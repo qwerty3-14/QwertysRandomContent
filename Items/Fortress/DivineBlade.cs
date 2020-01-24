@@ -7,36 +7,36 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
 {
-	public class DivineBlade : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Divine Blade");
-			Tooltip.SetDefault("Deflects projectiles" + "\nCan only deflect projectiles weaker than the sword");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 33;
-			item.melee = true;
-			
-			item.useTime = 41;
-			item.useAnimation = 41;
-			item.useStyle = 1;
-			item.knockBack = 3;
-			item.value = 25000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			
-			item.width = 58;
-			item.height = 58;
-			//item.crit = 5;
-			item.autoReuse = true;
+    public class DivineBlade : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Divine Blade");
+            Tooltip.SetDefault("Deflects projectiles" + "\nCan only deflect projectiles weaker than the sword");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 33;
+            item.melee = true;
+
+            item.useTime = 41;
+            item.useAnimation = 41;
+            item.useStyle = 1;
+            item.knockBack = 3;
+            item.value = 25000;
+            item.rare = 3;
+            item.UseSound = SoundID.Item1;
+
+            item.width = 58;
+            item.height = 58;
+            //item.crit = 5;
+            item.autoReuse = true;
             //item.scale = 5;
-			
-			
-			
-		}
+
+
+
+        }
 
 
         public override void AddRecipes()
@@ -68,7 +68,7 @@ namespace QwertysRandomContent.Items.Fortress
             for (int p = 0; p < 1000; p++)
             {
                 clearCheck = Main.projectile[p];
-                if ((clearCheck.hostile  ||(clearCheck.friendly && !clearCheck.minion&& (Main.player[clearCheck.owner].team !=Main.player[item.owner].team) || (Main.player[item.owner].team==0 && clearCheck.owner != item.owner)))  && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck) && clearCheck.damage*2 * (Main.expertMode ? 2 : 1) < item.damage *player.meleeDamage  && clearCheck.velocity.Length() > .1f)
+                if ((clearCheck.hostile || (clearCheck.friendly && !clearCheck.minion && (Main.player[clearCheck.owner].team != Main.player[item.owner].team) || (Main.player[item.owner].team == 0 && clearCheck.owner != item.owner))) && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck) && clearCheck.damage * 2 * (Main.expertMode ? 2 : 1) < item.damage * player.meleeDamage && clearCheck.velocity.Length() > .1f)
                 {
                     clearCheck.Kill();
                     if (clearCheck.velocity.Length() > 0f)
@@ -77,7 +77,7 @@ namespace QwertysRandomContent.Items.Fortress
                     }
                 }
             }
-           
+
             /*
             float swordLength = item.Size.Length() * item.scale;
             float r = player.direction == 1 ? player.itemRotation - (float)Math.PI / 4 : player.itemRotation + 5*(float)Math.PI / 4;
@@ -94,7 +94,7 @@ namespace QwertysRandomContent.Items.Fortress
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 420);
-            
+
 
         }
     }

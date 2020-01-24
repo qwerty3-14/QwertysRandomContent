@@ -1,23 +1,22 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
- 
- 
- namespace QwertysRandomContent.Items.HydraItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.HydraItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class HydraHeadStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hydra Head Staff");
-			Tooltip.SetDefault("Summons a hydra head to shoot towards your cursor" + "\nThe hydra head will automatically summon more heads if there are empty minion slots");
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hydra Head Staff");
+            Tooltip.SetDefault("Summons a hydra head to shoot towards your cursor" + "\nThe hydra head will automatically summon more heads if there are empty minion slots");
+
+        }
+
         public override void SetDefaults()
         {
 
@@ -31,52 +30,52 @@ using Microsoft.Xna.Framework.Graphics;
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 1f;  //The knockback stat of your Weapon.
             item.value = 250000;
-			item.rare = 5;   
+            item.rare = 5;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("MinionHead");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
-            item.buffType = mod.BuffType("HydraHead");	//The buff added to player after used the item
-			item.buffTime = 3600;
+            item.buffType = mod.BuffType("HydraHead");  //The buff added to player after used the item
+            item.buffTime = 3600;
         }
-		
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class MinionHead : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hydra Head");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hydra Head");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
- 
-			
+
+
             projectile.width = 42; //Set the hitbox width
             projectile.height = 36;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -86,10 +85,10 @@ using Microsoft.Xna.Framework.Graphics;
             projectile.knockBack = 10f;
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = false; //Tells the game whether or not it can collide with tiles/ terrain
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
-            
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
+
         }
 
 
@@ -114,10 +113,10 @@ using Microsoft.Xna.Framework.Graphics;
             }
             if (Main.LocalPlayer == player)
             {
-                projectile.ai[0] =Main.MouseWorld.X;
+                projectile.ai[0] = Main.MouseWorld.X;
                 projectile.ai[1] = Main.MouseWorld.Y;
                 projectile.netUpdate = true;
-                
+
                 //projectile.netUpdate = true;
             }
             projectile.rotation = (new Vector2(projectile.ai[0], projectile.ai[1]) - projectile.Center).ToRotation();
@@ -133,7 +132,7 @@ using Microsoft.Xna.Framework.Graphics;
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.Center.X, projectile.Center.Y, mod.ProjectileType("MinionHead"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
 
-            
+
 
 
 
@@ -166,12 +165,12 @@ using Microsoft.Xna.Framework.Graphics;
 
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
-			Vector2 center = projectile.Center;
-			Vector2 distToProj = playerCenter - projectile.Center;
-			float projRotation = distToProj.ToRotation() - 1.57f;
-			float distance = distToProj.Length();
+        {
+            Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
+            Vector2 center = projectile.Center;
+            Vector2 distToProj = playerCenter - projectile.Center;
+            float projRotation = distToProj.ToRotation() - 1.57f;
+            float distance = distToProj.Length();
             for (int i = 0; i < 1000; i++)
             {
                 if (distance > 4f && !float.IsNaN(distance))
@@ -189,51 +188,51 @@ using Microsoft.Xna.Framework.Graphics;
                         new Vector2(14 * 0.5f, 8 * 0.5f), 1f, SpriteEffects.None, 0f);
                 }
             }
-			return true;
-		}
+            return true;
+        }
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            spriteBatch.Draw(mod.GetTexture("Items/HydraItems/MinionHead_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y ),
+            spriteBatch.Draw(mod.GetTexture("Items/HydraItems/MinionHead_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, projectile.width, projectile.height), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
         }
     }
-	public class MinionBreath : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Minion Breath");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-			projectile.aiStyle = 1;
-			aiType = ProjectileID.Bullet; 
-			projectile.width = 14;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.minion= true;
-			projectile.tileCollide= true;
-			projectile.timeLeft=600;
-			
-			
-			
-		}
-		public override void AI()
-		{
-			CreateDust();
-		}
-		public virtual void CreateDust()
-		{
-			
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBreathGlow"));
-				
-				
-			
-		}
+    public class MinionBreath : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Minion Breath");
 
-		
-	}
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+            aiType = ProjectileID.Bullet;
+            projectile.width = 14;
+            projectile.height = 8;
+            projectile.friendly = true;
+            projectile.penetrate = 1;
+            projectile.minion = true;
+            projectile.tileCollide = true;
+            projectile.timeLeft = 600;
+
+
+
+        }
+        public override void AI()
+        {
+            CreateDust();
+        }
+        public virtual void CreateDust()
+        {
+
+            int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBreathGlow"));
+
+
+
+        }
+
+
+    }
 }

@@ -8,16 +8,16 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
 {
-	public class FlailSword : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Impelial");
-			Tooltip.SetDefault("");
-			
-		}
-		public override void SetDefaults()
-		{
+    public class FlailSword : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Impelial");
+            Tooltip.SetDefault("");
+
+        }
+        public override void SetDefaults()
+        {
             item.useStyle = 5;
             item.useAnimation = 20;
             item.useTime = 20;
@@ -41,8 +41,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
         }
 
 
-        
-        
+
+
     }
     /*
     public class flailSwordPlayer : ModPlayer
@@ -68,7 +68,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
         public override void SetDefaults()
         {
@@ -105,11 +105,11 @@ namespace QwertysRandomContent.Items.BladeBossItems
             ChainLength -= 40f * projectile.scale;
             Vector2 shiftingPosition = projectile.Center.Floor();
             shiftingPosition += normalisedVelocity * projectile.scale * 11f;
-            
+
             float segment = 0f;
-            
+
             int segmentCount = 10;
-            
+
             frame = new Rectangle(0, 74, texture2D22.Width, 10);
 
             if (ChainLength > 0f)
@@ -130,8 +130,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
             segment = 0f;
             if (ChainLength > 0f)
             {
-                
-                while (segment + 1f < ChainLength/2)
+
+                while (segment + 1f < ChainLength / 2)
                 {
                     if (ChainLength - segment < (float)frame.Height)
                     {
@@ -142,15 +142,15 @@ namespace QwertysRandomContent.Items.BladeBossItems
                     shiftingPosition += normalisedVelocity * (float)frame.Height * projectile.scale;
                 }
             }
-           
-           
+
+
             frame = new Rectangle(0, 52, texture2D22.Width, 10);
-            
-            
+
+
             float CL2 = ChainLength;
             if (ChainLength > 0f)
             {
-                
+
                 while (segment + 1f < ChainLength)
                 {
                     if (ChainLength - segment < (float)frame.Height)
@@ -164,8 +164,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             Vector2 tipPosition = shiftingPosition;
             frame = new Rectangle(0, 72, texture2D22.Width, 12);
-            
-            Main.spriteBatch.Draw(texture2D22, tipPosition - Main.screenPosition + playerHillClimbOffset, new Microsoft.Xna.Framework.Rectangle?(frame), alpha, drawRotation +(float)Math.PI/4, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
+
+            Main.spriteBatch.Draw(texture2D22, tipPosition - Main.screenPosition + playerHillClimbOffset, new Microsoft.Xna.Framework.Rectangle?(frame), alpha, drawRotation + (float)Math.PI / 4, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
             Main.spriteBatch.Draw(texture2D22, tipPosition - Main.screenPosition + playerHillClimbOffset, new Microsoft.Xna.Framework.Rectangle?(frame), alpha, drawRotation - (float)Math.PI / 4, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
             Main.spriteBatch.Draw(texture2D22, tipPosition - Main.screenPosition + playerHillClimbOffset, new Microsoft.Xna.Framework.Rectangle?(frame), alpha, drawRotation + (float)Math.PI / 8, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
             Main.spriteBatch.Draw(texture2D22, tipPosition - Main.screenPosition + playerHillClimbOffset, new Microsoft.Xna.Framework.Rectangle?(frame), alpha, drawRotation - (float)Math.PI / 8, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
@@ -238,13 +238,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 vector24.Y = (float)player.bodyFrame.Height - vector24.Y;
             }
             vector24 -= new Vector2((float)(player.bodyFrame.Width - player.width), (float)(player.bodyFrame.Height - 42)) / 2f;
-           
+
 
 
             //I added this part since I couldn't get the rotation working
             if (runOnce)
             {
-                r = projectile.rotation = projectile.velocity.ToRotation() ;
+                r = projectile.rotation = projectile.velocity.ToRotation();
                 runOnce = false;
             }
             if (player.whoAmI == Main.myPlayer)
@@ -263,7 +263,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.localNPCImmunity[target.whoAmI] = 8;
             target.immune[projectile.owner] = 0;
         }
-        
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float num8 = 0f;
@@ -275,7 +275,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         }
 
     }
-    
+
 
 
 

@@ -3,8 +3,6 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader;
-using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class FakeFortressBrick : ModTile
@@ -33,11 +31,11 @@ namespace QwertysRandomContent.Tiles
             AddMapEntry(new Color(162, 184, 185));
             mineResist = 1;
             //drop = mod.ItemType("FortressBrick");
-            
+
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-           
+
             if (Main.netMode != 1 && !fail)
             {
                 NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")), ai3: 1)];

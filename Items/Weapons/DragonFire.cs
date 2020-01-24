@@ -7,44 +7,44 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons
 {
-	public class DragonFire : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Dragonfire");
-			Tooltip.SetDefault("Launches flaming dragon heads which spit explosive fireballs!");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 240;
-			item.magic = true;
-			
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.useStyle = 5;
-			item.knockBack = 10;
-			item.value = 500000;
-			item.rare = 9;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.width = 28;
-			item.height = 40;
-			
-			item.mana =12;
-			item.shoot = mod.ProjectileType("DragonHead");
-			item.shootSpeed =5;
-			item.noMelee=true;
-			
-			
-			
-			
-		}
+    public class DragonFire : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Dragonfire");
+            Tooltip.SetDefault("Launches flaming dragon heads which spit explosive fireballs!");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 240;
+            item.magic = true;
+
+            item.useTime = 40;
+            item.useAnimation = 40;
+            item.useStyle = 5;
+            item.knockBack = 10;
+            item.value = 500000;
+            item.rare = 9;
+            item.UseSound = SoundID.Item1;
+            item.autoReuse = true;
+            item.width = 28;
+            item.height = 40;
+
+            item.mana = 12;
+            item.shoot = mod.ProjectileType("DragonHead");
+            item.shootSpeed = 5;
+            item.noMelee = true;
+
+
+
+
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
 
-            
+
             recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
@@ -53,33 +53,33 @@ namespace QwertysRandomContent.Items.Weapons
 
 
     }
-		public class DragonHead : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Dragon Head");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-			projectile.aiStyle = 1;
-			
-			projectile.width = 36;
-			projectile.height = 36;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.magic= true;
-			projectile.tileCollide= true;
-			
-			
-			
-			
-		}
+    public class DragonHead : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Dragon Head");
+
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+
+            projectile.width = 36;
+            projectile.height = 36;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.magic = true;
+            projectile.tileCollide = true;
+
+
+
+
+        }
         public int timer;
         public override void AI()
         {
-            if(projectile.velocity.X > 0)
+            if (projectile.velocity.X > 0)
             {
                 projectile.spriteDirection = -1;
             }
@@ -89,12 +89,12 @@ namespace QwertysRandomContent.Items.Weapons
             }
             Player player = Main.player[projectile.owner];
             timer++;
-            if(timer>10)
+            if (timer > 10)
             {
-                Projectile.NewProjectile(projectile.Center , new Vector2( (float)Math.Cos(projectile.rotation - Math.PI / 2) *10, (float)Math.Sin(projectile.rotation - Math.PI/2) * 10), mod.ProjectileType("FireBall"), projectile.damage, projectile.knockBack, player.whoAmI);
+                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(projectile.rotation - Math.PI / 2) * 10, (float)Math.Sin(projectile.rotation - Math.PI / 2) * 10), mod.ProjectileType("FireBall"), projectile.damage, projectile.knockBack, player.whoAmI);
                 timer = 0;
             }
-            
+
         }
 
 
@@ -163,9 +163,9 @@ namespace QwertysRandomContent.Items.Weapons
                 dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 2f);
                 Main.dust[dustIndex].velocity *= 3f;
             }
-            
+
         }
-        
+
 
 
     }
@@ -197,12 +197,12 @@ namespace QwertysRandomContent.Items.Weapons
         {
             damage /= 8;
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
     }
 
-   }
+}
 

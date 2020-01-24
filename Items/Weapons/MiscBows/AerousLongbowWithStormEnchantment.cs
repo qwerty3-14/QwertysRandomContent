@@ -1,22 +1,21 @@
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscBows
 {
-	public class AerousLongbowWithStormEnchantment : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Storm Enchanted Aerous");
-			Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nKilling enemies builds up a charge right click to shoot a powerful storm arrow using this charge");
+    public class AerousLongbowWithStormEnchantment : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Storm Enchanted Aerous");
+            Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nKilling enemies builds up a charge right click to shoot a powerful storm arrow using this charge");
 
 
         }
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.CloneDefaults(mod.ItemType("AerousLongbow"));
 
 
@@ -40,7 +39,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 if (modPlayer.charge > 0)
                 {
 
-                    Projectile.NewProjectile(position.X, position.Y, speedX*3, speedY*3, mod.ProjectileType("StormArrow"), damage* modPlayer.charge, knockBack* modPlayer.charge, player.whoAmI);
+                    Projectile.NewProjectile(position.X, position.Y, speedX * 3, speedY * 3, mod.ProjectileType("StormArrow"), damage * modPlayer.charge, knockBack * modPlayer.charge, player.whoAmI);
                     modPlayer.charge = 0;
                 }
 
@@ -51,7 +50,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             {
                 return true;
             }
-                
+
         }
         public override void AddRecipes()
         {
@@ -63,7 +62,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        
+
 
 
     }
@@ -82,11 +81,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             projectile.width = 10;
             projectile.height = 10;
             projectile.friendly = true;
-            projectile.penetrate =-1;
+            projectile.penetrate = -1;
             projectile.ranged = true;
             projectile.arrow = true;
             projectile.tileCollide = false;
-            projectile.light=10f;
+            projectile.light = 10f;
 
         }
         public override void AI()

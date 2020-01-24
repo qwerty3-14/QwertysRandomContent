@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
@@ -60,7 +59,7 @@ namespace QwertysRandomContent.Items.Accesories
             if (player.GetModPlayer<BadAim>().intoxicated && item.thrown)
             {
                 float trueSpeed = new Vector2(speedX, speedY).Length();
-                float direction = new Vector2(speedX, speedY).ToRotation() + Main.rand.NextFloat(-(float)Math.PI/8, (float)Math.PI/8);
+                float direction = new Vector2(speedX, speedY).ToRotation() + Main.rand.NextFloat(-(float)Math.PI / 8, (float)Math.PI / 8);
                 speedX = QwertyMethods.PolarVector(trueSpeed, direction).X;
                 speedY = QwertyMethods.PolarVector(trueSpeed, direction).Y;
             }

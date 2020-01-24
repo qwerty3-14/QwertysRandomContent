@@ -4,32 +4,30 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress.GaleArmor
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class GaleSwiftHelm : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Gale Swift Helm");
-			Tooltip.SetDefault("+6% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nGreatly increased throwing velocity and damage after dodging");
+    [AutoloadEquip(EquipType.Head)]
+    public class GaleSwiftHelm : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Gale Swift Helm");
+            Tooltip.SetDefault("+6% chance to dodge an attack" + "\n+10% thrown critical strike chance and velocity" + "\n15% chance not to consume thrown items" + "\nGreatly increased throwing velocity and damage after dodging");
 
 
         }
-		
-
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
 
             item.value = Item.sellPrice(0, 0, 75, 0);
             item.rare = 4;
             item.defense = 1;
             //item.vanity = true;
             item.width = 20;
-			item.height = 20;
-			
-			
-			
-			
-		}
+            item.height = 20;
+
+
+
+
+        }
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
@@ -54,7 +52,7 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
             recipe.AddRecipe();
         }
     }
-		
-	
+
+
 }
 

@@ -1,41 +1,35 @@
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Graphics.Shaders;
 
 namespace QwertysRandomContent
 {
-	public class QwertyPlayer : ModPlayer
-	{
-		public bool ninjaSabatoge = false;
-		public bool minionIchor = false;
-		public bool siphon = false;
-		public bool meleeSiphon = false;
-		public bool circletSetBonus = false;
-		public bool meleeCircletSetBonus = false;
-		public bool RhuthiniumMagic = false;
-		public bool RhuthiniumMight = false;
-		public bool VarguleCrownSetBonus = false;
-		public float VarguleRangedBoost = 0f;
-		public bool SombreroSetBonus = false;
-		public int VarguleManaDuration = 0;
-		public bool siphon2 = false;
-		public bool visorSetBonus = false;
-		
-		public bool DinoPox = false;
-		public bool HydraSetBonus = false;
-		public bool HydraHeadMinion = false;
+    public class QwertyPlayer : ModPlayer
+    {
+        public bool ninjaSabatoge = false;
+        public bool minionIchor = false;
+        public bool siphon = false;
+        public bool meleeSiphon = false;
+        public bool circletSetBonus = false;
+        public bool meleeCircletSetBonus = false;
+        public bool RhuthiniumMagic = false;
+        public bool RhuthiniumMight = false;
+
+        public bool DinoPox = false;
+        public bool HydraSetBonus = false;
+        public bool HydraHeadMinion = false;
         public bool LuneArcher = false;
         public bool Dreadnought = false;
         public bool HydraCannon = false;
-		public bool HydraCannonConfirm = false;
-		public bool Metronome = false;
-		public int killCount = 0;
-		public bool runOnce = true;
+        public bool HydraCannonConfirm = false;
+        public bool Metronome = false;
+        public int killCount = 0;
+        public bool runOnce = true;
         public bool usingVulcan = false;
         public bool TheAbstract = false;
         public bool hydraCharm = false;
@@ -55,10 +49,10 @@ namespace QwertysRandomContent
         public float customDashSpeed = 0;
         public float customDashBonusSpeed = 0;
         public int customDashRam = 0;
-        public int hyperRuneTimer=0;
+        public int hyperRuneTimer = 0;
         public bool hyperRune = false;
         public bool noRegen = false;
-        
+
         public bool cantUse = false;
         public bool blessedMedalion = false;
         public Projectile signalRune;
@@ -70,7 +64,7 @@ namespace QwertysRandomContent
         public bool AncientMinion;
         public bool GoldDagger;
         public bool PlatinumDagger;
-        public int dodgeChance=0;
+        public int dodgeChance = 0;
         public bool dodgeImmuneBoost = false;
         public bool dodgeDamageBoost = false;
         public bool damageBoostFromDodge = false;
@@ -85,7 +79,7 @@ namespace QwertysRandomContent
         public bool SpaceFighter = false;
         public bool ShieldMinion = false;
         public bool SwordMinion = false;
-       
+        public int ArmorFrameCounter = 0;
         public override void ResetEffects()
         {
             ninjaSabatoge = false;
@@ -96,10 +90,7 @@ namespace QwertysRandomContent
             meleeCircletSetBonus = false;
             RhuthiniumMagic = false;
             RhuthiniumMight = false;
-            VarguleCrownSetBonus = false;
-            SombreroSetBonus = false;
-            siphon2 = false;
-            visorSetBonus = false;
+
             DinoPox = false;
             HydraSetBonus = false;
             HydraHeadMinion = false;
@@ -120,7 +111,7 @@ namespace QwertysRandomContent
             customDashBonusSpeed = 0;
             hyperRune = false;
             noRegen = false;
-           
+
             cantUse = false;
             blessedMedalion = false;
             rangedVelocity = 1f;
@@ -150,11 +141,11 @@ namespace QwertysRandomContent
             }
             //forcedAntiGravity = 0;
         }
-        
-		public override void UpdateDead()
-		{
-			RhuthiniumMagic = false;
-			RhuthiniumMight = false;
+
+        public override void UpdateDead()
+        {
+            RhuthiniumMagic = false;
+            RhuthiniumMight = false;
             usingVulcan = false;
             RhuthiniumCharge = 0;
             iceScroll = false;
@@ -163,7 +154,7 @@ namespace QwertysRandomContent
             aggroScroll = false;
             shotNumber = 0;
         }
-		public override void UpdateBadLifeRegen()
+        public override void UpdateBadLifeRegen()
         {
             if (DinoPox)//Dino Pox
             {
@@ -173,9 +164,9 @@ namespace QwertysRandomContent
                 }
                 player.lifeRegenTime = 0;
                 player.lifeRegen -= 20;
-                
-			}
-            if(noRegen)
+
+            }
+            if (noRegen)
             {
                 if (player.lifeRegen > 0)
                 {
@@ -183,8 +174,8 @@ namespace QwertysRandomContent
                 }
                 player.lifeRegenTime = 0;
             }
-            
-		}
+
+        }
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
             damage += (int)(damage * .02f * killCount);
@@ -202,7 +193,7 @@ namespace QwertysRandomContent
             Item item = new Item();
             List<int> possibleAmmo = new List<int>();
 
-            
+
             for (int i = 0; i < 58; i++)
             {
                 if (player.inventory[i].ammo == sItem.useAmmo && player.inventory[i].stack > 0)
@@ -212,14 +203,14 @@ namespace QwertysRandomContent
                     //item = player.inventory[i];
 
                     possibleAmmo.Add(i);
-                    
-                    
+
+
                     canShoot = true;
-                    
-                    
+
+
                 }
             }
-            
+
             if (canShoot)
             {
                 item = player.inventory[possibleAmmo[Main.rand.Next(possibleAmmo.Count)]];
@@ -249,14 +240,14 @@ namespace QwertysRandomContent
                 }
                 KnockBack += item.knockBack;
                 shoot = item.shoot;
-                if (!dontConsume && item.maxStack >1)
+                if (!dontConsume && item.maxStack > 1)
                 {
                     item.stack--;
                 }
                 ItemLoader.PickAmmo(sItem, item, player, ref shoot, ref speed, ref Damage, ref KnockBack);
                 bool flag2 = dontConsume;
-                
-                
+
+
                 if (player.magicQuiver && sItem.useAmmo == AmmoID.Arrow && Main.rand.Next(5) == 0)
                 {
                     flag2 = true;
@@ -269,7 +260,7 @@ namespace QwertysRandomContent
                 {
                     flag2 = true;
                 }
-                
+
                 if (player.ammoCost80 && Main.rand.Next(5) == 0)
                 {
                     flag2 = true;
@@ -278,7 +269,7 @@ namespace QwertysRandomContent
                 {
                     flag2 = true;
                 }
-                if( Main.rand.NextFloat()>ammoReduction)
+                if (Main.rand.NextFloat() > ammoReduction)
                 {
                     flag2 = true;
                 }
@@ -286,7 +277,7 @@ namespace QwertysRandomContent
                 {
                     flag2 = true;
                 }
-                
+
                 if (!PlayerHooks.ConsumeAmmo(player, sItem, item))
                 {
                     flag2 = true;
@@ -295,23 +286,23 @@ namespace QwertysRandomContent
                 {
                     flag2 = true;
                 }
-                
+
             }
         }
         public override void UpdateBiomes()
         {
             TheAbstract = (QwertyWorld.AbstractiveBlock > 50);
         }
-        
+
         public override void PreUpdate()
         {
-            
+            ArmorFrameCounter++;
             if (Main.myPlayer == player.whoAmI)
             {
                 //QwertyMethods.ServerClientCheck(Main.myPlayer);
                 QwertysRandomContent.LocalCursor[Main.myPlayer] = Main.MouseWorld;
 
-                if(Main.netMode ==1)
+                if (Main.netMode == 1)
                 {
                     ModPacket packet = mod.GetPacket();
                     packet.Write((byte)ModMessageType.UpdateLocalCursor); // Message type, you would need to create an enum for this
@@ -344,7 +335,7 @@ namespace QwertysRandomContent
             if (gemRegen)
             {
                 regenTimer++;
-                if(regenTimer==300)
+                if (regenTimer == 300)
                 {
                     for (int i = 0; i < 200; i++)
                     {
@@ -358,64 +349,64 @@ namespace QwertysRandomContent
                 }
 
             }
-			
-            if(usingVulcan)
+
+            if (usingVulcan)
             {
                 player.accRunSpeed = 0f;
                 player.moveSpeed = 0f;
                 player.rangedDamage += 10;
-                
+
             }
-            
-			if(Main.mouseRight)
+
+            if (Main.mouseRight)
             {
-                while(RhuthiniumCharge>0)
+                while (RhuthiniumCharge > 0)
                 {
-                    
-                    
-                    float angle = (Main.MouseWorld - player.Center).ToRotation() + MathHelper.ToRadians(Main.rand.Next(-100, 101)*.05f);
-                    
-                    
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, (float)Math.Cos(angle)*12f, (float)Math.Sin(angle) * 12f, mod.ProjectileType("RhuthiniumCharge"), 20, 2f, player.whoAmI);
+
+
+                    float angle = (Main.MouseWorld - player.Center).ToRotation() + MathHelper.ToRadians(Main.rand.Next(-100, 101) * .05f);
+
+
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, (float)Math.Cos(angle) * 12f, (float)Math.Sin(angle) * 12f, mod.ProjectileType("RhuthiniumCharge"), 20, 2f, player.whoAmI);
                     RhuthiniumCharge--;
                 }
             }
-				
-				
-			if(iceScroll)
+
+
+            if (iceScroll)
             {
-                if( iceScrollCounter>= (int)(2 * Math.PI * 10))
+                if (iceScrollCounter >= (int)(2 * Math.PI * 10))
                 {
                     float startDistance = 100;
-                    Projectile.NewProjectile(player.Center.X + (float)Math.Cos(0) * startDistance, player.Center.Y + (float)Math.Sin(0) * startDistance, 0, 0, mod.ProjectileType("IceRuneFreindly"), (int)(300*player.meleeDamage), 3f, Main.myPlayer);
+                    Projectile.NewProjectile(player.Center.X + (float)Math.Cos(0) * startDistance, player.Center.Y + (float)Math.Sin(0) * startDistance, 0, 0, mod.ProjectileType("IceRuneFreindly"), (int)(300 * player.meleeDamage), 3f, Main.myPlayer);
                     Projectile.NewProjectile(player.Center.X + (float)Math.Cos(Math.PI) * startDistance, player.Center.Y + (float)Math.Sin(Math.PI) * startDistance, 0, 0, mod.ProjectileType("IceRuneFreindly"), (int)(300 * player.meleeDamage), 3f, Main.myPlayer);
                     iceScrollCounter = 0;
                 }
                 iceScrollCounter++;
 
             }
-            
-			if(heldItemOld != player.inventory[player.selectedItem])
-			{
-				
-				if(Metronome && killCount !=0)
-				{
-				CombatText.NewText(player.getRect(), Color.DarkRed, "Reset!", true, false);
-				}
-				killCount = 0;
-			}
-			heldItemOld = player.inventory[player.selectedItem];
-            
+
+            if (heldItemOld != player.inventory[player.selectedItem])
+            {
+
+                if (Metronome && killCount != 0)
+                {
+                    CombatText.NewText(player.getRect(), Color.DarkRed, "Reset!", true, false);
+                }
+                killCount = 0;
+            }
+            heldItemOld = player.inventory[player.selectedItem];
+
         }
         public override void PostUpdateEquips()
         {
-            if(forcedAntiGravity>0)
+            if (forcedAntiGravity > 0)
             {
                 player.gravDir = -1f;
                 player.gravControl2 = true;
                 forcedAntiGravity--;
-                
-                if(forcedAntiGravity==1)
+
+                if (forcedAntiGravity == 1)
                 {
                     player.velocity.Y = 0;
 
@@ -452,7 +443,7 @@ namespace QwertysRandomContent
             {
                 customDashSpeedMovement();
             }
-           
+
 
 
         }
@@ -460,8 +451,8 @@ namespace QwertysRandomContent
 
 
 
-        public int crateBonus=1;
-		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+        public int crateBonus = 1;
+        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
         {
             if (player.FindBuffIndex(BuffID.Crate) > -1)
             {
@@ -471,11 +462,11 @@ namespace QwertysRandomContent
             {
                 crateBonus = 1;
             }
-            if (liquidType == 0 && Main.rand.Next(4) ==0 && caughtType == ItemID.WoodenCrate && NPC.downedBoss3)
+            if (liquidType == 0 && Main.rand.Next(4) == 0 && caughtType == ItemID.WoodenCrate && NPC.downedBoss3)
             {
-                caughtType = mod.ItemType("RhuthiniumCrate"); 
+                caughtType = mod.ItemType("RhuthiniumCrate");
             }
-           
+
         }
 
 
@@ -608,16 +599,16 @@ namespace QwertysRandomContent
             killCount = 0;
             return true;
         }
-		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
-		{
-			if (player.HasBuff(mod.BuffType("DinoPox")))
-		{
-			damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by diseaese!");
-		}
-            
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (player.HasBuff(mod.BuffType("DinoPox")))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by diseaese!");
+            }
+
             return true;
-		}
-        
+        }
+
 
 
 
@@ -627,8 +618,8 @@ namespace QwertysRandomContent
 
         public int runeRate;
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
-		{
-            
+        {
+
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (target.life <= 0 && !target.SpawnedFromStatue && stormEnchantment)
             {
@@ -645,291 +636,180 @@ namespace QwertysRandomContent
 
 
             }
-        
+
             if (aggroScroll && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue && proj.magic && proj.type != mod.ProjectileType("AggroRuneFreindly"))
             {
                 Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("AggroRuneFreindly"), (int)(420 * player.magicDamage), 3f, Main.myPlayer);
-                
+
             }
             if (leechScroll && proj.ranged && proj.type != mod.ProjectileType("LeechRuneFreindly"))
             {
-                
+
                 runeRate = damage;
 
                 while (runeRate > 200)
                 {
                     float theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
-                    Projectile.NewProjectile(target.Center.X + (float)Math.Cos(theta) * 150, target.Center.Y + (float)Math.Sin(theta) * 150, -(float)Math.Cos(theta)*10, -(float)Math.Sin(theta)*10, mod.ProjectileType("LeechRuneFreindly"), (int)(25*player.rangedDamage), 3f, Main.myPlayer);
+                    Projectile.NewProjectile(target.Center.X + (float)Math.Cos(theta) * 150, target.Center.Y + (float)Math.Sin(theta) * 150, -(float)Math.Cos(theta) * 10, -(float)Math.Sin(theta) * 10, mod.ProjectileType("LeechRuneFreindly"), (int)(25 * player.rangedDamage), 3f, Main.myPlayer);
                     runeRate -= 200;
                 }
-                if(runeRate>= Main.rand.Next(0, 199))
+                if (runeRate >= Main.rand.Next(0, 199))
                 {
                     float theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
                     Projectile.NewProjectile(target.Center.X + (float)Math.Cos(theta) * 150, target.Center.Y + (float)Math.Sin(theta) * 150, -(float)Math.Cos(theta) * 10, -(float)Math.Sin(theta) * 10, mod.ProjectileType("LeechRuneFreindly"), (int)(25 * player.rangedDamage), 3f, Main.myPlayer);
                 }
-                
+
 
             }
-            
-            if (Metronome &&!target.immortal && target.life <=0 && !target.SpawnedFromStatue)
-			{
-				killCount++;
-				if (killCount >=100)
-				{
-					killCount = 100;
-					CombatText.NewText(player.getRect(), Color.Purple, "Max!", true, false);
-				}
-				else
-				{
-				CombatText.NewText(player.getRect(), Color.Purple, killCount, false, false);
-				}
-			}
-			if(HydraCannon &&!target.immortal && target.life <=0 &&proj.ranged == true && !target.SpawnedFromStatue)
-			{
-				Main.PlaySound(SoundID.Roar, player.position, 0);
-				if( proj.type == mod.ProjectileType("DoomBreath"))
-				{
-					if(crit)
-					{
-					Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X-player.Center.X, target.Center.Y-player.Center.Y, mod.ProjectileType("DoomBreath"), damage/2, knockback, player.whoAmI);
-					}
-					else
-					{
-						Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X-player.Center.X, target.Center.Y-player.Center.Y, mod.ProjectileType("DoomBreath"), damage, knockback, player.whoAmI);
-					}
-				}
-				else
-				{
-					Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X-player.Center.X, target.Center.Y-player.Center.Y, mod.ProjectileType("DoomBreath"), damage*5, knockback*3, player.whoAmI);
-				}
-                Main.rand.NextFloat(player.width);
-			}
-			if (ninjaSabatoge)
+
+            if (Metronome && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue)
             {
-				
-				if( proj.thrown == true)
-				{
-               
-				target.AddBuff(20, 999999); 
-				target.AddBuff(31, 999999);    				
-				}
-			
-			}
-			if (minionIchor)
-            {
-				
-				if(proj.minion)
-				{
-               
-				target.AddBuff(69, 120); 
-				}
-				
-			
-			}
-			if (siphon)
-            {
-				if (!target.immortal  && !target.SpawnedFromStatue){
-				    if( proj.melee == true )
-				    {
-                
-				        player.statMana += (damage/2);
-                        CombatText.NewText(player.getRect(), Color.Blue, damage/2, false, false);
-                    }
-				}
-			
-			}
-			if (siphon2 && !target.SpawnedFromStatue)
-            {
-				if (!target.immortal){
-				if( proj.melee == true)
-				{
-               
-				    player.statMana += (damage/3);
-                        CombatText.NewText(player.getRect(), Color.Blue, damage/3, false, false);
-                    }
-				}
-			
-			}
-			if (circletSetBonus)
-            {
-				if (!target.immortal && !target.SpawnedFromStatue){
-				
-				if( proj.melee == true)
-				{
-               
-				player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600); 	
-				}
-				if( proj.magic == true)
-				{
-               
-				player.AddBuff(mod.BuffType("RhuthiniumMight"), 600); 	
-				}
-				}
-			
-			}
-			if (visorSetBonus)
-            {
-				if (!target.immortal && !target.SpawnedFromStatue){
-				
-				if( proj.melee == true)
-				{
-               
-				player.AddBuff(mod.BuffType("VarguleMagic"), 600); 	
-				}
-				if( proj.magic == true)
-				{
-               
-				player.AddBuff(mod.BuffType("VarguleMight"), 600); 	
-				}
-				}
-			
-			}
-			if(VarguleCrownSetBonus)
-			{
-				if( proj.melee == true)
-				{
-					if (!target.immortal && !target.SpawnedFromStatue){
-					VarguleRangedBoost += .02f;
-					}
-				
-				
-				
-				}
-				if( proj.ranged == true)
-				{
-					if (!target.immortal){
-					VarguleRangedBoost = 0f;
-					}
-				}
-				
-				
-			}
-			else
-			{
-				VarguleRangedBoost = 0f;
-			}
-			
-			if(SombreroSetBonus)
-			{
-				if( proj.ranged == true)
-				{
-					if (!target.immortal && !target.SpawnedFromStatue)
-                    {
-                        if(player.HasBuff(mod.BuffType("VarguleMana")))
-                        {
-                            //player.buffTime[Main.rand.Next(22)] = 0;
-                            
-                            player.buffTime[player.FindBuffIndex(mod.BuffType("VarguleMana"))] += (damage);
-                            if(player.buffTime[player.FindBuffIndex(mod.BuffType("VarguleMana"))] > 300)
-                            {
-                                   player.buffTime[player.FindBuffIndex(mod.BuffType("VarguleMana"))]=300;
-                            }
-                        }
-                        else
-                        {
-                            player.AddBuff(mod.BuffType("VarguleMana"), (damage));
-                        }
-                    }
-                    
+                killCount++;
+                if (killCount >= 100)
+                {
+                    killCount = 100;
+                    CombatText.NewText(player.getRect(), Color.Purple, "Max!", true, false);
                 }
-			}	
-		}
-		public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-		{
-            
-            if (Metronome &&!target.immortal && target.life <=0 && !target.SpawnedFromStatue)
-			{
-				killCount++;
-				if (killCount >=100)
-				{
-					killCount = 100;
-					CombatText.NewText(player.getRect(), Color.Purple, "Max!", true, false);
-				}
-				else
-				{
-				CombatText.NewText(player.getRect(), Color.Purple, killCount, false, false);
-				}
-			}
-			if (meleeSiphon)
+                else
+                {
+                    CombatText.NewText(player.getRect(), Color.Purple, killCount, false, false);
+                }
+            }
+            if (HydraCannon && !target.immortal && target.life <= 0 && proj.ranged == true && !target.SpawnedFromStatue)
             {
-				
-				if (!target.immortal && !target.SpawnedFromStatue){
-					if( item.melee == true)
-					{
-					player.statMana += (damage);
-                        CombatText.NewText(player.getRect(), Color.Blue, damage/2, false, false);
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                if (proj.type == mod.ProjectileType("DoomBreath"))
+                {
+                    if (crit)
+                    {
+                        Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage / 2, knockback, player.whoAmI);
                     }
-				}
-			
-			}
-			if (siphon2)
-            {
-				
-				if (!target.immortal && !target.SpawnedFromStatue){
-					if( item.melee == true)
-					{
-					player.statMana += (damage/3);
-                        CombatText.NewText(player.getRect(), Color.Blue, damage/3, false, false);
+                    else
+                    {
+                        Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage, knockback, player.whoAmI);
                     }
-				}
-			
-			}
-			if (meleeCircletSetBonus)
+                }
+                else
+                {
+                    Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage * 5, knockback * 3, player.whoAmI);
+                }
+                Main.rand.NextFloat(player.width);
+            }
+            if (ninjaSabatoge)
             {
-				if (!target.immortal && !target.SpawnedFromStatue){
-				
-				if( item.melee == true)
-				{
-               
-				player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600); 	
-				}
-				if( item.magic == true)
-				{
-               
-				player.AddBuff(mod.BuffType("RhuthiniumMight"), 600); 	
-				}
-				}
-			
-			}
-			if (visorSetBonus)
+
+                if (proj.thrown == true)
+                {
+
+                    target.AddBuff(20, 999999);
+                    target.AddBuff(31, 999999);
+                }
+
+            }
+            if (minionIchor)
             {
-				if (!target.immortal && !target.SpawnedFromStatue){
-				
-				if( item.melee == true)
-				{
-               
-				player.AddBuff(mod.BuffType("VarguleMagic"), 600); 	
-				}
-				if( item.magic == true)
-				{
-               
-				player.AddBuff(mod.BuffType("VargulMight"), 600); 	
-				}
-				}
-			
-			}
-			if(VarguleCrownSetBonus)
-			{
-				if(item.melee == true)
-				{
-					if (!target.immortal && !target.SpawnedFromStatue){
-					VarguleRangedBoost += .02f;
-					}
-				}
-				
-				
-			}
-			
-			
-		}
+
+                if (proj.minion)
+                {
+
+                    target.AddBuff(69, 120);
+                }
+
+
+            }
+            if (siphon)
+            {
+                if (!target.immortal && !target.SpawnedFromStatue)
+                {
+                    if (proj.melee == true)
+                    {
+
+                        player.statMana += (damage / 2);
+                        CombatText.NewText(player.getRect(), Color.Blue, damage / 2, false, false);
+                    }
+                }
+
+            }
+
+            if (circletSetBonus)
+            {
+                if (!target.immortal && !target.SpawnedFromStatue)
+                {
+
+                    if (proj.melee == true)
+                    {
+                        player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600);
+                    }
+                    if (proj.magic == true)
+                    {
+
+                        player.AddBuff(mod.BuffType("RhuthiniumMight"), 600);
+                    }
+                }
+
+            }
+
+        }
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+
+            if (Metronome && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue)
+            {
+                killCount++;
+                if (killCount >= 100)
+                {
+                    killCount = 100;
+                    CombatText.NewText(player.getRect(), Color.Purple, "Max!", true, false);
+                }
+                else
+                {
+                    CombatText.NewText(player.getRect(), Color.Purple, killCount, false, false);
+                }
+            }
+            if (meleeSiphon)
+            {
+
+                if (!target.immortal && !target.SpawnedFromStatue)
+                {
+                    if (item.melee == true)
+                    {
+                        player.statMana += (damage);
+                        CombatText.NewText(player.getRect(), Color.Blue, damage / 2, false, false);
+                    }
+                }
+
+            }
+
+            if (meleeCircletSetBonus)
+            {
+                if (!target.immortal && !target.SpawnedFromStatue)
+                {
+
+                    if (item.melee == true)
+                    {
+
+                        player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600);
+                    }
+                    if (item.magic == true)
+                    {
+
+                        player.AddBuff(mod.BuffType("RhuthiniumMight"), 600);
+                    }
+                }
+
+            }
+
+
+
+        }
         public void customDashSpeedMovement()
         {
             if (hyperRune)
             {
 
-                
 
-                    hyperRuneTimer++;
+
+                hyperRuneTimer++;
 
             }
             if (customDashRam > 0 && player.eocDash > 0)
@@ -1110,15 +990,15 @@ namespace QwertysRandomContent
                         if (flag)
                         {
                             player.velocity.X = (customDashSpeed + 10f + customDashBonusSpeed) * (float)num16;
-                            
 
-                                Point point = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), player.gravDir * -(float)player.height / 2f + player.gravDir * 2f)).ToTileCoordinates();
-                                Point point2 = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), 0f)).ToTileCoordinates();
-                                if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
-                                {
-                                    player.velocity.X = player.velocity.X / 2f;
-                                }
-                            
+
+                            Point point = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), player.gravDir * -(float)player.height / 2f + player.gravDir * 2f)).ToTileCoordinates();
+                            Point point2 = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), 0f)).ToTileCoordinates();
+                            if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
+                            {
+                                player.velocity.X = player.velocity.X / 2f;
+                            }
+
                             player.dashDelay = -1;
                             if (customDashRam > 0)
                             {
@@ -1155,6 +1035,6 @@ namespace QwertysRandomContent
 
 
     }
-	
-	
+
+
 }

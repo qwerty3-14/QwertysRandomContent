@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class SwordsmanBadge : ModItem
@@ -64,11 +60,11 @@ namespace QwertysRandomContent.Items.BladeBossItems
             public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
             {
 
-                if(DoEffect())
+                if (DoEffect())
                 {
                     target.immune[player.whoAmI] = player.itemAnimation / 2;
                 }
-                
+
             }
         }
     }

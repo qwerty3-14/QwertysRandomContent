@@ -1,12 +1,12 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Items.Armor.TankCommander;
+using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
@@ -128,7 +128,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-        
+
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<TankControl>().controlled = true;
@@ -146,7 +146,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         float flightTime = 0;
         public override void PostUpdateMiscEffects()
         {
-            if(controlled)
+            if (controlled)
             {
                 player.noKnockback = true;
                 //player.Hitbox.Height = 30;
@@ -173,7 +173,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                         pointAt = (float)Math.PI;
                     }
                 }
-                
+
                 player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
                 //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
                 if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
@@ -196,8 +196,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                     shotCooldown = 26;
                     Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(112, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("TankCannonBallFreindly"), (int)(TankShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), TankShift.kb, player.whoAmI);
                 }
-                
-                if(player.controlJump && player.GetModPlayer<TankComPantsEffects>().effect && flightTime <120)
+
+                if (player.controlJump && player.GetModPlayer<TankComPantsEffects>().effect && flightTime < 120)
                 {
                     Main.PlaySound(SoundID.Item24, player.position);
                     if (player.velocity.Y > -2)
@@ -214,28 +214,28 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
                         if (num104 == 0)
                         {
-                            int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width/2 -15) *player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
+                            int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
                             Main.dust[num105].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
                             Main.dust[num105].noGravity = true;
-                           
+
                             Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
 
                         }
                         else
                         {
-                            int num106 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15)  * -player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
+                            int num106 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * -player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
                             Main.dust[num106].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
 
                             Main.dust[num106].noGravity = true;
 
-                            
+
                             Main.dust[num106].velocity.Y = Main.dust[num106].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
 
                         }
                     }
                 }
 
-                if(player.velocity.Y ==0 && player.oldVelocity.Y ==0)
+                if (player.velocity.Y == 0 && player.oldVelocity.Y == 0)
                 {
                     flightTime = 0;
                 }
@@ -263,7 +263,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
             projectile.usesLocalNPCImmunity = true;
-           
+
 
         }
         public bool runOnce = true;
@@ -307,14 +307,14 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
-            
-            
+
+
             Main.PlaySound(SoundID.Item62, projectile.position);
             for (int i = 0; i < 10; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat()*4f, theta));
-               
+                Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
+
             }
             // Fire Dust spawn
             for (int i = 0; i < 20; i++)
@@ -351,7 +351,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
 
         }
-        
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 

@@ -1,10 +1,8 @@
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using QwertysRandomContent;
-using System.Collections.Generic;
 
 namespace QwertysRandomContent.Items.DinoItems
 {
@@ -115,9 +113,9 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.hide = false;
             projectile.ranged = true;
             projectile.ignoreWater = true;
-            
+
         }
-       
+
 
         public int timer = 0;
         public int reloadTime;
@@ -150,7 +148,7 @@ namespace QwertysRandomContent.Items.DinoItems
 
             int Ammo = 14;
             float speed = 14f;
-            
+
             int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             direction = (Main.MouseWorld - player.Center).ToRotation();
             float weaponKnockback = player.inventory[player.selectedItem].knockBack;
@@ -226,14 +224,14 @@ namespace QwertysRandomContent.Items.DinoItems
                 }
                 ///////////////////////////////
 
-                if(!player.HasBuff(mod.BuffType("TrexMountB")))
+                if (!player.HasBuff(mod.BuffType("TrexMountB")))
                 {
                     player.velocity.X = 0;
                     float VelYOld = player.velocity.Y;
                     player.velocity.Y = (float)Math.Abs(VelYOld);
                 }
-                
-               
+
+
 
                 if (timer >= reloadTime)
                 {
@@ -242,13 +240,13 @@ namespace QwertysRandomContent.Items.DinoItems
                     VarC = direction + MathHelper.ToRadians(Main.rand.Next(-100, 101) / 10);
                     VarD = direction + MathHelper.ToRadians(Main.rand.Next(-100, 101) / 10);
                     VarE = direction + MathHelper.ToRadians(Main.rand.Next(-100, 101) / 10);
-                    
+
                     float shellShift = MathHelper.ToRadians(-50);
                     SVarA = shellShift + MathHelper.ToRadians(Main.rand.Next(-100, 301) / 10);
                     SVarB = shellShift + MathHelper.ToRadians(Main.rand.Next(-100, 301) / 10);
                     SVarC = shellShift + MathHelper.ToRadians(Main.rand.Next(-100, 301) / 10);
                     SVarD = shellShift + MathHelper.ToRadians(Main.rand.Next(-100, 301) / 10);
-                    SVarE = shellShift + MathHelper.ToRadians(Main.rand.Next(-100, 301)/10);
+                    SVarE = shellShift + MathHelper.ToRadians(Main.rand.Next(-100, 301) / 10);
                     float SspeedA = .05f * Main.rand.Next(15, 41);
                     float SspeedB = .05f * Main.rand.Next(15, 41);
                     float SspeedC = .05f * Main.rand.Next(15, 41);
@@ -256,7 +254,9 @@ namespace QwertysRandomContent.Items.DinoItems
                     float SspeedE = .05f * Main.rand.Next(15, 41);
 
                     Main.PlaySound(SoundID.Item11, projectile.Center);
-                    player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
+                    Item sItem = QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol);
+                    sItem.damage = weaponDamage;
+                    player.PickAmmo(sItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(0, 2) == 0);
 
                     if (player.whoAmI == Main.myPlayer)
                     {
@@ -307,7 +307,7 @@ namespace QwertysRandomContent.Items.DinoItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shell");
-            
+
 
         }
 
@@ -321,10 +321,10 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.friendly = false;   //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.ignoreWater = true;    //Tells the game whether or not projectile will be affected by water
             projectile.aiStyle = 1;
-           
+
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = true; //Tells the game whether or not it can collide with tiles/ terrain
-           
+
             projectile.timeLeft = 90;
 
         }
@@ -335,10 +335,10 @@ namespace QwertysRandomContent.Items.DinoItems
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
-                rotationSpeed = player.direction*Main.rand.Next(0, 241);
+                rotationSpeed = player.direction * Main.rand.Next(0, 241);
                 runOnce = false;
             }
-            
+
             projectile.rotation += MathHelper.ToRadians(rotationSpeed);
             if (projectile.timeLeft <= 20)
             {
@@ -352,9 +352,9 @@ namespace QwertysRandomContent.Items.DinoItems
         {
             projectile.velocity.X /= 2;
             return false;
-            
-            
+
+
         }
-        
+
     }
 }

@@ -3,12 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -36,7 +32,7 @@ namespace QwertysRandomContent
         }
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if(input != "/generateTinyRoom")
+            if (input != "/generateTinyRoom")
             {
                 caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
@@ -81,10 +77,10 @@ namespace QwertysRandomContent
             {
                 caller.Player.GetModPlayer<RoomPlacement>().exportTinyRoom = true;
                 caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
-                
+
             }
-            
-            
+
+
         }
     }
     public class GenerateSmallRoom : ModCommand
@@ -114,7 +110,7 @@ namespace QwertysRandomContent
                 caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
             caller.Player.GetModPlayer<RoomPlacement>().placeSmallRoom = true;
-            
+
         }
     }
     public class ExportSmallRoom : ModCommand
@@ -362,7 +358,7 @@ namespace QwertysRandomContent
         {
             get { return "placeAltar"; }
         }
-        
+
 
         public override string Description
         {
@@ -370,7 +366,7 @@ namespace QwertysRandomContent
         }
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-           
+
             caller.Player.GetModPlayer<RoomPlacement>().placeAltar = true;
 
         }
@@ -389,7 +385,7 @@ namespace QwertysRandomContent
         public bool placeLargeRoom = false;
         public bool exportLargeRoom = false;
         public bool placeAltarRoom = false;
-        public bool  exportAltarRoom = false;
+        public bool exportAltarRoom = false;
         public bool placeAltar = false;
         void PlaceUpdate()
         {
@@ -462,7 +458,7 @@ namespace QwertysRandomContent
             UIDimensions = new Vector2(1, 1);
             Main.NewText(Main.tile[(int)positionB.X, (int)positionB.Y].nactive());
             */
-            if(placeAltar)
+            if (placeAltar)
             {
                 UIDimensions = new Vector2(3, 2);
 
@@ -471,7 +467,7 @@ namespace QwertysRandomContent
                     Vector2 position = Main.MouseWorld / 16f;
                     position.X = (int)position.X;
                     position.Y = (int)position.Y;
-                    WorldGen.PlaceTile((int)position.X +1, (int)position.Y+1, mod.TileType("FortressAltar"));
+                    WorldGen.PlaceTile((int)position.X + 1, (int)position.Y + 1, mod.TileType("FortressAltar"));
 
                     PlaceUpdate();
                 }
@@ -493,7 +489,7 @@ namespace QwertysRandomContent
 
 
             }
-            if(exportTinyRoom)
+            if (exportTinyRoom)
             {
                 UIDimensions = new Vector2(20, 10);
                 if (Main.mouseLeft)
@@ -502,7 +498,7 @@ namespace QwertysRandomContent
                     ExportRoom(position, Fortress2Blueprints.TinyRooms);
                 }
 
-                
+
             }
             if (placeSmallRoom)
             {
@@ -616,7 +612,7 @@ namespace QwertysRandomContent
         }
         public void ExportRoom(Vector2 position, int[,,,] Rooms)
         {
-            
+
             position.X = (int)position.X;
             position.Y = (int)position.Y;
             //BuildTinyRoom((int)position.X, (int)position.Y, roomType);
@@ -638,11 +634,11 @@ namespace QwertysRandomContent
                         {
 
                             foundTiles.Add(Main.tile[i, j].type);
-                           
+
                             if (Main.tile[i, j].type > 470) //checks if it's a modded tile
                             {
-                               
-                                if(Main.tile[i, j].type == mod.TileType("FortressBrick"))
+
+                                if (Main.tile[i, j].type == mod.TileType("FortressBrick"))
                                 {
                                     tileList += ", mod.TileType(\"FortressBrick\")";
                                 }
@@ -783,7 +779,7 @@ namespace QwertysRandomContent
                                     tileList += ", " + Main.tile[i, j].type;
                                     tileList += "m";
                                 }
-                                
+
                             }
                             else
                             {
@@ -944,12 +940,12 @@ namespace QwertysRandomContent
                     {
                         wires += 1000;
                     }
-                    
-                    if(Main.tile[i, j].actuator())
+
+                    if (Main.tile[i, j].actuator())
                     {
                         wires += 10000;
                     }
-                    
+
                     tileStructure += wires;
                 }
             }

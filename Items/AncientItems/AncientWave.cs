@@ -6,37 +6,37 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-	public class AncientWave : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Wave");
-			Tooltip.SetDefault("Blows enemies away");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 42;
-			item.magic = true;
-			
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.useStyle = 5;
-			item.knockBack = 100;
-			item.value = 150000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.width = 28;
-			item.height = 30;
+    public class AncientWave : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Wave");
+            Tooltip.SetDefault("Blows enemies away");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 42;
+            item.magic = true;
+
+            item.useTime = 40;
+            item.useAnimation = 40;
+            item.useStyle = 5;
+            item.knockBack = 100;
+            item.value = 150000;
+            item.rare = 3;
+            item.UseSound = SoundID.Item1;
+            item.autoReuse = true;
+            item.width = 28;
+            item.height = 30;
             if (!Main.dedServ)
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientWave_Glow");
             }
-            item.mana =12;
-			item.shoot = mod.ProjectileType("AncientWaveP");
-			item.shootSpeed =9;
-			item.noMelee=true;
+            item.mana = 12;
+            item.shoot = mod.ProjectileType("AncientWaveP");
+            item.shootSpeed = 9;
+            item.noMelee = true;
             //item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientWave_Glow");
 
 
@@ -64,29 +64,29 @@ namespace QwertysRandomContent.Items.AncientItems
         }
 
     }
-		public class AncientWaveP : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Wave");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-			projectile.aiStyle = 1;
-			aiType = ProjectileID.Bullet; 
-			projectile.width = 80;
-			projectile.height = 80;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.magic= true;
-			projectile.tileCollide= false;
+    public class AncientWaveP : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Wave");
+
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+            aiType = ProjectileID.Bullet;
+            projectile.width = 80;
+            projectile.height = 80;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.magic = true;
+            projectile.tileCollide = false;
             projectile.timeLeft = 60 * 15;
-			
-			
-			
-		}
+
+
+
+        }
         public int dustTimer;
         public override void AI()
         {
@@ -107,6 +107,6 @@ namespace QwertysRandomContent.Items.AncientItems
         }
 
     }
-	
+
 }
 

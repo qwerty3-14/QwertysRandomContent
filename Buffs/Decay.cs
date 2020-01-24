@@ -1,26 +1,24 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using QwertysRandomContent.NPCs;
-using QwertysRandomContent;
-using Microsoft.Xna.Framework;
 
 namespace QwertysRandomContent.Buffs
 {
-	public class Decay : ModBuff
-	{
-		
-		public override void SetDefaults()
-		{
-			DisplayName.SetDefault("Decay");
-			Description.SetDefault("Deal 10% less damage, defense reduced by 10, life slowly depleting");
-			Main.debuff[Type] = true;
-			
-			
-			longerExpertDebuff = false;
-		}
+    public class Decay : ModBuff
+    {
+
+        public override void SetDefaults()
+        {
+            DisplayName.SetDefault("Decay");
+            Description.SetDefault("Deal 10% less damage, defense reduced by 10, life slowly depleting");
+            Main.debuff[Type] = true;
+
+
+            longerExpertDebuff = false;
+        }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            
+
 
         }
 
@@ -33,17 +31,17 @@ namespace QwertysRandomContent.Buffs
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
             //drawColor.A = (byte)(drawColor.A *.8f);
-            if(npc.HasBuff(mod.BuffType("Decay")))
+            if (npc.HasBuff(mod.BuffType("Decay")))
             {
                 drawColor.R = (byte)(drawColor.R * .5f);
                 drawColor.G = (byte)(drawColor.G * .5f);
                 drawColor.B = (byte)(drawColor.B * .5f);
             }
-            
+
         }
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            if(npc.HasBuff(mod.BuffType("Decay")))
+            if (npc.HasBuff(mod.BuffType("Decay")))
             {
                 if (npc.lifeRegen > 0)
                 {
@@ -51,7 +49,7 @@ namespace QwertysRandomContent.Buffs
                 }
                 npc.lifeRegen -= 4;
             }
-            
+
         }
         public override void AI(NPC npc)
         {

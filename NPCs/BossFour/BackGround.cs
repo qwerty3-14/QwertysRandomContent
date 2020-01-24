@@ -1,10 +1,8 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
 
 namespace QwertysRandomContent.NPCs.BossFour
 {
@@ -28,7 +26,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             npc.value = 1;
             npc.knockBackResist = 0f;
             npc.aiStyle = -1;
-            
+
             animationType = -1;
             npc.noGravity = true;
             npc.dontTakeDamage = true;
@@ -36,7 +34,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             //music = MusicID.Boss5;
             npc.lifeMax = 100000;
             //bossBag = mod.ItemType("HydraBag");
-            
+
 
         }
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -93,12 +91,12 @@ namespace QwertysRandomContent.NPCs.BossFour
             npc.position = new Vector2(b4.Center.X - npc.width / 2, b4.Center.Y - npc.height / 2);
             */
         }
-        
-        
-        
+
+
+
 
 
     }
-   
+
 
 }

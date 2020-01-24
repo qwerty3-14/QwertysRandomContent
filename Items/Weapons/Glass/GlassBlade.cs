@@ -5,39 +5,39 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace QwertysRandomContent.Items.Weapons.Glass 
+namespace QwertysRandomContent.Items.Weapons.Glass
 {
-	public class GlassBlade : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Glass Blade");
-			Tooltip.SetDefault("Breaks into shards upon striking an enemy");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 14;
-			item.thrown = true;
-			
-			item.useTime = 28;
-			item.useAnimation = 28;
-			item.useStyle = 1;
-			item.knockBack = 3;
+    public class GlassBlade : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Glass Blade");
+            Tooltip.SetDefault("Breaks into shards upon striking an enemy");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 14;
+            item.thrown = true;
+
+            item.useTime = 28;
+            item.useAnimation = 28;
+            item.useStyle = 1;
+            item.knockBack = 3;
             item.value = 1;
             item.rare = 0;
             item.UseSound = SoundID.Item1;
-			
-			item.width = 64;
-			item.height = 64;
+
+            item.width = 64;
+            item.height = 64;
             item.maxStack = 999;
-			item.autoReuse = true;
+            item.autoReuse = true;
             //item.scale = 5;
-			
-			
-			
-		}
-        int useCounter =0;
+
+
+
+        }
+        int useCounter = 0;
         public override bool CanUseItem(Player player)
         {
             return useCounter == 0;
@@ -47,7 +47,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             if (useCounter > 0)
             {
                 useCounter--;
-                
+
             }
         }
         public override bool ConsumeItem(Player player)
@@ -62,8 +62,8 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             recipe.SetResult(this, 100);
             recipe.AddRecipe();
         }
-        
-        
+
+
         public override bool? CanHitNPC(Player player, NPC target)
         {
             float swordLength = item.Size.Length() * item.scale;
@@ -74,18 +74,18 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
             return Collision.CheckAABBvLineCollision(target.position, target.Size, player.MountedCenter, player.MountedCenter + new Vector2((float)Math.Cos(r), (float)Math.Sin(r)) * swordLength);
         }
-        
+
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             if (player.itemAnimation < player.itemAnimationMax - 5)
             {
                 player.itemAnimation = 0;
                 useCounter = 10;
-                if(player.GetModPlayer<QwertyPlayer>().throwReduction > Main.rand.NextFloat())
+                if (player.GetModPlayer<QwertyPlayer>().throwReduction > Main.rand.NextFloat())
                 {
                     item.stack--;
                 }
-                
+
                 float swordLength = item.Size.Length() * item.scale;
 
 
@@ -104,7 +104,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
         }
     }
-    
+
 
 
 

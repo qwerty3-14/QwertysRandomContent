@@ -1,12 +1,11 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs.CloakedDarkBoss
 {
@@ -356,12 +355,12 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
 
 
 
-                
+
                 if (playerviewRadius > 500)
                 {
                     orbitDistance = 1200;
                     retreatApproachSpeed = 8f;
-                    
+
 
                 }
                 else
@@ -414,7 +413,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             writer.Write(orbitalVelocity);
             writer.Write(forecastTime);
             writer.Write(attacks.Count);
-            foreach(Vector2 attack in attacks)
+            foreach (Vector2 attack in attacks)
             {
                 writer.WriteVector2(attack);
             }
@@ -426,7 +425,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             forecastTime = reader.ReadInt32();
             int attackCount = reader.ReadInt32();
             attacks.Clear();
-            for(int i = 0; i < attackCount; i++)
+            for (int i = 0; i < attackCount; i++)
             {
                 attacks.Add(reader.ReadVector2());
             }
@@ -542,8 +541,8 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         public override void AI()
         {
             projectile.Center = Main.npc[(int)projectile.ai[0]].Center;
-           // QwertyMethods.ServerClientCheck((int)projectile.ai[1]);
-            if(Main.netMode !=1)
+            // QwertyMethods.ServerClientCheck((int)projectile.ai[1]);
+            if (Main.netMode != 1)
             {
                 projectile.netUpdate = true;
             }
@@ -557,7 +556,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             {
                 scale = 12;
             }
-            
+
 
 
             int height = (int)(Main.screenHeight / scale);
@@ -567,13 +566,13 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             var dataColors = new Color[width * height];
             List<Vector3> lightSpots = new List<Vector3>();
             lightSpots.Add(new Vector3(drawPlayer.Center.X, drawPlayer.Center.Y, projectile.ai[1]));
-            if(!Main.gamePaused)
+            if (!Main.gamePaused)
             {
                 lightSpots.Add(new Vector3(Main.MouseWorld.X, Main.MouseWorld.Y, 80));
             }
-            
+
             NPC master = Main.npc[(int)projectile.ai[0]];
-            if (master.ai[3]>0)
+            if (master.ai[3] > 0)
             {
                 lightSpots.Add(new Vector3(master.Center.X, master.Center.Y, master.ai[3]));
             }
@@ -600,60 +599,60 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
 
                 }
 
-                if (Main.projectile[p].active && Main.projectile[p].type == mod.ProjectileType("BloodforceCatalyst") )
+                if (Main.projectile[p].active && Main.projectile[p].type == mod.ProjectileType("BloodforceCatalyst"))
                 {
-                    if(Main.projectile[p].timeLeft>20)
+                    if (Main.projectile[p].timeLeft > 20)
                     {
                         int f = 40;
-                        if(Main.projectile[p].timeLeft >40)
+                        if (Main.projectile[p].timeLeft > 40)
                         {
                             f = 60 - Main.projectile[p].timeLeft;
                             f *= 2;
                         }
-                        for(int i = 0; i <4; i++)
+                        for (int i = 0; i < 4; i++)
                         {
                             Vector2 offset = Main.projectile[p].Center + QwertyMethods.PolarVector(Main.projectile[p].ai[1], Main.projectile[p].rotation + (float)Math.PI * i / 2);
                             lightSpots.Add(new Vector3(offset.X, offset.Y, f));
                         }
-                        
+
                     }
                     else
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            Vector2 offset = Main.projectile[p].Center + QwertyMethods.PolarVector(Main.projectile[p].ai[1], Main.projectile[p].rotation + (float)Math.PI *  i / 2);
-                            lightSpots.Add(new Vector3(offset.X, offset.Y, Main.projectile[p].timeLeft *2));
+                            Vector2 offset = Main.projectile[p].Center + QwertyMethods.PolarVector(Main.projectile[p].ai[1], Main.projectile[p].rotation + (float)Math.PI * i / 2);
+                            lightSpots.Add(new Vector3(offset.X, offset.Y, Main.projectile[p].timeLeft * 2));
                         }
                     }
                 }
                 if (Main.projectile[p].active && Main.projectile[p].type == mod.ProjectileType("Tripwire"))
                 {
-                    if(Main.projectile[p].ai[1] <60)
+                    if (Main.projectile[p].ai[1] < 60)
                     {
-                        for(int d =0; d< 2; d++)
+                        for (int d = 0; d < 2; d++)
                         {
                             Vector2 Cen = Main.projectile[p].Center + QwertyMethods.PolarVector(Main.projectile[p].ai[1] * 7, Main.projectile[p].rotation + (float)Math.PI * d);
                             float r = 60;
                             if (Main.projectile[p].ai[1] > 50)
                             {
-                                r = 60 - (Main.projectile[p].ai[1]-50) * 6;
+                                r = 60 - (Main.projectile[p].ai[1] - 50) * 6;
                             }
-                            else if (Main.projectile[p].ai[1]<10)
+                            else if (Main.projectile[p].ai[1] < 10)
                             {
                                 r = (Main.projectile[p].ai[1]) * 6;
                             }
-                           
+
                             lightSpots.Add(new Vector3(Cen.X, Cen.Y, r));
                         }
                     }
                 }
             }
-            for(int i =0; i < lightSpots.Count; i++)
+            for (int i = 0; i < lightSpots.Count; i++)
             {
-                lightSpots[i]= new Vector3(lightSpots[i].X-4, lightSpots[i].Y-4, lightSpots[i].Z);
-                
+                lightSpots[i] = new Vector3(lightSpots[i].X - 4, lightSpots[i].Y - 4, lightSpots[i].Z);
+
             }
-            
+
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -661,7 +660,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                     bool check = false;
                     foreach (Vector3 spot in lightSpots)
                     {
-                        if (((new Vector2(spot.X, spot.Y) - Main.screenPosition) / scale - (new Vector2(x, y))).Length() < (spot.Z+scale) / scale )
+                        if (((new Vector2(spot.X, spot.Y) - Main.screenPosition) / scale - (new Vector2(x, y))).Length() < (spot.Z + scale) / scale)
                         {
 
                             check = true;
@@ -681,7 +680,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             //Main.NewText("Big: " + dataColors.Length);
             //Precise darkening, Save the smaller pixels for when closer to a thing you need to reveal for better performance
             spriteBatch.Draw(TheShadow, new Vector2(0, 0), null, Color.White, 0f, new Vector2(0, 0), scale, 0, 0);
-            if(scale >12)
+            if (scale > 12)
             {
                 foreach (Vector3 hr in lightSpots)
                 {
@@ -719,12 +718,12 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                         }
                         TheShadow.SetData(0, null, dataColors, 0, width * height);
                         // Main.NewText("Precise: " + dataColors.Length)
-                        spriteBatch.Draw(TheShadow, pos+new Vector2(scale, scale)*.5f, null, Color.White, 0f, new Vector2(0, 0), scale, 0, 0);
+                        spriteBatch.Draw(TheShadow, pos + new Vector2(scale, scale) * .5f, null, Color.White, 0f, new Vector2(0, 0), scale, 0, 0);
                     }
 
                 }
             }
-            
+
             return false;
         }
 
@@ -745,19 +744,19 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         }
         public override void AI()
         {
-            if(Main.netMode != 1)
+            if (Main.netMode != 1)
             {
                 projectile.netUpdate = true;
             }
-            
+
             if (projectile.timeLeft % 10 == 0 && projectile.timeLeft < 30)
             {
                 Main.PlaySound(SoundID.Item62, projectile.position);
-                if(Main.netMode != 1)
+                if (Main.netMode != 1)
                 {
                     Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(17, projectile.rotation), QwertyMethods.PolarVector(10, projectile.rotation), mod.ProjectileType("CannonProjectile"), projectile.damage, 0f, Main.myPlayer);
                 }
-                
+
             }
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -820,15 +819,15 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 projectile.ai[1] = 100;
                 runOnce = false;
             }
-            if(projectile.timeLeft <=20)
+            if (projectile.timeLeft <= 20)
             {
                 projectile.ai[1] -= (100f / 20f);
             }
-            projectile.rotation += (9 * (float)Math.PI / 4) / 60 ;
+            projectile.rotation += (9 * (float)Math.PI / 4) / 60;
         }
         public override void Kill(int timeLeft)
         {
-            if(Main.netMode != 1)
+            if (Main.netMode != 1)
             {
                 for (int r = 0; r < 4; r++)
                 {
@@ -836,19 +835,19 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                     p.rotation = projectile.rotation + (float)Math.PI * r / 2;
                 }
             }
-            
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Zap"), projectile.Center);
-            for (int r =0; r <4; r++)
+            for (int r = 0; r < 4; r++)
             {
-                spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + QwertyMethods.PolarVector(projectile.ai[1], projectile.rotation + (float)Math.PI * r/2),
+                spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + QwertyMethods.PolarVector(projectile.ai[1], projectile.rotation + (float)Math.PI * r / 2),
                        texture.Frame(), lightColor, projectile.rotation * (float)Math.PI * 2 * r / 4,
                        texture.Size() * .5f, projectile.scale, SpriteEffects.None, 0f);
             }
-            
+
             return false;
         }
         public override void SendExtraAI(BinaryWriter writer)
@@ -875,7 +874,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             projectile.height = 26;
             projectile.tileCollide = false;
             projectile.timeLeft = 10;
-            
+
         }
         public override Color? GetAlpha(Color lightColor)
         {
@@ -893,13 +892,13 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             int height = 13;
             Texture2D ray = new Texture2D(Main.graphics.GraphicsDevice, width, height);
             var dataColors = new Color[width * height];
-            
+
             for (int w = 0; w < 2; w++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                   
-                    int output = (int)( 6 * (float)Math.Sin(x * Math.PI / 10f + w *Math.PI));
+
+                    int output = (int)(6 * (float)Math.Sin(x * Math.PI / 10f + w * Math.PI));
                     output += 6;
                     //Main.NewText(output);
 
@@ -910,12 +909,12 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
 
                 }
             }
-            
+
             ray.SetData(0, null, dataColors, 0, width * height);
             spriteBatch.Draw(ray, projectile.Center - Main.screenPosition,
-                   ray.Frame(), Color.White, projectile.rotation ,
+                   ray.Frame(), Color.White, projectile.rotation,
                    new Vector2(0, height / 2f), 2f, SpriteEffects.None, 0f);
-            
+
             return false;
         }
         public override void AI()
@@ -962,28 +961,28 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             }
             if (runOnce)
             {
-                
+
                 runOnce = false;
             }
-            if(projectile.ai[1] < startWire)
+            if (projectile.ai[1] < startWire)
             {
                 projectile.ai[1]++;
             }
-            
+
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float p = 0f;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center + QwertyMethods.PolarVector(projectile.ai[1] * lengthMultiplier, projectile.rotation + (float)Math.PI), projectile.Center + QwertyMethods.PolarVector(projectile.ai[1] * lengthMultiplier, projectile.rotation), 20, ref p) && projectile.ai[1]== startWire;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center + QwertyMethods.PolarVector(projectile.ai[1] * lengthMultiplier, projectile.rotation + (float)Math.PI), projectile.Center + QwertyMethods.PolarVector(projectile.ai[1] * lengthMultiplier, projectile.rotation), 20, ref p) && projectile.ai[1] == startWire;
         }
         public override void Kill(int timeLeft)
         {
-            
+
         }
         float trigCounter = 0f;
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            if(projectile.ai[1] == startWire-1)
+            if (projectile.ai[1] == startWire - 1)
             {
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Tripwire"), projectile.Center);
             }
@@ -1003,7 +1002,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                         int output = (int)(Math.Sin(Modifier) * 10 * (float)Math.Sin(x * Math.PI / 15f + trigCounter));
                         output += 10;
 
-                        
+
 
                         dataColors[x + output * width] = new Color(122, 24, 24);
 
@@ -1015,18 +1014,18 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 spriteBatch.Draw(ray, projectile.Center - Main.screenPosition,
                        ray.Frame(), Color.White, projectile.rotation,
                        ray.Size() * .5f, 2f, SpriteEffects.None, 0f);
-                
+
 
             }
             Texture2D texture = Main.projectileTexture[projectile.type];
-            for(int i =0; i<2; i++)
+            for (int i = 0; i < 2; i++)
             {
-                spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + QwertyMethods.PolarVector(projectile.ai[1]* lengthMultiplier, projectile.rotation + (float)Math.PI * i),
-                       texture.Frame(), lightColor, projectile.rotation + (float)Math.PI  * i,
+                spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + QwertyMethods.PolarVector(projectile.ai[1] * lengthMultiplier, projectile.rotation + (float)Math.PI * i),
+                       texture.Frame(), lightColor, projectile.rotation + (float)Math.PI * i,
                        texture.Size() * .5f, projectile.scale, SpriteEffects.None, 0f);
             }
-            
-           
+
+
             return false;
         }
         public override void SendExtraAI(BinaryWriter writer)

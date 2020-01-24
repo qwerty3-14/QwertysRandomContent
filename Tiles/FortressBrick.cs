@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader;
-using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class FortressBrick : ModTile
@@ -32,7 +29,7 @@ namespace QwertysRandomContent.Tiles
             AddMapEntry(new Color(162, 184, 185));
             mineResist = 1;
             drop = mod.ItemType("FortressBrick");
-            
+
         }
 
 

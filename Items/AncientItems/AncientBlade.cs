@@ -8,14 +8,14 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-	public class AncientBlade : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Blade");
-			Tooltip.SetDefault("Launches a spread of orbs");
-			
-		}
+    public class AncientBlade : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Blade");
+            Tooltip.SetDefault("Launches a spread of orbs");
+
+        }
         public override void SetDefaults()
         {
             item.damage = 18;
@@ -82,26 +82,26 @@ namespace QwertysRandomContent.Items.AncientItems
 
 
     }
-		public class AncientOrb : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			Main.projFrames[projectile.type] = 2;
-			DisplayName.SetDefault("Ancient Orb");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-			projectile.aiStyle = 1;
-			aiType = ProjectileID.Bullet; 
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.melee= true;
-			projectile.tileCollide= true;
-			projectile.timeLeft = 40;
+    public class AncientOrb : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[projectile.type] = 2;
+            DisplayName.SetDefault("Ancient Orb");
+
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+            aiType = ProjectileID.Bullet;
+            projectile.width = 20;
+            projectile.height = 20;
+            projectile.friendly = true;
+            projectile.penetrate = 1;
+            projectile.melee = true;
+            projectile.tileCollide = true;
+            projectile.timeLeft = 40;
             projectile.alpha = 255;
 
 
@@ -127,7 +127,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 dust.scale = .5f;
                 dust.alpha = 255;
             }
-           
+
             projectile.frameCounter++;
             if (projectile.frameCounter > 10)
             {
@@ -148,15 +148,15 @@ namespace QwertysRandomContent.Items.AncientItems
                 dustTimer = 0;
             }
         }
-        public override bool OnTileCollide(Vector2 velocityChange)  
+        public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (projectile.velocity.X != velocityChange.X)
             {
-                projectile.velocity.X = -velocityChange.X; 
+                projectile.velocity.X = -velocityChange.X;
             }
             if (projectile.velocity.Y != velocityChange.Y)
             {
-                projectile.velocity.Y = -velocityChange.Y; 
+                projectile.velocity.Y = -velocityChange.Y;
             }
             return false;
         }
@@ -171,7 +171,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
 
     }
-		
-	
+
+
 }
 

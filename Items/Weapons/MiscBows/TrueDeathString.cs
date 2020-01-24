@@ -6,40 +6,40 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscBows
 {
-	public class TrueDeathString : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("True Death String");
-			Tooltip.SetDefault("Death's blow... I mean bow" + "\nWhile shooting four skulls will fly around bashing at enemies" + "\n50% chance not to consume ammo");
+    public class TrueDeathString : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("True Death String");
+            Tooltip.SetDefault("Death's blow... I mean bow" + "\nWhile shooting four skulls will fly around bashing at enemies" + "\n50% chance not to consume ammo");
 
 
         }
-		public override void SetDefaults()
-		{
-			item.damage = 19;
-			item.ranged = true;
-			
-			item.useTime = 7;
-			item.useAnimation = 7;
-			item.useStyle = 5;
-			item.knockBack = 2;
-			item.value = 500000;
-			item.rare = 6;
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
-			item.width = 24;
-			item.height = 62;
-			
-			item.shoot = mod.ProjectileType("TrueDeathSkull");
-			item.useAmmo = 40;
-			item.shootSpeed =8;
-			item.noMelee=true;
+        public override void SetDefaults()
+        {
+            item.damage = 19;
+            item.ranged = true;
+
+            item.useTime = 7;
+            item.useAnimation = 7;
+            item.useStyle = 5;
+            item.knockBack = 2;
+            item.value = 500000;
+            item.rare = 6;
+            item.UseSound = SoundID.Item5;
+            item.autoReuse = true;
+            item.width = 24;
+            item.height = 62;
+
+            item.shoot = mod.ProjectileType("TrueDeathSkull");
+            item.useAmmo = 40;
+            item.shootSpeed = 8;
+            item.noMelee = true;
             item.channel = true;
-			
-			
-			
-		}
+
+
+
+        }
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-6, -0);
@@ -59,10 +59,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 Projectile proj = Main.projectile[l];
                 if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
                 {
-                    
-                    Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(10*alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(10*alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
+
+                    Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(10 * alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(10 * alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
                     Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(20 * alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(20 * alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
-                    
+
                     alt *= -1;
                     return true;
                 }
@@ -74,22 +74,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
             Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(10 * alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(10 * alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
             Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(20 * alt)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(20 * alt)) * trueSpeed, type, damage, knockBack, Main.myPlayer, 0f, 0f);
-            
+
             alt *= -1;
             return true;
         }
         //Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("Skull"), 0, 0, Main.myPlayer);
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
+        {
+            ModRecipe recipe = new ModRecipe(mod);
 
             recipe.AddIngredient(mod.ItemType("DeathString"));
             recipe.AddIngredient(mod.ItemType("WornPrehistoricBow"));
             recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+    }
     public class TrueDeathSkull : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -184,11 +184,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             if (projectile.velocity.X != velocityChange.X)
             {
-                projectile.velocity.X = -2*velocityChange.X;
+                projectile.velocity.X = -2 * velocityChange.X;
             }
             if (projectile.velocity.Y != velocityChange.Y)
             {
-                projectile.velocity.Y = -2*velocityChange.Y;
+                projectile.velocity.Y = -2 * velocityChange.Y;
             }
             return false;
         }
@@ -198,11 +198,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X, -projectile.velocity.Y, mod.ProjectileType("BouncyArrowP"), projectile.damage, projectile.knockBack, Main.myPlayer);
             projectile.velocity.X = -2 * projectile.velocity.X;
             projectile.velocity.Y = -2 * projectile.velocity.Y;
-            
+
         }
 
     }
-   
+
 
 
 }

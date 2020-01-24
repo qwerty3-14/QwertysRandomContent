@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.RuneSpectorBoss
@@ -13,7 +8,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-            
+
             projectile.width = 200;
             projectile.height = 200;
             projectile.friendly = false;
@@ -27,10 +22,10 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public override void AI()
         {
             projectile.velocity = new Vector2(0, 0);
-            if(projectile.alpha >0)
+            if (projectile.alpha > 0)
                 projectile.alpha--;
             else
-                projectile.alpha=0;
+                projectile.alpha = 0;
 
 
         }

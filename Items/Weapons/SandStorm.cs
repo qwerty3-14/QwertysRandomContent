@@ -6,39 +6,39 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons
 {
-	public class SandStorm : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Sand Storm");
-			Tooltip.SetDefault("Good for drowning your enemies in sand!");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 40;
-			item.ranged = true;
-			
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.useStyle = 5;
-			item.knockBack = 5;
-			item.value = 500000;
-			item.rare = 9;
-			item.UseSound = SoundID.Item11;
-			
-			item.width = 44;
-			item.height = 24;
+    public class SandStorm : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Sand Storm");
+            Tooltip.SetDefault("Good for drowning your enemies in sand!");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 40;
+            item.ranged = true;
+
+            item.useTime = 40;
+            item.useAnimation = 40;
+            item.useStyle = 5;
+            item.knockBack = 5;
+            item.value = 500000;
+            item.rare = 9;
+            item.UseSound = SoundID.Item11;
+
+            item.width = 44;
+            item.height = 24;
 
             item.shoot = 42;
             item.useAmmo = 169;
-			item.shootSpeed =8f;
-			item.noMelee=true;
+            item.shootSpeed = 8f;
+            item.noMelee = true;
             item.autoReuse = true;
             item.noUseGraphic = false;
-			
-			
-		}
+
+
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -55,32 +55,32 @@ namespace QwertysRandomContent.Items.Weapons
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
-            int numberProjectiles = 11+Main.rand.Next(4);
+            int numberProjectiles = 11 + Main.rand.Next(4);
             for (int i = 0; i < numberProjectiles; i++)
-                {
+            {
 
-                    Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25));
-                    float scale = Main.rand.NextFloat(.6f, 1.4f);
-                    trueSpeed *= scale;
+                Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25));
+                float scale = Main.rand.NextFloat(.6f, 1.4f);
+                trueSpeed *= scale;
 
-                    
-                    
-                    
-                    
-                    Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
-                }
+
+
+
+
+                Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
+            }
             Vector2 trueSpeedB = new Vector2(speedX, speedY);
-            
+
             Projectile.NewProjectile(position.X, position.Y, trueSpeedB.X, trueSpeedB.Y, mod.ProjectileType("BigSandBall"), damage, knockBack, player.whoAmI);
 
             return false;
-            
+
         }
         public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-6, -0);
-		}
-        
+        {
+            return new Vector2(-6, -0);
+        }
+
 
 
 
@@ -90,7 +90,7 @@ namespace QwertysRandomContent.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Big Sand Ball");
-            
+
 
         }
         public override void SetDefaults()
@@ -98,15 +98,15 @@ namespace QwertysRandomContent.Items.Weapons
             projectile.knockBack = 8f;
             projectile.width = 28;
             projectile.height = 18;
-            
+
             projectile.friendly = true;
             projectile.extraUpdates = 1;
             projectile.aiStyle = 1;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            
-            return true; 
+
+            return true;
         }
         public override void AI()
         {
@@ -117,7 +117,7 @@ namespace QwertysRandomContent.Items.Weapons
                 dust12.velocity.X = dust12.velocity.X * 0.4f;
             }
             projectile.rotation += (float)Math.PI / 8;
-            
+
         }
         public override void Kill(int timeLeft)
         {
@@ -151,7 +151,7 @@ namespace QwertysRandomContent.Items.Weapons
             projectile.width = 10;
             projectile.height = 10;
             projectile.aiStyle = 1;
-            
+
             projectile.friendly = true;
 
             projectile.penetrate = -1;
@@ -180,7 +180,7 @@ namespace QwertysRandomContent.Items.Weapons
             int num835 = -1;
             int num836 = (int)(projectile.position.X + (float)(projectile.width / 2)) / 16;
             int num837 = (int)(projectile.position.Y + (float)(projectile.width / 2)) / 16;
-            
+
             int num839 = 2;
             if (!Main.tile[num836, num837].active() && 53 >= 0)
             {
@@ -208,12 +208,12 @@ namespace QwertysRandomContent.Items.Weapons
                         NetMessage.SendData(17, -1, -1, null, 1, (float)num836, (float)num837, (float)53, 0, 0, 0);
                     }
                 }
-                
+
             }
-            
+
         }
-        
-        
+
+
 
 
     }

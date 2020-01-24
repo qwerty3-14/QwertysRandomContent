@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -10,14 +8,14 @@ using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles.FortressFurniture
 {
     public class FortressCandle : ModTile
-	{
-		public override void SetDefaults()
-		{
-			//Main.tileSolidTop[Type] = true;
-			Main.tileFrameImportant[Type] = true;
-			//Main.tileNoAttach[Type] = true;
-			//Main.tileTable[Type] = true;
-			Main.tileLavaDeath[Type] = true;
+    {
+        public override void SetDefaults()
+        {
+            //Main.tileSolidTop[Type] = true;
+            Main.tileFrameImportant[Type] = true;
+            //Main.tileNoAttach[Type] = true;
+            //Main.tileTable[Type] = true;
+            Main.tileLavaDeath[Type] = true;
             Main.tileLighted[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.StyleOnTable1x1);
             TileObjectData.newTile.CoordinateHeights = new int[]
@@ -26,13 +24,13 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             };
             TileObjectData.newTile.DrawYOffset = -4;
             TileObjectData.addTile(Type);
-			//AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Fortress Candle");
+            //AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Fortress Candle");
             AddMapEntry(new Color(162, 184, 185), name);
             dustType = mod.DustType("FortressDust");
-			disableSmartCursor = true;
-			adjTiles = new int[]{ TileID.Candelabras };
+            disableSmartCursor = true;
+            adjTiles = new int[] { TileID.Candelabras };
             drop = mod.ItemType("FortressCandle");
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
         }
@@ -56,9 +54,9 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             Main.player[Main.myPlayer].PickTile(i, j, 100);
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+        {
+            num = fail ? 1 : 3;
+        }
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;

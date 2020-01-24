@@ -186,10 +186,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             }
             if (projectile.ai[1] == 1)
             {
-                if(runOnce)
+                if (runOnce)
                 {
                     float startDistance = 100;
-                    
+
                     ice1 = Main.projectile[Projectile.NewProjectile(projectile.Center.X + (float)Math.Cos(0) * startDistance, projectile.Center.Y + (float)Math.Sin(0) * startDistance, 0, 0, mod.ProjectileType("IceRuneTome"), projectile.damage, 3f, Main.myPlayer)];
                     ice2 = Main.projectile[Projectile.NewProjectile(player.Center.X + (float)Math.Cos(Math.PI) * startDistance, player.Center.Y + (float)Math.Sin(Math.PI) * startDistance, 0, 0, mod.ProjectileType("IceRuneTome"), (int)(300 * player.meleeDamage), 3f, Main.myPlayer)];
                     runOnce = false;
@@ -197,11 +197,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 ice1.rotation += (float)((2 * Math.PI) / (Math.PI * 2 * 100 / iceRuneSpeed));
                 ice1.velocity.X = iceRuneSpeed * (float)Math.Cos(ice1.rotation) + projectile.velocity.X;
                 ice1.velocity.Y = iceRuneSpeed * (float)Math.Sin(ice1.rotation) + projectile.velocity.Y;
-                
+
                 ice2.rotation += (float)((2 * Math.PI) / (Math.PI * 2 * 100 / iceRuneSpeed));
                 ice2.velocity.X = iceRuneSpeed * (float)Math.Cos(ice2.rotation) + projectile.velocity.X;
                 ice2.velocity.Y = iceRuneSpeed * (float)Math.Sin(ice2.rotation) + projectile.velocity.Y;
-                
+
                 if (dustTimer > 5)
                 {
                     int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("IceRuneDeath"), 0, 0, 0, default(Color), .2f);
@@ -212,7 +212,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             {
                 if (timer > 10)
                 {
-                    Projectile.NewProjectile(projectile.position.X + Main.rand.Next(projectile.width), projectile.position.Y + Main.rand.Next(projectile.height), 0, 0, mod.ProjectileType("LeechRuneTome"),  projectile.damage/4, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(projectile.position.X + Main.rand.Next(projectile.width), projectile.position.Y + Main.rand.Next(projectile.height), 0, 0, mod.ProjectileType("LeechRuneTome"), projectile.damage / 4, projectile.knockBack, projectile.owner);
                     timer = 0;
                 }
                 if (dustTimer > 5)
@@ -278,7 +278,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
 
 
-           
+
 
 
 
@@ -316,7 +316,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public bool runOnce = true;
         public int f;
         bool foundTarget;
-        float maxDistance =1000;
+        float maxDistance = 1000;
         float distance;
         public override void AI()
         {
@@ -345,14 +345,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
 
                 }
-                
+
 
             }
             if (foundTarget)
             {
                 projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, (target.Center - projectile.Center).ToRotation(), 1);
             }
-            
+
             projectile.velocity = new Vector2((float)(Math.Cos(projectile.rotation) * runeSpeed), (float)(Math.Sin(projectile.rotation) * runeSpeed));
 
             foundTarget = false;
@@ -409,7 +409,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 projectile.alpha -= 25;
             else
                 projectile.alpha = 0;
-            if(projectile.timeLeft ==30)
+            if (projectile.timeLeft == 30)
             {
                 for (int k = 0; k < 200; k++)
                 {
@@ -425,7 +425,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                     }
 
                 }
-                if(foundTarget)
+                if (foundTarget)
                 {
                     projectile.velocity = new Vector2((float)Math.Cos((target.Center - projectile.Center).ToRotation()) * runeSpeed, (float)Math.Sin((target.Center - projectile.Center).ToRotation()) * runeSpeed);
                 }
@@ -485,7 +485,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
 
             if (projectile.alpha > 0)
-                projectile.alpha-=25;
+                projectile.alpha -= 25;
             else
                 projectile.alpha = 0;
 

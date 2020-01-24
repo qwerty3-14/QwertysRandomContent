@@ -3,11 +3,11 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.FortressFurniture
 {
-    public class FortressLamp: ModItem
+    public class FortressLamp : ModItem
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
 
         public override void SetDefaults()

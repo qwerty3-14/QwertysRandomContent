@@ -6,27 +6,27 @@ using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
-	public class AncientMachineTrophy : ModTile
-{
-    public override void SetDefaults()
+    public class AncientMachineTrophy : ModTile
     {
-        Main.tileFrameImportant[Type] = true;
-        Main.tileLavaDeath[Type] = true;
-        TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
-        TileObjectData.newTile.StyleHorizontal = true;
-        TileObjectData.newTile.StyleWrapLimit = 36;
-        TileObjectData.addTile(Type);
-        dustType = 7;
-	AddMapEntry(new Color(120, 85, 60));
-    }
-
-    public override void KillMultiTile(int i, int j, int frameX, int frameY)
-    {
-        if(frameX == 0)
+        public override void SetDefaults()
         {
-            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("AncientMachineTrophy"));
+            Main.tileFrameImportant[Type] = true;
+            Main.tileLavaDeath[Type] = true;
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.StyleWrapLimit = 36;
+            TileObjectData.addTile(Type);
+            dustType = 7;
+            AddMapEntry(new Color(120, 85, 60));
         }
-    }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            if (frameX == 0)
+            {
+                Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("AncientMachineTrophy"));
+            }
+        }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Main.tile[i, j];

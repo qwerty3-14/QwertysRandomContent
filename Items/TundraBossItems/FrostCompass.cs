@@ -1,12 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.Items.B4Items;
-using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
@@ -40,14 +36,14 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
+
             player.GetModPlayer<FrostCompassEffect>().effect = true;
         }
 
 
 
     }
-    
+
     public class FrostCompassEffect : ModPlayer
     {
         public bool effect;
@@ -70,21 +66,21 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 //Main.NewText("Legs!");
                 //Main.NewText(drawPlayer.bodyFrame);
                 Texture2D texture = mod.GetTexture("Items/TundraBossItems/FrostArrow");
-               
+
 
 
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                 Vector2 Position = drawPlayer.position;
-                Vector2 origin = texture.Size()/2;
+                Vector2 origin = texture.Size() / 2;
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                 pos.Y -= drawPlayer.mount.PlayerOffset;
-                
-                    float North = (FrozenDen.BearSpawn - drawPlayer.Center).ToRotation();
-                    DrawData data = new DrawData(texture, pos, new Rectangle(0, 0, (int)texture.Size().X, (int)texture.Size().Y), Color.White, North, origin, 1f, 0, 0);
-                    //data.shader = drawInfo.legArmorShader;
-                    Main.playerDrawData.Add(data);
-                
+
+                float North = (FrozenDen.BearSpawn - drawPlayer.Center).ToRotation();
+                DrawData data = new DrawData(texture, pos, new Rectangle(0, 0, (int)texture.Size().X, (int)texture.Size().Y), Color.White, North, origin, 1f, 0, 0);
+                //data.shader = drawInfo.legArmorShader;
+                Main.playerDrawData.Add(data);
+
             }
         });
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
@@ -102,7 +98,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
         }
     }
-    
-    
+
+
 }
 

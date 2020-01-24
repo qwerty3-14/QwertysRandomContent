@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -105,19 +101,19 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             expr_18CFA_cp_0.velocity.X = expr_18CFA_cp_0.velocity.X - 1f;
             Gore expr_18D1A_cp_0 = Main.gore[num765];
             expr_18D1A_cp_0.velocity.Y = expr_18D1A_cp_0.velocity.Y - 1f; Main.PlaySound(SoundID.Item62, projectile.position);
-            for(int i =0; i <2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Projectile meteor = Main.projectile[Projectile.NewProjectile(projectile.Center + new Vector2(Main.rand.Next(-20, 20), -1000), QwertyMethods.PolarVector(10, (float)Math.PI / 2 + (float)Math.PI / 16 * Main.rand.NextFloat(-1, 1)), 424 + Main.rand.Next(2), (int)(projectile.damage), projectile.knockBack, projectile.owner, 0f, 0.5f + (float)Main.rand.NextDouble() * 0.3f)];
                 meteor.magic = false;
                 meteor.thrown = true;
-                
-                if (Main.netMode ==1)
+
+                if (Main.netMode == 1)
                 {
                     QwertysRandomContent.UpdateProjectileClass(meteor);
                 }
-                
+
             }
-           
+
         }
     }
 }

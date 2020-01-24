@@ -1,39 +1,36 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Shaman
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class ShamanHead : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shaman Skull");
-			Tooltip.SetDefault("2% increased minion damage and melee critical strike chance \nImbues last much longer");
-			
-		}
-		
+    [AutoloadEquip(EquipType.Head)]
+    public class ShamanHead : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shaman Skull");
+            Tooltip.SetDefault("2% increased minion damage and melee critical strike chance \nImbues last much longer");
 
-		public override void SetDefaults()
-		{
+        }
+
+
+        public override void SetDefaults()
+        {
 
             item.value = Item.sellPrice(gold: 1);
             item.rare = 1;
 
 
             item.width = 22;
-			item.height = 14;
-			item.defense = 5;
-            
+            item.height = 14;
+            item.defense = 5;
+
 
 
         }
@@ -47,16 +44,16 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             recipe.AddRecipe();
         }
         public override void UpdateEquip(Player player)
-		{
+        {
             player.minionDamage += .02f;
             player.meleeCrit += 2;
             player.GetModPlayer<ShamanHeadEffects>().ImbueBoost = true;
         }
-		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
-		{
+        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+        {
             drawAltHair = true;
-			
-		}
+
+        }
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("ShamanBody") && legs.type == mod.ItemType("ShamanLegs");
@@ -93,7 +90,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void PreUpdate()
         {
-            if(ImbueBoost)
+            if (ImbueBoost)
             {
                 if (freezeImbueTime)
                 {
@@ -101,7 +98,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                     {
                         if (player.buffTime[i] >= 1)
                         {
-                            if(Main.meleeBuff[player.buffType[i]])
+                            if (Main.meleeBuff[player.buffType[i]])
                             {
                                 player.buffTime[i]++;
                                 break;
@@ -115,7 +112,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                     freezeImbueTime = true;
                 }
             }
-            
+
         }
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
         {
@@ -123,12 +120,12 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             {
                 player.meleeSpeed += .4f;
                 hasteTime--;
-                for(int i =0; i<2; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(player.Size.Length(), Main.rand.NextFloat(-1, 1) * (float)Math.PI), mod.DustType("SpiritDust"), new Vector2(0, -6));
                 }
-                
-               
+
+
             }
         }
         public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
@@ -143,17 +140,17 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                     for (int p = 0; p < 1000; p++)
                     {
                         Projectile proj = Main.projectile[p];
-                        if ((proj.minion || proj.sentry) && proj.owner == player.whoAmI && proj.GetGlobalProjectile<HastedProjectiles>().haste ==0)
+                        if ((proj.minion || proj.sentry) && proj.owner == player.whoAmI && proj.GetGlobalProjectile<HastedProjectiles>().haste == 0)
                         {
                             proj.extraUpdates++;
-                            proj.GetGlobalProjectile<HastedProjectiles>().haste = 600 * (1+ proj.extraUpdates);
+                            proj.GetGlobalProjectile<HastedProjectiles>().haste = 600 * (1 + proj.extraUpdates);
                         }
                     }
                 }
             }
         }
         public static readonly PlayerLayer Mask = LayerDrawing.DrawHeadSimple("ShamanHead", "Items/Armor/Shaman/ShamanHead_HeadSimple", glowmask: false);
-        public static readonly PlayerLayer WarpaintHead = LayerDrawing.DrawHeadSimple("ShamanHead", "Items/Armor/Shaman/Warpaint_Head", glowmask: false, useShader: 3); 
+        public static readonly PlayerLayer WarpaintHead = LayerDrawing.DrawHeadSimple("ShamanHead", "Items/Armor/Shaman/Warpaint_Head", glowmask: false, useShader: 3);
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -198,19 +195,19 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         public int haste = 0;
         public override void AI(Projectile projectile)
         {
-            if(haste>0)
+            if (haste > 0)
             {
                 haste--;
-                if (haste == 1 && projectile.extraUpdates>0)
+                if (haste == 1 && projectile.extraUpdates > 0)
                 {
                     projectile.extraUpdates--;
-                    
+
                 }
                 Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(projectile.Size.Length(), Main.rand.NextFloat(-1, 1) * (float)Math.PI), mod.DustType("SpiritDust"), new Vector2(0, -6));
             }
-            
+
         }
     }
-    
+
 }
 

@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.Buffs;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,16 +21,16 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             item.width = 38;
             item.height = 38;
             item.mana = 10;
-            
+
             item.shoot = mod.ProjectileType("SupportCactus");
             item.shootSpeed = 0f;
             item.useTime = 20;
             item.useAnimation = 20;
-           
-            
+
+
             item.useStyle = 1;
             item.knockBack = 0f;
-            item.value = Item.sellPrice(silver: 3, copper: 60) ;
+            item.value = Item.sellPrice(silver: 3, copper: 60);
             item.rare = 1;
             item.UseSound = SoundID.Item44;
             item.sentry = true;
@@ -125,8 +120,8 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            
-            if(branchOut>0)
+
+            if (branchOut > 0)
             {
                 Texture2D arm = mod.GetTexture("Items/Weapons/Cactus/RightCactusArm");
                 spriteBatch.Draw(arm, projectile.BottomRight - Main.screenPosition - new Vector2(0, 44),
@@ -137,9 +132,9 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
                            new Rectangle(0, 0, branchOut, arm.Height), lightColor, projectile.rotation,
                            new Vector2(branchOut, arm.Height), 1f, 0, 0f);
             }
-            
+
             Texture2D body = Main.projectileTexture[projectile.type];
-            spriteBatch.Draw(body, projectile.Bottom-Main.screenPosition - new Vector2(0, 4),
+            spriteBatch.Draw(body, projectile.Bottom - Main.screenPosition - new Vector2(0, 4),
                        new Rectangle(0, 0, body.Width, cactusHeight), lightColor, projectile.rotation,
                        new Vector2(6, cactusHeight), 1f, 0, 0f);
             if (flowering > 0f)
@@ -163,7 +158,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
         {
             projectile.rotation += (float)Math.PI / 120f * (projectile.velocity.X > 0 ? 1 : -1);
             Player player = Main.player[projectile.owner];
-            if(Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, player.position, player.Size))
+            if (Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, player.position, player.Size))
             {
                 player.HealEffect(2, false);
                 projectile.Kill();
@@ -172,5 +167,5 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             }
         }
     }
-    
-} 
+
+}

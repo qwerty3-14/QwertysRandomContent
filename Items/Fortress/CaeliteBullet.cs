@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -7,44 +6,44 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
 {
-	public class CaeliteBullet : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Caelite Bullet");
-			Tooltip.SetDefault("Inflicts Caelite Wrath reducing damage that enemies deal by 20%");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 8;
-			item.ranged = true;
-			item.knockBack = 2;
-			item.value = 1;
-			item.rare = 3;
-			item.width = 12;
-			item.height = 18;
-			
-			item.shootSpeed =32;
-			
-			item.consumable = true;
-			item.shoot = mod.ProjectileType("CaeliteBulletP");
-			item.ammo = 97;
-			item.maxStack = 999;
-			
-			
-		}
+    public class CaeliteBullet : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Caelite Bullet");
+            Tooltip.SetDefault("Inflicts Caelite Wrath reducing damage that enemies deal by 20%");
 
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("CaeliteBar"), 1);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 100);
-			recipe.AddRecipe();
-		}
-		
-	}
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 8;
+            item.ranged = true;
+            item.knockBack = 2;
+            item.value = 1;
+            item.rare = 3;
+            item.width = 12;
+            item.height = 18;
+
+            item.shootSpeed = 32;
+
+            item.consumable = true;
+            item.shoot = mod.ProjectileType("CaeliteBulletP");
+            item.ammo = 97;
+            item.maxStack = 999;
+
+
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 1);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this, 100);
+            recipe.AddRecipe();
+        }
+
+    }
     public class CaeliteBulletP : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -62,15 +61,10 @@ namespace QwertysRandomContent.Items.Fortress
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.light = 0.5f;
-            //projectile.alpha = 255;
             projectile.scale = 1.2f;
             projectile.timeLeft = 600;
             projectile.ranged = true;
             projectile.extraUpdates = 1;
-            
-
-
-
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -92,9 +86,9 @@ namespace QwertysRandomContent.Items.Fortress
         {
             target.AddBuff(mod.BuffType("PowerDown"), 300);
         }
-        
+
 
     }
-	
+
 }
 

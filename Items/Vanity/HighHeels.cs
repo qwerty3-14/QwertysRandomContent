@@ -1,4 +1,3 @@
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Vanity
@@ -29,7 +28,7 @@ namespace QwertysRandomContent.Items.Vanity
 
 
         }
-       
+
 
 
 

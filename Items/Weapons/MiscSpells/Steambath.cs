@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,18 +41,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int shots = Main.rand.Next(2, 5);
-            
-            for(int s=0; s<shots; s++)
+
+            for (int s = 0; s < shots; s++)
             {
                 Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
                 trueSpeed.X *= Main.rand.NextFloat(.4f, 1.2f);
                 trueSpeed.Y *= .3f;
                 Projectile.NewProjectile(position.X, position.Y, trueSpeed.X, trueSpeed.Y, type, damage, knockBack, player.whoAmI);
             }
-            
+
             return false;
         }
-        
+
 
 
     }
@@ -78,7 +77,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.timeLeft = 60 * 15;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
-            
+
 
         }
         public int dustTimer;
@@ -86,16 +85,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public override void AI()
         {
             frameTimer++;
-            if (frameTimer>30)
+            if (frameTimer > 30)
             {
                 projectile.frame++;
-                if(projectile.frame >=5)
+                if (projectile.frame >= 5)
                 {
                     projectile.frame = 0;
                 }
             }
             projectile.velocity.X *= .95f;
-            if(projectile.velocity.Y > -2)
+            if (projectile.velocity.Y > -2)
             {
                 projectile.velocity.Y -= .1f;
             }
@@ -111,7 +110,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             int finalDefense = target.defense - player.armorPenetration;
             target.ichor = false;
             target.betsysCurse = false;
-            if (finalDefense<0)
+            if (finalDefense < 0)
             {
                 finalDefense = 0;
             }
@@ -123,7 +122,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             target.immune[projectile.owner] = 0;
             //damage += target.defense / 2;
         }
-        
+
 
 
     }

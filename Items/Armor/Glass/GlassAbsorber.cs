@@ -1,12 +1,7 @@
-using Microsoft.Xna.Framework;
-using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 
 namespace QwertysRandomContent.Items.Armor.Glass
 {
@@ -72,7 +67,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
         public static readonly PlayerLayer GlassBack = LayerDrawing.DrawOnBody("GlassAbsorber", "Items/Armor/Glass/GlassAbsorber_Body_Glass", name: "GlassBack", glowmask: false, useShader: 3);
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-            
+
             int capeLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("BackAcc"));
             if (capeLayer != -1)
             {

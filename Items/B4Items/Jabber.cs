@@ -1,10 +1,9 @@
-﻿using System;
-using QwertysRandomContent.Items;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.Items.B4Items
 {
@@ -99,7 +98,7 @@ namespace QwertysRandomContent.Items.B4Items
             projOwner.itemTime = projOwner.itemAnimation;
             projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
             projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
-            if (runOnce && Main.netMode !=2)
+            if (runOnce && Main.netMode != 2)
             {
 
                 Projectile.NewProjectile(ownerMountedCenter.X - (float)(projectile.width / 2), ownerMountedCenter.Y - (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("JabberP2"), projectile.damage, projectile.knockBack, projOwner.whoAmI);

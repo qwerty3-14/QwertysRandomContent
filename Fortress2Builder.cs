@@ -1,16 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace QwertysRandomContent
 {
@@ -87,14 +78,14 @@ namespace QwertysRandomContent
             int l = 4;
             if (Main.maxTilesX < 6000)
             {
-               
+
                 //for (int l/2 = 1; l/2 < l; l/2++)
                 {
                     for (int b = 1; b < l; b++)
                     {
-                        if ((b % 2 != 0 && l/2 % 2 == 0) || (b % 2 == 0 && l/2 % 2 != 0))
+                        if ((b % 2 != 0 && l / 2 % 2 == 0) || (b % 2 == 0 && l / 2 % 2 != 0))
                         {
-                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.LargeRooms.GetLength(3) / 2, l/2 * height / l - Fortress2Blueprints.LargeRooms.GetLength(2) / 2);
+                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.LargeRooms.GetLength(3) / 2, l / 2 * height / l - Fortress2Blueprints.LargeRooms.GetLength(2) / 2);
                             if (CheckRegion((int)offset.X, (int)offset.Y, Fortress2Blueprints.LargeRooms.GetLength(3), Fortress2Blueprints.LargeRooms.GetLength(2), region))
                             {
                                 Fortress2Blueprints.BuildRoom((int)(topLeft.X + offset.X), (int)(topLeft.Y + offset.Y), Fortress2Blueprints.LargeRoomTileTypes, Fortress2Blueprints.LargeRooms);
@@ -103,15 +94,15 @@ namespace QwertysRandomContent
                         }
                     }
                 }
-                
+
                 l = 8;
-               // for (int l/2 = 1; l/2 < l; l/2++)
+                // for (int l/2 = 1; l/2 < l; l/2++)
                 {
                     for (int b = 1; b < l; b++)
                     {
-                        if ((b % 2 != 0 && l/2 % 2 == 0) || (b % 2 == 0 && l/2 % 2 != 0))
+                        if ((b % 2 != 0 && l / 2 % 2 == 0) || (b % 2 == 0 && l / 2 % 2 != 0))
                         {
-                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.MediumRooms.GetLength(3) / 2, l/2 * height / l - Fortress2Blueprints.MediumRooms.GetLength(2) / 2);
+                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.MediumRooms.GetLength(3) / 2, l / 2 * height / l - Fortress2Blueprints.MediumRooms.GetLength(2) / 2);
                             if (CheckRegion((int)offset.X, (int)offset.Y, Fortress2Blueprints.MediumRooms.GetLength(3), Fortress2Blueprints.MediumRooms.GetLength(2), region))
                             {
                                 Fortress2Blueprints.BuildRoom((int)(topLeft.X + offset.X), (int)(topLeft.Y + offset.Y), Fortress2Blueprints.MediumRoomTileTypes, Fortress2Blueprints.MediumRooms);
@@ -126,9 +117,9 @@ namespace QwertysRandomContent
                 {
                     for (int b = 1; b < l; b++)
                     {
-                        if ((b % 2 != 0 && l/2 % 2 == 0) || (b % 2 == 0 && l/2 % 2 != 0))
+                        if ((b % 2 != 0 && l / 2 % 2 == 0) || (b % 2 == 0 && l / 2 % 2 != 0))
                         {
-                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.SmallRooms.GetLength(3) / 2, l/2 * height / l - Fortress2Blueprints.SmallRooms.GetLength(2) / 2);
+                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.SmallRooms.GetLength(3) / 2, l / 2 * height / l - Fortress2Blueprints.SmallRooms.GetLength(2) / 2);
                             if (CheckRegion((int)offset.X, (int)offset.Y, Fortress2Blueprints.SmallRooms.GetLength(3), Fortress2Blueprints.SmallRooms.GetLength(2), region))
                             {
                                 Fortress2Blueprints.BuildRoom((int)(topLeft.X + offset.X), (int)(topLeft.Y + offset.Y), Fortress2Blueprints.SmallRoomTileTypes, Fortress2Blueprints.SmallRooms);
@@ -143,9 +134,9 @@ namespace QwertysRandomContent
                 {
                     for (int b = 1; b < l; b++)
                     {
-                        if ((b % 2 != 0 && l/2 % 2 == 0) || (b % 2 == 0 && l/2 % 2 != 0))
+                        if ((b % 2 != 0 && l / 2 % 2 == 0) || (b % 2 == 0 && l / 2 % 2 != 0))
                         {
-                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.TinyRooms.GetLength(3) / 2, l/2 * height / l - Fortress2Blueprints.TinyRooms.GetLength(2) / 2);
+                            offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.TinyRooms.GetLength(3) / 2, l / 2 * height / l - Fortress2Blueprints.TinyRooms.GetLength(2) / 2);
                             if (CheckRegion((int)offset.X, (int)offset.Y, Fortress2Blueprints.TinyRooms.GetLength(3), Fortress2Blueprints.TinyRooms.GetLength(2), region))
                             {
                                 Fortress2Blueprints.BuildRoom((int)(topLeft.X + offset.X), (int)(topLeft.Y + offset.Y), Fortress2Blueprints.TinyRoomTileTypes, Fortress2Blueprints.TinyRooms);
@@ -155,7 +146,7 @@ namespace QwertysRandomContent
                     }
                 }
             }
-            else if(Main.maxTilesX < 8000)
+            else if (Main.maxTilesX < 8000)
             {
                 for (int q = 1; q < l; q++)
                 {
@@ -226,7 +217,7 @@ namespace QwertysRandomContent
             }
             else
             {
-                
+
                 for (int q = 1; q < l; q++)
                 {
                     for (int b = 1; b < l; b++)
@@ -294,7 +285,7 @@ namespace QwertysRandomContent
                     }
                 }
             }
-           
+
             /*
             int l = 4;
             for(int q =1; q< l; q++)
@@ -381,12 +372,12 @@ namespace QwertysRandomContent
 
 
         }
-        
+
         public static void OccupyRegion(int x, int y, int width, int height, ref bool[,] region)
         {
-            for(int i = 0; i <width; i++)
+            for (int i = 0; i < width; i++)
             {
-                for(int j = 0; j< height; j++)
+                for (int j = 0; j < height; j++)
                 {
                     region[i + x, j + y] = true;
                 }
@@ -399,7 +390,7 @@ namespace QwertysRandomContent
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if(region[i + x, j + y])
+                    if (region[i + x, j + y])
                     {
                         return false;
                     }
@@ -407,7 +398,7 @@ namespace QwertysRandomContent
             }
             return true;
         }
-        public static void AttemptRoomPlace( Vector2 TopLeft, List<int[]>[] RoomTileTypes, int[,,,] Rooms, ref bool[,] region, int type = -1)
+        public static void AttemptRoomPlace(Vector2 TopLeft, List<int[]>[] RoomTileTypes, int[,,,] Rooms, ref bool[,] region, int type = -1)
         {
             for (int i = 0; i < 100; i++)
             {

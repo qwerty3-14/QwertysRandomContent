@@ -1,23 +1,22 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
- 
- 
- namespace QwertysRandomContent.Items.AncientItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.AncientItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class AncientMinionStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Minion Staff");
-			Tooltip.SetDefault("Summons an ancient minion to fight for you!");
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Minion Staff");
+            Tooltip.SetDefault("Summons an ancient minion to fight for you!");
+
+        }
+
         public override void SetDefaults()
         {
 
@@ -36,8 +35,8 @@ using Microsoft.Xna.Framework.Graphics;
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("AncientMinionFreindly");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
-            item.buffType = mod.BuffType("AncientMinion");	//The buff added to player after used the item
-			item.buffTime = 3600;
+            item.buffType = mod.BuffType("AncientMinion");  //The buff added to player after used the item
+            item.buffTime = 3600;
             if (!Main.dedServ)
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
@@ -63,44 +62,44 @@ using Microsoft.Xna.Framework.Graphics;
                 0f
             );
         }
-        
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class AncientMinionFreindly : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Minion");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Minion");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
             Main.projFrames[projectile.type] = 1;
         }
-          
+
         public override void SetDefaults()
         {
- 
-			
+
+
             projectile.width = 42; //Set the hitbox width
             projectile.height = 56;   //Set the hitbox height
             projectile.hostile = false;    //Tells the game if is hostile or not.
@@ -110,9 +109,9 @@ using Microsoft.Xna.Framework.Graphics;
             projectile.knockBack = 10f;
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = false; //Tells the game whether or not it can collide with tiles/ terrain
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
         }
 
@@ -127,14 +126,14 @@ using Microsoft.Xna.Framework.Graphics;
         public int attackType = 1;
         public bool charging;
         public NPC target;
-        
+
         int waitTime = 5;
         int chargeTime = 15;
         Vector2 moveTo;
         bool justTeleported;
         float chargeSpeed = 12;
         bool runOnce = true;
-       
+
         float maxDistance = 1000f;
         int frame;
         int noTargetTimer = 0;
@@ -147,12 +146,12 @@ using Microsoft.Xna.Framework.Graphics;
             {
                 projectile.timeLeft = 2;
             }
-            
-            
+
+
             if (runOnce)
             {
                 //Main.PlaySound(SoundID.Item8);
-                
+
                 if (Main.netMode != 2)
                 {
                     moveTo.X = projectile.Center.X;
@@ -167,7 +166,7 @@ using Microsoft.Xna.Framework.Graphics;
                 timer++;
                 if (timer > waitTime + chargeTime)
                 {
-                    for(int k =0; k<200; k++)
+                    for (int k = 0; k < 200; k++)
                     {
                         projectile.localNPCImmunity[k] = 0;
                     }
@@ -175,9 +174,9 @@ using Microsoft.Xna.Framework.Graphics;
                     {
                         float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
 
-                        Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius/10, theta));
+                        Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius / 10, theta));
                         dust.noGravity = true;
-                       
+
                     }
                     if (Main.netMode != 2)
                     {
@@ -209,7 +208,7 @@ using Microsoft.Xna.Framework.Graphics;
                         for (int i = 0; i < minionRingDustQty; i++)
                         {
                             float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                            Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(minionRingRadius/10, theta));
+                            Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(minionRingRadius / 10, theta));
                             dust.noGravity = true;
                         }
                     }
@@ -229,22 +228,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 
 
-                
+
             }
             else
             {
                 noTargetTimer++;
-                if(noTargetTimer ==2)
+                if (noTargetTimer == 2)
                 {
                     Main.PlaySound(SoundID.Item8);
                     for (int i = 0; i < minionRingDustQty; i++)
                     {
                         float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                        Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(minionRingRadius/10, theta));
+                        Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(minionRingRadius / 10, theta));
                         dust.noGravity = true;
                     }
                 }
-                if ( (projectile.Center-player.Center).Length()> 300)
+                if ((projectile.Center - player.Center).Length() > 300)
                 {
                     if (Main.netMode != 2)
                     {
@@ -258,14 +257,14 @@ using Microsoft.Xna.Framework.Graphics;
                     {
                         float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
 
-                        Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius/10, theta));
+                        Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius / 10, theta));
                         dust.noGravity = true;
                     }
                     noTargetTimer = 0;
                     moveTo = new Vector2(player.Center.X + (float)Math.Cos(projectile.ai[1]) * 100, player.Center.Y + (float)Math.Sin(projectile.ai[1]) * 100);
                     justTeleported = true;
                 }
-                
+
                 projectile.Center = moveTo;
 
                 float targetAngle = new Vector2(player.Center.X - projectile.Center.X, player.Center.Y - projectile.Center.Y).ToRotation();
@@ -273,12 +272,12 @@ using Microsoft.Xna.Framework.Graphics;
             }
             if (justTeleported)
             {
-                
+
                 justTeleported = false;
             }
-            
+
             projectile.frameCounter++;
-            
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -289,7 +288,7 @@ using Microsoft.Xna.Framework.Graphics;
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame*projectile.height, projectile.width, projectile.height), drawColor, projectile.rotation,
+                        new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), drawColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.White, projectile.rotation,
@@ -298,5 +297,5 @@ using Microsoft.Xna.Framework.Graphics;
         }
 
     }
-	
+
 }

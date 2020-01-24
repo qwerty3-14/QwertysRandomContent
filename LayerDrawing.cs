@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameInput;
@@ -13,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent
 {
-    
+
     public static class LayerDrawing
     {
         public static PlayerLayer DrawOnHead(string equip, string texturePath, string name = "HeadGlowmask", bool glowmask = true, int useShader = -1)
@@ -41,7 +36,7 @@ namespace QwertysRandomContent
                     Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
 
                     DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
-                    if(useShader == -1)
+                    if (useShader == -1)
                     {
                         data.shader = drawInfo.headArmorShader;
                     }
@@ -49,12 +44,12 @@ namespace QwertysRandomContent
                     {
                         data.shader = drawPlayer.dye[useShader].dye;
                     }
-                    
+
                     Main.playerDrawData.Add(data);
                 }
             });
         }
-        public static PlayerLayer DrawOnLegs(string equip, string texturePath, string femaleEquip = "n", string femaleTexturePath = "n",  string name = "LegGlowmask", bool glowmask = true, int useShader = -1)
+        public static PlayerLayer DrawOnLegs(string equip, string texturePath, string femaleEquip = "n", string femaleTexturePath = "n", string name = "LegGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
             {
@@ -72,16 +67,28 @@ namespace QwertysRandomContent
                 if (drawPlayer.legs == mod.GetEquipSlot(equip, EquipType.Legs) || (femaleEquip != "n" && drawPlayer.legs == mod.GetEquipSlot(femaleEquip, EquipType.Legs)))
                 {
                     Texture2D texture = mod.GetTexture(texturePath);
-                    if (femaleTexturePath != "n" &&!drawPlayer.Male)
+                    if (femaleTexturePath != "n" && !drawPlayer.Male)
                     {
                         texture = mod.GetTexture(femaleTexturePath);
+                    }
+                    int horizontalFrame = 0;
+                    if (horizontalFrames > 1)
+                    {
+                        int frameTimer = drawPlayer.GetModPlayer<QwertyPlayer>().ArmorFrameCounter % ((pulseFrames ? (2 * horizontalFrames - 2) : horizontalFrames) * 10);
+                        horizontalFrame = frameTimer / 10;
+
+                        if (horizontalFrame > horizontalFrames - 1)
+                        {
+                            horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
+                        }
+
                     }
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                     Vector2 Position = drawInfo.position;
                     Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
                     Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                    DrawData data = new DrawData(texture, pos, drawPlayer.legFrame, color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
+                    DrawData data = new DrawData(texture, pos, new Rectangle(drawPlayer.legFrame.X + drawPlayer.legFrame.Width * horizontalFrame, drawPlayer.legFrame.Y, drawPlayer.legFrame.Width, drawPlayer.legFrame.Height), color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
                     if (useShader == -1)
                     {
                         data.shader = drawInfo.legArmorShader;
@@ -123,8 +130,76 @@ namespace QwertysRandomContent
                     Vector2 Position = drawInfo.position;
                     Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
                     Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                    
+
                     DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
+                    if (useShader == -1)
+                    {
+                        data.shader = drawInfo.bodyArmorShader;
+                    }
+                    else
+                    {
+                        data.shader = drawPlayer.dye[useShader].dye;
+                    }
+                    Main.playerDrawData.Add(data);
+                }
+            });
+        }
+        public static PlayerLayer DrawOnBodySimple(string equip, string texturePath, string femaleTexturePath = "n", string name = "BodyGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false)
+        {
+            return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
+            {
+                if (drawInfo.shadow != 0f)
+                {
+                    return;
+                }
+
+                Player drawPlayer = drawInfo.drawPlayer;
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                if (glowmask)
+                {
+                    color12 = Color.White;
+                }
+                Mod mod = ModLoader.GetMod("QwertysRandomContent");
+                if (drawPlayer.body == mod.GetEquipSlot(equip, EquipType.Body))
+                {
+                    Texture2D texture = mod.GetTexture(texturePath);
+                    if (femaleTexturePath != "n" && !drawPlayer.Male)
+                    {
+                        texture = mod.GetTexture(femaleTexturePath);
+                    }
+
+                    int horizontalFrame = 0;
+                    if (horizontalFrames > 1)
+                    {
+                        int frameTimer = drawPlayer.GetModPlayer<QwertyPlayer>().ArmorFrameCounter % ((pulseFrames ? (2 * horizontalFrames - 2) : horizontalFrames) * 10);
+                        horizontalFrame = frameTimer / 10;
+
+                        if (horizontalFrame > horizontalFrames - 1)
+                        {
+                            horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
+                        }
+
+                    }
+
+                    int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
+                    int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
+                    Vector2 Position = drawInfo.position;
+                    Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
+                    Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
+                    int fHeight = 56;
+                    if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
+                    {
+                        if (drawPlayer.gravDir == -1)
+                        {
+                            pos.Y += 2;
+                        }
+                        else
+                        {
+                            pos.Y -= 2;
+                        }
+
+                    }
+                    DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame.Y == 280 ? new Rectangle(horizontalFrame * 40, fHeight, 40, fHeight) : new Rectangle(horizontalFrame * 40, 0, 40, fHeight), color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
                     if (useShader == -1)
                     {
                         data.shader = drawInfo.bodyArmorShader;
@@ -165,7 +240,7 @@ namespace QwertysRandomContent
                     Vector2 Position = drawInfo.position;
                     Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
                     Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-                    
+
 
                     DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
                     if (useShader == -1)
@@ -181,7 +256,7 @@ namespace QwertysRandomContent
                 }
             });
         }
-        public static PlayerLayer DrawHeadSimple(string equip, string texturePath, string name = "Mask", bool glowmask = true, int useShader = -1)
+        public static PlayerLayer DrawHeadSimple(string equip, string texturePath, string name = "Mask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
             {
@@ -203,6 +278,18 @@ namespace QwertysRandomContent
                     {
                         color12 = Color.White;
                     }
+                    int horizontalFrame = 0;
+                    if (horizontalFrames > 1)
+                    {
+                        int frameTimer = drawPlayer.GetModPlayer<QwertyPlayer>().ArmorFrameCounter % ((pulseFrames ? (2 * horizontalFrames - 2) : horizontalFrames) * 10);
+                        horizontalFrame = frameTimer / 10;
+
+                        if (horizontalFrame > horizontalFrames - 1)
+                        {
+                            horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
+                        }
+
+                    }
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                     Vector2 Position = drawInfo.position;
@@ -222,7 +309,7 @@ namespace QwertysRandomContent
                         }
 
                     }
-                    Rectangle frame = new Rectangle(0, 0, 40, fHeight);
+                    Rectangle frame = new Rectangle(horizontalFrame * 40, 0, 40, fHeight);
                     Vector2 origin = new Vector2((float)frame.Width * 0.5f, (float)frame.Height * 0.5f);
                     DrawData data = new DrawData(texture, pos, frame, color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
                     if (useShader == -1)
@@ -305,11 +392,11 @@ namespace QwertysRandomContent
                 }
             });
         }
-        public static PlayerHeadLayer DrawHeadLayer(string equip, string texturePath, string name = "Mask", int useShader = 0)
+        public static PlayerHeadLayer DrawHeadLayer(string equip, string texturePath, string name = "Mask", int useShader = 0, int horizontalFrames = 1, bool pulseFrames = false)
         {
             return new PlayerHeadLayer("QwertysRandomContent", "Mask", delegate (PlayerHeadDrawInfo drawInfo)
             {
-
+                int fHeight = 56;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
                 Player drawPlayer = drawInfo.drawPlayer;
                 Vector2 vector = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.4f);
@@ -447,9 +534,21 @@ namespace QwertysRandomContent
 
 
                     Texture2D texture = mod.GetTexture(texturePath);
+                    int horizontalFrame = 0;
+                    if (horizontalFrames > 1)
+                    {
+                        int frameTimer = drawPlayer.GetModPlayer<QwertyPlayer>().ArmorFrameCounter % ((pulseFrames ? (2 * horizontalFrames - 2) : horizontalFrames) * 10);
+                        horizontalFrame = frameTimer / 10;
+
+                        if (horizontalFrame > horizontalFrames - 1)
+                        {
+                            horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
+                        }
+
+                    }
                     DrawData data = new DrawData(texture,
                         new Vector2(drawPos.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPos.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector,
-                        texture.Frame(), drawInfo.armorColor, 0f, drawInfo.drawOrigin, drawInfo.scale, drawInfo.spriteEffects, 0);
+                        new Rectangle(horizontalFrame * 40, 0, 40, fHeight), drawInfo.armorColor, 0f, drawInfo.drawOrigin, drawInfo.scale, drawInfo.spriteEffects, 0);
                     GameShaders.Armor.Apply(drawPlayer.dye[useShader].dye, drawPlayer, new DrawData?(data));
                     data.Draw(Main.spriteBatch);
                 }

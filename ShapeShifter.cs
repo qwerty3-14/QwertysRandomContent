@@ -1,17 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.NPCs.CloakedDarkBoss;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using Terraria.Localization;
 
 namespace QwertysRandomContent
 {
@@ -59,9 +57,9 @@ namespace QwertysRandomContent
                 morphDamage += player.miscEquips[3].GetGlobalItem<ShapeShifterItem>().prefixMorphDamage * .01f;
                 morphCrit += player.miscEquips[3].GetGlobalItem<ShapeShifterItem>().prefixMorphCrit;
             }
-            for(int i =0; i<10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                if(!player.armor[i].IsAir)
+                if (!player.armor[i].IsAir)
                 {
                     morphDef += player.armor[i].GetGlobalItem<ShapeShifterItem>().equipedMorphDefense;
                 }
@@ -69,12 +67,12 @@ namespace QwertysRandomContent
         }
         public void justStableMorphed()
         {
-            
-            if(EyeBlessing && TwistedDarkSetBonus)
+
+            if (EyeBlessing && TwistedDarkSetBonus)
             {
-                
+
                 player.statLifeMax2 += 100;
-              
+
                 healMe = true;
 
 
@@ -82,7 +80,7 @@ namespace QwertysRandomContent
         }
         private void ResetVariables()
         {
-            if (!drawTankCannon && !glassCannon && ! hovercraft)
+            if (!drawTankCannon && !glassCannon && !hovercraft)
             {
 
                 tankCannonRotation = (player.direction == -1 ? (float)Math.PI : 0f);
@@ -101,16 +99,16 @@ namespace QwertysRandomContent
             {
                 EyeBlessing = false;
             }
-            
+
             EyeEquiped = false;
             TwistedDarkSetBonus = false;
 
         }
         public override void PreUpdate()
         {
-            
+
             //player.gravControl2 = true;
-            if(healMe)
+            if (healMe)
             {
                 player.statLife += 100;
                 player.HealEffect(100, true);
@@ -118,7 +116,7 @@ namespace QwertysRandomContent
             }
             if (!player.HeldItem.IsAir)
             {
-               // Main.NewText(player.HeldItem.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier);
+                // Main.NewText(player.HeldItem.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier);
             }
 
             if (overrideWidth != -1)
@@ -129,7 +127,7 @@ namespace QwertysRandomContent
             {
                 player.width = 20;
             }
-            if(morphed)
+            if (morphed)
             {
                 morphTime++;
             }
@@ -137,15 +135,15 @@ namespace QwertysRandomContent
             {
                 morphTime = 0;
             }
-            if(EyeBlessing)
+            if (EyeBlessing)
             {
                 player.AddBuff(mod.BuffType("EyeBless"), 2);
             }
         }
         public override void PostUpdateEquips()
         {
-            
-           
+
+
             if (player.meleeCrit > 4 && player.magicCrit > 4 && player.rangedCrit > 4 && player.thrownCrit > 4)
             {
                 int[] crits = { player.meleeCrit, player.magicCrit, player.rangedCrit };
@@ -176,7 +174,7 @@ namespace QwertysRandomContent
                 Texture2D texture = mod.GetTexture("Items/Weapons/Meteor/Hovercraft_Cannon");
 
                 DrawData value = new DrawData(texture,
-                    new Vector2(drawInfo.position.X + 20, drawInfo.position.Y+8) - Main.screenPosition,
+                    new Vector2(drawInfo.position.X + 20, drawInfo.position.Y + 8) - Main.screenPosition,
                     new Rectangle(0, 0, 24, 10),
                     color12,
                     drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
@@ -206,12 +204,12 @@ namespace QwertysRandomContent
                 Main.playerDrawData.Add(value);
 
             }
-            else if(drawPlayer.GetModPlayer<ShapeShifterPlayer>().glassCannon)
+            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().glassCannon)
             {
                 Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon");
 
                 DrawData value = new DrawData(texture,
-                    new Vector2(drawInfo.position.X+15, drawInfo.position.Y) - Main.screenPosition,
+                    new Vector2(drawInfo.position.X + 15, drawInfo.position.Y) - Main.screenPosition,
                     new Rectangle(0, 0, 30, 8),
                     color12,
                     drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
@@ -230,7 +228,7 @@ namespace QwertysRandomContent
                 foreach (PlayerLayer l in layers)
                 {
                     //Main.NewText(l.Name);
-                    
+
                     if (l.Name.Equals("MountBack") || l.Name.Equals("cl"))
                     {
                         l.visible = true;
@@ -246,7 +244,7 @@ namespace QwertysRandomContent
             if (mountLayer != -1)
             {
                 TankCannon.visible = true;
-                if(hovercraft)
+                if (hovercraft)
                 {
                     layers.Insert(mountLayer + 1, TankCannon);
                 }
@@ -254,13 +252,13 @@ namespace QwertysRandomContent
                 {
                     layers.Insert(mountLayer - 1, TankCannon);
                 }
-                
+
             }
 
         }
         public override void PostUpdate()
         {
-            
+
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -271,7 +269,7 @@ namespace QwertysRandomContent
         }
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
-            if(glassCannon)
+            if (glassCannon)
             {
                 damage *= 3;
             }
@@ -339,7 +337,7 @@ namespace QwertysRandomContent
                 {
                     return false;
                 }
-                if(player.GetModPlayer<ShapeShifterPlayer>().EyeEquiped)
+                if (player.GetModPlayer<ShapeShifterPlayer>().EyeEquiped)
                 {
                     player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = true;
                 }
@@ -440,7 +438,7 @@ namespace QwertysRandomContent
             else if (item.GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.QuickShiftType)
             {
                 int random = rand.Next(31);
-                if(random==0 || random ==1)
+                if (random == 0 || random == 1)
                 {
                     return PrefixID.Keen;
                 }
@@ -520,8 +518,8 @@ namespace QwertysRandomContent
                 {
                     return mod.PrefixType("Aggressive");
                 }
-                
-                    return rand.NextBool() ? mod.PrefixType("Rigorous") : mod.PrefixType("Clumsy");
+
+                return rand.NextBool() ? mod.PrefixType("Rigorous") : mod.PrefixType("Clumsy");
 
 
                 /*
@@ -595,18 +593,18 @@ namespace QwertysRandomContent
                     tt.text = damageValue + Language.GetTextValue("Mods.QwertysRandomContent.morph") + damageWord;
                 }
             }
-            if(equipedMorphDefense>0)
+            if (equipedMorphDefense > 0)
             {
                 int Index = tooltips.FindIndex(TooltipLine => TooltipLine.Name.Equals("Defense"));
                 TooltipLine line = new TooltipLine(mod, "MorphDefense", equipedMorphDefense + " defense when morphed");
                 {
-                    
+
                 }
                 if (Index != -1)
                 {
                     tooltips.Insert(Index + 1, line);
                 }
-                line.text=equipedMorphDefense + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
+                line.text = equipedMorphDefense + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
             }
             if (item.GetGlobalItem<ShapeShifterItem>().morphType != 0)
             {
@@ -615,7 +613,7 @@ namespace QwertysRandomContent
                 {
                     line.overrideColor = Color.Orange;
                 }
-                line.text=Language.GetTextValue("Mods.QwertysRandomContent.MorphTypeStable");
+                line.text = Language.GetTextValue("Mods.QwertysRandomContent.MorphTypeStable");
                 if (item.GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.QuickShiftType)
                 {
                     line.text = Language.GetTextValue("Mods.QwertysRandomContent.MorphTypeQuick");
@@ -690,20 +688,20 @@ namespace QwertysRandomContent
                 tooltips.Add(line);
                 line.text = "+" + prefixMorphCrit + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphCrit");
             }
-            if(PrefixorphCooldownModifier >1f)
+            if (PrefixorphCooldownModifier > 1f)
             {
-                TooltipLine line = new TooltipLine(mod, "PrefixorphCooldownModifier",  (int)(PrefixorphCooldownModifier * 100f)-100 + "% longer cooldown");
+                TooltipLine line = new TooltipLine(mod, "PrefixorphCooldownModifier", (int)(PrefixorphCooldownModifier * 100f) - 100 + "% longer cooldown");
                 line.isModifier = true;
                 line.overrideColor = Color.Red;
                 tooltips.Add(line);
-                line.text = (int)(PrefixorphCooldownModifier * 100f)-100 + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierLonger");
+                line.text = (int)(PrefixorphCooldownModifier * 100f) - 100 + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierLonger");
             }
-            else if(PrefixorphCooldownModifier < 1f)
+            else if (PrefixorphCooldownModifier < 1f)
             {
-                TooltipLine line = new TooltipLine(mod, "PrefixorphCooldownModifier",  100-(int)(PrefixorphCooldownModifier*100f) + "% shorter cooldown");
+                TooltipLine line = new TooltipLine(mod, "PrefixorphCooldownModifier", 100 - (int)(PrefixorphCooldownModifier * 100f) + "% shorter cooldown");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text = 100-(int)(PrefixorphCooldownModifier*100f) + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierShorter");
+                line.text = 100 - (int)(PrefixorphCooldownModifier * 100f) + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierShorter");
             }
 
         }
@@ -721,7 +719,7 @@ namespace QwertysRandomContent
             prefixMorphDamage = reader.ReadSingle();
             prefixMorphDef = reader.ReadInt32();
             prefixMorphCrit = reader.ReadInt32();
-            PrefixorphCooldownModifier = reader.ReadSingle(); 
+            PrefixorphCooldownModifier = reader.ReadSingle();
 
 
         }
@@ -813,7 +811,7 @@ namespace QwertysRandomContent
         float kb = 1f;
         float cooldown = 1f;
 
-        
+
 
         public QuickMorphPrefix() { }
 
@@ -858,7 +856,7 @@ namespace QwertysRandomContent
         }
         public override void ModifyValue(ref float valueMult)
         {
-            valueMult *= (1f-(cooldown-1f));
+            valueMult *= (1f - (cooldown - 1f));
         }
         public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
         {
@@ -867,6 +865,6 @@ namespace QwertysRandomContent
             critBonus = this.crit;
         }
 
-        
+
     }
 }

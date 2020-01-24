@@ -1,16 +1,10 @@
+using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.Generation;
-using Terraria.World.Generation;
-using System.Collections.Generic;
-
-using System;
-using Terraria.ModLoader.IO;
-using System.IO;
-using Microsoft.Xna.Framework;
 using Terraria.Localization;
-using Terraria.Graphics.Shaders;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace QwertysRandomContent
 {
@@ -43,7 +37,7 @@ namespace QwertysRandomContent
             downedDinoMilitia = false;
             downedDinoMilitiaHard = false;
             downedTyrant = false;
-            hasSummonedFortressBoss=false;
+            hasSummonedFortressBoss = false;
             downedFortressBoss = false;
             downedBear = false;
             downedBlade = false;
@@ -72,7 +66,7 @@ namespace QwertysRandomContent
         {
             hasGeneratedRhuthinium = tag.GetBool("genned");
             downedAncient = tag.GetBool("downedAncient");
-            downedhydra= tag.GetBool("downedHydra");
+            downedhydra = tag.GetBool("downedHydra");
             downedRuneGhost = tag.GetBool("downedRuneGhost");
             downedB4 = tag.GetBool("downedB4");
             downedDinoMilitia = tag.GetBool("downedDinoMilitia");
@@ -138,7 +132,7 @@ namespace QwertysRandomContent
             {
                 key = "Mods.QwertysRandomContent.DivineIntro";
             }
-           
+
             Color messageColor = Color.Orange;
             if (Main.netMode == 2) // Server
             {
@@ -162,7 +156,7 @@ namespace QwertysRandomContent
 
         public override void PreUpdate()
         {
-            
+
 
             //QwertyMethods.ServerClientCheck(DinoKillCount);
 
@@ -217,19 +211,19 @@ namespace QwertysRandomContent
 
                 }
             }
-           
+
             if (!hasGeneratedRhuthinium && NPC.downedBoss3)
             {
-                
+
                 for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 6E-06); i++)
                 {
                     WorldGen.OreRunner(
                         WorldGen.genRand.Next(0, Main.maxTilesX), // X Coord of the tile
-                        WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY-200), // Y Coord of the tile
+                        WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 200), // Y Coord of the tile
                         (double)WorldGen.genRand.Next(40, 40), // Strength (High = more)
                         WorldGen.genRand.Next(2, 6), // Steps 
                         (ushort)mod.TileType("RhuthiniumOre") // The tile type that will be spawned
-                       ); 
+                       );
                 }
                 string key = "Mods.QwertysRandomContent.RhuthiniumGenerates";
                 Color messageColor = Color.Cyan;
@@ -244,8 +238,8 @@ namespace QwertysRandomContent
                 hasGeneratedRhuthinium = true;
             }
         }
-        
-        
+
+
     }
 
 

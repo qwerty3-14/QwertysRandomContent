@@ -1,10 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent;
 namespace QwertysRandomContent.NPCs.TundraBoss
 {
     public class SlidingPenguin : ModNPC
@@ -27,7 +23,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             npc.lifeMax = 25;
             npc.defense = 4;
             npc.damage = 20;
-           
+
             npc.noGravity = false;
 
 
@@ -37,7 +33,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         {
             npc.damage = 30;
             npc.lifeMax = 25;
-            
+
 
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -46,15 +42,15 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         }
         public override void NPCLoot()
         {
-            
-            
+
+
         }
         int timer;
         public override void AI()
         {
             npc.velocity.X = 5 * npc.ai[0];
             timer++;
-            if (npc.collideX && timer >5)
+            if (npc.collideX && timer > 5)
             {
                 npc.ai[0] *= -1;
                 timer = 0;
@@ -63,7 +59,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         }
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
-            
+
             npc.ai[0] *= -1;
             npc.netUpdate = true;
         }

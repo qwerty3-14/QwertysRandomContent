@@ -1,11 +1,10 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
@@ -80,8 +79,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanium Grinder");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; 
-            Main.projFrames[projectile.type] = 1; 
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            Main.projFrames[projectile.type] = 1;
         }
 
         public override void SetDefaults()
@@ -89,14 +88,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             projectile.sentry = true;
             projectile.width = 60;
-            projectile.height = 60;  
-            projectile.hostile = false;   
-            projectile.friendly = false;  
-            projectile.ignoreWater = true;   
+            projectile.height = 60;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
             projectile.sentry = true;
             projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
@@ -117,7 +116,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         int grindTimer;
         public override void AI()
         {
-           
+
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             timer++;
@@ -127,7 +126,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 {
                     possibleTarget = Main.npc[k];
                     distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && !possibleTarget.boss && !possibleTarget.immortal  && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0) && (possibleTarget.lifeMax<2000 || (possibleTarget.lifeMax<4000 && Main.expertMode)))
+                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && !possibleTarget.boss && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0) && (possibleTarget.lifeMax < 2000 || (possibleTarget.lifeMax < 4000 && Main.expertMode)))
                     {
                         target = possibleTarget;
                         foundTarget = true;
@@ -136,12 +135,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
                 }
             }
-            if(foundTarget)
+            if (foundTarget)
             {
                 target = Main.npc[target.whoAmI];
                 target.AddBuff(mod.BuffType("TitanicGrasp"), 3);
-                
-                if((projectile.Center-target.Center).Length()<  11  && target.active)
+
+                if ((projectile.Center - target.Center).Length() < 11 && target.active)
                 {
 
                     rotateSaws = true;
@@ -151,12 +150,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     target.Center = projectile.Center;
                     //target.noGravity = true;
                     grindTimer++;
-                    if(grindTimer %3 ==0)
+                    if (grindTimer % 3 == 0)
                     {
                         Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("TitaniumGrind"), projectile.damage, 0, projectile.owner, target.whoAmI);
                     }
 
-                    
+
                 }
                 else
                 {
@@ -165,14 +164,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     target.velocity = QwertyMethods.PolarVector(maxPullSpeed, (projectile.Center - target.Center).ToRotation());
                     foundTarget = false;
                 }
-               
+
             }
             else
             {
                 rotateSaws = false;
                 drawChain = false;
             }
-            
+
             maxDistance = 500f;
             /*
             projectile.frameCounter++;
@@ -202,12 +201,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                        new Rectangle(0, 0, projectile.width, projectile.height), lightColor, projectile.rotation,
                        new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
                        */
-           
+
             return true;
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            if(drawChain)
+            if (drawChain)
             {
                 Vector2 playerCenter = target.Center;
                 Vector2 center = projectile.Center;
@@ -250,7 +249,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         }
 
     }
-   
+
     public class TitaniumGrind : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -280,7 +279,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         }
         public override void AI()
         {
-            
+
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

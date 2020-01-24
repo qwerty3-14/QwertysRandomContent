@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using QwertysRandomContent.Buffs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,19 +19,19 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             item.width = 36;
             item.height = 24;
             item.ranged = true;
-            item.useAmmo =  mod.ItemType("CactusNeedle");
+            item.useAmmo = mod.ItemType("CactusNeedle");
             item.shoot = mod.ProjectileType("CactusNeedleP");
             item.shootSpeed = 2f;
             item.useTime = 6;
             item.useAnimation = 6;
             item.damage = 1;
-            
+
             item.useStyle = 5;
             item.knockBack = 0f;
-            item.value = Item.sellPrice(silver: 3, copper: 60) ;
+            item.value = Item.sellPrice(silver: 3, copper: 60);
             item.rare = 1;
             item.UseSound = SoundID.Item11;
-            
+
             item.noMelee = true;
             item.autoReuse = true;
         }
@@ -52,7 +48,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             recipe.AddRecipe();
         }
     }
-    
+
     public class CactusNeedle : ModItem
     {
         public override void SetStaticDefaults()
@@ -92,11 +88,11 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             projectile.GetGlobalProjectile<ImplaingProjectile>().CanImpale = true;
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 1;
         }
-        
+
         int npcIndex = -1;
         public override void AI()
         {
-            if(projectile.ai[0] == 1)
+            if (projectile.ai[0] == 1)
             {
                 projectile.extraUpdates = 0;
                 projectile.ignoreWater = true; // Make sure the projectile ignores water
@@ -137,7 +133,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             {
                 projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
             }
-            
+
 
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit,
@@ -151,7 +147,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
                 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             projectile.netUpdate = true; // netUpdate this javelin
             target.AddBuff(mod.BuffType("Impaled"), 900); // Adds the Impaled debuff
-            
+
             projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
             projectile.friendly = false;
             // The following code handles the javelin sticking to the enemy hit.
@@ -203,4 +199,4 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
 
         }
     }
-} 
+}

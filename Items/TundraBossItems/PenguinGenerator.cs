@@ -1,9 +1,5 @@
 using Microsoft.Xna.Framework;
-using QwertysRandomContent.Items.B4Items;
-using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
-using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
@@ -37,7 +33,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
+
             player.GetModPlayer<PenguinEffect>().effect = true;
             player.GetModPlayer<PenguinEffect>().noSound = hideVisual;
         }
@@ -67,13 +63,13 @@ namespace QwertysRandomContent.Items.TundraBossItems
         }
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if(Main.rand.Next(10) == 0 && effect && !target.immortal)
+            if (Main.rand.Next(10) == 0 && effect && !target.immortal)
             {
-                if(!noSound)
+                if (!noSound)
                 {
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
                 }
-                
+
                 Projectile penguin = Main.projectile[Projectile.NewProjectile(player.Center, new Vector2(6, 0), mod.ProjectileType("SlidingPenguin"), item.damage, item.knockBack, player.whoAmI)];
                 penguin.melee = item.melee;
                 penguin.ranged = item.ranged;
@@ -100,7 +96,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (Main.rand.Next(10)==0 && effect && !target.immortal && !proj.GetGlobalProjectile<PenguinLimit>().realeasedPenguin)
+            if (Main.rand.Next(10) == 0 && effect && !target.immortal && !proj.GetGlobalProjectile<PenguinLimit>().realeasedPenguin)
             {
                 if (!noSound)
                 {
@@ -132,7 +128,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
             }
         }
     }
-    
-    
+
+
 }
 

@@ -1,10 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using QwertysRandomContent;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.NPCs.HydraBoss
 {
@@ -39,13 +38,13 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         public override void AI()
         {
             trigCounter += (float)Math.PI / 30;
-            
+
             pseudoProjectileVelocities[0] = projectile.velocity + QwertyMethods.PolarVector((float)Math.Cos(trigCounter) * amplitude, projectile.rotation);
             pseudoProjectileVelocities[1] = projectile.velocity + QwertyMethods.PolarVector((float)Math.Cos(trigCounter + (float)Math.PI) * amplitude, projectile.rotation);
             Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation), mod.DustType("HydraBreathGlow"), Vector2.Zero);
             Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation - (float)Math.PI), mod.DustType("HydraBreathGlow"), Vector2.Zero);
         }
-        
+
 
 
 
@@ -53,7 +52,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
-            if(Math.Cos(trigCounter)>0)
+            if (Math.Cos(trigCounter) > 0)
             {
                 spriteBatch.Draw(texture, (projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation)) - Main.screenPosition,
                             texture.Frame(), Color.White, pseudoProjectileVelocities[0].ToRotation() + (float)Math.PI / 2,
@@ -70,9 +69,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 spriteBatch.Draw(texture, (projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation)) - Main.screenPosition,
                             texture.Frame(), Color.White, pseudoProjectileVelocities[0].ToRotation() + (float)Math.PI / 2,
                             texture.Size() / 2f, 1f, SpriteEffects.None, 0f);
-                
+
             }
-            
+
             return false;
         }
 

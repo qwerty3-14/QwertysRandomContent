@@ -7,39 +7,39 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons
 {
-	public class ChargingShotgun : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Charging Shotgun");
-			Tooltip.SetDefault("Right click to add an extra bullet to your next fire");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 100;
-			item.ranged = true;
-			
-			item.useTime = 60;
-			item.useAnimation = 60;
-			item.useStyle = 5;
-			item.knockBack = 5;
-			item.value = 500000;
-			item.rare = 9;
-			item.UseSound = SoundID.Item11;
-			
-			item.width = 56;
-			item.height = 34;
-			
-			item.shoot = 97;
-			item.useAmmo = 97;
-			item.shootSpeed =6f;
-			item.noMelee=true;
+    public class ChargingShotgun : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Charging Shotgun");
+            Tooltip.SetDefault("Right click to add an extra bullet to your next fire");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 100;
+            item.ranged = true;
+
+            item.useTime = 60;
+            item.useAnimation = 60;
+            item.useStyle = 5;
+            item.knockBack = 5;
+            item.value = 500000;
+            item.rare = 9;
+            item.UseSound = SoundID.Item11;
+
+            item.width = 56;
+            item.height = 34;
+
+            item.shoot = 97;
+            item.useAmmo = 97;
+            item.shootSpeed = 6f;
+            item.noMelee = true;
             item.autoReuse = true;
             item.noUseGraphic = false;
-			
-			
-		}
+
+
+        }
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -55,7 +55,7 @@ namespace QwertysRandomContent.Items.Weapons
                 item.useTime = 12;
                 item.useAnimation = 12;
                 item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/click").WithVolume(.8f).WithPitchVariance(.5f);
-                
+
                 numberProjectiles++;
                 item.useStyle = 1;
                 item.noUseGraphic = true;
@@ -74,7 +74,7 @@ namespace QwertysRandomContent.Items.Weapons
             {
                 item.shoot = 97;
                 item.useAmmo = 97;
-                
+
                 item.useTime = 60;
                 item.useAnimation = 60;
                 if (numberProjectiles > 1)
@@ -90,7 +90,7 @@ namespace QwertysRandomContent.Items.Weapons
             }
             return base.CanUseItem(player);
         }
-        
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
@@ -119,9 +119,9 @@ namespace QwertysRandomContent.Items.Weapons
             }
         }
         public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-6, -0);
-		}
+        {
+            return new Vector2(-6, -0);
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -136,7 +136,7 @@ namespace QwertysRandomContent.Items.Weapons
 
 
     }
-		
-	
+
+
 }
 

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,13 +22,13 @@ namespace QwertysRandomContent.NPCs
             npc.height = 44;
             npc.damage = 120;
             npc.defense = 18;
-            
+
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 60f;
-            
+
             npc.aiStyle = -1;
-            
+
             animationType = -1;
             npc.noGravity = true;
             npc.noTileCollide = true;
@@ -47,12 +43,12 @@ namespace QwertysRandomContent.NPCs
         public float flySpeed = 3;
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            
+
             if (spawnInfo.player.ZoneDungeon && Main.hardMode && NPC.downedPlantBoss)
             {
-                
-                    return .1f;
-                
+
+                return .1f;
+
             }
             else
             {
@@ -64,7 +60,7 @@ namespace QwertysRandomContent.NPCs
         {
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
-            if ((player.Center-npc.Center).Length() < 255)
+            if ((player.Center - npc.Center).Length() < 255)
             {
                 npc.alpha = (int)(player.Center - npc.Center).Length();
                 Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 0, mod.ProjectileType("SpectorGlow"), 0, 0, Main.myPlayer);
@@ -73,11 +69,11 @@ namespace QwertysRandomContent.NPCs
             {
                 npc.alpha = 255;
             }
-            flyDirection =(player.Center - npc.Center).ToRotation();
+            flyDirection = (player.Center - npc.Center).ToRotation();
             npc.velocity = new Vector2((float)Math.Cos(flyDirection) * flySpeed, (float)Math.Sin(flyDirection) * flySpeed);
 
 
-            if(npc.alpha == 255)
+            if (npc.alpha == 255)
             {
                 npc.dontTakeDamage = true;
             }
@@ -103,17 +99,17 @@ namespace QwertysRandomContent.NPCs
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
         public override void SetDefaults()
         {
             projectile.light = 1f;
             projectile.friendly = false;
             projectile.hostile = false;
-            projectile.alpha=255;
+            projectile.alpha = 255;
             projectile.timeLeft = 2;
         }
     }
-    
-    
+
+
 }

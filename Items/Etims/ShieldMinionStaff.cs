@@ -2,10 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.NPCs.Fortress;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -73,7 +69,7 @@ namespace QwertysRandomContent.Items.Etims
             projectile.hostile = false;
             projectile.friendly = true;
             projectile.ignoreWater = true;
-            
+
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.minion = true;
@@ -90,7 +86,7 @@ namespace QwertysRandomContent.Items.Etims
         NPC target;
         float horizontalEyeMultiploer = 3;
         float verticalEyeMultiplier = 2;
-        
+
         const int guarding = 0;
         const int charging = 1;
         const int cooling = 2;
@@ -112,7 +108,7 @@ namespace QwertysRandomContent.Items.Etims
                     ShieldCount++;
                 }
             }
-          
+
             for (int p = 0; p < 1000; p++)
             {
                 if (Main.projectile[p].type == mod.ProjectileType("ShieldMinion") && Main.projectile[p].active && Main.projectile[p].owner == projectile.owner && Main.projectile[p].ai[1] == projectile.ai[1])
@@ -143,16 +139,16 @@ namespace QwertysRandomContent.Items.Etims
                     projectile.velocity = (flyTo - projectile.Center) * .1f;
                 }
             }
-            switch((int)projectile.ai[1])
+            switch ((int)projectile.ai[1])
             {
 
                 case guarding:
                     projectile.frame = 0;
-                    foreach(Projectile OtherProjectile in Main.projectile)
+                    foreach (Projectile OtherProjectile in Main.projectile)
                     {
-                        if(OtherProjectile.hostile && OtherProjectile.active && OtherProjectile.velocity != Vector2.Zero && OtherProjectile.damage > 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, OtherProjectile.position, OtherProjectile.Size))
+                        if (OtherProjectile.hostile && OtherProjectile.active && OtherProjectile.velocity != Vector2.Zero && OtherProjectile.damage > 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, OtherProjectile.position, OtherProjectile.Size))
                         {
-                            if(OtherProjectile.damage * 2  * (Main.expertMode ? 2 : 1)< projectile.damage)
+                            if (OtherProjectile.damage * 2 * (Main.expertMode ? 2 : 1) < projectile.damage)
                             {
                                 OtherProjectile.Kill();
                             }
@@ -166,7 +162,7 @@ namespace QwertysRandomContent.Items.Etims
                         eyeOffset = (target.Center - projectile.Center).SafeNormalize(-Vector2.UnitY);
                         eyeOffset.X *= horizontalEyeMultiploer;
                         eyeOffset.Y *= verticalEyeMultiplier;
-                        if((target.Center- projectile.Center).Length() < 120)
+                        if ((target.Center - projectile.Center).Length() < 120)
                         {
                             projectile.velocity = QwertyMethods.PolarVector(24, (target.Center - projectile.Center).ToRotation());
                             projectile.ai[1] = charging;
@@ -178,12 +174,12 @@ namespace QwertysRandomContent.Items.Etims
                     {
                         eyeOffset = Vector2.Zero;
                     }
-                    
+
                     break;
                 case charging:
                     projectile.frame = 0;
                     chargeTimer--;
-                    if(chargeTimer<=0)
+                    if (chargeTimer <= 0)
                     {
                         projectile.ai[1] = cooling;
                         chargeTimer = -300;
@@ -192,23 +188,23 @@ namespace QwertysRandomContent.Items.Etims
                 case cooling:
                     projectile.frame = 1;
                     chargeTimer++;
-                    if(chargeTimer>=0)
+                    if (chargeTimer >= 0)
                     {
                         projectile.ai[1] = guarding;
                     }
                     break;
             }
-            
-          
+
+
             identity = 0;
             ShieldCount = 0;
         }
-        
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = 10;
             target.immune[projectile.owner] = 0;
-            if(Main.rand.Next(10)==0 && !target.boss)
+            if (Main.rand.Next(10) == 0 && !target.boss)
             {
                 target.AddBuff(mod.BuffType("Stunned"), 120);
             }
@@ -229,14 +225,14 @@ namespace QwertysRandomContent.Items.Etims
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            if(projectile.frame == 0)
+            if (projectile.frame == 0)
             {
                 Texture2D eye = mod.GetTexture("Items/Etims/ShieldMinionEye");
                 spriteBatch.Draw(eye, (projectile.position + new Vector2(14, 13)) + eyeOffset - Main.screenPosition,
                            eye.Frame(), lightColor, projectile.rotation,
                            eye.Size() * .5f, 1f, SpriteEffects.None, 0f);
             }
-            
+
         }
 
 

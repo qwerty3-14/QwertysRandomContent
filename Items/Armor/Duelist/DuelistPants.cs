@@ -1,12 +1,6 @@
-using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Duelist
 {
@@ -26,7 +20,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
                 // Add the female leg variant
                 mod.AddEquipTexture(new DuelistLegs(), null, EquipType.Legs, "DuelistPants_Legs", "QwertysRandomContent/Items/Armor/Duelist/DuelistPants_Legs");
                 mod.AddEquipTexture(new DuelistLegsFemale(), null, EquipType.Legs, "DuelistPants_FemaleLegs", "QwertysRandomContent/Items/Armor/Duelist/DuelistPants_FemaleLegs");
-               
+
             }
             return true;
 
@@ -40,7 +34,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
             item.width = 22;
             item.height = 12;
             item.defense = 5;
-           
+
 
 
         }
@@ -77,12 +71,12 @@ namespace QwertysRandomContent.Items.Armor.Duelist
     {
 
         public static readonly PlayerLayer Pants = LayerDrawing.DrawOnLegs("DuelistPants_Legs", "Items/Armor/Duelist/DuelistRobeFront", "DuelistPants_FemaleLegs", "Items/Armor/Duelist/DuelistRobeFront_Female", "Pants", false, 1);
-        
-       
+
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-           
-            
+
+
             int legLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Legs"));
             if (legLayer != -1)
             {

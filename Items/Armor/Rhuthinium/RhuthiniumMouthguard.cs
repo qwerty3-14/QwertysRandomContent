@@ -1,9 +1,7 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
 {
@@ -58,7 +56,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RMouthguardkSet");
-            
+
             for (int p = 0; p < 1000; p++)
             {
                 if (Main.projectile[p].active && Main.projectile[p].sentry && Main.projectile[p].owner == player.whoAmI && (Main.projectile[p].Center - player.Center).Length() < 300)
@@ -85,7 +83,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         }
 
     }
-    
+
 
 }
 

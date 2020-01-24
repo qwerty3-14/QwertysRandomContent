@@ -4,40 +4,40 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
-	
-	
-	public class BlessedMedalion : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Blessed Medallion");
-			Tooltip.SetDefault("30% chance to dodge an otherwise lethal attack");
-			
-		}
-		
-		public override void SetDefaults()
-		{
-			
-			
-			item.rare = 1;
+
+
+    public class BlessedMedalion : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Blessed Medallion");
+            Tooltip.SetDefault("30% chance to dodge an otherwise lethal attack");
+
+        }
+
+        public override void SetDefaults()
+        {
+
+
+            item.rare = 1;
 
             item.value = 1000;
-			item.width = 14;
-			item.height = 14;
-			
-			item.accessory = true;
-			
-			
-			
-		}
-		
-		public override void UpdateEquip(Player player)
-		{
-			var modPlayer = player.GetModPlayer<QwertyPlayer>();
-			modPlayer.blessedMedalion = true;
-			
-			
-		}
+            item.width = 14;
+            item.height = 14;
+
+            item.accessory = true;
+
+
+
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
+            modPlayer.blessedMedalion = true;
+
+
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -50,7 +50,7 @@ namespace QwertysRandomContent.Items.Accesories
 
 
     }
-		
-	
+
+
 }
 

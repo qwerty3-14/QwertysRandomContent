@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -21,7 +20,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.height = 32;
             item.rare = 9;
             item.expert = true;
-           // bossBagNPC = mod.NPCType("AncientMachine");
+            // bossBagNPC = mod.NPCType("AncientMachine");
         }
         public override int BossBagNPC => mod.NPCType("AncientMachine");
 
@@ -53,14 +52,14 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public override void OpenBossBag(Player player)
         {
-            
+
             string[] loot = QwertysRandomContent.AMLoot.Draw(3);
-            
-            foreach(string item in loot)
+
+            foreach (string item in loot)
             {
                 player.QuickSpawnItem(mod.ItemType(item));
             }
-            
+
             if (Main.rand.Next(100) < 18)
             {
                 player.QuickSpawnItem(mod.ItemType("AncientMiner"));

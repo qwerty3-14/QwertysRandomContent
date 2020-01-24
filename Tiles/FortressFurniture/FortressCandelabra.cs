@@ -8,27 +8,27 @@ using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles.FortressFurniture
 {
     public class FortressCandelabra : ModTile
-	{
-		public override void SetDefaults()
-		{
-			//Main.tileSolidTop[Type] = true;
-			Main.tileFrameImportant[Type] = true;
-			Main.tileNoAttach[Type] = true;
+    {
+        public override void SetDefaults()
+        {
+            //Main.tileSolidTop[Type] = true;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
             //Main.tileTable[Type] = true;
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-			//AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Fortress Candelabra");
+            //AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Fortress Candelabra");
             AddMapEntry(new Color(162, 184, 185), name);
             dustType = mod.DustType("FortressDust");
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
             //disableSmartCursor = true;
-            adjTiles = new int[]{ TileID.Candelabras };
-		}
+            adjTiles = new int[] { TileID.Candelabras };
+        }
         public override void HitWire(int i, int j)
         {
             int left = i - (Main.tile[i, j].frameX / 18) % 2;
@@ -56,12 +56,12 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
                 Wiring.SkipWire(left + 1, top + 1);
             }
             NetMessage.SendTileSquare(-1, left, top + 1, 2);
-            
+
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+        {
+            num = fail ? 1 : 3;
+        }
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
@@ -73,9 +73,9 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             }
         }
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("FortressCandelabra"));
-		}
+        {
+            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("FortressCandelabra"));
+        }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));

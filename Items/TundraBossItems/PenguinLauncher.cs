@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -95,13 +93,13 @@ namespace QwertysRandomContent.Items.TundraBossItems
         int timer;
         public override void AI()
         {
-            
-            
+
+
             projectile.spriteDirection = -(int)(projectile.velocity.X * Math.Abs(1f / projectile.velocity.X));
             if (runOnce)
             {
                 initVel = (float)Math.Abs(projectile.velocity.Length());
-                
+
                 runOnce = false;
             }
             if (hitGround)
@@ -114,7 +112,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
                     {
                         projectile.friendly = false;
                         NPC Penguin = Main.npc[NPC.NewNPC((int)projectile.Top.X, (int)projectile.Top.Y, NPCID.Penguin)];
-                        if(projectile.ai[1]==1)
+                        if (projectile.ai[1] == 1)
                         {
                             Penguin.SpawnedFromStatue = true;
                         }
@@ -146,7 +144,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
         {
             projectile.localNPCImmunity[target.whoAmI] = 10;
             target.immune[projectile.owner] = 0;
-            
+
 
         }
         public override bool OnTileCollide(Vector2 velocityChange)

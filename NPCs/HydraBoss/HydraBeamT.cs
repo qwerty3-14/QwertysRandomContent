@@ -1,22 +1,17 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
 using Microsoft.Xna.Framework;
-using QwertysRandomContent;
-using System.Collections.Generic;
-using Terraria.Graphics;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
+using System;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.HydraBoss
 {
-	
+
     // The following laser shows a channeled ability, after charging up the laser will be fired
     // Using custom drawing, dust effects, and custom collision checks for tiles
     public class HydraBeamT : ModProjectile
     {
-        
+
         //The distance charge particle from the player center
         private const float MoveDistance = 70f;
 
@@ -41,17 +36,17 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             projectile.hide = false;
         }
         // The AI of the projectile
-        public bool runOnce=true;
+        public bool runOnce = true;
         public override void AI()
         {
-            
-            
+
+
             float rOffset = 0;
             shooter = Main.npc[(int)projectile.ai[0]];
-            
+
             Vector2 mousePos = Main.MouseWorld;
             Player player = Main.player[projectile.owner];
-            if (!shooter.active || shooter.life <=0)
+            if (!shooter.active || shooter.life <= 0)
             {
                 projectile.Kill();
             }
@@ -87,26 +82,26 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             offset *= MoveDistance - 20;
             Vector2 pos = new Vector2(shooter.Center.X, shooter.Center.Y) + offset - new Vector2(10, 10);
 
-           
+
 
 
 
             #endregion
 
 
-            
+
             Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
             Vector2 unit = projectile.velocity;
             unit *= -1;
             for (Distance = MoveDistance; Distance <= 2200f; Distance += 5f)
             {
                 start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
-                
+
             }
 
 
 
-            
+
 
         }
         public int colorCounter;
@@ -114,11 +109,11 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
 
-            
-                DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], shooter.Center,
-                    projectile.velocity, 10, projectile.damage, -1.57f, 1f, 4000f, Color.White, (int)MoveDistance);
-            
-            
+
+            DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], shooter.Center,
+                projectile.velocity, 10, projectile.damage, -1.57f, 1f, 4000f, Color.White, (int)MoveDistance);
+
+
             return false;
         }
 

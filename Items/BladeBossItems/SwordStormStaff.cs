@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
- 
- namespace QwertysRandomContent.Items.BladeBossItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.BladeBossItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class SwordStormStaff : ModItem
     {
@@ -39,7 +38,7 @@ using Terraria.ModLoader;
             item.shootSpeed = 12;
 
         }
-        
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-26, 0);
@@ -50,13 +49,13 @@ using Terraria.ModLoader;
             Vector2 Rposition = new Vector2(position.X, position.Y - 500);
             for (int i = 0; i < 15; i++)
             {
-                
-               
+
+
                 int shift = Main.rand.Next(-600, 600);
                 int Yshift = Main.rand.Next(50);
                 float sX = 0;
-                float sY = trueSpeed/3;
-                Projectile.NewProjectile(new Vector2(Rposition.X+shift, Rposition.Y- Yshift), new Vector2(sX, sY).RotatedByRandom(Math.PI/16), type, damage, knockBack, player.whoAmI);
+                float sY = trueSpeed / 3;
+                Projectile.NewProjectile(new Vector2(Rposition.X + shift, Rposition.Y - Yshift), new Vector2(sX, sY).RotatedByRandom(Math.PI / 16), type, damage, knockBack, player.whoAmI);
             }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 65f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -67,7 +66,7 @@ using Terraria.ModLoader;
             {
                 Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 16), type, damage, knockBack, player.whoAmI);
             }
-        
+
             return false;
         }
     }
@@ -97,7 +96,7 @@ using Terraria.ModLoader;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            
+
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }

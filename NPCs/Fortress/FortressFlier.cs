@@ -1,12 +1,7 @@
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.NPCs.Fortress
 {
@@ -36,15 +31,15 @@ namespace QwertysRandomContent.NPCs.Fortress
 
 
         }
-        
+
         public override void HitEffect(int hitDirection, double damage)//run whenever enemy is hit should be used for visuals like gore
         {
-            
+
 
         }
         public override void NPCLoot() //drops
         {
-            
+
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressHarpyBeak"), 1);
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float
@@ -85,7 +80,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             timer++;
             if (clinged) //run when the enemy is clinged to the wall
             {
-                
+
                 npc.velocity.X = 0; // set velocity to 0 (no movement)
                 npc.velocity.Y = 0;// set velocity to 0 (no movement)
                 if (timer > 10 && playerDistance < 200 && Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0)) // this checks if the player is too close and not behind tiles, the timer is so it doesn't immediatly stick to a wall it jumps off
@@ -93,19 +88,19 @@ namespace QwertysRandomContent.NPCs.Fortress
                     clinged = false; // stop sticking to the wall
                     timer = 0; //reset timer
                 }
-                else if(Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0) && playerDistance <600) // this checks if the player is close but not too close and not behind tiles
+                else if (Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0) && playerDistance < 600) // this checks if the player is close but not too close and not behind tiles
                 {
                     attackTimer++; // this timer is used so the attack isn't every frame
                     if (attackTimer >= 60) //this will be true when the timer is above 60 frames (1 second)
                     {
                         float shootDirection = (player.Center - npc.Center).ToRotation(); // find the direction the player is in
-                        for(int p=-1; p <2; p++) //this will repeat 3 times for 3 projectiles
+                        for (int p = -1; p < 2; p++) //this will repeat 3 times for 3 projectiles
                         {
                             Projectile.NewProjectile(npc.Center, QwertyMethods.PolarVector(6, shootDirection + ((float)Math.PI / 8 * p)), mod.ProjectileType("FortressHarpyProjectile"), damage, player.whoAmI); // shoots a projectile
                         }
                         attackTimer = 0; // resets attackTimer needer for the once per second effect
                     }
-                    else if(attackTimer > 45)  //this will be true when the timer is above 45 frames (.75 seconds)
+                    else if (attackTimer > 45)  //this will be true when the timer is above 45 frames (.75 seconds)
                     {
                         frame = 3; // change the frame to signal it's about to attack
                     }
@@ -125,7 +120,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             {
                 //this is for flying animaion it cycles through 2 frames
                 frameTimer++;
-                if (frameTimer %10 ==0) // true every 10th frame the % gives the remainder of the division problem frameTimer/10
+                if (frameTimer % 10 == 0) // true every 10th frame the % gives the remainder of the division problem frameTimer/10
                 {
                     if (frame == 0)
                     {
@@ -140,27 +135,27 @@ namespace QwertysRandomContent.NPCs.Fortress
 
                 verticalFlightTimer += (float)Math.PI / 60; //add this amount to the flight timer every frame, it is used as a radian value so this means it will go 180 degrees every second
                 npc.velocity.Y = (float)Math.Cos(verticalFlightTimer) * verticalSpeed; //the up and down flying motion uses a cosine function,
-                //It is based on a sine wave on a graph as x continually increases Y goes from 1 - -1
-                //Cosine is the derivitive of Sine the harpy flies in a sine wave pattern
-                //Vertical speed increases the speed it flies up and down othersie it'll just range from 1 - -1
-               npc.velocity.X = flySpeed * faceDirection; // much simpler than the vertical movement this simply moves in the direction of face direction at the flySpeed
-                if(npc.collideX && timer >10)
+                                                                                       //It is based on a sine wave on a graph as x continually increases Y goes from 1 - -1
+                                                                                       //Cosine is the derivitive of Sine the harpy flies in a sine wave pattern
+                                                                                       //Vertical speed increases the speed it flies up and down othersie it'll just range from 1 - -1
+                npc.velocity.X = flySpeed * faceDirection; // much simpler than the vertical movement this simply moves in the direction of face direction at the flySpeed
+                if (npc.collideX && timer > 10)
                 {
                     faceDirection *= -1; //flips the direction it faces
                     clinged = true; //start clinging to the wall
                     timer = 0; // reset pattern
                 }
             }
-            
+
         }
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) // this is run whenever the npc is hit by a projectile
         {
-            if(playerDistance>600) //this checks the distance, it will make it fly away if it's getting 'sniped
+            if (playerDistance > 600) //this checks the distance, it will make it fly away if it's getting 'sniped
             {
-                clinged = false; 
+                clinged = false;
                 timer = 0;
             }
-            else if(Main.rand.Next(5)==0) // if the player is in 'valid' range it will randomly fly away
+            else if (Main.rand.Next(5) == 0) // if the player is in 'valid' range it will randomly fly away
             {
                 clinged = false;
                 timer = 0;
@@ -200,7 +195,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
         public override void AI()
         {
-            
+
         }
 
     }

@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +35,7 @@ namespace QwertysRandomContent.Items.Accesories
         {
             //player.HeldItem.scale = 2;
             player.GetModPlayer<BigSword>().Enlarger += 1f;
-            
+
         }
 
 
@@ -48,50 +46,60 @@ namespace QwertysRandomContent.Items.Accesories
         public float size = 1f;
         public float oldSize = 1f;
         public float Enlarger = 0;
-        
+
         Item previousItem = new Item();
         public override void ResetEffects()
         {
             size = 1f;
             Enlarger = 0;
         }
-        
+
         public override void PreUpdate()
         {
-            
+
             previousItem.scale /= oldSize;
             previousItem = new Item();
         }
-        public override void PostUpdateEquips()
+        public override bool PreItemCheck()
         {
             if (!player.HeldItem.IsAir)
             {
-                if (Enlarger>0 && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101) && player.HeldItem.melee && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
+                if ((player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101) && player.HeldItem.melee && player.HeldItem.pick == 0 && player.HeldItem.hammer == 0 && player.HeldItem.axe == 0)
                 {
                     size += Enlarger;
+                    player.HeldItem.scale = player.HeldItem.GetGlobalItem<EnalargeItem>().defaultScale * player.GetModPlayer<BigSword>().size;
                 }
-                
-                //Main.NewText(player.selectedItem);
-                if (player.selectedItem != 58)
-                {
-                    player.inventory[player.selectedItem].scale *= size;
-                    previousItem = player.inventory[player.selectedItem];
-                }
-
-
-                oldSize = size;
             }
-           
-            
+            return base.PreItemCheck();
+        }
+    }
+    public class EnalargeItem : GlobalItem
+    {
+        public float defaultScale = 1f;
+        public override bool InstancePerEntity
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public override bool CloneNewInstances
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public override void SetDefaults(Item item)
+        {
+            defaultScale = item.scale;
+        }
+        public override void PostReforge(Item item)
+        {
+            defaultScale = item.scale;
         }
         
-        
-
-
-
-
     }
-    
 
 }
 

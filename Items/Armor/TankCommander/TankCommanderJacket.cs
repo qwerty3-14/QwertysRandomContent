@@ -1,12 +1,6 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Graphics.Shaders;
 
 namespace QwertysRandomContent.Items.Armor.TankCommander
 {
@@ -35,19 +29,19 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
 
 
         }
-       
+
         public override void UpdateEquip(Player player)
         {
             player.maxMinions++;
             player.GetModPlayer<ShapeShifterPlayer>().morphDamage += .07f;
             player.GetModPlayer<ShapeShifterPlayer>().morphCrit += 7;
         }
-      
 
-      
+
+
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
-            
+
             drawHands = true;
 
         }
@@ -58,6 +52,6 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
 
 
     }
-   
+
 }
 

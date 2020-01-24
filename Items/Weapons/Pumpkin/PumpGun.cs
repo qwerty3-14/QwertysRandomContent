@@ -6,16 +6,16 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Pumpkin
 {
-	public class PumpGun : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Pumpgun");
-			Tooltip.SetDefault("Turns seeds into pumpkin seeds" + "\nPumpkin seeds will stick to enemies then grow into pumkin rockets"+ "\nAllows for the collection of seeds");
-			
-		}
-		public override void SetDefaults()
-		{
+    public class PumpGun : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Pumpgun");
+            Tooltip.SetDefault("Turns seeds into pumpkin seeds" + "\nPumpkin seeds will stick to enemies then grow into pumkin rockets" + "\nAllows for the collection of seeds");
+
+        }
+        public override void SetDefaults()
+        {
             item.useStyle = 5;
             item.autoReuse = true;
             item.useAnimation = 25;
@@ -45,28 +45,28 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             recipe.AddRecipe();
         }
         public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(0, -4);
-		}
+        {
+            return new Vector2(0, -4);
+        }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if(type == ProjectileID.Seed)
+            if (type == ProjectileID.Seed)
             {
                 type = mod.ProjectileType("PumpkinSeed");
             }
             return true;
         }
-        
+
 
 
     }
-	public class PumpkinSeed : ModProjectile
+    public class PumpkinSeed : ModProjectile
     {
         public override void SetDefaults()
         {
             projectile.width = 4;
             projectile.height = 4;
-            
+
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.light = 0.5f;
@@ -104,7 +104,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                 (target.Center - projectile.Center) *
                 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             projectile.netUpdate = true; // netUpdate this javelin
-            
+
             projectile.penetrate = -1;
             projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
 
@@ -159,7 +159,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
 
         public override void AI()
         {
-            if(d==0)
+            if (d == 0)
             {
                 d = projectile.damage;
             }
@@ -205,10 +205,10 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                 projectile.tileCollide = false; // Make sure the projectile doesn't collide with tiles anymore
                 int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
                 bool killProj = false; // if true, kill projectile at the end
-                
+
                 projectile.localAI[0] += 1f;
-                
-                
+
+
                 int projTargetIndex = (int)targetWhoAmI;
                 if (projectile.localAI[0] >= (float)(60 * aiFactor)// If it's time for this javelin to die, kill it
                     || (projTargetIndex < 0 || projTargetIndex >= 200)) // If the index is past its limits, kill it
@@ -220,7 +220,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                     // Set the projectile's position relative to the target's center
                     projectile.Center = Main.npc[projTargetIndex].Center - projectile.velocity * 2f;
                     projectile.gfxOffY = Main.npc[projTargetIndex].gfxOffY;
-                    
+
                 }
                 else // Otherwise, kill the projectile
                 {
@@ -229,7 +229,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
 
                 if (killProj) // Kill the projectile
                 {
-                    
+
                     projectile.Kill();
                 }
             }
@@ -238,7 +238,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
         {
             if (isStickingToTarget)
             {
-                Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(8, projectile.rotation+(float)Math.PI/2), mod.ProjectileType("PumpkinRocket"), d, projectile.knockBack, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(8, projectile.rotation + (float)Math.PI / 2), mod.ProjectileType("PumpkinRocket"), d, projectile.knockBack, projectile.owner);
             }
         }
 
@@ -306,7 +306,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                 maxDistance = 10000f;
 
             }
-           
+
             projectile.rotation = direction + ((float)Math.PI / 2);
         }
 

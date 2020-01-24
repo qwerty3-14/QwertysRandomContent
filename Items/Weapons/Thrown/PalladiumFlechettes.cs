@@ -1,7 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,6 +34,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             item.noMelee = true;
             item.maxStack = 999;
             item.autoReuse = true;
+            item.UseSound = SoundID.Item39;
 
 
         }
@@ -54,10 +54,10 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
         {
             float speed = new Vector2(speedX, speedY).Length();
             int numberOfProjectiles = 3 + Main.rand.Next(2);
-            
-            for(int p =0; p <numberOfProjectiles; p++)
+
+            for (int p = 0; p < numberOfProjectiles; p++)
             {
-                float direction = Main.rand.NextFloat(5 * (float)Math.PI / 8, 3* (float)Math.PI / 8);
+                float direction = Main.rand.NextFloat(5 * (float)Math.PI / 8, 3 * (float)Math.PI / 8);
                 Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
             }
             return false;

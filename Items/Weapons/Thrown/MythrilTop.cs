@@ -1,8 +1,4 @@
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -69,7 +65,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             friction = .002666f;
             enemyFriction = .1f;
 
-    }
+        }
 
 
 

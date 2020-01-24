@@ -1,6 +1,3 @@
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -81,7 +78,7 @@ namespace QwertysRandomContent.Items.Ammo
         public bool firstHit = true;
 
 
-
+        
 
         NPC ConfirmedTarget;
         NPC possibleTarget;

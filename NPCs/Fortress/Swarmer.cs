@@ -1,12 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.NPCs.Fortress
 {
@@ -49,7 +46,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             {
                 npc.lifeMax = 20;
                 npc.damage = 30;
-                if(Main.hardMode)
+                if (Main.hardMode)
                 {
                     npc.damage = 70;
                 }
@@ -67,7 +64,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             {
                 npc.life = npc.lifeMax;
             }
-            
+
             npc.TargetClosest(true);
             freindCount = 0;
             for (int n = 0; n < 200; n++)
@@ -81,7 +78,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             Player player = Main.player[npc.target];
             npc.velocity = Vector2.Zero;
             float towardsPlayer = (player.Center - npc.Center).ToRotation();
-            if(freindCount >=4)
+            if (freindCount >= 4)
             {
                 npc.velocity = QwertyMethods.PolarVector(maxSpeed, towardsPlayer);
             }
@@ -104,7 +101,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                         if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center - npc.Center).Length() > 150)
                         {
                             totalCount++;
-                            npc.velocity += QwertyMethods.PolarVector(4 , (Main.npc[n].Center - npc.Center).ToRotation());
+                            npc.velocity += QwertyMethods.PolarVector(4, (Main.npc[n].Center - npc.Center).ToRotation());
                         }
                     }
                 }
@@ -113,38 +110,38 @@ namespace QwertysRandomContent.NPCs.Fortress
                     npc.velocity = QwertyMethods.PolarVector(-maxSpeed, towardsPlayer);
                 }
             }
-            
 
-            for(int n =0; n <200; n++)
+
+            for (int n = 0; n < 200; n++)
             {
-                
-                if(n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center-npc.Center).Length()< maxFriendRepelDistance)
+
+                if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center - npc.Center).Length() < maxFriendRepelDistance)
                 {
-                    npc.velocity += QwertyMethods.PolarVector(-4  * (1 - (Main.npc[n].Center - npc.Center).Length() / maxFriendRepelDistance), (Main.npc[n].Center - npc.Center).ToRotation());
+                    npc.velocity += QwertyMethods.PolarVector(-4 * (1 - (Main.npc[n].Center - npc.Center).Length() / maxFriendRepelDistance), (Main.npc[n].Center - npc.Center).ToRotation());
                     foundfriend = true;
                 }
             }
-           
-          
+
+
             if (npc.velocity.Length() > maxSpeed)
             {
                 npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * maxSpeed;
             }
-            
+
             if (npc.velocity != Collision.TileCollision(npc.position, npc.velocity, npc.width, npc.height, false, false))
             {
                 maxSpeed = 1;
             }
             else
             {
-                for(int p =0; p <1000; p++)//cycle through every projectile index
+                for (int p = 0; p < 1000; p++)//cycle through every projectile index
                 {
                     float CollisionLineLength = Main.projectile[p].velocity.Length() * 60 * (1 + Main.projectile[p].extraUpdates); //this is basicly how far the selected projectile will travel in 1 second
                     float maxProjectileWidth = Main.projectile[p].Size.Length() * 5f; // fly further away from larger projectiles
-                    float col=0f;
-                    if (Main.projectile[p].friendly&& Main.projectile[p].active && Collision.CheckAABBvLineCollision(npc.position, npc.Size, Main.projectile[p].Center + QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2), Main.projectile[p].Center + QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2) + QwertyMethods.PolarVector(CollisionLineLength, Main.projectile[p].velocity.ToRotation()), maxProjectileWidth/2f, ref col))
+                    float col = 0f;
+                    if (Main.projectile[p].friendly && Main.projectile[p].active && Collision.CheckAABBvLineCollision(npc.position, npc.Size, Main.projectile[p].Center + QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2), Main.projectile[p].Center + QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2) + QwertyMethods.PolarVector(CollisionLineLength, Main.projectile[p].velocity.ToRotation()), maxProjectileWidth / 2f, ref col))
                     {
-                        npc.velocity += QwertyMethods.PolarVector(maxSpeed, Main.projectile[p].velocity.ToRotation()+(float)Math.PI/2);
+                        npc.velocity += QwertyMethods.PolarVector(maxSpeed, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2);
                     }
                     else if (Main.projectile[p].friendly && Main.projectile[p].active && Collision.CheckAABBvLineCollision(npc.position, npc.Size, Main.projectile[p].Center - QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2), Main.projectile[p].Center - QwertyMethods.PolarVector(maxProjectileWidth / 4f, Main.projectile[p].velocity.ToRotation() + (float)Math.PI / 2) + QwertyMethods.PolarVector(CollisionLineLength, Main.projectile[p].velocity.ToRotation()), maxProjectileWidth / 2f, ref col))
                     {
@@ -154,7 +151,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
                 }
             }
-            
+
             if (npc.velocity.Length() > maxSpeed)
             {
                 npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * maxSpeed;
@@ -163,27 +160,27 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.rotation = npc.velocity.ToRotation() + (float)Math.PI / 2;
             maxSpeed = 4;
         }
-        
-       
+
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float
         {
             return 0f;
         }
-        
-        
-            
-        
+
+
+
+
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) // this is run whenever the npc is hit by a projectile
         {
-            
+
         }
         int frame = 0;
         public override void FindFrame(int frameHeight) // this part takes care of animations
         {
             npc.frameCounter++;
-            if(npc.frameCounter %4==0)
+            if (npc.frameCounter % 4 == 0)
             {
-               frame= frame == 0 ? 1 : 0;
+                frame = frame == 0 ? 1 : 0;
             }
 
             npc.frame.Y = frameHeight * frame;
@@ -222,7 +219,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress )
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
             {
                 return 5f;
             }
@@ -233,14 +230,14 @@ namespace QwertysRandomContent.NPCs.Fortress
         int swarmSize = 0;
         public override void AI()
         {
-            if(Main.netMode !=1)
+            if (Main.netMode != 1)
             {
                 swarmSize = Main.rand.Next(14, 36);
-                if(Main.hardMode)
+                if (Main.hardMode)
                 {
                     swarmSize *= 2;
                 }
-                for(int s=0; s<swarmSize; s++)
+                for (int s = 0; s < swarmSize; s++)
                 {
                     NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Swarmer"));
                 }

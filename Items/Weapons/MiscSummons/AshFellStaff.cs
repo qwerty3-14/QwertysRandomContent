@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -88,13 +84,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 for (int i = 0; i < missileCounters.Length; i++)
                 {
                     projectile.rotation = (target.Center - projectile.Center).ToRotation();
-                    if(missileCounters[i]== missileTime)
+                    if (missileCounters[i] == missileTime)
                     {
                         //shoot
                         missileCounters[i] = 0;
                         Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(2f, projectile.rotation) + QwertyMethods.PolarVector(missileLoadPosition * (i == 0 ? 1 : -1), projectile.rotation + (float)Math.PI / 2),
                             QwertyMethods.PolarVector(2f, projectile.rotation), mod.ProjectileType("AshMissile"), projectile.damage, projectile.knockBack, projectile.owner);
-                        
+
                     }
                 }
             }
@@ -104,11 +100,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             Texture2D missile = mod.GetTexture("Items/Weapons/MiscSummons/AshMissile");
             for (int i = 0; i < missileCounters.Length; i++)
             {
-                spriteBatch.Draw(missile, 
-                    projectile.Center + QwertyMethods.PolarVector(2f, projectile.rotation) + QwertyMethods.PolarVector(missileLoadPosition * (float)missileCounters[i] / missileTime * (i == 0 ? 1 : -1) , projectile.rotation + (float)Math.PI / 2) - Main.screenPosition,
+                spriteBatch.Draw(missile,
+                    projectile.Center + QwertyMethods.PolarVector(2f, projectile.rotation) + QwertyMethods.PolarVector(missileLoadPosition * (float)missileCounters[i] / missileTime * (i == 0 ? 1 : -1), projectile.rotation + (float)Math.PI / 2) - Main.screenPosition,
                     missile.Frame(), lightColor, projectile.rotation, missile.Size() * .5f, 1f, SpriteEffects.None, 0);
             }
-                
+
             return true;
         }
     }
@@ -140,18 +136,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         NPC target;
         int finalTime = 120;
         int blastSize = 30;
-        
+
         public override void AI()
         {
-            if(projectile.timeLeft == 600)
+            if (projectile.timeLeft == 600)
             {
                 projectile.rotation = projectile.velocity.ToRotation();
             }
             //int num5 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y + (float)projectile.height - 2f), projectile.width, 6, 36, 0f, 0f, 50, default, 1f);
             Player player = Main.player[projectile.owner];
-            if(projectile.timeLeft<= finalTime)
+            if (projectile.timeLeft <= finalTime)
             {
-                if(projectile.width != blastSize)
+                if (projectile.width != blastSize)
                 {
                     Vector2 oldCenter = projectile.Center;
                     projectile.width = projectile.height = blastSize;
@@ -175,16 +171,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 Dust dust = Dust.NewDustPerfect(projectile.Center - QwertyMethods.PolarVector(6, projectile.rotation), 36, Vector2.Zero, Scale: .5f);
                 dust.noGravity = true;
             }
-           
-            
+
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if(projectile.timeLeft > finalTime)
+            if (projectile.timeLeft > finalTime)
             {
                 projectile.timeLeft = finalTime;
             }
-            
+
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }

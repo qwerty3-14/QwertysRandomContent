@@ -1,7 +1,3 @@
-using Microsoft.Xna.Framework;
-using QwertysRandomContent.Items.B4Items;
-using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -38,8 +34,8 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            
-            player.GetModPlayer<BiomassEffect>().effect = true;
+
+            player.GetModPlayer<BiomassEffect>().effect += 1;
         }
 
 
@@ -47,15 +43,15 @@ namespace QwertysRandomContent.Items.Accesories
     }
     public class BiomassEffect : ModPlayer
     {
-        public bool effect;
+        public float effect;
         public override void ResetEffects()
         {
-            effect = false;
+            effect = 00;
 
         }
         public override void PreUpdate()
         {
-            if (effect)
+            if (effect > 0)
             {
                 Item item = new Item();
                 List<int> possibleStacks = new List<int>();
@@ -81,6 +77,7 @@ namespace QwertysRandomContent.Items.Accesories
                     if (item.value > valueStat)
                     {
                         valueStat = item.value;
+                        valueStat = (int)(valueStat / effect);
                     }
                     if (Main.rand.Next(valueStat * 2) == 0)
                     {
@@ -103,7 +100,7 @@ namespace QwertysRandomContent.Items.Accesories
                     {
                         for (int i = 0; i < Main.chest[c].item.Length; i++)
                         {
-                            if(Main.chest[c].item[i].type == ItemID.LivingLoom)
+                            if (Main.chest[c].item[i].type == ItemID.LivingLoom)
                             {
                                 break;
                             }
@@ -120,6 +117,6 @@ namespace QwertysRandomContent.Items.Accesories
             }
         }
     }
-    
+
 }
 

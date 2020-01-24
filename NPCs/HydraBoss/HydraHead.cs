@@ -1,17 +1,17 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs.HydraBoss
 {
-   
+
     class HydraHead : ModNPC
     {
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Head");
@@ -21,7 +21,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         {
             npc.width = 72;
             npc.height = 72;
-           
+
             npc.damage = 50;
             npc.defense = 18;
             npc.boss = true;
@@ -46,7 +46,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             npc.damage = (int)(npc.damage * .7f);
         }
         NPC Body = null;
-        float headSpread = 3f*(float)Math.PI / 4f;
+        float headSpread = 3f * (float)Math.PI / 4f;
         bool runOnce = true;
         float rotateTo;
         Vector2 flyTo;
@@ -59,11 +59,11 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         int beamTime = 300;
         public override void AI()
         {
-           if(Main.expertMode)
+            if (Main.expertMode)
             {
                 projDamge = npc.damage / 4;
             }
-           else
+            else
             {
                 projDamge = npc.damage / 2;
             }
@@ -71,34 +71,34 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             Player player = Main.player[npc.target];
             if (runOnce)
             {
-                if(npc.ai[0]==0)
+                if (npc.ai[0] == 0)
                 {
                     npc.ai[0] = -1;
                 }
-                
+
                 runOnce = false;
             }
-            
-            if(npc.ai[0] ==-1)
+
+            if (npc.ai[0] == -1)
             {
                 for (int n = 0; n < 200; n++)
                 {
-                    if(Main.npc[n].type == mod.NPCType("Hydra"))
+                    if (Main.npc[n].type == mod.NPCType("Hydra"))
                     {
                         npc.ai[0] = n;
                         break;
                     }
                 }
             }
-            
+
             if (npc.ai[0] != -1 || Main.npc[(int)npc.ai[0]].type != mod.NPCType("Hydra"))
             {
                 Body = Main.npc[(int)npc.ai[0]];
                 int headCount = 0;
-                int whichHeadAmI =0;
-                for(int n =0; n < 200; n++)
+                int whichHeadAmI = 0;
+                for (int n = 0; n < 200; n++)
                 {
-                    if(Main.npc[n].type == mod.NPCType("HydraHead") && Main.npc[n].active && Main.npc[n].ai[0]==npc.ai[0])
+                    if (Main.npc[n].type == mod.NPCType("HydraHead") && Main.npc[n].active && Main.npc[n].ai[0] == npc.ai[0])
                     {
                         if (Main.npc[n].Center.X < npc.Center.X || (Main.npc[n].Center.X == npc.Center.X && n < npc.whoAmI))
                         {
@@ -107,31 +107,31 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                         headCount++;
                     }
                 }
-                
-                float rotationOffset = (headSpread * (((float)whichHeadAmI+1)/((float)headCount +1))) - headSpread/2f;
+
+                float rotationOffset = (headSpread * (((float)whichHeadAmI + 1) / ((float)headCount + 1))) - headSpread / 2f;
                 Vector2 offSet = QwertyMethods.PolarVector(400, -(float)Math.PI / 2 + rotationOffset);
                 offSet.X *= 1.5f;
-               
+
                 flyTo = Body.Center + offSet;
                 npc.velocity = (flyTo - npc.Center) * .1f;
 
 
 
-                if (attacking&&attackTimer ==0)
+                if (attacking && attackTimer == 0)
                 {
                     if (beamAttack)
                     {
                         laser.Kill();
                         laser = null;
                     }
-                    if (Main.netMode != 1 )
+                    if (Main.netMode != 1)
                     {
-                        
-                        if(!beamAttack)
+
+                        if (!beamAttack)
                         {
                             Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(50, npc.rotation), QwertyMethods.PolarVector(5, npc.rotation), mod.ProjectileType("HydraBreath"), projDamge, 0f, Main.myPlayer);
                         }
-                        
+
                     }
                     attacking = false;
                     beamAttack = false;
@@ -142,10 +142,10 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
                 else
                 {
-                    if(Main.rand.Next(20)==0 && Main.netMode !=1)
+                    if (Main.rand.Next(20) == 0 && Main.netMode != 1)
                     {
                         attacking = true;
-                        if(Main.rand.NextFloat(10)<Math.Abs(player.velocity.X) && ((npc.Center.X >player.Center.X && player.velocity.X >0)|| (npc.Center.X < player.Center.X && player.velocity.X < 0)))
+                        if (Main.rand.NextFloat(10) < Math.Abs(player.velocity.X) && ((npc.Center.X > player.Center.X && player.velocity.X > 0) || (npc.Center.X < player.Center.X && player.velocity.X < 0)))
                         {
                             beamAttack = true;
                             attackTimer = -beamTime;
@@ -159,14 +159,14 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                         npc.netUpdate = true;
                     }
                 }
-                if(beamAttack)
+                if (beamAttack)
                 {
-                    if(attackTimer<-beamTime/2)
+                    if (attackTimer < -beamTime / 2)
                     {
                         float dir = npc.rotation + Main.rand.NextFloat(-1, 1) * (float)Math.PI / 4;
                         Dust.NewDustPerfect(npc.Center + QwertyMethods.PolarVector(50, npc.rotation), mod.DustType("HydraBeamGlow"), QwertyMethods.PolarVector(6, dir));
                     }
-                    else if(attackTimer == -beamTime / 2)
+                    else if (attackTimer == -beamTime / 2)
                     {
                         laser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType("HydraBeamT"), (int)(projDamge * 1.5f), 3f, Main.myPlayer, npc.whoAmI, 420)];
                     }
@@ -190,17 +190,17 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
 
                 npc.rotation = QwertyMethods.SlowRotation(npc.rotation, rotateTo, 4);
-                if(!Body.active || Body.type != mod.NPCType("Hydra"))
+                if (!Body.active || Body.type != mod.NPCType("Hydra"))
                 {
                     npc.life = 0;
                     npc.checkDead();
                 }
-                if(Body.dontTakeDamage)
+                if (Body.dontTakeDamage)
                 {
                     attacking = false;
                     beamAttack = false;
                 }
-                
+
             }
             else
             {
@@ -210,9 +210,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         }
         public override void FindFrame(int frameHeight)
         {
-            if(attacking)
+            if (attacking)
             {
-                npc.frame.Y = (int)npc.ai[1]*2*frameHeight + frameHeight;
+                npc.frame.Y = (int)npc.ai[1] * 2 * frameHeight + frameHeight;
             }
             else
             {
@@ -230,7 +230,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 {
                     if (Main.npc[n].type == mod.NPCType("HydraHead") && Main.npc[n].active && Main.npc[n].ai[0] == npc.ai[0])
                     {
-                        if(  n < npc.whoAmI)
+                        if (n < npc.whoAmI)
                         {
                             whichHeadAmI++;
                         }
@@ -262,10 +262,10 @@ namespace QwertysRandomContent.NPCs.HydraBoss
 
 
                     //Draw chain
-                    spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraNeck"), center-Main.screenPosition,
+                    spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraNeck"), center - Main.screenPosition,
                         new Rectangle(0, 0, 52, 30), Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
                         new Vector2(52 * 0.5f, 30 * 0.5f), 1f, SpriteEffects.None, 0f);
-                    
+
                 }
                 spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraNeckBase"), neckOrigin - Main.screenPosition,
                             new Rectangle(0, 0, 52, 30), Lighting.GetColor((int)neckOrigin.X / 16, (int)neckOrigin.Y / 16), projRotation,
@@ -278,10 +278,10 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             spriteBatch.Draw(Main.npcTexture[npc.type], npc.Center - Main.screenPosition,
                         npc.frame, drawColor, npc.rotation,
                         new Vector2(72 * 0.5f, 72 * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraHead_Glow"), npc.Center-Main.screenPosition,
+            spriteBatch.Draw(mod.GetTexture("NPCs/HydraBoss/HydraHead_Glow"), npc.Center - Main.screenPosition,
                         npc.frame, Color.White, npc.rotation,
                         new Vector2(72 * 0.5f, 72 * 0.5f), 1f, SpriteEffects.None, 0f);
-            
+
         }
         public override void BossHeadRotation(ref float rotation)
         {
@@ -291,20 +291,20 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         }
         public override bool PreNPCLoot()
         {
-            
-            if ( laser !=null)
+
+            if (laser != null)
             {
-                if(laser.active)
+                if (laser.active)
                 {
                     laser.Kill();
                     laser = null;
                 }
-                
+
             }
             if (npc.ai[0] != -1)
             {
                 Body = Main.npc[(int)npc.ai[0]];
-                if(Body.life >1)
+                if (Body.life > 1)
                 {
                     Body.life--;
                 }
@@ -313,7 +313,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                     //Body.dontTakeDamage = true;
                     Body.ai[3]++;
                 }
-                
+
                 for (int h = 0; h < 2; h++)
                 {
 
@@ -322,7 +322,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                         NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("HydraHead"), ai0: Body.whoAmI, ai1: npc.ai[1]);
                     }
 
-                    
+
 
 
                 }
@@ -346,7 +346,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         }
         public override void BossHeadSlot(ref int index)
         {
-            switch((int)npc.ai[1])
+            switch ((int)npc.ai[1])
             {
                 case 0:
                     index = NPCHeadLoader.GetBossHeadSlot(QwertysRandomContent.HydraHead1);
@@ -358,7 +358,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                     index = NPCHeadLoader.GetBossHeadSlot(QwertysRandomContent.HydraHead3);
                     break;
             }
-            
+
 
         }
     }

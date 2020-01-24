@@ -1,37 +1,36 @@
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.B4Items
 {
-	public class B4Bag : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-            
+    public class B4Bag : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Bag");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+
         }
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 60;
-			item.height = 34;
-			item.rare = 9;
-			item.expert = true;
-			//bossBagNPC = mod.NPCType("WeakPoint"); 
-		}
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 60;
+            item.height = 34;
+            item.rare = 9;
+            item.expert = true;
+            //bossBagNPC = mod.NPCType("WeakPoint"); 
+        }
         public override int BossBagNPC => mod.NPCType("OLORDv2");
 
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
+        public override void OpenBossBag(Player player)
+        {
 
             int selectWeapon = Main.rand.Next(1, 7);
 
@@ -59,7 +58,7 @@ namespace QwertysRandomContent.Items.B4Items
             {
                 player.QuickSpawnItem(mod.ItemType("ExplosivePierce"));
             }
-            if(Main.rand.Next(100) < 15)
+            if (Main.rand.Next(100) < 15)
             {
                 player.QuickSpawnItem(mod.ItemType("TheDevourer"));
             }
@@ -68,11 +67,11 @@ namespace QwertysRandomContent.Items.B4Items
 
 
             player.QuickSpawnItem(73, 60);
-            if( Main.rand.Next(99) <15)
+            if (Main.rand.Next(99) < 15)
             {
                 int devItemSelect = Main.rand.Next(6);
 
-                if(devItemSelect==0)
+                if (devItemSelect == 0)
                 {
                     player.QuickSpawnItem(mod.ItemType("Toga"));
                 }
@@ -102,5 +101,5 @@ namespace QwertysRandomContent.Items.B4Items
                 }
             }
         }
-	}
+    }
 }

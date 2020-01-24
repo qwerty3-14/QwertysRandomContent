@@ -1,24 +1,22 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
- 
- 
- namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class LuneArcherStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Lune Archer Staff");
-			Tooltip.SetDefault("Summons a lune archer to shoot arrows from your inventory at enemies");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Lune Archer Staff");
+            Tooltip.SetDefault("Summons a lune archer to shoot arrows from your inventory at enemies");
 
 
         }
- 
+
         public override void SetDefaults()
         {
 
@@ -37,15 +35,15 @@ using Microsoft.Xna.Framework.Graphics;
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("LuneArcher");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
-            item.buffType = mod.BuffType("LuneArcher");	//The buff added to player after used the item
-			item.buffTime = 3600;
+            item.buffType = mod.BuffType("LuneArcher"); //The buff added to player after used the item
+            item.buffTime = 3600;
         }
-       
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
         public override void AddRecipes()
@@ -59,33 +57,33 @@ using Microsoft.Xna.Framework.Graphics;
         }
 
         public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class LuneArcher : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Lune Archer");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Lune Archer");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
- 
-			
+
+
             projectile.width = 40; //Set the hitbox width
             projectile.height = 40;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -95,15 +93,15 @@ using Microsoft.Xna.Framework.Graphics;
             projectile.knockBack = 10f;
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = false; //Tells the game whether or not it can collide with tiles/ terrain
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
-            
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
+
         }
-       
+
         NPC target;
-       
-       
+
+
         int timer;
         public int arrow = 1;
         public bool canShoot = true;
@@ -119,7 +117,7 @@ using Microsoft.Xna.Framework.Graphics;
             varTime++;
             if (varTime >= 60)
             {
-               
+
 
                 varTime = 0;
                 if (Main.netMode != 2)
@@ -135,34 +133,33 @@ using Microsoft.Xna.Framework.Graphics;
             {
                 projectile.timeLeft = 2;
             }
-           
+
             timer++;
             if (QwertyMethods.ClosestNPC(ref target, 10000, player.Center, false, player.MinionAttackTargetNPC))
             {
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
-                if(timer>90)
+                if (timer > 90)
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(QwertyMethods.MakeItemFromID(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) ==0);
-                    if (Main.netMode != 1)
+                    player.PickAmmo(QwertyMethods.MakeItemFromID(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
+
+                    Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];
+                    bul.ranged = false;
+                    bul.minion = true;
+                    if (Main.netMode == 1)
                     {
-                        Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];
-                        bul.ranged = false;
-                        bul.minion = true;
-                        if (Main.netMode == 1)
-                        {
-                            QwertysRandomContent.UpdateProjectileClass(bul);
-                        }
+                        QwertysRandomContent.UpdateProjectileClass(bul);
                     }
+
                     timer = 0;
                 }
                 projectile.rotation += (float)Math.PI / 2;
             }
 
-            
 
-          
+
+
         }
 
 

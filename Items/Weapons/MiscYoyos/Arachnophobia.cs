@@ -1,57 +1,57 @@
 ﻿
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 {
-	public class Arachnophobia : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Aracnoyo");
-			Tooltip.SetDefault("Throws 8 yoyos at once!");
+    public class Arachnophobia : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Aracnoyo");
+            Tooltip.SetDefault("Throws 8 yoyos at once!");
 
-			// These are all related to gamepad controls and don't seem to affect anything else
-			ItemID.Sets.Yoyo[item.type] = true;
-			ItemID.Sets.GamepadExtraRange[item.type] = 15;
-			ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
-		}
+            // These are all related to gamepad controls and don't seem to affect anything else
+            ItemID.Sets.Yoyo[item.type] = true;
+            ItemID.Sets.GamepadExtraRange[item.type] = 15;
+            ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
+        }
 
-		public override void SetDefaults()
-		{
-			item.useStyle = 5;
-			item.width = 30;
-			item.height = 26;
-			item.useAnimation = 25;
-			item.useTime = 25;
-			item.shootSpeed = 16f;
-			item.knockBack = 2.5f;
-			item.damage = 38;
-			item.value = 50000;
-			item.rare = 4;
-			item.melee = true;
-			item.channel = true;
-			item.noMelee = true;
-			item.noUseGraphic = true;
+        public override void SetDefaults()
+        {
+            item.useStyle = 5;
+            item.width = 30;
+            item.height = 26;
+            item.useAnimation = 25;
+            item.useTime = 25;
+            item.shootSpeed = 16f;
+            item.knockBack = 2.5f;
+            item.damage = 38;
+            item.value = 50000;
+            item.rare = 4;
+            item.melee = true;
+            item.channel = true;
+            item.noMelee = true;
+            item.noUseGraphic = true;
 
-			item.UseSound = SoundID.Item1;
-			
-			item.shoot = mod.ProjectileType("ArachnophobiaP");
-		}
+            item.UseSound = SoundID.Item1;
+
+            item.shoot = mod.ProjectileType("ArachnophobiaP");
+        }
         Projectile yoyo;
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            
-           for(int n =0; n<8; n++)
+
+            for (int n = 0; n < 8; n++)
             {
                 yoyo = Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI)];
                 yoyo.localAI[1] = n;
             }
-            
+
             return false;
         }
         public override void AddRecipes()
@@ -65,34 +65,34 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
         }
     }
 
-	public class ArachnophobiaP : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			// The following sets are only applicable to yoyo that use aiStyle 99.
-			// YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player. 
-			// Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
-			//ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = -1f;
-			// YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
-			// Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
-			//ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 120f;
-			// YoyosTopSpeed is top speed of the yoyo projectile. 
-			// Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
-			//ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 13f;
-		}
+    public class ArachnophobiaP : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            // The following sets are only applicable to yoyo that use aiStyle 99.
+            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player. 
+            // Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
+            //ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = -1f;
+            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
+            // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
+            //ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 120f;
+            // YoyosTopSpeed is top speed of the yoyo projectile. 
+            // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
+            //ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 13f;
+        }
 
-		public override void SetDefaults()
-		{
-			projectile.extraUpdates = 0;
-			projectile.width = 16;
-			projectile.height = 16;
-			// aiStyle 99 is used for all yoyos, and is Extremely suggested, as yoyo are extremely difficult without them
-			//projectile.aiStyle = 99;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.melee = true;
-			projectile.scale = 1f;
-		}
+        public override void SetDefaults()
+        {
+            projectile.extraUpdates = 0;
+            projectile.width = 16;
+            projectile.height = 16;
+            // aiStyle 99 is used for all yoyos, and is Extremely suggested, as yoyo are extremely difficult without them
+            //projectile.aiStyle = 99;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.melee = true;
+            projectile.scale = 1f;
+        }
         // notes for aiStyle 99: 
         // localAI[0] is used for timing up to YoyosLifeTimeMultiplier
         // localAI[1] can be used freely by specific types
@@ -101,12 +101,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
         // ai[0] being negative makes the yoyo move back towards the player
         // Any AI method can be used for dust, spawning projectiles, etc specific to your yoyo.
         float range = 120;
-        float speed =13f;
+        float speed = 13f;
         float time = -1f;
         Vector2 modifiedMousePosition;
-		public override void AI()
-		{
-            
+        public override void AI()
+        {
+
             {
                 bool notMain = false;
                 bool Orbital = false;
@@ -117,7 +117,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         notMain = true;
                     }
                 }
-                if (projectile.localAI[1] >=8)
+                if (projectile.localAI[1] >= 8)
                 {
                     Orbital = true;
                 }
@@ -136,15 +136,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         projectile.ai[0] = -1f;
                     }
                 }
-                
-               
-               
+
+
+
                 if (Main.player[projectile.owner].dead)
                 {
                     projectile.Kill();
                     return;
                 }
-                if ( !notMain)
+                if (!notMain)
                 {
                     Main.player[projectile.owner].heldProj = projectile.whoAmI;
                     Main.player[projectile.owner].itemAnimation = 2;
@@ -220,13 +220,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         }
                         else
                         {
-                            
+
                             Vector2 vector4 = Main.ReverseGravitySupport(Main.MouseScreen, 0f) + Main.screenPosition;
 
-                            float rotationDirection = (vector4 -Main.player[projectile.owner].Center ).ToRotation()+ (2 * (float)Math.PI / 8 * projectile.localAI[1]);
+                            float rotationDirection = (vector4 - Main.player[projectile.owner].Center).ToRotation() + (2 * (float)Math.PI / 8 * projectile.localAI[1]);
                             //Main.NewText(MathHelper.ToDegrees((2 * (float)Math.PI / 8 * projectile.localAI[1])));
                             float distance = (vector4 - Main.player[projectile.owner].Center).Length();
-                            vector4 = new Vector2(Main.player[projectile.owner].Center.X +(float)Math.Cos(rotationDirection) * distance, Main.player[projectile.owner].Center.Y + (float)Math.Sin(rotationDirection) * distance);
+                            vector4 = new Vector2(Main.player[projectile.owner].Center.X + (float)Math.Cos(rotationDirection) * distance, Main.player[projectile.owner].Center.Y + (float)Math.Sin(rotationDirection) * distance);
                             //Dust.NewDust(vector4, 0, 0, 1);
                             //Projectile.NewProjectile(vector4, Vector2.Zero, ProjectileID.WoodenArrowFriendly, 10, 0, projectile.owner);
                             //Main.NewText(vector4);
@@ -342,20 +342,20 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 }
                 projectile.rotation += 0.45f;
             }
-            
+
             //Main.NewText(projectile.ai[0]);
             //Main.NewText(projectile.timeLeft);
             //Main.NewText(projectile.position);
         }
         public override void SendExtraAI(BinaryWriter writer)
         {
-            
+
             writer.Write(projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            
+
             projectile.localAI[1] = reader.ReadSingle();
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -400,7 +400,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             {
                 projectile.direction = 1;
             }
-            
+
             if (projectile.ai[0] >= 0f)
             {
                 Vector2 value2 = projectile.Center - target.Center;
@@ -556,14 +556,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     color = new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * num12)), (int)((byte)((float)color.G * num12)), (int)((byte)((float)color.B * num12)), (int)((byte)((float)color.A * num12)));
                     Main.spriteBatch.Draw(Main.fishingLineTexture, new Vector2(vector.X - Main.screenPosition.X + (float)Main.fishingLineTexture.Width * 0.5f, vector.Y - Main.screenPosition.Y + (float)Main.fishingLineTexture.Height * 0.5f) - new Vector2(6f, 0f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.fishingLineTexture.Width, (int)num7)), color, rotation, new Vector2((float)Main.fishingLineTexture.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);
                 }
-               
+
             }
             return true;
         }
     }
     public class CustomYoyoPlayer : ModPlayer
     {
-        bool farCounter =false;
+        bool farCounter = false;
         public void Counterweight(Vector2 hitPos, int dmg, float kb, Projectile parent)
         {
             if (!player.yoyoGlove && player.counterWeight <= 0)
@@ -592,7 +592,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 array[(int)parent.localAI[1]] = 1;
 
             }
-            
+
             else
             {
                 for (int i = 0; i < 1000; i++)
@@ -606,7 +606,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         else if (Main.projectile[i].type == mod.ProjectileType("ArachnophobiaP"))
                         {
                             num2++;
-                            
+
                         }
                     }
                 }
@@ -628,7 +628,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     farCounter = true;
                 }
             }
-            
+
             noChild = true;
         }
     }
@@ -690,7 +690,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             {
                 projectile.frame = 0;
             }
-            else if(frameTimer>10)
+            else if (frameTimer > 10)
             {
                 projectile.frame = 1;
             }
@@ -873,12 +873,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         projectile.netUpdate = true;
                     }
                 }
-                if (flag )
+                if (flag)
                 {
                     float num6 = 800f;
                     Vector2 vector8 = default(Vector2);
                     bool flag4 = false;
-                    
+
                     for (int j = 0; j < 200; j++)
                     {
                         if (Main.npc[j].CanBeChasedBy(projectile, false))
@@ -886,7 +886,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                             float num7 = Main.npc[j].position.X + (float)(Main.npc[j].width / 2);
                             float num8 = Main.npc[j].position.Y + (float)(Main.npc[j].height / 2);
                             float num9 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num7) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num8);
-                            if (num9 < num6  && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height) && (double)(Main.npc[j].Center - Main.player[projectile.owner].Center).Length() < (double)num * 0.9)
+                            if (num9 < num6 && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height) && (double)(Main.npc[j].Center - Main.player[projectile.owner].Center).Length() < (double)num * 0.9)
                             {
                                 num6 = num9;
                                 vector8.X = num7;
@@ -899,10 +899,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     {
                         vector8 -= projectile.Center;
                         vector8.Normalize();
-                        
-                            vector8 *= 6f;
-                            projectile.velocity = (projectile.velocity * 7f + vector8) / 8f;
-                        
+
+                        vector8 *= 6f;
+                        projectile.velocity = (projectile.velocity * 7f + vector8) / 8f;
+
                     }
                 }
                 if (projectile.velocity.Length() > num2)
@@ -927,7 +927,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     return;
                 }
                 float num10 = num2 * 1.5f;
-                
+
                 float num11 = 12f;
                 vector9.Normalize();
                 vector9 *= num10;
@@ -974,7 +974,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             }
             return false;
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Vector2 mountedCenter = Main.player[projectile.owner].MountedCenter;

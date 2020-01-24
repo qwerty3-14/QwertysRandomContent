@@ -1,9 +1,8 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.NPCs.HydraBoss
 {
@@ -107,11 +106,11 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
             }
 
-            return !(npc.ai[3]>0);
+            return !(npc.ai[3] > 0);
         }
         public override void AI()
         {
-            
+
             if (runOnce)
             {
                 if (Main.expertMode)

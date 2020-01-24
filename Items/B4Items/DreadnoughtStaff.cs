@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,13 +10,13 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
 {
     public class DreadnoughtStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Rod of Command");
-			Tooltip.SetDefault("Used by Ur-Quan lords to issue commands");
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Rod of Command");
+            Tooltip.SetDefault("Used by Ur-Quan lords to issue commands");
+
+        }
+
         public override void SetDefaults()
         {
 
@@ -37,47 +35,47 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("Dreadnought");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
-            item.buffType = mod.BuffType("UrQuan");	//The buff added to player after used the item
-			item.buffTime = 3600;
+            item.buffType = mod.BuffType("UrQuan"); //The buff added to player after used the item
+            item.buffTime = 3600;
         }
-		
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class Dreadnought : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ur-Quan Dreadnought");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ur-Quan Dreadnought");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
- 
-			
+
+
             projectile.width = 88; //Set the hitbox width
             projectile.height = 88;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -87,33 +85,33 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             projectile.knockBack = 10f;
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = false; //Tells the game whether or not it can collide with tiles/ terrain
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
-            
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
+
         }
-		
-       
-		public int varTime;
-		public int Yvar =0;
-		public int YvarOld =0;
-		public int Xvar =0;
-		public int XvarOld =0;
-		public int f=1;
-		public float targetAngle =90;
-		public float s =1;
-		public float tarX;
-		public float tarY;
+
+
+        public int varTime;
+        public int Yvar = 0;
+        public int YvarOld = 0;
+        public int Xvar = 0;
+        public int XvarOld = 0;
+        public int f = 1;
+        public float targetAngle = 90;
+        public float s = 1;
+        public float tarX;
+        public float tarY;
         public bool runOnce = true;
 
         public float swimDirection;
         public float actDirection;
-        public float maxDistance =10000;
+        public float maxDistance = 10000;
         public float distance;
         public NPC possiblePrey;
         public NPC prey;
         public bool foundTarget;
-        public float swimSpeed=5;
+        public float swimSpeed = 5;
         public float distFromPlayer;
         public float shotSpeed = 12f;
         public Vector2 noTargetwander;
@@ -121,12 +119,12 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
         float debugTimer;
         //public int fighterCountMax=10;
         public int fighterTimer;
-        
+
         public bool close;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-           // Main.NewText(player.MinionAttackTargetNPC);
+            // Main.NewText(player.MinionAttackTargetNPC);
             if (runOnce)
             {
                 projectile.ai[0] = 6;
@@ -146,7 +144,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
 
 
             //  Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 24);
-            if (player.MinionAttackTargetNPC !=-1)
+            if (player.MinionAttackTargetNPC != -1)
             {
                 prey = Main.npc[player.MinionAttackTargetNPC];
                 foundTarget = true;
@@ -172,42 +170,42 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
 
                 }
             }
-            
-            
-                
-                if (!foundTarget)
-                {
 
-                    targetwanderTimer++;
-                    if (targetwanderTimer % 120 == 0 && Main.netMode !=2 && Main.myPlayer == projectile.owner)
-                    {
-                        noTargetwander = new Vector2(Main.rand.Next(-200, 200), Main.rand.Next(-200, 200));
+
+
+            if (!foundTarget)
+            {
+
+                targetwanderTimer++;
+                if (targetwanderTimer % 120 == 0 && Main.netMode != 2 && Main.myPlayer == projectile.owner)
+                {
+                    noTargetwander = new Vector2(Main.rand.Next(-200, 200), Main.rand.Next(-200, 200));
                     projectile.netUpdate = true;
-                    }
-
-                    swimDirection = (noTargetwander + player.Center - projectile.Center).ToRotation();
                 }
-                else
+
+                swimDirection = (noTargetwander + player.Center - projectile.Center).ToRotation();
+            }
+            else
+            {
+                fighterTimer++;
+                if (fighterTimer % 60 == 0)
                 {
-                    fighterTimer++;
-                    if (fighterTimer % 60 == 0)
+                    if (projectile.ai[0] > 0)
                     {
-                        if (projectile.ai[0] > 0)
-                        {
-                            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Ur-Quan/UrQuan-Launch").WithVolume(.8f));
-                            Projectile.NewProjectile(((float)Math.Cos(actDirection + (float)Math.PI) * projectile.width / 2) + projectile.Center.X, ((float)Math.Sin(actDirection + (float)Math.PI) * projectile.height / 2) + projectile.Center.Y, (float)Math.Cos(actDirection + (float)Math.PI + (float)Math.PI / 4) * shotSpeed, (float)Math.Sin(actDirection + (float)Math.PI + (float)Math.PI / 4) * shotSpeed, mod.ProjectileType("Fighter"), projectile.damage / 6, projectile.knockBack, Main.myPlayer, projectile.whoAmI, 0f);
-                            projectile.ai[0]--;
-                        }
-                        if (projectile.ai[0] > 0)
-                        {
+                        Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Ur-Quan/UrQuan-Launch").WithVolume(.8f));
+                        Projectile.NewProjectile(((float)Math.Cos(actDirection + (float)Math.PI) * projectile.width / 2) + projectile.Center.X, ((float)Math.Sin(actDirection + (float)Math.PI) * projectile.height / 2) + projectile.Center.Y, (float)Math.Cos(actDirection + (float)Math.PI + (float)Math.PI / 4) * shotSpeed, (float)Math.Sin(actDirection + (float)Math.PI + (float)Math.PI / 4) * shotSpeed, mod.ProjectileType("Fighter"), projectile.damage / 6, projectile.knockBack, Main.myPlayer, projectile.whoAmI, 0f);
+                        projectile.ai[0]--;
+                    }
+                    if (projectile.ai[0] > 0)
+                    {
 
-                            Projectile.NewProjectile(((float)Math.Cos(actDirection + (float)Math.PI) * projectile.width / 2) + projectile.Center.X, ((float)Math.Sin(actDirection + (float)Math.PI) * projectile.height / 2) + projectile.Center.Y, (float)Math.Cos(actDirection + (float)Math.PI - (float)Math.PI / 4) * shotSpeed, (float)Math.Sin(actDirection + (float)Math.PI - (float)Math.PI / 4) * shotSpeed, mod.ProjectileType("Fighter"), projectile.damage / 6, projectile.knockBack, Main.myPlayer, projectile.whoAmI, 0f);
-                            projectile.ai[0]--;
-                        }
+                        Projectile.NewProjectile(((float)Math.Cos(actDirection + (float)Math.PI) * projectile.width / 2) + projectile.Center.X, ((float)Math.Sin(actDirection + (float)Math.PI) * projectile.height / 2) + projectile.Center.Y, (float)Math.Cos(actDirection + (float)Math.PI - (float)Math.PI / 4) * shotSpeed, (float)Math.Sin(actDirection + (float)Math.PI - (float)Math.PI / 4) * shotSpeed, mod.ProjectileType("Fighter"), projectile.damage / 6, projectile.knockBack, Main.myPlayer, projectile.whoAmI, 0f);
+                        projectile.ai[0]--;
                     }
                 }
-            
-        
+            }
+
+
             if (Math.Abs(actDirection - swimDirection) > Math.PI)
             {
                 f = -1;
@@ -216,7 +214,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             {
                 f = 1;
             }
-            
+
             swimDirection = new Vector2((float)Math.Cos(swimDirection), (float)Math.Sin(swimDirection)).ToRotation();
             if (actDirection <= swimDirection + MathHelper.ToRadians(4) && actDirection >= swimDirection - MathHelper.ToRadians(4))
             {
@@ -233,7 +231,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
             if (foundTarget)
             {
-                if (maxDistance<300)
+                if (maxDistance < 300)
                 {
                     varTime++;
                     if (varTime >= 45)
@@ -254,7 +252,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
                 {
                     if (Main.projectile[k].type == mod.ProjectileType("Dreadnought") && k != projectile.whoAmI)
                     {
-                        if (Collision.CheckAABBvAABBCollision(projectile.position + new Vector2(projectile.width/4, projectile.height/4), new Vector2(projectile.width/2, projectile.height/2), Main.projectile[k].position + new Vector2(Main.projectile[k].width / 4, Main.projectile[k].height / 4), new Vector2(Main.projectile[k].width/2, Main.projectile[k].height/2)))
+                        if (Collision.CheckAABBvAABBCollision(projectile.position + new Vector2(projectile.width / 4, projectile.height / 4), new Vector2(projectile.width / 2, projectile.height / 2), Main.projectile[k].position + new Vector2(Main.projectile[k].width / 4, Main.projectile[k].height / 4), new Vector2(Main.projectile[k].width / 2, Main.projectile[k].height / 2)))
                         {
                             projectile.velocity += new Vector2((float)Math.Cos((projectile.Center - Main.projectile[k].Center).ToRotation()) * 10, (float)Math.Sin((projectile.Center - Main.projectile[k].Center).ToRotation()) * 10);
                         }
@@ -264,15 +262,15 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             }
             else
             {
-                
-                
+
+
                 projectile.velocity.X = (float)Math.Cos(actDirection) * swimSpeed;
                 projectile.velocity.Y = (float)Math.Sin(actDirection) * swimSpeed;
-                
+
             }
 
             projectile.rotation = actDirection;
-            
+
 
             foundTarget = false;
             maxDistance = 10000f;
@@ -292,14 +290,14 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.WritePackedVector2(noTargetwander);
-            
+
 
 
         }
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             noTargetwander = reader.ReadPackedVector2();
-            
+
 
         }
 
@@ -328,7 +326,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
             projectile.tileCollide = false; //Tells the game whether or not it can collide with tiles/ terrain
             projectile.minion = true;
             projectile.timeLeft = 900;
-            
+
 
         }
 
@@ -380,7 +378,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
                 projectile.Kill();
             }
             fighterTimer++;
-            if(returnToParent)
+            if (returnToParent)
             {
                 swimDirection = (parent.Center - projectile.Center).ToRotation();
                 if (Collision.CheckAABBvAABBCollision(projectile.position, new Vector2(projectile.width, projectile.height), parent.position, new Vector2(parent.width, parent.height)))
@@ -389,7 +387,7 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
                     projectile.Kill();
                 }
             }
-            else if(fighterTimer > 600)
+            else if (fighterTimer > 600)
             {
                 returnToParent = true;
             }
@@ -458,18 +456,18 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
                     if (maxDistance < 50)
                     {
                         varTime++;
-                        if(varTime>=15)
+                        if (varTime >= 15)
                         {
                             drawLaser = true;
                         }
-                        else if(varTime >= 5)
+                        else if (varTime >= 5)
                         {
                             drawLaser = false;
                         }
                         if (varTime >= 20)
                         {
                             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Ur-Quan/UrQuan-Fighter").WithVolume(.2f));
-                            Projectile.NewProjectile(prey.Center, new Vector2(0,0), mod.ProjectileType("FighterShot"), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
+                            Projectile.NewProjectile(prey.Center, new Vector2(0, 0), mod.ProjectileType("FighterShot"), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
 
                             varTime = 0;
                         }
@@ -545,14 +543,14 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
         }
         public override void Kill(int timeLeft)
         {
-            
+
             parent = Main.projectile[(int)projectile.ai[0]];
             parent.ai[0]++;
         }
     }
-        
 
-    
+
+
     public class Fusion : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -578,9 +576,9 @@ namespace QwertysRandomContent.Items.B4Items       ///We need this to basically 
         }
         public override void AI()
         {
-            
+
         }
-        
+
 
 
     }

@@ -1,57 +1,53 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Duelist
 {
-	[AutoloadEquip(EquipType.Body)]
-	public class DuelistShirt : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Duelist Shirt");
-			Tooltip.SetDefault("Attacking the same enemy continually with melee attaks reduces damage recieved from that enemy\n7% increased morph and melee crit chance");
-			
-		}
-		
+    [AutoloadEquip(EquipType.Body)]
+    public class DuelistShirt : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Duelist Shirt");
+            Tooltip.SetDefault("Attacking the same enemy continually with melee attaks reduces damage recieved from that enemy\n7% increased morph and melee crit chance");
 
-		public override void SetDefaults()
-		{
+        }
+
+
+        public override void SetDefaults()
+        {
 
             item.value = 50000;
             item.rare = 1;
 
 
             item.width = 26;
-			item.height = 18;
-			item.defense = 6;
-			
-			
-			
-		}
-		
-		public override void UpdateEquip(Player player)
-		{
+            item.height = 18;
+            item.defense = 6;
+
+
+
+        }
+
+        public override void UpdateEquip(Player player)
+        {
             player.GetModPlayer<DuelistEffects>().body = true;
             player.meleeCrit += 7;
             player.GetModPlayer<ShapeShifterPlayer>().morphCrit += 7;
         }
-		public override void DrawHands(ref bool drawHands, ref bool drawArms)
-		{
-			drawHands=true;
+        public override void DrawHands(ref bool drawHands, ref bool drawArms)
+        {
+            drawHands = true;
             drawArms = true;
-			
-		}
-		
-		
 
-		
-			
-	}
+        }
+
+
+
+
+
+    }
     public class DuelistShirtEffects : ModPlayer
     {
         public static readonly PlayerLayer frontGlove = LayerDrawing.DrawOnFrontHand("DuelistShirt", "Items/Armor/Duelist/FrontGlove", "Items/Armor/Duelist/FrontGlove_Female", glowmask: false, useShader: 2);
@@ -81,7 +77,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
 
         }
     }
-    
+
 
 
 }

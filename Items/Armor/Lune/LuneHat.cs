@@ -5,31 +5,31 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Lune
 {
-	[AutoloadEquip(EquipType.Head)]
-	public class LuneHat : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Lune Hat");
-			Tooltip.SetDefault("+35% ranged velocity" + "\nImproves vision");
-			
-		}
-		
+    [AutoloadEquip(EquipType.Head)]
+    public class LuneHat : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Lune Hat");
+            Tooltip.SetDefault("+35% ranged velocity" + "\nImproves vision");
 
-		public override void SetDefaults()
-		{
+        }
+
+
+        public override void SetDefaults()
+        {
 
             item.value = 20000;
             item.rare = 1;
 
 
             item.width = 26;
-			item.height = 16;
-			item.defense = 5;
-			
-			
-			
-		}
+            item.height = 16;
+            item.defense = 5;
+
+
+
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -40,7 +40,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             recipe.AddRecipe();
         }
         public override void UpdateEquip(Player player)
-		{
+        {
             player.GetModPlayer<QwertyPlayer>().rangedVelocity += .35f;
             /*
             if(player.HeldItem.ranged)
@@ -49,24 +49,24 @@ namespace QwertysRandomContent.Items.Armor.Lune
             }
             */
             player.nightVision = true;
-		}
-		public override void DrawHair(ref bool  drawHair, ref bool  drawAltHair )
-		{
-			drawAltHair=true;
-			
-		}
-		
-		
-		
-	
-		
-		
-			
-	}
-    
+        }
+        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+        {
+            drawAltHair = true;
+
+        }
+
+
+
+
+
+
+
+    }
+
     public class RangedVel : GlobalItem
     {
-        
+
         public override bool InstancePerEntity
         {
             get
@@ -76,7 +76,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         }
         public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if(item.ranged)
+            if (item.ranged)
             {
                 speedX *= player.GetModPlayer<QwertyPlayer>().rangedVelocity;
                 speedY *= player.GetModPlayer<QwertyPlayer>().rangedVelocity;
@@ -84,9 +84,9 @@ namespace QwertysRandomContent.Items.Armor.Lune
             return true;
         }
     }
-    
-    
-		
-	
+
+
+
+
 }
 

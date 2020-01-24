@@ -1,12 +1,6 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace QwertysRandomContent.Items.RuneGhostItems
@@ -42,13 +36,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            
+
             modPlayer.leechScroll = true;
-            
+
 
         }
 
-        
+
 
     }
     class LeechRuneFreindly : ModProjectile
@@ -62,7 +56,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.penetrate = 1;
-            
+
             projectile.tileCollide = true;
             projectile.timeLeft = 180;
             projectile.ranged = true;
@@ -78,8 +72,8 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void AI()
         {
-            
-            
+
+
             projectile.rotation += MathHelper.ToRadians(3);
 
 
@@ -94,7 +88,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(0,3) ==0)
+            if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(0, 3) == 0)
             {
                 Player player = Main.player[projectile.owner];
                 player.statLife += damage / 10;
@@ -102,7 +96,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             }
 
         }
-        
+
     }
 
 

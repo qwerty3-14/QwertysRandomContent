@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
- 
- namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class HydraMissileStaff : ModItem
     {
@@ -91,10 +90,10 @@ using Terraria.ModLoader;
         float direction;
         public override void AI()
         {
-            if(runOnce)
+            if (runOnce)
             {
                 direction = projectile.velocity.ToRotation();
-                projectile.rotation = direction + ((float)Math.PI/2);
+                projectile.rotation = direction + ((float)Math.PI / 2);
                 runOnce = false;
             }
             Player player = Main.player[projectile.owner];
@@ -112,12 +111,12 @@ using Terraria.ModLoader;
                 }
 
             }
-            if(foundTarget)
+            if (foundTarget)
             {
                 direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
 
             }
-            projectile.velocity = new Vector2((float)Math.Cos(direction) *speed, (float)Math.Sin(direction) *speed);
+            projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
             foundTarget = false;
             maxDistance = 10000f;
             Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
@@ -141,8 +140,8 @@ using Terraria.ModLoader;
         {
             //projectile.localNPCImmunity[target.whoAmI] = -1;
             //target.immune[projectile.owner] = 0;
-           
-            
+
+
 
         }
         public override void Kill(int timeLeft)
@@ -157,10 +156,10 @@ using Terraria.ModLoader;
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             }
             //Main.PlaySound(SoundID.Item62, projectile.position);
-            for(int g=0; g<3; g++)
+            for (int g = 0; g < 3; g++)
             {
-                float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2; 
-                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection)*speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileMedium"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
+                float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2;
+                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileMedium"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
             }
         }
     }
@@ -220,7 +219,7 @@ using Terraria.ModLoader;
                 projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
                 foundTarget = false;
                 maxDistance = 10000f;
-                
+
             }
             Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             projectile.rotation = direction + ((float)Math.PI / 2);
@@ -235,7 +234,7 @@ using Terraria.ModLoader;
         }
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-            
+
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;
@@ -262,7 +261,7 @@ using Terraria.ModLoader;
             for (int g = 0; g < 3; g++)
             {
                 float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2;
-                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection)* speed, (float)Math.Sin(launchDirection) * speed) , mod.ProjectileType("HydraMissileSmall"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileSmall"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
             }
         }
     }
@@ -360,8 +359,8 @@ using Terraria.ModLoader;
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             }
-           
-            
+
+
         }
     }
 

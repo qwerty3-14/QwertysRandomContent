@@ -1,22 +1,21 @@
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscBows
 {
-	public class AerousLongbowWithRandomEnchantment : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Irregular Enchanted Aerous");
-			Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nRight click to shoot a random arrow");
+    public class AerousLongbowWithRandomEnchantment : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Irregular Enchanted Aerous");
+            Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nRight click to shoot a random arrow");
 
 
         }
-		public override void SetDefaults()
-		{
+        public override void SetDefaults()
+        {
             item.CloneDefaults(mod.ItemType("AerousLongbow"));
 
 
@@ -25,7 +24,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             return true;
         }
-        
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
@@ -50,7 +49,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             {
                 return true;
             }
-                
+
         }
         public override void AddRecipes()
         {
@@ -65,7 +64,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
 
     }
-    
+
 
 
 }

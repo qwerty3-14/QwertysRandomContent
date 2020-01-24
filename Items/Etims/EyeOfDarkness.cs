@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -30,7 +25,7 @@ namespace QwertysRandomContent.Items.Etims
             Color playerLight = Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16);
             int lightValue = playerLight.R + playerLight.G + playerLight.B;
             int critBoost = 0;
-            if(lightValue < 300)
+            if (lightValue < 300)
             {
                 critBoost = (int)(40f * (1 - (lightValue / 300f)));
             }

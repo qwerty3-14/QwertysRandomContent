@@ -1,10 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs.BladeBoss
 {
@@ -35,7 +34,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             animationType = -1;
             npc.noGravity = true;
             npc.noTileCollide = true;
-           
+
             npc.lifeMax = 600;
             //bossBag = mod.ItemType("AncientMachineBag");
             //npc.buffImmune[20] = true;
@@ -43,7 +42,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             npc.ai[3] = 1;
 
         }
-        
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
 
@@ -53,8 +52,8 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            
-                return 0f;
+
+            return 0f;
 
         }
         float bladeWidth = 26;
@@ -74,7 +73,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         float maxSpeed = 16;
         public override void AI()
         {
-            if(runOnce)
+            if (runOnce)
             {
                 npc.rotation = npc.ai[0];
                 runOnce = false;
@@ -85,7 +84,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             BladeTip = npc.Center + QwertyMethods.PolarVector((HiltLength / 2) + BladeLength, npc.rotation + (float)Math.PI / 2);
             timer++;
             //npc.rotation += (float)Math.PI / 60;
-            
+
             if (swing)
             {
                 if (toEndPoint)
@@ -112,28 +111,28 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 }
                 if (player.Center.X > npc.Center.X)
                 {
-                    npc.rotation = QwertyMethods.SlowRotation(npc.rotation, npc.velocity.ToRotation() +(float)Math.PI, 4);
+                    npc.rotation = QwertyMethods.SlowRotation(npc.rotation, npc.velocity.ToRotation() + (float)Math.PI, 4);
                 }
                 else
                 {
                     npc.rotation = QwertyMethods.SlowRotation(npc.rotation, npc.velocity.ToRotation(), 4);
                 }
-               
+
             }
-            else if(endIntro)
+            else if (endIntro)
             {
                 //npc.rotation += (float)Math.PI / 60;
-                if(npc.Center.Y + 400 < player.Center.Y )
+                if (npc.Center.Y + 400 < player.Center.Y)
                 {
                     npc.velocity = Vector2.Zero;
                     hitPoint = player.Center;
                     if (player.Center.X > npc.Center.X)
                     {
-                        hitPoint.X -= BladeLength/2;
+                        hitPoint.X -= BladeLength / 2;
                     }
                     else
                     {
-                        hitPoint.X += BladeLength/2;
+                        hitPoint.X += BladeLength / 2;
                     }
                     endPoint = hitPoint;
                     endPoint.Y += 400;
@@ -150,14 +149,14 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 npc.rotation = npc.ai[0];
                 npc.velocity = QwertyMethods.PolarVector(20, npc.ai[0] + (float)Math.PI / 2);
             }
-            
+
             float goTo = ((npc.Center - player.Center).ToRotation() + (float)Math.PI / 2);
             goTo = QwertyMethods.PolarVector(1, goTo).ToRotation();
             npc.rotation = QwertyMethods.PolarVector(1, npc.rotation).ToRotation();
-            
+
             if (Math.Abs(npc.rotation - goTo) > (float)Math.PI / 2)
             {
-               
+
                 endIntro = true;
             }
 
@@ -191,7 +190,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             return Collision.CheckAABBvLineCollision(target.Hitbox.TopLeft(), target.Hitbox.Size(), BladeStart, BladeTip, bladeWidth, ref col);
         }
         Vector2 CollisionOffset;
-        
+
         public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (Main.netMode == 0)
@@ -210,7 +209,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 npc.height = 336;
                 npc.position -= CollisionOffset;
             }
-            
+
         }
         public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
@@ -230,9 +229,9 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 npc.height = 698;
                 npc.position -= CollisionOffset;
             }
-            
+
         }
-       
+
 
     }
 

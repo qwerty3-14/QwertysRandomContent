@@ -1,10 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Meteor
 {
@@ -134,14 +133,14 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-       
+
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<HovercraftControl>().controlled = true;
         }
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
-            if(Math.Abs(velocity.X)<2f )
+            if (Math.Abs(velocity.X) < 2f)
             {
                 mountData.standingFrameStart = 0;
                 mountData.runningFrameStart = 0;
@@ -156,11 +155,11 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 mountData.flyingFrameStart = 1;
                 mountData.inAirFrameStart = 1;
                 mountData.idleFrameStart = 1;
-                Dust d = Dust.NewDustPerfect(mountedPlayer.Center + new Vector2(-mountedPlayer.width / 2 * mountedPlayer.direction, 2+ Main.rand.Next(-3,3)), 6);
+                Dust d = Dust.NewDustPerfect(mountedPlayer.Center + new Vector2(-mountedPlayer.width / 2 * mountedPlayer.direction, 2 + Main.rand.Next(-3, 3)), 6);
                 d.noGravity = true;
                 d.noLight = true;
             }
-        
+
             return true;
         }
 

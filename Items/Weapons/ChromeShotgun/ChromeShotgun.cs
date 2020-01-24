@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -28,7 +25,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
         Vector2 TightMuzzleOffset = new Vector2(50, -5);
         Vector2 MinionHoldOffset = new Vector2(-6, 0);
         Vector2 MinionMuzzleOffset = new Vector2(50, -5);
-        
+
         public override void SetDefaults()
         {
             item.damage = 48;
@@ -40,11 +37,11 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
             item.knockBack = 1;
             item.value = 500000;
             item.rare = 7;
-            
+
             item.noUseGraphic = true;
             item.width = 54;
             item.height = 22;
-           
+
             item.shoot = 97;
             item.useAmmo = 97;
             item.shootSpeed = 9f;
@@ -69,7 +66,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
         }
         public override bool ConsumeAmmo(Player player)
         {
-            if(player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2)
             {
                 return false;
             }
@@ -102,14 +99,14 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
             }
             if (player.altFunctionUse == 2)
             {
-                
+
                 item.useStyle = 103;
             }
             else
             {
                 item.UseSound = SoundID.Item11;
                 item.useStyle = 5;
-                
+
             }
             return base.CanUseItem(player);
         }
@@ -122,7 +119,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
                 float direction = new Vector2(speedX, speedY).ToRotation();
                 float horizontalShift = DefaultMuzzleOffset.X;
                 float verticalShift = DefaultMuzzleOffset.Y;
-                switch(item.GetGlobalItem<ChromeGunToggle>().mode)
+                switch (item.GetGlobalItem<ChromeGunToggle>().mode)
                 {
                     case 0:
                         horizontalShift = DefaultMuzzleOffset.X;
@@ -168,7 +165,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
             }
             return false;
         }
-        
+
     }
 
     public class ShotgunMinion : ModProjectile
@@ -189,28 +186,28 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
         int shotCounter = 0;
         public override void AI()
         {
-            
+
             if (runOnce)
             {
                 projectile.rotation = projectile.velocity.ToRotation();
-                
+
                 runOnce = false;
             }
             Player player = Main.player[projectile.owner];
             shotCounter++;
-            if(player.HeldItem.GetGlobalItem<ChromeGunToggle>().mode == 3)
+            if (player.HeldItem.GetGlobalItem<ChromeGunToggle>().mode == 3)
             {
                 projectile.timeLeft = 300;
             }
-            else if(player.HeldItem.type != mod.ItemType("ChromeShotgunDefault"))
+            else if (player.HeldItem.type != mod.ItemType("ChromeShotgunDefault"))
             {
                 projectile.Kill();
             }
             Vector2 spot = player.Center;
-            if(QwertyMethods.ClosestNPC(ref target, 1000, projectile.Center, false, player.MinionAttackTargetNPC))
+            if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Center, false, player.MinionAttackTargetNPC))
             {
                 spot = target.Center;
-                
+
             }
             Vector2 Difference = (spot - projectile.Center);
             projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, Difference.ToRotation(), 5);
@@ -222,13 +219,13 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
             {
                 projectile.velocity = Vector2.Zero;
             }
-            for(int i =0; i <2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 NPC gunTarget = new NPC();
-                if(QwertyMethods.ClosestNPC(ref gunTarget, 450, GunPositions[i], false, player.MinionAttackTargetNPC))
+                if (QwertyMethods.ClosestNPC(ref gunTarget, 450, GunPositions[i], false, player.MinionAttackTargetNPC))
                 {
                     GunRotations[i] = QwertyMethods.SlowRotation(GunRotations[i], (gunTarget.Center - GunPositions[i]).ToRotation() + (float)Math.PI / 2 * (i == 1 ? 1 : -1) - projectile.rotation, 6);
-                    if(shotCounter %30 == i*15)
+                    if (shotCounter % 30 == i * 15)
                     {
                         int bullet = ProjectileID.Bullet;
                         bool canShoot = true;
@@ -236,11 +233,11 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
                         int weaponDamage = projectile.damage;
                         float kb = projectile.knockBack;
                         player.PickAmmo(QwertyMethods.MakeItemFromID(mod.ItemType("ChromeShotgunDefault")), ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref kb, false);
-                        if(canShoot)
+                        if (canShoot)
                         {
                             Projectile.NewProjectile(GunPositions[i], QwertyMethods.PolarVector(16, GunRotations[i] + projectile.rotation + (float)Math.PI / 2 * (i == 0 ? 1 : -1)), bullet, weaponDamage, kb, projectile.owner);
                         }
-                        
+
                     }
                 }
                 else
@@ -254,13 +251,13 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D core = Main.projectileTexture[projectile.type];
-            spriteBatch.Draw(core, projectile.Center-Main.screenPosition, core.Frame(), lightColor, projectile.rotation - (float)Math.PI / 2, core.Size() * .5f, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(core, projectile.Center - Main.screenPosition, core.Frame(), lightColor, projectile.rotation - (float)Math.PI / 2, core.Size() * .5f, 1f, SpriteEffects.None, 0);
 
             Texture2D rightGun = mod.GetTexture("Items/Weapons/ChromeShotgun/ShotgunMinionRightGun");
             spriteBatch.Draw(rightGun, GunPositions[1] - Main.screenPosition, rightGun.Frame(), lightColor, projectile.rotation + GunRotations[1] - (float)Math.PI / 2, new Vector2(8, 8), 1f, SpriteEffects.None, 0);
 
             Texture2D leftGun = mod.GetTexture("Items/Weapons/ChromeShotgun/ShotgunMinionLeftGun");
-            spriteBatch.Draw(leftGun, GunPositions[0] - Main.screenPosition, leftGun.Frame(), lightColor, projectile.rotation + GunRotations[0] - (float)Math.PI / 2, new Vector2(leftGun.Width-8, 8), 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(leftGun, GunPositions[0] - Main.screenPosition, leftGun.Frame(), lightColor, projectile.rotation + GunRotations[0] - (float)Math.PI / 2, new Vector2(leftGun.Width - 8, 8), 1f, SpriteEffects.None, 0);
             return false;
         }
     }
@@ -269,7 +266,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
         public int mode = 0;
         public override bool CloneNewInstances => true;
         public override bool InstancePerEntity => true;
-        
+
     }
     public class ChromeGunUseDraw : ModPlayer
     {
@@ -286,21 +283,21 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
                     player.itemRotation = (float)(-Math.PI * 2f * player.direction) * ((float)player.itemAnimation / player.itemAnimationMax);
                     player.itemLocation.X = player.position.X + (float)player.width * 0.5f - (float)Main.itemTexture[item.type].Width * 0.5f - (float)(player.direction * 2);
                     player.itemLocation.Y = player.MountedCenter.Y - (float)Main.itemTexture[item.type].Height * 0.5f;
-                    if(player.itemAnimation == player.itemAnimationMax/2)
+                    if (player.itemAnimation == player.itemAnimationMax / 2)
                     {
                         item.GetGlobalItem<ChromeGunToggle>().mode++;
-                        if(item.GetGlobalItem<ChromeGunToggle>().mode >=4)
+                        if (item.GetGlobalItem<ChromeGunToggle>().mode >= 4)
                         {
                             item.GetGlobalItem<ChromeGunToggle>().mode = 0;
                         }
                     }
                 }
-                if(player.HeldItem.type == mod.ItemType("ChromeShotgunDefault") && player.HeldItem.GetGlobalItem<ChromeGunToggle>().mode == 3 && player.ownedProjectileCounts[mod.ProjectileType("ShotgunMinion")]<1)
+                if (player.HeldItem.type == mod.ItemType("ChromeShotgunDefault") && player.HeldItem.GetGlobalItem<ChromeGunToggle>().mode == 3 && player.ownedProjectileCounts[mod.ProjectileType("ShotgunMinion")] < 1)
                 {
                     Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("ShotgunMinion"), player.HeldItem.damage, player.HeldItem.knockBack, player.whoAmI);
                 }
             }
-           
+
         }
         public static readonly PlayerLayer ChromeGun = new PlayerLayer("QwertysRandomContent", "ChromeGun", PlayerLayer.HeldItem, delegate (PlayerDrawInfo drawInfo)
         {
@@ -316,7 +313,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
                 Item item = drawPlayer.HeldItem;
                 Color color37 = Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)(((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16.0));
                 Texture2D texture = mod.GetTexture("Items/Weapons/ChromeShotgun/ChromeShotgunDefault");
-                switch(item.GetGlobalItem<ChromeGunToggle>().mode)
+                switch (item.GetGlobalItem<ChromeGunToggle>().mode)
                 {
                     case 0:
                         texture = mod.GetTexture("Items/Weapons/ChromeShotgun/ChromeShotgunDefault");
@@ -353,7 +350,7 @@ namespace QwertysRandomContent.Items.Weapons.ChromeShotgun
                     {
                         origin5 = new Vector2((float)(Main.itemTexture[item.type].Width + num107), (float)(Main.itemTexture[item.type].Height / 2));
                     }
-                   
+
                     DrawData value = new DrawData(texture,
                         new Vector2((float)((int)(value2.X - Main.screenPosition.X + vector10.X)), (float)((int)(value2.Y - Main.screenPosition.Y + vector10.Y))),
                         new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height)),

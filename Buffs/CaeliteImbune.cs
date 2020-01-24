@@ -1,8 +1,6 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using QwertysRandomContent.NPCs;
-using QwertysRandomContent;
-using Microsoft.Xna.Framework;
 
 namespace QwertysRandomContent.Buffs
 {
@@ -30,7 +28,7 @@ namespace QwertysRandomContent.Buffs
             }
             */
         }
-       
+
 
 
     }
@@ -55,7 +53,7 @@ namespace QwertysRandomContent.Buffs
     {
         public override void AI(Projectile projectile)
         {
-            if(Main.player[projectile.owner].HasBuff(mod.BuffType("CaeliteImbune")) && projectile.melee)
+            if (Main.player[projectile.owner].HasBuff(mod.BuffType("CaeliteImbune")) && projectile.melee)
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"));
             }

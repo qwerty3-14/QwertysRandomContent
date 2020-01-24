@@ -4,8 +4,8 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Tiles
 {
-	public class FortressWall : ModWall
-	{
+    public class FortressWall : ModWall
+    {
         public override bool Autoload(ref string name, ref string texture)
         {
             if (Config.classicFortress)
@@ -15,18 +15,18 @@ namespace QwertysRandomContent.Tiles
             return base.Autoload(ref name, ref texture);
         }
         public override void SetDefaults()
-		{
-			Main.wallHouse[Type] = true;
-			dustType = mod.DustType("FortressDust");
+        {
+            Main.wallHouse[Type] = true;
+            dustType = mod.DustType("FortressDust");
             drop = mod.ItemType("FortressWall");
             AddMapEntry(new Color(76, 80, 92));
         }
 
-		public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
+            num = fail ? 1 : 3;
+        }
 
-		
-	}
+
+    }
 }

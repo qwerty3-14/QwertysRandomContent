@@ -6,40 +6,40 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons
 {
-	public class ColdFront : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Cold Front");
-			Tooltip.SetDefault("");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 30;
-			item.magic = true;
-			
-			item.useTime = 5;
-			item.useAnimation = 45;
-			item.useStyle = 5;
-			item.knockBack = 0;
-			item.value = 54000;
-			item.rare = 3;
-			
-			item.autoReuse = true;
-			item.width = 28;
-			item.height = 30;
-			
-			item.mana =10;
-			item.shoot = mod.ProjectileType("Icicle");
-			item.shootSpeed =20;
-			item.noMelee=true;
-            
-			
-			
-			
-			
-		}
+    public class ColdFront : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Cold Front");
+            Tooltip.SetDefault("");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 30;
+            item.magic = true;
+
+            item.useTime = 5;
+            item.useAnimation = 45;
+            item.useStyle = 5;
+            item.knockBack = 0;
+            item.value = 54000;
+            item.rare = 3;
+
+            item.autoReuse = true;
+            item.width = 28;
+            item.height = 30;
+
+            item.mana = 10;
+            item.shoot = mod.ProjectileType("Icicle");
+            item.shootSpeed = 20;
+            item.noMelee = true;
+
+
+
+
+
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -60,7 +60,7 @@ namespace QwertysRandomContent.Items.Weapons
             {
                 Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(60)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(60)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
                 Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-60)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-60)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber =0;
+                shotNumber = 0;
                 return false;
             }
             if (shotNumber == 7)
@@ -86,7 +86,7 @@ namespace QwertysRandomContent.Items.Weapons
             }
             if (shotNumber == 4)
             {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(30)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(30)) * trueSpeed, type, (int)(damage*.8f), knockBack, Main.myPlayer, 0f, 0f);
+                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(30)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(30)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
                 Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-30)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-30)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
                 shotNumber++;
                 return false;
@@ -115,14 +115,14 @@ namespace QwertysRandomContent.Items.Weapons
             else
             {
                 Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(0)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(0)) * trueSpeed, mod.ProjectileType("LargeIcicle"), damage, knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber=1;
+                shotNumber = 1;
                 return false;
             }
 
 
 
-            
-            
+
+
         }
 
 
@@ -155,8 +155,8 @@ namespace QwertysRandomContent.Items.Weapons
             target.AddBuff(BuffID.Frostburn, 120);
 
         }
-        
-        
+
+
 
 
     }
@@ -183,13 +183,13 @@ namespace QwertysRandomContent.Items.Weapons
 
 
         }
-       
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 120);
 
         }
-        
+
 
 
     }

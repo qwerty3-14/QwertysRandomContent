@@ -1,6 +1,3 @@
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
 using Terraria;
 using Terraria.ID;
@@ -45,7 +42,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             recipe.AddIngredient(mod.ItemType("CaeliteBar"), 2);
             recipe.AddIngredient(mod.ItemType("FortressHarpyBeak"), 2);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 999);
+            recipe.SetResult(this, 333);
             recipe.AddRecipe();
         }
     }

@@ -4,18 +4,18 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Dusts
 {
-	public class AncientGlow : ModDust
-	{
-		public override void OnSpawn(Dust dust)
-		{
-			dust.noGravity = true;
-			
-			dust.scale = 1f;
-            
-		}
+    public class AncientGlow : ModDust
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            dust.noGravity = true;
+
+            dust.scale = 1f;
+
+        }
         public override bool Update(Dust dust)
         {
-            if(dust.alpha >0)
+            if (dust.alpha > 0)
             {
                 dust.alpha -= (int)(255f / 30f);
             }

@@ -1,12 +1,11 @@
+using Microsoft.Xna.Framework;
+using QwertysRandomContent.NPCs.Fortress;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.Localization;
-using System.IO;
-using QwertysRandomContent.NPCs.Fortress;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.FortressBoss
 {
@@ -92,17 +91,17 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         }
         public override void NPCLoot()
         {
-            if(Main.expertMode)
+            if (Main.expertMode)
             {
                 npc.DropBossBags();
             }
             else
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteBar"), Main.rand.Next( 12, 21));
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteBar"), Main.rand.Next(12, 21));
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteCore"), Main.rand.Next(6, 11));
                 if (Main.rand.Next(7) == 0)
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DivineLightMask"));
-                if(Main.rand.Next(20) <3)
+                if (Main.rand.Next(20) < 3)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Lightling"));
                 }
@@ -111,7 +110,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SkywardHilt"));
                 }
             }
-            
+
             int trophyChance = Main.rand.Next(0, 10);
             if (trophyChance == 1)
             {
@@ -148,7 +147,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             Lighting.AddLight(npc.Center, new Vector3(1.2f, 1.2f, 1.2f));
-            if(npc.life> npc.lifeMax)
+            if (npc.life > npc.lifeMax)
             {
                 npc.life = npc.lifeMax;
             }
@@ -168,7 +167,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                     startFight = true;
                 }
                 start = false;
-                for(int i =0; i < previousHealth.Length; i++)
+                for (int i = 0; i < previousHealth.Length; i++)
                 {
                     previousHealth[i] = npc.lifeMax;
                 }
@@ -176,14 +175,14 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             dpsCheckCounter++;
             if (dpsCheckCounter % 60 == 0)
             {
-                for (int i = previousHealth.Length-1; i>0; i--)
+                for (int i = previousHealth.Length - 1; i > 0; i--)
                 {
                     previousHealth[i] = previousHealth[i - 1];
                 }
                 previousHealth[0] = npc.life;
-                
-                dps = (((float)previousHealth[previousHealth.Length - 1] - (float)previousHealth[0])/(float)previousHealth.Length);
-                
+
+                dps = (((float)previousHealth[previousHealth.Length - 1] - (float)previousHealth[0]) / (float)previousHealth.Length);
+
                 //Main.NewText("dps: " + dps);
             }
             if (Main.dungeonX < Main.maxTilesX * .5f)
@@ -205,7 +204,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                     npc.position.Y += 100000f;
                     playerDied = true;
                 }
-                
+
             }
             else
             {
@@ -289,19 +288,19 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                         }
                         pickAttack = false;
                     }
-                    if (npc.ai[0] == 4 &&( NPC.AnyNPCs(mod.NPCType("HealingBarrier")) || (int)(dps / 12f) < 2  ))
+                    if (npc.ai[0] == 4 && (NPC.AnyNPCs(mod.NPCType("HealingBarrier")) || (int)(dps / 12f) < 2))
                     {
                         npc.ai[0] = 0;
                         npc.netUpdate = true;
                     }
-                    if(npc.ai[0] == 5)
+                    if (npc.ai[0] == 5)
                     {
                         int numberOfProjectiles = 5;
-                        if(Main.expertMode)
+                        if (Main.expertMode)
                         {
                             numberOfProjectiles += 4;
                         }
-                        float spread = 2*(float)Math.PI ;
+                        float spread = 2 * (float)Math.PI;
 
 
                         for (int p = 0; p < numberOfProjectiles; p++)
@@ -315,13 +314,13 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                     }
                     else if (npc.ai[0] == 4)
                     {
-                        int numberOfProjectiles = (int)(dps/12f);
+                        int numberOfProjectiles = (int)(dps / 12f);
 
                         for (int i = 0; i < numberOfProjectiles; i++)
                         {
-                            
+
                             NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("HealingBarrier"), 0, (float)i / (float)numberOfProjectiles * 2 * (float)Math.PI, npc.whoAmI * -npc.direction);
-                            
+
                         }
                         attackTimer = 0;
 
@@ -517,17 +516,17 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         }
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
-            if(Main.expertMode)
+            if (Main.expertMode)
             {
-                int estimatedDamage = (4*damage) - (int)((float)target.statDefense / 4f * 3f);
-               
-                if(estimatedDamage < 18f)
+                int estimatedDamage = (4 * damage) - (int)((float)target.statDefense / 4f * 3f);
+
+                if (estimatedDamage < 18f)
                 {
 
-                    damage = (int)((((float) target.statDefense / 4f * 3f) + 18f)/4f);
+                    damage = (int)((((float)target.statDefense / 4f * 3f) + 18f) / 4f);
                 }
             }
-            
+
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
@@ -569,7 +568,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         Projectile clearCheck;
         public override void AI()
         {
-            projectile.rotation += (float)Math.PI /30;
+            projectile.rotation += (float)Math.PI / 30;
             Dust dust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
             dust2.scale = .5f;
             projectile.frameCounter++;
@@ -580,17 +579,17 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     projectile.frame = 0;
                 }
-                
+
             }
             projectile.velocity *= .96f;
             for (int p = 0; p < 1000; p++)
             {
                 clearCheck = Main.projectile[p];
-                if (clearCheck.friendly && !clearCheck.sentry && clearCheck.velocity != Vector2.Zero&& clearCheck.damage>0 && clearCheck.minionSlots <= 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, clearCheck.position, clearCheck.Size))
+                if (clearCheck.friendly && !clearCheck.sentry && clearCheck.velocity != Vector2.Zero && clearCheck.damage > 0 && clearCheck.minionSlots <= 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, clearCheck.position, clearCheck.Size))
                 {
                     clearCheck.Kill();
-                    Projectile d = Main.projectile[ Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity.SafeNormalize(-Vector2.UnitY) * 10f, mod.ProjectileType("Deflected"), clearCheck.damage / 2, clearCheck.knockBack, clearCheck.owner)];
-                    if(d.damage>50)
+                    Projectile d = Main.projectile[Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity.SafeNormalize(-Vector2.UnitY) * 10f, mod.ProjectileType("Deflected"), clearCheck.damage / 2, clearCheck.knockBack, clearCheck.owner)];
+                    if (d.damage > 50)
                     {
                         d.damage = 50;
                     }
@@ -642,7 +641,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     projectile.frame = 0;
                 }
-                
+
             }
 
         }
@@ -683,7 +682,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         public override void FindFrame(int frameHeight)
         {
             npc.lifeMax = 44;
-            if(npc.life>npc.lifeMax)
+            if (npc.life > npc.lifeMax)
             {
                 npc.life = npc.lifeMax;
             }
@@ -728,12 +727,12 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             npc.position.X = parent.Center.X - (int)(Math.Cos(npc.ai[0]) * radius) - npc.width / 2;
             npc.position.Y = parent.Center.Y - (int)(Math.Sin(npc.ai[0]) * radius) - npc.height / 2;
             npc.ai[0] += (float)Math.PI / 200 * spinDirection;
-            
+
             if (!parent.active || parent.type != mod.NPCType("FortressBoss"))
             {
                 npc.active = false;
             }
-            else if((timer>720 && Main.expertMode) || timer > 900)
+            else if ((timer > 720 && Main.expertMode) || timer > 900)
             {
                 parent.life += npc.life * 2;
                 parent.HealEffect(npc.life * 2, true);
@@ -774,7 +773,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         public override void AI()
         {
             timer++;
-            if(timer==60)
+            if (timer == 60)
             {
                 projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY) * 11;
             }
@@ -786,7 +785,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
         }
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-            
+
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;

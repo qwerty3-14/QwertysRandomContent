@@ -1,21 +1,21 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
-	public class SpikedSlimeShift : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shape Shift: Spiked Slime");
-			Tooltip.SetDefault("Shoot spikes or jump around!");
+    public class SpikedSlimeShift : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shape Shift: Spiked Slime");
+            Tooltip.SetDefault("Shoot spikes or jump around!");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[item.type] = true;
             ItemID.Sets.ItemIconPulse[item.type] = true;
@@ -27,24 +27,24 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public const float kb = 1f;
         public const int def = 13;
         public override void SetDefaults()
-		{
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = 1;
+        {
+            item.width = 42;
+            item.height = 42;
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.useStyle = 1;
             item.value = 150000;
             item.rare = 1;
             item.UseSound = SoundID.Item79;
-			item.noMelee = true;
-			item.mountType = mod.MountType("SpikedSlimeMorph");
+            item.noMelee = true;
+            item.mountType = mod.MountType("SpikedSlimeMorph");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-            
+
         }
         public override bool GrabStyle(Player player)
         {
@@ -70,9 +70,9 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            
+
         }
-        
+
     }
     public class SpikedSlimeMorphB : ModBuff
     {
@@ -101,12 +101,12 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             mountData.heightBoost = -8;
             mountData.flightTimeMax = 0;
             mountData.fallDamage = 0.4f;
-            
+
             mountData.acceleration = 0.13f;
             mountData.jumpHeight = 15;
             mountData.jumpSpeed = 6f;
-            
-            
+
+
             mountData.totalFrames = 2;
             mountData.constantJump = true;
             int[] array = new int[mountData.totalFrames];
@@ -146,32 +146,32 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-       
+
         public override void UpdateEffects(Player player)
         {
-            
+
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
             Mount mount = player.mount;
             player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-            
+
             player.noItems = true;
             player.statDefense = SpikedSlimeShift.def + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
         }
-       
+
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
-            
+
             if (mountedPlayer.GetModPlayer<SpikedSlimeControl>().count > 0)
             {
                 mountedPlayer.GetModPlayer<SpikedSlimeControl>().count--;
             }
-            if(mountedPlayer.wet)
+            if (mountedPlayer.wet)
             {
                 mountedPlayer.velocity.Y = -7f;
             }
-            if (state ==2 || state == 4)
+            if (state == 2 || state == 4)
             {
-                
+
                 mountData.runSpeed = 8f;
                 mountData.dashSpeed = 8f;
             }
@@ -180,13 +180,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.runSpeed = 0f;
                 mountData.dashSpeed = 0f;
                 mountedPlayer.velocity.X *= .9f;
-                if(mountedPlayer.GetModPlayer<SpikedSlimeControl>().count <= 0 && mountedPlayer.whoAmI == Main.myPlayer && Main.mouseLeft && !mountedPlayer.HasBuff(mod.BuffType("MorphSickness")))
+                if (mountedPlayer.GetModPlayer<SpikedSlimeControl>().count <= 0 && mountedPlayer.whoAmI == Main.myPlayer && Main.mouseLeft && !mountedPlayer.HasBuff(mod.BuffType("MorphSickness")))
                 {
                     mountedPlayer.GetModPlayer<SpikedSlimeControl>().count = 12;
-                    Projectile.NewProjectile(mountedPlayer.Center, QwertyMethods.PolarVector(10, (Main.MouseWorld - mountedPlayer.Center).ToRotation() + Main.rand.NextFloat(-1, 1) * (float)Math.PI/16), mod.ProjectileType("PlayerSlimeSpike"), SpikedSlimeShift.dmg, SpikedSlimeShift.kb, mountedPlayer.whoAmI);
+                    Projectile.NewProjectile(mountedPlayer.Center, QwertyMethods.PolarVector(10, (Main.MouseWorld - mountedPlayer.Center).ToRotation() + Main.rand.NextFloat(-1, 1) * (float)Math.PI / 16), mod.ProjectileType("PlayerSlimeSpike"), SpikedSlimeShift.dmg, SpikedSlimeShift.kb, mountedPlayer.whoAmI);
                 }
             }
-            
+
             return base.UpdateFrame(mountedPlayer, state, velocity);
         }
 
@@ -199,7 +199,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
     {
         public override void SetStaticDefaults()
         {
-            
+
         }
         public override void SetDefaults()
         {
@@ -242,7 +242,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             {
                 projectile.alpha = 0;
             }
-            
+
 
             if (projectile.ai[0] >= 5f)
             {

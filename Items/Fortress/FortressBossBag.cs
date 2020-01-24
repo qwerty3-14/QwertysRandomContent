@@ -1,37 +1,36 @@
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
 {
-	public class FortressBossBag : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-            
+    public class FortressBossBag : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Bag");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+
         }
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 60;
-			item.height = 34;
-			item.rare = 9;
-			item.expert = true;
-			//bossBagNPC = mod.NPCType("FortressBoss"); 
-		}
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 60;
+            item.height = 34;
+            item.rare = 9;
+            item.expert = true;
+            //bossBagNPC = mod.NPCType("FortressBoss"); 
+        }
         public override int BossBagNPC => mod.NPCType("FortressBoss");
 
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
-		public override void OpenBossBag(Player player)
-		{
+        public override void OpenBossBag(Player player)
+        {
 
 
 
@@ -42,7 +41,7 @@ namespace QwertysRandomContent.Items.Fortress
             if (Main.rand.Next(7) == 0)
                 player.QuickSpawnItem(mod.ItemType("DivineLightMask"));
             player.QuickSpawnItem(73, 10);
-            if(Main.rand.Next(5) ==0)
+            if (Main.rand.Next(5) == 0)
             {
                 player.QuickSpawnItem(mod.ItemType("Lightling"));
             }
@@ -52,5 +51,5 @@ namespace QwertysRandomContent.Items.Fortress
             }
 
         }
-	}
+    }
 }

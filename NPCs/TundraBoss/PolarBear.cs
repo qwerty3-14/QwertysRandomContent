@@ -1,11 +1,9 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs.TundraBoss
 {
@@ -61,7 +59,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             }
             else
             {
-                switch(Main.rand.Next(3))
+                switch (Main.rand.Next(3))
                 {
                     case 0:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PenguinClub"));
@@ -72,11 +70,11 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     case 2:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PenguinWhistle"));
                         break;
-                    
+
                 }
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.Penguin, Main.rand.Next(35, 61));
             }
-            
+
         }
         int timer;
         int attackDelay = 60;
@@ -88,19 +86,19 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         {
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
-           
+
             if (!player.active || player.dead)
             {
 
                 npc.TargetClosest(false);
                 player = Main.player[npc.target];
-                
+
                 if (!player.active || player.dead)
                 {
                     npc.noTileCollide = true;
                     frame = JumpFrame;
                     npc.velocity = new Vector2(0f, 10f);
-                    
+
                     if (npc.timeLeft > 10)
                     {
                         npc.timeLeft = 10;
@@ -112,9 +110,9 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             else
             {
                 timer++;
-                if(timer > resetAttacks)
+                if (timer > resetAttacks)
                 {
-                    
+
                     npc.velocity.X = 10 * npc.direction;
                     npc.velocity.Y = -10;
                     landed = false;
@@ -125,13 +123,13 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                         npc.netUpdate = true;
                     }
                     attackCounter = 0;
-                    if(Main.netMode != 1)
+                    if (Main.netMode != 1)
                     {
                         npc.ai[0] = Main.rand.Next(2);
                         npc.netUpdate = true;
                     }
                 }
-                else if(timer > resetAttacks-60)
+                else if (timer > resetAttacks - 60)
                 {
                     frame = AboutToJumpFrame;
                 }
@@ -145,8 +143,8 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                             attackCounter++;
                             if (Main.netMode != 1)
                             {
-                                
-                                NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y+14, mod.NPCType("SlidingPenguin"), ai0: npc.direction);
+
+                                NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y + 14, mod.NPCType("SlidingPenguin"), ai0: npc.direction);
                             }
                             Main.PlaySound(SoundID.Item11, npc.position);
                             for (int i = 0; i < 8; i++)
@@ -156,7 +154,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
                         }
                     }
-                    else if(npc.ai[0] == 1)
+                    else if (npc.ai[0] == 1)
                     {
                         frame = ShootFlierFrame;
                         if (timer == attackDelay + 60)
@@ -166,21 +164,21 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                             {
                                 if (Main.netMode != 1)
                                 {
-                                    NPC.NewNPC((int)npc.Center.X + 34 * npc.direction, (int)npc.Center.Y , mod.NPCType("FlyingPenguin"), 0, i);
+                                    NPC.NewNPC((int)npc.Center.X + 34 * npc.direction, (int)npc.Center.Y, mod.NPCType("FlyingPenguin"), 0, i);
 
                                 }
                                 Main.PlaySound(SoundID.Item11, npc.position);
                             }
                             for (int i = 0; i < 8; i++)
                             {
-                                Dust.NewDustPerfect(new Vector2((int)npc.Center.X + 34 * npc.direction, (int)npc.Center.Y), DustID.Ice, new Vector2(npc.direction *(2+ Main.rand.NextFloat()*2f), 0).RotatedByRandom(Math.PI / 8));
+                                Dust.NewDustPerfect(new Vector2((int)npc.Center.X + 34 * npc.direction, (int)npc.Center.Y), DustID.Ice, new Vector2(npc.direction * (2 + Main.rand.NextFloat() * 2f), 0).RotatedByRandom(Math.PI / 8));
                             }
                         }
                     }
                 }
-                if(npc.collideY && npc.velocity.Y >0)
+                if (npc.collideY && npc.velocity.Y > 0)
                 {
-                    if(!landed)
+                    if (!landed)
                     {
                         frame = IdleFrame;
                         for (int i = 0; i < 60; i++)

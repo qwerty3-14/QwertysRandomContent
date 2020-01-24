@@ -1,40 +1,38 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
-	public class ExpertItem : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hyper Runestone");
-			Tooltip.SetDefault("+10 dash power" + "\nMakes you invincible when dashing" + "\nThis effect needs two seconds to recharge");
+    public class ExpertItem : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hyper Runestone");
+            Tooltip.SetDefault("+10 dash power" + "\nMakes you invincible when dashing" + "\nThis effect needs two seconds to recharge");
 
 
         }
-		
-		public override void SetDefaults()
-		{
 
-			item.width = 76;
-			item.height = 76;
-			item.maxStack = 1;
-			item.value = 500000;
-			item.rare = 3;
-			
-			item.rare = 9;
-            item.expert=true;
+        public override void SetDefaults()
+        {
+
+            item.width = 76;
+            item.height = 76;
+            item.maxStack = 1;
+            item.value = 500000;
+            item.rare = 3;
+
+            item.rare = 9;
+            item.expert = true;
             item.accessory = true;
-		}
+        }
         public override void UpdateEquip(Player player)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.hyperRune = true;
             modPlayer.customDashBonusSpeed += 10;
-            
+
 
         }
 
@@ -65,7 +63,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public int time;
         public override void AI()
         {
-            
+
             Player player = Main.player[projectile.owner];
 
 
@@ -74,11 +72,11 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             else
                 projectile.alpha = 0;
 
-            
-                projectile.position.X = player.Center.X - 38;
-                projectile.position.Y = player.Center.Y - 38;
-                projectile.rotation += MathHelper.ToRadians(3);
-            
+
+            projectile.position.X = player.Center.X - 38;
+            projectile.position.Y = player.Center.Y - 38;
+            projectile.rotation += MathHelper.ToRadians(3);
+
 
         }
 

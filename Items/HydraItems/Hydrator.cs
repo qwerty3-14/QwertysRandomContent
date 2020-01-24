@@ -1,54 +1,53 @@
-﻿using System;
-using QwertysRandomContent.Items;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.Items.HydraItems
 {
     public class Hydrator : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("The Hydrator");
-			Tooltip.SetDefault("Three bobbers are better than one!");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("The Hydrator");
+            Tooltip.SetDefault("Three bobbers are better than one!");
+        }
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.GoldenFishingRod);  //This defines the fishing pole you want to clone
-            
+
             item.fishingPole = 42; //this defines the fishing pole fishing power
-            
+
             item.value = 25000;
-			item.rare = 3;    //The color the title of your item when hovering over it ingame .
+            item.rare = 3;    //The color the title of your item when hovering over it ingame .
             item.shoot = mod.ProjectileType("HydraBobber");  //This defines what type of projectile this item will shot
             item.shootSpeed = 9f; //this defines the the projectile speed when shot. for fishing pole also increases the fishing line length/range
         }
-        
-		// The code below makes the pole shoot two additional bobbers
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Projectile.NewProjectile(position.X, position.Y, speedX*1.2f, speedY*1.2f, type, damage, knockBack, player.whoAmI);
-			Projectile.NewProjectile(position.X, position.Y, speedX*0.8f, speedY*0.8f, type, damage, knockBack, player.whoAmI);
-			return true;
-		}
-		
+
+        // The code below makes the pole shoot two additional bobbers
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            Projectile.NewProjectile(position.X, position.Y, speedX * 1.2f, speedY * 1.2f, type, damage, knockBack, player.whoAmI);
+            Projectile.NewProjectile(position.X, position.Y, speedX * 0.8f, speedY * 0.8f, type, damage, knockBack, player.whoAmI);
+            return true;
+        }
+
     }
 
 
     public class HydraBobber : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hydra Bobber");
-		}
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hydra Bobber");
+        }
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.BobberGolden);   //so we are going to clone a bobber from vanilla terraria
         }
- 
+
         public override bool PreDrawExtras(SpriteBatch spriteBatch)      //this draws the fishing line correctly
         {
 
@@ -60,8 +59,8 @@ namespace QwertysRandomContent.Items.HydraItems
                 pPosY += Main.player[projectile.owner].gfxOffY;
                 int type = Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].type;
                 float gravDir = Main.player[projectile.owner].gravDir;
- 
-                if (type == mod.ItemType("Hydrator")) 
+
+                if (type == mod.ItemType("Hydrator"))
                 {
                     pPosX += (float)(50 * Main.player[projectile.owner].direction);
                     if (Main.player[projectile.owner].direction < 0)
@@ -70,7 +69,7 @@ namespace QwertysRandomContent.Items.HydraItems
                     }
                     pPosY -= 30f * gravDir;
                 }
- 
+
                 if (gravDir == -1f)
                 {
                     pPosY -= 12f;
@@ -166,7 +165,7 @@ namespace QwertysRandomContent.Items.HydraItems
                         }
                         rotation2 = (float)Math.Atan2((double)projPosY, (double)projPosX) - 1.57f;
                         Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)value.X / 16, (int)(value.Y / 16f), new Microsoft.Xna.Framework.Color(228, 29, 249));    //this is the fishing line color in RGB, 200 is red, 12 is green, 50 blue
- 
+
                         Main.spriteBatch.Draw(Main.fishingLineTexture, new Vector2(value.X - Main.screenPosition.X + (float)Main.fishingLineTexture.Width * 0.5f, value.Y - Main.screenPosition.Y + (float)Main.fishingLineTexture.Height * 0.5f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.fishingLineTexture.Width, (int)num)), color2, rotation2, new Vector2((float)Main.fishingLineTexture.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);
                     }
                 }

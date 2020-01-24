@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -44,7 +43,7 @@ namespace QwertysRandomContent.Tiles
         }
         public override bool CanPlace(int i, int j)
         {
-            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active()  || Main.tile[i, j - 1].active() || Main.tile[i+1, j + 1].active() || Main.tile[i-1, j + 1].active() || Main.tile[i, j + 2].active();
+            return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j - 1].active() || Main.tile[i + 1, j + 1].active() || Main.tile[i - 1, j + 1].active() || Main.tile[i, j + 2].active();
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
@@ -99,7 +98,7 @@ namespace QwertysRandomContent.Tiles
             VfanE.switchBlow = true;
         }
 
-        
+
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;

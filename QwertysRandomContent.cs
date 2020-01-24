@@ -1,40 +1,37 @@
-﻿using Terraria;
-using Terraria.Graphics.Effects;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Items.B4Items;
+using QwertysRandomContent.Items.Dyes;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-
-using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
-using System;
-using QwertysRandomContent.Items.B4Items;
-using QwertysRandomContent.Items.Dyes;
-using Terraria.Localization;
 
 
 namespace QwertysRandomContent
 {
-	public class QwertysRandomContent : Mod
-	{
+    public class QwertysRandomContent : Mod
+    {
         public static QwertysRandomContent Instance;
 
-        
+
         public static ModHotKey YetAnotherSpecialAbility;
         public static Vector2[] LocalCursor = new Vector2[Main.player.Length];
         public override void AddRecipeGroups()
         {
-           
+
 
             RecipeGroup group = new RecipeGroup(() => Lang.misc[37].Value + " evil bow", new int[]
             {
                 ItemID.DemonBow,
                 ItemID.TendonBow,
             });
-            
+
             RecipeGroup.RegisterGroup("QwertysrandomContent:EvilBows", group);
 
             group = new RecipeGroup(() => Lang.misc[37].Value + " Aerous Bow", new int[]
@@ -68,26 +65,26 @@ namespace QwertysRandomContent
 
         }
         //internal static QwertysRandomContent instance;
-		public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
+        public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
         public const string HydraHead1 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
         public const string HydraHead2 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
         public const string HydraHead3 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
         public QwertysRandomContent()
-		{
-			Properties = new ModProperties()
-			{
-				Autoload = true,
-				AutoloadGores = true,
-				AutoloadSounds = true
-			};
-			
-			
-		}
-        
-        
+        {
+            Properties = new ModProperties()
+            {
+                Autoload = true,
+                AutoloadGores = true,
+                AutoloadSounds = true
+            };
+
+
+        }
+
+
         public override void UpdateUI(GameTime gameTime)
         {
-            
+
         }
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
@@ -99,16 +96,16 @@ namespace QwertysRandomContent
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/HeavenlyFortress");
                     priority = MusicPriority.Event;
                 }
-                
+
             }
         }
         public override void PostSetupContent()
         {
-            
+
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                
+
                 bossChecklist.Call("AddBossWithInfo", "Ancient Machine", 5.5f, (Func<bool>)(() => QwertyWorld.downedAncient), "Look into the [i:" + ItemType("AncientEmblem") + "]");
                 bossChecklist.Call("AddBossWithInfo", "The Hydra", 6.000001f, (Func<bool>)(() => QwertyWorld.downedhydra), "Tempt with [i:" + ItemType("HydraSummon") + "]");
                 bossChecklist.Call("AddBossWithInfo", "Rune Ghost", 12.2f, (Func<bool>)(() => QwertyWorld.downedRuneGhost), "Use a [i:" + ItemType("SummoningRune") + "] to challenge its power. [i:" + ItemType("SummoningRune") + "] drops from the dungeon's sneaking ghosts");
@@ -124,7 +121,7 @@ namespace QwertysRandomContent
         }
         public static Deck<string> AMLoot = new Deck<string>();
         public override void Load()
-		{
+        {
             Config.Load();
             Instance = this;
             AMLoot.Add("AncientBlade");
@@ -153,25 +150,26 @@ namespace QwertysRandomContent
                 AddEquipTexture(new RhuthiniumGreavesFemale(), GetItem("RhuthiniumGreaves"), EquipType.Legs, "RhuthiniumGreaves_FemaleLegs", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_FemaleLegs");
                 AddEquipTexture(GetItem("HydraLeggings"), EquipType.Legs, "HydraLeggings_Female", "QwertysRandomContent/Items/HydraItems/HydraLeggings_FemaleLegs");
                 AddEquipTexture(GetItem("ShamanLegs"), EquipType.Legs, "ShamanLegs_Female", "QwertysRandomContent/Items/Armor/Shaman/ShamanLegs_FemaleLegs");
-               
-                
-                
+                AddEquipTexture(GetItem("VitallumJeans"), EquipType.Legs, "VitallumJeans_Female", "QwertysRandomContent/Items/Armor/Vitallum/VitallumJeans_FemaleLegs");
+
+
+
                 GameShaders.Armor.BindShader<CustomArmorShader>(ItemType("CustomDye"), new CustomArmorShader(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader2>(ItemType("CustomDye2"), new CustomArmorShader2(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader3>(ItemType("CustomDye3"), new CustomArmorShader3(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader4>(ItemType("CustomDye4"), new CustomArmorShader4(Main.PixelShaderRef, "ArmorColored"));
             }
-            
+
             //instance = this;
-			
-			ModTranslation text = CreateTranslation("DinoDefeat");
-			text.SetDefault("You drove the Dinosaurs to extinction!");
+
+            ModTranslation text = CreateTranslation("DinoDefeat");
+            text.SetDefault("You drove the Dinosaurs to extinction!");
             text.AddTranslation(GameCulture.Russian, "Ты довел динозавров до вымирания!");
             text.AddTranslation(GameCulture.Chinese, "你导致了恐龙灭绝!");
-			AddTranslation(text);
+            AddTranslation(text);
 
-			text = CreateTranslation("DinoEventStart");
-			text.SetDefault("The Dino Militia is coming!");
+            text = CreateTranslation("DinoEventStart");
+            text.SetDefault("The Dino Militia is coming!");
             text.AddTranslation(GameCulture.Russian, "Ополчение динозавров идет!");
             text.AddTranslation(GameCulture.Chinese, "恐龙自卫军即将抵达!");
             AddTranslation(text);
@@ -265,7 +263,7 @@ namespace QwertysRandomContent
 
             text = CreateTranslation("LuneCrestSet");
             text.SetDefault("Shoot the moon!" + "\nDouble right click summon a moon" + "\nRanged attacks shot through the moon will be boosted");
-            text.AddTranslation(GameCulture.Russian, "Двойной щелчок правой кнопкой мыши вызывает луну "+" \nДальние атаки, прошедшие сквозь луну, будут усилены");
+            text.AddTranslation(GameCulture.Russian, "Двойной щелчок правой кнопкой мыши вызывает луну " + " \nДальние атаки, прошедшие сквозь луну, будут усилены");
             text.AddTranslation(GameCulture.Chinese, "射击月亮!\n双击右键召唤一个月亮\n穿过月亮的远程射击会被加速");
             AddTranslation(text);
 
@@ -289,7 +287,7 @@ namespace QwertysRandomContent
 
             text = CreateTranslation("RGogglesSet");
             text.SetDefault("Throwing attacks confuse and poison enemies" + "\n+10% throwing damage");
-            text.AddTranslation(GameCulture.Russian, "Метательные атаки сбивают с толку и отравляют врагов "+" \n + 10% к урону");
+            text.AddTranslation(GameCulture.Russian, "Метательные атаки сбивают с толку и отравляют врагов " + " \n + 10% к урону");
             text.AddTranslation(GameCulture.Chinese, "投掷攻击会混乱和毒杀敌人\n增加10%投掷伤害");
             AddTranslation(text);
 
@@ -567,7 +565,7 @@ namespace QwertysRandomContent
             AddBossHeadTexture(HydraHead3);
 
             if (!Main.dedServ)
-			{
+            {
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/EnergisedPlanetaryIncinerationClimax"), ItemType("B4MusicBox"), TileType("B4MusicBox"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BuiltToDestroy"), ItemType("AncientMusicBox"), TileType("MusicBoxBuiltToDestroy"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/HeavenlyFortress"), ItemType("MusicBoxHeavenlyFortress"), TileType("MusicBoxHeavenlyFortress"));
@@ -581,17 +579,17 @@ namespace QwertysRandomContent
 
 
             }
-			
-			
-		}
+
+
+        }
         public override void Unload()
         {
 
             // Unload static references
             // You need to clear static references to assets (Texture2D, SoundEffects, Effects). 
-            
+
             YetAnotherSpecialAbility = null;
-            Instance = null; 
+            Instance = null;
 
         }
         public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -710,12 +708,12 @@ namespace QwertysRandomContent
                     Vector2 pos = reader.ReadVector2();
 
                     Main.player[playerIndex3].position = pos;
-                    
+
                     if (Main.netMode == 2)
                     {
                         UpdatePlayerPosition(playerIndex3, pos);
                         NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, playerIndex3);
-                        
+
                     }
                     break;
                 case ModMessageType.ProjectileAIUpdate:
@@ -733,7 +731,7 @@ namespace QwertysRandomContent
                             ProjectileAIUpdate(Main.projectile[realIdentity6]);
                         }
                     }
-                    
+
                     break;
                 case ModMessageType.DivineCall:
                     QwertyWorld.FortressBossQuotes();
@@ -747,12 +745,12 @@ namespace QwertysRandomContent
                     {
                         NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
                     }
-                        
+
                     break;
 
             }
         }
-        
+
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             QwertyWorld modWorld = (QwertyWorld)GetModWorld("QwertyWorld");
@@ -769,10 +767,10 @@ namespace QwertysRandomContent
                 layers.Insert(index, orionProgress);
             }
         }
-        
+
         public void DrawDinoEvent(SpriteBatch spriteBatch)
         {
-           
+
             if (QwertyWorld.DinoEvent && !Main.gameMenu)
             {
                 float scaleMultiplier = 0.5f + 1 * 0.5f;
@@ -798,7 +796,7 @@ namespace QwertysRandomContent
 
                     //draw wave text
 
-                    string waveText = Language.GetTextValue("Mods.QwertysRandomContent.DinoMilitiaCleared") + (int)(((float)QwertyWorld.DinoKillCount / (NPC.downedMoonlord ? 300:150))*100) + "%";
+                    string waveText = Language.GetTextValue("Mods.QwertysRandomContent.DinoMilitiaCleared") + (int)(((float)QwertyWorld.DinoKillCount / (NPC.downedMoonlord ? 300 : 150)) * 100) + "%";
                     Utils.DrawBorderString(spriteBatch, waveText, new Vector2(waveBackground.X + waveBackground.Width / 2, waveBackground.Y), Color.White, scaleMultiplier, 0.5f, -0.1f);
 
                     //draw the progress bar
@@ -807,9 +805,9 @@ namespace QwertysRandomContent
                     {
 
                     }
-                   // Main.NewText(MathHelper.Clamp((modWorld.DinoKillCount/modWorld.MaxDinoKillCount), 0f, 1f));
+                    // Main.NewText(MathHelper.Clamp((modWorld.DinoKillCount/modWorld.MaxDinoKillCount), 0f, 1f));
                     Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(waveBackground.X + waveBackground.Width * 0.5f, waveBackground.Y + waveBackground.Height * 0.75f), new Vector2(progressColor.Width, progressColor.Height));
-                    Rectangle waveProgressAmount = new Rectangle(0, 0, (int)(progressColor.Width  * MathHelper.Clamp(((float)QwertyWorld.DinoKillCount / (float)(NPC.downedMoonlord ? 300 : 150)), 0f, 1f)), progressColor.Height);
+                    Rectangle waveProgressAmount = new Rectangle(0, 0, (int)(progressColor.Width * MathHelper.Clamp(((float)QwertyWorld.DinoKillCount / (float)(NPC.downedMoonlord ? 300 : 150)), 0f, 1f)), progressColor.Height);
                     Vector2 offset = new Vector2((waveProgressBar.Width - (int)(waveProgressBar.Width * scaleMultiplier)) * 0.5f, (waveProgressBar.Height - (int)(waveProgressBar.Height * scaleMultiplier)) * 0.5f);
 
                     spriteBatch.Draw(progressBg, waveProgressBar.Location.ToVector2() + offset, null, Color.White * alpha, 0f, new Vector2(0f), scaleMultiplier, SpriteEffects.None, 0f);
@@ -924,11 +922,11 @@ namespace QwertysRandomContent
     }
     public class RhuthiniumGreavesMale : EquipTexture
     {
-       
+
     }
 
     public class RhuthiniumGreavesFemale : EquipTexture
     {
-        
+
     }
 }

@@ -1,12 +1,7 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.TwistedDark
 {
@@ -50,10 +45,10 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DarkSet");
             player.GetModPlayer<ShapeShifterPlayer>().TwistedDarkSetBonus = true;
-            if(player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
+            if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
                 player.statLifeMax2 += 100;
-                
+
             }
         }
         public override void UpdateEquip(Player player)
@@ -67,13 +62,13 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         }
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
-            
+
             drawHands = true;
 
             drawArms = true;
 
         }
-        
+
     }
 
 }

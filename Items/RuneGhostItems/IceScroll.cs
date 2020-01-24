@@ -1,12 +1,7 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace QwertysRandomContent.Items.RuneGhostItems
@@ -42,13 +37,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            
+
             modPlayer.iceScroll = true;
-            
+
 
         }
 
-        
+
 
     }
     class IceRuneFreindly : ModProjectile
@@ -78,7 +73,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void AI()
         {
-            
+
             Player player = Main.player[projectile.owner];
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (runOnce)
@@ -100,7 +95,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                 projectile.Kill();
 
             }
-            
+
 
 
         }
@@ -108,7 +103,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         {
             target.AddBuff(BuffID.Frostburn, 1200);
         }
-        
+
     }
 
 

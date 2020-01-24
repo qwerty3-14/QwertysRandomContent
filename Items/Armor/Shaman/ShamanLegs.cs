@@ -1,24 +1,22 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Shaman
 {
-	
-	[AutoloadEquip(EquipType.Legs)]
-	public class ShamanLegs : ModItem
-	{
-		
-		
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shaman Pants");
-			Tooltip.SetDefault("2% increased minion damage and melee critical strike chance \n+1 max sentries \nMelee attacks can inflict decay \nDecay reduces enemy offense and defense");
-			
-		}
+
+    [AutoloadEquip(EquipType.Legs)]
+    public class ShamanLegs : ModItem
+    {
+
+
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shaman Pants");
+            Tooltip.SetDefault("2% increased minion damage and melee critical strike chance \n+1 max sentries \nMelee attacks can inflict decay \nDecay reduces enemy offense and defense");
+
+        }
 
         public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
         {
@@ -26,21 +24,21 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             if (!male) equipSlot = mod.GetEquipSlot("ShamanLegs_Female", EquipType.Legs);
         }
         public override void SetDefaults()
-		{
+        {
 
             item.value = Item.sellPrice(gold: 1);
             item.rare = 1;
             item.defense = 5;
             item.width = 20;
-			item.height = 20;
-			
-		}
+            item.height = 20;
+
+        }
         public override void UpdateEquip(Player player)
         {
             player.minionDamage += .02f;
             player.meleeCrit += 2;
             player.maxTurrets++;
-            player.GetModPlayer<ShamanLegsEffects>().effect = true; 
+            player.GetModPlayer<ShamanLegsEffects>().effect = true;
         }
         public override void AddRecipes()
         {
@@ -61,7 +59,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if(item.melee && Main.rand.Next(3)==0 && effect)
+            if (item.melee && Main.rand.Next(3) == 0 && effect)
             {
                 target.AddBuff(mod.BuffType("Decay"), 180);
             }
@@ -74,7 +72,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             }
         }
     }
-		
-	
+
+
 }
 

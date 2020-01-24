@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -41,7 +37,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            
+
             float minionCount = 0;
             foreach (Projectile projectile in Main.projectile)
             {
@@ -113,7 +109,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             bool spinAttack = false;
             bladeLength = 24 + 16 + 14 * projectile.minionSlots;
             counter++;
-            if(counter % projectile.localNPCHitCooldown == 0)
+            if (counter % projectile.localNPCHitCooldown == 0)
             {
                 turnOffset *= -1;
             }
@@ -123,41 +119,41 @@ namespace QwertysRandomContent.Items.BladeBossItems
             if (modPlayer.SwordMinion)
             {
                 projectile.timeLeft = 2;
-                
+
             }
-            if((player.Center - projectile.Center).Length() > 1000)
+            if ((player.Center - projectile.Center).Length() > 1000)
             {
                 returningToPlayer = true;
             }
-            if((player.Center - projectile.Center).Length() <300)
+            if ((player.Center - projectile.Center).Length() < 300)
             {
                 returningToPlayer = false;
             }
-            Vector2 flyTo = player.Center + new Vector2(-50 * player.direction, -50 - 14 * projectile.minionSlots) + Vector2.UnitY * (float)Math.Sin(yetAnotherTrigCounter)*20;
+            Vector2 flyTo = player.Center + new Vector2(-50 * player.direction, -50 - 14 * projectile.minionSlots) + Vector2.UnitY * (float)Math.Sin(yetAnotherTrigCounter) * 20;
             float turnTo = (float)Math.PI / 2;
             float speed = 10f;
-            if(returningToPlayer)
+            if (returningToPlayer)
             {
-                speed = (player.Center - projectile.Center).Length() /30f;
+                speed = (player.Center - projectile.Center).Length() / 30f;
             }
-            if(QwertyMethods.ClosestNPC(ref target, 800, projectile.Center, false, player.MinionAttackTargetNPC) && !returningToPlayer)
+            if (QwertyMethods.ClosestNPC(ref target, 800, projectile.Center, false, player.MinionAttackTargetNPC) && !returningToPlayer)
             {
                 Vector2 difference2 = projectile.Center - target.Center;
-                flyTo = target.Center + QwertyMethods.PolarVector(bladeLength/2, difference2.ToRotation());
+                flyTo = target.Center + QwertyMethods.PolarVector(bladeLength / 2, difference2.ToRotation());
                 turnTo = (target.Center - projectile.Center).ToRotation();
                 int nerabyEnemies = 0;
-                foreach(NPC npc in Main.npc)
+                foreach (NPC npc in Main.npc)
                 {
-                    if(npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && !npc.immortal && (npc.Center-projectile.Center).Length()<bladeLength)
+                    if (npc.active && npc.chaseable && !npc.dontTakeDamage && !npc.friendly && npc.lifeMax > 5 && !npc.immortal && (npc.Center - projectile.Center).Length() < bladeLength)
                     {
                         nerabyEnemies++;
                     }
                 }
-                if(nerabyEnemies >2)
+                if (nerabyEnemies > 2)
                 {
                     spinAttack = true;
                 }
-                if(difference2.Length()< bladeLength)
+                if (difference2.Length() < bladeLength)
                 {
                     turnTo += turnOffset;
                 }
@@ -173,7 +169,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             {
                 projectile.velocity = difference.SafeNormalize(Vector2.UnitY) * speed;
             }
-            if(spinAttack)
+            if (spinAttack)
             {
                 projectile.rotation += (float)Math.PI / 15;
             }
@@ -181,7 +177,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             {
                 projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, turnTo, 6);
             }
-            
+
 
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -198,11 +194,11 @@ namespace QwertysRandomContent.Items.BladeBossItems
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
             spriteBatch.Draw(texture, projectile.Center - Main.screenPosition,
-                       new Rectangle(0,0,31,21), lightColor, projectile.rotation,
+                       new Rectangle(0, 0, 31, 21), lightColor, projectile.rotation,
                        new Vector2(9f, 11f), projectile.scale, SpriteEffects.None, 0f);
-            for(int b =0; b < projectile.minionSlots; b++)
+            for (int b = 0; b < projectile.minionSlots; b++)
             {
-                spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + QwertyMethods.PolarVector(22 + b*14, projectile.rotation),
+                spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + QwertyMethods.PolarVector(22 + b * 14, projectile.rotation),
                        new Rectangle(34, 0, 14, 21), lightColor, projectile.rotation,
                        new Vector2(0, 11f), projectile.scale, SpriteEffects.None, 0f);
             }
@@ -213,7 +209,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage += (int)projectile.minionSlots * damage/2;
+            damage += (int)projectile.minionSlots * damage / 2;
         }
     }
 }

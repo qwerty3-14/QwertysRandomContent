@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,8 +29,8 @@ namespace QwertysRandomContent.Items.TundraBossItems
             item.width = 48;
             item.height = 48;
 
-           
-            
+
+
             item.noMelee = false;
             item.autoReuse = true;
 
@@ -41,7 +38,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            Projectile penguin = Main.projectile[Projectile.NewProjectile(player.Center, (target.Center-player.Center).SafeNormalize(-Vector2.UnitY)*6, mod.ProjectileType("SlidingPenguin"), item.damage, item.knockBack, player.whoAmI, ai1:1)];
+            Projectile penguin = Main.projectile[Projectile.NewProjectile(player.Center, (target.Center - player.Center).SafeNormalize(-Vector2.UnitY) * 6, mod.ProjectileType("SlidingPenguin"), item.damage, item.knockBack, player.whoAmI, ai1: 1)];
             penguin.melee = true;
             penguin.ranged = false;
         }
@@ -56,8 +53,8 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
 
     }
-    
-    
+
+
 
 }
 

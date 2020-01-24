@@ -1,15 +1,13 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.ModLoader;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class Mirrors : ModTile
     {
-       
+
         public override void SetDefaults()
         {
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -24,17 +22,17 @@ namespace QwertysRandomContent.Tiles
             };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
-            
+
 
             Main.tileFrameImportant[Type] = true;
-            
+
             Main.tileLavaDeath[Type] = true;
 
             ModTranslation name = CreateMapEntryName();
-           
+
             soundType = 21;
             soundStyle = 2;
-            
+
             AddMapEntry(new Color(162, 184, 185));
             name.SetDefault("Fortress Carving");
 
@@ -57,8 +55,8 @@ namespace QwertysRandomContent.Tiles
                     Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("FortressMirror"));
                     break;
             }
-            
+
         }
-       
+
     }
 }

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
 {
     public class StaffOfJob : ModItem
     {
-        
+
 
         public override void SetStaticDefaults()
         {
@@ -55,20 +52,20 @@ namespace QwertysRandomContent.Items.Etims
                 {
                     line.text = (int)(item.damage * Main.player[item.owner].magicDamage) + " damage per second";//change tooltip
                 }
-                if(line.mod == "Terraria" && (line.Name == "CritChance" || line.Name == "Knockback" || line.Name == "Speed"))
+                if (line.mod == "Terraria" && (line.Name == "CritChance" || line.Name == "Knockback" || line.Name == "Speed"))
                 {
                     line.text = "";
                 }
-                
+
 
             }
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             NPC target = new NPC();
-            if(QwertyMethods.ClosestNPC(ref target, 100, Main.MouseWorld, true))
+            if (QwertyMethods.ClosestNPC(ref target, 100, Main.MouseWorld, true))
             {
-                target.GetGlobalNPC<GraveMisery>().MiseryIntensity = (int)(item.damage*2 * player.magicDamage);
+                target.GetGlobalNPC<GraveMisery>().MiseryIntensity = (int)(item.damage * 2 * player.magicDamage);
             }
             return false;
         }
@@ -85,7 +82,7 @@ namespace QwertysRandomContent.Items.Etims
         public int MiseryIntensity = 0;
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            if(MiseryIntensity >0)
+            if (MiseryIntensity > 0)
             {
                 npc.lifeRegenExpectedLossPerSecond = 1;
                 if (npc.lifeRegen > 0)
@@ -94,30 +91,30 @@ namespace QwertysRandomContent.Items.Etims
                 }
                 npc.lifeRegen -= MiseryIntensity;
             }
-            
+
         }
         float trigCounter = 0f;
         public override void AI(NPC npc)
         {
-            
-            if(MiseryIntensity >0)
+
+            if (MiseryIntensity > 0)
             {
                 MiseryIntensity--;
-                trigCounter += MiseryIntensity * (float)Math.PI / (60f*240f) ;
+                trigCounter += MiseryIntensity * (float)Math.PI / (60f * 240f);
                 if (MiseryIntensity > 5)
                 {
                     MiseryIntensity = 5;
                 }
             }
-           
+
         }
         public Texture2D DrawCurve(int width, int height, float shift, bool increasing)
         {
-            if(Math.Sin(trigCounter + shift)<0)
+            if (Math.Sin(trigCounter + shift) < 0)
             {
                 increasing = !increasing;
             }
-            if(Math.Cos(trigCounter + shift) < 0)
+            if (Math.Cos(trigCounter + shift) < 0)
             {
                 increasing = !increasing;
             }
@@ -137,16 +134,16 @@ namespace QwertysRandomContent.Items.Etims
             int minor = Math.Min(height, width);
             int semiMajor = (major - 1) / 2;
             int semiMinor = (minor - 1) / 2;
-            if (major != 0 && minor != 0 && semiMajor != 0 && semiMinor != 0 )
+            if (major != 0 && minor != 0 && semiMajor != 0 && semiMinor != 0)
             {
 
                 Texture2D curve = new Texture2D(Main.graphics.GraphicsDevice, width, height);
                 Color[] dataColors = new Color[width * height];
                 for (int x = 0; x < width; x++)
                 {
-                    int y = (int)( ((float)semiMinor / semiMajor) * Math.Sqrt((semiMajor * semiMajor)-((x - width / 2 )* (x - width / 2))) );
-                    dataColors[x + (height/2 + y *(increasing ? 1:-1)) * width] = new Color(122, 24, 24);
-                   // dataColors[x + (height / 2 + y) * width] = new Color(122, 24, 24);
+                    int y = (int)(((float)semiMinor / semiMajor) * Math.Sqrt((semiMajor * semiMajor) - ((x - width / 2) * (x - width / 2))));
+                    dataColors[x + (height / 2 + y * (increasing ? 1 : -1)) * width] = new Color(122, 24, 24);
+                    // dataColors[x + (height / 2 + y) * width] = new Color(122, 24, 24);
                 }
                 curve.SetData(0, null, dataColors, 0, width * height);
                 return curve;
@@ -159,15 +156,15 @@ namespace QwertysRandomContent.Items.Etims
 
             if (MiseryIntensity > 0)
             {
-                
-                for(int i =0; i< painRings; i++)
+
+                for (int i = 0; i < painRings; i++)
                 {
-                    Texture2D curve = DrawCurve(npc.width + 50, npc.height + 50, i* ( (float)Math.PI )/painRings, false);
+                    Texture2D curve = DrawCurve(npc.width + 50, npc.height + 50, i * ((float)Math.PI) / painRings, false);
                     spriteBatch.Draw(curve, npc.Center - Main.screenPosition,
                            curve.Frame(), Color.White, 0f,
                            curve.Size() * .5f, 2f, SpriteEffects.None, 0f);
                 }
-               
+
             }
             return base.PreDraw(npc, spriteBatch, drawColor);
         }
@@ -177,7 +174,7 @@ namespace QwertysRandomContent.Items.Etims
             {
                 for (int i = 0; i < painRings; i++)
                 {
-                    Texture2D curve = DrawCurve(npc.width + 50, npc.height + 50, i * ( (float)Math.PI) / painRings, true);
+                    Texture2D curve = DrawCurve(npc.width + 50, npc.height + 50, i * ((float)Math.PI) / painRings, true);
                     spriteBatch.Draw(curve, npc.Center - Main.screenPosition,
                            curve.Frame(), Color.White, 0f,
                            curve.Size() * .5f, 2f, SpriteEffects.None, 0f);
@@ -185,6 +182,6 @@ namespace QwertysRandomContent.Items.Etims
             }
         }
     }
-    
-    
+
+
 }

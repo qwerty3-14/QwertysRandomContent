@@ -8,18 +8,18 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.MiscSwords
 {
-	public class TerraBladeWithSlashEnchantment : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Terra Blade With Slash Enchantment");
-			Tooltip.SetDefault("Right click for a powerful slash attack");
-			
-		}
+    public class TerraBladeWithSlashEnchantment : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Terra Blade With Slash Enchantment");
+            Tooltip.SetDefault("Right click for a powerful slash attack");
+
+        }
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.TerraBlade);
-           
+
 
         }
         public override bool OnlyShootOnSwing => true;
@@ -96,7 +96,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-            
+
 
             projectile.width = 40;
             projectile.height = 40;
@@ -105,8 +105,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             projectile.penetrate = -1;
             projectile.melee = true;
             projectile.tileCollide = false;
-            projectile.timeLeft =4;
-            
+            projectile.timeLeft = 4;
+
 
 
 
@@ -116,9 +116,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
         public override void AI()
         {
 
-            
-            projectile.rotation = (projectile.velocity).ToRotation() + (float)(Math.PI/2);
-            
+
+            projectile.rotation = (projectile.velocity).ToRotation() + (float)(Math.PI / 2);
+
         }
 
     }

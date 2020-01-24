@@ -1,9 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 namespace QwertysRandomContent.NPCs.AncientMachine
 {
     public class AncientMachine : ModNPC
@@ -37,7 +37,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             npc.lifeMax = 7500;
             bossBag = mod.ItemType("AncientMachineBag");
             npc.buffImmune[20] = true;
-            
+
 
         }
         public override void BossLoot(ref string name, ref int potionType)
@@ -53,22 +53,22 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-                return 0f;
+            return 0f;
         }
         void ADI(int amount, Vector2 position)
         {
             for (int i = 0; i < amount; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                Dust dust = Dust.NewDustPerfect(position, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(Main.rand.Next(amount/200, amount/20), theta));
+                Dust dust = Dust.NewDustPerfect(position, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(Main.rand.Next(amount / 200, amount / 20), theta));
                 dust.noGravity = true;
             }
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-            if(npc.life <=0)
+            if (npc.life <= 0)
             {
-               
+
                 Vector2 pos = npc.Center + QwertyMethods.PolarVector(98, npc.rotation) + QwertyMethods.PolarVector(120, npc.rotation + (float)Math.PI / 2);
                 Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/Debris_1"), 1f)];
                 gore.rotation = npc.rotation;
@@ -115,7 +115,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 gore.rotation = npc.rotation;
 
             }
-            
+
 
         }
         Vector2 MissileOffset = new Vector2();
@@ -124,7 +124,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         const int defaultFrameY = 148;
         public override void FindFrame(int frameHeight)
         {
-            
+
 
             npc.frameCounter++;
 
@@ -149,25 +149,25 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 npc.frame.X = 0;
                 npc.frame.Width = npc.width;
             }
-            switch(frame)
+            switch (frame)
             {
                 case 0:
                     MissileOffset = new Vector2(defaultFrameX, defaultFrameY);
                     break;
                 case 1:
-                    MissileOffset = new Vector2(defaultFrameX-2, defaultFrameY+2);
+                    MissileOffset = new Vector2(defaultFrameX - 2, defaultFrameY + 2);
                     break;
                 case 2:
-                    MissileOffset = new Vector2(defaultFrameX-2, defaultFrameY+6);
+                    MissileOffset = new Vector2(defaultFrameX - 2, defaultFrameY + 6);
                     break;
                 case 3:
-                    MissileOffset = new Vector2(defaultFrameX-2, defaultFrameY+8);
+                    MissileOffset = new Vector2(defaultFrameX - 2, defaultFrameY + 8);
                     break;
                 case 4:
-                    MissileOffset = new Vector2(defaultFrameX-4, defaultFrameY+10);
+                    MissileOffset = new Vector2(defaultFrameX - 4, defaultFrameY + 10);
                     break;
                 case 5:
-                    MissileOffset = new Vector2(defaultFrameX+2, defaultFrameY+6);
+                    MissileOffset = new Vector2(defaultFrameX + 2, defaultFrameY + 6);
                     break;
                 case 6:
                     MissileOffset = new Vector2(defaultFrameX, defaultFrameY);
@@ -187,23 +187,23 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         public int AI_Timer2 = 0;
         public bool runOnce = true;
         Vector2 moveTo;
-        float orbSpeed=12;
+        float orbSpeed = 12;
         bool angry;
         bool justTeleported;
         int missileReloadCounter;
-        int missileFrame=0;
+        int missileFrame = 0;
         int missileFlashCounter;
         int missileGlowFrame = 0;
         float angle = (float)Math.PI / 6;
         public override void AI()
         {
             missileFlashCounter++;
-            if(missileFlashCounter>60)
+            if (missileFlashCounter > 60)
             {
                 missileFlashCounter = 0;
-                
+
             }
-            else if(missileFlashCounter>30)
+            else if (missileFlashCounter > 30)
             {
                 missileGlowFrame = 1;
             }
@@ -211,14 +211,14 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             {
                 missileGlowFrame = 0;
             }
-            if(missileReloadCounter>0)
+            if (missileReloadCounter > 0)
             {
                 missileReloadCounter--;
             }
-            
+
             //Main.NewText(npc.Size);
             //Main.NewText(npc.scale);
-            if (npc.life < npc.lifeMax/2 && Main.expertMode)
+            if (npc.life < npc.lifeMax / 2 && Main.expertMode)
             {
                 angry = true;
             }
@@ -232,22 +232,22 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 {
                     npc.ai[0] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                     npc.netUpdate = true;
-                   
+
                 }
                 runOnce = false;
-                 moveTo = new Vector2(player.Center.X + (float)Math.Cos(npc.ai[0]) * 700, player.Center.Y + (float)Math.Sin(npc.ai[0]) * 400);
+                moveTo = new Vector2(player.Center.X + (float)Math.Cos(npc.ai[0]) * 700, player.Center.Y + (float)Math.Sin(npc.ai[0]) * 400);
             }
             AI_Timer++;
             AI_Timer2++;
-            
+
             if (Main.expertMode)
             {
                 #region exerpt aggression
                 damage = 20;
-                
+
                 #endregion
             }
-            
+
             if (!player.active || player.dead)
             {
                 npc.TargetClosest(false);
@@ -270,7 +270,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
 
 
-            
+
 
 
             /*
@@ -300,14 +300,14 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 }
                 if (Main.netMode != 1)
                 {
-                   
+
 
 
                     npc.ai[0] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                     npc.netUpdate = true;
                 }
                 moveTo = new Vector2(player.Center.X + (float)Math.Cos(npc.ai[0]) * 700, player.Center.Y + (float)Math.Sin(npc.ai[0]) * 400);
-                if(Main.netMode !=1)
+                if (Main.netMode != 1)
                 {
                     npc.ai[2] = moveTo.X;
                     npc.ai[3] = moveTo.Y;
@@ -316,7 +316,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 justTeleported = true;
                 AI_Timer = 0;
                 AI_Timer2 = 0;
-                
+
             }
             if (moveCount >= 3)
             {
@@ -360,21 +360,21 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                         missileReloadCounter = 60;
                         if (Main.netMode != 1)
                         {
-                            Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) +QwertyMethods.PolarVector(MissileOffset.Y, npc.rotation +(float)Math.PI/2), QwertyMethods.PolarVector(orbSpeed, npc.rotation+ angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
-                            Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(-MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation- angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation + angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(-MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation - angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
 
                         }
 
                     }
                     if (npc.ai[1] == 2)
                     {
-                        
+
 
                         if (Main.netMode != 1)
                         {
                             float d = new Vector2(player.Center.X - npc.Center.X, player.Center.Y - npc.Center.Y).ToRotation();
                             Vector2 pos = npc.Center + QwertyMethods.PolarVector(200, npc.rotation) + QwertyMethods.PolarVector(100, npc.rotation + (float)Math.PI / 2);
-                            NPC.NewNPC((int)pos.X, (int)pos.Y, mod.NPCType("AncientMinion"), 0 , npc.whoAmI);
+                            NPC.NewNPC((int)pos.X, (int)pos.Y, mod.NPCType("AncientMinion"), 0, npc.whoAmI);
                             pos = npc.Center + QwertyMethods.PolarVector(200, npc.rotation) + QwertyMethods.PolarVector(-100, npc.rotation + (float)Math.PI / 2);
                             NPC.NewNPC((int)pos.X, (int)pos.Y, mod.NPCType("AncientMinion"), 0, npc.whoAmI);
                             if (angry)
@@ -411,8 +411,8 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                             missileReloadCounter = 60;
                             if (Main.netMode != 1)
                             {
-                                Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation+ angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
-                                Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(-MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation- angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation + angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
+                                Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(-MissileOffset.Y, npc.rotation + (float)Math.PI / 2), QwertyMethods.PolarVector(orbSpeed, npc.rotation - angle), mod.ProjectileType("AncientMissile"), damage, 3f, Main.myPlayer);
 
                             }
 
@@ -432,7 +432,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                     Main.PlaySound(25, npc.position, 0);
                     if (Main.netMode != 1)
                     {
-                        
+
                         Projectile.NewProjectile(npc.Center, new Vector2((float)Math.Cos((npc.rotation)), (float)Math.Sin(npc.rotation)) * orbSpeed, mod.ProjectileType("AncientEnergy"), damage, 3f, Main.myPlayer);
                     }
                 }
@@ -441,7 +441,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                     Main.PlaySound(25, npc.position, 0);
                     if (Main.netMode != 1)
                     {
-                        
+
                         Projectile.NewProjectile(npc.Center, new Vector2((float)Math.Cos((npc.rotation)), (float)Math.Sin(npc.rotation)) * orbSpeed, mod.ProjectileType("AncientEnergy"), damage, 3f, Main.myPlayer);
                     }
                 }
@@ -456,7 +456,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
 
 
-            if(justTeleported)
+            if (justTeleported)
             {
                 Main.PlaySound(SoundID.Item8, npc.position);
                 for (int i = 0; i < RingDustQty; i++)
@@ -477,11 +477,11 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
 
         }
-        
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Rectangle mF = new Rectangle(0, missileGlowFrame * 36, 20, 36);
-            
+
             /*
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMachineEquipedMissile"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
                         new Rectangle(missileGlowFrame * 392, missileFrame*380, 392, 380), drawColor, npc.rotation,
@@ -489,10 +489,10 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMachineEquipedMissile_Glow"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
                         new Rectangle(missileGlowFrame * 392, missileFrame * 380, 392, 380), Color.White, npc.rotation,
                         new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, SpriteEffects.None, 0f);*/
-            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMissile"), npc.Center - Main.screenPosition + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(MissileOffset.Y, npc.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(-missileReloadCounter/2, npc.rotation+angle),
+            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMissile"), npc.Center - Main.screenPosition + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(MissileOffset.Y, npc.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(-missileReloadCounter / 2, npc.rotation + angle),
                         mF, drawColor, npc.rotation + (float)Math.PI / 2 + angle,
                         new Vector2(mF.Width * 0.5f, mF.Height * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMissile"), npc.Center - Main.screenPosition + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(-MissileOffset.Y, npc.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(-missileReloadCounter/2, npc.rotation - angle),
+            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMissile"), npc.Center - Main.screenPosition + QwertyMethods.PolarVector(MissileOffset.X, npc.rotation) + QwertyMethods.PolarVector(-MissileOffset.Y, npc.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(-missileReloadCounter / 2, npc.rotation - angle),
                         mF, drawColor, npc.rotation + (float)Math.PI / 2 - angle,
                         new Vector2(mF.Width * 0.5f, mF.Height * 0.5f), 1f, SpriteEffects.None, 0f);
 
@@ -524,15 +524,15 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             }
             else
             {
-               
+
                 string[] loot = QwertysRandomContent.AMLoot.Draw(2);
 
                 foreach (string item in loot)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType(item));
                 }
-                  
-               
+
+
 
                 if (Main.rand.Next(100) < 15)
                 {
@@ -553,7 +553,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             index = NPCHeadLoader.GetBossHeadSlot(QwertysRandomContent.AncientMachineHead);
 
         }
-       
+
     }
 
     public class AncientEnergy : ModProjectile
@@ -578,7 +578,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             projectile.alpha = 255;
 
         }
-        
+
         public int dustTimer;
 
         public override void AI()
@@ -593,11 +593,11 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 projectile.alpha = 0;
             }
             projectile.scale = .5f + (.5f * 1 - (projectile.alpha / 255f));
-            for(int d =0; d < projectile.alpha/10; d++)
+            for (int d = 0; d < projectile.alpha / 10; d++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(70, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-10, theta) + projectile.velocity);
-                
+
                 dust.alpha = 255;
             }
             //Main.NewText(projectile.alpha);
@@ -605,17 +605,17 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             if (dustTimer > 2)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AncientGlow"), 0, 0, 0, default(Color), .4f);
-                
+
                 dustTimer = 0;
             }
             projectile.frameCounter++;
-            
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            
+
             spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientEnergy"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0, 0, 0, 0), (float)projectile.alpha/255f), projectile.rotation,
+                        new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0, 0, 0, 0), (float)projectile.alpha / 255f), projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
@@ -642,13 +642,13 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
 
         }
-        
+
         public int dustTimer;
         float direction;
         float missileAcceleration = .5f;
-        float topSpeed=10f;
+        float topSpeed = 10f;
         int timer;
-        float closest= 10000;
+        float closest = 10000;
         public override void AI()
         {
             projectile.frameCounter++;
@@ -668,13 +668,13 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 {
                     for (int i = 0; i < 255; i++)
                     {
-                        if(Main.player[i].active && (projectile.Center - Main.player[i].Center).Length()<closest)
+                        if (Main.player[i].active && (projectile.Center - Main.player[i].Center).Length() < closest)
                         {
                             closest = (projectile.Center - Main.player[i].Center).Length();
                             projectile.ai[0] = (Main.player[i].Center - projectile.Center).ToRotation();
                             projectile.netUpdate = true;
                         }
-                        
+
                     }
                 }
                 projectile.velocity += new Vector2((float)Math.Cos(projectile.ai[0]) * missileAcceleration, (float)Math.Sin(projectile.ai[0]) * missileAcceleration);
@@ -685,7 +685,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
             }
             //int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AncientGlow"), 0, 0, 0, default(Color), .4f);
-            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(26, projectile.rotation+(float)Math.PI/2)  + QwertyMethods.PolarVector(Main.rand.Next(-6, 6), projectile.rotation), mod.DustType("AncientGlow"));
+            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(26, projectile.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(Main.rand.Next(-6, 6), projectile.rotation), mod.DustType("AncientGlow"));
             closest = 10000;
         }
         public override void Kill(int timeLeft)
@@ -736,7 +736,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             projectile.height = 150;
 
 
-            
+
             Main.PlaySound(SoundID.Item62, projectile.position);
 
 
@@ -745,7 +745,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(Main.rand.Next(2, 20), theta));
                 dust.noGravity = true;
-                
+
 
             }
         }

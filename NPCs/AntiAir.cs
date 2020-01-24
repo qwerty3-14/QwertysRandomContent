@@ -1,8 +1,7 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
 
 namespace QwertysRandomContent.NPCs
@@ -303,11 +302,11 @@ namespace QwertysRandomContent.NPCs
 
             if (projectile.Center.X - player.Center.X < 0)
             {
-                if(Main.netMode != 1)
+                if (Main.netMode != 1)
                 {
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 10f, 0f, mod.ProjectileType("AntiAirSide"), 40, 3f, Main.myPlayer);
                 }
-                
+
             }
             else
             {
@@ -315,7 +314,7 @@ namespace QwertysRandomContent.NPCs
                 {
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -10f, 0f, mod.ProjectileType("AntiAirSide"), 40, 3f, Main.myPlayer);
                 }
-                
+
             }
 
             //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, 102, 300, 3f, Main.myPlayer);

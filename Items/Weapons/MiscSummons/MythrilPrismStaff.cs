@@ -1,44 +1,43 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
 
-namespace QwertysRandomContent.Items.Weapons.MiscSummons       
+namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
     public class MythrilPrismStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mythril Prism Staff");
-			Tooltip.SetDefault("Summons a Mythril Prism to vaporize enemies that come near you!");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mythril Prism Staff");
+            Tooltip.SetDefault("Summons a Mythril Prism to vaporize enemies that come near you!");
 
 
         }
- 
+
         public override void SetDefaults()
         {
 
-            item.damage = 30; 
-            item.mana = 20;      
-            item.width = 32;    
-            item.height = 32;     
-            item.useTime = 25;  
-            item.useAnimation = 25;   
-            item.useStyle = 1; 
-            item.noMelee = true; 
+            item.damage = 30;
+            item.mana = 20;
+            item.width = 32;
+            item.height = 32;
+            item.useTime = 25;
+            item.useAnimation = 25;
+            item.useStyle = 1;
+            item.noMelee = true;
             item.knockBack = 1f;
             item.value = 103500;
             item.rare = 4;
-            item.UseSound = SoundID.Item44;  
-            item.autoReuse = true;   
-            item.shoot = mod.ProjectileType("MythrilPrism");  
-            item.summon = true;    
-            item.buffType = mod.BuffType("MythrilPrism");	
-			item.buffTime = 3600;
+            item.UseSound = SoundID.Item44;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("MythrilPrism");
+            item.summon = true;
+            item.buffType = mod.BuffType("MythrilPrism");
+            item.buffTime = 3600;
         }
 
         public override void AddRecipes()
@@ -53,51 +52,51 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class MythrilPrism : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mythril Prism");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mythril Prism");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
 
 
-            projectile.width = 14; 
-            projectile.height = 18;   
-            projectile.hostile = false;   
-            projectile.friendly = false;   
-            projectile.ignoreWater = true;    
-            Main.projFrames[projectile.type] = 1; 
+            projectile.width = 14;
+            projectile.height = 18;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
+            Main.projFrames[projectile.type] = 1;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = false; 
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.penetrate = -1;
+            projectile.tileCollide = false;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             //projectile.usesLocalNPCImmunity = true;
         }
@@ -209,8 +208,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             foundTarget = false;
         }
 
-        
-        
+
+
 
     }
     public class MiniBeam : ModProjectile
@@ -270,74 +269,74 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             {
                 diff = new Vector2(2f, 0);
             }
-            
-                
-            
-                diff.Normalize();
-                projectile.velocity = diff;
-                projectile.direction = projectile.Center.X > shooter.Center.X ? 1 : -1;
-                projectile.netUpdate = true;
 
-                projectile.position = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * MoveDistance;
-                projectile.timeLeft = 2;
-                int dir = projectile.direction;
+
+
+            diff.Normalize();
+            projectile.velocity = diff;
+            projectile.direction = projectile.Center.X > shooter.Center.X ? 1 : -1;
+            projectile.netUpdate = true;
+
+            projectile.position = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * MoveDistance;
+            projectile.timeLeft = 2;
+            int dir = projectile.direction;
+            /*
+            player.ChangeDir(dir);
+            player.heldProj = projectile.whoAmI;
+            player.itemTime = 2;
+            player.itemAnimation = 2;
+            player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * dir, projectile.velocity.X * dir);
+            */
+            #endregion
+
+            #region Charging process
+            // Kill the projectile if the player stops channeling
+
+
+
+
+            Vector2 offset = projectile.velocity;
+            offset *= MoveDistance - 20;
+            Vector2 pos = new Vector2(shooter.Center.X, shooter.Center.Y) + offset - new Vector2(10, 10);
+
+            if (Charge < MaxChargeValue)
+            {
+                Charge++;
+            }
+
+            int chargeFact = (int)(Charge / 20f);
+
+
+
+            #endregion
+
+
+            if (Charge < MaxChargeValue) return;
+            Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
+            Vector2 unit = projectile.velocity;
+            unit *= -1;
+
+            for (Distance = MoveDistance; Distance <= 50f; Distance += 1f)
+            {
+                start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
                 /*
-                player.ChangeDir(dir);
-                player.heldProj = projectile.whoAmI;
-                player.itemTime = 2;
-                player.itemAnimation = 2;
-                player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * dir, projectile.velocity.X * dir);
+                if (!Collision.CanHit(new Vector2(shooter.Center.X, shooter.Center.Y), 1, 1, start, 1, 1))
+                {
+                    Distance -= 5f;
+                    break;
+                }
                 */
-                #endregion
-
-                #region Charging process
-                // Kill the projectile if the player stops channeling
+            }
 
 
 
-
-                Vector2 offset = projectile.velocity;
-                offset *= MoveDistance - 20;
-                Vector2 pos = new Vector2(shooter.Center.X, shooter.Center.Y) + offset - new Vector2(10, 10);
-
-                if (Charge < MaxChargeValue)
-                {
-                    Charge++;
-                }
-
-                int chargeFact = (int)(Charge / 20f);
+            //Add lights
+            DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
+            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
+                DelegateMethods.CastLight);
 
 
 
-                #endregion
-
-
-                if (Charge < MaxChargeValue) return;
-                Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
-                Vector2 unit = projectile.velocity;
-                unit *= -1;
-
-                for (Distance = MoveDistance; Distance <= 50f; Distance += 1f)
-                {
-                    start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
-                    /*
-                    if (!Collision.CanHit(new Vector2(shooter.Center.X, shooter.Center.Y), 1, 1, start, 1, 1))
-                    {
-                        Distance -= 5f;
-                        break;
-                    }
-                    */
-                }
-
-
-
-                //Add lights
-                DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
-                Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
-                    DelegateMethods.CastLight);
-            
-            
-            
 
         }
         public int colorCounter;
@@ -372,9 +371,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     new Rectangle(0, 0, 6, 2), Color.Lerp(new Color(255, 255, 255, 255), new Color(0, 0, 0, 0), i / Distance), r,
                     new Vector2(3, 1), scale, 0, 0);
             }
-           
-            
-            
+
+
+
             #endregion
 
 
@@ -392,7 +391,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 float point = 0f;
                 // Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
                 // It will look for collisions on the given line using AABB
-                if(Collision.CheckAABBvAABBCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projHitbox.TopLeft(), projHitbox.Size()))
+                if (Collision.CheckAABBvAABBCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projHitbox.TopLeft(), projHitbox.Size()))
                 {
                     return true;
                 }

@@ -1,11 +1,6 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.Items.Armor.Shaman
 {
@@ -50,11 +45,11 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
-            
+
             drawHands = true;
 
         }
-        
+
     }
 
 }

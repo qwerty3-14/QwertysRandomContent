@@ -1,9 +1,4 @@
-using Microsoft.Xna.Framework;
-using QwertysRandomContent.Items.B4Items;
-using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
-using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
@@ -37,7 +32,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override void UpdateEquip(Player player)
         {
-            
+
             player.GetModPlayer<MinionBookEffect>().effect = true;
         }
 
@@ -57,15 +52,15 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if(Main.player[projectile.owner].GetModPlayer<MinionBookEffect>().effect)
+            if (Main.player[projectile.owner].GetModPlayer<MinionBookEffect>().effect)
             {
-                if(projectile.minion && target.whoAmI == Main.player[projectile.owner].MinionAttackTargetNPC)
+                if (projectile.minion && target.whoAmI == Main.player[projectile.owner].MinionAttackTargetNPC)
                 {
                     damage = (int)(damage * 1.2f);
                 }
             }
         }
     }
-    
+
 }
 

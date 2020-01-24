@@ -1,16 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
 namespace QwertysRandomContent
 {
@@ -87,7 +77,7 @@ namespace QwertysRandomContent
                     new int[] {-1, mod.TileType("FortressBrick"), mod.TileType("FortressPillar"), mod.TileType("FortressLantern"), mod.TileType("FortressCarving2"), 50, mod.TileType("FortressPlatform"), mod.TileType("FortressClock"), mod.TileType("FortressBookcase"), mod.TileType("FortressLamp"), mod.TileType("FortressTable"), mod.TileType("FortressChair"), mod.TileType("FortressCouch"), mod.TileType("FortressChandelier"), mod.TileType("FortressCandle"), mod.TileType("FortressCarving1"), mod.TileType("FortressCarving3"), mod.TileType("LaunchPad")},
                     new int[] {-1, 189, 196},
                     new int[] {-1, mod.TileType("FortressBrick"), mod.TileType("FakeFortressBrick"), mod.TileType("FortressLantern"), mod.TileType("FortressChandelier"), 50, mod.TileType("FortressPlatform"), mod.TileType("FortressCarving2"), mod.TileType("FortressCandle"), mod.TileType("FortressCarving1"), mod.TileType("FortressTrap"), mod.TileType("FortressCarving3"), mod.TileType("FortressLamp"), mod.TileType("FortressBed"), mod.TileType("FortressPiano"), 135, mod.TileType("FortressClock"), mod.TileType("FortressBookcase")},
-                    
+
                     new int[] {-1, mod.TileType("FortressBrick"), mod.TileType("ChiselledFortressBrick"), mod.TileType("FortressTrap"), mod.TileType("FortressPillar"), mod.TileType("FortressChandelier"), mod.TileType("FortressCarving3"), 50, mod.TileType("FortressCandle"), mod.TileType("FortressPlatform"), mod.TileType("FortressLamp"), mod.TileType("FortressCouch"), mod.TileType("FortressPiano"), mod.TileType("FakeFortressBrick"), mod.TileType("FortressLantern"), mod.TileType("FortressCarving1"), mod.TileType("FortressBookcase"), mod.TileType("FortressChair"), mod.TileType("FortressTable"), mod.TileType("FortressSink"), 135},
                     new int[] {-1, mod.TileType("FortressBrick"), mod.TileType("FortressPillar"), mod.TileType("FortressPlatform"), mod.TileType("FortressLantern"), 91, mod.TileType("FortressClock"), mod.TileType("FortressBookcase"), mod.TileType("FortressCandelabra"), mod.TileType("FortressCouch"), mod.TileType("FortressTable"), mod.TileType("FortressChair"), mod.TileType("FortressTrap"), mod.TileType("FortressCarving3"), 135, mod.TileType("FakeFortressBrick")},
                 },
@@ -233,7 +223,7 @@ namespace QwertysRandomContent
 
                     for (int k = 0; k < RoomTileTypes[0][type].Length; k++) //tiles
                     {
-                        if (Rooms[type, 0, y, x] == k && Rooms[type, 0, y, x] != 0 )
+                        if (Rooms[type, 0, y, x] == k && Rooms[type, 0, y, x] != 0)
                         {
                             WorldGen.PlaceTile(i + x, j + y, RoomTileTypes[0][type][k], false, false);
                         }
@@ -247,13 +237,13 @@ namespace QwertysRandomContent
                             WorldGen.PlaceWall(i + x, j + y, RoomTileTypes[1][type][k]);
                         }
                     }
-                    
-                    
+
+
 
 
                 }
             }
-            
+
             for (int y = Rooms.GetLength(2) - 1; y >= 0; y--) // built from bottom to top
             {
                 for (int x = 0; x < Rooms.GetLength(3); x++) //built from left to right
@@ -261,7 +251,7 @@ namespace QwertysRandomContent
                     //redo the tile placement for any tiles that failed to place the first time (like hanging tiles)
                     for (int k = 0; k < RoomTileTypes[0][type].Length; k++) //tiles
                     {
-                        if (Rooms[type, 0, y, x] == k && Rooms[type, 0, y, x] != 0 && !Main.tile[i+x, j+y].active())
+                        if (Rooms[type, 0, y, x] == k && Rooms[type, 0, y, x] != 0 && !Main.tile[i + x, j + y].active())
                         {
                             WorldGen.PlaceTile(i + x, j + y, RoomTileTypes[0][type][k], false, true);
                         }
@@ -270,7 +260,7 @@ namespace QwertysRandomContent
                     Main.tile[i + x, j + y].frameX = (short)Rooms[type, 5, y, x];
                     Main.tile[i + x, j + y].frameY = (short)Rooms[type, 6, y, x];
                     WorldGen.SlopeTile(i + x, j + y, Rooms[type, 2, y, x] % 100);
-                    if(Rooms[type, 2, y, x] >= 100)
+                    if (Rooms[type, 2, y, x] >= 100)
                     {
                         Main.tile[i + x, j + y].halfBrick(true);
                         //WorldGen.PoundTile(i + x, j + y);
@@ -296,7 +286,7 @@ namespace QwertysRandomContent
                     {
                         WorldGen.PlaceActuator(i + x, j + y);
                     }
-                    
+
                     Main.tile[i + x, j + y].liquid = (byte)Rooms[type, 4, y, x];
                 }
 

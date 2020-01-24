@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameInput;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
@@ -17,13 +16,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperious's Sheath");
-           
+
             Tooltip.SetDefault("After dealing 10,000 damage you can summon Imperious to fight for you breifly with the " + "'" + "Special Ability" + "' key" + "\nCan be changed in controls");
 
         }
         public override void PostUpdate()
         {
-           
+
         }
         public override void SetDefaults()
         {
@@ -34,7 +33,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
             item.width = 34;
             item.height = 32;
-            item.damage = 500;
+            item.damage = 400;
             item.summon = true;
             item.knockBack = 8f;
             item.accessory = true;
@@ -42,10 +41,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
 
         }
-        
+
         public override void UpdateEquip(Player player)
         {
-            
+
             player.GetModPlayer<ImperiousEffect>().effect = true;
         }
         //this changes the tooltip based on what the hotkey is configured to
@@ -66,7 +65,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
             }
         }
-        
+
 
 
     }
@@ -74,7 +73,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
     {
         public bool effect = false; //does the player get this effect
         public int damageTally; //used to count as damage is dealt
-        public int damageTallyMax = 10000; 
+        public int damageTallyMax = 10000;
         public override void ResetEffects() //used to reset if the player unequips the accesory
         {
             effect = false;
@@ -104,10 +103,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
         {
             if (QwertysRandomContent.YetAnotherSpecialAbility.JustPressed) //hotkey is pressed
             {
-                
-                if(effect && damageTally >= damageTallyMax) 
+
+                if (effect && damageTally >= damageTallyMax)
                 {
-                    if(NPC.AnyNPCs(mod.NPCType("BladeBoss"))) //don't want to summon Imperious if he's already active!
+                    if (NPC.AnyNPCs(mod.NPCType("BladeBoss"))) //don't want to summon Imperious if he's already active!
                     {
                         Main.NewText("You're already fighting Imperious!");
                     }
@@ -128,12 +127,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            
+
             if (drawPlayer.GetModPlayer<ImperiousEffect>().effect)
             {
-                
+
                 Texture2D texture = mod.GetTexture("Items/BladeBossItems/SheathProgress");
-                
+
 
 
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
@@ -142,9 +141,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 Vector2 origin = texture.Size() / 2;
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                 pos.Y += 50;
-                
+
                 DrawData data = new DrawData(texture, pos, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, 0f, origin, 1f, SpriteEffects.None, 0);
-                
+
                 Main.playerDrawData.Add(data);
 
             }
@@ -182,9 +181,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 }
 
                 DrawData data = new DrawData(texture, pos, new Rectangle(0, frame, (int)((texture.Width - 2) * amountComplete), texture.Height / 2), color, 0f, origin, 1f, SpriteEffects.None, 0);
-                
+
                 Main.playerDrawData.Add(data);
-                
+
 
 
             }
@@ -198,15 +197,15 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 layers.Insert(f + 2, SheathProgress);
                 SheathBar.visible = true;
                 layers.Insert(f + 1, SheathBar);
-                
+
             }
-            
+
 
         }
     }
     public class Imperious : ModProjectile
     {
-        int rotateDirection=1;
+        int rotateDirection = 1;
         public override void SetDefaults()
         {
             projectile.width = 84;
@@ -240,7 +239,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             BladeTip = projectile.Center + QwertyMethods.PolarVector((HiltLength / 2) + BladeLength, projectile.rotation + (float)Math.PI / 2);
             Player player = Main.player[projectile.owner];
             projectile.Center = player.Center;
-            projectile.rotation += (float)Math.PI / 15* rotateDirection;
+            projectile.rotation += (float)Math.PI / 15 * rotateDirection;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) //custom collision
         {

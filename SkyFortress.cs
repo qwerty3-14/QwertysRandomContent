@@ -1,16 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Generation;
 using Terraria.World.Generation;
-using System.Collections.Generic;
-
-using System;
-using Terraria.ModLoader.IO;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Terraria.Localization;
-using QwertysRandomContent.NPCs.FortressBoss;
 
 namespace QwertysRandomContent
 {
@@ -19,7 +14,7 @@ namespace QwertysRandomContent
         public bool TheFortress = false;
         public override void UpdateBiomes()
         {
-            TheFortress = (SkyFortress.fortressBrick > 100) && ( ((Main.maxTilesX < 6000) && (player.Center.Y / 16) < 160)  || ((Main.maxTilesX < 8000 && Main.maxTilesX > 6000) && (player.Center.Y / 16) < 250)  || ((Main.maxTilesX >8000) &&(player.Center.Y/16)<350));
+            TheFortress = (SkyFortress.fortressBrick > 100) && (((Main.maxTilesX < 6000) && (player.Center.Y / 16) < 160) || ((Main.maxTilesX < 8000 && Main.maxTilesX > 6000) && (player.Center.Y / 16) < 250) || ((Main.maxTilesX > 8000) && (player.Center.Y / 16) < 350));
         }
         public override bool CustomBiomesMatch(Player other)
         {
@@ -47,11 +42,11 @@ namespace QwertysRandomContent
         }
         public override void PostUpdate()
         {
-          
+
         }
         public override void PreUpdate()
         {
-            
+
         }
     }
     public class FortressSpawn : GlobalNPC
@@ -94,13 +89,13 @@ namespace QwertysRandomContent
                         }
                     }
                 }
-                
-                
+
+
             }
         }
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            
+
             if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
             {
                 pool[0] = 0f;
@@ -131,10 +126,10 @@ namespace QwertysRandomContent
 
         private static int[] fihY = new int[30];
         #endregion
-        
-       
+
+
         public int startingX;
-        
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
             Mod Overrated = ModLoader.GetMod("CalamityMod");
@@ -264,8 +259,8 @@ namespace QwertysRandomContent
                     }
                 }
                 #endregion
-               
-                
+
+
             }
         }
         public override void PostWorldGen()
@@ -276,7 +271,7 @@ namespace QwertysRandomContent
         }
 
     }
-    
+
     public class BuildOldFortress : ModCommand
     {
         public override CommandType Type
@@ -293,7 +288,7 @@ namespace QwertysRandomContent
         {
             get { return "Regenerates the sky fortress"; }
         }
-       
+
         public void Vertical(int i, int j, int type = 0)
         {
             int pillar = mod.TileType("FortressPillar");
@@ -940,22 +935,22 @@ namespace QwertysRandomContent
             }
             if (Main.maxTilesX > 8000)
             {
-                lowerLimit = 320 ;
+                lowerLimit = 320;
                 maxDistanceFromCenter = 750;
             }
             else if (Main.maxTilesX > 6000)
             {
-                lowerLimit = 230 ;
+                lowerLimit = 230;
                 maxDistanceFromCenter = 550;
             }
             else
             {
-                lowerLimit = 130 ;
-                maxDistanceFromCenter = 320 ;
+                lowerLimit = 130;
+                maxDistanceFromCenter = 320;
             }
-            QwertyMethods.BreakTiles(Center- maxDistanceFromCenter, 0, maxDistanceFromCenter*2, (int)(lowerLimit));
+            QwertyMethods.BreakTiles(Center - maxDistanceFromCenter, 0, maxDistanceFromCenter * 2, (int)(lowerLimit));
             //Main.NewText(maxDistanceFromCenter);
-            
+
             //Main.NewText(Main.maxTilesX);
             if (Main.dungeonX < Main.maxTilesX * .5f)
             {
@@ -992,9 +987,9 @@ namespace QwertysRandomContent
             int startingY = 110;
             if (Main.maxTilesX > 8000)
             {
-                startingY =195;
+                startingY = 195;
             }
-            else if(Main.maxTilesX > 6000)
+            else if (Main.maxTilesX > 6000)
             {
                 startingY = 145;
             }
@@ -1003,14 +998,14 @@ namespace QwertysRandomContent
                 startingY = 110;
 
             }
-                if (Main.maxTilesX > 8000)
+            if (Main.maxTilesX > 8000)
             {
                 startingY -= 25;
             }
             startingX -= WidthOffset + (((roomsPerLayer - 1) / 2) * (roomWidth + bridgeWidth));
             startingY -= HeightOffset;
 
-            
+
 
             int treasure = Main.rand.Next(roomsPerLayer - 1);
             if (treasure >= (roomsPerLayer - 1) / 2)
@@ -1127,13 +1122,13 @@ namespace QwertysRandomContent
 
 
                 }
-                
+
             }
-            
+
         }
     }
-    
-    
+
+
 
 
 }

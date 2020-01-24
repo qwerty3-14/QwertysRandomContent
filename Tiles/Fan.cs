@@ -1,11 +1,11 @@
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
+using System.IO;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using System.IO;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
@@ -23,7 +23,7 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.AnchorBottom = default(AnchorData);
             TileObjectData.newTile.AnchorLeft = default(AnchorData);
             TileObjectData.newTile.AnchorRight = default(AnchorData);
-            
+
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("FanE").Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
@@ -71,7 +71,7 @@ namespace QwertysRandomContent.Tiles
 
 
         }
-        
+
         public override void HitWire(int i, int j)
         {
             int left = i;
@@ -85,7 +85,7 @@ namespace QwertysRandomContent.Tiles
             FanE fanE = (FanE)TileEntity.ByID[index];
             fanE.switchBlow = true;
         }
-        
+
         public override void RightClick(int i, int j)
         {
             int left = i;
@@ -99,7 +99,7 @@ namespace QwertysRandomContent.Tiles
             FanE fanE = (FanE)TileEntity.ByID[index];
             fanE.switchBlow = true;
         }
-        
+
         /*
         public override void RightClick(int i, int j)
         {
@@ -148,7 +148,7 @@ namespace QwertysRandomContent.Tiles
         public bool switchBlow;
         public override void Update()
         {
-            
+
             if (switchBlow)
             {
                 blowing = !blowing;
@@ -207,7 +207,7 @@ namespace QwertysRandomContent.Tiles
                     edge = Position.X + 1;
                     blowOrigin = new Vector2(edge, Position.Y) * 16;
                     // Main.NewText("I'm a big fan of the right!");
-                    
+
                 }
 
 
@@ -247,7 +247,7 @@ namespace QwertysRandomContent.Tiles
                 for (int i = 0; i < 200; i++)
                 {
                     Dust blownObj = Main.dust[i];
-                    if (blownObj.active && Collision.CheckAABBvAABBCollision(blownObj.position, new Vector2(1,1), blowOrigin, blowArea))
+                    if (blownObj.active && Collision.CheckAABBvAABBCollision(blownObj.position, new Vector2(1, 1), blowOrigin, blowArea))
                     {
                         blownObj.velocity.X += fanSpeed;
                         //blownObj.velocity.X += Math.Abs(subtractFrom - Math.Abs((blownObj.Center.X - (edge) * 16))) * fanSpeed;
@@ -266,14 +266,14 @@ namespace QwertysRandomContent.Tiles
                 }
                 //Dust.NewDust(blowOrigin, 0, 0, 0);
 
-                Dust dust = Main.dust[Dust.NewDust(blowOrigin, (int)blowArea.X, (int)blowArea.Y, mod.DustType("StormArrowDust"), fanSpeed*3, .0001f, 0, default(Color), .2f)];
+                Dust dust = Main.dust[Dust.NewDust(blowOrigin, (int)blowArea.X, (int)blowArea.Y, mod.DustType("StormArrowDust"), fanSpeed * 3, .0001f, 0, default(Color), .2f)];
                 dust.velocity.Y = 0;
             }
             // Sending 86 aka, TileEntitySharing, triggers NetSend. Think of it like manually calling sync.
             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
             switchBlow = false;
         }
-        
+
         public override void NetSend(BinaryWriter writer, bool lightSend)
         {
             writer.Write(blowing);
@@ -282,7 +282,7 @@ namespace QwertysRandomContent.Tiles
         {
             blowing = reader.ReadBoolean();
         }
-        
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
             //Main.NewText("I'm a big fan!");

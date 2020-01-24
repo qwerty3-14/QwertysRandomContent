@@ -1,23 +1,21 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.World.Generation;
 
 namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class AntiAirWrench : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Anti Air Sentry Wrench");
-			Tooltip.SetDefault("Summons a stationary anti air sentry");
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Anti Air Sentry Wrench");
+            Tooltip.SetDefault("Summons a stationary anti air sentry");
+
+        }
+
         public override void SetDefaults()
         {
 
@@ -31,7 +29,7 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 10f;  //The knockback stat of your Weapon.
             item.value = 25000;
-			item.rare = 3;   
+            item.rare = 3;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("AntiAirSentry");   //This defines what type of projectile this weapon will shot
@@ -45,7 +43,7 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
 
-           
+
 
 
 
@@ -55,32 +53,32 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
 
 
         public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
     }
 
     public class AntiAirSentry : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Anti Air Sentry");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			Main.projFrames[projectile.type] = 3;  //this is where you add how many frames u'r projectile has to make the animation
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Anti Air Sentry");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+            Main.projFrames[projectile.type] = 3;  //this is where you add how many frames u'r projectile has to make the animation
+        }
+
         public override void SetDefaults()
         {
- 
-			projectile.sentry =  true;
+
+            projectile.sentry = true;
             projectile.width = 60; //Set the hitbox width
             projectile.height = 94;   //Set the hitbox heinght
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -92,16 +90,16 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
             projectile.tileCollide = true; //Tells the game whether or not it can collide with tiles/ terrain
             projectile.sentry = true; //tells the game that this is a sentry
         }
- 
-       
-		
-		
-		
-		
-		public int frameType = 0;
-		public int ReloadTime=20;
-		
-		public int secondShot=1;
+
+
+
+
+
+
+        public int frameType = 0;
+        public int ReloadTime = 20;
+
+        public int secondShot = 1;
         public float minimumHeight = 400;
         public float maxDistanceX = 600f;
         public float distanceX;
@@ -121,21 +119,21 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
             projectile.frame = 1;
             Main.player[projectile.owner].UpdateMaxTurrets();
             projectile.velocity.Y = 5;
-            for(int i = 0; i<200; i++)
+            for (int i = 0; i < 200; i++)
             {
                 target = Main.npc[i];
-                distanceX = Math.Abs(Main.npc[i].Center.X-projectile.Center.X);
-                distanceY = projectile.Center.Y-Main.npc[i].Center.Y ;
+                distanceX = Math.Abs(Main.npc[i].Center.X - projectile.Center.X);
+                distanceY = projectile.Center.Y - Main.npc[i].Center.Y;
                 Point origin = target.Center.ToTileCoordinates();
                 Point point;
-                if (distanceX < maxDistanceX && distanceY> minimumHeight && !target.friendly && target.active && !target.immortal && !target.dontTakeDamage && !WorldUtils.Find(origin, Searches.Chain(new Searches.Down(12), new GenCondition[]
+                if (distanceX < maxDistanceX && distanceY > minimumHeight && !target.friendly && target.active && !target.immortal && !target.dontTakeDamage && !WorldUtils.Find(origin, Searches.Chain(new Searches.Down(12), new GenCondition[]
                                         {
                                             new Conditions.IsSolid()
                                         }), out point))
                 {
                     foundTarget = true;
                     validTarget = Main.npc[i];
-                    if(validTarget.Center.X > projectile.Center.X)
+                    if (validTarget.Center.X > projectile.Center.X)
                     {
                         rocketDirection = 1;
                     }
@@ -148,19 +146,19 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
 
             }
             timer++;
-            if(foundTarget && timer> ReloadTime)
+            if (foundTarget && timer > ReloadTime)
             {
                 playAttackFrame = true;
-                if(Main.netMode !=1)
-                    Projectile.NewProjectile(projectile.Center.X+ (16 * secondShot), projectile.Center.Y-30, 0, 0, mod.ProjectileType("SentryAntiAir"), projectile.damage, projectile.knockBack, Main.myPlayer, validTarget.Center.Y, rocketDirection);
-                
+                if (Main.netMode != 1)
+                    Projectile.NewProjectile(projectile.Center.X + (16 * secondShot), projectile.Center.Y - 30, 0, 0, mod.ProjectileType("SentryAntiAir"), projectile.damage, projectile.knockBack, Main.myPlayer, validTarget.Center.Y, rocketDirection);
+
                 secondShot *= -1;
 
                 timer = 0;
             }
 
 
-            if(playAttackFrame)
+            if (playAttackFrame)
             {
                 attackFrameCounter++;
                 if (secondShot == 1)
@@ -172,7 +170,7 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
                     projectile.frame = 2;
                 }
 
-                if(attackFrameCounter> attackFrameTime)
+                if (attackFrameCounter > attackFrameTime)
                 {
                     playAttackFrame = false;
                 }
@@ -191,30 +189,30 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
 
 
     }
-	public class SentryAntiAir : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-				DisplayName.SetDefault("Anti Air Rocket");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-    		projectile.aiStyle = 1;
+    public class SentryAntiAir : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Anti Air Rocket");
+
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
             aiType = ProjectileID.Bullet;
-			projectile.width = 10;
-			projectile.height = 10;
-			projectile.friendly = true;
-			projectile.hostile = false;
-			projectile.penetrate = 1;
-			projectile.timeLeft = 240;
-			projectile.tileCollide = true;
-			projectile.minion= true;
+            projectile.width = 10;
+            projectile.height = 10;
+            projectile.friendly = true;
+            projectile.hostile = false;
+            projectile.penetrate = 1;
+            projectile.timeLeft = 240;
+            projectile.tileCollide = true;
+            projectile.minion = true;
             projectile.alpha = 255;
-		
-		}
-		public int k =0;
+
+        }
+        public int k = 0;
         public bool runOnce = true;
         public float OriY;
         public float minimumHeight = 400f;
@@ -224,10 +222,10 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
         public bool goLeft;
         public int timer;
 
-		public override void AI()
-	    {
+        public override void AI()
+        {
 
-            
+
             timer++;
             projectile.velocity.Y = -10;
             if (runOnce)
@@ -266,12 +264,12 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
                     target = Main.npc[i];
                     Point origin = target.Center.ToTileCoordinates();
                     Point point;
-                    if (target.Center.Y+20>= projectile.Center.Y && target.Center.Y - 20 <= projectile.Center.Y && !target.friendly && target.active && !target.immortal && !target.dontTakeDamage && !WorldUtils.Find(origin, Searches.Chain(new Searches.Down(12), new GenCondition[]
+                    if (target.Center.Y + 20 >= projectile.Center.Y && target.Center.Y - 20 <= projectile.Center.Y && !target.friendly && target.active && !target.immortal && !target.dontTakeDamage && !WorldUtils.Find(origin, Searches.Chain(new Searches.Down(12), new GenCondition[]
                                         {
                                             new Conditions.IsSolid()
                                         }), out point))
                     {
-                        if(target.Center.X>projectile.Center.X)
+                        if (target.Center.X > projectile.Center.X)
                         {
                             goRight = true;
                         }
@@ -280,22 +278,22 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
                             goLeft = true;
                         }
 
-                       
+
                     }
 
                 }
             }
             else
             {
-                
+
             }
-            
+
             projectile.alpha = 0;
-            
+
 
         }
-		public override void Kill( int timeLeft)
-		{
+        public override void Kill(int timeLeft)
+        {
 
 
             Main.PlaySound(SoundID.Item62, projectile.position);
@@ -317,13 +315,13 @@ namespace QwertysRandomContent.Items.DinoItems      ///We need this to basically
 
 
         }
-        
+
 
 
 
 
     }
-	/*
+    /*
 	public class SentryAntiAirSide : ModProjectile
 	{
 		public override void SetStaticDefaults()

@@ -2,9 +2,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
@@ -36,25 +33,25 @@ namespace QwertysRandomContent.Tiles
             minPick = 1;
             AddMapEntry(new Color(162, 184, 185));
             name.SetDefault("Launchpad");
-            
+
 
         }
         public override bool CanPlace(int i, int j)
         {
-            return  Main.tile[i, j + 1].active();
+            return Main.tile[i, j + 1].active();
         }
         public override void FloorVisuals(Player player)
         {
             //Main.NewText("Hi");
-            
-            
-                player.velocity.Y = -20;
-            
+
+
+            player.velocity.Y = -20;
+
         }
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("Launchpad"));
-            
+
         }
 
 

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using System;
-using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,47 +7,47 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
 {
-	public class ImperiousTheIV : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Imperious The IV");
-			Tooltip.SetDefault("Hitting enemies builds up swords which can be sent with right click");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 41;
-			item.melee = true;
-			
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = 1;
-			item.knockBack = 0;
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			
-			item.width = 40;
-			item.height = 40;
-			item.crit = 20;
-			item.autoReuse = true;
+    public class ImperiousTheIV : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Imperious The IV");
+            Tooltip.SetDefault("Hitting enemies builds up swords which can be sent with right click");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 41;
+            item.melee = true;
+
+            item.useTime = 10;
+            item.useAnimation = 10;
+            item.useStyle = 1;
+            item.knockBack = 0;
+            item.value = Item.sellPrice(gold: 10);
+            item.rare = 3;
+            item.UseSound = SoundID.Item1;
+
+            item.width = 40;
+            item.height = 40;
+            item.crit = 20;
+            item.autoReuse = true;
             //item.scale = 5;
-			
-			
-			
-		}
 
 
-        
+
+        }
+
+
+
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-           
+
         }
-        
+
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            if(player.whoAmI == Main.myPlayer && !target.immortal && player.ownedProjectileCounts[mod.ProjectileType("ImperiousTheV")] <40)
+            if (player.whoAmI == Main.myPlayer && !target.immortal && player.ownedProjectileCounts[mod.ProjectileType("ImperiousTheV")] < 40)
             {
                 Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("ImperiousTheV"), item.damage, item.knockBack, player.whoAmI);
             }
@@ -60,7 +59,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperious The V");
-           
+
 
         }
         public override void SetDefaults()
@@ -81,14 +80,14 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             projectile.usesLocalNPCImmunity = true;
-           
+
         }
 
         int AttackMode = 1;
         const int idle = 1;
         const int charging = 2;
         const int returning = 3;
-        
+
         Vector2 moveTo;
         float acceleration = .3f;
         float maxSpeed = 6f;
@@ -110,9 +109,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
             Player player = Main.player[projectile.owner];
             //Main.NewText(moveTo);
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-           
-            
-            
+
+
+
             distanceFromPlayer = (player.Center - projectile.Center).Length();
             timer++;
             switch (AttackMode)
@@ -127,7 +126,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
                         {
                             projectile.ai[0] = Main.rand.Next(0, 80);
                             projectile.ai[1] = Main.rand.Next(-80, 80);
-                            if (Main.netMode == 1 )
+                            if (Main.netMode == 1)
                             {
                                 QwertysRandomContent.ProjectileAIUpdate(projectile);
                             }
@@ -137,20 +136,20 @@ namespace QwertysRandomContent.Items.BladeBossItems
                         timer = 0;
                     }
                     moveTo = new Vector2(player.Center.X + projectile.ai[1], player.Center.Y - projectile.ai[0]);
-                    if(Main.mouseRight && Main.myPlayer == projectile.owner)
+                    if (Main.mouseRight && Main.myPlayer == projectile.owner)
                     {
-                        projectile.velocity = (Main.MouseWorld- projectile.Center).SafeNormalize(-Vector2.UnitY) * chargeSpeed;
+                        projectile.velocity = (Main.MouseWorld - projectile.Center).SafeNormalize(-Vector2.UnitY) * chargeSpeed;
                         attackTimer = 0;
                         AttackMode = charging;
                     }
-                    
+
                     break;
                 case charging:
-                    
+
                     attackTimer++;
-                    
+
                     break;
-                
+
 
 
 
@@ -181,7 +180,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-        
+
 
 
     }

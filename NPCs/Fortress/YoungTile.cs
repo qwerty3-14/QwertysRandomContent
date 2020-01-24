@@ -1,13 +1,10 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
 using Terraria.World.Generation;
-using System.IO;
 
 namespace QwertysRandomContent.NPCs.Fortress
 {
@@ -79,13 +76,13 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         public override void NPCLoot()
         {
-            if(Main.rand.NextBool())
+            if (Main.rand.NextBool())
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), 1);
             }
-            
+
         }
-       
+
         int frame;
         int timer;
         float jumpSpeedY = -10.5f;
@@ -94,11 +91,11 @@ namespace QwertysRandomContent.NPCs.Fortress
         float aggroDistanceY = 200;
         bool jump;
         float gravity = .3f;
-        bool runOnce=true;
+        bool runOnce = true;
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
-            if (runOnce )
+            if (runOnce)
             {
                 if (npc.ai[3] == 0)
                 {
@@ -117,7 +114,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 runOnce = false;
             }
 
-            if(frame ==0)
+            if (frame == 0)
             {
                 npc.dontTakeDamage = true;
             }
@@ -145,10 +142,10 @@ namespace QwertysRandomContent.NPCs.Fortress
             //Main.NewText("gravity: " +gravity);
             //Main.NewText("jump: " +jumpSpeedY);
             Player player = Main.player[npc.target];
-            
+
             npc.TargetClosest(true);
             //Main.NewText(Math.Abs(player.Center.X - npc.Center.X));
-            if(Math.Abs(player.Center.X-npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
+            if (Math.Abs(player.Center.X - npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
             {
                 if (Main.netMode != 1)
                 {
@@ -161,25 +158,25 @@ namespace QwertysRandomContent.NPCs.Fortress
                     frame = 3;
                     if (!jump)
                     {
-                        
+
                         if (player.Center.X > npc.Center.X)
                         {
-                            npc.velocity.X = jumpSpeedX ;
+                            npc.velocity.X = jumpSpeedX;
                             npc.velocity.Y = jumpSpeedY;
                         }
                         else
                         {
-                            npc.velocity.X = -jumpSpeedX ;
+                            npc.velocity.X = -jumpSpeedX;
                             npc.velocity.Y = jumpSpeedY;
                         }
                         jump = true;
                     }
                 }
-                else if(timer >20)
+                else if (timer > 20)
                 {
                     frame = 1;
                 }
-                else if(timer >10)
+                else if (timer > 10)
                 {
                     frame = 2;
                 }
@@ -188,16 +185,16 @@ namespace QwertysRandomContent.NPCs.Fortress
                     frame = 1;
                 }
             }
-            else if(!jump)
+            else if (!jump)
             {
                 frame = 0;
                 timer = 0;
             }
-            if(npc.collideX)
+            if (npc.collideX)
             {
                 npc.velocity.X *= -1;
             }
-            if(timer >62  && npc.collideY)
+            if (timer > 62 && npc.collideY)
             {
                 npc.velocity.X = 0;
                 npc.velocity.Y = 0;
@@ -219,6 +216,6 @@ namespace QwertysRandomContent.NPCs.Fortress
             jumpSpeedX = reader.ReadSingle();
         }
     }
-    
-    
+
+
 }

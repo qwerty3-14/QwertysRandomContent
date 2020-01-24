@@ -4,17 +4,17 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Consumables
 {
-	
-	public class CephalopodSlurry : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Cephalopod Slurry");
-			Tooltip.SetDefault("");
-		}
 
-		public override void SetDefaults()
-		{
+    public class CephalopodSlurry : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Cephalopod Slurry");
+            Tooltip.SetDefault("");
+        }
+
+        public override void SetDefaults()
+        {
             item.UseSound = SoundID.Item2;
             item.useStyle = 2;
             item.useTurn = true;
@@ -31,18 +31,18 @@ namespace QwertysRandomContent.Items.Consumables
 
         }
 
-		
-		
-		
-		
-	}
+
+
+
+
+    }
     public class SlurryDrop : GlobalNPC
     {
         public override void NPCLoot(NPC npc)
         {
-           if(npc.type == NPCID.Squid)
+            if (npc.type == NPCID.Squid)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CephalopodSlurry"), Main.rand.Next(4) + (Main.expertMode ? 1: 0));
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CephalopodSlurry"), Main.rand.Next(4) + (Main.expertMode ? 1 : 0));
             }
         }
     }

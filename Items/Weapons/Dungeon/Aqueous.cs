@@ -1,37 +1,36 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
-	public class Aqueous : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Aqueous");
-			Tooltip.SetDefault("Shot from your bow alongside normal arrows");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 20;
-			item.ranged = true;
-			item.knockBack = .5f;
+    public class Aqueous : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Aqueous");
+            Tooltip.SetDefault("Shot from your bow alongside normal arrows");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 20;
+            item.ranged = true;
+            item.knockBack = .5f;
             item.value = Item.sellPrice(silver: 54);
             item.rare = 2;
             item.width = 2;
-			item.height = 2;
+            item.height = 2;
             item.crit = 20;
-			item.shootSpeed =12f;
+            item.shootSpeed = 12f;
             item.useTime = 100;
-			
-			item.maxStack = 1;
-			
-			
-		}
+
+            item.maxStack = 1;
+
+
+        }
         public override bool CanUseItem(Player player)
         {
             return false;
@@ -62,15 +61,15 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
             Vector2 vectorItemToPlayer = player.Center - item.Center;
 
-            Vector2 v  = vectorItemToPlayer.SafeNormalize(default(Vector2)) * 8f * (100/(float)item.useTime);
+            Vector2 v = vectorItemToPlayer.SafeNormalize(default(Vector2)) * 8f * (100 / (float)item.useTime);
 
             item.velocity = v;
-            item.position += v * .1f; 
-            
+            item.position += v * .1f;
+
             item.beingGrabbed = true;
-            
+
             ReturningDust();
-           
+
 
             closestDistance = 10000;
         }
@@ -105,7 +104,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
         public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if(arrowID == -1)
+            if (arrowID == -1)
             {
                 arrowID = mod.ItemType("Aqueous");
                 shootID = mod.ProjectileType("AqueousP");
@@ -114,11 +113,11 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             {
                 for (int i = 0; i < 58; i++)
                 {
-                    if (player.inventory[i].type == arrowID && player.inventory[i].stack > 0 && Main.LocalPlayer ==player)
-                    { 
-                        
-                        
-                        Projectile p = Main.projectile[Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 32).SafeNormalize(default(Vector2))* player.inventory[i].shootSpeed , shootID, player.inventory[i].damage, player.inventory[i].knockBack, player.whoAmI)];
+                    if (player.inventory[i].type == arrowID && player.inventory[i].stack > 0 && Main.LocalPlayer == player)
+                    {
+
+
+                        Projectile p = Main.projectile[Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 32).SafeNormalize(default(Vector2)) * player.inventory[i].shootSpeed, shootID, player.inventory[i].damage, player.inventory[i].knockBack, player.whoAmI)];
                         p.localAI[1] = player.inventory[i].prefix;
                         p.localAI[0] = player.inventory[i].crit;
                         player.inventory[i].stack--;
@@ -128,57 +127,57 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
     }
-	public class AqueousP : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Aqueous");
-			
-			
-		}
-                
+    public class AqueousP : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Aqueous");
+
+
+        }
+
         protected int assosiatedItemID = -1;
-		public override void SetDefaults()
-		{
-			projectile.aiStyle = 1;
-			projectile.width = 10;
-			projectile.height = 10;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.ranged= true;
-			projectile.arrow=true;
-			
-			projectile.tileCollide = true;
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+            projectile.width = 10;
+            projectile.height = 10;
+            projectile.friendly = true;
+            projectile.penetrate = 1;
+            projectile.ranged = true;
+            projectile.arrow = true;
+
+            projectile.tileCollide = true;
         }
         public override void Kill(int timeLeft)
         {
-            if(assosiatedItemID == -1)
+            if (assosiatedItemID == -1)
             {
                 assosiatedItemID = mod.ItemType("Aqueous");
             }
-            if(Main.netMode != 1)
+            if (Main.netMode != 1)
             {
                 Item i = Main.item[Item.NewItem(projectile.Center, assosiatedItemID)];
                 i.Prefix((int)projectile.localAI[1]);
             }
-            
+
         }
         public override void AI()
         {
-            if(Main.rand.Next(6)==0)
+            if (Main.rand.Next(6) == 0)
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
             }
-            
+
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            crit = Main.rand.Next(100)< ((int)projectile.localAI[0]+Main.player[projectile.owner].rangedCrit);
+            crit = Main.rand.Next(100) < ((int)projectile.localAI[0] + Main.player[projectile.owner].rangedCrit);
         }
 
 
 
     }
-	
+
 }
 

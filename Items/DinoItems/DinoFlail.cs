@@ -1,43 +1,43 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System; 
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.DinoItems
 {
-	public class DinoFlail : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ankylosaurus Tail");
+    public class DinoFlail : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ankylosaurus Tail");
             Tooltip.SetDefault("Critical hits stun enemies");
         }
-		public override void SetDefaults()
-		{
-			item.damage = 90;
-			item.melee = true;
-			item.noMelee = true;
-			item.scale = 1f;
-			item.noUseGraphic = true;
-			item.width = 30;
-			item.height = 32;
-			item.useTime = 44;
-			item.useAnimation = 44;
-			item.useStyle = 5;
-			item.knockBack = 3;
+        public override void SetDefaults()
+        {
+            item.damage = 90;
+            item.melee = true;
+            item.noMelee = true;
+            item.scale = 1f;
+            item.noUseGraphic = true;
+            item.width = 30;
+            item.height = 32;
+            item.useTime = 44;
+            item.useAnimation = 44;
+            item.useStyle = 5;
+            item.knockBack = 3;
             item.rare = 6;
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.channel = true;
-			item.shoot = mod.ProjectileType("AnkylosaurusTail");
-			item.shootSpeed = 15f;
-		}
-		
+            item.autoReuse = false;
+            item.channel = true;
+            item.shoot = mod.ProjectileType("AnkylosaurusTail");
+            item.shootSpeed = 15f;
+        }
 
-	}
+
+    }
     public class AnkylosaurusTail : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -85,7 +85,7 @@ namespace QwertysRandomContent.Items.DinoItems
             if (projectile.ai[0] == 0f)
             {
                 float num207 = 400f;
-                
+
                 projectile.tileCollide = true;
                 if (num206 > num207)
                 {
@@ -107,7 +107,7 @@ namespace QwertysRandomContent.Items.DinoItems
                 float num208 = 14f / Main.player[projectile.owner].meleeSpeed;
                 float num209 = 0.9f / Main.player[projectile.owner].meleeSpeed;
                 float num210 = 600f;
-                
+
                 Math.Abs(num204);
                 Math.Abs(num205);
                 if (projectile.ai[1] == 1f)
@@ -166,11 +166,11 @@ namespace QwertysRandomContent.Items.DinoItems
                     }
                 }
             }
-            
-                projectile.rotation = (float)Math.Atan2((double)num205, (double)num204) - projectile.velocity.X * 0.1f;
-                return;
-            
-            
+
+            projectile.rotation = (float)Math.Atan2((double)num205, (double)num204) - projectile.velocity.X * 0.1f;
+            return;
+
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -225,10 +225,10 @@ namespace QwertysRandomContent.Items.DinoItems
             {
                 if (distance > 4f && !float.IsNaN(distance))
                 {
-                    distToProj.Normalize();                 
+                    distToProj.Normalize();
                     distToProj *= 8f;
-                    center += distToProj;                   
-                    distToProj = playerCenter - center;    
+                    center += distToProj;
+                    distToProj = playerCenter - center;
                     distance = distToProj.Length();
                     Color drawColor = lightColor;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
 {
@@ -18,11 +13,11 @@ namespace QwertysRandomContent.Items.Etims
         public override void SetDefaults()
         {
             item.value = 10000;
-            item.width  = item.height= 32;
+            item.width = item.height = 32;
             item.maxStack = 999;
             item.rare = 3;
         }
-        
+
 
     }
 }

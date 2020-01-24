@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Buffs;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.World.Generation;
-using QwertysRandomContent.Buffs;
 
 namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
@@ -81,8 +79,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hallowed Sentry");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; 
-            Main.projFrames[projectile.type] = 1; 
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            Main.projFrames[projectile.type] = 1;
         }
 
         public override void SetDefaults()
@@ -90,21 +88,21 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             projectile.sentry = true;
             projectile.width = 38;
-            projectile.height = 38;  
-            projectile.hostile = false;   
-            projectile.friendly = false;  
-            projectile.ignoreWater = true;   
+            projectile.height = 38;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
             projectile.sentry = true;
             projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
         NPC target;
-       
+
         float maxDistance = 1000f;
         float distance;
         int timer;
@@ -114,8 +112,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             timer++;
-           
-            if(QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
+
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
             {
 
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
@@ -139,9 +137,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         offset.Y -= target.height / 2;
                     }
                     Projectile.NewProjectile(target.Center + offset, -offset.SafeNormalize(-Vector2.UnitY) * 8, mod.ProjectileType("Excalimini"), projectile.damage, projectile.knockBack, player.whoAmI);
-                    if(timer % 20 == 0)
+                    if (timer % 20 == 0)
                     {
-                        Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(8, projectile.rotation + (float)Math.PI/2), mod.ProjectileType("ExcaliminiDraw"), projectile.damage, projectile.knockBack, player.whoAmI);
+                        Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(8, projectile.rotation + (float)Math.PI / 2), mod.ProjectileType("ExcaliminiDraw"), projectile.damage, projectile.knockBack, player.whoAmI);
                     }
                     else
                     {
@@ -151,7 +149,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
 
             }
-            
+
         }
 
 
@@ -180,7 +178,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSummons/Excalimini");
             spriteBatch.Draw(texture, new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y + 2),
-                        new Rectangle(0, 0, texture.Width, texture.Height), Color.Lerp(lightColor, new Color(0, 0, 0, 0),  (float)projectile.alpha / 255f), projectile.rotation,
+                        new Rectangle(0, 0, texture.Width, texture.Height), Color.Lerp(lightColor, new Color(0, 0, 0, 0), (float)projectile.alpha / 255f), projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
@@ -202,7 +200,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return projHitbox.Intersects(targetHitbox);
         }
 
-        
+
 
         // Here's an example on how you could make your AI even more readable, by giving AI fields more descriptive names
         // These are not used in AI, but it is good practice to apply some form like this to keep things organized
@@ -390,13 +388,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
-        
-
-        
 
 
 
-       
+
+
+
+
         private const int alphaIncrease = 20;
 
         public override void AI()

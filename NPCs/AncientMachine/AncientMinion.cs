@@ -1,9 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.NPCs.AncientMachine
 {
@@ -24,7 +24,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
             npc.HitSound = SoundID.NPCHit4;
             npc.DeathSound = SoundID.NPCDeath14;
-            
+
             npc.value = 0f;
             npc.knockBackResist = 0f;
             //npc.aiStyle = 10;
@@ -47,7 +47,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            if(npc.life <=0)
+            if (npc.life <= 0)
             {
                 Vector2 pos = npc.Center + QwertyMethods.PolarVector(-16, npc.rotation + (float)Math.PI / 2);
                 Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_1"), 1f)];
@@ -73,7 +73,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
-        public const int minionRingRadius=50;
+        public const int minionRingRadius = 50;
         public const int minionRingDustQty = 50;
         const int AI_Timer_Slot = 1;
 
@@ -86,8 +86,8 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         public int attackType = 1;
         public bool charging;
         public NPC parent;
-        int waitTime =120;
-        int chargeTime =120;
+        int waitTime = 120;
+        int chargeTime = 120;
         Vector2 moveTo;
         bool justTeleported;
         float chargeSpeed = 12;
@@ -96,13 +96,13 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             if (justTeleported)
             {
-                
+
                 justTeleported = false;
             }
             if (runOnce)
             {
-               
-                if (Main.netMode !=1)
+
+                if (Main.netMode != 1)
                 {
                     npc.ai[2] = npc.Center.X;
                     npc.ai[3] = npc.Center.Y;
@@ -112,7 +112,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             }
             Player player = Main.player[npc.target];
             //parent = Main.npc[(int)npc.ai[0]];
-            if (!player.active || player.dead )
+            if (!player.active || player.dead)
             {
                 npc.TargetClosest(false);
                 player = Main.player[npc.target];
@@ -127,13 +127,13 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 }
             }
             timer++;
-            if(timer > waitTime+chargeTime)
+            if (timer > waitTime + chargeTime)
             {
                 for (int i = 0; i < minionRingDustQty; i++)
                 {
                     float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                    
-                    Dust dust = Dust.NewDustPerfect(npc.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius/10, theta));
+
+                    Dust dust = Dust.NewDustPerfect(npc.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius / 10, theta));
                     dust.noGravity = true;
                 }
                 if (Main.netMode != 1)
@@ -154,19 +154,19 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 justTeleported = true;
                 timer = 0;
             }
-            else if(timer> waitTime)
+            else if (timer > waitTime)
             {
                 charging = true;
             }
             else
             {
-                if(timer ==2)
+                if (timer == 2)
                 {
                     Main.PlaySound(SoundID.Item8, npc.position);
                     for (int i = 0; i < minionRingDustQty; i++)
                     {
                         float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                        Dust dust = Dust.NewDustPerfect(npc.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(minionRingRadius/10, theta));
+                        Dust dust = Dust.NewDustPerfect(npc.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(minionRingRadius / 10, theta));
                         dust.noGravity = true;
                     }
                 }
@@ -183,10 +183,6 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 float targetAngle = new Vector2(player.Center.X - npc.Center.X, player.Center.Y - npc.Center.Y).ToRotation();
                 npc.rotation = targetAngle;
             }
-            
-        
-
-            
 
 
 
@@ -194,7 +190,11 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
 
 
-            
+
+
+
+
+
 
 
 

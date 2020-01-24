@@ -1,12 +1,7 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.NPCs.Fortress
 {
@@ -59,7 +54,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             {
                 for (int i = 0; i < 90; i++)
                 {
-                    int dustType = mod.DustType("FortressDust"); 
+                    int dustType = mod.DustType("FortressDust");
                     int dustIndex = Dust.NewDust(npc.position, npc.width, npc.height, dustType);
                     Dust dust = Main.dust[dustIndex];
                     dust.velocity.X = dust.velocity.X + Main.rand.Next(-50, 51) * 0.01f;
@@ -81,7 +76,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(7,20));
+            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(7, 20));
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -105,7 +100,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
             timer++;
-            switch(direction)
+            switch (direction)
             {
                 case 0:
                     npc.velocity = new Vector2(0, 0);
@@ -142,12 +137,12 @@ namespace QwertysRandomContent.NPCs.Fortress
                     frame = 4;
                     npc.dontTakeDamage = false;
                     npc.velocity = new Vector2(speed * (npc.confused ? -1 : 1), 0);
-                    if (timer > rushCooldown && (npc.collideX||npc.collideY))
+                    if (timer > rushCooldown && (npc.collideX || npc.collideY))
                     {
                         direction = 0;
                         timer = 0;
                     }
-                        break;
+                    break;
 
                 case 2:
                     frame = 2;
@@ -185,12 +180,12 @@ namespace QwertysRandomContent.NPCs.Fortress
 
 
             }
-            
+
         }
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frameHeight * frame;
         }
     }
-    
+
 }

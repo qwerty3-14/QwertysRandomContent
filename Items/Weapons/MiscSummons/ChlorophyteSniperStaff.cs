@@ -1,44 +1,41 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
 
-namespace QwertysRandomContent.Items.Weapons.MiscSummons       
+namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
     public class ChlorophyteSniperStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Chlorophyte Sniper Staff");
-			Tooltip.SetDefault("Summons a Chlorophyte Sniper to execute your foes!");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chlorophyte Sniper Staff");
+            Tooltip.SetDefault("Summons a Chlorophyte Sniper to execute your foes!");
 
 
         }
- 
+
         public override void SetDefaults()
         {
 
-            item.damage = 162; 
-            item.mana = 20;      
-            item.width = 38;    
-            item.height = 38;     
-            item.useTime = 25;  
-            item.useAnimation = 25;   
-            item.useStyle = 1; 
-            item.noMelee = true; 
+            item.damage = 162;
+            item.mana = 20;
+            item.width = 38;
+            item.height = 38;
+            item.useTime = 25;
+            item.useAnimation = 25;
+            item.useStyle = 1;
+            item.noMelee = true;
             item.knockBack = 5f;
             item.value = Item.sellPrice(0, 4, 52, 0);
             item.rare = 4;
-            item.UseSound = SoundID.Item44;  
-            item.autoReuse = true;   
-            item.shoot = mod.ProjectileType("ChlorophyteSniper");  
-            item.summon = true;    
-            item.buffType = mod.BuffType("ChlorophyteSniper");	
-			item.buffTime = 3600;
+            item.UseSound = SoundID.Item44;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("ChlorophyteSniper");
+            item.summon = true;
+            item.buffType = mod.BuffType("ChlorophyteSniper");
+            item.buffTime = 3600;
         }
 
         public override void AddRecipes()
@@ -53,50 +50,50 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class ChlorophyteSniper : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Chlorophyte Sniper");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Chlorophyte Sniper");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
 
 
             projectile.width = 22;
-            projectile.height = 22;   
-            projectile.hostile = false;   
-            projectile.friendly = false;   
-            projectile.ignoreWater = true;    
-            Main.projFrames[projectile.type] = 1; 
-            projectile.penetrate = -1; 
-            projectile.tileCollide = false; 
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.height = 22;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
+            Main.projFrames[projectile.type] = 1;
+            projectile.penetrate = -1;
+            projectile.tileCollide = false;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             //projectile.usesLocalNPCImmunity = true;
         }
@@ -104,7 +101,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         Vector2 flyTo;
         int identity = 0;
         int sniperCount = 0;
-        
+
         NPC target;
         int timer;
         public override void AI()
@@ -132,22 +129,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     }
                 }
             }
-           
-
-                
 
 
 
-            
+
+
+
+
             timer++;
             if (sniperCount != 0)
             {
                 projectile.ai[0] = 40f;
-                
+
                 flyTo = player.Center + QwertyMethods.PolarVector(projectile.ai[0], -modPlayer.mythrilPrismRotation + (2f * (float)Math.PI * identity) / sniperCount);
-               
+
                 projectile.velocity = (flyTo - projectile.Center) * .1f;
-                if(QwertyMethods.ClosestNPC(ref target, 100000, projectile.Center, false, player.MinionAttackTargetNPC) && timer>180)
+                if (QwertyMethods.ClosestNPC(ref target, 100000, projectile.Center, false, player.MinionAttackTargetNPC) && timer > 180)
                 {
                     Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(10, (target.Center - projectile.Center).ToRotation()), mod.ProjectileType("ChlorophyteSnipe"), projectile.damage, projectile.knockBack, player.whoAmI);
                     timer = 0;
@@ -164,11 +161,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
 
             identity = 0;
-           
+
         }
 
-        
-        
+
+
 
     }
     public class ChlorophyteSnipe : ModProjectile
@@ -194,7 +191,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.penetrate = 1;
             projectile.tileCollide = true;
             projectile.minion = true;
-            
+
             //projectile.timeLeft = 2;
             //projectile.aiStyle = 1;
             //aiType = ProjectileID.Bullet;

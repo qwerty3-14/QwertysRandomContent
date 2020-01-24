@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using QwertysRandomContent.NPCs.Fortress;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -78,11 +74,11 @@ namespace QwertysRandomContent.Items.Etims
         }
         public override void AI(Projectile projectile)
         {
-            if(effect)
+            if (effect)
             {
                 Dust.NewDustPerfect(projectile.Center, mod.DustType("BloodforceDust"), Vector2.Zero);
             }
-            
+
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

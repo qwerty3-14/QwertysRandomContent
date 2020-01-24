@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
@@ -83,17 +82,18 @@ namespace QwertysRandomContent.Items.Accesories
         int k;
         public override bool CanUseItem(Item item, Player player)
         {
-            if(player.GetModPlayer<BloodMedalionEffect>().effect && item.mana >0)
+            if (player.GetModPlayer<BloodMedalionEffect>().effect && item.mana > 0)
             {
                 int k = player.statMana += (int)(item.mana * Main.player[item.owner].manaCost);
                 player.statLife -= (int)(item.mana * Main.player[item.owner].manaCost);
                 if (player.statLife <= 0)
                 {
                     player.KillMe(PlayerDeathReason.ByCustomReason(player.name + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo1") + (player.Male ? Language.GetTextValue("Mods.QwertysRandomContent.his") : Language.GetTextValue("Mods.QwertysRandomContent.her")) + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo2")), (int)(item.mana * Main.player[item.owner].manaCost), 0);
+                    
                 }
                 return true;
             }
-            
+
             return base.CanUseItem(item, player);
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -110,7 +110,7 @@ namespace QwertysRandomContent.Items.Accesories
 
                 }
             }
-           
+
         }
     }
 

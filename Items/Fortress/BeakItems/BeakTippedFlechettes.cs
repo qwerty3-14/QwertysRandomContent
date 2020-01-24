@@ -1,7 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beak Tipped Flechettes");
-            Tooltip.SetDefault("Flechettes do more damage as they pick up speed from gravity" +"\nDrifts toward enemies");
+            Tooltip.SetDefault("Flechettes do more damage as they pick up speed from gravity" + "\nDrifts toward enemies");
 
         }
         public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             item.noMelee = true;
             item.maxStack = 999;
             item.autoReuse = true;
-
+            item.UseSound = SoundID.Item39;
 
         }
         public override bool ConsumeItem(Player player)
@@ -56,9 +56,9 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             float speed = new Vector2(speedX, speedY).Length();
             int numberOfProjectiles = 2 + Main.rand.Next(4);
 
-            for (int p =0; p <numberOfProjectiles; p++)
+            for (int p = 0; p < numberOfProjectiles; p++)
             {
-                float direction = Main.rand.NextFloat(5 * (float)Math.PI / 8, 3* (float)Math.PI / 8);
+                float direction = Main.rand.NextFloat(5 * (float)Math.PI / 8, 3 * (float)Math.PI / 8);
                 Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
             }
             return false;
@@ -86,7 +86,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             maxVerticalSpeed = 12f;
 
         }
-        
+
         bool runOnce = true;
         float initialVerticalVelocity;
         NPC target;
@@ -98,12 +98,12 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
         float horizontalAcceleration = .15f;
         public override void ExtraAI()
         {
-            
+
             for (int k = 0; k < 200; k++)
             {
                 possibleTarget = Main.npc[k];
                 distance = (possibleTarget.Center.Y - projectile.Center.Y);
-                if (distance < maxDistance && distance>0 && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
+                if (distance < maxDistance && distance > 0 && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
                 {
                     target = Main.npc[k];
                     foundTarget = true;
@@ -113,9 +113,9 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
                 }
 
             }
-           if(foundTarget)
+            if (foundTarget)
             {
-                if(target.Center.X> projectile.Center.X)
+                if (target.Center.X > projectile.Center.X)
                 {
                     projectile.velocity.X += horizontalAcceleration;
                 }
@@ -123,7 +123,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
                 {
                     projectile.velocity.X -= horizontalAcceleration;
                 }
-                if(projectile.velocity.X > horizontalMaxSpeed)
+                if (projectile.velocity.X > horizontalMaxSpeed)
                 {
                     projectile.velocity.X = horizontalMaxSpeed;
                 }
@@ -132,13 +132,13 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
                     projectile.velocity.X = -horizontalMaxSpeed;
                 }
             }
-            
+
             maxDistance = 10000f;
             foundTarget = false;
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage = damage + (int)(((projectile.velocity.Y - initialVerticalVelocity) / (maxVerticalSpeed - initialVerticalVelocity) ) * .5f * (float)damage);
+            damage = damage + (int)(((projectile.velocity.Y - initialVerticalVelocity) / (maxVerticalSpeed - initialVerticalVelocity)) * .5f * (float)damage);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

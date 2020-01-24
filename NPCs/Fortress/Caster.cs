@@ -1,12 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Terraria.World.Generation;
 
 namespace QwertysRandomContent.NPCs.Fortress
 {
@@ -56,13 +53,13 @@ namespace QwertysRandomContent.NPCs.Fortress
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBossSummon"), 1);
             }
-            else if (Main.rand.Next(3)<=1)
+            else if (Main.rand.Next(3) <= 1)
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBossSummon"), 1);
             }
         }
         int timer;
-        int GenerateRingTime=30;
+        int GenerateRingTime = 30;
         int throwRingTime = 150;
         Projectile ring;
         float ringSpeed = 6;
@@ -76,20 +73,20 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.spriteDirection = npc.direction;
             Player player = Main.player[npc.target];
             ringProjectileCount = 2 - (int)((float)npc.life / (float)npc.lifeMax * 2) + 4;
-            if (timer== GenerateRingTime)
+            if (timer == GenerateRingTime)
             {
                 ring = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("RingCenter"), 11, 0, player.whoAmI, ringProjectileCount, npc.direction)];
                 castingFrames = true;
             }
-            if(timer > GenerateRingTime && timer < GenerateRingTime+throwRingTime)
+            if (timer > GenerateRingTime && timer < GenerateRingTime + throwRingTime)
             {
                 ring.Center = npc.Center;
 
             }
-            if(timer == GenerateRingTime + throwRingTime)
+            if (timer == GenerateRingTime + throwRingTime)
             {
                 castingFrames = false;
-                ring.velocity = ((player.Center - npc.Center).SafeNormalize(-Vector2.UnitY)* ringSpeed) * (npc.confused ? -1: 1);
+                ring.velocity = ((player.Center - npc.Center).SafeNormalize(-Vector2.UnitY) * ringSpeed) * (npc.confused ? -1 : 1);
                 timer = 0;
             }
             npc.velocity.X = npc.velocity.X * 0.93f;
@@ -149,9 +146,9 @@ namespace QwertysRandomContent.NPCs.Fortress
                 int npcTilePositionY = (int)npc.position.Y / 16;
                 int playerTargetShift = 40;
                 int num90 = 0;
-                
-                
-                for (int s =0; s<100; s++)
+
+
+                for (int s = 0; s < 100; s++)
                 {
                     num90++;
                     int nearPlayerX = Main.rand.Next(playerTilePositionX - playerTargetShift, playerTilePositionX + playerTargetShift);
@@ -169,8 +166,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                             {
                                 npc.ai[1] = 20f;
                                 npc.ai[2] = (float)nearPlayerX;
-                                npc.ai[3] = (float)num93 -1;
-                                
+                                npc.ai[3] = (float)num93 - 1;
+
                                 break;
                             }
                         }
@@ -187,7 +184,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
 
 
-            
+
 
 
 
@@ -205,23 +202,23 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             frameCounter++;
             frame = 0;
-            if(frameCounter>50)
+            if (frameCounter > 50)
             {
                 frameCounter = 0;
             }
-            if(frameCounter >40)
+            if (frameCounter > 40)
             {
                 frame = 3;
             }
-            else if(frameCounter>30)
+            else if (frameCounter > 30)
             {
                 frame = 2;
             }
-            else if(frameCounter >20)
+            else if (frameCounter > 20)
             {
                 frame = 1;
             }
-            if(castingFrames)
+            if (castingFrames)
             {
                 frame += 5;
             }
@@ -233,7 +230,7 @@ namespace QwertysRandomContent.NPCs.Fortress
     {
         public override void SetStaticDefaults()
         {
-           
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -259,7 +256,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 for (int i = 0; i < projectilesInRing; i++)
                 {
                     //Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RingOuter"), projectile.damage, projectile.knockBack, projectile.owner, (float)i / (float)projectilesInRing * 2 * (float)Math.PI, projectile.whoAmI);
-                    
+
                     if (projectile.ai[1] == 1)
                     {
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RingOuter"), projectile.damage, projectile.knockBack, projectile.owner, (float)i / (float)projectilesInRing * 2 * (float)Math.PI, projectile.whoAmI);
@@ -268,8 +265,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                     {
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RingOuter"), projectile.damage, projectile.knockBack, projectile.owner, (float)i / (float)projectilesInRing * 2 * (float)Math.PI, -projectile.whoAmI);
                     }
-                    
-                        
+
+
                 }
                 runOnce = false;
             }
@@ -282,7 +279,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             DisplayName.SetDefault("Caelite Sphere");
             Main.projFrames[projectile.type] = 4;
         }
-        
+
         public override void SetDefaults()
         {
             projectile.width = 12;
@@ -294,7 +291,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         bool runOnce = true;
         int projectilesInRing = 4;
         Projectile parent;
-        float radius =60;
+        float radius = 60;
         Projectile clearCheck;
         int spinDirection = 1;
         int frameTimer;
@@ -304,7 +301,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             dust.scale = .5f;
             if (runOnce)
             {
-                if(projectile.ai[1] < 0)
+                if (projectile.ai[1] < 0)
                 {
                     spinDirection = -1;
                     projectile.ai[1] = Math.Abs(projectile.ai[1]);
@@ -316,23 +313,23 @@ namespace QwertysRandomContent.NPCs.Fortress
             projectile.position.X = parent.Center.X - (int)(Math.Cos(projectile.ai[0]) * radius) - projectile.width / 2;
             projectile.position.Y = parent.Center.Y - (int)(Math.Sin(projectile.ai[0]) * radius) - projectile.height / 2;
             projectile.ai[0] += (float)Math.PI / 120 * spinDirection;
-            for(int p =0; p <1000; p++)
+            for (int p = 0; p < 1000; p++)
             {
                 clearCheck = Main.projectile[p];
-                if (clearCheck.friendly && clearCheck.type != mod.ProjectileType("PunnishFist") && !clearCheck.sentry && clearCheck.minionSlots <=0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, clearCheck.position, clearCheck.Size))
+                if (clearCheck.friendly && clearCheck.type != mod.ProjectileType("PunnishFist") && !clearCheck.sentry && clearCheck.minionSlots <= 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, clearCheck.position, clearCheck.Size))
                 {
                     clearCheck.Kill();
                 }
             }
-            if(!parent.active || parent.type != mod.ProjectileType("RingCenter"))
+            if (!parent.active || parent.type != mod.ProjectileType("RingCenter"))
             {
                 projectile.Kill();
             }
             frameTimer++;
-            if(frameTimer>10)
+            if (frameTimer > 10)
             {
                 projectile.frame++;
-                if(projectile.frame >= Main.projFrames[projectile.type])
+                if (projectile.frame >= Main.projFrames[projectile.type])
                 {
                     projectile.frame = 0;
                 }
@@ -343,10 +340,10 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             for (int i = 0; i < 30; i++)
             {
-                
+
                 Dust dust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, mod.DustType("CaeliteDust"))];
                 dust.velocity *= 3;
-                
+
             }
         }
         public override void OnHitPlayer(Player target, int damage, bool crit)

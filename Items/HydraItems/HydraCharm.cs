@@ -4,35 +4,35 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.HydraItems
 {
-	
-	
-	public class HydraCharm : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Hydra Charm");
-			Tooltip.SetDefault("Allows most minions to summon more minions to fill empty minion slots");
-			
-		}
-		
-		public override void SetDefaults()
-		{
-			
-			item.value = 10000;
-			item.rare = 5;
-			
-			
-			item.width = 14;
-			item.height = 22;
-			
-			item.accessory = true;
-			
-			
-			
-		}
-		
-		public override void UpdateEquip(Player player)
-		{
+
+
+    public class HydraCharm : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Hydra Charm");
+            Tooltip.SetDefault("Allows most minions to summon more minions to fill empty minion slots");
+
+        }
+
+        public override void SetDefaults()
+        {
+
+            item.value = 10000;
+            item.rare = 5;
+
+
+            item.width = 14;
+            item.height = 22;
+
+            item.accessory = true;
+
+
+
+        }
+
+        public override void UpdateEquip(Player player)
+        {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.hydraCharm = true;
 
@@ -64,7 +64,7 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             Player player = Main.player[projectile.owner];
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (player.maxMinions - player.numMinions >= projectile.minionSlots && Main.netMode != 2 && projectile.minionSlots > 0 && projectile.active && modPlayer.hydraCharm && projectile.type!= mod.ProjectileType("SwordMinion") && (projectile.type < ProjectileID.StardustDragon1 || projectile.type > ProjectileID.StardustDragon4))
+            if (player.maxMinions - player.numMinions >= projectile.minionSlots && Main.netMode != 2 && projectile.minionSlots > 0 && projectile.active && modPlayer.hydraCharm && projectile.type != mod.ProjectileType("SwordMinion") && (projectile.type < ProjectileID.StardustDragon1 || projectile.type > ProjectileID.StardustDragon4))
             {
                 if (wait >= 20 && projectile.active)
                 {

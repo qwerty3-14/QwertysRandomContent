@@ -1,13 +1,9 @@
-using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Lune
 {
@@ -56,7 +52,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 }
             }
             */
-            player.GetModPlayer<QwertyPlayer>().grappleBoost =true;
+            player.GetModPlayer<QwertyPlayer>().grappleBoost = true;
             player.GetModPlayer<JacketBonuses>().hunt = true;
 
         }
@@ -70,7 +66,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             //Main.NewText("active set effect");
             if (!Main.dayTime)
             {
-                
+
                 float radius = Main.rand.NextFloat(200);
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(radius, theta), mod.DustType("LuneDust"));
@@ -159,7 +155,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 runOnce = false;
                 //Main.NewText("DOUBLE!!");
             }
-            
+
 
         }
 
@@ -178,13 +174,13 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if(proj.ranged && target.life<0 &&hunt)
+            if (proj.ranged && target.life < 0 && hunt)
             {
                 player.AddBuff(BuffID.Hunter, 60 * 10);
             }
-            if(proj.ranged && (target.Center-player.Center).Length() >400 && setBonus)
+            if (proj.ranged && (target.Center - player.Center).Length() > 400 && setBonus)
             {
-               
+
                 target.AddBuff(mod.BuffType("LuneCurse"), (int)(target.Center - player.Center).Length());
             }
         }
@@ -195,8 +191,8 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[projectile.owner];
-            if((npc.Center - player.Center).Length() > 400 && player.GetModPlayer<JacketBonuses>().setBonus && projectile.ranged)
-            damage = (int)(damage * 1.2f);
+            if ((npc.Center - player.Center).Length() > 400 && player.GetModPlayer<JacketBonuses>().setBonus && projectile.ranged)
+                damage = (int)(damage * 1.2f);
         }
     }
 

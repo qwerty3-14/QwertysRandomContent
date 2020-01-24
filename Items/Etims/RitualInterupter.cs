@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,9 +24,9 @@ namespace QwertysRandomContent.Items.Etims
             item.useStyle = 4;
             item.UseSound = SoundID.Item44;
             item.consumable = true;
-            
+
         }
-        
+
 
         public override bool CanUseItem(Player player)
         {

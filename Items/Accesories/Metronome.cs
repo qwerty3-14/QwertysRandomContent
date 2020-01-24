@@ -1,37 +1,36 @@
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
-	
-	
-	public class Metronome : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Metronome");
-			Tooltip.SetDefault("Kills grant +2% damage up to 200%" + "\nBonus resets when you take damage or switch weapons" + "\n");
-			
-		}
-		
-		public override void SetDefaults()
-		{
-			
-			item.value = 300000;
-			item.rare = 3;
-			
-			
-			item.width = 20;
-			item.height = 18;
-			
-			item.accessory = true;
-			
-			
-			
-		}
-       
+
+
+    public class Metronome : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Metronome");
+            Tooltip.SetDefault("Kills grant +2% damage up to 200%" + "\nBonus resets when you take damage or switch weapons" + "\n");
+
+        }
+
+        public override void SetDefaults()
+        {
+
+            item.value = 300000;
+            item.rare = 3;
+
+
+            item.width = 20;
+            item.height = 18;
+
+            item.accessory = true;
+
+
+
+        }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
 
@@ -45,17 +44,17 @@ namespace QwertysRandomContent.Items.Accesories
             }
         }
         public override void UpdateEquip(Player player)
-		{
-			var modPlayer = player.GetModPlayer<QwertyPlayer>();
-			modPlayer.Metronome = true;
-			
-			
-		}
-		
-		
-			
-	}
-		
-	
+        {
+            var modPlayer = player.GetModPlayer<QwertyPlayer>();
+            modPlayer.Metronome = true;
+
+
+        }
+
+
+
+    }
+
+
 }
 

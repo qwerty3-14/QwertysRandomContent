@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +8,7 @@ namespace QwertysRandomContent.AbstractClasses
 {
     public abstract class Javelin : ModProjectile
     {
+        //361496540
         protected int dropItem = -1;
         protected int maxStickingJavelins = 5; // projectile is the max. amount of javelins being able to attach
         protected float rotationOffset = 0f;
@@ -100,7 +97,7 @@ namespace QwertysRandomContent.AbstractClasses
             projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
 
             // The following code handles the javelin sticking to the enemy hit.
-            
+
             Point[] stickingJavelins = new Point[maxStickingJavelins]; // The point array holding for sticking javelins
             int javelinIndex = 0; // The javelin index
             for (int i = 0; i < Main.maxProjectiles; i++) // Loop all projectiles
@@ -141,7 +138,10 @@ namespace QwertysRandomContent.AbstractClasses
             }
         }
 
-        
+        public virtual void StuckEffects(NPC victim)
+        {
+
+        }
         public virtual void NonStickingBehavior()
         {
             targetWhoAmI += 1f;
@@ -178,11 +178,11 @@ namespace QwertysRandomContent.AbstractClasses
             if (!isStickingToTarget)
             {
                 NonStickingBehavior();
-                
+
                 // Make sure to set the rotation accordingly to the velocity, and add some to work around the sprite's rotation
                 projectile.rotation =
-                    projectile.velocity.ToRotation() + (float)Math.PI/2+ rotationOffset;
-                
+                    projectile.velocity.ToRotation() + (float)Math.PI / 2 + rotationOffset;
+
 
 
             }
@@ -213,6 +213,7 @@ namespace QwertysRandomContent.AbstractClasses
                     {
                         Main.npc[projTargetIndex].HitEffect(0, 1.0);
                     }
+                    StuckEffects(Main.npc[projTargetIndex]);
                 }
                 else // Otherwise, kill the projectile
                 {
@@ -223,7 +224,7 @@ namespace QwertysRandomContent.AbstractClasses
                 {
                     projectile.Kill();
                 }
-                
+
             }
             ExtraAI();
         }

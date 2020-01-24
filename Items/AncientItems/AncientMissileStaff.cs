@@ -7,38 +7,38 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-	public class AncientMissileStaff : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Missile Staff");
-			Tooltip.SetDefault("Fires explosive Ancient Missiles!");
+    public class AncientMissileStaff : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Missile Staff");
+            Tooltip.SetDefault("Fires explosive Ancient Missiles!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
 
         }
-		public override void SetDefaults()
-		{
-			item.damage = 32;
-			item.magic = true;
-			
-			item.useTime = 21;
-			item.useAnimation = 21;
-			item.useStyle = 5;
-			item.knockBack = 2;
-			item.value = 150000;
-			item.rare = 3;
-			//item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.width = 72;
-			item.height = 72;
+        public override void SetDefaults()
+        {
+            item.damage = 32;
+            item.magic = true;
+
+            item.useTime = 21;
+            item.useAnimation = 21;
+            item.useStyle = 5;
+            item.knockBack = 2;
+            item.value = 150000;
+            item.rare = 3;
+            //item.UseSound = SoundID.Item1;
+            item.autoReuse = true;
+            item.width = 72;
+            item.height = 72;
             if (!Main.dedServ)
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow");
             }
-            item.mana =7;
-			item.shoot = mod.ProjectileType("AncientMissileP");
-			item.shootSpeed =9;
-			item.noMelee=true;
+            item.mana = 7;
+            item.shoot = mod.ProjectileType("AncientMissileP");
+            item.shootSpeed = 9;
+            item.noMelee = true;
             //item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientWave_Glow");
 
 
@@ -112,7 +112,7 @@ namespace QwertysRandomContent.Items.AncientItems
         float missileAcceleration = .5f;
         float topSpeed = 10f;
         int timer;
-       
+
         NPC target;
         NPC possibleTarget;
         bool foundTarget;
@@ -173,7 +173,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-           
+
             Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlast"), projectile.damage, projectile.knockBack, projectile.owner);
             return true;
         }
@@ -195,6 +195,6 @@ namespace QwertysRandomContent.Items.AncientItems
             return false;
         }
     }
-    
+
 }
 

@@ -1,12 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace QwertysRandomContent.Items.RuneGhostItems
@@ -42,13 +38,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            
+
             modPlayer.pursuitScroll = true;
-            
+
 
         }
 
-        
+
 
     }
     class PursuitRuneFreindly : ModProjectile
@@ -71,7 +67,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         }
         public int runeTimer;
         public NPC target;
-        
+
         public float runeSpeed = 10;
         public float runeDirection;
         public float runeTargetDirection;
@@ -107,13 +103,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                         f = 1;
                     }
                     runeTargetDirection = (Main.npc[k].Center - projectile.Center).ToRotation();
-                    
+
                 }
                 else
                 {
                     runeTargetDirection = (Main.MouseWorld - projectile.Center).ToRotation();
                 }
-                
+
             }
             if (projectile.rotation <= runeTargetDirection + MathHelper.ToRadians(1) && projectile.rotation >= runeTargetDirection - MathHelper.ToRadians(1))
             {
@@ -158,16 +154,16 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         }
         public int runeCounter;
         public float runeSpeed = 10;
-        
+
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (projectile.minion && projectile.minionSlots >0 && modPlayer.pursuitScroll)
+            if (projectile.minion && projectile.minionSlots > 0 && modPlayer.pursuitScroll)
             {
-                
+
                 runeCounter++;
-                if(runeCounter >= 180/projectile.minionSlots)
+                if (runeCounter >= 180 / projectile.minionSlots)
                 {
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((1 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((1 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((2 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((2 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
@@ -176,7 +172,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                 }
 
             }
-            else if(projectile.minion && projectile.sentry && modPlayer.pursuitScroll)
+            else if (projectile.minion && projectile.sentry && modPlayer.pursuitScroll)
             {
                 runeCounter++;
                 if (runeCounter >= 90)

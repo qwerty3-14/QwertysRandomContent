@@ -1,44 +1,41 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
 
-namespace QwertysRandomContent.Items.Weapons.MiscSummons       
+namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
     public class OrichalcumDrifterStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Orichalcum Drifter Staff");
-			Tooltip.SetDefault("Summons an Orichalcum Drifter to fight for you!");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Orichalcum Drifter Staff");
+            Tooltip.SetDefault("Summons an Orichalcum Drifter to fight for you!");
 
 
         }
- 
+
         public override void SetDefaults()
         {
 
-            item.damage = 32; 
-            item.mana = 20;      
-            item.width = 32;    
-            item.height = 32;     
-            item.useTime = 25;  
-            item.useAnimation = 25;   
-            item.useStyle = 1; 
-            item.noMelee = true; 
+            item.damage = 32;
+            item.mana = 20;
+            item.width = 32;
+            item.height = 32;
+            item.useTime = 25;
+            item.useAnimation = 25;
+            item.useStyle = 1;
+            item.noMelee = true;
             item.knockBack = 1f;
             item.value = 126500;
             item.rare = 4;
-            item.UseSound = SoundID.Item44;  
-            item.autoReuse = true;   
-            item.shoot = mod.ProjectileType("OrichalcumDrifter");  
-            item.summon = true;    
-            item.buffType = mod.BuffType("OrichalcumDrifter");	
-			item.buffTime = 3600;
+            item.UseSound = SoundID.Item44;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("OrichalcumDrifter");
+            item.summon = true;
+            item.buffType = mod.BuffType("OrichalcumDrifter");
+            item.buffTime = 3600;
         }
 
         public override void AddRecipes()
@@ -53,51 +50,51 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class OrichalcumDrifter : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Orichalcum Drifter");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Orichalcum Drifter");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
 
 
-            projectile.width = 14; 
-            projectile.height = 18;   
-            projectile.hostile = false;   
-            projectile.friendly = true;   
-            projectile.ignoreWater = true;    
-            Main.projFrames[projectile.type] = 1; 
+            projectile.width = 14;
+            projectile.height = 18;
+            projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.ignoreWater = true;
+            Main.projFrames[projectile.type] = 1;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = false; 
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.penetrate = -1;
+            projectile.tileCollide = false;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 20;
@@ -119,13 +116,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         float driftTimer = 0;
         float driftVariance = 1;
         bool flyBack;
-        float speed =3;
+        float speed = 3;
         float turnSpeed = 2;
         public override void AI()
         {
 
             Player player = Main.player[projectile.owner];
-            
+
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             drifterCount = player.ownedProjectileCounts[mod.ProjectileType("OrichalcumDrifter")];
             if (modPlayer.OrichalcumDrifter)
@@ -148,9 +145,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             if ((player.Center - projectile.Center).Length() > 750 || flyBack)
             {
-                
+
                 flyTo = player.Center;
-                
+
                 if (Collision.CheckAABBvAABBCollision(player.position, player.Size, projectile.position, projectile.Size))
                 {
                     flyBack = false;
@@ -166,7 +163,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             else
             {
-                
+
                 if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
                 {
                     flyTo = target.Center;
@@ -195,8 +192,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             driftVariance = (float)Math.Cos(driftTimer);
             projectile.velocity += QwertyMethods.PolarVector(driftVariance, flyDirection + (float)Math.PI / 2);
             projectile.rotation = projectile.velocity.ToRotation();
-           // Main.NewText((player.Center - projectile.Center).Length());
-            
+            // Main.NewText((player.Center - projectile.Center).Length());
+
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -208,5 +205,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
 
     }
-    
+
 }

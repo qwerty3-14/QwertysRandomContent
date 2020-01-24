@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +9,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Urizel");
-            Tooltip.SetDefault("This sword once killed a sleeper /nDev item");
+            Tooltip.SetDefault("This sword once killed a sleeper \nDev item");
 
         }
         public override void SetDefaults()
@@ -32,10 +27,10 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
 
             item.width = 68;
             item.height = 68;
-           
+
 
             item.autoReuse = true;
-            
+
             item.shootSpeed = 9;
 
 

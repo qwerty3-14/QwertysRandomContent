@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.NPCs.Fortress;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -39,7 +35,7 @@ namespace QwertysRandomContent.Items.Etims
             item.value = 120000;
             item.useTurn = true;
         }
-        
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -50,7 +46,7 @@ namespace QwertysRandomContent.Items.Etims
         }
         public override bool CanUseItem(Player player)
         {
-            
+
             return player.itemAnimation == 0;
         }
         public override bool AltFunctionUse(Player player)
@@ -74,7 +70,7 @@ namespace QwertysRandomContent.Items.Etims
                 Point point;
                 Item item = player.inventory[player.selectedItem];
                 //Main.NewText(player.itemAnimation  + " / " + player.itemAnimationMax);
-                
+
                 if (item.useStyle == 101)
                 {
                     if (Main.mouseRight && Main.myPlayer == item.owner && !hasRightClicked)
@@ -101,12 +97,12 @@ namespace QwertysRandomContent.Items.Etims
                     float shift = 0f;
                     if (player.itemAnimation > 0 && uppercut || slam)
                     {
-                        if(slam)
+                        if (slam)
                         {
                             //Main.NewText("Slamming");
                             player.bodyFrame.Y = player.bodyFrame.Height * 4;
                             shift = (float)Math.PI / 2;
-                            
+
                             if (player.velocity.Y != 0)
                             {
                                 player.itemAnimation = 2;
@@ -117,11 +113,11 @@ namespace QwertysRandomContent.Items.Etims
                                 slam = false;
                             }
                         }
-                        else if(uppercut)
+                        else if (uppercut)
                         {
-                            
-                            shift = (float)Math.PI / 2 * ((float)player.itemAnimation / (float)player.itemAnimationMax) - (float)Math.PI/4;
-                            
+
+                            shift = (float)Math.PI / 2 * ((float)player.itemAnimation / (float)player.itemAnimationMax) - (float)Math.PI / 4;
+
                             if (player.itemAnimation < player.itemAnimationMax * .5f)
                             {
                                 player.bodyFrame.Y = player.bodyFrame.Height * 2;
@@ -134,11 +130,11 @@ namespace QwertysRandomContent.Items.Etims
                             {
                                 player.bodyFrame.Y = player.bodyFrame.Height * 4;
                             }
-                            if(player.itemAnimation < 2)
+                            if (player.itemAnimation < 2)
                             {
                                 player.itemAnimation = 2;
                             }
-                            if(player.velocity.Y >= 0)
+                            if (player.velocity.Y >= 0)
                             {
                                 player.itemAnimation = 0;
                                 uppercut = false;
@@ -186,9 +182,9 @@ namespace QwertysRandomContent.Items.Etims
                         player.itemAnimation = 0;
                     }
 
-                        player.itemRotation = (float)Math.PI / -4 + player.direction * ((float)Math.PI / 2 + shift);
+                    player.itemRotation = (float)Math.PI / -4 + player.direction * ((float)Math.PI / 2 + shift);
                     //Main.NewText(MathHelper.ToDegrees(player.itemRotation));
-                    
+
                     Vector2 vector24 = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
                     if (player.direction != 1)
                     {
@@ -200,15 +196,15 @@ namespace QwertysRandomContent.Items.Etims
                     }
                     vector24 -= new Vector2((float)(player.bodyFrame.Width - player.width), (float)(player.bodyFrame.Height - 42)) / 2f;
                     player.itemLocation = player.position + vector24;
-                   
+
                     float swordLength = new Vector2(Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height).Length();
                     swordLength *= item.scale;
                     for (int n = 0; n < Main.npc.Length; n++)
                     {
                         localNPCImmunity[n]--;
-                        if (Main.npc[n].active &&!Main.npc[n].dontTakeDamage && (!Main.npc[n].friendly || (Main.npc[n].type == 22 && player.killGuide) || (Main.npc[n].type == 54 && player.killClothier)) && player.itemAnimation > 0 && localNPCImmunity[n] <= 0 && Collision.CheckAABBvLineCollision(Main.npc[n].position, Main.npc[n].Size, player.itemLocation, player.itemLocation + QwertyMethods.PolarVector(swordLength, player.itemRotation - (float)Math.PI / 4)))
+                        if (Main.npc[n].active && !Main.npc[n].dontTakeDamage && (!Main.npc[n].friendly || (Main.npc[n].type == 22 && player.killGuide) || (Main.npc[n].type == 54 && player.killClothier)) && player.itemAnimation > 0 && localNPCImmunity[n] <= 0 && Collision.CheckAABBvLineCollision(Main.npc[n].position, Main.npc[n].Size, player.itemLocation, player.itemLocation + QwertyMethods.PolarVector(swordLength, player.itemRotation - (float)Math.PI / 4)))
                         {
-                            localNPCImmunity[n] = item.useAnimation/3;
+                            localNPCImmunity[n] = item.useAnimation / 3;
                             int damageBeforeVariance = item.damage;
                             if (item.melee)
                             {
@@ -230,10 +226,10 @@ namespace QwertysRandomContent.Items.Etims
                             {
                                 damageBeforeVariance = (int)((float)item.damage * player.thrownDamage);
                             }
-                            if(slam || uppercut)
+                            if (slam || uppercut)
                             {
                                 damageBeforeVariance *= 2;
-                                
+
                             }
                             if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(3), new GenCondition[]
                                             {
@@ -243,13 +239,13 @@ namespace QwertysRandomContent.Items.Etims
                                 damageBeforeVariance *= 2;
                             }
                             //////////////////////
-                            
+
                             Projectile p = QwertyMethods.PokeNPC(player, Main.npc[n], damageBeforeVariance, item.knockBack, true);
-                            if(item.type == mod.ItemType("EtimsSword"))
+                            if (item.type == mod.ItemType("EtimsSword"))
                             {
                                 p.GetGlobalProjectile<Etims>().effect = true;
                             }
-                            
+
                         }
                     }
                     hasRightClicked = (Main.mouseRight && Main.myPlayer == item.owner);
@@ -263,7 +259,7 @@ namespace QwertysRandomContent.Items.Etims
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            if (!drawPlayer.HeldItem.IsAir && drawPlayer.HeldItem.type == mod.ItemType("EtimsSword") && drawPlayer.itemAnimation>0)
+            if (!drawPlayer.HeldItem.IsAir && drawPlayer.HeldItem.type == mod.ItemType("EtimsSword") && drawPlayer.itemAnimation > 0)
             {
                 Item item = drawPlayer.HeldItem;
                 Texture2D texture = Main.itemTexture[item.type];
@@ -271,7 +267,7 @@ namespace QwertysRandomContent.Items.Etims
                 DrawData value = new DrawData(texture, drawPlayer.itemLocation - Main.screenPosition, texture.Frame(), color12, drawPlayer.itemRotation, origin, item.scale, SpriteEffects.None, 0);
                 Main.playerDrawData.Add(value);
             }
-            
+
         });
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {

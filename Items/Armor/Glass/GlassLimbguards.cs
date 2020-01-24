@@ -1,12 +1,7 @@
-using Microsoft.Xna.Framework;
-using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 
 namespace QwertysRandomContent.Items.Armor.Glass
 {

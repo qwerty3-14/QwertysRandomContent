@@ -1,38 +1,37 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-	
-	
-	public class AncientGemstone : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ancient Gemstone");
-			Tooltip.SetDefault("Halves you max health but avoiding damge for 5 sec after being hit will fully heal you");
-			
-		}
-		
-		public override void SetDefaults()
-		{
-			
-			item.value = 10000;
-			item.rare = 1;
-			
-			item.expert =true;
-			item.width = 32;
-			item.height = 32;
-			item.value = 150000;
-			item.rare = 3;
-			item.accessory = true;
-			
-			
-			
-		}
+
+
+    public class AncientGemstone : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Gemstone");
+            Tooltip.SetDefault("Halves you max health but avoiding damge for 5 sec after being hit will fully heal you");
+
+        }
+
+        public override void SetDefaults()
+        {
+
+            item.value = 10000;
+            item.rare = 1;
+
+            item.expert = true;
+            item.width = 32;
+            item.height = 32;
+            item.value = 150000;
+            item.rare = 3;
+            item.accessory = true;
+
+
+
+        }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Items/AncientItems/AncientGemstone_Glow");
@@ -54,17 +53,17 @@ namespace QwertysRandomContent.Items.AncientItems
             );
         }
         public override void UpdateEquip(Player player)
-		{
-			player.statLifeMax2 /= 2;
+        {
+            player.statLifeMax2 /= 2;
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.gemRegen = true;
 
         }
-		
-		
-			
-	}
-		
-	
+
+
+
+    }
+
+
 }
 

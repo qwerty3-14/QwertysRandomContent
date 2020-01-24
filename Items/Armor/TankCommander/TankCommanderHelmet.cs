@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -72,18 +71,18 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
         int bombingCounter = 0;
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            
+
             int maxAgeToStun = 300;
-            if(proj.GetGlobalProjectile<MorphProjectile>().morph && setBonus && target.GetGlobalNPC<QwertyGloabalNPC>().age < maxAgeToStun)
+            if (proj.GetGlobalProjectile<MorphProjectile>().morph && setBonus && target.GetGlobalNPC<QwertyGloabalNPC>().age < maxAgeToStun)
             {
                 damage = (int)(damage * 1.2f);
                 target.AddBuff(mod.BuffType("Stunned"), maxAgeToStun - target.GetGlobalNPC<QwertyGloabalNPC>().age);
             }
-            if(setBonus && proj.minion && target.HasBuff(mod.BuffType("Stunned")))
+            if (setBonus && proj.minion && target.HasBuff(mod.BuffType("Stunned")))
             {
                 damage = (int)(damage * 1.3f);
             }
-            
+
         }
         public override void PreUpdate()
         {
@@ -94,7 +93,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
                 if (bomberDelay <= 0)
                 {
 
-                    if(bomberDelay % 30 ==0)
+                    if (bomberDelay % 30 == 0)
                     {
                         Deck<int> targets = new Deck<int>();
                         for (int n = 0; n < 200; n++)
@@ -113,18 +112,18 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
 
                         }
                     }
-                    if(bomberDelay < -60)
+                    if (bomberDelay < -60)
                     {
                         bomberDelay = 260 + Main.rand.Next(120);
                     }
-                    
-                   
+
+
 
 
 
 
                 }
-                
+
 
             }
         }
@@ -192,7 +191,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
                 dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta), Scale: 2f);
             }
         }
-        
+
 
     }
     public class MiniBombBlast : ModProjectile
@@ -206,7 +205,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
-            
+
             projectile.width = 80;
             projectile.height = 80;
             projectile.friendly = true;
@@ -238,7 +237,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
-            
+
             if (headLayer != -1)
             {
                 Head.visible = true;

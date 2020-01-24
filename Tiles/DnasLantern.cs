@@ -11,7 +11,7 @@ using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class DnasLantern : ModTile
-	{
+    {
         public override bool Autoload(ref string name, ref string texture)
         {
             if (Config.classicFortress)
@@ -21,13 +21,13 @@ namespace QwertysRandomContent.Tiles
             return base.Autoload(ref name, ref texture);
         }
         public override void SetDefaults()
-		{
-			//Main.tileSolidTop[Type] = true;
-			Main.tileFrameImportant[Type] = true;
-			Main.tileNoAttach[Type] = true;
-			//Main.tileTable[Type] = true;
-			Main.tileLavaDeath[Type] = true;
-            
+        {
+            //Main.tileSolidTop[Type] = true;
+            Main.tileFrameImportant[Type] = true;
+            Main.tileNoAttach[Type] = true;
+            //Main.tileTable[Type] = true;
+            Main.tileLavaDeath[Type] = true;
+
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("DnasLanternE").Hook_AfterPlacement, 0, 0, true);
             TileObjectData.newTile.CoordinateHeights = new int[]
@@ -36,14 +36,14 @@ namespace QwertysRandomContent.Tiles
                 18
             };
             TileObjectData.addTile(Type);
-			//AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Dnas Lantern");
+            //AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Dnas Lantern");
             AddMapEntry(new Color(162, 184, 185), name);
             dustType = mod.DustType("FortressDust");
-			//disableSmartCursor = true;
-			//adjTiles = new int[]{ TileID.Sinks };
-		}
+            //disableSmartCursor = true;
+            //adjTiles = new int[]{ TileID.Sinks };
+        }
         public override void RightClick(int i, int j)
         {
             Main.PlaySound(SoundID.Mech, i * 16, j * 16, 0);
@@ -51,7 +51,7 @@ namespace QwertysRandomContent.Tiles
         }
         public override void HitWire(int i, int j)
         {
-            
+
             int left = i - (Main.tile[i, j].frameX / 18) % 2;
             int top = j - (Main.tile[i, j].frameY / 18) % 2;
             /*
@@ -88,11 +88,11 @@ namespace QwertysRandomContent.Tiles
             DnasLanternE.toggle = true;
         }
 
-        
+
         public override void NumDust(int i, int j, bool fail, ref int num)
-		{
-			num = fail ? 1 : 3;
-		}
+        {
+            num = fail ? 1 : 3;
+        }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));
@@ -116,7 +116,7 @@ namespace QwertysRandomContent.Tiles
             }
             if (Main.tile[i, j].frameX == 0 && Main.tile[i, j].frameY == 0)
             {
-                Vector2 Center = new Vector2(i+1, j+1) * 16 - Main.screenPosition + zero;
+                Vector2 Center = new Vector2(i + 1, j + 1) * 16 - Main.screenPosition + zero;
                 Texture2D texture = mod.GetTexture("Tiles/LanternAura");
                 Main.spriteBatch.Draw(texture, Center, new Rectangle(0, 0, 598, 598), new Color(255, 255, 255, 100), 0f, new Vector2(299, 299), 1f, SpriteEffects.None, 0f);
                 //texture = mod.GetTexture("Tiles/LanternCross");
@@ -133,11 +133,11 @@ namespace QwertysRandomContent.Tiles
             player.showItemIcon2 = mod.ItemType("DnasLantern");
         }
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
-		{
-			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("DnasLantern"));
+        {
+            Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("DnasLantern"));
             mod.GetTileEntity("DnasLanternE").Kill(i, j);
         }
-	}
+    }
     public class DnasLanternE : ModTileEntity
     {
 
@@ -150,7 +150,7 @@ namespace QwertysRandomContent.Tiles
         public bool toggle = false;
         public override void Update()
         {
-            if(toggle)
+            if (toggle)
             {
                 off = !off;
             }
@@ -158,12 +158,12 @@ namespace QwertysRandomContent.Tiles
             {
                 Main.tile[Position.X, Position.Y].frameX = 0;
                 Main.tile[Position.X, Position.Y].frameY = 0;
-                Main.tile[Position.X+1, Position.Y].frameX = 18;
-                Main.tile[Position.X+1, Position.Y].frameY = 0;
-                Main.tile[Position.X, Position.Y+1].frameX = 0;
-                Main.tile[Position.X, Position.Y+1].frameY = 18;
-                Main.tile[Position.X+1, Position.Y+1].frameX = 18;
-                Main.tile[Position.X+1, Position.Y+1].frameY = 18;
+                Main.tile[Position.X + 1, Position.Y].frameX = 18;
+                Main.tile[Position.X + 1, Position.Y].frameY = 0;
+                Main.tile[Position.X, Position.Y + 1].frameX = 0;
+                Main.tile[Position.X, Position.Y + 1].frameY = 18;
+                Main.tile[Position.X + 1, Position.Y + 1].frameX = 18;
+                Main.tile[Position.X + 1, Position.Y + 1].frameY = 18;
                 if ((Main.LocalPlayer.Center - ((Position.ToVector2() * 16) + new Vector2(16, 16))).Length() < 300)
                 {
                     if (Main.LocalPlayer.GetModPlayer<QwertyPlayer>().forcedAntiGravity == 0)
@@ -175,14 +175,14 @@ namespace QwertysRandomContent.Tiles
             }
             else
             {
-                Main.tile[Position.X, Position.Y].frameX = 0+36;
-               
+                Main.tile[Position.X, Position.Y].frameX = 0 + 36;
+
                 Main.tile[Position.X + 1, Position.Y].frameX = 18 + 36;
-                
+
                 Main.tile[Position.X, Position.Y + 1].frameX = 0 + 36;
-                
+
                 Main.tile[Position.X + 1, Position.Y + 1].frameX = 18 + 36;
-               
+
             }
             toggle = false;
         }
@@ -209,7 +209,7 @@ namespace QwertysRandomContent.Tiles
         }
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            
+
             if (Main.netMode == 1)
             {
                 NetMessage.SendTileSquare(Main.myPlayer, i, j, 3);

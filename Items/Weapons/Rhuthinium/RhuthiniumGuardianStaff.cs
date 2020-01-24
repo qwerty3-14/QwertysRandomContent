@@ -1,28 +1,26 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
- 
- namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class RhuthiniumGuardianStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Rhuthinium Guardian Staff");
-			Tooltip.SetDefault("Summons an extremely slow guardian to shoot at your enemies");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Rhuthinium Guardian Staff");
+            Tooltip.SetDefault("Summons an extremely slow guardian to shoot at your enemies");
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(38, 2));
 
         }
- 
+
         public override void SetDefaults()
         {
-            
+
             item.damage = 200;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 38;    //The size of the width of the hitbox in pixels.
@@ -33,53 +31,53 @@ using Terraria.ModLoader;
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 10f;  //The knockback stat of your Weapon.
             item.value = 25000;
-			item.rare = 3;   
+            item.rare = 3;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("RhuthiniumGuardian");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
             item.sentry = true; //tells the game that this is a sentry
         }
-        
+
         public Projectile projC;
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
-            
-                
-                //projC = Main.projectile[Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("RhuthiniumGuardian"), damage, knockBack, Main.myPlayer, 0f, 0f)];
-            
 
-            
-            
+
+            //projC = Main.projectile[Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("RhuthiniumGuardian"), damage, knockBack, Main.myPlayer, 0f, 0f)];
+
+
+
+
             return true;
         }
         public override bool CanUseItem(Player player)
         {
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 8);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 8);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 
     public class RhuthiniumGuardian : ModProjectile
@@ -108,18 +106,18 @@ using Terraria.ModLoader;
         }
 
 
-         NPC confirmTarget;
-         int timer;
-         Color lineColor;
-         bool drawLine;
-         bool alternateColor = false;
-         int colorCounter;
+        NPC confirmTarget;
+        int timer;
+        Color lineColor;
+        bool drawLine;
+        bool alternateColor = false;
+        int colorCounter;
 
-         bool startCountdown;
-         int countdownTimer;
-         float Aim;
-         float shardVelocity = 30f;
-         float lineLength = 0;
+        bool startCountdown;
+        int countdownTimer;
+        float Aim;
+        float shardVelocity = 30f;
+        float lineLength = 0;
         public override void AI()
         {
             Main.player[projectile.owner].UpdateMaxTurrets();
@@ -231,7 +229,7 @@ using Terraria.ModLoader;
                     new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), lightColor, projectile.rotation,
                     new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             drawLine = false;
-           
+
             return false;
 
 
@@ -245,46 +243,46 @@ using Terraria.ModLoader;
 
 
     }
-	public class RhuthiniumShard : ModProjectile
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Rhuthinium Shard");
-			
-			
-		}
-		public override void SetDefaults()
-		{
-			projectile.aiStyle = 1;
-            aiType = ProjectileID.Bullet;
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.minion= true;
-			projectile.knockBack = 10f;
-            projectile.extraUpdates = 3;
-			
-			
-			
-		}
-		public override void AI()
-		{
-			
-			
-
-			
-			
-		}
-        
-		 public override void Kill(int timeLeft)
+    public class RhuthiniumShard : ModProjectile
+    {
+        public override void SetStaticDefaults()
         {
-            
-			
+            DisplayName.SetDefault("Rhuthinium Shard");
 
-		}
-		 
-		
-	}
-    
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+            aiType = ProjectileID.Bullet;
+            projectile.width = 14;
+            projectile.height = 14;
+            projectile.friendly = true;
+            projectile.penetrate = 1;
+            projectile.minion = true;
+            projectile.knockBack = 10f;
+            projectile.extraUpdates = 3;
+
+
+
+        }
+        public override void AI()
+        {
+
+
+
+
+
+        }
+
+        public override void Kill(int timeLeft)
+        {
+
+
+
+        }
+
+
+    }
+
 }

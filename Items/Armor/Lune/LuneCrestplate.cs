@@ -1,13 +1,13 @@
 using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.GameInput;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.Lune
 {
@@ -24,17 +24,11 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
         public override void SetDefaults()
         {
-
             item.value = 30000;
             item.rare = 1;
-
-
             item.width = 22;
             item.height = 12;
             item.defense = 6;
-
-
-
         }
         public override void AddRecipes()
         {
@@ -54,9 +48,6 @@ namespace QwertysRandomContent.Items.Armor.Lune
                     Main.projectile[i].GetGlobalProjectile<LunePierce>().lunePierce = true;
                 }
             }
-            
-
-
         }
         public override bool IsVanitySet(int head, int body, int legs)
         {
@@ -64,9 +55,9 @@ namespace QwertysRandomContent.Items.Armor.Lune
         }
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-           
+
             return head.type == mod.ItemType("LuneHat") && legs.type == mod.ItemType("LuneLeggings");
-            
+
         }
 
         public override void ArmorSetShadows(Player player)
@@ -99,7 +90,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             String s = "Please go to conrols and bind the 'Yet another special ability key'";
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
-                s = "Set Bonus: Shoot the moon!" + "\nPress the " + key +" key to summon a moon"+ "\nRanged attacks shot through the moon will be boosted";
+                s = "Set Bonus: Shoot the moon!" + "\nPress the " + key + " key to summon a moon" + "\nRanged attacks shot through the moon will be boosted";
 
             }
             foreach (TooltipLine line in tooltips) //runs through all tooltip lines
@@ -137,7 +128,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         }
         public override void AI(Projectile projectile)
         {
-            
+
 
             if (lunePierce && projectile.ranged)
             {
@@ -177,12 +168,12 @@ namespace QwertysRandomContent.Items.Armor.Lune
     }
     public class crestSet : ModPlayer
     {
-        public bool setBonus=false;
+        public bool setBonus = false;
         public override void ResetEffects()
         {
             setBonus = false;
         }
-       
+
         public bool justSummonedMoon;
         public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
         {
@@ -204,13 +195,13 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 }
             }
         }
-        
+
 
 
     }
     public class MoonTarget : ModProjectile
     {
-        
+
         public override void SetDefaults()
         {
             projectile.width = 100;
@@ -237,7 +228,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         bool runOnce = true;
         public override void AI()
         {
-            
+
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
@@ -248,14 +239,14 @@ namespace QwertysRandomContent.Items.Armor.Lune
             //Main.NewText(projectile.timeLeft + ", " + player.ArmorSetDye());
             //projectile.rotation += (float)Math.PI / 30;
             timer++;
-            if((timer>10 && player.GetModPlayer<crestSet>().justSummonedMoon) ||!player.GetModPlayer<crestSet>().setBonus)
+            if ((timer > 10 && player.GetModPlayer<crestSet>().justSummonedMoon) || !player.GetModPlayer<crestSet>().setBonus)
             {
                 projectile.Kill();
             }
             Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LuneDust"))];
-           
+
             dust.shader = GameShaders.Armor.GetSecondaryShader(player.ArmorSetDye(), player);
-            for (int i=0; i <200; i++)
+            for (int i = 0; i < 200; i++)
             {
                 if (Main.projectile[i].ranged && Main.projectile[i].owner == projectile.owner && Collision.CheckAABBvAABBCollision(Main.projectile[i].position, new Vector2(Main.projectile[i].width, Main.projectile[i].height), projectile.position, new Vector2(projectile.width, projectile.height)))
                 {
@@ -316,9 +307,9 @@ namespace QwertysRandomContent.Items.Armor.Lune
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
-            if(boosted)
+            if (boosted)
             {
-                target.AddBuff(mod.BuffType("LuneCurse"), 60*3);
+                target.AddBuff(mod.BuffType("LuneCurse"), 60 * 3);
 
             }
         }

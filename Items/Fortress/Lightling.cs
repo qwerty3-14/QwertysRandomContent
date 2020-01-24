@@ -7,13 +7,13 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
 {
-	public class Lightling : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Lightling");
-			Tooltip.SetDefault("Emits light");
-		}
+    public class Lightling : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Lightling");
+            Tooltip.SetDefault("Emits light");
+        }
 
         public override void SetDefaults()
         {
@@ -50,7 +50,7 @@ namespace QwertysRandomContent.Items.Fortress
             DisplayName.SetDefault("Lightling");
             Main.projFrames[projectile.type] = 2;
             Main.projPet[projectile.type] = true;
-            
+
         }
 
         public override void SetDefaults()
@@ -62,7 +62,7 @@ namespace QwertysRandomContent.Items.Fortress
             projectile.timeLeft *= 5;
             projectile.friendly = true;
             projectile.ignoreWater = true;
-            
+
             projectile.tileCollide = false;
             projectile.light = 1f;
         }
@@ -90,7 +90,7 @@ namespace QwertysRandomContent.Items.Fortress
             Vector2 flyTo = player.Center - projectile.Center;
             //float dir = flyTo.ToRotation();
             //flyTo = (player.Center +QwertyMethods.PolarVector(-200, dir)) - projectile.Center;
-           // Main.NewText(flyTo.Length());
+            // Main.NewText(flyTo.Length());
             if (flyTo.Length() < 120)
             {
                 projectile.velocity = Vector2.Zero;
@@ -100,11 +100,11 @@ namespace QwertysRandomContent.Items.Fortress
                 projectile.velocity = flyTo * .01f;
             }
             projectile.frameCounter++;
-            if(projectile.frameCounter%10 ==0)
+            if (projectile.frameCounter % 10 == 0)
             {
                 projectile.frame = 1;
             }
-            else if(projectile.frameCounter % 5==0)
+            else if (projectile.frameCounter % 5 == 0)
             {
                 projectile.frame = 0;
             }
@@ -150,9 +150,9 @@ namespace QwertysRandomContent.Items.Fortress
             bool petProjectileNotSpawned = player.ownedProjectileCounts[mod.ProjectileType("LightlingP")] <= 0;
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.Center.X, player.Center.Y , 0f, 0f, mod.ProjectileType("LightlingP"), 0, 0f, player.whoAmI, 0f, 0f);
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("LightlingP"), 0, 0f, player.whoAmI, 0f, 0f);
             }
-           
+
         }
     }
 }

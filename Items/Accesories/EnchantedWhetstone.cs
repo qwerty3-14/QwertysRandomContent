@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -56,14 +51,14 @@ namespace QwertysRandomContent.Items.Accesories
         }
         public override void AI(Projectile projectile)
         {
-            if(Main.player[projectile.owner].GetModPlayer<WhetStoneEffect>().effect > 0f && (!whetStoned && projectile.melee ))
+            if (Main.player[projectile.owner].GetModPlayer<WhetStoneEffect>().effect > 0f && (!whetStoned && projectile.melee))
             {
                 magicBoost += (int)(Main.player[projectile.owner].GetModPlayer<WhetStoneEffect>().effect * Main.player[projectile.owner].HeldItem.damage);
                 whetStoned = true;
             }
         }
     }
-    
+
     public class WhetStoneEffect : ModPlayer
     {
         public float effect = 0f;
@@ -72,27 +67,27 @@ namespace QwertysRandomContent.Items.Accesories
             effect = 0f;
 
         }
-        
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (effect != 0f && proj.melee)
             {
                 QwertyMethods.PokeNPC(player, target, proj.GetGlobalProjectile<MagicBonusOnProj>().magicBoost * player.magicDamage, magic: true);
-               
+
             }
         }
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if(effect != 0f && item.melee)
+            if (effect != 0f && item.melee)
             {
                 QwertyMethods.PokeNPC(player, target, damage * effect, magic: true);
-                
+
             }
         }
-        
+
 
     }
-    
+
     public class WhetstoneTooltips : GlobalItem
     {
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -109,7 +104,7 @@ namespace QwertysRandomContent.Items.Accesories
                 {
                     tooltips.Insert(TLIndex + 1, line);
                 }
-                
+
                 line = new TooltipLine(mod, "MagicBoostCrit", player.magicCrit + "% critical strike chance");
                 {
                     line.overrideColor = Color.Blue;

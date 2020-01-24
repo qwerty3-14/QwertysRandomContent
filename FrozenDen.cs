@@ -1,16 +1,13 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Generation;
-using Terraria.World.Generation;
-using System.Collections.Generic;
-
-using System;
 using Terraria.ModLoader.IO;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Terraria.Localization;
-using QwertysRandomContent.NPCs.FortressBoss;
+using Terraria.World.Generation;
 
 namespace QwertysRandomContent
 {
@@ -60,7 +57,7 @@ namespace QwertysRandomContent
                 {
                     WorldGen.KillTile(x - ((denLength - 1) / 2) + l, y - h, false, false, true);
                     WorldGen.KillWall(x - ((denLength - 1) / 2) + l, y - h, false);
-                    
+
                     WorldGen.PlaceWall(x - ((denLength - 1) / 2) + l, y - h, WallID.IceUnsafe);
                     if (l % 4 == 0 && h == ceilingHeight - 5)
                     {
@@ -68,7 +65,7 @@ namespace QwertysRandomContent
                     }
                     if (Math.Abs((x - ((denLength - 1) / 2) + l) - x) >= 10 && Math.Abs((x - ((denLength - 1) / 2) + l) - x) <= 19 && h == 15)
                     {
-                        WorldGen.PlaceTile(x - ((denLength - 1) / 2) + l, y - h, TileID.Platforms, style:35);
+                        WorldGen.PlaceTile(x - ((denLength - 1) / 2) + l, y - h, TileID.Platforms, style: 35);
                     }
 
                 }
@@ -87,13 +84,13 @@ namespace QwertysRandomContent
                     {
                         Chest chest = Main.chest[WorldGen.PlaceChest(x - ((denLength - 1) / 2) + l, y - h, style: 11)];
                         int slot = 0;
-                        
-                            chest.item[slot].SetDefaults(ItemID.SnowballCannon, false);
-                            slot++;
-                            chest.item[slot].SetDefaults(ItemID.Snowball, false);
-                            chest.item[slot].stack = Main.rand.Next(500, 1000);
-                            slot++;
-                        
+
+                        chest.item[slot].SetDefaults(ItemID.SnowballCannon, false);
+                        slot++;
+                        chest.item[slot].SetDefaults(ItemID.Snowball, false);
+                        chest.item[slot].stack = Main.rand.Next(500, 1000);
+                        slot++;
+
                         chest.item[slot].SetDefaults(ItemID.IceTorch, false);
                         chest.item[slot].stack = Main.rand.Next(20, 100);
                         slot++;
@@ -147,8 +144,8 @@ namespace QwertysRandomContent
                 }
             }
             //int[] rocks = new int[] { 97, 92, 81, 60 };
-            
-            for(int i =0; i< 10; i++)
+
+            for (int i = 0; i < 10; i++)
             {
                 /*
                 switch(Main.rand.Next(2))
@@ -170,11 +167,11 @@ namespace QwertysRandomContent
                 {
                     WorldGen.PlaceSmallPile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y - 1, Main.rand.Next(25, 31), 1);
                 }
-                
+
             }
-            
+
         }
-        
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
             int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Tile Cleanup"));
@@ -183,7 +180,7 @@ namespace QwertysRandomContent
             {
                 tasks.Insert(ShiniesIndex + 1, new PassLegacy("Hiding true compasses!", delegate (GenerationProgress progress)
                 {
-                    for(int c =0; c <Main.chest.Length; c++)
+                    for (int c = 0; c < Main.chest.Length; c++)
                     {
                         if (Main.chest[c] != null)
                         {
@@ -200,7 +197,7 @@ namespace QwertysRandomContent
                                 }
                             }
                         }
-                        
+
                     }
                 }));
             }
@@ -224,7 +221,7 @@ namespace QwertysRandomContent
         }
         public override void PreUpdate()
         {
-            if(Main.time % 120 ==0)
+            if (Main.time % 120 == 0)
             {
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
@@ -236,7 +233,7 @@ namespace QwertysRandomContent
                     NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
                 NPC.NewNPC((int)BearSpawn.X, (int)BearSpawn.Y, mod.NPCType("Sleeping"));
             }
-            else if(activeSleeper && !NPC.AnyNPCs(mod.NPCType("PolarBear")) && !NPC.AnyNPCs(mod.NPCType("Sleeping")) && BearSpawn.X != -1 && BearSpawn.Y != -1)
+            else if (activeSleeper && !NPC.AnyNPCs(mod.NPCType("PolarBear")) && !NPC.AnyNPCs(mod.NPCType("Sleeping")) && BearSpawn.X != -1 && BearSpawn.Y != -1)
             {
                 activeSleeper = true;
                 if (Main.netMode == NetmodeID.Server)

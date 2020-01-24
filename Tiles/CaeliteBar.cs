@@ -1,7 +1,7 @@
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {

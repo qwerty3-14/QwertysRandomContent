@@ -1,6 +1,4 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,13 +50,13 @@ namespace QwertysRandomContent.Items.DinoItems
             {
                 item.shoot = mod.ProjectileType("SnowFlakeF");
             }
-                Main.PlaySound(16, player.Center, 0);
+            Main.PlaySound(16, player.Center, 0);
             return true;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 28f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

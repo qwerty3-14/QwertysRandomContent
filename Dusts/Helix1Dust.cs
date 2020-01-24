@@ -3,15 +3,15 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Dusts
 {
-	public class Helix1Dust : ModDust
-	{
-		public override void OnSpawn(Dust dust)
-		{
-			dust.noGravity = true;
-			dust.noLight = false;
-			dust.scale = .5f;
-		}
+    public class Helix1Dust : ModDust
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            dust.noGravity = true;
+            dust.noLight = false;
+            dust.scale = .5f;
+        }
 
-		
-	}
+
+    }
 }

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Armor.StarSage
@@ -34,7 +33,7 @@ namespace QwertysRandomContent.Items.Armor.StarSage
 
 
         }
-       
+
 
     }
     public class CapeDraw : ModPlayer
@@ -81,8 +80,8 @@ namespace QwertysRandomContent.Items.Armor.StarSage
                 {
                     //texture = mod.GetTexture("Items/Armor/Robes/StarSageCape_Female");
                 }
-                DrawData value = new DrawData(texture, 
-                    new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2)), 
+                DrawData value = new DrawData(texture,
+                    new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2)),
                     new Microsoft.Xna.Framework.Rectangle?(drawPlayer.bodyFrame), color12, drawPlayer.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0);
                 value.shader = drawInfo.backShader;
                 Main.playerDrawData.Add(value);
@@ -100,7 +99,7 @@ namespace QwertysRandomContent.Items.Armor.StarSage
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             //Main.NewText(drawPlayer.wings);
-            if (drawPlayer.back == mod.GetEquipSlot("StarSageCape", EquipType.Back) )
+            if (drawPlayer.back == mod.GetEquipSlot("StarSageCape", EquipType.Back))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/StarSage/StarSageCape_Shoulders");
                 if (!drawPlayer.Male)

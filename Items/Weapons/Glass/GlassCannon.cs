@@ -1,10 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Glass
 {
@@ -131,7 +129,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-        
+
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<GlassCannonControl>().controlled = true;
@@ -221,7 +219,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
-           
+
 
 
         }
@@ -238,7 +236,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                     int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 2f);
                     Main.dust[dustIndex].velocity *= .6f;
                 }
-                
+
                 runOnce = false;
             }
         }
@@ -254,8 +252,8 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 e.ranged = false;
             }
         }
-        
-        
+
+
     }
 
 }

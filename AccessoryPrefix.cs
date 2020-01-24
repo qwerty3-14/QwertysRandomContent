@@ -1,18 +1,15 @@
-
-using System;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ModLoader.Exceptions;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent
 {
     public class AccessoryPrefix : ModPrefix
     {
-        
+
         private byte damage;
         private byte crit;
         private byte moveSpeed;
@@ -42,7 +39,7 @@ namespace QwertysRandomContent
 
         public AccessoryPrefix(byte damage, byte crit, byte moveSpeed, byte meleeSpeed, byte defense, byte manaReduction, byte ammoReduction, byte throwVel, byte rangedVel, byte dashPower, byte recovery, byte dodgeChance)
         {
-            
+
             this.damage = damage;
             this.crit = crit;
             this.moveSpeed = moveSpeed;
@@ -98,7 +95,7 @@ namespace QwertysRandomContent
         }
         public override void Apply(Item item)
         {
-            
+
             item.GetGlobalItem<QwertyForge>().damage = damage;
             item.GetGlobalItem<QwertyForge>().crit = crit;
             item.GetGlobalItem<QwertyForge>().moveSpeed = moveSpeed;
@@ -120,7 +117,7 @@ namespace QwertysRandomContent
     }
     public class QwertyForge : GlobalItem
     {
-        
+
         public int damage;
         public int crit;
         public int moveSpeed;
@@ -143,7 +140,7 @@ namespace QwertysRandomContent
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             QwertyForge myClone = (QwertyForge)base.Clone(item, itemClone);
-            
+
             myClone.damage = damage;
             myClone.crit = crit;
             myClone.moveSpeed = moveSpeed;
@@ -160,7 +157,7 @@ namespace QwertysRandomContent
         }
         public override bool NewPreReforge(Item item)
         {
-            
+
             damage = 0;
             crit = 0;
             moveSpeed = 0;
@@ -183,35 +180,35 @@ namespace QwertysRandomContent
                 TooltipLine line = new TooltipLine(mod, "damage", "+" + damage + "% damage");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + damage + Language.GetTextValue("Mods.QwertysRandomContent.Perfixdamage");
+                line.text = "+" + damage + Language.GetTextValue("Mods.QwertysRandomContent.Perfixdamage");
             }
             if (crit > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "crit", "+" + crit + "% critical strike chance");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + crit + Language.GetTextValue("Mods.QwertysRandomContent.Perfixcriticalstrikechance");
+                line.text = "+" + crit + Language.GetTextValue("Mods.QwertysRandomContent.Perfixcriticalstrikechance");
             }
             if (moveSpeed > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "moveSpeed", "+" + moveSpeed + "% movement speed");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + moveSpeed + Language.GetTextValue("Mods.QwertysRandomContent.Perfixmovementspeed");
+                line.text = "+" + moveSpeed + Language.GetTextValue("Mods.QwertysRandomContent.Perfixmovementspeed");
             }
             if (meleeSpeed > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "meleeSpeed", "+" + meleeSpeed + "% melee speed");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + meleeSpeed + Language.GetTextValue("Mods.QwertysRandomContent.PerfixmeleeSpeed");
+                line.text = "+" + meleeSpeed + Language.GetTextValue("Mods.QwertysRandomContent.PerfixmeleeSpeed");
             }
             if (defense > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "defense", "+" + defense + " defense");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + defense + Language.GetTextValue("Mods.QwertysRandomContent.Perfixdefense");
+                line.text = "+" + defense + Language.GetTextValue("Mods.QwertysRandomContent.Perfixdefense");
             }
 
             if (manaReduction > 0)
@@ -219,49 +216,49 @@ namespace QwertysRandomContent
                 TooltipLine line = new TooltipLine(mod, "manaReduction", "+" + manaReduction + "% reduced mana usage");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + manaReduction + Language.GetTextValue("Mods.QwertysRandomContent.PerfixmanaReduction");
+                line.text = "+" + manaReduction + Language.GetTextValue("Mods.QwertysRandomContent.PerfixmanaReduction");
             }
             if (ammoReduction > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "ammoReduction", "+" + ammoReduction + "% reduced ammo usage");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + ammoReduction + Language.GetTextValue("Mods.QwertysRandomContent.PerfixammoReduction");
+                line.text = "+" + ammoReduction + Language.GetTextValue("Mods.QwertysRandomContent.PerfixammoReduction");
             }
             if (throwVel > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "throwVel", "+" + throwVel + "% throwing velocity");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + throwVel + Language.GetTextValue("Mods.QwertysRandomContent.PerfixthrowVel");
+                line.text = "+" + throwVel + Language.GetTextValue("Mods.QwertysRandomContent.PerfixthrowVel");
             }
             if (rangedVel > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "rangedVel", "+" + rangedVel + "% ranged velocity");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + rangedVel + Language.GetTextValue("Mods.QwertysRandomContent.PerfixrangedVel");
+                line.text = "+" + rangedVel + Language.GetTextValue("Mods.QwertysRandomContent.PerfixrangedVel");
             }
             if (dashPower > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "dashPower", "+" + dashPower + " dash power");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + dashPower + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdashPower");
+                line.text = "+" + dashPower + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdashPower");
             }
             if (recovery > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "recovery", "+" + recovery + " recovery");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + recovery + Language.GetTextValue("Mods.QwertysRandomContent.Perfixrecovery");
+                line.text = "+" + recovery + Language.GetTextValue("Mods.QwertysRandomContent.Perfixrecovery");
             }
             if (dodgeChance > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "recovery", "+" + dodgeChance + "% dodge chance");
                 line.isModifier = true;
                 tooltips.Add(line);
-                line.text="+" + dodgeChance + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdodgeChance");
+                line.text = "+" + dodgeChance + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdodgeChance");
             }
 
 
@@ -293,7 +290,7 @@ namespace QwertysRandomContent
         }
         public override void NetSend(Item item, BinaryWriter writer)
         {
-            
+
             writer.Write(damage);
             writer.Write(crit);
             writer.Write(moveSpeed);
@@ -341,7 +338,7 @@ namespace QwertysRandomContent
             }
             return base.ConsumeItem(item, player);
         }
-       
+
         public override bool OnPickup(Item item, Player player)
         {
             if (player.GetModPlayer<QwertyPlayer>().recovery > 0)
@@ -361,7 +358,7 @@ namespace QwertysRandomContent
                     {
                         player.statLife = player.statLifeMax2;
                     }
-                    
+
                     return false;
                 }
 
@@ -370,15 +367,15 @@ namespace QwertysRandomContent
         }
         public override bool UseItem(Item item, Player player)
         {
-            if(item.healLife>0 && player.GetModPlayer<QwertyPlayer>().recovery>0)
+            if (item.healLife > 0 && player.GetModPlayer<QwertyPlayer>().recovery > 0)
             {
-               player.HealEffect((player.GetModPlayer<QwertyPlayer>().recovery *2) , true);
-                player.statLife += (player.GetModPlayer<QwertyPlayer>().recovery * 2) ;
+                player.HealEffect((player.GetModPlayer<QwertyPlayer>().recovery * 2), true);
+                player.statLife += (player.GetModPlayer<QwertyPlayer>().recovery * 2);
                 return true;
             }
             return false;
         }
     }
-   
-    
- }
+
+
+}

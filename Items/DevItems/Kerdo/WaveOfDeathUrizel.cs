@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +12,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wave Of Death Urizel");
-            Tooltip.SetDefault("This magical rune contains the ancient power sword of URIZEL /nDev item");
+            Tooltip.SetDefault("This magical rune contains the ancient power sword of URIZEL \nDev item");
 
         }
         public override void SetDefaults()
@@ -26,7 +22,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
 
             item.useTime = 1;
             item.useAnimation = 60;
-            
+
             item.useStyle = 102;
             item.noUseGraphic = true;
             item.knockBack = 1;
@@ -107,7 +103,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
             {
                 Item item = player.inventory[player.selectedItem];
 
-                if (item.useStyle == 102 && player.itemAnimation>0)
+                if (item.useStyle == 102 && player.itemAnimation > 0)
                 {
                     if (player.itemAnimation < player.itemAnimationMax * .2f)
                     {
@@ -142,7 +138,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
                     vector24 -= new Vector2((float)(player.bodyFrame.Width - player.width), (float)(player.bodyFrame.Height - 42)) / 2f;
                     player.itemLocation = player.position + vector24;
                     Dust.NewDustPerfect(player.itemLocation, mod.DustType("DeathWaveSmoke"));
-                    
+
                 }
             }
         }

@@ -1,6 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,15 +33,15 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.noMelee = true;
             item.UseSound = SoundID.Item21;
             item.autoReuse = true;
-            
+
 
 
         }
-        
+
         float direction;
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            
+
             int rng = Main.rand.Next(100);
             if (rng == 0)
             {
@@ -59,11 +58,11 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             else if (rng < 10)
             {
                 float speed = new Vector2(speedX, speedY).Length();
-                direction = (new Vector2(speedX, speedY).ToRotation() - (float) Math.PI/6);
+                direction = (new Vector2(speedX, speedY).ToRotation() - (float)Math.PI / 6);
                 Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
                 direction = (new Vector2(speedX, speedY).ToRotation() + (float)Math.PI / 6);
                 Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
-                
+
             }
             else
             {
@@ -79,7 +78,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-       
+
         public class CaeliteMagicProjectile : ModProjectile
         {
             public override void SetStaticDefaults()
@@ -104,7 +103,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.light = 1f;
 
             }
-            
+
             float outOfPhaseHeight;
             public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
             {
@@ -124,20 +123,20 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             float speed = 24;
             bool runOnce = true;
             float direction;
-            
+
             public override void AI()
             {
                 if (runOnce)
                 {
                     direction = projectile.velocity.ToRotation();
-                    
+
                     runOnce = false;
                 }
                 Player player = Main.player[projectile.owner];
                 for (int k = 0; k < 200; k++)
                 {
                     possibleTarget = Main.npc[k];
-                    if(!Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, possibleTarget.position, possibleTarget.Size))
+                    if (!Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, possibleTarget.position, possibleTarget.Size))
                     {
                         projectile.localNPCImmunity[k] = 0;
                     }
@@ -156,10 +155,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    
+
                     Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
-                    
-                    
+
+
                 }
             }
 

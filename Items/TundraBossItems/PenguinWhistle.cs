@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
- 
- namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
-    
+
     public class PenguinWhistle : ModItem
     {
         public override void SetStaticDefaults()
@@ -56,11 +53,11 @@ using Terraria.ModLoader;
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberOfProjectiles = 5;
-            for (int i =-2; i < numberOfProjectiles-2; i++)
+            for (int i = -2; i < numberOfProjectiles - 2; i++)
             {
-                Vector2 positionb = new Vector2(Main.MouseWorld.X + 80*i, position.Y-600);
+                Vector2 positionb = new Vector2(Main.MouseWorld.X + 80 * i, position.Y - 600);
                 Projectile penguin = Main.projectile[Projectile.NewProjectile(positionb, new Vector2(0, 10), type, damage, knockBack, player.whoAmI)];
-                if(positionb.X > player.Center.X)
+                if (positionb.X > player.Center.X)
                 {
                     penguin.spriteDirection = -1;
                 }
@@ -94,11 +91,11 @@ using Terraria.ModLoader;
         }
         public override void Kill(int timeLeft)
         {
-            
+
             NPC Penguin = Main.npc[NPC.NewNPC((int)projectile.Top.X, (int)projectile.Top.Y, NPCID.Penguin)];
-           
-                Penguin.SpawnedFromStatue = true;
-            
+
+            Penguin.SpawnedFromStatue = true;
+
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
@@ -122,7 +119,7 @@ using Terraria.ModLoader;
         {
             projectile.velocity = Vector2.Zero;
             projectile.damage = 0;
-            if(projectile.timeLeft > 180)
+            if (projectile.timeLeft > 180)
             {
                 projectile.timeLeft = 180;
             }
@@ -249,8 +246,8 @@ using Terraria.ModLoader;
                     projectile.velocity.X = projectile.velocity.X * velXmult;
                     projectile.velocity.Y = projectile.velocity.Y + velYmult;
                 }
-                
-                
+
+
 
 
 
@@ -299,7 +296,7 @@ using Terraria.ModLoader;
 
 
 
-    
+
 
 
 }

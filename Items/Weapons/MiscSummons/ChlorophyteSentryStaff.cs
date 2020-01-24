@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.World.Generation;
-using QwertysRandomContent.Buffs;
 
 namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
@@ -81,8 +76,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chlorophyte Sentry");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; 
-            Main.projFrames[projectile.type] = 1; 
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            Main.projFrames[projectile.type] = 1;
         }
 
         public override void SetDefaults()
@@ -90,40 +85,40 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             projectile.sentry = true;
             projectile.width = 38;
-            projectile.height = 38;  
-            projectile.hostile = false;   
-            projectile.friendly = false;  
-            projectile.ignoreWater = true;   
+            projectile.height = 38;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
             projectile.sentry = true;
             projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
-            
+
         }
         NPC target;
-       
+
         float maxDistance = 1000f;
-        
+
         int timer;
-        
-        
+
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             timer++;
-           
-            if(QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
+
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
             {
 
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
-                if(timer % 60 ==0 && player.whoAmI == Main.myPlayer)
+                if (timer % 60 == 0 && player.whoAmI == Main.myPlayer)
                 {
                     int numOfProj = 8 + Main.rand.Next(8);
-                    for(int p =0; p <numOfProj; p++)
+                    for (int p = 0; p < numOfProj; p++)
                     {
                         Projectile s = Main.projectile[Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(Main.rand.NextFloat(4, 16), projectile.rotation - (float)Math.PI / 8 + Main.rand.NextFloat((float)Math.PI / 4)), ProjectileID.SporeCloud, projectile.damage, projectile.knockBack, player.whoAmI)];
                         s.melee = false;
@@ -137,13 +132,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
 
             }
-            
+
         }
 
 
     }
 
-    
+
 
 
 

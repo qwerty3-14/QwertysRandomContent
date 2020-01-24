@@ -1,11 +1,6 @@
-using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.Items.Armor.Clay
 {
@@ -38,7 +33,7 @@ namespace QwertysRandomContent.Items.Armor.Clay
         public override void UpdateEquip(Player player)
         {
             //player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration *= .88f;
-            player.GetModPlayer<plateEffect>().effect = true ;
+            player.GetModPlayer<plateEffect>().effect = true;
         }
 
 
@@ -67,7 +62,7 @@ namespace QwertysRandomContent.Items.Armor.Clay
     public class plateEffect : ModPlayer
     {
         public bool effect = false;
-        
+
         public override void PostUpdateEquips()
         {
             if (effect)

@@ -1,10 +1,8 @@
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent;
 namespace QwertysRandomContent.NPCs.TundraBoss
 {
     public class FlyingPenguin : ModNPC
@@ -33,15 +31,15 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
 
         }
-        
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             return 0f;
         }
         public override void NPCLoot()
         {
-            
-            
+
+
         }
         int timer;
         float flyAboveHeight = 150;
@@ -50,11 +48,11 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         int frame;
         public override void AI()
         {
-            
+
             timer++;
             Player player = Main.player[npc.target];
-            
-            Vector2 flyTo = new Vector2(player.Center.X + (penguinPoliteness * npc.ai[0]), player.Center.Y- flyAboveHeight);
+
+            Vector2 flyTo = new Vector2(player.Center.X + (penguinPoliteness * npc.ai[0]), player.Center.Y - flyAboveHeight);
             if (timer > 180)
             {
                 npc.velocity = new Vector2(0, 10);
@@ -70,9 +68,9 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                 npc.TargetClosest(false);
                 npc.spriteDirection = -npc.direction;
                 npc.rotation = (float)Math.PI;
-                if (timer%10==0)
+                if (timer % 10 == 0)
                 {
-                    if(frame==1)
+                    if (frame == 1)
                     {
                         frame = 0;
                     }
@@ -82,7 +80,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     }
                 }
             }
-            else if(timer > 120)
+            else if (timer > 120)
             {
                 npc.TargetClosest(true);
                 npc.spriteDirection = npc.direction;
@@ -122,11 +120,11 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             }
 
         }
-        
+
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
-            
+
         }
     }
 }

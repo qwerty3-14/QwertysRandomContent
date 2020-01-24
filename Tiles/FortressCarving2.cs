@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.ModLoader;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
@@ -36,7 +34,7 @@ namespace QwertysRandomContent.Tiles
             dustType = mod.DustType("FortressDust");
             soundType = 21;
             soundStyle = 2;
-            
+
             AddMapEntry(new Color(162, 184, 185));
             name.SetDefault("Fortress Carving");
 
@@ -56,14 +54,14 @@ namespace QwertysRandomContent.Tiles
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("FortressCarving2"));
-           
+
         }
         public override bool CanExplode(int i, int j)
         {
 
-            
-                return false;
-            
+
+            return false;
+
 
 
 

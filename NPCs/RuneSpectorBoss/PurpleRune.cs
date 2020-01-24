@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +11,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-            
+
             projectile.width = 200;
             projectile.height = 200;
             projectile.friendly = false;
@@ -38,9 +34,9 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.alpha = 0;
 
             runeTimer++;
-            if(runeTimer == 128 && Main.netMode !=2)
+            if (runeTimer == 128 && Main.netMode != 2)
             {
-                Projectile.NewProjectile(projectile.Center.X , projectile.Center.Y , (float)Math.Cos((1 * 2 * Math.PI) / 3) *runeSpeed, (float)Math.Sin( (1*2 * Math.PI)/3) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((1 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((1 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((2 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((2 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((3 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((3 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
                 //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((4 * 2 * Math.PI) / 5) * runeSpeed, (float)Math.Sin((4 * 2 * Math.PI) / 5) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
@@ -63,7 +59,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-            
+
             projectile.width = 40;
             projectile.height = 20;
             projectile.friendly = false;
@@ -83,42 +79,42 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public int f;
         public override void AI()
         {
-            
+
             Player player = Main.player[projectile.owner];
-            if(runOnce)
+            if (runOnce)
             {
                 projectile.rotation = (projectile.velocity).ToRotation();
             }
             if (projectile.alpha > 0)
-                projectile.alpha-=5;
+                projectile.alpha -= 5;
             else
                 projectile.alpha = 0;
 
-            
-                if (Math.Abs(projectile.rotation - runeTargetDirection) > Math.PI)
-                {
-                    f = -1;
-                }
-                else
-                {
-                    f = 1;
-                }
-                runeTargetDirection = (player.Center - projectile.Center).ToRotation();
-                if (projectile.rotation <= runeTargetDirection + MathHelper.ToRadians( 1) && projectile.rotation >= runeTargetDirection - MathHelper.ToRadians( 1))
-                {
-                    projectile.rotation = runeTargetDirection;
-                }
-                else if (projectile.rotation <= runeTargetDirection)
-                {
-                    projectile.rotation += MathHelper.ToRadians(1) *f;
-                }
-                else if (projectile.rotation >= runeTargetDirection)
-                {
-                    projectile.rotation -= MathHelper.ToRadians(1)*f;
-                }
-                projectile.velocity = new Vector2((float)(Math.Cos(projectile.rotation)*runeSpeed), (float)(Math.Sin(projectile.rotation) * runeSpeed));
-            
-            
+
+            if (Math.Abs(projectile.rotation - runeTargetDirection) > Math.PI)
+            {
+                f = -1;
+            }
+            else
+            {
+                f = 1;
+            }
+            runeTargetDirection = (player.Center - projectile.Center).ToRotation();
+            if (projectile.rotation <= runeTargetDirection + MathHelper.ToRadians(1) && projectile.rotation >= runeTargetDirection - MathHelper.ToRadians(1))
+            {
+                projectile.rotation = runeTargetDirection;
+            }
+            else if (projectile.rotation <= runeTargetDirection)
+            {
+                projectile.rotation += MathHelper.ToRadians(1) * f;
+            }
+            else if (projectile.rotation >= runeTargetDirection)
+            {
+                projectile.rotation -= MathHelper.ToRadians(1) * f;
+            }
+            projectile.velocity = new Vector2((float)(Math.Cos(projectile.rotation) * runeSpeed), (float)(Math.Sin(projectile.rotation) * runeSpeed));
+
+
 
 
         }

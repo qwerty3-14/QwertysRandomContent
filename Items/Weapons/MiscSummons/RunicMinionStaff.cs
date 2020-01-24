@@ -1,24 +1,23 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
- 
- 
- namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+
+
+namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class RunicMinionStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Leech Rune Staff");
-			Tooltip.SetDefault("Summons an leech rune to fight for you!" + "\nchance to steal life");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Leech Rune Staff");
+            Tooltip.SetDefault("Summons an leech rune to fight for you!" + "\nchance to steal life");
 
 
         }
- 
+
         public override void SetDefaults()
         {
 
@@ -37,8 +36,8 @@ using Microsoft.Xna.Framework.Graphics;
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("RunicMinionFreindly");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
-            item.buffType = mod.BuffType("AncientMinion");	//The buff added to player after used the item
-			item.buffTime = 3600;
+            item.buffType = mod.BuffType("AncientMinion");  //The buff added to player after used the item
+            item.buffTime = 3600;
             if (!Main.dedServ)
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/Weapons/MiscSummons/RunicMinionStaff_Glow");
@@ -78,39 +77,39 @@ using Microsoft.Xna.Framework.Graphics;
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class RunicMinionFreindly : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Leech Rune");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Leech Rune");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
- 
-			
+
+
             projectile.width = 40; //Set the hitbox width
             projectile.height = 40;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -120,9 +119,9 @@ using Microsoft.Xna.Framework.Graphics;
             projectile.knockBack = 10f;
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = false; //Tells the game whether or not it can collide with tiles/ terrain
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
         }
 
@@ -186,7 +185,7 @@ using Microsoft.Xna.Framework.Graphics;
             if (runOnce)
             {
                 //Main.PlaySound(SoundID.Item8);
-                
+
                 if (Main.netMode != 2)
                 {
                     moveTo.X = projectile.Center.X;
@@ -201,7 +200,7 @@ using Microsoft.Xna.Framework.Graphics;
                 timer++;
                 if (timer > waitTime + chargeTime)
                 {
-                    for(int k =0; k<200; k++)
+                    for (int k = 0; k < 200; k++)
                     {
                         projectile.localNPCImmunity[k] = 0;
                     }
@@ -250,11 +249,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 
 
-                
+
             }
             else
             {
-                if ( (projectile.Center-player.Center).Length()> 300)
+                if ((projectile.Center - player.Center).Length() > 300)
                 {
                     if (Main.netMode != 2)
                     {
@@ -271,7 +270,7 @@ using Microsoft.Xna.Framework.Graphics;
                     moveTo = new Vector2(player.Center.X + (float)Math.Cos(projectile.ai[1]) * 100, player.Center.Y + (float)Math.Sin(projectile.ai[1]) * 100);
                     justTeleported = true;
                 }
-                
+
                 projectile.Center = moveTo;
 
                 targetAngle = new Vector2(player.Center.X - projectile.Center.X, player.Center.Y - projectile.Center.Y).ToRotation();
@@ -301,8 +300,8 @@ using Microsoft.Xna.Framework.Graphics;
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-        
+
 
     }
-	
+
 }

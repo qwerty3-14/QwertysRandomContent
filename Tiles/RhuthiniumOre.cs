@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader;
-using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles
 {
     public class RhuthiniumOre : ModTile
@@ -12,7 +10,7 @@ namespace QwertysRandomContent.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileSpelunker[Type] = true;
-            Main.tileValue[Type]=550;
+            Main.tileValue[Type] = 550;
 
             ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("RhuthiniumDust");

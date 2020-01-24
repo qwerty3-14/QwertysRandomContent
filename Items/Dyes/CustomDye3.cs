@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
@@ -8,32 +7,32 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Dyes
 {
-	public class CustomDye3 : ModItem
-	{
+    public class CustomDye3 : ModItem
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Custom Dye: Pants");
             Tooltip.SetDefault("Based on your default clothes' pants color");
         }
         public override void SetDefaults()
-		{
-			
-			byte dye = item.dye;
-			item.CloneDefaults(ItemID.GelDye);
-			item.dye = dye;
+        {
+
+            byte dye = item.dye;
+            item.CloneDefaults(ItemID.GelDye);
+            item.dye = dye;
             item.value = 150000;
         }
-	}
+    }
     public class CustomArmorShader3 : ArmorShaderData
     {
 
         private static bool isInitialized = false;
 
-        
+
         private static ArmorShaderData dustShaderData;
         public CustomArmorShader3(Ref<Effect> shader, string passName) : base(shader, passName)
         {
-            
+
             dustShaderData = new ArmorShaderData(shader, passName);
         }
         /*

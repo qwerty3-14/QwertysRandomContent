@@ -1,13 +1,12 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Terraria.Localization;
+using Terraria;
+using Terraria.Enums;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.BossFour
 {
@@ -43,12 +42,12 @@ namespace QwertysRandomContent.NPCs.BossFour
             npc.scale = 1f;
             npc.lifeMax = 100000;
             bossBag = mod.ItemType("B4Bag");
-            
+
 
         }
         public override void HitEffect(int hitDirection, double damage)
         {
-            if(npc.life <=0)
+            if (npc.life <= 0)
             {
                 Vector2 pos = npc.Center + new Vector2(-591, -612);
                 Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/OGore1"), 1f)];
@@ -59,7 +58,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             }
 
         }
-        
+
         int frame = 0;
         const int guideWidth = 750;
         const int turretVerticalShift = -30;
@@ -69,18 +68,18 @@ namespace QwertysRandomContent.NPCs.BossFour
         int quitCount;
         bool playerDied = false;
         public Projectile[] wall = new Projectile[2];
-        bool activeWalls=false;
+        bool activeWalls = false;
         bool[] shootLaser = new bool[] { false, false, false, false };
         Projectile[] tLaser = new Projectile[4];
         Projectile superLaser;
-        bool activeSuperLaser=false;
+        bool activeSuperLaser = false;
         /// ///////////
         int timer;
-        int attack=0;
+        int attack = 0;
         bool runOnce = true;
         Vector2 GoTo;
         float laserDistanceFromCenter = 800;
-        bool didHalfDeadSequence=false;
+        bool didHalfDeadSequence = false;
         bool halfDeadSqequence = false;
 
 
@@ -124,89 +123,89 @@ namespace QwertysRandomContent.NPCs.BossFour
                 shotDamage = npc.damage / 2;
                 npc.ai[3] = 1;
             }
-           
 
 
-                #region
-                //////////////////
-                npc.width = (int)(320 * npc.scale);
-                npc.height = (int)(60 * npc.scale);
-                // npc.hide = !(npc.scale == 1f);
-                //npc.behindTiles = npc.hide;
-                if (runOnce)
+
+            #region
+            //////////////////
+            npc.width = (int)(320 * npc.scale);
+            npc.height = (int)(60 * npc.scale);
+            // npc.hide = !(npc.scale == 1f);
+            //npc.behindTiles = npc.hide;
+            if (runOnce)
+            {
+                if (Main.netMode != 1)
                 {
-                    if (Main.netMode != 1)
+                    for (int t = 0; t < tLaser.Length; t++)
                     {
-                        for (int t = 0; t < tLaser.Length; t++)
-                        {
-                            tLaser[t] = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(14f, turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretLaser2"), (int)(1.5f * shotDamage), 3f, Main.myPlayer, (npc.Center + turretPos[t] * npc.scale).X, (npc.Center + turretPos[t] * npc.scale).Y)];
-                        }
+                        tLaser[t] = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(14f, turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretLaser2"), (int)(1.5f * shotDamage), 3f, Main.myPlayer, (npc.Center + turretPos[t] * npc.scale).X, (npc.Center + turretPos[t] * npc.scale).Y)];
+                    }
 
-                        wall[0] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, laserDistanceFromCenter)];
-                        wall[1] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, -laserDistanceFromCenter)];
-                        superLaser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 14f, mod.ProjectileType("SuperLaser2"), 5 * shotDamage, 3f, Main.myPlayer, npc.whoAmI, npc.rotation + (float)Math.PI / 2)];
-                    }
-                    if (Main.netMode != 1)
-                    {
-                        attack = Main.rand.Next(4);
-                        npc.netUpdate = true;
-                    }
-                    runOnce = false;
+                    wall[0] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, laserDistanceFromCenter)];
+                    wall[1] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, -laserDistanceFromCenter)];
+                    superLaser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 14f, mod.ProjectileType("SuperLaser2"), 5 * shotDamage, 3f, Main.myPlayer, npc.whoAmI, npc.rotation + (float)Math.PI / 2)];
                 }
                 if (Main.netMode != 1)
                 {
-                    if (superLaser.type != mod.ProjectileType("SuperLaser2"))
-                    {
-                        superLaser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 14f, mod.ProjectileType("SuperLaser2"), 5 * shotDamage, 3f, Main.myPlayer, npc.whoAmI, npc.rotation + (float)Math.PI / 2)];
-                    }
+                    attack = Main.rand.Next(4);
+                    npc.netUpdate = true;
+                }
+                runOnce = false;
+            }
+            if (Main.netMode != 1)
+            {
+                if (superLaser.type != mod.ProjectileType("SuperLaser2"))
+                {
+                    superLaser = Main.projectile[Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 14f, mod.ProjectileType("SuperLaser2"), 5 * shotDamage, 3f, Main.myPlayer, npc.whoAmI, npc.rotation + (float)Math.PI / 2)];
+                }
 
-                    //superLaser.timeLeft = 10;
-                    for (int t = 0; t < tLaser.Length; t++)
+                //superLaser.timeLeft = 10;
+                for (int t = 0; t < tLaser.Length; t++)
+                {
+                    if (tLaser[t].type != mod.ProjectileType("TurretLaser2"))
                     {
-                        if (tLaser[t].type != mod.ProjectileType("TurretLaser2"))
-                        {
-                            tLaser[t] = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(14f, turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretLaser2"), (int)(1.5f * shotDamage), 3f, Main.myPlayer, (npc.Center + turretPos[t] * npc.scale).X, (npc.Center + turretPos[t] * npc.scale).Y)];
-                        }
-                        tLaser[t].rotation = turret[t].X;
-                        tLaser[t].Center = (npc.Center + turretPos[t] * npc.scale);
-                        tLaser[t].ai[0] = (npc.Center + turretPos[t] * npc.scale).X;
-                        tLaser[t].ai[1] = (npc.Center + turretPos[t] * npc.scale).Y;
-                        tLaser[t].timeLeft = 10;
-
-                        if (!shootLaser[t])
-                        {
-                            tLaser[t].localAI[0] = 0;
-                        }
-                        else
-                        {
-                            tLaser[t].localAI[0] += (npc.ai[3] - 1);
-                        }
-                        tLaser[t].netUpdate = true;
+                        tLaser[t] = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(14f, turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretLaser2"), (int)(1.5f * shotDamage), 3f, Main.myPlayer, (npc.Center + turretPos[t] * npc.scale).X, (npc.Center + turretPos[t] * npc.scale).Y)];
                     }
-                    if (!activeWalls)
-                    {
-                        for (int w = 0; w < 2; w++)
-                        {
-                            if (wall[w].type != mod.ProjectileType("SideLaser") && Main.netMode != 1)
-                            {
-                                wall[w] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, laserDistanceFromCenter * w == 1 ? -1 : 1)];
+                    tLaser[t].rotation = turret[t].X;
+                    tLaser[t].Center = (npc.Center + turretPos[t] * npc.scale);
+                    tLaser[t].ai[0] = (npc.Center + turretPos[t] * npc.scale).X;
+                    tLaser[t].ai[1] = (npc.Center + turretPos[t] * npc.scale).Y;
+                    tLaser[t].timeLeft = 10;
 
-                            }
-                            wall[w].localAI[0] = 0;
-                            wall[w].netUpdate = true;
-                        }
-                    }
-                    if (!activeSuperLaser)
+                    if (!shootLaser[t])
                     {
-                        superLaser.localAI[0] = 0;
-                        superLaser.netUpdate = true;
+                        tLaser[t].localAI[0] = 0;
                     }
                     else
                     {
-                        superLaser.localAI[0] += (npc.ai[3] - 1);
+                        tLaser[t].localAI[0] += (npc.ai[3] - 1);
                     }
-
+                    tLaser[t].netUpdate = true;
                 }
+                if (!activeWalls)
+                {
+                    for (int w = 0; w < 2; w++)
+                    {
+                        if (wall[w].type != mod.ProjectileType("SideLaser") && Main.netMode != 1)
+                        {
+                            wall[w] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, laserDistanceFromCenter * w == 1 ? -1 : 1)];
+
+                        }
+                        wall[w].localAI[0] = 0;
+                        wall[w].netUpdate = true;
+                    }
+                }
+                if (!activeSuperLaser)
+                {
+                    superLaser.localAI[0] = 0;
+                    superLaser.netUpdate = true;
+                }
+                else
+                {
+                    superLaser.localAI[0] += (npc.ai[3] - 1);
+                }
+
+            }
             for (int q = 0; q < (int)npc.ai[3]; q++)
             {
                 activeSuperLaser = false;
@@ -225,7 +224,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 {
                     npc.dontTakeDamage = false;
                 }
-                 player = Main.player[npc.target];
+                player = Main.player[npc.target];
                 npc.TargetClosest(true);
                 if (!player.active || player.dead)
                 {
@@ -264,7 +263,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 if (timer > 300)
                 {
                     player.GetModPlayer<OLORDScreenLock>().screenLock = npc.whoAmI;
-                    
+
                     activeWalls = true;
                     npc.velocity = Vector2.Zero;
                     if (player.Center.Y - npc.Center.Y > 1000)
@@ -360,7 +359,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                                     }
                                     else
                                     {
-                                        turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (player.Center - (npc.Center + turretPos[t] * npc.scale)).ToRotation() - (float)Math.PI / 2, 4 );
+                                        turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (player.Center - (npc.Center + turretPos[t] * npc.scale)).ToRotation() - (float)Math.PI / 2, 4);
                                         turret[t].Y = 0;
                                         if (timer % 120 == 0)
                                         {
@@ -437,17 +436,17 @@ namespace QwertysRandomContent.NPCs.BossFour
                                         turret[t].Y = 1;
                                         if (t == 1)
                                         {
-                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (float)Math.PI / 2 * laserProgress, 4 );
+                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (float)Math.PI / 2 * laserProgress, 4);
                                         }
                                         else if (t == 2)
                                         {
-                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, -(float)Math.PI / 2 * laserProgress, 4 );
+                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, -(float)Math.PI / 2 * laserProgress, 4);
                                         }
 
                                     }
                                     else
                                     {
-                                        turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (player.Center - (npc.Center + turretPos[t] * npc.scale)).ToRotation() - (float)Math.PI / 2, 4 );
+                                        turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (player.Center - (npc.Center + turretPos[t] * npc.scale)).ToRotation() - (float)Math.PI / 2, 4);
                                         turret[t].Y = 1;
                                         if (timer % 120 < 60 && timer % 10 == 0)
                                         {
@@ -517,7 +516,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                                 for (int t = 0; t < turret.Length; t++)
                                 {
                                     turret[t].Y = 0;
-                                    turret[t].X = QwertyMethods.SlowRotation(turret[t].X, 0, 4 );
+                                    turret[t].X = QwertyMethods.SlowRotation(turret[t].X, 0, 4);
                                     if (timer % 120 == t * 30)
                                     {
                                         if (Main.netMode != 1)
@@ -664,35 +663,36 @@ namespace QwertysRandomContent.NPCs.BossFour
                 }
             }
         }
-            
-        
+
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            
-            
+
+
             if (activeWalls)
             {
                 Texture2D Walls = mod.GetTexture("NPCs/BossFour/SideLaser");
                 for (int h = 0; h < 20; h++)
                 {
-                    spriteBatch.Draw(Walls, new Vector2(npc.Center.X + laserDistanceFromCenter, npc.position.Y +50 +h*188) - Main.screenPosition,
+                    spriteBatch.Draw(Walls, new Vector2(npc.Center.X + laserDistanceFromCenter, npc.position.Y + 50 + h * 188) - Main.screenPosition,
                                   new Rectangle(316, 0, 316, 188), drawColor, npc.rotation,
                                    new Vector2(316 * .5f, 188 * .5f), npc.scale, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Walls, new Vector2(npc.Center.X  - laserDistanceFromCenter, npc.position.Y + 50 + h * 188) - Main.screenPosition,
+                    spriteBatch.Draw(Walls, new Vector2(npc.Center.X - laserDistanceFromCenter, npc.position.Y + 50 + h * 188) - Main.screenPosition,
                                   new Rectangle(0, 0, 316, 188), drawColor, npc.rotation,
                                    new Vector2(316 * .5f, 188 * .5f), npc.scale, SpriteEffects.None, 0f);
                 }
             }
             Texture2D BK = mod.GetTexture("NPCs/BossFour/BackGround");
-            spriteBatch.Draw(BK, new Vector2(npc.Center.X, npc.position.Y-(70f * npc.scale))  - Main.screenPosition,
+            float backgroundOffset = 100f; //70 for old
+            spriteBatch.Draw(BK, new Vector2(npc.Center.X, npc.position.Y - (backgroundOffset * npc.scale)) - Main.screenPosition,
                           BK.Frame(), drawColor, npc.rotation,
-                           BK.Size() /2, npc.scale, SpriteEffects.None, 0f);
-            
+                           BK.Size() / 2, npc.scale, SpriteEffects.None, 0f);
+
             return true;
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            
+
             for (int t = 0; t < turret.Length; t++)
             {
                 spriteBatch.Draw(mod.GetTexture("NPCs/BossFour/Turret"), npc.Center + turretPos[t] * npc.scale - Main.screenPosition,
@@ -818,7 +818,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
         }
 
-        
+
 
 
 
@@ -900,9 +900,9 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             //projectile.position = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * MoveDistance;
             projectile.Center += projectile.velocity * MoveDistance;
-            
+
             int dir = projectile.direction;
-           
+
             #endregion
 
             #region Charging process
@@ -924,9 +924,9 @@ namespace QwertysRandomContent.NPCs.BossFour
             else
             {
                 AtMaxCharge = true;
-               
-                   
-                
+
+
+
             }
 
             int chargeFact = (int)(Charge / 20f);
@@ -966,7 +966,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
             Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
                 DelegateMethods.CastLight);
-           
+
 
         }
         public int colorCounter;
@@ -981,7 +981,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             }
             else
             {
-                Vector2 center = projectile.Center +QwertyMethods.PolarVector(-60, projectile.rotation +(float)Math.PI/2);
+                Vector2 center = projectile.Center + QwertyMethods.PolarVector(-60, projectile.rotation + (float)Math.PI / 2);
 
                 //float projRotation = shooter.rotation;
                 float projRotation = projectile.rotation;
@@ -1017,14 +1017,14 @@ namespace QwertysRandomContent.NPCs.BossFour
 
         // The core function of drawing a laser
         int frame = 0;
-        
+
         public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 4000f, Color color = default(Color), int transDist = 50)
         {
             projectile.frameCounter++;
-            if(projectile.frameCounter %4==0)
+            if (projectile.frameCounter % 4 == 0)
             {
                 frame++;
-                if(frame>3)
+                if (frame > 3)
                 {
                     frame = 0;
                 }
@@ -1038,7 +1038,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 Color c = Color.White;
                 origin = start + i * unit;
                 spriteBatch.Draw(texture, origin - Main.screenPosition,
-                    new Rectangle(frame*50, 50, 50, 48), i < transDist ? Color.Transparent : c, r,
+                    new Rectangle(frame * 50, 50, 50, 48), i < transDist ? Color.Transparent : c, r,
                     new Vector2(50 * .5f, 48 * .5f), scale, 0, 0);
             }
             #endregion
@@ -1048,7 +1048,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 new Rectangle(frame * 50, 0, 50, 48), Color.White, r, new Vector2(50 * .5f, 48 * .5f), scale, 0, 0);
             #endregion
 
-            
+
         }
 
         // Change the way of collision check of the projectile
@@ -1164,7 +1164,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             projectile.netUpdate = true;
             projectile.timeLeft = 2;
             projectile.Center = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * MoveDistance;
-           
+
             int dir = projectile.direction;
             /*
             player.ChangeDir(dir);
@@ -1202,7 +1202,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 Vector2 center = projectile.Center + QwertyMethods.PolarVector(-60, projectile.rotation + (float)Math.PI / 2);
                 for (int i = 0; i < 15; i++)
                 {
-                    float theta = projectile.rotation + (float)Math.PI / 2 + Main.rand.NextFloat(-5 * (float)Math.PI / 12, 5*(float)Math.PI / 12);
+                    float theta = projectile.rotation + (float)Math.PI / 2 + Main.rand.NextFloat(-5 * (float)Math.PI / 12, 5 * (float)Math.PI / 12);
                     float dist = Main.rand.NextFloat(30f, 120f);
                     if (Main.netMode != 1)
                     {
@@ -1363,22 +1363,175 @@ namespace QwertysRandomContent.NPCs.BossFour
         }
         public override void ModifyScreenPosition()
         {
-            if(screenLock != -1 && player.active && player.statLife >0)
+            if (screenLock != -1 && player.active && player.statLife > 0)
             {
                 NPC OLORD = Main.npc[screenLock];
-                if(OLORD.active)
+                if (OLORD.active)
                 {
                     Main.screenPosition.X = OLORD.Center.X - Main.screenWidth / 2;
                     Main.screenPosition.Y = OLORD.position.Y - 100;
-                    
+
                 }
-               
+
             }
             if (shake)
             {
                 Main.screenPosition.X += Main.rand.Next(-20, 21);
                 Main.screenPosition.Y += Main.rand.Next(-20, 21);
             }
+        }
+    }
+    public class SideLaser : ModProjectile
+    {
+        private const float MaxChargeValue = 50f;
+        private const float MoveDistance = 60f;
+        public float Distance;
+
+        // The actual charge value is stored in the localAI0 field
+        public float Charge
+        {
+            get { return projectile.localAI[0]; }
+            set { projectile.localAI[0] = value; }
+        }
+        public NPC shooter;
+        public bool AtMaxCharge { get { return Charge == MaxChargeValue; } }
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("O.L.O.R.D.'s wall");
+        }
+        public override void SetDefaults()
+        {
+            projectile.width = 10;
+            projectile.height = 10;
+            projectile.friendly = false;
+            projectile.penetrate = -1;
+            projectile.tileCollide = false;
+            projectile.hostile = true;
+            projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
+        }
+        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        {
+
+            // Add this projectile to the list of projectiles that will be drawn BEFORE tiles and NPC are drawn. This makes the projectile appear to be BEHIND the tiles and NPC.
+            drawCacheProjsBehindNPCs.Add(index);
+        }
+        // The AI of the projectile
+        public float downFromCenter = 0;
+        public override void AI()
+        {
+
+            shooter = Main.npc[(int)projectile.ai[0]];
+            Vector2 mousePos = Main.MouseWorld;
+            Player player = Main.player[projectile.owner];
+
+            if (!shooter.active)
+            {
+                projectile.Kill();
+            }
+            #region Set projectile position
+
+
+            Vector2 diff = new Vector2(0, 14);
+            diff.Normalize();
+            projectile.velocity = diff;
+            projectile.direction = projectile.Center.X > shooter.Center.X ? 1 : -1;
+            projectile.netUpdate = true;
+
+            projectile.position = new Vector2(shooter.Center.X + projectile.ai[1], shooter.Center.Y + downFromCenter) + projectile.velocity * MoveDistance;
+            projectile.timeLeft = 2;
+            int dir = projectile.direction;
+
+            #endregion
+
+            #region Charging process
+
+            Vector2 offset = projectile.velocity;
+            offset *= MoveDistance - 20;
+            Vector2 pos = new Vector2(shooter.Center.X + projectile.ai[1], shooter.Center.Y + downFromCenter) + offset - new Vector2(10, 10);
+
+            if (Charge < MaxChargeValue)
+            {
+                Charge++;
+                Distance = 0;
+            }
+
+            int chargeFact = (int)(Charge / 20f);
+
+
+
+            #endregion
+
+
+            if (Charge < MaxChargeValue) return;
+            Vector2 start = new Vector2(shooter.Center.X + projectile.ai[1], shooter.Center.Y + downFromCenter);
+            Vector2 unit = projectile.velocity;
+
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            return false;
+        }
+
+        // The core function of drawing a laser
+        public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 4000f, Color color = default(Color), int transDist = 50)
+        {
+            Vector2 origin = start;
+            float r = unit.ToRotation() + rotation;
+
+            #region Draw laser body
+            if (projectile.ai[1] > 0)
+            {
+                for (float i = transDist; i <= Distance; i += step)
+                {
+                    Color c = Color.White;
+                    origin = start + i * unit;
+                    spriteBatch.Draw(texture, origin - Main.screenPosition,
+                        new Rectangle(316, 0, 631, (int)step), color, r,
+                        new Vector2(316 * .5f, step * .5f), scale, 0, 0);
+                }
+            }
+            else
+            {
+                for (float i = transDist; i <= Distance; i += step)
+                {
+                    Color c = Color.White;
+                    origin = start + i * unit;
+                    spriteBatch.Draw(texture, origin - Main.screenPosition,
+                        new Rectangle(0, 0, 316, (int)step), color, r,
+                        new Vector2(316 * .5f, step * .5f), scale, 0, 0);
+                }
+            }
+
+            #endregion
+
+
+        }
+
+        // Change the way of collision check of the projectile
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            // We can only collide if we are at max charge, which is when the laser is actually fired
+
+            Player player = Main.player[projectile.owner];
+            Vector2 unit = projectile.velocity;
+            float point = 0f;
+            // Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
+            // It will look for collisions on the given line using AABB
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), new Vector2(shooter.Center.X + projectile.ai[1], shooter.Center.Y + downFromCenter),
+                new Vector2(shooter.Center.X + projectile.ai[1], shooter.Center.Y + downFromCenter) + unit * Distance, 316, ref point);
+
+            return false;
+        }
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
+        }
+
+        public override void CutTiles()
+        {
+            DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+            Vector2 unit = projectile.velocity;
+            Utils.PlotTileLine(projectile.Center, projectile.Center + unit * Distance, (projectile.width + 16) * projectile.scale, DelegateMethods.CutTiles);
         }
     }
 }

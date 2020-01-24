@@ -1,11 +1,8 @@
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using Terraria.DataStructures;
 using Terraria.World.Generation;
 
 namespace QwertysRandomContent.NPCs.Fortress
@@ -20,7 +17,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             return base.Autoload(ref name);
         }
-       
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Enchanted Tile");
@@ -78,7 +75,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(2,5));
+            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(2, 5));
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
@@ -104,15 +101,15 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             if (runOnce)
             {
-                switch(Main.rand.Next(3))
+                switch (Main.rand.Next(3))
                 {
                     case 0:
 
-                    int children = Main.rand.Next(3);
-                    for(int i =0; i< children; i++ )
-                    {
-                        NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")));
-                    }
+                        int children = Main.rand.Next(3);
+                        for (int i = 0; i < children; i++)
+                        {
+                            NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")));
+                        }
                         break;
                     case 1:
                         Point origin = npc.Center.ToTileCoordinates();
@@ -135,7 +132,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                         }
                         break;
                 }
-                if(!flipped)
+                if (!flipped)
                 {
                     Point origin = npc.Center.ToTileCoordinates();
                     Point point;
@@ -151,7 +148,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
                 runOnce = false;
             }
-            if(frame ==0)
+            if (frame == 0)
             {
                 npc.dontTakeDamage = true;
             }
@@ -259,5 +256,5 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.frame.Y = frame * frameHeight;
         }
     }
-    
+
 }

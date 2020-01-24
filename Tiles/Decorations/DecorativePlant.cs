@@ -1,10 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
-using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 namespace QwertysRandomContent.Tiles.Decorations
@@ -18,8 +13,8 @@ namespace QwertysRandomContent.Tiles.Decorations
             Main.tileFrameImportant[Type] = true;
             ModTranslation name = CreateMapEntryName();
             dustType = 0;
-            
-            
+
+
             AddMapEntry(new Color(55, 95, 62));
             name.SetDefault("Decorative Plant");
             //drop = mod.ItemType("DecorativePlant");

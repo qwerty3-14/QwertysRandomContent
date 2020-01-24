@@ -1,12 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.Buffs;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,16 +21,16 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             item.height = 52;
             item.mana = 10;
             item.damage = 7;
-            
+
             item.shoot = mod.ProjectileType("ManEaterP");
             item.shootSpeed = 0f;
             item.useTime = 20;
             item.useAnimation = 20;
-           
-            
+
+
             item.useStyle = 1;
             item.knockBack = 0f;
-            item.value = Item.sellPrice(silver: 54) ;
+            item.value = Item.sellPrice(silver: 54);
             item.rare = 3;
             item.UseSound = SoundID.Item44;
             item.sentry = true;
@@ -102,10 +96,10 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
         public override void AI()
         {
             trigCounter += (float)Math.PI / 60;
-            
+
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
-            
+
             Vector2 DifferenceToGo = Goto - projectile.Center - HeadPos;
             float speed = DifferenceToGo.Length();
             wanderTimer++;
@@ -138,42 +132,42 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             {
                 Goto = projectile.Center + QwertyMethods.PolarVector(100, projectile.ai[1]);
             }
-            
+
             if (speed > maxSpeed)
             {
                 speed = maxSpeed;
             }
             HeadPos += QwertyMethods.PolarVector(speed, DifferenceToGo.ToRotation());
             projectile.frameCounter++;
-            if(projectile.frameCounter % 10 ==0)
+            if (projectile.frameCounter % 10 == 0)
             {
                 if (frame == 2 || frame == 0)
                 {
                     animationDir *= -1;
                 }
-                frame+= animationDir;
+                frame += animationDir;
             }
-            HeadOffPos = HeadPos + QwertyMethods.PolarVector(20* (float)Math.Sin(trigCounter), HeadPos.ToRotation());
+            HeadOffPos = HeadPos + QwertyMethods.PolarVector(20 * (float)Math.Sin(trigCounter), HeadPos.ToRotation());
             maxSpeed = 3;
             //were used to check hitbox
             //Dust.NewDustPerfect((projectile.Center + HeadOffPos) + QwertyMethods.PolarVector(-13, HeadPos.ToRotation()), DustID.Fire);
-           // Dust.NewDustPerfect((projectile.Center + HeadOffPos) + QwertyMethods.PolarVector(28, HeadPos.ToRotation()), DustID.Fire);
+            // Dust.NewDustPerfect((projectile.Center + HeadOffPos) + QwertyMethods.PolarVector(28, HeadPos.ToRotation()), DustID.Fire);
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D vine = Main.chain4Texture;
-            for(int i =0; i < HeadOffPos.Length(); i++)
+            for (int i = 0; i < HeadOffPos.Length(); i++)
             {
                 Vector2 p = projectile.Center + QwertyMethods.PolarVector(i, HeadPos.ToRotation());
                 spriteBatch.Draw(vine, p - Main.screenPosition,
-                       new Rectangle(0, vine.Height-(i%vine.Height), vine.Width, 1), Lighting.GetColor((int)p.X/16, (int)p.Y / 16), HeadPos.ToRotation() + (float)Math.PI/2,
-                       new Vector2(vine.Width/2, .5f), 1f, 0, 0f);
+                       new Rectangle(0, vine.Height - (i % vine.Height), vine.Width, 1), Lighting.GetColor((int)p.X / 16, (int)p.Y / 16), HeadPos.ToRotation() + (float)Math.PI / 2,
+                       new Vector2(vine.Width / 2, .5f), 1f, 0, 0f);
             }
-            
+
             Texture2D Head = Main.projectileTexture[projectile.type];
             Vector2 lp = (projectile.Center + HeadOffPos);
             spriteBatch.Draw(Head, lp - Main.screenPosition,
-                       new Rectangle(0, frame * Head.Height / 3, Head.Width, Head.Height/3), Lighting.GetColor((int)lp.X / 16, (int)lp.Y / 16), HeadPos.ToRotation(),
+                       new Rectangle(0, frame * Head.Height / 3, Head.Width, Head.Height / 3), Lighting.GetColor((int)lp.X / 16, (int)lp.Y / 16), HeadPos.ToRotation(),
                        new Vector2(22, Head.Height / 6), 1f, 0, 0f);
             return false;
         }
@@ -189,7 +183,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
                 ) || Collision.CheckAABBvAABBCollision(targetHitbox.TopLeft(),
                 targetHitbox.Size(),
                 (projectile.Center + HeadOffPos),
-                new Vector2(1,1));
+                new Vector2(1, 1));
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -198,6 +192,6 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             target.immune[projectile.owner] = 0;
         }
     }
-    
-    
-} 
+
+
+}

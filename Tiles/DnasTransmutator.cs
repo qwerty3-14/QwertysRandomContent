@@ -1,11 +1,10 @@
-using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using System.IO;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
@@ -47,12 +46,12 @@ namespace QwertysRandomContent.Tiles
             mod.GetTileEntity("DnasTransmutatorE").Kill(i, j);
         }
 
-        
+
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
             if (Main.tile[i + 1, j].type == mod.TileType("DnasTransmutator"))
             {
-                if(Main.tile[i - 1, j].type == mod.TileType("DnasTransmutator"))
+                if (Main.tile[i - 1, j].type == mod.TileType("DnasTransmutator"))
                 {
                     Main.tile[i, j].frameX = 36;
                 }
@@ -90,38 +89,39 @@ namespace QwertysRandomContent.Tiles
             if (Main.dayTime)
             {
                 int k = 1;
-                while(Main.tile[i + k, j].type == mod.TileType("DnasTransmutator"))
+                while (Main.tile[i + k, j].type == mod.TileType("DnasTransmutator"))
                 {
                     k++;
                 }
-                if(Main.tile[i, j - 1].type == TileID.Sand && Main.tile[i,j-1].active() && !Main.tile[i+ k, j].active())
+                if (Main.tile[i, j - 1].type == TileID.Sand && Main.tile[i, j - 1].active() && !Main.tile[i + k, j].active())
                 {
                     if (Main.rand.Next(180) == 0)
                     {
                         WorldGen.KillTile(i, j - 1, noItem: true);
-                        Projectile.NewProjectile(new Vector2(i+ k, j) *16+ new Vector2(8,8), Vector2.Zero, mod.ProjectileType("ReverseSandBall"), 50, 0f, Main.myPlayer);
+                        Projectile.NewProjectile(new Vector2(i + k, j) * 16 + new Vector2(8, 8), Vector2.Zero, mod.ProjectileType("ReverseSandBall"), 50, 0f, Main.myPlayer);
                     }
                     if (Main.rand.Next(3) == 0)
                     {
-                        Dust.NewDustPerfect(new Vector2(i, j - 1) * 16 + new Vector2(Main.rand.Next(16), Main.rand.Next(16)), 32, Vector2.UnitY *-1);
+                        Dust.NewDustPerfect(new Vector2(i, j - 1) * 16 + new Vector2(Main.rand.Next(16), Main.rand.Next(16)), 32, Vector2.UnitY * -1);
                     }
-;                }
+;
+                }
 
             }
             // Sending 86 aka, TileEntitySharing, triggers NetSend. Think of it like manually calling sync.
             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
-            
+
         }
-        
+
         public override void NetSend(BinaryWriter writer, bool lightSend)
         {
             for (int g = 1; g < 6; g++)
             {
                 //NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y - g);
                 writer.Write(Main.tile[Position.X, Position.Y - g].type);
-                    
+
             }
-                
+
         }
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
@@ -132,7 +132,7 @@ namespace QwertysRandomContent.Tiles
                 Main.tile[Position.X, Position.Y - g].type = reader.ReadUInt16();
             }
         }
-        
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
             //Main.NewText("I'm a big fan!");

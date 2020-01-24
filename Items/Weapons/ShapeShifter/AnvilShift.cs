@@ -1,19 +1,17 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
-	public class AnvilShift : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shape Shift: Anvil!");
-			Tooltip.SetDefault("");
+    public class AnvilShift : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shape Shift: Anvil!");
+            Tooltip.SetDefault("");
 
         }
         public const int dmg = 52;
@@ -21,34 +19,34 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public const float kb = 10f;
         public const int def = 30;
         public override void SetDefaults()
-		{
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = 1;
-			item.value = 200;
-			item.rare = 1;
-			item.UseSound = SoundID.Item79;
-			item.noMelee = true;
-			item.mountType = mod.MountType("AnvilMorph");
+        {
+            item.width = 42;
+            item.height = 42;
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.useStyle = 1;
+            item.value = 200;
+            item.rare = 1;
+            item.UseSound = SoundID.Item79;
+            item.noMelee = true;
+            item.mountType = mod.MountType("AnvilMorph");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-            
+
         }
         public override bool CanUseItem(Player player)
         {
 
             player.AddBuff(mod.BuffType("MorphSickness"), 0);
-          
+
 
             return base.CanUseItem(player);
         }
-        
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -57,26 +55,26 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        
-    }
-	public class AnvilMorphB : ModBuff
-	{
-		public override void SetDefaults()
-		{
-			DisplayName.SetDefault("Anvil");
-			Description.SetDefault("");
-			Main.buffNoTimeDisplay[Type] = true;
-			Main.buffNoSave[Type] = true;
-		}
 
-		public override void Update(Player player, ref int buffIndex)
-		{
-			player.mount.SetMount(mod.MountType("AnvilMorph"), player);
-			player.buffTime[buffIndex] = 10;
-		}
-	}
-	public class AnvilMorph : ModMountData
-	{
+    }
+    public class AnvilMorphB : ModBuff
+    {
+        public override void SetDefaults()
+        {
+            DisplayName.SetDefault("Anvil");
+            Description.SetDefault("");
+            Main.buffNoTimeDisplay[Type] = true;
+            Main.buffNoSave[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.mount.SetMount(mod.MountType("AnvilMorph"), player);
+            player.buffTime[buffIndex] = 10;
+        }
+    }
+    public class AnvilMorph : ModMountData
+    {
         public override void SetDefaults()
         {
 
@@ -131,11 +129,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-        bool kicking =false;
+        bool kicking = false;
         int kickTimer;
         bool forcedRunKick = false;
-		public override void UpdateEffects(Player player)
-		{
+        public override void UpdateEffects(Player player)
+        {
             player.maxFallSpeed = 30f;
             //player.velocity.Y *= 2;
             //player.Hitbox.Height = 30;
@@ -143,10 +141,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
             Mount mount = player.mount;
             player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-            
+
             player.noItems = true;
             player.statDefense = AnvilShift.def + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-            if(player.velocity.Y >0)
+            if (player.velocity.Y > 0)
             {
                 player.immune = true;
                 player.immuneTime = 2;
@@ -158,7 +156,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             }
         }
-       
+
     }
     public class AnvilImpact : ModProjectile
     {
@@ -187,12 +185,12 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override void AI()
         {
             projectile.Center = Main.player[projectile.owner].Center;
-            if(Main.player[projectile.owner].velocity.Y>0f)
+            if (Main.player[projectile.owner].velocity.Y > 0f)
             {
                 projectile.timeLeft = 2;
             }
         }
-       
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;

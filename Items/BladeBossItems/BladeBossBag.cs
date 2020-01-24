@@ -3,30 +3,30 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
 {
-	public class BladeBossBag : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Treasure Bag");
-			Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-		}
-		public override void SetDefaults()
-		{
-			item.maxStack = 999;
-			item.consumable = true;
-			item.width = 36;
-			item.height = 34;
-			item.rare = 9;
-			item.expert = true;
-			//bossBagNPC = mod.NPCType("BladeBoss");
-		}
+    public class BladeBossBag : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Treasure Bag");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+        }
+        public override void SetDefaults()
+        {
+            item.maxStack = 999;
+            item.consumable = true;
+            item.width = 36;
+            item.height = 34;
+            item.rare = 9;
+            item.expert = true;
+            //bossBagNPC = mod.NPCType("BladeBoss");
+        }
         public override int BossBagNPC => mod.NPCType("BladeBoss");
 
 
         public override bool CanRightClick()
-		{
-			return true;
-		}
+        {
+            return true;
+        }
 
         public override void OpenBossBag(Player player)
         {
@@ -47,5 +47,5 @@ namespace QwertysRandomContent.Items.BladeBossItems
             player.QuickSpawnItem(mod.ItemType("ImperiousSheath"));
 
         }
-	}
+    }
 }

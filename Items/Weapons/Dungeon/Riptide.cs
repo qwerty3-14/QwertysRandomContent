@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.World.Generation;
-using QwertysRandomContent.Buffs;
 
 namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
@@ -18,7 +15,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             Tooltip.SetDefault("");
 
         }
-        
+
         public override void SetDefaults()
         {
 
@@ -40,11 +37,11 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.sentry = true;
 
         }
-       
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
-            
+
             return true;
         }
 
@@ -68,8 +65,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Riptide");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; 
-            Main.projFrames[projectile.type] = 3; 
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+            Main.projFrames[projectile.type] = 3;
         }
 
         public override void SetDefaults()
@@ -77,20 +74,20 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
             projectile.sentry = true;
             projectile.width = 34;
-            projectile.height = 34;  
-            projectile.hostile = false;   
-            projectile.friendly = false;  
-            projectile.ignoreWater = true;   
+            projectile.height = 34;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
             projectile.sentry = true;
             projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
         NPC target;
-       
+
         float maxDistance = 1000f;
         float distance;
         int timer;
@@ -100,9 +97,9 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         {
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
-            
-           
-            if(QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
+
+
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
             {
                 timer++;
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
@@ -126,15 +123,15 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     }
 
                 }
-                
-                
+
+
             }
             else
             {
                 timer = 0;
                 projectile.frame = 0;
             }
-            
+
         }
 
 
@@ -156,17 +153,17 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
         public override void AI()
         {
-            if(Main.rand.Next(8) == 0)
+            if (Main.rand.Next(8) == 0)
             {
                 Dust d = Main.dust[Dust.NewDust(projectile.Center, 0, 0, 172)];
                 d.velocity *= .1f;
                 d.noGravity = true;
                 d.position = projectile.Center;
             }
-            
+
         }
     }
-    
+
 
 
 

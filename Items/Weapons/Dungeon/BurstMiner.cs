@@ -3,42 +3,42 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace QwertysRandomContent.Items.Weapons.Dungeon 
+namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
-	public class BurstMiner : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Burst Miner");
-			Tooltip.SetDefault("Mines quickly with a cooldown");
-			
-		}
-		public override void SetDefaults()
-		{
-			item.damage = 11;
-			item.melee = true;
+    public class BurstMiner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Burst Miner");
+            Tooltip.SetDefault("Mines quickly with a cooldown");
+
+        }
+        public override void SetDefaults()
+        {
+            item.damage = 11;
+            item.melee = true;
 
 
             item.useTime = 4;
             item.useAnimation = 4;
-           
-			item.useStyle = 1;
-			item.knockBack = 3;
+
+            item.useStyle = 1;
+            item.knockBack = 3;
             item.value = Item.sellPrice(silver: 54);
             item.rare = 2;
-			item.UseSound = SoundID.Item1;
-			
-			item.width = 30;
-			item.height = 30;
+            item.UseSound = SoundID.Item1;
+
+            item.width = 30;
+            item.height = 30;
             item.noMelee = true;
             item.autoReuse = true;
-			item.pick = 95;
-			
-			
-			
-			
-			
-		}
+            item.pick = 95;
+
+
+
+
+
+        }
         int useCounter;
         const int maxUses = 20;
         const int delay = 60;
@@ -58,10 +58,10 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
         public override void UpdateInventory(Player player)
         {
-            if(useCounter>= maxUses)
+            if (useCounter >= maxUses)
             {
                 useCounter++;
-                if(useCounter>= maxUses + delay)
+                if (useCounter >= maxUses + delay)
                 {
                     useCounter = 0;
                     Main.PlaySound(25, (int)player.position.X, (int)player.position.Y, 1, 1f, 0f);
@@ -83,7 +83,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
 
     }
-		
-	
+
+
 }
 

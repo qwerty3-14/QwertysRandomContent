@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -27,6 +26,6 @@ namespace QwertysRandomContent.Tiles
                 Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("FortressBossTrophy"));
             }
         }
-       
+
     }
 }

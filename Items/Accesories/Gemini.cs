@@ -1,7 +1,5 @@
-using Microsoft.Xna.Framework;
 using QwertysRandomContent.Items.B4Items;
 using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +35,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override void UpdateEquip(Player player)
         {
-            
+
             player.GetModPlayer<GeminiEffect>().effect = true;
         }
 
@@ -53,7 +51,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         }
     }
-   
+
     public class GeminiProjectileEffect : GlobalProjectile
     {
         public override bool InstancePerEntity
@@ -66,10 +64,10 @@ namespace QwertysRandomContent.Items.Accesories
         bool runOnce = true;
         public override void AI(Projectile projectile)
         {
-            
-            if(Main.player[projectile.owner].GetModPlayer<GeminiEffect>().effect && runOnce && projectile.arrow && projectile.type != mod.ProjectileType("HydraArrowP2") && projectile.type != mod.ProjectileType("AqueousP") && projectile.type != mod.ProjectileType("BladedArrowP") && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
+
+            if (Main.player[projectile.owner].GetModPlayer<GeminiEffect>().effect && runOnce && projectile.arrow && projectile.type != mod.ProjectileType("HydraArrowP2") && projectile.type != mod.ProjectileType("AqueousP") && projectile.type != mod.ProjectileType("BladedArrowP") && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
             {
-                if(projectile.type == mod.ProjectileType("CobaltArrowP"))
+                if (projectile.type == mod.ProjectileType("CobaltArrowP"))
                 {
                     Projectile child = Main.projectile[Projectile.NewProjectile(projectile.Center, -projectile.velocity, projectile.type, (int)(projectile.damage * .3f), projectile.knockBack, projectile.owner, 0, 1)];
                     child.GetGlobalProjectile<GeminiProjectileEffect>().runOnce = false;
@@ -79,7 +77,7 @@ namespace QwertysRandomContent.Items.Accesories
                 }
                 else
                 {
-                    Projectile child = Main.projectile[Projectile.NewProjectile(projectile.Center, -projectile.velocity, projectile.type, (int)(projectile.damage*.3f), projectile.knockBack, projectile.owner)];
+                    Projectile child = Main.projectile[Projectile.NewProjectile(projectile.Center, -projectile.velocity, projectile.type, (int)(projectile.damage * .3f), projectile.knockBack, projectile.owner)];
                     child.GetGlobalProjectile<GeminiProjectileEffect>().runOnce = false;
                     child.GetGlobalProjectile<arrowHoming>().B4HomingArrow = projectile.GetGlobalProjectile<arrowHoming>().B4HomingArrow;
                     child.GetGlobalProjectile<ArrowWarping>().warpedArrow = projectile.GetGlobalProjectile<ArrowWarping>().warpedArrow;

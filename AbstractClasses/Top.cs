@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -26,7 +22,7 @@ namespace QwertysRandomContent.AbstractClasses
                 runOnce = false;
             }
             projectile.frame++;
-            if(projectile.frame >= Main.projFrames[projectile.type])
+            if (projectile.frame >= Main.projFrames[projectile.type])
             {
                 projectile.frame = 0;
             }
@@ -108,12 +104,12 @@ namespace QwertysRandomContent.AbstractClasses
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             int immutime = 20 - (int)(10f * (float)Math.Abs(projectile.velocity.X) / initVel);
-            if(immutime < 10)
+            if (immutime < 10)
             {
                 immutime = 10;
             }
             target.immune[projectile.owner] = immutime;
-            
+
             initVel -= enemyFriction;
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

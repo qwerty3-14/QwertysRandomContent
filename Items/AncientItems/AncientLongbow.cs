@@ -1,11 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using QwertysRandomContent;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
@@ -36,10 +34,10 @@ namespace QwertysRandomContent.Items.AncientItems
             item.ranged = true;
             item.channel = true;
             item.useAmmo = AmmoID.Arrow;
-            
+
             item.autoReuse = true;
         }
-        
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             type = mod.ProjectileType("AncientLongbowP");
@@ -98,15 +96,15 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.hide = false;
             projectile.ranged = true;
             projectile.ignoreWater = true;
-            
+
         }
-        
-        
+
+
 
         public int timer = 0;
         public int reloadTime;
         public float direction;
-        
+
         public float Radd;
         public bool runOnce = true;
         Projectile arrow = null;
@@ -121,14 +119,14 @@ namespace QwertysRandomContent.Items.AncientItems
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
-                
+
                 runOnce = false;
 
             }
             projectile.timeLeft = 2;
-            
+
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            bool firing = (player.channel||timer<30) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
+            bool firing = (player.channel || timer < 30) && player.HasAmmo(player.HeldItem, true) && !player.noItems && !player.CCed;
 
             Ammo = AmmoID.Arrow;
 
@@ -136,7 +134,7 @@ namespace QwertysRandomContent.Items.AncientItems
             weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             direction = (Main.MouseWorld - player.Center).ToRotation();
             weaponKnockback = player.inventory[player.selectedItem].knockBack;
-            
+
             if (firing)
             {
                 #region drill ai
@@ -200,49 +198,49 @@ namespace QwertysRandomContent.Items.AncientItems
                 ///////////////////////////////
                 #endregion
 
-               
-                
-                if(timer ==0)
+
+
+                if (timer == 0)
                 {
                     player.PickAmmo(player.HeldItem, ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback);
-                    
+
                     if (Ammo == ProjectileID.WoodenArrowFriendly)
                     {
                         Ammo = mod.ProjectileType("AncientArrow");
                     }
-                    if(Main.netMode != 2)
+                    if (Main.netMode != 2)
                     {
-                        
+
                         arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];
-                        
+
                     }
-                    
+
                 }
-                arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI/2);
-                arrow.Center = projectile.Center + QwertyMethods.PolarVector(40-2*speed, projectile.rotation - (float)Math.PI / 2);
+                arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI / 2);
+                arrow.Center = projectile.Center + QwertyMethods.PolarVector(40 - 2 * speed, projectile.rotation - (float)Math.PI / 2);
                 arrow.friendly = false;
                 arrow.rotation = projectile.rotation;
-                arrow.timeLeft+= arrow.extraUpdates +1;
-                arrow.alpha = 1- (int)(((float)timer / maxTime) * 255f);
+                arrow.timeLeft += arrow.extraUpdates + 1;
+                arrow.alpha = 1 - (int)(((float)timer / maxTime) * 255f);
                 speed = (8f * (float)timer / maxTime) + 7f;
                 //Main.NewText(arrow.damage);
-               // Main.NewText("AI0: " + arrow.ai[0] + ", AI1: " + arrow.ai[1] + ", LocalAI0: " + arrow.localAI[0] + ", LocalAI1: " + arrow.localAI[1]);
-                if(arrow.tileCollide)
+                // Main.NewText("AI0: " + arrow.ai[0] + ", AI1: " + arrow.ai[1] + ", LocalAI0: " + arrow.localAI[0] + ", LocalAI1: " + arrow.localAI[1]);
+                if (arrow.tileCollide)
                 {
                     giveTileCollision = true;
                     arrow.tileCollide = false;
                 }
-                if (timer<maxTime)
+                if (timer < maxTime)
                 {
                     timer++;
                     for (int d = 0; d < 3; d++)
                     {
                         float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                        Dust dust = Dust.NewDustPerfect(arrow.Center + QwertyMethods.PolarVector(40, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-8, theta) );
+                        Dust dust = Dust.NewDustPerfect(arrow.Center + QwertyMethods.PolarVector(40, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-8, theta));
                         dust.scale = .5f;
                         dust.alpha = 255;
                     }
-                    if(timer == maxTime)
+                    if (timer == maxTime)
                     {
                         Main.PlaySound(25, player.position, 0);
                     }
@@ -255,7 +253,7 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             else
             {
-                
+
 
                 projectile.Kill();
             }
@@ -271,8 +269,8 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             if (timer >= maxTime)
             {
-                Projectile.NewProjectile(arrow.Center, arrow.velocity*.8f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
-                Projectile.NewProjectile(arrow.Center, arrow.velocity*1.2f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
+                Projectile.NewProjectile(arrow.Center, arrow.velocity * .8f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
+                Projectile.NewProjectile(arrow.Center, arrow.velocity * 1.2f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
             }
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -306,14 +304,14 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.usesLocalNPCImmunity = true;
             projectile.tileCollide = true;
 
-           
+
         }
-        
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-           
+
 
         }
         void drawArrowCore(SpriteBatch spriteBatch, Color drawColor)
@@ -337,8 +335,8 @@ namespace QwertysRandomContent.Items.AncientItems
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             orbitalCounter += (float)Math.PI / 60;
-            
-            if(Math.Cos(orbitalCounter)>0)
+
+            if (Math.Cos(orbitalCounter) > 0)
             {
                 Vector2 orbitalLocation = projectile.Center + QwertyMethods.PolarVector(lengthDown, projectile.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(orbitRadius * (float)Math.Sin(orbitalCounter), projectile.rotation);
                 drawOrbital(spriteBatch, drawColor, orbitalLocation);
@@ -356,7 +354,7 @@ namespace QwertysRandomContent.Items.AncientItems
             }
 
 
-            
+
             return false;
         }
 

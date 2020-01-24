@@ -1,6 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +33,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.noMelee = true;
             item.maxStack = 999;
             item.autoReuse = true;
-            
+
 
 
         }
@@ -42,7 +41,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 2);
+            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 4);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this, 333);
             recipe.AddRecipe();
@@ -91,7 +90,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.friendly = true;
                 projectile.penetrate = -1;
                 projectile.thrown = true;
-                
+
                 projectile.usesLocalNPCImmunity = true;
 
                 projectile.tileCollide = false;
@@ -111,13 +110,13 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             }
             public override void AI()
             {
-                if(runOnce)
+                if (runOnce)
                 {
                     outOfPhaseHeight = Main.MouseWorld.Y;
                     runOnce = false;
                 }
 
-                if(projectile.Center.Y > outOfPhaseHeight)
+                if (projectile.Center.Y > outOfPhaseHeight)
                 {
                     projectile.tileCollide = true;
                 }
@@ -127,10 +126,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             {
                 for (int i = 0; i < 6; i++)
                 {
-                    
+
                     Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
-                    
-                    
+
+
                 }
             }
 

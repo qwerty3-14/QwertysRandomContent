@@ -1,7 +1,4 @@
-﻿using System;
-
-using Microsoft.Xna.Framework;
-
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,13 +11,13 @@ namespace QwertysRandomContent
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
-            
+
             if (type == NPCID.SkeletonMerchant)
             {
 
                 shop.item[nextSlot].SetDefaults(mod.ItemType("ConjureBone"));
                 nextSlot++;
-                if(NPC.downedBoss1)
+                if (NPC.downedBoss1)
                 {
                     shop.item[nextSlot].SetDefaults(mod.ItemType("DuelistHeadband"));
                     nextSlot++;
@@ -52,7 +49,7 @@ namespace QwertysRandomContent
                 shop.item[nextSlot].SetDefaults(mod.ItemType("BloomingBow"));
                 nextSlot++;
             }
-            if (type == NPCID.Dryad )
+            if (type == NPCID.Dryad)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("DecorativePlant"));
                 nextSlot++;
@@ -68,7 +65,7 @@ namespace QwertysRandomContent
             }
             if (type == NPCID.ArmsDealer)
             {
-                if(QwertyWorld.downedAncient)
+                if (QwertyWorld.downedAncient)
                 {
                     shop.item[nextSlot].SetDefaults(mod.ItemType("TankShift"));
                     nextSlot++;
@@ -82,7 +79,7 @@ namespace QwertysRandomContent
                     nextSlot++;
                 }
             }
-                if (type == NPCID.Merchant)
+            if (type == NPCID.Merchant)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("Flechettes"));
                 nextSlot++;
@@ -92,7 +89,7 @@ namespace QwertysRandomContent
             }
             if (type == NPCID.Wizard)
             {
-                
+
                 shop.item[nextSlot].SetDefaults(ItemID.MagicMirror);
                 nextSlot++;
             }
@@ -101,7 +98,7 @@ namespace QwertysRandomContent
                 shop.item[nextSlot].SetDefaults(mod.ItemType("Steambath"));
                 nextSlot++;
             }
-            if(type == NPCID.DyeTrader)
+            if (type == NPCID.DyeTrader)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("CustomDye"));
                 nextSlot++;
@@ -172,5 +169,5 @@ namespace QwertysRandomContent
             }
         }
     }
-    
+
 }

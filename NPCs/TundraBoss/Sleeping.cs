@@ -1,10 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent;
 namespace QwertysRandomContent.NPCs.TundraBoss
 {
     public class Sleeping : ModNPC
@@ -50,10 +46,10 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         public override void FindFrame(int frameHeight)
         {
             npc.frameCounter++;
-            if(npc.frameCounter >10)
+            if (npc.frameCounter > 10)
             {
                 frame++;
-                if(frame >= 2)
+                if (frame >= 2)
                 {
                     frame = 0;
                 }

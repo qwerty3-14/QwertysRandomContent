@@ -1,18 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 namespace QwertysRandomContent
 {
     public class ItemUseGlow : GlobalItem
     {
         public Texture2D glowTexture = null;
-        public int glowOffsetY=0;
-        public int glowOffsetX=0;
+        public int glowOffsetY = 0;
+        public int glowOffsetX = 0;
         public override bool InstancePerEntity
         {
             get
@@ -36,7 +34,7 @@ namespace QwertysRandomContent
             {
                 return;
             }
-            
+
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             if (!drawPlayer.HeldItem.IsAir)
@@ -102,7 +100,7 @@ namespace QwertysRandomContent
                             {
                                 origin5 = new Vector2((float)(Main.itemTexture[item.type].Width + num107), (float)(Main.itemTexture[item.type].Height / 2));
                             }
-                            
+
                             //value = new DrawData(Main.itemTexture[item.type], new Vector2((float)((int)(value2.X - Main.screenPosition.X + vector10.X)), (float)((int)(value2.Y - Main.screenPosition.Y + vector10.Y))), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height)), item.GetAlpha(color37), drawPlayer.itemRotation, origin5, item.scale, effect, 0);
                             //Main.playerDrawData.Add(value);
 
@@ -115,7 +113,7 @@ namespace QwertysRandomContent
                     }
                     else
                     {
-                        
+
 
                         DrawData value = new DrawData(texture,
                             new Vector2((float)((int)(value2.X - Main.screenPosition.X)),

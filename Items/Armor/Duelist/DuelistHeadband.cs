@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -54,7 +53,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DuelistSet"); 
+            player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DuelistSet");
             player.GetModPlayer<DuelistEffects>().set = true;
         }
 
@@ -84,11 +83,11 @@ namespace QwertysRandomContent.Items.Armor.Duelist
         {
             if (targeted != null && th == targeted)
             {
-                if(head)
+                if (head)
                 {
                     damage = (int)(damage * (1f + targetCombo / 20f * .5f));
-                    
-                } 
+
+                }
                 if (melee && targetCombo < 20)
                 {
                     targetCombo++;
@@ -101,7 +100,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
                 targetCombo = 0;
             }
 
-           
+
 
 
         }
@@ -109,9 +108,9 @@ namespace QwertysRandomContent.Items.Armor.Duelist
         {
             if (head || body)
             {
-               
+
                 targetingLogic(target, item.melee, ref damage);
-               
+
             }
             if (legs && item.melee && player.HasBuff(mod.BuffType("MorphCooldown")) && player.buffTime[player.FindBuffIndex(mod.BuffType("MorphCooldown"))] > 300)
             {
@@ -123,27 +122,27 @@ namespace QwertysRandomContent.Items.Armor.Duelist
             if (head || body)
             {
                 targetingLogic(target, proj.melee, ref damage);
-                if(set && proj.GetGlobalProjectile<MorphProjectile>().morph && targetCombo ==20)
+                if (set && proj.GetGlobalProjectile<MorphProjectile>().morph && targetCombo == 20)
                 {
                     crit = true;
                 }
             }
-            if (legs && proj.melee && player.HasBuff(mod.BuffType("MorphCooldown")) && player.buffTime[player.FindBuffIndex(mod.BuffType("MorphCooldown"))]>300)
+            if (legs && proj.melee && player.HasBuff(mod.BuffType("MorphCooldown")) && player.buffTime[player.FindBuffIndex(mod.BuffType("MorphCooldown"))] > 300)
             {
                 player.buffTime[player.FindBuffIndex(mod.BuffType("MorphCooldown"))] -= damage / 2;
             }
         }
-      
+
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
-            if(body && targeted != null && npc == targeted)
+            if (body && targeted != null && npc == targeted)
             {
                 damage = damage - (int)(damage * .5 * targetCombo / 20f);
             }
         }
         public static readonly PlayerLayer DuelistIcon = new PlayerLayer("QwertysRandomContent", "DuelistIcon", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
         {
-            
+
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             Texture2D texture = mod.GetTexture("Items/Armor/Duelist/DuelistIcon_Shield");
             Player drawPlayer = drawInfo.drawPlayer;
@@ -151,14 +150,14 @@ namespace QwertysRandomContent.Items.Armor.Duelist
             drawPlayer.GetModPlayer<DuelistEffects>().trigCounter += (float)Math.PI / 30;
             float scale = 1f + .1f * (float)Math.Sin(drawPlayer.GetModPlayer<DuelistEffects>().trigCounter);
 
-            if (targeted != null &&targeted.active && (drawPlayer.GetModPlayer<DuelistEffects>().body))
+            if (targeted != null && targeted.active && (drawPlayer.GetModPlayer<DuelistEffects>().body))
             {
-                DrawData value = new DrawData(texture, targeted.Center - new Vector2(0, targeted.height / 2 + 24)  - Main.screenPosition, null,  Color.White, 0f, texture.Size() * .5f, scale,SpriteEffects.None, 0);
+                DrawData value = new DrawData(texture, targeted.Center - new Vector2(0, targeted.height / 2 + 24) - Main.screenPosition, null, Color.White, 0f, texture.Size() * .5f, scale, SpriteEffects.None, 0);
                 value.shader = drawInfo.legArmorShader;
                 Main.playerDrawData.Add(value);
             }
             texture = mod.GetTexture("Items/Armor/Duelist/DuelistIcon_Sword");
-            
+
             if (targeted != null && targeted.active && (drawPlayer.GetModPlayer<DuelistEffects>().head))
             {
                 DrawData value = new DrawData(texture, targeted.Center - new Vector2(0, targeted.height / 2 + 24) - Main.screenPosition, null, Color.White, 0f, texture.Size() * .5f, scale, SpriteEffects.None, 0);
@@ -182,7 +181,7 @@ namespace QwertysRandomContent.Items.Armor.Duelist
             }
 
         });
-        
+
         public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("DuelistHeadband", "Items/Armor/Duelist/DuelistHeadband_HeadSimple", glowmask: false);
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
@@ -193,9 +192,9 @@ namespace QwertysRandomContent.Items.Armor.Duelist
                 Head.visible = true;
                 layers.Insert(headLayer + 1, Head);
             }
-            
 
-        int frontLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("MiscEffectsFront"));
+
+            int frontLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("MiscEffectsFront"));
             if (frontLayer != -1)
             {
                 DuelistIcon.visible = true;

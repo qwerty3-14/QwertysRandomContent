@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,7 +28,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.QuickShiftType;
-            item.GetGlobalItem<ShapeShifterItem>().morphCooldown = 27;
+            item.GetGlobalItem<ShapeShifterItem>().morphCooldown = 40;
             item.noMelee = true;
 
             item.useTime = 60;
@@ -52,10 +48,15 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.channel = true;
 
 
-
-
         }
-
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 8);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
         public override bool CanUseItem(Player player)
         {
 
@@ -66,7 +67,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                     return false;
                 }
             }
-           
+
 
             return true;
         }
@@ -77,12 +78,12 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Barrage Launcher");
             Main.projFrames[projectile.type] = 1;
-            
+
         }
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-           
+
             projectile.width = 10;
             projectile.height = 10;
             projectile.friendly = false;
@@ -98,59 +99,59 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         int indexCounter = 0;
         public override void AI()
         {
-            if(runOnce)
+            if (runOnce)
             {
-                for(int d = 0; d <120; d++)
+                for (int d = 0; d < 120; d++)
                 {
                     Darts.Add(Main.projectile[Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RhuthiniumBarrageDart"), projectile.damage, projectile.knockBack, projectile.owner, Main.rand.Next(-14, 15), 0f)]);
                 }
                 runOnce = false;
             }
-           
+
             Player player = Main.player[projectile.owner];
             player.Center = projectile.Center;
-           
+
             player.statDefense = 0;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-            projectile.rotation = (QwertysRandomContent.LocalCursor[projectile.owner]-projectile.Center).ToRotation();
+            projectile.rotation = (QwertysRandomContent.LocalCursor[projectile.owner] - projectile.Center).ToRotation();
 
             foreach (Projectile dart in Darts)
             {
-                if(dart.ai[1] ==0 && dart.type == mod.ProjectileType("RhuthiniumBarrageDart"))
+                if (dart.ai[1] == 0 && dart.type == mod.ProjectileType("RhuthiniumBarrageDart"))
                 {
                     dart.Center = projectile.Center + QwertyMethods.PolarVector(25, projectile.rotation) + QwertyMethods.PolarVector(dart.ai[0], projectile.rotation + (float)Math.PI / 2);
                     dart.rotation = projectile.rotation;
                 }
-                
+
             }
             if (projectile.timeLeft < 150)
             {
-                if(indexCounter < Darts.Count)
+                if (indexCounter < Darts.Count)
                 {
                     Darts[indexCounter].ai[1] = 1f;
                     indexCounter++;
                 }
-               
+
 
             }
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D drawDart = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumBarrageDart");
-            foreach(Projectile dart in Darts)
+            foreach (Projectile dart in Darts)
             {
-                if(dart != null && dart.active && dart.type == mod.ProjectileType("RhuthiniumBarrageDart"))
+                if (dart != null && dart.active && dart.type == mod.ProjectileType("RhuthiniumBarrageDart"))
                 {
                     spriteBatch.Draw(drawDart, dart.Center - Main.screenPosition,
                        drawDart.Frame(), Lighting.GetColor((int)dart.Center.X / 16, (int)dart.Center.Y / 16), dart.rotation,
-                       new Vector2(drawDart.Width, drawDart.Height*.5f), 1f, 0, 0f);
+                       new Vector2(drawDart.Width, drawDart.Height * .5f), 1f, 0, 0f);
                 }
-                
+
             }
             Texture2D Launcher = Main.projectileTexture[projectile.type];
             spriteBatch.Draw(Launcher, projectile.Center - Main.screenPosition,
                        Launcher.Frame(), lightColor, projectile.rotation,
-                       new Vector2(0, Launcher.Height*.5f), 1f, 0, 0f);
+                       new Vector2(0, Launcher.Height * .5f), 1f, 0, 0f);
             return false;
         }
 
@@ -171,7 +172,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 
             projectile.width = 10;
             projectile.height = 10;
-            projectile.friendly = false ;
+            projectile.friendly = false;
             projectile.hostile = false;
             projectile.penetrate = 1;
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
@@ -184,7 +185,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         }
         public override void AI()
         {
-            if(projectile.ai[1] == 1f)
+            if (projectile.ai[1] == 1f)
             {
                 projectile.friendly = true;
                 projectile.tileCollide = true;

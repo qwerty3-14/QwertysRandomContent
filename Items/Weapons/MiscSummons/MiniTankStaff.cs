@@ -1,97 +1,95 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Enums;
 using Terraria.World.Generation;
 
-namespace QwertysRandomContent.Items.Weapons.MiscSummons       
+namespace QwertysRandomContent.Items.Weapons.MiscSummons
 {
     public class MiniTankStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mini Tank Staff");
-			Tooltip.SetDefault("Summons a Mini Tank!");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mini Tank Staff");
+            Tooltip.SetDefault("Summons a Mini Tank!");
 
 
         }
- 
+
         public override void SetDefaults()
         {
 
             item.damage = 39;
-            item.mana = 20;      
-            item.width = 38;    
-            item.height = 38;     
-            item.useTime = 25;  
-            item.useAnimation = 25;   
-            item.useStyle = 1; 
-            item.noMelee = true; 
+            item.mana = 20;
+            item.width = 38;
+            item.height = 38;
+            item.useTime = 25;
+            item.useAnimation = 25;
+            item.useStyle = 1;
+            item.noMelee = true;
             item.knockBack = 5f;
             item.value = 200000;
             item.rare = 3;
-            item.UseSound = SoundID.Item44;  
-            item.autoReuse = true;   
-            item.shoot = mod.ProjectileType("MiniTank");  
-            item.summon = true;    
-            item.buffType = mod.BuffType("MiniTank");	
-			item.buffTime = 3600;
+            item.UseSound = SoundID.Item44;
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("MiniTank");
+            item.summon = true;
+            item.buffType = mod.BuffType("MiniTank");
+            item.buffTime = 3600;
         }
 
-        
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
             position = SPos;
-			
+
             return true;
         }
-		
-		
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
-		
+
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
+
     }
 
     public class MiniTank : ModProjectile
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Mini Tank");
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-			
-		}
-          
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mini Tank");
+            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
+
+        }
+
         public override void SetDefaults()
         {
 
 
             projectile.width = 60;
-            projectile.height = 24;   
-            projectile.hostile = false;   
-            projectile.friendly = false;   
-            projectile.ignoreWater = true;    
-            Main.projFrames[projectile.type] = 1; 
+            projectile.height = 24;
+            projectile.hostile = false;
+            projectile.friendly = false;
+            projectile.ignoreWater = true;
+            Main.projFrames[projectile.type] = 1;
             projectile.knockBack = 10f;
-            projectile.penetrate = -1; 
-            projectile.tileCollide = true; 
-			projectile.minion = true;
-			projectile.minionSlots = 1;
-			projectile.timeLeft = 2;
+            projectile.penetrate = -1;
+            projectile.tileCollide = true;
+            projectile.minion = true;
+            projectile.minionSlots = 1;
+            projectile.timeLeft = 2;
             projectile.aiStyle = -1;
             //projectile.usesLocalprojectileImmunity = true;
         }
@@ -106,10 +104,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         float gunRotation = 0;
         NPC target;
         float aim;
-        int shootCounter=0;
+        int shootCounter = 0;
         public override void AI()
         {
-           
+
             Player player = Main.player[projectile.owner];
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.miniTank)
@@ -135,7 +133,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             if (returnToPlayer)
             {
                 projectile.velocity = (player.Top - projectile.Center) * .1f;
-                if((player.Top - projectile.Center).Length()<200)
+                if ((player.Top - projectile.Center).Length() < 200)
                 {
                     returnToPlayer = false;
                 }
@@ -148,7 +146,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     returnToPlayer = true;
                 }
                 projectile.tileCollide = true;
-                
+
 
                 if (projectile.velocity.Y < terminalVelocity)
                 {
@@ -164,22 +162,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
                 if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Top, false, player.MinionAttackTargetNPC))
                 {
-                    if(target.Center.Y> projectile.Top.Y)
+                    if (target.Center.Y > projectile.Top.Y)
                     {
                         if (target.Center.X > projectile.Top.X)
                         {
-                            aim = 0 ;
+                            aim = 0;
                         }
                         else
                         {
-                            aim =(float)Math.PI;
+                            aim = (float)Math.PI;
                         }
                     }
                     else
                     {
                         aim = (target.Center - projectile.Top).ToRotation();
                     }
-                    if(shootCounter>=40)
+                    if (shootCounter >= 40)
                     {
                         shootCounter = 0;
                         Projectile.NewProjectile(projectile.Top + QwertyMethods.PolarVector(30, gunRotation), QwertyMethods.PolarVector(10, gunRotation), mod.ProjectileType("MiniTankCannonBallFreindly"), projectile.damage, projectile.knockBack, player.whoAmI);
@@ -205,9 +203,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 //projectile.velocity = Collision.TileCollision(projectile.position, projectile.velocity, projectile.width, projectile.height, player.Center.Y > projectile.Bottom.Y, player.Center.Y > projectile.Bottom.Y);
             }
         }
+        
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Point origin =  new Vector2(projectile.Center.X + (projectile.width/2 - 6) * projectile.spriteDirection, projectile.Bottom.Y).ToTileCoordinates();
+            Point origin = new Vector2(projectile.Center.X + (projectile.width / 2 - 6) * projectile.spriteDirection, projectile.Bottom.Y).ToTileCoordinates();
             Point point;
             if ((oldVelocity.X != projectile.velocity.X) && WorldUtils.Find(origin, Searches.Chain(new Searches.Down(1), new GenCondition[]
                                             {
@@ -217,6 +216,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.velocity.Y = -6;
             }
             return false;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        {
+            fallThrough = Main.player[projectile.owner].Center.Y - projectile.Center.Y > 64;
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough);
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {

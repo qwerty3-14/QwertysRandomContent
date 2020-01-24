@@ -1,10 +1,9 @@
-﻿using System;
-using QwertysRandomContent.Items;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
@@ -29,7 +28,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.scale = 1f;
             item.value = Item.sellPrice(silver: 54);
             item.rare = 2;
-           
+
 
             item.melee = true;
             item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
@@ -100,7 +99,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projOwner.itemTime = projOwner.itemAnimation;
             projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
             projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
-           
+
             // As long as the player isn't frozen, the spear can move
             if (!projOwner.frozen)
             {
@@ -122,7 +121,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                             {
                                 //if (Main.netMode != 1)
                                 {
-                                    Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(180, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(5, projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(1, projectile.rotation - (3*(float)Math.PI/4)), mod.ProjectileType("HydrospearStream"), projectile.damage, projectile.knockBack, projectile.owner);
+                                    Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(180, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(5, projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(1, projectile.rotation - (3 * (float)Math.PI / 4)), mod.ProjectileType("HydrospearStream"), projectile.damage, projectile.knockBack, projectile.owner);
                                 }
                             }
                         }
@@ -140,7 +139,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     projectile.friendly = true;
                     movementFactor += movefactSpeed;
                 }
-               
+
             }
             // Change the spear position based off of the velocity and the movementFactor
             projectile.position += projectile.velocity * movementFactor;
@@ -183,7 +182,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            
+
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }

@@ -1,13 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.Enums;
-using Terraria.GameContent.Shaders;
-using Terraria.Graphics.Effects;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 /*
 namespace QwertysRandomContent.Experiments       ///We need item to basically indicate the folder where it is to be read from, so you the texture will load correctly

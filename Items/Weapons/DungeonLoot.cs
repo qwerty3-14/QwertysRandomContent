@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +17,7 @@ namespace QwertysRandomContent.Items.Weapons
         {
             get { return "AddDungeonLoot"; }
         }
-        
+
 
         public override string Description
         {
@@ -30,7 +27,7 @@ namespace QwertysRandomContent.Items.Weapons
         {
             DungeonLoot.AddDungeonLoot();
         }
-        
+
     }
     class DungeonLoot : ModWorld
     {

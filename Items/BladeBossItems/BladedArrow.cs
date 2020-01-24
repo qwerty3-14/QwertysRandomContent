@@ -32,7 +32,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         }
         public override void ReturningDust()
         {
-            
+
         }
         public override void AddRecipes()
         {
@@ -46,7 +46,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
     }
     public class BladedArrowShot : AqueousShot
     {
-        
+
         public override void Initialize()
         {
             arrowID = mod.ItemType("BladedArrow");
@@ -58,7 +58,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
-            projectile.width = projectile.height =  14;
+            projectile.width = projectile.height = 14;
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
@@ -68,11 +68,11 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
             assosiatedItemID = mod.ItemType("BladedArrow");
-            
+
         }
         public override void AI()
         {
-            
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

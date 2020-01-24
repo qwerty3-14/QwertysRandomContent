@@ -1,23 +1,22 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.World.Generation;
 
 namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class PumpkinSentryStaff : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Jack-o'-lantern Staff");
-			Tooltip.SetDefault("Summons a stationary Jack-o'-lantern to burn nearbly enemies!");
-			
-		}
- 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Jack-o'-lantern Staff");
+            Tooltip.SetDefault("Summons a stationary Jack-o'-lantern to burn nearbly enemies!");
+
+        }
+
         public override void SetDefaults()
         {
 
@@ -31,7 +30,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = .4f;  //The knockback stat of your Weapon.
             item.value = 1000;
-			item.rare = 1;   
+            item.rare = 1;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("PumpkinSentry");   //This defines what type of projectile this weapon will shot
@@ -66,17 +65,17 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         }
 
         public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-		public override bool UseItem(Player player)
-		{
-			if(player.altFunctionUse == 2)
-			{
-				player.MinionNPCTargetAim();
-			}
-			return base.UseItem(player);
-		}
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
     }
 
     public class PumpkinSentry : ModProjectile
@@ -85,7 +84,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             DisplayName.SetDefault("Jack-o'-lantern");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-            Main.projFrames[projectile.type] = 3; 
+            Main.projFrames[projectile.type] = 3;
         }
 
         public override void SetDefaults()
@@ -98,7 +97,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             projectile.friendly = true;   //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.ignoreWater = true;    //Tells the game whether or not projectile will be affected by water
             projectile.timeLeft = Projectile.SentryLifeTime;
-            
+
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed  -1 is infinity
             projectile.tileCollide = true; //Tells the game whether or not it can collide with tiles/ terrain
             projectile.sentry = true; //tells the game that this is a sentry
@@ -120,7 +119,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             flameRange = 400f;
             frameTimer++;
-            
+
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             if (player.MinionAttackTargetNPC != -1)
@@ -135,7 +134,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
                 {
                     possibleTarget = Main.npc[k];
                     distance = Math.Abs(possibleTarget.Center.X - projectile.Center.X);
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0) && Collision.CheckAABBvLineCollision(possibleTarget.position, possibleTarget.Size, new Vector2(projectile.Center.X-flameRange, projectile.Center.Y+projectile.height/4), new Vector2(projectile.Center.X + flameRange, projectile.Center.Y + projectile.height / 4)))
+                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0) && Collision.CheckAABBvLineCollision(possibleTarget.position, possibleTarget.Size, new Vector2(projectile.Center.X - flameRange, projectile.Center.Y + projectile.height / 4), new Vector2(projectile.Center.X + flameRange, projectile.Center.Y + projectile.height / 4)))
                     {
                         target = Main.npc[k];
                         foundTarget = true;
@@ -146,18 +145,18 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
 
                 }
             }
-            if(frameTimer % 10 ==0)
+            if (frameTimer % 10 == 0)
             {
-                if(frameposition < faceDirection)
+                if (frameposition < faceDirection)
                 {
                     frameposition += .5f;
                 }
-                else if(frameposition > faceDirection)
+                else if (frameposition > faceDirection)
                 {
                     frameposition -= .5f;
                 }
             }
-            if(frameposition < 0)
+            if (frameposition < 0)
             {
                 d = -1;
             }
@@ -165,11 +164,11 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             {
                 d = 1;
             }
-            if(Math.Abs(frameposition) == 1)
+            if (Math.Abs(frameposition) == 1)
             {
                 projectile.frame = 2;
             }
-            else if(Math.Abs(frameposition) == .5f)
+            else if (Math.Abs(frameposition) == .5f)
             {
                 projectile.frame = 1;
             }
@@ -177,9 +176,9 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             {
                 projectile.frame = 0;
             }
-            if(foundTarget)
+            if (foundTarget)
             {
-                if(target.Center.X < projectile.Center.X)
+                if (target.Center.X < projectile.Center.X)
                 {
                     faceDirection = -1;
                 }
@@ -188,25 +187,25 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
                     faceDirection = 1;
                 }
 
-                if(faceDirection == frameposition && faceDirection !=0)
+                if (faceDirection == frameposition && faceDirection != 0)
                 {
                     attacking = true;
                     Main.PlaySound(SoundID.Item34, projectile.position);
                     flameRange = 0;
-                    for (int f =0; f <400; f++)
+                    for (int f = 0; f < 400; f++)
                     {
-                        if(Collision.CanHit(projectile.Center, 0, 0, new Vector2(projectile.Center.X+ f* faceDirection, projectile.Center.Y), 0, 0))
+                        if (Collision.CanHit(projectile.Center, 0, 0, new Vector2(projectile.Center.X + f * faceDirection, projectile.Center.Y), 0, 0))
                         {
                             flameRange++;
                         }
                     }
                     for (int i = 0; i < 3; i++)
                     {
-                        Dust dust = Dust.NewDustPerfect(new Vector2(projectile.Center.X + (Main.rand.Next((int)flameRange-100)) * faceDirection , projectile.Center.Y + projectile.height/4), DustID.Fire, new Vector2(10 * faceDirection, 0).RotatedByRandom((float)Math.PI / 16));
+                        Dust dust = Dust.NewDustPerfect(new Vector2(projectile.Center.X + (Main.rand.Next((int)flameRange - 100)) * faceDirection, projectile.Center.Y + projectile.height / 4), DustID.Fire, new Vector2(10 * faceDirection, 0).RotatedByRandom((float)Math.PI / 16));
                         dust.scale = 1.5f;
                         dust.noGravity = true;
                     }
-                    
+
                 }
                 else
                 {
@@ -220,7 +219,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             }
             maxDistance = 10000f;
             foundTarget = false;
-            
+
             //Main.NewText(frameposition);
         }
 
@@ -232,20 +231,20 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             spriteBatch.Draw(mod.GetTexture("Items/Weapons/Pumpkin/PumpkinSentry"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), drawColor, projectile.rotation,
-                        new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, d == 1 ? SpriteEffects.None: SpriteEffects.FlipHorizontally, 0f);
-            
+                        new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, d == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+
             return false;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if(attacking)
+            if (attacking)
             {
                 return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center, new Vector2(projectile.Center.X + flameRange * d, projectile.Center.Y), projectile.height, ref CP);
             }
-           
+
             return false;
         }
-        
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 180);

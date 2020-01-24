@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -14,7 +10,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-            
+
             projectile.width = 200;
             projectile.height = 200;
             projectile.friendly = false;
@@ -30,7 +26,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public int runeTimer = -128;
         public Projectile leechRune;
         public float theta;
-        
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -41,22 +37,22 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.alpha = 0;
 
             runeTimer++;
-                
-                if (runeTimer >=120)
-                {
-                    
-                      //if (Main.netMode != 1)
-                      //{
+
+            if (runeTimer >= 120)
+            {
+
+                //if (Main.netMode != 1)
+                //{
 
 
-                        leechRune = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("LeechRune"), projectile.damage, 3f, Main.myPlayer)];
-                      //}
-                    
-                    runeTimer = 0;
-                }
-            
-                
-            
+                leechRune = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("LeechRune"), projectile.damage, 3f, Main.myPlayer)];
+                //}
+
+                runeTimer = 0;
+            }
+
+
+
 
 
         }
@@ -77,7 +73,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.width = 40;
             projectile.height = 40;
             projectile.friendly = false;
-            
+
             projectile.penetrate = -1;
             projectile.alpha = 255;
             projectile.tileCollide = false;
@@ -95,7 +91,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            if(runOnce)
+            if (runOnce)
             {
                 float theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
                 float startDistance = 100f;
@@ -114,9 +110,9 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.alpha = 0;
             }
             runeTimer += 255 / 60;
-            if (runeTimer >=255)
-            { 
-                if (runOnceAfter )
+            if (runeTimer >= 255)
+            {
+                if (runOnceAfter)
                 {
 
                     attackAngle = (player.Center - projectile.Center).ToRotation();

@@ -7,42 +7,42 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Lune
 {
-	public class LuneBoomerang : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Lune Boomerang");
-			Tooltip.SetDefault("Rapidly thrown in every direction");
+    public class LuneBoomerang : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Lune Boomerang");
+            Tooltip.SetDefault("Rapidly thrown in every direction");
 
 
         }
-		public override void SetDefaults()
-		{
-			item.damage = 11;
-			item.melee = true;
-			item.noMelee = true;
-			
-			item.useTime = 4;
-			item.useAnimation = 4;
-            
-			item.useStyle = 5;
-			item.knockBack = 0;
+        public override void SetDefaults()
+        {
+            item.damage = 11;
+            item.melee = true;
+            item.noMelee = true;
+
+            item.useTime = 4;
+            item.useAnimation = 4;
+
+            item.useStyle = 5;
+            item.knockBack = 0;
             item.value = 10000;
             item.rare = 1;
             item.UseSound = SoundID.Item1;
-			item.noUseGraphic = true;
-			item.width = 18;
-			item.height = 32;
-			
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("LuneBoomerangP");
-			item.shootSpeed =10f;
+            item.noUseGraphic = true;
+            item.width = 18;
+            item.height = 32;
+
+            item.autoReuse = true;
+            item.shoot = mod.ProjectileType("LuneBoomerangP");
+            item.shootSpeed = 10f;
             item.channel = true;
-			
-			
-			
-			
-		}
+
+
+
+
+        }
 
 
         public override void AddRecipes()
@@ -78,29 +78,29 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         }
     }
 
-	public class LuneBoomerangP : ModProjectile
-	{
-		public override void SetDefaults()
-		{
+    public class LuneBoomerangP : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             //projectile.aiStyle = ProjectileID.WoodenBoomerang;
             //aiType = 52;
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.width = 18;
-			projectile.height = 32;
+            projectile.height = 32;
             projectile.melee = true;
-            projectile.usesLocalNPCImmunity = true; 
-		}
+            projectile.usesLocalNPCImmunity = true;
+        }
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Caelite Boomerang");
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Caelite Boomerang");
 
-		}
+        }
         float speed;
         float maxSpeed;
         bool runOnce = true;
-        float decceleration = 1f/4f;
+        float decceleration = 1f / 4f;
         int spinDirection;
         bool returnToPlayer;
         public override void AI()
@@ -117,8 +117,8 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             projectile.rotation += MathHelper.ToRadians(maxSpeed * spinDirection);
             if (returnToPlayer)
             {
-                
-                
+
+
 
                 if (Collision.CheckAABBvAABBCollision(player.position, player.Size, projectile.position, projectile.Size))
                 {
@@ -126,24 +126,24 @@ namespace QwertysRandomContent.Items.Weapons.Lune
                 }
                 projectile.tileCollide = false;
                 //projectile.friendly = false;
-                projectile.velocity = QwertyMethods.PolarVector(speed, (player.Center-projectile.Center).ToRotation());
+                projectile.velocity = QwertyMethods.PolarVector(speed, (player.Center - projectile.Center).ToRotation());
                 speed += decceleration;
-                if(speed >maxSpeed)
+                if (speed > maxSpeed)
                 {
                     speed = maxSpeed;
                 }
             }
             else
             {
-               
+
                 projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY) * speed;
                 speed -= decceleration;
-                if(speed < 1f)
+                if (speed < 1f)
                 {
                     returnToPlayer = true;
                 }
             }
-            
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -160,6 +160,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         }
     }
 
-	
+
 }
 

@@ -1,19 +1,18 @@
-using System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
-	public class BunnyStone : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Shape Shift: Bunny");
-			Tooltip.SetDefault("Turns you into a cute BUT DEADLY bunny");
+    public class BunnyStone : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Shape Shift: Bunny");
+            Tooltip.SetDefault("Turns you into a cute BUT DEADLY bunny");
 
         }
         public const int dmg = 18;
@@ -21,31 +20,31 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public const float kb = 7f;
         public const int def = 6;
         public override void SetDefaults()
-		{
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = 1;
-			item.value = 200;
-			item.rare = 1;
-			item.UseSound = SoundID.Item79;
-			item.noMelee = true;
-			item.mountType = mod.MountType("BunnyShift");
+        {
+            item.width = 42;
+            item.height = 42;
+            item.useTime = 20;
+            item.useAnimation = 20;
+            item.useStyle = 1;
+            item.value = 200;
+            item.rare = 1;
+            item.UseSound = SoundID.Item79;
+            item.noMelee = true;
+            item.mountType = mod.MountType("BunnyShift");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-            
+
         }
         public override bool CanUseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
-                
+
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
             }
             else
@@ -57,7 +56,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            
+
         }
         public override void AddRecipes()
         {
@@ -74,30 +73,30 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, NPCID.Bunny);
         }
     }
-	public class BunnyShiftB : ModBuff
-	{
-		public override void SetDefaults()
-		{
-			DisplayName.SetDefault("Bunny Shift");
-			Description.SetDefault("You're a bunny");
-			Main.buffNoTimeDisplay[Type] = true;
-			Main.buffNoSave[Type] = true;
-		}
+    public class BunnyShiftB : ModBuff
+    {
+        public override void SetDefaults()
+        {
+            DisplayName.SetDefault("Bunny Shift");
+            Description.SetDefault("You're a bunny");
+            Main.buffNoTimeDisplay[Type] = true;
+            Main.buffNoSave[Type] = true;
+        }
 
-		public override void Update(Player player, ref int buffIndex)
-		{
-			player.mount.SetMount(mod.MountType("BunnyShift"), player);
-			player.buffTime[buffIndex] = 10;
-		}
-	}
-	public class BunnyShift : ModMountData
-	{
-		public override void SetDefaults()
-		{
-			
-			mountData.buff = mod.BuffType("BunnyShiftB");
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.mount.SetMount(mod.MountType("BunnyShift"), player);
+            player.buffTime[buffIndex] = 10;
+        }
+    }
+    public class BunnyShift : ModMountData
+    {
+        public override void SetDefaults()
+        {
+
+            mountData.buff = mod.BuffType("BunnyShiftB");
             mountData.spawnDust = 15;
-            
+
             mountData.heightBoost = -12;
             mountData.flightTimeMax = 0;
             mountData.fallDamage = 0.4f;
@@ -108,52 +107,52 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             mountData.jumpSpeed = 5.01f;
             mountData.totalFrames = 9;
             mountData.constantJump = true;
-			int[] array = new int[mountData.totalFrames];
-			for (int l = 0; l < array.Length; l++)
-			{
-				array[l] = 0;
-			}
-			mountData.playerYOffsets = array;
-			mountData.xOffset = 0;
-			mountData.bodyFrame = 1;
-			mountData.yOffset = 2;
-			mountData.playerHeadOffset = 0;
-			mountData.standingFrameCount = 1;
-			mountData.standingFrameDelay = 10;
-			mountData.standingFrameStart = 0;
-			mountData.runningFrameCount = 7;
-			mountData.runningFrameDelay = 10;
-			mountData.runningFrameStart = 0;
-			mountData.flyingFrameCount = 0;
-			mountData.flyingFrameDelay = 0;
-			mountData.flyingFrameStart = 0;
-			mountData.inAirFrameCount = 1;
-			mountData.inAirFrameDelay = 12;
-			mountData.inAirFrameStart = 4;
-			mountData.idleFrameCount = 1;
-			mountData.idleFrameDelay = 12;
-			mountData.idleFrameStart = 4;
-			mountData.idleFrameLoop = true;
-			mountData.swimFrameCount = mountData.inAirFrameCount;
-			mountData.swimFrameDelay = mountData.inAirFrameDelay;
-			mountData.swimFrameStart = mountData.inAirFrameStart;
-		    
-			if (Main.netMode != 2)
-			{
+            int[] array = new int[mountData.totalFrames];
+            for (int l = 0; l < array.Length; l++)
+            {
+                array[l] = 0;
+            }
+            mountData.playerYOffsets = array;
+            mountData.xOffset = 0;
+            mountData.bodyFrame = 1;
+            mountData.yOffset = 2;
+            mountData.playerHeadOffset = 0;
+            mountData.standingFrameCount = 1;
+            mountData.standingFrameDelay = 10;
+            mountData.standingFrameStart = 0;
+            mountData.runningFrameCount = 7;
+            mountData.runningFrameDelay = 10;
+            mountData.runningFrameStart = 0;
+            mountData.flyingFrameCount = 0;
+            mountData.flyingFrameDelay = 0;
+            mountData.flyingFrameStart = 0;
+            mountData.inAirFrameCount = 1;
+            mountData.inAirFrameDelay = 12;
+            mountData.inAirFrameStart = 4;
+            mountData.idleFrameCount = 1;
+            mountData.idleFrameDelay = 12;
+            mountData.idleFrameStart = 4;
+            mountData.idleFrameLoop = true;
+            mountData.swimFrameCount = mountData.inAirFrameCount;
+            mountData.swimFrameDelay = mountData.inAirFrameDelay;
+            mountData.swimFrameStart = mountData.inAirFrameStart;
 
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-			}
-		}
-       
-		public override void UpdateEffects(Player player)
-		{
+            if (Main.netMode != 2)
+            {
+
+                mountData.textureWidth = mountData.backTexture.Width;
+                mountData.textureHeight = mountData.backTexture.Height;
+            }
+        }
+
+        public override void UpdateEffects(Player player)
+        {
             player.GetModPlayer<BunnyControl>().controlled = true;
         }
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
             //Main.NewText(state);
-            if(mountedPlayer.GetModPlayer<BunnyControl>().kicking)
+            if (mountedPlayer.GetModPlayer<BunnyControl>().kicking)
             {
                 //state = 0;
                 //velocity.X = 0;
@@ -167,11 +166,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.standingFrameCount = count;
                 mountData.standingFrameDelay = delay;
                 mountData.standingFrameStart = start;
-                if(mountedPlayer.GetModPlayer<BunnyControl>().forcedRunKick)
+                if (mountedPlayer.GetModPlayer<BunnyControl>().forcedRunKick)
                 {
                     mountData.runningFrameCount = 1;
                     mountData.runningFrameDelay = delay;
-                    mountData.runningFrameStart = start+1;
+                    mountData.runningFrameStart = start + 1;
                 }
                 else
                 {
@@ -179,7 +178,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                     mountData.runningFrameDelay = delay;
                     mountData.runningFrameStart = start;
                 }
-                
+
                 mountData.flyingFrameCount = count;
                 mountData.flyingFrameDelay = delay;
                 mountData.flyingFrameStart = start;
@@ -210,8 +209,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.idleFrameStart = 4;
             }
             return true;
-            
-            
+
+
         }
     }
     public class BunnyControl : ModPlayer
@@ -301,13 +300,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override void AI()
         {
-            
-            projectile.Center = new Vector2(Main.player[projectile.owner].Center.X + projectile.ai[0]*8, Main.player[projectile.owner].Center.Y);
-            
+
+            projectile.Center = new Vector2(Main.player[projectile.owner].Center.X + projectile.ai[0] * 8, Main.player[projectile.owner].Center.Y);
+
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if(Main.player[projectile.owner].Center.X < target.Center.X)
+            if (Main.player[projectile.owner].Center.X < target.Center.X)
             {
                 hitDirection = 1;
             }
@@ -315,7 +314,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             {
                 hitDirection = -1;
             }
-           
+
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -331,8 +330,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             return false;
         }
-        
+
     }
 
-   
+
 }

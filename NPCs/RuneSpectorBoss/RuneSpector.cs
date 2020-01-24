@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -63,9 +58,9 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 QwertyWorld.downedRuneGhost = true;
 
             }
-            
+
         }
-        
+
         public void newRune(float posX, float posY)
         {
             if (Main.netMode != 1)
@@ -94,7 +89,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 }
                 else if (selectRune == 4)
                 {
-                    Projectile.NewProjectile(posX - 0, posY - 0, 0, 0, mod.ProjectileType("CyanRune"), (int)(damage*1.5f), 3f, Main.myPlayer);
+                    Projectile.NewProjectile(posX - 0, posY - 0, 0, 0, mod.ProjectileType("CyanRune"), (int)(damage * 1.5f), 3f, Main.myPlayer);
                 }
                 /*
                 else if (selectRune == 5)
@@ -118,7 +113,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public int transitionTime;
         public bool runOnce = true;
         public int flyTime;
-        
+
         public int Yshift = 250;
         public int runeMode = 1;
         // 1 = summons 1 rune above head
@@ -131,7 +126,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public int multiRunNumber = 1;
         public override void AI()
         {
-            
+
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
             if (!player.active || player.dead)
@@ -149,7 +144,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                     flyMode = 2;
                     npc.velocity = new Vector2(0f, 0f);
                     quitCount++;
-                    if(quitCount >=120)
+                    if (quitCount >= 120)
                     {
                         npc.position.Y += 100000f;
                     }
@@ -160,7 +155,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             else
             {
                 quitCount = 0;
-                
+
                 quitOnce = true;
 
                 if (npc.life > npc.lifeMax)
@@ -183,7 +178,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                     if ((float)npc.life / npc.lifeMax < .2f)
                     {
                         runeMode = 3;
-                        if(!isFurious)
+                        if (!isFurious)
                         {
                             string key = "Mods.QwertysRandomContent.GhostFurious";
                             Color messageColor = Color.Red;
@@ -289,7 +284,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                             }
                         }
                         Yshift *= -1;
-                        
+
                         if (Main.netMode != 1)
                         {
                             npc.ai[2] = player.Center.X + npc.ai[1];
@@ -357,7 +352,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                             npc.netUpdate = true;
                         }
 
-                         flyTo = new Vector2(npc.ai[2], npc.ai[3]); ;
+                        flyTo = new Vector2(npc.ai[2], npc.ai[3]); ;
                         flyMode = 2;
                     }
                     else
@@ -378,8 +373,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 else if ((flyTo - npc.Center).Length() < 128)
                 {
 
-                    
-                   
+
+
                     if (Main.netMode != 1)
                     {
                         npc.ai[2] = player.Center.X + npc.ai[1];
@@ -470,20 +465,20 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 {
                     npc.spriteDirection = -1;
                 }
-                
+
                 npc.frameCounter++;
 
-                if (npc.frameCounter < blinkTime-30)
+                if (npc.frameCounter < blinkTime - 30)
                 {
                     npc.frame.Y = 0 * frameHeight;
                     glow = 0;
                 }
-                else if (npc.frameCounter < blinkTime-20)
+                else if (npc.frameCounter < blinkTime - 20)
                 {
                     npc.frame.Y = 1 * frameHeight;
                     glow = 1;
                 }
-                else if (npc.frameCounter < blinkTime-10)
+                else if (npc.frameCounter < blinkTime - 10)
                 {
                     npc.frame.Y = 2 * frameHeight;
                     glow = 2;
@@ -497,23 +492,23 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 }
                 else
                 {
-                    
+
                     npc.frameCounter = 0;
-                    
+
                 }
             }
             else if (flyMode == 1)
             {
                 flymode1Timer++;
-                if(flymode1Timer > 21)
+                if (flymode1Timer > 21)
                 {
                     npc.frame.Y = 7 * frameHeight;
                 }
-                else if(flymode1Timer > 14)
+                else if (flymode1Timer > 14)
                 {
                     npc.frame.Y = 6 * frameHeight;
                 }
-                else if(flymode1Timer > 7)
+                else if (flymode1Timer > 7)
                 {
                     npc.frame.Y = 5 * frameHeight;
                 }
@@ -521,8 +516,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 {
                     npc.frame.Y = 4 * frameHeight;
                 }
-                
-                
+
+
             }
             else if (flyMode == 3)
             {
@@ -548,11 +543,11 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             }
             else if (flyMode == 2)
             {
-                
+
                 if (npc.velocity.X > 0)
                 {
                     npc.spriteDirection = 1;
-                    
+
                 }
                 else
                 {
@@ -563,33 +558,33 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 if (npc.frameCounter < 7)
                 {
                     npc.frame.Y = 8 * frameHeight;
-                    
+
                 }
                 else if (npc.frameCounter < 14)
                 {
                     npc.frame.Y = 9 * frameHeight;
-                   
+
                 }
                 else if (npc.frameCounter < 21)
                 {
                     npc.frame.Y = 10 * frameHeight;
-                    
+
                 }
                 else if (npc.frameCounter < 28)
                 {
                     npc.frame.Y = 11 * frameHeight;
-                    
+
 
                 }
                 else
                 {
 
                     npc.frameCounter = 0;
-                   
+
                 }
             }
         }
-        
+
         /*
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
@@ -613,7 +608,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
            
         }
         */
-        
+
         public override void NPCLoot()
         {
             if (Main.netMode != 1)
@@ -657,10 +652,10 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                     }
 
 
-                    
-                    
+
+
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 73, 30);
-                    
+
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CraftingRune"), runeCount);
 
                 }

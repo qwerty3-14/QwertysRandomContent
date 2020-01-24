@@ -1,12 +1,10 @@
 using Microsoft.Xna.Framework;
-using System;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Collections.Generic;
-using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 
 namespace QwertysRandomContent.Items.Armor.Clay
 {
@@ -86,7 +84,7 @@ namespace QwertysRandomContent.Items.Armor.Clay
             if (drawPlayer.legs == mod.GetEquipSlot("ClayKneecaps", EquipType.Legs) || drawPlayer.legs == mod.GetEquipSlot("ClayKneecaps_Female", EquipType.Legs))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Clay/Pants");
-                if(!drawPlayer.Male)
+                if (!drawPlayer.Male)
                 {
                     texture = mod.GetTexture("Items/Armor/Clay/Pants_Female");
                 }
