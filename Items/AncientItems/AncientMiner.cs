@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
 using Terraria;
 using Terraria.ID;
@@ -13,6 +14,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Miner");
             Tooltip.SetDefault("Right click to mine a 3x3 area");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMiner_Old");
+            }
 
         }
         public override void SetDefaults()
@@ -36,7 +41,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.tileBoost = 1;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMiner_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
             }
 
 
@@ -44,7 +49,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMiner_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
             spriteBatch.Draw
             (
                 texture,

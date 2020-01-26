@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -9,7 +10,7 @@ namespace QwertysRandomContent.Tiles
     {
         public override bool Autoload(ref string name, ref string texture)
         {
-            if (Config.classicFortress)
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
             {
                 texture += "_Classic";
             }
@@ -38,7 +39,7 @@ namespace QwertysRandomContent.Tiles
 
             if (Main.netMode != 1 && !fail)
             {
-                NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")), ai3: 1)];
+                NPC youngTile = Main.npc[NPC.NewNPC(i * 16 + 8, j * 16, mod.NPCType("YoungTile"), ai3: 1)];
                 youngTile.velocity = QwertyMethods.PolarVector(2, (float)Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI));
             }
         }

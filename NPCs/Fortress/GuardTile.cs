@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,18 +8,15 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class GuardTile : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            if (Config.classicFortress)
-            {
-                name += "_Classic";
-            }
-            return base.Autoload(ref name);
-        }
+       
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Guard Tile");
             Main.npcFrameCount[npc.type] = 8;
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/Fortress/GuardTile_Classic");
+            }
         }
 
         public override void SetDefaults()

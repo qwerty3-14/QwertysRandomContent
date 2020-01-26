@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +15,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Shape shift: Ancient Nuke");
             Tooltip.SetDefault("Breifly turns you into an ancient nuke that causes a massive explosion when you collide with something... don't worry you'll live");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientNuke_Old");
+            }
         }
         public const int dmg = 300;
         public const int crt = 0;
@@ -52,7 +57,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientNuke_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientNuke_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientNuke_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -165,10 +170,10 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientNukeMorph"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientNukeMorph_Old") : mod.GetTexture("Items/AncientItems/AncientNukeMorph"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 38, 56), drawColor, projectile.rotation,
                         new Vector2(46 * 0.5f, 56 * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientNukeMorph_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientNukeMorph_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientNukeMorph_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 38, 56), Color.White, projectile.rotation,
                         new Vector2(46 * 0.5f, 56 * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;

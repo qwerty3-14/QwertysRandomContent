@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +12,10 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Caelite Pulse Trap");
             Tooltip.SetDefault("Shoots 2 pulses");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/FortressTrap_Classic");
+            }
         }
 
         public override void SetDefaults()

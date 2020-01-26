@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using System.IO;
 using Terraria;
@@ -10,18 +11,15 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class YoungTile : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            if (Config.classicFortress)
-            {
-                name += "_Classic";
-            }
-            return base.Autoload(ref name);
-        }
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Young Tile");
             Main.npcFrameCount[npc.type] = 4;
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/Fortress/YoungTile_Classic");
+            }
         }
 
         public override void SetDefaults()

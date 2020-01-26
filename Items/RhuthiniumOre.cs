@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items

@@ -104,9 +104,9 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
         }
         public override void StuckEffects(NPC victim)
         {
-            if (victim.active && victim.chaseable && !victim.dontTakeDamage && !victim.friendly && victim.lifeMax > 5 && !victim.immortal)
+            if (victim.active && victim.chaseable && !victim.dontTakeDamage && !victim.friendly && victim.lifeMax > 5 && !victim.immortal && victim.knockBackResist>0)
             {
-                Vector2 instaVel = QwertyMethods.PolarVector(victim.boss ? .4f : .6f, projectile.rotation - rotationOffset - (float)Math.PI / 2);
+                Vector2 instaVel = QwertyMethods.PolarVector(1f * (1f-victim.knockBackResist), projectile.rotation - rotationOffset - (float)Math.PI / 2);
                 if (!victim.noTileCollide)
                 {
                     instaVel = Collision.TileCollision(victim.position, instaVel, victim.width, victim.height);

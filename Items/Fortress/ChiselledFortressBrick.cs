@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,6 +11,10 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Chiseled Fortress Brick");
             Tooltip.SetDefault("");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/ChiselledFortressBrick_Classic");
+            }
         }
 
         public override void SetDefaults()

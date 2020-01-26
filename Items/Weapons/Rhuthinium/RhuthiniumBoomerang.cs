@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Boomerang");
             Tooltip.SetDefault("Hold down the throw button to make it fly further" + "\nRight click to make the boomerang stationary");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumArrow_Old");
+            }
 
         }
         public override void SetDefaults()
@@ -81,6 +85,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("RhuthiniumBoomerang");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumBoomerangP_Old");
+            }
 
         }
         public int timer;

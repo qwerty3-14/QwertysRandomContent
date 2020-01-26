@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,6 +12,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMachineBag_Old");
+            }
         }
         public override void SetDefaults()
         {
@@ -26,7 +31,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientMachineBag_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMachineBag_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMachineBag_Glow");
             spriteBatch.Draw
             (
                 texture,

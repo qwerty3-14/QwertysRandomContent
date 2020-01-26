@@ -120,8 +120,9 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 {
                     for(int i =0; i < heartCount; i++)
                     {
-                        player.statLife += 20;
-                        player.HealEffect(20, true);
+                        int amt = 20 + player.GetModPlayer<QwertyPlayer>().recovery;
+                        player.statLife += amt;
+                        player.HealEffect(amt, true);
                     }
                     if(player.statLife > player.statLifeMax2)
                     {
@@ -140,6 +141,11 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                     }
                 }
                 
+            }
+            else
+            {
+                heartCount = 0;
+                heartCounter = 0;
             }
            
         }

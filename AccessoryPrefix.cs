@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -25,7 +26,7 @@ namespace QwertysRandomContent
         private byte dodgeChance;
         public override float RollChance(Item item)
         {
-            return Config.disableModAccesoryPrefixes ? 0 : 1f;
+            return ModContent.GetInstance<GameplaySettings>().DisableModdedPrefixes ? 0f : 1f;
         }
         public override bool CanRoll(Item item)
         {

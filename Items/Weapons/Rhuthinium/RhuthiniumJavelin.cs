@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
 using QwertysRandomContent.Buffs;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -16,6 +17,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Javelin");
             Tooltip.SetDefault("Throws two at once!");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumJavelin_Old");
+            }
 
         }
         public override void SetDefaults()
@@ -85,7 +90,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            Texture2D texture = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumJavelinP");
+            Texture2D texture = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumJavelinP" + (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? "_Old" : ""));
             spriteBatch.Draw(texture, new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y + 2),
                         new Rectangle(0, 0, texture.Width, texture.Height), lightColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);

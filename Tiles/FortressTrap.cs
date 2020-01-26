@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -13,7 +14,7 @@ namespace QwertysRandomContent.Tiles
 
         public override bool Autoload(ref string name, ref string texture)
         {
-            if (Config.classicFortress)
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
             {
                 texture += "_Classic";
             }

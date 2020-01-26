@@ -38,6 +38,25 @@ Extra thanks
 
 
 changelog
+0.19.13
+Additions:
+-some more chinese translations
+-New config system that takes advantage of Tmodloader's newish in game config system
+	-Can be changed ingame with some settings not requiring reload
+	-Keep in mind that any conig that requires a reload must be changed in the mods menu
+	-if there is something in the mod you want to be able to toggle/tweak with a config let me know, all the current config settings were requested at some point
+
+Fixes:
+-fixed vitallum hearts from vitallum armor setBonus not disapear after unequiping armor
+-fixed ash fell and shroomite turret staff not having the minion targetting feature
+
+
+changes:
+-removed old config system
+-healing from vitalllum armor's set bonus is now effected by the recovery stat
+-shroomite javelins' custom knockback is now effected by knockback resistance
+
+
 0.19.12
 -homepage has been moved to a new forum page for the mod, I'd still recommend going to the disscord for the speediests responses.
 

@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,6 +11,10 @@ namespace QwertysRandomContent.Items
         {
             DisplayName.SetDefault("Rhuthinium Bar");
             Tooltip.SetDefault("");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/RhuthiniumBar_Old");
+            }
         }
 
         public override void SetDefaults()

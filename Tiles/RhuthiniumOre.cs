@@ -33,22 +33,5 @@ namespace QwertysRandomContent.Tiles
             g = 0.5f;
             b = 0.5f;
         }
-        public override bool CanExplode(int i, int j)
-        {
-
-            if (!NPC.downedBoss3)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
-
-
-        }
-
-
     }
 }

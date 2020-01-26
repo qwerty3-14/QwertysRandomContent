@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -14,7 +15,10 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         {
             DisplayName.SetDefault("Ancient Minion Staff");
             Tooltip.SetDefault("Summons an ancient minion to fight for you!");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMinionStaff_Old");
+            }
         }
 
         public override void SetDefaults()
@@ -39,12 +43,12 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             item.buffTime = 3600;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMinionStaff_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
             }
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMinionStaff_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -94,6 +98,10 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             DisplayName.SetDefault("Ancient Minion");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
             Main.projFrames[projectile.type] = 1;
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("NPCs/AncientMachine/AncientMinion_Old");
+            }
         }
 
         public override void SetDefaults()
@@ -287,12 +295,12 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), drawColor, projectile.rotation,
-                        new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.White, projectile.rotation,
-                        new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+                        new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height), drawColor, projectile.rotation,
+                        new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, Main.projectileTexture[projectile.type].Height * 0.5f), 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion_Glow" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" : "")), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+                        new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height), Color.White, projectile.rotation,
+                        new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, Main.projectileTexture[projectile.type].Height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
 

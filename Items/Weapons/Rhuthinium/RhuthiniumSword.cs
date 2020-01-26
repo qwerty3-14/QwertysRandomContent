@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Sword");
             Tooltip.SetDefault("Killing enemies builds up a charge. Right click to realease this charge.");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumSword_Old");
+            }
 
         }
         public override void SetDefaults()

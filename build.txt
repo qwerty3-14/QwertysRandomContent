@@ -1,5 +1,5 @@
 author = qwerty3.14
-version = 0.19.12
+version = 0.19.13
 displayName = Qwerty's Bosses and Items
 includeSource = true
 hideCode = false

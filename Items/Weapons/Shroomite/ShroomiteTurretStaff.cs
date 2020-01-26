@@ -58,6 +58,18 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
             position.Y -= 8;
             return true;
         }
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+        public override bool UseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                player.MinionNPCTargetAim();
+            }
+            return base.UseItem(player);
+        }
     }
     public class ShroomiteTurretBase : ModProjectile
     {

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -9,19 +10,16 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class Hopper : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            if (Config.classicFortress)
-            {
-                name += "_Classic";
-            }
-            return base.Autoload(ref name);
-        }
+        
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Enchanted Tile");
             Main.npcFrameCount[npc.type] = 4;
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/Fortress/Hopper_Classic");
+            }
         }
 
         public override void SetDefaults()
@@ -45,6 +43,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.buffImmune[24] = true;
             banner = npc.type;
             bannerItem = mod.ItemType("HopperBanner");
+            
             npc.buffImmune[BuffID.Confused] = false;
         }
         public override void HitEffect(int hitDirection, double damage)
@@ -108,7 +107,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                         int children = Main.rand.Next(3);
                         for (int i = 0; i < children; i++)
                         {
-                            NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile" + (Config.classicFortress ? "_Classic" : "")));
+                            NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile"));
                         }
                         break;
                     case 1:

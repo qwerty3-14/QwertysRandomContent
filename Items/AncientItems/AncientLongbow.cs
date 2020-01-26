@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +13,10 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Hold to charge up" + "\nFires 3 arrows at max charge" + "\nWooden arrows become ancient arrows");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientLongbow_Old");
+            }
         }
 
         public override void SetDefaults()
@@ -58,7 +62,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientLongbow_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientLongbow_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientLongbow_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -83,7 +87,10 @@ namespace QwertysRandomContent.Items.AncientItems
     {
         public override void SetStaticDefaults()
         {
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/AncientItems/Old/AncientLongbowP_Old");
+            }
         }
         public override void SetDefaults()
         {
@@ -275,10 +282,10 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientLongbowP"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientLongbowP_Old") : mod.GetTexture("Items/AncientItems/AncientLongbowP"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 50, 34), drawColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientLongbowP_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientLongbowP_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientLongbowP_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 50, 34), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
@@ -289,7 +296,10 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Arrow");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/AncientItems/Old/AncientArrow_Old");
+            }
 
         }
         public override void SetDefaults()
@@ -316,16 +326,16 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         void drawArrowCore(SpriteBatch spriteBatch, Color drawColor)
         {
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientArrow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 18, 36), drawColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientArrow_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientArrow_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientArrow_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 18, 36), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
         }
         void drawOrbital(SpriteBatch spriteBatch, Color drawColor, Vector2 Loc)
         {
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientArrow_Orbital"), Loc - Main.screenPosition,
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientArrow_Old_Orbital") : mod.GetTexture("Items/AncientItems/AncientArrow_Orbital"), Loc - Main.screenPosition,
                         new Rectangle(0, 0, 6, 10), drawColor, projectile.rotation,
                         new Vector2(3, 5), 1f, SpriteEffects.None, 0f);
         }

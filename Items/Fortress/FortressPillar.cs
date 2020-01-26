@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +12,10 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Fortress Pillar");
             Tooltip.SetDefault("");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/FortressPillar_Classic");
+            }
         }
 
         public override void SetDefaults()

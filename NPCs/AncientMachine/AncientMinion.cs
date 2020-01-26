@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -13,6 +14,10 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             DisplayName.SetDefault("Ancient Minion");
             Main.npcFrameCount[npc.type] = 1;
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/AncientMachine/AncientMinion_Old");
+            }
         }
 
         public override void SetDefaults()
@@ -50,11 +55,11 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             if (npc.life <= 0)
             {
                 Vector2 pos = npc.Center + QwertyMethods.PolarVector(-16, npc.rotation + (float)Math.PI / 2);
-                Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_1"), 1f)];
+                Gore gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_1" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" : "")), 1f)];
                 gore.rotation = npc.rotation;
 
                 pos = npc.Center + QwertyMethods.PolarVector(14, npc.rotation + (float)Math.PI / 2);
-                gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_2"), 1f)];
+                gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/MiniDebris_2" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" : "")), 1f)];
                 gore.rotation = npc.rotation;
                 for (int i = 0; i < 180; i++)
                 {
@@ -183,32 +188,13 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 float targetAngle = new Vector2(player.Center.X - npc.Center.X, player.Center.Y - npc.Center.Y).ToRotation();
                 npc.rotation = targetAngle;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(Main.npcTexture[npc.type], new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
                         npc.frame, drawColor, npc.rotation,
                         new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion_Glow"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(mod.GetTexture("NPCs/AncientMachine/AncientMinion_Glow" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" : "")), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
                         npc.frame, Color.White, npc.rotation,
                         new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;

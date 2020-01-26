@@ -24,7 +24,6 @@ C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomCo
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\bin\Debug\net45\MonoMod.RuntimeDetour.xml
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\bin\Debug\net45\MonoMod.Utils.xml
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.csprojAssemblyReference.cache
-C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.csproj.CoreCompileInputs.cache
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.AssemblyInfoInputs.cache
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.AssemblyInfo.cs
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.csproj.CopyComplete

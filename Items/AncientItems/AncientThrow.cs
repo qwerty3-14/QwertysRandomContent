@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +19,10 @@ namespace QwertysRandomContent.Items.AncientItems
             ItemID.Sets.Yoyo[item.type] = true;
             ItemID.Sets.GamepadExtraRange[item.type] = 15;
             ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientThrow_Old");
+            }
         }
 
         public override void SetDefaults()
@@ -47,7 +52,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientThrow_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientThrow_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientThrow_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -84,6 +89,11 @@ namespace QwertysRandomContent.Items.AncientItems
             // YoyosTopSpeed is top speed of the yoyo projectile. 
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 13f;
+
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/AncientItems/Old/AncientThrowP_Old");
+            }
         }
 
         public override void SetDefaults()
@@ -117,7 +127,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientThrowP_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientThrowP_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientThrowP_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
         }

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +15,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Blade");
             Tooltip.SetDefault("Launches a spread of orbs");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientBlade_Old");
+            }
 
         }
         public override void SetDefaults()
@@ -33,7 +38,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.height = 70;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientBlade_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
             }
 
             item.autoReuse = true;
@@ -46,7 +51,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientBlade_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -88,7 +93,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             Main.projFrames[projectile.type] = 2;
             DisplayName.SetDefault("Ancient Orb");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/AncientItems/Old/AncientOrb_Old");
+            }
 
         }
         public override void SetDefaults()
@@ -163,7 +171,7 @@ namespace QwertysRandomContent.Items.AncientItems
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
 
-            spriteBatch.Draw(mod.GetTexture("Items/AncientItems/AncientOrb"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0, 0, 0, 0), (float)projectile.alpha / 255f), projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), projectile.scale, SpriteEffects.None, 0f);
             return false;

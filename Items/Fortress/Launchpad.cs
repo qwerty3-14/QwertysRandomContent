@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +12,10 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Launchpad");
             Tooltip.SetDefault("");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/Launchpad_Classic");
+            }
         }
 
         public override void SetDefaults()

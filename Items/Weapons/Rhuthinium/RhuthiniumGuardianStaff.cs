@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -15,6 +16,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             DisplayName.SetDefault("Rhuthinium Guardian Staff");
             Tooltip.SetDefault("Summons an extremely slow guardian to shoot at your enemies");
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(38, 2));
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardianStaff_Old");
+            }
 
         }
 
@@ -177,7 +182,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
 
 
 
-            spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardianLower"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardianLower" + (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? "_Old" : "")), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                     new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), lightColor, -projectile.rotation,
                     new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
 
@@ -225,7 +230,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
                     new Rectangle(0, 0, 1, (int)lineLength - 10), lineColor, projRotation,
                     new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
             }
-            spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardian"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+            spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardian" + (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? "_Old" : "")), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                     new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), lightColor, projectile.rotation,
                     new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             drawLine = false;

@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
@@ -8,6 +10,10 @@ namespace QwertysRandomContent.Items.Fortress
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fortress Platform");
+            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/FortressPlatform_Classic");
+            }
         }
 
         public override void SetDefaults()

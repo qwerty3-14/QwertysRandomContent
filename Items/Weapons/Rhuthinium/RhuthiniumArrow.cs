@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +11,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Arrow");
             Tooltip.SetDefault("Does more damage to enemies farther away from you");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumArrow_Old");
+            }
         }
         public override void SetDefaults()
         {
@@ -44,7 +48,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Arrow");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            {
+                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumArrowP_Old");
+            }
 
         }
         public override void SetDefaults()

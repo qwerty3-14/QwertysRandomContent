@@ -122,7 +122,6 @@ namespace QwertysRandomContent
         public static Deck<string> AMLoot = new Deck<string>();
         public override void Load()
         {
-            Config.Load();
             Instance = this;
             AMLoot.Add("AncientBlade");
             AMLoot.Add("AncientSniper");
@@ -557,7 +556,42 @@ namespace QwertysRandomContent
             AddTranslation(text);
             #endregion
 
+            #region config
+            text = CreateTranslation("ClassicFortressConfigLabel");
+            text.SetDefault("Classic Fortress");
+            AddTranslation(text);
 
+            text = CreateTranslation("ClassicFortressConfigTooltip");
+            text.SetDefault("Uses the older SUS and Qwerty's fortress sprites that are normaly replaced by DarkPuppey's");
+            AddTranslation(text);
+
+
+            text = CreateTranslation("ClassicRhuthiniumConfigLabel");
+            text.SetDefault("Good Old Rhuthinium");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicRhuthiniumConfigTooltip");
+            text.SetDefault("Uses the older Havoc and Qwerty's Rhuthinium item sprites that are normaly replaced by FailureOfMankind's");
+            AddTranslation(text);
+
+
+            text = CreateTranslation("ClassicAncientConfigLabel");
+            text.SetDefault("Ancient Ancient Items");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicAncientConfigTooltip");
+            text.SetDefault("Uses the older ancient item sprites that are normaly replaced by Phobostar's newer ones");
+            AddTranslation(text);
+
+
+            text = CreateTranslation("DisableModdedPrefixesLabel");
+            text.SetDefault("Disable Modded Prefixes");
+            AddTranslation(text);
+
+            text = CreateTranslation("DisableModdedPrefixesTooltip");
+            text.SetDefault("Disables the prefixes added by this mod from being forged or generated. Won't remove prefixes already on items.");
+            AddTranslation(text);
+            #endregion
 
             AddBossHeadTexture(AncientMachineHead);
             AddBossHeadTexture(HydraHead1);

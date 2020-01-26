@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -84,13 +85,13 @@ namespace QwertysRandomContent.Tiles.Banners
                 switch (style)
                 {
                     case 0:
-                        type = "Hopper" + (Config.classicFortress ? "_Classic" : "");
+                        type = "Hopper" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_Classic" : "");
                         break;
                     case 1:
                         type = "Crawler";
                         break;
                     case 2:
-                        type = "GuardTile" + (Config.classicFortress ? "_Classic" : "");
+                        type = "GuardTile" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_Classic" : "");
                         break;
                     case 3:
                         type = "FortressFlier";
