@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             Main.npcFrameCount[npc.type] = 5;
 
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -379,11 +380,11 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             spriteBatch.Draw(texture, npc.Center - Main.screenPosition,
                        npc.frame, drawColor, npc.rotation,
                        new Vector2(npc.width * 0.5f, npc.height * 0.5f), npc.scale, SpriteEffects.None, 0f);
-            Texture2D Pupil = mod.GetTexture("NPCs/CloakedDarkBoss/Pupil");
+            Texture2D Pupil = mod.GetTexture("NPCs/CloakedDarkBoss/Pupil" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
             spriteBatch.Draw(Pupil, npc.Center - Main.screenPosition + new Vector2((float)Math.Cos(pupilDirection) * greaterPupilRadius * pupilStareOutAmount, (float)Math.Sin(pupilDirection) * lesserPupilRadius) * npc.scale,
                        Pupil.Frame(), drawColor, npc.rotation,
                        Pupil.Size() * .5f, npc.scale, SpriteEffects.None, 0f);
-            Texture2D Eyelid = mod.GetTexture("NPCs/CloakedDarkBoss/Eyelid");
+            Texture2D Eyelid = mod.GetTexture("NPCs/CloakedDarkBoss/Eyelid" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
             spriteBatch.Draw(Eyelid, npc.Center - Main.screenPosition,
                        npc.frame, drawColor, npc.rotation,
                        new Vector2(npc.width * 0.5f, npc.height * 0.5f), npc.scale, SpriteEffects.None, 0f);

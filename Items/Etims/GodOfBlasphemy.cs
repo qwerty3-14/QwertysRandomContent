@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -64,7 +65,7 @@ namespace QwertysRandomContent.Items.Etims
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("Etims"), 12);
+            recipe.AddIngredient(mod.ItemType("EtimsMaterial"), 12);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -231,6 +232,7 @@ namespace QwertysRandomContent.Items.Etims
         {
             DisplayName.SetDefault("Etimsic Ray");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;

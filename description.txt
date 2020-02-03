@@ -38,6 +38,11 @@ Extra thanks
 
 
 changelog
+0.20.1
+-fixed Shape Shift: God of Blasphemy's recipe
+-fixed polar exterminators bag dropping divine light mask instead of his own
+-New sprites for Noehtnap (thanks fazergamer)
+
 0.20.0
 Key changes/additions:
 -Noehtnap AI overhaul

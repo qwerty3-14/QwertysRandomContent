@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
             if (Main.rand.Next(7) == 0)
             {
-                player.QuickSpawnItem(mod.ItemType("DivineLightMask"));
+                player.QuickSpawnItem(mod.ItemType("PolarMask"));
             }
             switch (Main.rand.Next(3))
             {

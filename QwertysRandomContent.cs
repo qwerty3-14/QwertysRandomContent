@@ -608,6 +608,14 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClassicGunChakramConfigTooltip");
             text.SetDefault("Uses the origonal gun charkram sprite");
             AddTranslation(text);
+
+            text = CreateTranslation("ClassicNoehtnapConfigLabel");
+            text.SetDefault("Cissalc Noehtnap");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicNoehtnapConfigTooltip");
+            text.SetDefault("Uses the origonal Noehnap sprite made by qwerty");
+            AddTranslation(text);
             #endregion
 
             AddBossHeadTexture(AncientMachineHead);

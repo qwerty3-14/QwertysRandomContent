@@ -43,5 +43,11 @@ namespace QwertysRandomContent.Config
         [Label("$Mods.QwertysRandomContent.ClassicGunChakramConfigLabel")]
         [Tooltip("$Mods.QwertysRandomContent.ClassicGunChakramConfigTooltip")]
         public bool ClassicGunChakram;
+
+        [DefaultValue(false)]
+        [ReloadRequired]
+        [Label("$Mods.QwertysRandomContent.ClassicNoehtnapConfigLabel")]
+        [Tooltip("$Mods.QwertysRandomContent.ClassicNoehtnapConfigTooltip")]
+        public bool ClassicNoehtnap;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using QwertysRandomContent.Items.Etims;
 using System;
 using System.Collections.Generic;
@@ -229,7 +230,7 @@ namespace QwertysRandomContent
             {
                 
                 
-                Texture2D texture = mod.GetTexture("Items/Etims/Back");
+                Texture2D texture = mod.GetTexture("Items/Etims/Back" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
                 DrawData value = new DrawData(texture,
                     drawPlayer.Center - Main.screenPosition,
                     null,
@@ -243,7 +244,7 @@ namespace QwertysRandomContent
                 Main.playerDrawData.Add(value);
 
 
-                texture = mod.GetTexture("Items/Etims/Pupil");
+                texture = mod.GetTexture("Items/Etims/Pupil" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
                 value = new DrawData(texture,
                     drawPlayer.Center + drawPlayer.GetModPlayer<MorphFlightControl>().pupilPosition - Main.screenPosition ,
                     null,

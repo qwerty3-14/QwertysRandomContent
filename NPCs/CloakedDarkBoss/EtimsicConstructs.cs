@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
 using QwertysRandomContent.Items.Etims;
+using QwertysRandomContent.Config;
 
 namespace QwertysRandomContent.NPCs.CloakedDarkBoss
 {
@@ -18,6 +19,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         {
             DisplayName.SetDefault("Heaven Raider Cannon");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.width = projectile.height = 34;
@@ -56,7 +58,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         {
             if(shootTimer>180)
             {
-                DrawLaser(spriteBatch, mod.GetTexture("NPCs/CloakedDarkBoss/CannonBeam"), Color.White);
+                DrawLaser(spriteBatch, mod.GetTexture("NPCs/CloakedDarkBoss/CannonBeam" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : "")), Color.White);
             }
             /*
             else if (shootTimer > 150)
@@ -81,6 +83,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             DisplayName.SetDefault("Etimsic Barrier");
             Main.projFrames[projectile.type] = 2;
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.width = 64; 
@@ -121,7 +124,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         {
             if (shootTimer > 30)
             {
-                DrawLaser(spriteBatch, mod.GetTexture("NPCs/CloakedDarkBoss/WallBeam"), Color.White);
+                DrawLaser(spriteBatch, mod.GetTexture("NPCs/CloakedDarkBoss/WallBeam" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : "")), Color.White);
             }
             /*
             else if (shootTimer > 20)
@@ -146,6 +149,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
         {
             DisplayName.SetDefault("Etimsic Ray");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
