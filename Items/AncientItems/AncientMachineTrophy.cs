@@ -11,11 +11,9 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Machine Trophy");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMachineTrophy_Old");
-            }
+           
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -33,14 +31,14 @@ namespace QwertysRandomContent.Items.AncientItems
             item.placeStyle = 0;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMachineTrophy_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow");
             }
         }
 
         
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMachineTrophy_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow");
             spriteBatch.Draw
             (
                 texture,

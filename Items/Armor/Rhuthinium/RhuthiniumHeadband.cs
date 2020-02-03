@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,7 +17,11 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Headband");
             Tooltip.SetDefault("+28% melee speed");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumHeadband_Old");
+                Main.armorHeadTexture[item.headSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumHeadband_Head_Old");
+            }
         }
 
 

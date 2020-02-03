@@ -232,7 +232,7 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             if (Main.netMode != 1)
             {
-                swarmSize = Main.rand.Next(14, 36);
+                swarmSize = Main.rand.Next(14, 20);
                 if (Main.hardMode)
                 {
                     swarmSize *= 2;

@@ -22,7 +22,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.aiStyle = -1;
             npc.damage = 20;
             npc.defense = 6;
-            npc.lifeMax = 75;
+            npc.lifeMax = 100;
             npc.value = 500;
             //npc.alpha = 100;
             npc.behindTiles = true;
@@ -68,7 +68,10 @@ namespace QwertysRandomContent.NPCs.Fortress
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
-            timer++;
+            if(npc.life < npc.lifeMax)
+            {
+                timer++;
+            }
             npc.TargetClosest(true);
             npc.spriteDirection = npc.direction;
             Player player = Main.player[npc.target];

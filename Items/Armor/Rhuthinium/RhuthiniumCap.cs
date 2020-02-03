@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -12,7 +13,11 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Cap");
             Tooltip.SetDefault("+12% ranged damage" + "\n10% increased move speed");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumCap_Old");
+                Main.armorHeadTexture[item.headSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumCap_Head_Old");
+            }
         }
 
 

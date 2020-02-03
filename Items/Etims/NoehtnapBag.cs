@@ -35,7 +35,11 @@ namespace QwertysRandomContent.Items.Etims
 
 
             player.QuickSpawnItem(73, 8);
-            player.QuickSpawnItem(mod.ItemType("EyeOfDarkness"));
+            player.QuickSpawnItem(mod.ItemType("Doppleganger"));
+            if(Main.rand.Next(5)==0)
+            {
+                player.QuickSpawnItem(mod.ItemType("EyeOfDarkness"));
+            }
             player.QuickSpawnItem(mod.ItemType("EtimsMaterial"), 20 + Main.rand.Next(17));
         }
     }

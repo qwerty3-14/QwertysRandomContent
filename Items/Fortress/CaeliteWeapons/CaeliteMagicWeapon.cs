@@ -27,7 +27,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.shootSpeed = 12f;
             item.useTime = 24;
             item.useAnimation = 24;
-            item.mana = 7;
+            item.mana = 11;
             item.shoot = mod.ProjectileType("CaeliteMagicProjectile");
             item.noUseGraphic = false;
             item.noMelee = true;
@@ -94,7 +94,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.width = 44;
                 projectile.height = 44;
                 projectile.friendly = true;
-                projectile.penetrate = 5;
+                projectile.penetrate = 3;
                 projectile.magic = true;
                 projectile.timeLeft = 180;
                 projectile.usesLocalNPCImmunity = true;

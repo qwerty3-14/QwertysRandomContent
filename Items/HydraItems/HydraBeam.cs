@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -262,7 +263,12 @@ namespace QwertysRandomContent.Items.HydraItems
             target.immune[projectile.owner] = 5;
         }
 
-
+        public override void CutTiles()
+        {
+            DelegateMethods.tilecut_0 = TileCuttingContext.AttackProjectile;
+            Vector2 unit = projectile.velocity;
+            Utils.PlotTileLine(projectile.Center, projectile.Center + unit * Distance, 22, DelegateMethods.CutTiles);
+        }
 
         public override bool ShouldUpdatePosition()
         {

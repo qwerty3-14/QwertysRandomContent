@@ -11,16 +11,14 @@ namespace QwertysRandomContent
 
     public static class LayerDrawing
     {
+        public delegate bool DrawCondition(Player player);
         public static PlayerLayer DrawOnHead(string equip, string texturePath, string name = "HeadGlowmask", bool glowmask = true, int useShader = -1)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
-                {
-                    return;
-                }
+
                 Player drawPlayer = drawInfo.drawPlayer;
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
                 if (glowmask)
                 {
                     color12 = Color.White;
@@ -49,22 +47,22 @@ namespace QwertysRandomContent
                 }
             });
         }
-        public static PlayerLayer DrawOnLegs(string equip, string texturePath, string femaleEquip = "n", string femaleTexturePath = "n", string name = "LegGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false)
+        public static PlayerLayer DrawOnLegs(string equip, string texturePath, string femaleEquip = "n", string femaleTexturePath = "n", string name = "LegGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false, float shadow = 0f, DrawCondition drawCondition = null)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
+                if (drawCondition == null)
                 {
-                    return;
+                    drawCondition = delegate (Player player) {   return player.legs == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(equip, EquipType.Legs) || (femaleEquip != "n" && player.legs == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(femaleEquip, EquipType.Legs)); };
                 }
                 Player drawPlayer = drawInfo.drawPlayer;
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), shadow + (1f - shadow) * drawInfo.shadow);
                 if (glowmask)
                 {
                     color12 = Color.White;
                 }
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
-                if (drawPlayer.legs == mod.GetEquipSlot(equip, EquipType.Legs) || (femaleEquip != "n" && drawPlayer.legs == mod.GetEquipSlot(femaleEquip, EquipType.Legs)))
+                if (drawCondition(drawPlayer))
                 {
                     Texture2D texture = mod.GetTexture(texturePath);
                     if (femaleTexturePath != "n" && !drawPlayer.Male)
@@ -105,12 +103,9 @@ namespace QwertysRandomContent
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
-                {
-                    return;
-                }
+
                 Player drawPlayer = drawInfo.drawPlayer;
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
                 if (glowmask)
                 {
                     color12 = Color.White;
@@ -144,23 +139,23 @@ namespace QwertysRandomContent
                 }
             });
         }
-        public static PlayerLayer DrawOnBodySimple(string equip, string texturePath, string femaleTexturePath = "n", string name = "BodyGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false)
+        public static PlayerLayer DrawOnBodySimple(string equip, string texturePath, string femaleTexturePath = "n", string name = "BodyGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false, float shadow = 0f, DrawCondition drawCondition = null)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
+                if (drawCondition == null)
                 {
-                    return;
+                    drawCondition = delegate (Player player) { return player.body == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(equip, EquipType.Body); };
                 }
-
                 Player drawPlayer = drawInfo.drawPlayer;
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), shadow + (1f - shadow) * drawInfo.shadow);
                 if (glowmask)
                 {
                     color12 = Color.White;
                 }
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
-                if (drawPlayer.body == mod.GetEquipSlot(equip, EquipType.Body))
+
+                if (drawCondition(drawPlayer))
                 {
                     Texture2D texture = mod.GetTexture(texturePath);
                     if (femaleTexturePath != "n" && !drawPlayer.Male)
@@ -216,12 +211,9 @@ namespace QwertysRandomContent
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Arms, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
-                {
-                    return;
-                }
+
                 Player drawPlayer = drawInfo.drawPlayer;
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
                 if (glowmask)
                 {
                     color12 = Color.White;
@@ -260,10 +252,7 @@ namespace QwertysRandomContent
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
-                {
-                    return;
-                }
+
                 Player drawPlayer = drawInfo.drawPlayer;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
                 if (drawPlayer.head == mod.GetEquipSlot(equip, EquipType.Head))
@@ -273,7 +262,7 @@ namespace QwertysRandomContent
 
                     Texture2D texture = mod.GetTexture(texturePath);
 
-                    Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                    Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
                     if (glowmask)
                     {
                         color12 = Color.White;
@@ -328,13 +317,10 @@ namespace QwertysRandomContent
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.HandOnAcc, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
-                {
-                    return;
-                }
+
                 Player drawPlayer = drawInfo.drawPlayer;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
 
 
                 if (drawPlayer.body == mod.GetEquipSlot(equip, type))
@@ -362,13 +348,10 @@ namespace QwertysRandomContent
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.HandOffAcc, delegate (PlayerDrawInfo drawInfo)
             {
-                if (drawInfo.shadow != 0f)
-                {
-                    return;
-                }
+
                 Player drawPlayer = drawInfo.drawPlayer;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
 
 
                 if (drawPlayer.body == mod.GetEquipSlot(equip, type))

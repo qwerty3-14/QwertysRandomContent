@@ -14,7 +14,6 @@ namespace QwertysRandomContent.Items.Etims
         public override void SetDefaults()
         {
             item.accessory = true;
-            item.expert = true;
             item.rare = 3;
             item.value = 500000;
             item.width = 32;

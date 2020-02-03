@@ -31,5 +31,17 @@ namespace QwertysRandomContent.Config
         [Label("$Mods.QwertysRandomContent.ClassicAncientConfigLabel")]
         [Tooltip("$Mods.QwertysRandomContent.ClassicAncientConfigTooltip")]
         public bool ClassicAncient;
+
+        [DefaultValue(false)]
+        [ReloadRequired]
+        [Label("$Mods.QwertysRandomContent.ClassicOLORDConfigLabel")]
+        [Tooltip("$Mods.QwertysRandomContent.ClassicOLORDConfigTooltip")]
+        public bool ClassicOLORD;
+
+        [DefaultValue(false)]
+        [ReloadRequired]
+        [Label("$Mods.QwertysRandomContent.ClassicGunChakramConfigLabel")]
+        [Tooltip("$Mods.QwertysRandomContent.ClassicGunChakramConfigTooltip")]
+        public bool ClassicGunChakram;
     }
 }

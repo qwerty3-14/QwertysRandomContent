@@ -64,6 +64,8 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         }
         public static readonly PlayerLayer Body = LayerDrawing.DrawOnBodySimple("VitallumLifeguard", "Items/Armor/Vitallum/VitallumLifeguard_BodySimple", "Items/Armor/Vitallum/VitallumLifeguard_FemaleBodySimple", "VitallumBody", false);
         public static readonly PlayerLayer BodyVien = LayerDrawing.DrawOnBodySimple("VitallumLifeguard", "Items/Armor/Vitallum/VitallumLifeguard_BodySimpleVien", "Items/Armor/Vitallum/VitallumLifeguard_FemaleBodySimpleVien", "VitallumBody", false, 3, 4, true);
+
+        
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int bodyLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Body"));

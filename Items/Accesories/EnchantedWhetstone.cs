@@ -98,7 +98,7 @@ namespace QwertysRandomContent.Items.Accesories
                 int TLIndex = tooltips.FindIndex(TooltipLine => TooltipLine.Name.Equals("CritChance"));
                 TooltipLine line = new TooltipLine(mod, "MagicBoost", (int)(item.damage * player.GetModPlayer<WhetStoneEffect>().effect * player.magicDamage) + " magic damage");
                 {
-                    line.overrideColor = Color.Blue;
+                    line.overrideColor = Color.SkyBlue;
                 }
                 if (TLIndex != -1)
                 {
@@ -107,7 +107,7 @@ namespace QwertysRandomContent.Items.Accesories
 
                 line = new TooltipLine(mod, "MagicBoostCrit", player.magicCrit + "% critical strike chance");
                 {
-                    line.overrideColor = Color.Blue;
+                    line.overrideColor = Color.SkyBlue;
                 }
                 if (TLIndex != -1)
                 {

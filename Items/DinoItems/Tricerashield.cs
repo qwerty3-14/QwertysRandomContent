@@ -53,22 +53,18 @@ namespace QwertysRandomContent.Items.DinoItems
     public class TricerashieldTexture : ModPlayer
     {
 
-
+        //shield was too big to fit vanilla terraria's shield slot
         public static readonly PlayerLayer BigShield = new PlayerLayer("QwertysRandomContent", "BigShield", PlayerLayer.ShieldAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.shield == mod.GetEquipSlot("Tricerashield", EquipType.Shield))
             {
                 //Main.NewText("Hi");
                 Vector2 Position = drawInfo.position;
                 DrawData value = default(DrawData);
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)Position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)Position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Color.White), drawInfo.shadow);
                 Vector2 zero = Vector2.Zero;
                 Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
 

@@ -20,11 +20,8 @@ namespace QwertysRandomContent.Items.Vanity
 
         public override void SetDefaults()
         {
-
             item.value = 1000;
             item.rare = 1;
-
-
             item.width = 28;
             item.height = 28;
             item.vanity = true;
@@ -33,14 +30,7 @@ namespace QwertysRandomContent.Items.Vanity
             {
                 item.GetGlobalItem<BetterBelt>().BeltTexture = mod.GetTexture("Items/Vanity/LeatherBelt_Belt");
             }
-
-
-
         }
-
-
-
-
     }
     public class BetterBelt : GlobalItem
     {
@@ -62,24 +52,18 @@ namespace QwertysRandomContent.Items.Vanity
     }
     public class BetterBelts : ModPlayer
     {
-
-
         public static readonly PlayerLayer BetterBelt = new PlayerLayer("QwertysRandomContent", "BetterBelt", PlayerLayer.NeckAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+           
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             Vector2 Position = drawInfo.position;
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)Position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)Position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             int shader8 = 0;
             //Main.NewText(drawPlayer.dye.Length);
             for (int i = 0; i < 20; i++)
             {
-
                 if (!drawPlayer.armor[i].IsAir)
                 {
                     if (drawPlayer.armor[i].GetGlobalItem<BetterBelt>().BeltTexture != null && (i > 10 || !drawPlayer.hideVisual[i % 10]))
@@ -92,8 +76,6 @@ namespace QwertysRandomContent.Items.Vanity
                     }
                 }
             }
-
-
         });
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)

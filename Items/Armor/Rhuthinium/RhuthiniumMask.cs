@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -12,7 +13,11 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Mask");
             Tooltip.SetDefault("+1 max minions and 8% increased minion damage");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumMask_Old");
+                Main.armorHeadTexture[item.headSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumMask_Head_Old");
+            }
         }
 
 

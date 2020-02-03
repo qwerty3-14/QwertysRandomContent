@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         }
         public override void SetDefaults()
         {
-            item.damage = 49;
+            item.damage = 38;
             item.melee = true;
             item.noMelee = true;
 

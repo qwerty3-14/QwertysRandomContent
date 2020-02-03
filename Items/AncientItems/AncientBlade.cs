@@ -15,15 +15,13 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Blade");
             Tooltip.SetDefault("Launches a spread of orbs");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientBlade_Old");
-            }
+            
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
-            item.damage = 18;
+            item.damage = 14;
             item.melee = true;
 
             item.useTime = 35;
@@ -38,7 +36,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.height = 70;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientBlade_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientBlade_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
             }
 
             item.autoReuse = true;
@@ -51,7 +49,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientBlade_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientBlade_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -78,7 +76,7 @@ namespace QwertysRandomContent.Items.AncientItems
                                                                                                                 // If you want to randomize the speed to stagger the projectiles
                 float scale = 1f - (Main.rand.NextFloat() * .3f);
                 perturbedSpeed = perturbedSpeed * scale;
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI, 35 + Main.rand.Next(10));
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
@@ -93,16 +91,12 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             Main.projFrames[projectile.type] = 2;
             DisplayName.SetDefault("Ancient Orb");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/AncientItems/Old/AncientOrb_Old");
-            }
+           
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
-            projectile.aiStyle = 1;
-            aiType = ProjectileID.Bullet;
             projectile.width = 20;
             projectile.height = 20;
             projectile.friendly = true;
@@ -118,10 +112,15 @@ namespace QwertysRandomContent.Items.AncientItems
         public int dustTimer;
         public override void AI()
         {
+            if(projectile.ai[0] != 0)
+            {
+                projectile.timeLeft = (int)projectile.ai[0];
+                projectile.ai[0] = 0;
+            }
             if (projectile.alpha > 0)
             {
                 //projectile.alpha -= (int)(255f / 180f);
-                projectile.alpha -= 4;
+                projectile.alpha -= 12;
             }
             else
             {

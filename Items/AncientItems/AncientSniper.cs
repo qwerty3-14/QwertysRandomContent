@@ -13,12 +13,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Sniper");
             Tooltip.SetDefault("Harness the ancient power of sniping" + "\nRight click to zoom");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientSniper_Old");
-            }
+            
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 48;
@@ -33,7 +31,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.UseSound = SoundID.Item11;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientSniper_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientSniper_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientSniper_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientSniper_Glow");
             }
             item.GetGlobalItem<ItemUseGlow>().glowOffsetX = -26;
             item.GetGlobalItem<ItemUseGlow>().glowOffsetY = -2;
@@ -50,7 +48,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientSniper_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientSniper_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientSniper_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientSniper_Glow");
             spriteBatch.Draw
             (
                 texture,

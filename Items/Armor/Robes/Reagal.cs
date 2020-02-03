@@ -82,7 +82,6 @@ namespace QwertysRandomContent.Items.Armor.Robes
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if ((drawPlayer.legs == mod.GetEquipSlot("DuelistPants_FemaleLegs", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && !drawPlayer.Male) || (drawPlayer.legs == mod.GetEquipSlot("ConduitRobes_Female", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.shoe == mod.GetEquipSlot("HighHeels", EquipType.Shoes)) || (drawPlayer.legs == mod.GetEquipSlot("TwistedDarkLegs_FemaleLegs", EquipType.Legs)))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/HeelLegs");
@@ -97,15 +96,11 @@ namespace QwertysRandomContent.Items.Armor.Robes
         });
         public static readonly PlayerLayer ReagalLegsGold = new PlayerLayer("QwertysRandomContent", "ReagalLegsGold", PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
 
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Legs_Gold");
@@ -124,14 +119,10 @@ namespace QwertysRandomContent.Items.Armor.Robes
         });
         public static readonly PlayerLayer ReagalBodyGold = new PlayerLayer("QwertysRandomContent", "ReagalBodyGold", PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+           
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Body_Gold");
@@ -147,15 +138,10 @@ namespace QwertysRandomContent.Items.Armor.Robes
         });
         public static readonly PlayerLayer ReagalCape = new PlayerLayer("QwertysRandomContent", "ReagalCape", PlayerLayer.BackAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+           
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
-            //Main.NewText(drawPlayer.wings);
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && drawPlayer.back == -1 && drawPlayer.wings == 0)
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalCape");
@@ -171,14 +157,10 @@ namespace QwertysRandomContent.Items.Armor.Robes
         });
         public static readonly PlayerLayer ReagalArmsGold = new PlayerLayer("QwertysRandomContent", "ReagalArmsGold", PlayerLayer.Arms, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Arms_Gold");
@@ -190,14 +172,10 @@ namespace QwertysRandomContent.Items.Armor.Robes
         });
         public static readonly PlayerLayer ReagalGloveF = new PlayerLayer("QwertysRandomContent", "ReagalGloveF", PlayerLayer.HandOnAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalGloveF");
@@ -214,14 +192,10 @@ namespace QwertysRandomContent.Items.Armor.Robes
 
         public static readonly PlayerLayer ReagalGloveB = new PlayerLayer("QwertysRandomContent", "ReagalGloveB", PlayerLayer.HandOffAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalGloveB");

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -84,7 +85,11 @@ namespace QwertysRandomContent.NPCs.Fortress
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteFlask"), 1);
             }
         }
-
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return preSetTimer <= 0;
+        }
+       
         int timer;
         bool drawLine;
         bool alternateColor;
@@ -93,10 +98,13 @@ namespace QwertysRandomContent.NPCs.Fortress
         float gunShift = -5.5f;
         float gunShiftUp = 11.5f;
         float aimDirection;
+        int preSetTimer = 120;
         public override void AI()
         {
-
+            
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
+
+            npc.dontTakeDamage = false;
             if (npc.ai[0] == 0f)
             {
                 npc.TargetClosest(true);
@@ -122,163 +130,165 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
 
             }
-            shootFrom = npc.Center + QwertyMethods.PolarVector(gunShift, npc.rotation) * -startDirection + QwertyMethods.PolarVector(gunShiftUp, npc.rotation - (float)Math.PI / 2);
-            int speed = 2;
-            if (npc.ai[1] == 0f)
+            if (preSetTimer > 0)
             {
-                //npc.rotation += (float)(npc.direction * npc.directionY) * 0.13f;
-                if (npc.collideY)
-                {
-                    npc.ai[0] = 2f;
-                }
-                if (!npc.collideY && npc.ai[0] == 2f)
-                {
-                    npc.direction = -npc.direction;
-                    npc.ai[1] = 1f;
-                    npc.ai[0] = 1f;
-                }
-                if (npc.collideX)
-                {
-                    npc.directionY = -npc.directionY;
-                    npc.ai[1] = 1f;
-                }
+                preSetTimer--;
+                npc.dontTakeDamage = true;
+                npc.velocity = Vector2.Zero;
+                float d = Main.rand.NextFloat() * (float)Math.PI * 2;
+                Dust dusty = Dust.NewDustPerfect(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)) + QwertyMethods.PolarVector(30f, d + (float)Math.PI), mod.DustType("FortressDust"), QwertyMethods.PolarVector(3f, d), Scale: .5f);
+                dusty.noGravity = true;
             }
             else
             {
-                //npc.rotation -= (float)(npc.direction * npc.directionY) * 0.13f;
-                if (npc.collideX)
+                shootFrom = npc.Center + QwertyMethods.PolarVector(gunShift, npc.rotation) * -startDirection + QwertyMethods.PolarVector(gunShiftUp, npc.rotation - (float)Math.PI / 2);
+                int speed = 2;
+                if (npc.ai[1] == 0f)
                 {
-                    npc.ai[0] = 2f;
-                }
-                if (!npc.collideX && npc.ai[0] == 2f)
-                {
-                    npc.directionY = -npc.directionY;
-                    npc.ai[1] = 0f;
-                    npc.ai[0] = 1f;
-                }
-                if (npc.collideY)
-                {
-                    npc.direction = -npc.direction;
-                    npc.ai[1] = 0f;
-                }
-            }
-            //npc.TargetClosest(true);
-            Player player = Main.player[npc.target];
-            if (Collision.CanHit(shootFrom, 0, 0, player.Center, 0, 0) && (player.Center - npc.Center).Length() < 1000)
-            {
-                npc.velocity.X = 0;
-                npc.velocity.Y = 0;
-                aimDirection = (player.Center - npc.Center).ToRotation();
-                timer++;
-                if (timer > 180)
-                {
-
-
-                    float shootSpeed = 24;
-
-                    Projectile.NewProjectile(shootFrom.X, shootFrom.Y, (float)Math.Cos(aimDirection) * shootSpeed, (float)Math.Sin(aimDirection) * shootSpeed, mod.ProjectileType("MollusketSnipe"), 15, 0, player.whoAmI);
-                    timer = 0;
-                }
-                if (timer > 60)
-                {
-                    alternateColor = true;
+                    //npc.rotation += (float)(npc.direction * npc.directionY) * 0.13f;
+                    if (npc.collideY)
+                    {
+                        npc.ai[0] = 2f;
+                    }
+                    if (!npc.collideY && npc.ai[0] == 2f)
+                    {
+                        npc.direction = -npc.direction;
+                        npc.ai[1] = 1f;
+                        npc.ai[0] = 1f;
+                    }
+                    if (npc.collideX)
+                    {
+                        npc.directionY = -npc.directionY;
+                        npc.ai[1] = 1f;
+                    }
                 }
                 else
                 {
-                    alternateColor = false;
+                    //npc.rotation -= (float)(npc.direction * npc.directionY) * 0.13f;
+                    if (npc.collideX)
+                    {
+                        npc.ai[0] = 2f;
+                    }
+                    if (!npc.collideX && npc.ai[0] == 2f)
+                    {
+                        npc.directionY = -npc.directionY;
+                        npc.ai[1] = 0f;
+                        npc.ai[0] = 1f;
+                    }
+                    if (npc.collideY)
+                    {
+                        npc.direction = -npc.direction;
+                        npc.ai[1] = 0f;
+                    }
                 }
-                if (timer > 30)
+                //npc.TargetClosest(true);
+                Player player = Main.player[npc.target];
+                if (Collision.CanHit(shootFrom, 0, 0, player.Center, 0, 0) && (player.Center - npc.Center).Length() < 1000)
                 {
-                    drawLine = true;
+                    npc.velocity.X = 0;
+                    npc.velocity.Y = 0;
+                    aimDirection = (player.Center - npc.Center).ToRotation();
+                    timer++;
+                    if (timer > 180)
+                    {
+
+
+                        float shootSpeed = 24;
+
+                        Projectile.NewProjectile(shootFrom.X, shootFrom.Y, (float)Math.Cos(aimDirection) * shootSpeed, (float)Math.Sin(aimDirection) * shootSpeed, mod.ProjectileType("MollusketSnipe"), 15, 0, player.whoAmI);
+                        timer = 0;
+                    }
+                    if (timer > 60)
+                    {
+                        alternateColor = true;
+                    }
+                    else
+                    {
+                        alternateColor = false;
+                    }
+                    if (timer > 30)
+                    {
+                        drawLine = true;
+                    }
+                    else
+                    {
+                        drawLine = false;
+                    }
+
                 }
                 else
                 {
+
                     drawLine = false;
+                    alternateColor = false;
+                    timer = 0;
+                    npc.velocity.X = (float)(speed * npc.direction);
+                    npc.velocity.Y = (float)(speed * npc.directionY);
+                    npc.rotation = npc.velocity.ToRotation();
+                    npc.rotation += (float)Math.PI / 4 * startDirection;
+                    aimDirection = npc.rotation;
+                    /*
+                    if(npc.velocity.X >0 && npc.velocity.Y >0)
+                    {
+                        npc.rotation = 0;
+                    }
+                    else if(npc.velocity.X < 0 && npc.velocity.Y > 0)
+                    {
+                        npc.rotation = (float)Math.PI;
+                    }
+                    else if (npc.velocity.X > 0 && npc.velocity.Y < 0)
+                    {
+                        npc.rotation = (float)Math.PI;
+                    }
+                    else if (npc.velocity.X < 0 && npc.velocity.Y < 0)
+                    {
+                        npc.rotation = (float)Math.PI;
+                    }
+                    */
+                    //npc.spriteDirection = npc.direction;
+
                 }
 
-            }
-            else
-            {
+                float num281 = (float)(270 - (int)Main.mouseTextColor) / 400f;
 
-                drawLine = false;
-                alternateColor = false;
-                timer = 0;
-                npc.velocity.X = (float)(speed * npc.direction);
-                npc.velocity.Y = (float)(speed * npc.directionY);
-                npc.rotation = npc.velocity.ToRotation();
-                npc.rotation += (float)Math.PI / 4 * startDirection;
-                aimDirection = npc.rotation;
-                /*
-                if(npc.velocity.X >0 && npc.velocity.Y >0)
+                npc.oldVelocity = npc.velocity;
+                npc.collideX = false;
+                npc.collideY = false;
+                Vector2 position = npc.Center;
+                int num = 12;
+                int num2 = 12;
+                position.X -= (float)(num / 2);
+                position.Y -= (float)(num2 / 2);
+                npc.velocity = Collision.noSlopeCollision(position, npc.velocity, num, num2, true, true);
+                if (npc.oldVelocity.X != npc.velocity.X)
                 {
-                    npc.rotation = 0;
+                    npc.collideX = true;
                 }
-                else if(npc.velocity.X < 0 && npc.velocity.Y > 0)
+                if (npc.oldVelocity.Y != npc.velocity.Y)
                 {
-                    npc.rotation = (float)Math.PI;
+                    npc.collideY = true;
                 }
-                else if (npc.velocity.X > 0 && npc.velocity.Y < 0)
-                {
-                    npc.rotation = (float)Math.PI;
-                }
-                else if (npc.velocity.X < 0 && npc.velocity.Y < 0)
-                {
-                    npc.rotation = (float)Math.PI;
-                }
-                */
-                //npc.spriteDirection = npc.direction;
-
+                //Lighting.AddLight((int)(npc.position.X + (float)(npc.width / 2)) / 16, (int)(npc.position.Y + (float)(npc.height / 2)) / 16, 0.9f, 0.3f + num281, 0.2f);
+                return;
             }
-
-            float num281 = (float)(270 - (int)Main.mouseTextColor) / 400f;
-
-            npc.oldVelocity = npc.velocity;
-            npc.collideX = false;
-            npc.collideY = false;
-            Vector2 position = npc.Center;
-            int num = 12;
-            int num2 = 12;
-            position.X -= (float)(num / 2);
-            position.Y -= (float)(num2 / 2);
-            npc.velocity = Collision.noSlopeCollision(position, npc.velocity, num, num2, true, true);
-            if (npc.oldVelocity.X != npc.velocity.X)
-            {
-                npc.collideX = true;
-            }
-            if (npc.oldVelocity.Y != npc.velocity.Y)
-            {
-                npc.collideY = true;
-            }
-            //Lighting.AddLight((int)(npc.position.X + (float)(npc.width / 2)) / 16, (int)(npc.position.Y + (float)(npc.height / 2)) / 16, 0.9f, 0.3f + num281, 0.2f);
-            return;
         }
         int colorCounter;
         Color lineColor;
         float distance;
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            Texture2D texture = mod.GetTexture("NPCs/Fortress/Crawler");
-            spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler"), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
+            if (preSetTimer > 0)
+            {
+                return;
+            }
+            Texture2D texture = mod.GetTexture("NPCs/Fortress/Crawler" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : "") );
+            spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : "")), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
                        npc.frame, drawColor, npc.rotation,
                        new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, 0, 0f);
             Player player = Main.player[npc.target];
 
 
-            /*
-                if (distance < 10000f && !target.friendly && target.active && !target.immortal && timer >= 480)
-                {
-                    drawLine = true;
-                    alternateColor = true;
-                }
-                else if (distance < 10000f && !target.friendly && target.active && !target.immortal && timer >= 120)
-                {
-                    drawLine = true;
-                }
-                else
-                {
-                    drawLine = false;
-                }
-                */
+            
 
 
             if (alternateColor)
@@ -323,24 +333,16 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
 
             drawLine = false;
-            spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler_Turret"), new Vector2(shootFrom.X - Main.screenPosition.X, shootFrom.Y - Main.screenPosition.Y + 2f),
+            spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler_Turret" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : "")), new Vector2(shootFrom.X - Main.screenPosition.X, shootFrom.Y - Main.screenPosition.Y + 2f),
                         new Rectangle(0, 0, 28, 14), drawColor, aimDirection,
                         new Vector2(5, 9), 1f, 0, 0f);
+
+            
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
 
-
-
-
-
-
-
-
-
             return false;
-
-
         }
     }
     public class MollusketSnipe : ModProjectile

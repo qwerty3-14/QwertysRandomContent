@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Config;
 using System;
 using Terraria;
@@ -16,12 +17,9 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             DisplayName.SetDefault("Enchanted Tile");
             Main.npcFrameCount[npc.type] = 4;
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/Fortress/Hopper_Classic");
-            }
+            
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
             npc.width = 32;
@@ -72,6 +70,14 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
 
         }
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return preSetTimer <= 0;
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            return preSetTimer <= 0;
+        }
         public override void NPCLoot()
         {
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(2, 5));
@@ -95,6 +101,8 @@ namespace QwertysRandomContent.NPCs.Fortress
         float gravity = .3f;
         bool runOnce = true;
         bool flipped = false;
+        int preSetTimer = 120;
+        bool spawnChildren = false;
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
@@ -103,12 +111,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                 switch (Main.rand.Next(3))
                 {
                     case 0:
-
-                        int children = Main.rand.Next(3);
-                        for (int i = 0; i < children; i++)
-                        {
-                            NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile"));
-                        }
+                        spawnChildren = true;
+                        
                         break;
                     case 1:
                         Point origin = npc.Center.ToTileCoordinates();
@@ -147,107 +151,129 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
                 runOnce = false;
             }
-            if (frame == 0)
+            if (preSetTimer > 0)
             {
+                preSetTimer--;
                 npc.dontTakeDamage = true;
-            }
-            else
-            {
-                npc.dontTakeDamage = false;
-            }
-            if (flipped)
-            {
-                gravity = 0f;
-                npc.rotation = (float)Math.PI;
-                Player player = Main.player[npc.target];
-                npc.TargetClosest(true);
-                if (Collision.CheckAABBvLineCollision(player.position, player.Size, npc.Center, npc.Center + new Vector2(0, 1000)) && Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0))
+                npc.velocity = Vector2.Zero;
+                float d = Main.rand.NextFloat() * (float)Math.PI * 2;
+                Dust dusty = Dust.NewDustPerfect(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)) + QwertyMethods.PolarVector(30f, d + (float)Math.PI), mod.DustType("FortressDust"), QwertyMethods.PolarVector(3f, d), Scale: .5f);
+                dusty.noGravity = true;
+                if(preSetTimer==0 && spawnChildren)
                 {
-                    flipped = false;
-                    timer = 63;
-                    jump = true;
-                    npc.velocity.Y = 9;
-                }
-            }
-            else
-            {
-
-                npc.rotation = 0f;
-                gravity = .3f;
-                float worldSizeModifier = (float)(Main.maxTilesX / 4200);
-                worldSizeModifier *= worldSizeModifier;
-                //small =1
-                //medium =2.25
-                //large =4
-                float num2 = (float)((double)(npc.position.Y / 16f - (60f + 10f * worldSizeModifier)) / (Main.worldSurface / 6.0));
-                if ((double)num2 < 0.25)
-                {
-                    num2 = 0.25f;
-                }
-                if (num2 > 1f)
-                {
-                    num2 = 1f;
-                }
-                gravity *= num2;
-                jumpSpeedY = gravity * -35;
-                //Main.NewText("gravity: " +gravity);
-                //Main.NewText("jump: " +jumpSpeedY);
-                Player player = Main.player[npc.target];
-                npc.TargetClosest(true);
-                //Main.NewText(Math.Abs(player.Center.X - npc.Center.X));
-                if (Math.Abs(player.Center.X - npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
-                {
-                    jumpSpeedX = Math.Abs(player.Center.X - npc.Center.X) / 70 * (npc.confused ? -1 : 1);
-                    timer++;
-                    if (timer > 30)
+                    int children = Main.rand.Next(3);
+                    for (int i = 0; i < children; i++)
                     {
-                        frame = 3;
-                        if (!jump)
-                        {
+                        NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-40, 41), (int)npc.Center.Y, mod.NPCType("YoungTile"));
+                    }
+                }
+            }
+            else
+            {
 
-                            if (player.Center.X > npc.Center.X)
+
+                if (frame == 0)
+                {
+                    npc.dontTakeDamage = true;
+                }
+                else
+                {
+                    npc.dontTakeDamage = false;
+                }
+                if (flipped)
+                {
+                    gravity = 0f;
+                    npc.rotation = (float)Math.PI;
+                    Player player = Main.player[npc.target];
+                    npc.TargetClosest(true);
+                    if (Collision.CheckAABBvLineCollision(player.position, player.Size, npc.Center, npc.Center + new Vector2(0, 1000)) && Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0))
+                    {
+                        flipped = false;
+                        timer = 63;
+                        jump = true;
+                        npc.velocity.Y = 9;
+                    }
+                }
+                else
+                {
+
+                    npc.rotation = 0f;
+                    gravity = .3f;
+                    float worldSizeModifier = (float)(Main.maxTilesX / 4200);
+                    worldSizeModifier *= worldSizeModifier;
+                    //small =1
+                    //medium =2.25
+                    //large =4
+                    float num2 = (float)((double)(npc.position.Y / 16f - (60f + 10f * worldSizeModifier)) / (Main.worldSurface / 6.0));
+                    if ((double)num2 < 0.25)
+                    {
+                        num2 = 0.25f;
+                    }
+                    if (num2 > 1f)
+                    {
+                        num2 = 1f;
+                    }
+                    gravity *= num2;
+                    jumpSpeedY = gravity * -35;
+                    //Main.NewText("gravity: " +gravity);
+                    //Main.NewText("jump: " +jumpSpeedY);
+                    Player player = Main.player[npc.target];
+                    npc.TargetClosest(true);
+                    //Main.NewText(Math.Abs(player.Center.X - npc.Center.X));
+                    if (Math.Abs(player.Center.X - npc.Center.X) < aggroDistance && Math.Abs(player.Bottom.Y - npc.Bottom.Y) < aggroDistanceY)
+                    {
+                        jumpSpeedX = Math.Abs(player.Center.X - npc.Center.X) / 70 * (npc.confused ? -1 : 1);
+                        timer++;
+                        if (timer > 30)
+                        {
+                            frame = 3;
+                            if (!jump)
                             {
-                                npc.velocity.X = jumpSpeedX;
-                                npc.velocity.Y = jumpSpeedY;
+
+                                if (player.Center.X > npc.Center.X)
+                                {
+                                    npc.velocity.X = jumpSpeedX;
+                                    npc.velocity.Y = jumpSpeedY;
+                                }
+                                else
+                                {
+                                    npc.velocity.X = -jumpSpeedX;
+                                    npc.velocity.Y = jumpSpeedY;
+                                }
+                                jump = true;
                             }
-                            else
-                            {
-                                npc.velocity.X = -jumpSpeedX;
-                                npc.velocity.Y = jumpSpeedY;
-                            }
-                            jump = true;
+                        }
+                        else if (timer > 20)
+                        {
+                            frame = 1;
+                        }
+                        else if (timer > 10)
+                        {
+                            frame = 2;
+                        }
+                        else
+                        {
+                            frame = 1;
                         }
                     }
-                    else if (timer > 20)
+                    else if (!jump)
                     {
-                        frame = 1;
+                        frame = 0;
+                        timer = 0;
                     }
-                    else if (timer > 10)
+                    if (npc.collideX)
                     {
-                        frame = 2;
+                        npc.velocity.X *= -1;
                     }
-                    else
+                    if (timer > 62 && npc.collideY)
                     {
-                        frame = 1;
+                        npc.velocity.X = 0;
+                        npc.velocity.Y = 0;
+                        jump = false;
+                        timer = 0;
                     }
+                    npc.velocity.Y += gravity;
                 }
-                else if (!jump)
-                {
-                    frame = 0;
-                    timer = 0;
-                }
-                if (npc.collideX)
-                {
-                    npc.velocity.X *= -1;
-                }
-                if (timer > 62 && npc.collideY)
-                {
-                    npc.velocity.X = 0;
-                    npc.velocity.Y = 0;
-                    jump = false;
-                    timer = 0;
-                }
-                npc.velocity.Y += gravity;
             }
         }
         public override void FindFrame(int frameHeight)

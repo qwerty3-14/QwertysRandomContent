@@ -30,10 +30,7 @@ namespace QwertysRandomContent
     {
         public static readonly PlayerLayer ItemUseGlow = new PlayerLayer("QwertysRandomContent", "ItemUseGlow", PlayerLayer.HeldItem, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+           
 
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");

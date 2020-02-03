@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             DisplayName.SetDefault("Oversized Laser-emitting Obliteration Radiation-emitting Destroyer");
             Main.npcFrameCount[npc.type] = 2;
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             npc.width = 320;
@@ -671,7 +672,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             if (activeWalls)
             {
-                Texture2D Walls = mod.GetTexture("NPCs/BossFour/SideLaser");
+                Texture2D Walls = mod.GetTexture("NPCs/BossFour/SideLaser" + (ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? "_Old" : ""));
                 for (int h = 0; h < 20; h++)
                 {
                     spriteBatch.Draw(Walls, new Vector2(npc.Center.X + laserDistanceFromCenter, npc.position.Y + 50 + h * 188) - Main.screenPosition,
@@ -682,7 +683,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                                    new Vector2(316 * .5f, 188 * .5f), npc.scale, SpriteEffects.None, 0f);
                 }
             }
-            Texture2D BK = mod.GetTexture("NPCs/BossFour/BackGround");
+            Texture2D BK = mod.GetTexture("NPCs/BossFour/BackGround" + (ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? "_Old" : ""));
             float backgroundOffset = 100f; //70 for old
             spriteBatch.Draw(BK, new Vector2(npc.Center.X, npc.position.Y - (backgroundOffset * npc.scale)) - Main.screenPosition,
                           BK.Frame(), drawColor, npc.rotation,
@@ -695,7 +696,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             for (int t = 0; t < turret.Length; t++)
             {
-                spriteBatch.Draw(mod.GetTexture("NPCs/BossFour/Turret"), npc.Center + turretPos[t] * npc.scale - Main.screenPosition,
+                spriteBatch.Draw(mod.GetTexture("NPCs/BossFour/Turret" + (ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? "_Old" : "")), npc.Center + turretPos[t] * npc.scale - Main.screenPosition,
                            new Rectangle(0, (int)turret[t].Y * 78, 142, 78), drawColor, turret[t].X,
                            new Vector2(142 * 0.5f, 78 * 0.5f), npc.scale, SpriteEffects.None, 0f);
             }

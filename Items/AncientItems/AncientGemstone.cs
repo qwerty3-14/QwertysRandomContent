@@ -14,13 +14,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Gemstone");
             Tooltip.SetDefault("Halves you max health but avoiding damge for 5 sec after being hit will fully heal you");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientGemstone_Old");
-            }
+            
 
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -39,7 +36,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientGemstone_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientGemstone_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientGemstone_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientGemstone_Glow");
             spriteBatch.Draw
             (
                 texture,

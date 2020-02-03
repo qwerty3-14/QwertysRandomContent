@@ -14,12 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Boomerang");
             Tooltip.SetDefault("Hold down the throw button to make it fly further" + "\nRight click to make the boomerang stationary");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumArrow_Old");
-            }
+            
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 30;
@@ -85,12 +83,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("RhuthiniumBoomerang");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
-            {
-                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumBoomerangP_Old");
-            }
+            
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public int timer;
         public bool runOnce = true;
         public int spinDirection;

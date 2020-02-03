@@ -12,12 +12,9 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Dnas Painted Fortress Brick");
             Tooltip.SetDefault("The underside of the brick is painted with Dnas you know what will happen if you bonk your head on it...");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/DnasBrick_Classic");
-            }
+           
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
 

@@ -12,12 +12,9 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Caelite Pulse Trap");
             Tooltip.SetDefault("Shoots 2 pulses");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/FortressTrap_Classic");
-            }
+            
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
 

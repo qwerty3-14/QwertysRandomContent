@@ -32,7 +32,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.thrownDamage += .2f;
             player.thrownVelocity += .2f;

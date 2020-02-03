@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
             item.rare = 1;
             item.width = 22;
             item.height = 14;
-            item.defense = 4;
+            item.defense = 3;
         }
 
         public override void UpdateEquip(Player player)

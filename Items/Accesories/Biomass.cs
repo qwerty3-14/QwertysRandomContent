@@ -21,15 +21,9 @@ namespace QwertysRandomContent.Items.Accesories
 
             item.value = 10000;
             item.rare = 1;
-
-
             item.width = 24;
             item.height = 24;
-
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

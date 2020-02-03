@@ -14,12 +14,9 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             Tooltip.SetDefault("Summons The Ancient Machine");
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientEmblem_Old");
-            }
+           
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.width = 22;
@@ -33,12 +30,12 @@ namespace QwertysRandomContent.Items.AncientItems
             item.consumable = true;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientEmblem_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientEmblem_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientEmblem_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientEmblem_Glow");
             }
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientEmblem_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientEmblem_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientEmblem_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientEmblem_Glow");
             spriteBatch.Draw
             (
                 texture,

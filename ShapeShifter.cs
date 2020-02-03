@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Items.Etims;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,6 +41,8 @@ namespace QwertysRandomContent
         public bool hovercraft = false;
         public bool TwistedDarkSetBonus = false;
         bool healMe = false;
+        public bool drawGodOfBlasphemy = false;
+        public float pulseCounter = 0f;
         public override void ResetEffects()
         {
             ResetVariables();
@@ -87,6 +90,7 @@ namespace QwertysRandomContent
             }
             glassCannon = false;
             drawTankCannon = false;
+            drawGodOfBlasphemy = false;
             hovercraft = false;
             morphDamage = 1f;
             morphed = false;
@@ -106,7 +110,7 @@ namespace QwertysRandomContent
         }
         public override void PreUpdate()
         {
-
+            pulseCounter += (float)Math.PI / 30;
             //player.gravControl2 = true;
             if (healMe)
             {
@@ -158,6 +162,7 @@ namespace QwertysRandomContent
                 morphCrit += crits[smallest] - 4;
             }
         }
+
         public static readonly PlayerLayer TankCannon = new PlayerLayer("QwertysRandomContent", "TankCannon", PlayerLayer.MountBack, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -215,6 +220,37 @@ namespace QwertysRandomContent
                     drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
                     new Vector2(4, 4),
                     1f,
+                    0,
+                    0);
+                value.shader = drawPlayer.miscDyes[3].dye;
+                Main.playerDrawData.Add(value);
+            }
+            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy)
+            {
+                
+                
+                Texture2D texture = mod.GetTexture("Items/Etims/Back");
+                DrawData value = new DrawData(texture,
+                    drawPlayer.Center - Main.screenPosition,
+                    null,
+                    color12,
+                    0,
+                    texture.Size()*.5f,
+                    drawPlayer.GetModPlayer<MorphFlightControl>().scale,
+                    0,
+                    0);
+                value.shader = drawPlayer.miscDyes[3].dye;
+                Main.playerDrawData.Add(value);
+
+
+                texture = mod.GetTexture("Items/Etims/Pupil");
+                value = new DrawData(texture,
+                    drawPlayer.Center + drawPlayer.GetModPlayer<MorphFlightControl>().pupilPosition - Main.screenPosition ,
+                    null,
+                    color12,
+                    0,
+                    texture.Size() * .5f,
+                    drawPlayer.GetModPlayer<MorphFlightControl>().scale,
                     0,
                     0);
                 value.shader = drawPlayer.miscDyes[3].dye;

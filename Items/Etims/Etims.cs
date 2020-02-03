@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
 {
@@ -8,7 +9,7 @@ namespace QwertysRandomContent.Items.Etims
         {
             DisplayName.SetDefault("Etims");
             Tooltip.SetDefault("Forged from the blood of those slain by gods!");
-
+            ItemID.Sets.ItemNoGravity[item.type] = true;
         }
         public override void SetDefaults()
         {

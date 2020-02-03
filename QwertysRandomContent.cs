@@ -591,6 +591,23 @@ namespace QwertysRandomContent
             text = CreateTranslation("DisableModdedPrefixesTooltip");
             text.SetDefault("Disables the prefixes added by this mod from being forged or generated. Won't remove prefixes already on items.");
             AddTranslation(text);
+
+            text = CreateTranslation("ClassicOLORDConfigLabel");
+            text.SetDefault("Havoc's OLORD");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicOLORDConfigTooltip");
+            text.SetDefault("Uses the origonal O.L.O.R.D. sprite Olord!");
+            AddTranslation(text);
+
+
+            text = CreateTranslation("ClassicGunChakramConfigLabel");
+            text.SetDefault("Old gun charkram");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicGunChakramConfigTooltip");
+            text.SetDefault("Uses the origonal gun charkram sprite");
+            AddTranslation(text);
             #endregion
 
             AddBossHeadTexture(AncientMachineHead);

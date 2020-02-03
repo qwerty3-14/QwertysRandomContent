@@ -67,7 +67,7 @@ namespace QwertysRandomContent.Items.B4Items
 
 
             player.QuickSpawnItem(73, 60);
-            if (Main.rand.Next(99) < 15)
+            if (Main.rand.Next(99) < 30)
             {
                 int devItemSelect = Main.rand.Next(6);
 

@@ -12,12 +12,9 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Lance");
             Tooltip.SetDefault("Killing enemies builds up a charge. Right click to realease this charge.");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumLance_Old");
-            }
+           
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 18;
@@ -54,11 +51,9 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Lance");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
-            {
-                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumLanceP_Old");
-            }
+            
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
         {

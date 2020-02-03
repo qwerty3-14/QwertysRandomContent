@@ -14,12 +14,9 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             DisplayName.SetDefault("Ancient Minion");
             Main.npcFrameCount[npc.type] = 1;
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/AncientMachine/AncientMinion_Old");
-            }
+            
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             npc.width = 42;

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -14,6 +15,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -58,6 +60,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -119,6 +122,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 

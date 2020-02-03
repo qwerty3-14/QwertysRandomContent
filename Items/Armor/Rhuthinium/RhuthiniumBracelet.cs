@@ -1,3 +1,5 @@
+using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +13,12 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Bracelet");
             Tooltip.SetDefault("Many have tried to find any effect wearing this... none have found any");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumBracelet_Old");
+                Main.accHandsOnTexture[item.handOnSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumBracelet_HandsOn_Old");
+                Main.accHandsOffTexture[item.handOffSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumBracelet_HandsOff_Old");
+            }
         }
 
         public override void SetDefaults()

@@ -13,12 +13,9 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             DisplayName.SetDefault("Guard Tile");
             Main.npcFrameCount[npc.type] = 8;
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/Fortress/GuardTile_Classic");
-            }
+           
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
             npc.width = 64;

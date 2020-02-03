@@ -9,9 +9,7 @@ namespace QwertysRandomContent.Dusts
         public override void OnSpawn(Dust dust)
         {
             dust.noGravity = true;
-
             dust.scale = 1f;
-
         }
         public override bool Update(Dust dust)
         {

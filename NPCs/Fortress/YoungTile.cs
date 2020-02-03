@@ -16,12 +16,9 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             DisplayName.SetDefault("Young Tile");
             Main.npcFrameCount[npc.type] = 4;
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.npcTexture[npc.type] = mod.GetTexture("NPCs/Fortress/YoungTile_Classic");
-            }
+           
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
             npc.width = 16;
@@ -29,7 +26,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.aiStyle = -1;
             npc.damage = 28;
             npc.defense = 18;
-            npc.lifeMax = 80;
+            npc.lifeMax = 30;
             npc.value = 50;
             //npc.alpha = 100;
             //npc.behindTiles = true;

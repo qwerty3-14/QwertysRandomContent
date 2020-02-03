@@ -41,16 +41,6 @@ namespace QwertysRandomContent.Items.B4Items
             //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("BossFour"));
             NPC npc = Main.npc[NPC.NewNPC((int)(player.position.X), (int)(player.position.Y - 3000), mod.NPCType("OLORDv2"))];
 
-            //NPC.NewNPC((int)(npc.position.X), (int)(npc.position.Y), mod.NPCType("Turret"), 0, 0, 0, npc.whoAmI, 1);
-            //NPC.NewNPC((int)(npc.position.X), (int)(npc.position.Y), mod.NPCType("Turret"), 0, 0, 0, npc.whoAmI, 2);
-            //NPC.NewNPC((int)(npc.position.X), (int)(npc.position.Y), mod.NPCType("Turret"), 0, 0, 0, npc.whoAmI, 3);
-            // NPC.NewNPC((int)(npc.position.X), (int)(npc.position.Y), mod.NPCType("Turret"), 0, 0, 0, npc.whoAmI, 4);
-
-
-            // NPC.NewNPC((int)(npc.position.X), (int)(npc.position.Y), mod.NPCType("WeakPoint"), 0, 0, npc.whoAmI, 1);
-
-            // NPC.NewNPC((int)(npc.position.X), (int)(npc.position.Y), mod.NPCType("BackGround"), 0, 0, 0, npc.whoAmI, 1);
-
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

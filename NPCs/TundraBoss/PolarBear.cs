@@ -59,6 +59,11 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             }
             else
             {
+                if (Main.rand.Next(7) == 0)
+                {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PolarMask"));
+                }
+                    
                 switch (Main.rand.Next(3))
                 {
                     case 0:
@@ -73,6 +78,10 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
                 }
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.Penguin, Main.rand.Next(35, 61));
+            }
+            if (Main.rand.Next(0, 10)==0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PolarTrophy"));
             }
 
         }

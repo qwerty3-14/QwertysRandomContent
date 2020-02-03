@@ -11,12 +11,9 @@ namespace QwertysRandomContent.Items
         {
             DisplayName.SetDefault("Dnas Transmutator");
             Tooltip.SetDefault("Sand placed on top of this will be turned into dnas over time");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/DnasTransmutator_Classic");
-            }
+            
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
 

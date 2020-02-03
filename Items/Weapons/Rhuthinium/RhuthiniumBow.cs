@@ -11,12 +11,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Bow");
             Tooltip.SetDefault("");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumBow_Old");
-            }
+           
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 31;

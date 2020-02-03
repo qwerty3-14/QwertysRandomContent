@@ -25,7 +25,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
             item.width = 26;
             item.height = 16;
-            item.defense = 5;
+            item.defense = 3;
 
 
 

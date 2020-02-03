@@ -30,7 +30,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
 
             player.GetModPlayer<MinionBookEffect>().effect = true;

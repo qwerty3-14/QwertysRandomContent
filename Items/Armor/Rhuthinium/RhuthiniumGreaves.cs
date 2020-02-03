@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +14,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             if (!Main.dedServ)
             {
                 // Add the female leg variant
-                mod.AddEquipTexture(null, EquipType.Legs, "RhuthiniumGreaves_Female", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_FemaleLegs");
+                mod.AddEquipTexture(null, EquipType.Legs, "RhuthiniumGreaves_Female", "QwertysRandomContent/Items/Armor/Rhuthinium/RhuthiniumGreaves_FemaleLegs" + (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? "_Old" : ""));
             }
             return true;
 
@@ -24,7 +25,11 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Greaves");
             Tooltip.SetDefault("Lets you dash (4 dash power)" + "\n10% chance not to consume ammo" + "\n15% reduced mana usage" + "\n+60 mana" + "\n20% chance not to consume thrown items");
-
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
+            {
+                Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumGreaves_Old");
+                Main.armorLegTexture[item.legSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumGreaves_Legs_Old");
+            }
         }
 
 
@@ -37,7 +42,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 
             item.width = 22;
             item.height = 18;
-            item.defense = 4;
+            item.defense = 3;
 
 
 

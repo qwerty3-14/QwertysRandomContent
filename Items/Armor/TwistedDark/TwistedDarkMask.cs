@@ -54,7 +54,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
-                b += .125f;
+                b += .05f;
                 if (b > 30)
                 {
                     b = 30;

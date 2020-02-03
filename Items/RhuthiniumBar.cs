@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items
         {
             DisplayName.SetDefault("Rhuthinium Bar");
             Tooltip.SetDefault("");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
+            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
             {
                 Main.itemTexture[item.type] = mod.GetTexture("Items/RhuthiniumBar_Old");
             }

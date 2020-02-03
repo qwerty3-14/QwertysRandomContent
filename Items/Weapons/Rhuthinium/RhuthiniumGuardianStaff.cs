@@ -16,12 +16,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             DisplayName.SetDefault("Rhuthinium Guardian Staff");
             Tooltip.SetDefault("Summons an extremely slow guardian to shoot at your enemies");
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(38, 2));
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardianStaff_Old");
-            }
+           
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
         {

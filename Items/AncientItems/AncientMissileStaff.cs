@@ -15,11 +15,9 @@ namespace QwertysRandomContent.Items.AncientItems
             DisplayName.SetDefault("Ancient Missile Staff");
             Tooltip.SetDefault("Fires explosive Ancient Missiles!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMissileStaff_Old");
-            }
+            
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 32;
@@ -37,7 +35,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.height = 72;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMissileStaff_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow");
             }
             item.mana = 7;
             item.shoot = mod.ProjectileType("AncientMissileP");
@@ -68,7 +66,7 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMissileStaff_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -95,11 +93,9 @@ namespace QwertysRandomContent.Items.AncientItems
             DisplayName.SetDefault("Ancient Missile");
 
             Main.projFrames[projectile.type] = 2;
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.projectileTexture[projectile.type] = mod.GetTexture("Items/AncientItems/Old/AncientMissileP_Old");
-            }
+            
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -194,11 +190,11 @@ namespace QwertysRandomContent.Items.AncientItems
         }*/
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMissileP_Old") : mod.GetTexture("Items/AncientItems/AncientMissileP"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * 36, projectile.width, 36), drawColor, projectile.rotation,
+            spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+                        new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height/2, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height/2), drawColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMissileP_Old_Glow") : mod.GetTexture("NPCs/AncientMachine/AncientMissile_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * 36, projectile.width, 36), Color.White, projectile.rotation,
+            spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMissileP_Glow_Old") : mod.GetTexture("NPCs/AncientMachine/AncientMissile_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
+                        new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height / 2, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 2), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }

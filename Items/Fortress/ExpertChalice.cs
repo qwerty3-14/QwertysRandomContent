@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Fortress
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chalice of the Light");
-            Tooltip.SetDefault("Reusable" + "\nGives you 4 seconds of invinsibility after drinking");
+            Tooltip.SetDefault("Reusable" + "\nGives you 2 seconds of invinsibility after drinking");
         }
 
         public override void SetDefaults()
@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Items.Fortress
         public override bool UseItem(Player player)
         {
             player.immune = true;
-            player.immuneTime = 240;
+            player.immuneTime = 120;
             return true;
         }
 

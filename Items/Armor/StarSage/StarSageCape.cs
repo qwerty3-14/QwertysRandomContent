@@ -40,15 +40,11 @@ namespace QwertysRandomContent.Items.Armor.StarSage
     {
         public static readonly PlayerLayer StarCape = new PlayerLayer("QwertysRandomContent", "StarCape", PlayerLayer.BackAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
-            //Main.NewText(drawPlayer.wings);
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+
             if (drawPlayer.back == mod.GetEquipSlot("StarSageCape", EquipType.Back) && drawPlayer.wings == 0)
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/StarSage/StarSageCape_Cape");
@@ -64,15 +60,10 @@ namespace QwertysRandomContent.Items.Armor.StarSage
         });
         public static readonly PlayerLayer StarCapeFront = new PlayerLayer("QwertysRandomContent", "StarCapeFront", PlayerLayer.NeckAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
-            //Main.NewText(drawPlayer.wings);
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.back == mod.GetEquipSlot("StarSageCape", EquipType.Back))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/StarSage/StarSageCape_Front");
@@ -90,15 +81,10 @@ namespace QwertysRandomContent.Items.Armor.StarSage
         });
         public static readonly PlayerLayer StarCapeShoulder = new PlayerLayer("QwertysRandomContent", "StarCapeFront", PlayerLayer.FrontAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
-            //Main.NewText(drawPlayer.wings);
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
             if (drawPlayer.back == mod.GetEquipSlot("StarSageCape", EquipType.Back))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/StarSage/StarSageCape_Shoulders");

@@ -31,7 +31,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.noRegen = true;

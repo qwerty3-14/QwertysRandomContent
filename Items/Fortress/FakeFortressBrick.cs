@@ -12,12 +12,9 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Enchanted Fortress Brick");
             Tooltip.SetDefault("Comes alive when broken or powered!");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/FakeFortressBrick_Classic");
-            }
+            
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
 

@@ -31,10 +31,6 @@ namespace QwertysRandomContent.Items.Fortress
 
         public override void OpenBossBag(Player player)
         {
-
-
-
-
             player.QuickSpawnItem(mod.ItemType("CaeliteBar"), Main.rand.Next(18, 31));
             player.QuickSpawnItem(mod.ItemType("CaeliteCore"), Main.rand.Next(9, 16));
             player.QuickSpawnItem(mod.ItemType("ExpertChalice"));

@@ -12,11 +12,9 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMachineBag_Old");
-            }
+            
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -31,7 +29,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMachineBag_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMachineBag_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMachineBag_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMachineBag_Glow");
             spriteBatch.Draw
             (
                 texture,

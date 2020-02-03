@@ -31,7 +31,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
             //player.HeldItem.scale = 2;
             player.GetModPlayer<BigSword>().Enlarger += 1f;

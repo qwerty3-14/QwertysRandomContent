@@ -39,18 +39,19 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
 
         }
-        public override bool CanUseItem(Player player)
+        public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
+
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
             }
             else
             {
                 player.AddBuff(mod.BuffType("MorphSickness"), 180);
             }
-            return base.CanUseItem(player);
+            return base.UseItem(player);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

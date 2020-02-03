@@ -12,12 +12,9 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Fortress Pillar");
             Tooltip.SetDefault("");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/FortressPillar_Classic");
-            }
+           
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
 

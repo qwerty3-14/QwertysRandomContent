@@ -10,13 +10,10 @@ namespace QwertysRandomContent.Items.Fortress
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Heavenly Fortress)");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/Fortress/MusicBoxHeavenlyFortress_Classic");
-            }
+            
 
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
         public override void SetDefaults()
         {
             item.useStyle = 1;

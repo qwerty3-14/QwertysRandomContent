@@ -62,12 +62,12 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
-                b += .125f;
+                b += .05f;
                 if (b > 30)
                 {
                     b = 30;
                 }
-                end = "% morph critical strike chance";
+                end = "% morph damage";
             }
             else if (!player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
             {
@@ -76,7 +76,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 {
                     b = 0;
                 }
-                end = "% morph critical strike chance (not morphed)";
+                end = "% morph damage (not morphed)";
             }
             bonus = (int)b;
 

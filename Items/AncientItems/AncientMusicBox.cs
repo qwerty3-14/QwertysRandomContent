@@ -11,12 +11,9 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Built to destroy)");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/AncientItems/Old/AncientMusicBox_Old");
-            }
-
+            
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
         {
@@ -34,12 +31,12 @@ namespace QwertysRandomContent.Items.AncientItems
             item.accessory = true;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMusicBox_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMusicBox_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMusicBox_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMusicBox_Glow");
             }
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/Old/AncientMusicBox_Old_Glow") : mod.GetTexture("Items/AncientItems/AncientMusicBox_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMusicBox_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMusicBox_Glow");
             spriteBatch.Draw
             (
                 texture,

@@ -38,6 +38,40 @@ Extra thanks
 
 
 changelog
+0.20.0
+Key changes/additions:
+-Noehtnap AI overhaul
+	-faster paced warnings come seconds before the attack
+	-less crptyic while still rewarding memorization
+	-optimised the cloak effect drasticly reducing lag and increasing resolution
+-Noehtnap's expert drop has been replaced by a new item
+	-Eye of darkness (previus expert drop) is now a rare drop
+
+Additions:
+-Added a shapeshifter weapon to be crafted from Etims
+-added polar exterminator mask and trophy (thanks daimgamer)
+
+Fixes:
+-fixed custom player layers not drawing on after images
+
+changes:
+-reduced Ancient blade damage 18->14 | reason: make the massacre a more viable option
+-Orbs from ancient blade now have slightly random range
+-reduced the pierce limit on restless sun projectiles by 2 and mana cost increased 7->11 | reason: if you used this weapon you know why...
+-increased holy exiler damage 12->16 | reason: secondary arrows miss often
+-angelic tracker damage 49->38 | reason: origonaly balanced around single target damage despite often hitting multiple
+-reduced chalice of light's immune time 4sec->2sec 
+-reduced the defense on lune armor 16->12 (hat lost 2 defense body and legs lost 1) | reason: make necro armor more viable
+-reduced defense on glass helm by 1  | reason: helm's effect is strong 
+reduced rhuthinium armor defense 12->9 (plate lost 2 greaves lost 1) | reason: rhuthinium is supposed to be glass cannon armor, and I still felt its defense was a bit too high for its bonuses
+-fortress swarms have a smaller max size
+-high priests have a bit more health but won;t attack you until you attack them
+-enchanted tiles and mollisket have a 2 second spawn in animation
+-youg tiles have less health
+-hydra beam can cut vines now (I think I remeber someone requesting this a while back)
+-new sprite for forst compass, penguin clube, and penguin generator (thanks daimgamer)
+
+
 0.19.13
 Additions:
 -some more chinese translations

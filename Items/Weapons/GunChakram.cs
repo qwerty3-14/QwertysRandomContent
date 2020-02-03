@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -13,9 +14,8 @@ namespace QwertysRandomContent.Items.Weapons
         {
             DisplayName.SetDefault("Gun Chakram");
             Tooltip.SetDefault("Shoots bullets when it bounces off walls or enemies!" + "\nMore melee speed will make it fire more bullets");
-
-
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGunChakram ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 49;
@@ -95,7 +95,7 @@ namespace QwertysRandomContent.Items.Weapons
 
 
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGunChakram ? base.Texture + "_Old" : base.Texture;
 
         public bool runOnce = true;
         public int rotationDirection = 1;
@@ -130,18 +130,6 @@ namespace QwertysRandomContent.Items.Weapons
 
                 playerDirection = (player.Center - projectile.Center).ToRotation();
                 direction = playerDirection;
-                /*
-                if ((Math.Abs(direction- playerDirection)< (float)Math.PI/2) || hasAproachedPlayer)
-                {
-                    direction = playerDirection;
-                    hasAproachedPlayer = true;
-                }
-                else
-                {
-                    direction += (rotationDirection * 4 * (float)Math.PI) / 60;
-                }
-                */
-
 
                 float distance = (float)Math.Sqrt((player.Center.X - projectile.Center.X) * (player.Center.X - projectile.Center.X) + (player.Center.Y - projectile.Center.Y) * (player.Center.Y - projectile.Center.Y));
                 if (distance < 10 * (speed / 15))
