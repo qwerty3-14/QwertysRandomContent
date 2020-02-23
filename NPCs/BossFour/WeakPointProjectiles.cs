@@ -238,14 +238,13 @@ namespace QwertysRandomContent.NPCs.BossFour
         public float shotSpeed = 3;
         public override void Kill(int timeLeft)
         {
-            for (int r = 0; r < 8; r++)
+
+            if (Main.netMode != 1)
             {
-                if (Main.netMode != 1)
-                {
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(r * (2 * Math.PI / 8)) * shotSpeed, (float)Math.Sin(r * (2 * Math.PI / 8)) * shotSpeed, mod.ProjectileType("TurretShot"), projectile.damage, 0, Main.myPlayer);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(r * (2 * Math.PI / 8) + Math.PI / 8) * shotSpeed * 1.5f, (float)Math.Sin(r * (2 * Math.PI / 8) + Math.PI / 8) * shotSpeed * 1.5f, mod.ProjectileType("TurretShot"), projectile.damage, 0, Main.myPlayer);
-                }
+                QwertyMethods.ProjectileSpread(projectile.Center, 8, shotSpeed, mod.ProjectileType("TurretShot"), projectile.damage, projectile.knockBack, Main.myPlayer);
+                QwertyMethods.ProjectileSpread(projectile.Center, 8, shotSpeed * 1.5f, mod.ProjectileType("TurretShot"), projectile.damage, projectile.knockBack, Main.myPlayer, rotation: (float)Math.PI / 8);
             }
+            
         }
 
 

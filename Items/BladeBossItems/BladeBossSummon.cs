@@ -36,8 +36,11 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("BladeBoss"));
-
+            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("BladeBoss"));
+            if (item.owner == Main.myPlayer)
+            {
+                QwertyMethods.SpawnBoss(player, mod.NPCType("BladeBoss"));
+            }
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Arrow");
-            Tooltip.SetDefault("Splits into 3 arrows each doing 70% damage");
+            Tooltip.SetDefault("Splits into 3 arrows each doing 60% damage");
 
         }
         public override void SetDefaults()
@@ -85,9 +85,9 @@ namespace QwertysRandomContent.Items.HydraItems
             {
 
                 float V = 30;
-                Projectile arrow1 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-90)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-90)) * V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage * .7f), projectile.knockBack, Main.myPlayer)];
-                Projectile arrow2 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-80)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-80)) * V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage * .7f), projectile.knockBack, Main.myPlayer)];
-                Projectile arrow3 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-100)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-100)) * V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage * .7f), projectile.knockBack, Main.myPlayer)];
+                Projectile arrow1 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-90)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-90)) * V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage * .6f), projectile.knockBack, Main.myPlayer)];
+                Projectile arrow2 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-80)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-80)) * V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage * .6f), projectile.knockBack, Main.myPlayer)];
+                Projectile arrow3 = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-100)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-100)) * V, mod.ProjectileType("HydraArrowP2"), (int)(projectile.damage * .6f), projectile.knockBack, Main.myPlayer)];
                 if (projectile.GetGlobalProjectile<arrowHoming>().B4HomingArrow)
                 {
                     arrow1.GetGlobalProjectile<arrowHoming>().B4HomingArrow = true;

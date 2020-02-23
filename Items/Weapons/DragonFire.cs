@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Weapons
         }
         public override void SetDefaults()
         {
-            item.damage = 240;
+            item.damage = 120;
             item.magic = true;
 
             item.useTime = 40;
@@ -184,7 +184,6 @@ namespace QwertysRandomContent.Items.Weapons
             projectile.width = 75;
             projectile.height = 75;
             projectile.friendly = true;
-            projectile.hostile = true;
             projectile.penetrate = -1;
             projectile.magic = true;
             projectile.tileCollide = true;
@@ -193,9 +192,9 @@ namespace QwertysRandomContent.Items.Weapons
 
 
         }
-        public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
+        public override void AI()
         {
-            damage /= 8;
+            projectile.FriendlyFire();
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

@@ -17,11 +17,8 @@ namespace QwertysRandomContent.Items.Accesories
         {
             item.value = 10000;
             item.rare = 1;
-
-
             item.width = 24;
             item.height = 24;
-
             item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -42,13 +39,7 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public int magicBoost = 0;
         public bool whetStoned = false;
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override void AI(Projectile projectile)
         {
             if (Main.player[projectile.owner].GetModPlayer<WhetStoneEffect>().effect > 0f && (!whetStoned && projectile.melee))
@@ -84,10 +75,7 @@ namespace QwertysRandomContent.Items.Accesories
 
             }
         }
-
-
     }
-
     public class WhetstoneTooltips : GlobalItem
     {
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

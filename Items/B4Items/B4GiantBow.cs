@@ -66,13 +66,7 @@ namespace QwertysRandomContent.Items.B4Items
     {
         public bool GiganticArrow;
 
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override void AI(Projectile projectile)
         {
             if (GiganticArrow)

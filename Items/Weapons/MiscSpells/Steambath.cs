@@ -77,6 +77,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.timeLeft = 60 * 15;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
+            projectile.GetGlobalProjectile<QwertyGlobalProjectile>().ignoresArmor = true;
 
 
         }
@@ -104,18 +105,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             }
 
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Player player = Main.player[projectile.owner];
-            int finalDefense = target.defense - player.armorPenetration;
-            target.ichor = false;
-            target.betsysCurse = false;
-            if (finalDefense < 0)
-            {
-                finalDefense = 0;
-            }
-            damage += finalDefense / 2;
-        }
+        
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;

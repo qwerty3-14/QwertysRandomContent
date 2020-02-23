@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Helix Bullet");
-            Tooltip.SetDefault("Fires a pair of bullets flying in a helix pattern. \nEach bullet does 80% normal damage.");
+            Tooltip.SetDefault("Fires a pair of bullets flying in a helix pattern. \nEach bullet does 70% normal damage.");
         }
         public override void SetDefaults()
         {
@@ -70,14 +70,18 @@ namespace QwertysRandomContent.Items.Ammo
             if(runOnce)
             {
                 initialDirection = projectile.velocity.ToRotation();
-                if(projectile.ai[0]==0)
+                if (Main.netMode != 2 && projectile.owner == Main.myPlayer)
                 {
-                    projectile.velocity *= .3f;
-                    partner = Main.projectile[Projectile.NewProjectile(projectile.Center, projectile.velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 1, projectile.whoAmI)];
-                }
-                else
-                {
-                    partner = Main.projectile[(int)projectile.ai[1]];
+                    
+                    if (projectile.ai[0] == 0)
+                    {
+                        projectile.velocity *= .3f;
+                        partner = Main.projectile[Projectile.NewProjectile(projectile.Center, projectile.velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 1, projectile.whoAmI)];
+                    }
+                    else
+                    {
+                        partner = Main.projectile[(int)projectile.ai[1]];
+                    }
                 }
                 runOnce = false;
             }
@@ -91,7 +95,6 @@ namespace QwertysRandomContent.Items.Ammo
         }
         static void Draw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
         {
-            //Redraw the projectile with the color not influenced by light
             Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
             
             for (int k = 0; k < projectile.oldPos.Length; k++)
@@ -131,7 +134,7 @@ namespace QwertysRandomContent.Items.Ammo
        
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage = (int)(damage * .8f);
+            damage = (int)(damage * .7f);
         }
     }
 }

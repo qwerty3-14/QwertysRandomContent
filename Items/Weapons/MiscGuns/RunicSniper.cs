@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,8 +12,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
         {
             DisplayName.SetDefault("Runic Sniper");
             Tooltip.SetDefault("x2 damage to enemies far away from you" + "\nRight click to zoom");
-
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGunChakram ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 190;
@@ -25,12 +26,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
             item.value = 500000;
             item.rare = 9;
             item.UseSound = SoundID.Item11;
-            if (!Main.dedServ)
-            {
-                //item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/Weapons/MiscGuns/RunicSniper_Glow");
-            }
-            //item.GetGlobalItem<ItemUseGlow>().glowOffsetX = -26;
-            //item.GetGlobalItem<ItemUseGlow>().glowOffsetY = -2;
+            
             item.width = 74;
             item.height = 30;
             item.crit = 25;
@@ -52,27 +48,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        /*
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-        {
-            Texture2D texture = mod.GetTexture("Items/Weapons/MiscGuns/RunicSniper_Glow");
-            spriteBatch.Draw
-            (
-                texture,
-                new Vector2
-                (
-                    item.position.X - Main.screenPosition.X + item.width * 0.5f,
-                    item.position.Y - Main.screenPosition.Y + item.height - texture.Height * 0.5f + 2f
-                ),
-                new Rectangle(0, 0, texture.Width, texture.Height),
-                Color.White,
-                rotation,
-                texture.Size() * 0.5f,
-                scale,
-                SpriteEffects.None,
-                0f
-            );
-        }*/
+        
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-10, -6);

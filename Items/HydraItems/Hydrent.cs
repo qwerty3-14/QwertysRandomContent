@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override void SetDefaults()
         {
-            item.damage = 45;
+            item.damage = 32;
             item.useStyle = 5;
             item.useAnimation = 30;
             item.useTime = 30;

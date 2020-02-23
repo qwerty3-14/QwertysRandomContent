@@ -72,13 +72,7 @@ namespace QwertysRandomContent.Items.Etims
     }
     public class GraveMisery : GlobalNPC
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public int MiseryIntensity = 0;
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {

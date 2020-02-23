@@ -96,7 +96,8 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             DisplayName.SetDefault("Ancient Minion");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
             Main.projFrames[projectile.type] = 1;
-            
+            ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+
         }
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
@@ -130,8 +131,8 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         public bool charging;
         public NPC target;
 
-        int waitTime = 5;
-        int chargeTime = 15;
+        int waitTime = 10;
+        int chargeTime = 30;
         Vector2 moveTo;
         bool justTeleported;
         float chargeSpeed = 12;
@@ -189,7 +190,7 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
-                    moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 100, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 100);
+                    moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 180, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 180);
                     if (Main.netMode != 2)
                     {
 

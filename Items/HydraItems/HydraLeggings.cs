@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Leggings");
-            Tooltip.SetDefault("+1 life/sec regen rate" + "\n+10% summon damage and movement speed");
+            Tooltip.SetDefault("+0.5 life/sec regen rate" + "\n+10% summon damage and movement speed");
 
         }
 

@@ -239,13 +239,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
     }
     public class ArcanelyTunedHoming : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         NPC target;
         bool foundTarget = false;
         public override void PostAI(Projectile projectile)

@@ -220,7 +220,7 @@ namespace QwertysRandomContent
                     WorldGen.OreRunner(
                         WorldGen.genRand.Next(0, Main.maxTilesX), // X Coord of the tile
                         WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 200), // Y Coord of the tile
-                        (double)WorldGen.genRand.Next(40, 40), // Strength (High = more)
+                        (double)WorldGen.genRand.Next(18, 28), // Strength (High = more)
                         WorldGen.genRand.Next(2, 6), // Steps 
                         (ushort)mod.TileType("RhuthiniumOre") // The tile type that will be spawned
                        );

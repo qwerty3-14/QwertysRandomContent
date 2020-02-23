@@ -14,7 +14,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shaman Pants");
-            Tooltip.SetDefault("2% increased minion damage and melee critical strike chance \n+1 max sentries \nMelee attacks can inflict decay \nDecay reduces enemy offense and defense");
+            Tooltip.SetDefault("+1 max sentries \nMelee attacks can inflict decay \nDecay reduces enemy offense and defense");
 
         }
 
@@ -35,8 +35,6 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void UpdateEquip(Player player)
         {
-            player.minionDamage += .02f;
-            player.meleeCrit += 2;
             player.maxTurrets++;
             player.GetModPlayer<ShamanLegsEffects>().effect = true;
         }

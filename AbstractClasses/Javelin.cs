@@ -97,8 +97,8 @@ namespace QwertysRandomContent.AbstractClasses
             projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
 
             // The following code handles the javelin sticking to the enemy hit.
-
-            Point[] stickingJavelins = new Point[maxStickingJavelins]; // The point array holding for sticking javelins
+            Player player = Main.player[projectile.owner];
+            Point[] stickingJavelins = new Point[(int)(maxStickingJavelins*player.GetModPlayer<QwertyPlayer>().PincusionMultiplier)]; // The point array holding for sticking javelins
             int javelinIndex = 0; // The javelin index
             for (int i = 0; i < Main.maxProjectiles; i++) // Loop all projectiles
             {

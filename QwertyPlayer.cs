@@ -80,6 +80,10 @@ namespace QwertysRandomContent
         public bool ShieldMinion = false;
         public bool SwordMinion = false;
         public int ArmorFrameCounter = 0;
+        public float PincusionMultiplier = 1f;
+        public float TopFrictionMultiplier = 1f;
+        public float FlechetteDropAcceleration = 1f;
+        public float GrenadeExplosionModifier = 1f;
         public override void ResetEffects()
         {
             ninjaSabatoge = false;
@@ -139,6 +143,10 @@ namespace QwertysRandomContent
             {
                 shotNumber = 0;
             }
+            PincusionMultiplier = 1f;
+            TopFrictionMultiplier = 1f;
+            FlechetteDropAcceleration = 1f;
+            GrenadeExplosionModifier = 1f;
             //forcedAntiGravity = 0;
         }
 

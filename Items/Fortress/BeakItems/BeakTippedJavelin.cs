@@ -84,13 +84,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
     }
     public class JavelinCritReroll : GlobalNPC
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             //crit = true;

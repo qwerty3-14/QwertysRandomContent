@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Summoning Rune");
-            Tooltip.SetDefault("Summons The Rune Ghost" + "\nExpect Duke Fishron levels of difficulty");
+            Tooltip.SetDefault("Summons The Rune Ghost");
             ItemID.Sets.ItemNoGravity[item.type] = true;
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
@@ -34,8 +34,10 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("RuneSpector"));
-
+            if (item.owner == Main.myPlayer)
+            {
+                QwertyMethods.SpawnBoss(player, mod.NPCType("RuneSpector"));
+            }
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

@@ -12,7 +12,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Helmet");
-            Tooltip.SetDefault("+1 life/sec regen rate" + "\n+10% summon damage");
+            Tooltip.SetDefault("+0.5 life/sec regen rate" + "\n+10% summon damage");
 
         }
         public override bool Autoload(ref string name)

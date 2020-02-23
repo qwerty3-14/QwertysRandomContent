@@ -38,6 +38,51 @@ Extra thanks
 
 
 changelog
+0.20.2
+
+-added many 'primary' accesories (accesories that are not a combination of other accesories)
+	-added conspiritor emblem
+	-added thrower emblem (only drops when no other active mods supply one)
+	-added H.Y.D.R.A
+	-added the blue sphere
+	-added arcane armor breaker
+	-added javelin pincusion
+	-added Gyroscope
+	-added aerodynamic fins
+	-added grenade core
+	-added No scope scope
+-added many combination accesories
+	-added fiery whetstone
+	-added phantom sphere
+	-added thrower's bag of tricks
+	-added phase shift
+	-added eye of the alchemist
+	-added nature's star
+	-added vile emblem
+	-added guard emblem
+	-added brutal necklace
+
+-Ultra maneuverability boots have been changed to frog sprung boots and removed tabi, and flipper from recipe/effects
+-fixed custom player layers not cloaking with shroomite/vortex stealth
+-Darkpuppey resprited Imperious and its items
+-Added Imperious trophy
+-Fazergamer resprited Etims
+-nerfed hydra armor regen rate
+-removed minion damage and melee crit from shaman warplate and shaman pants, skull gained 2% of each (overall the set goes from 9%->4%) reason: I felt the special effects granted by the armor were plenty strong
+-ancient missile staff does less friendly fire damage
+-shrunk rhuthinium ore veins
+-fixed hydra bag drop in multiplayer
+-fixed hydra head staff in multiplayer
+-fixed hydra beam finding 'new projectiles'
+-attempted to fix boss summons randomly not working in multiplayer
+-nerfed fire hydrent damage 45->32
+-nerfed hydra javelin damage 50->40
+-fixed decay debuff completely removing enemy defense
+-homing projectile won't attempt to chase imperious (and fail horribly)
+-Ancient minions from ancient minion staff attack half as quickly now
+-shield minions now recharge themselves every 3 seconds instead of every 5 seconds
+-mini tanks shoot a little slower and damage reduced 39->24
+
 0.20.1
 -fixed Shape Shift: God of Blasphemy's recipe
 -fixed polar exterminators bag dropping divine light mask instead of his own

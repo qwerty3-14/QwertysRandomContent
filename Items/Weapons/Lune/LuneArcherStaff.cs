@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -124,6 +125,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
                 {
                     Yvar = Main.rand.Next(0, 80);
                     Xvar = Main.rand.Next(-80, 80);
+                    projectile.netUpdate = true;
                 }
             }
 
@@ -161,7 +163,16 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
 
 
         }
-
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Yvar);
+            writer.Write(Xvar);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Yvar = reader.ReadInt32();
+            Xvar = reader.ReadInt32();
+        }
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -15,6 +16,7 @@ namespace QwertysRandomContent.NPCs
             Main.npcFrameCount[npc.type] = 1;
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGunChakram ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -63,7 +65,7 @@ namespace QwertysRandomContent.NPCs
             if ((player.Center - npc.Center).Length() < 255)
             {
                 npc.alpha = (int)(player.Center - npc.Center).Length();
-                Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 0, mod.ProjectileType("SpectorGlow"), 0, 0, Main.myPlayer);
+                Lighting.AddLight(npc.Center, 1f, 1f, 1f);
             }
             else
             {
@@ -95,21 +97,7 @@ namespace QwertysRandomContent.NPCs
 
         }
     }
-    public class SpectorGlow : ModProjectile
-    {
-        public override void SetStaticDefaults()
-        {
-
-        }
-        public override void SetDefaults()
-        {
-            projectile.light = 1f;
-            projectile.friendly = false;
-            projectile.hostile = false;
-            projectile.alpha = 255;
-            projectile.timeLeft = 2;
-        }
-    }
+   
 
 
 }

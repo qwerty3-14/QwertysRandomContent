@@ -57,20 +57,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
     }
     public class AoePick : GlobalItem
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
+       public override bool CloneNewInstances => true;
         public int miningRadius = 0;
 
     }

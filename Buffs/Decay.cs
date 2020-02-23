@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Decay");
-            Description.SetDefault("Deal 10% less damage, defense reduced by 10, life slowly depleting");
+            Description.SetDefault("Deal 10% less damage, recieve 4 more damage from attacks, life slowly depleting");
             Main.debuff[Type] = true;
 
 
@@ -53,17 +53,7 @@ namespace QwertysRandomContent.Buffs
         }
         public override void AI(NPC npc)
         {
-            if (npc.HasBuff(mod.BuffType("Decay")))
-            {
-                if (npc.defense >= 0 && npc.defense < 10)
-                {
-                    npc.defense = 0;
-                }
-                else
-                {
-                    npc.defense -= 10;
-                }
-            }
+            
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
@@ -71,12 +61,20 @@ namespace QwertysRandomContent.Buffs
             {
                 damage = (int)(damage * .9f);
             }
+            if(npc.HasBuff(mod.BuffType("Decay")))
+            {
+                damage += 4;
+            }
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             if (player.HasBuff(mod.BuffType("Decay")))
             {
                 damage = (int)(damage * .9f);
+            }
+            if (npc.HasBuff(mod.BuffType("Decay")))
+            {
+                damage += 4;
             }
         }
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)

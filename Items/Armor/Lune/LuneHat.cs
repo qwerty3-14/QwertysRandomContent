@@ -67,13 +67,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
     public class RangedVel : GlobalItem
     {
 
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (item.ranged)

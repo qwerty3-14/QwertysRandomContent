@@ -65,20 +65,8 @@ namespace QwertysRandomContent.Items.Accesories
     }
     public class BloodMedialionItemEffect : GlobalItem
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
+       public override bool CloneNewInstances => true;
         int k;
         public override bool CanUseItem(Item item, Player player)
         {

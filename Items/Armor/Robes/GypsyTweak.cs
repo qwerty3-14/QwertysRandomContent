@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+            Color color12 = drawInfo.middleArmorColor;
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.body == 167)
             {
@@ -52,8 +52,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
 
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
-            //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
+            Color color12 = drawInfo.lowerArmorColor;
             if (drawPlayer.body == 167)
             {
                 //Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Legs_Gold");
@@ -80,7 +79,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             }
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+            Color color12 = drawInfo.middleArmorColor;
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             if (drawPlayer.body == 167)
             {

@@ -43,13 +43,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
     }
     public class PenguinLimit : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public bool realeasedPenguin = false;
     }
     public class PenguinEffect : ModPlayer

@@ -15,7 +15,6 @@ namespace QwertysRandomContent.Items.Etims
         {
             DisplayName.SetDefault("Shape Shifte: God of Blasphemy");
             Tooltip.SetDefault("");
-
         }
         public const int dmg = 48;
         public const int crt = 0;
@@ -27,9 +26,9 @@ namespace QwertysRandomContent.Items.Etims
             item.height = 50;
             item.useTime = 20;
             item.useAnimation = 20;
-            item.useStyle = 1;
-            item.value = 200;
-            item.rare = 1;
+            item.useStyle = 1; 
+            item.value = 120000;
+            item.rare = 3;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
             item.mountType = mod.MountType("GodOfBlasphemyShift");
@@ -50,15 +49,6 @@ namespace QwertysRandomContent.Items.Etims
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-            if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
-            {
-
-                player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
-            }
-            else
-            {
-                player.AddBuff(mod.BuffType("MorphSickness"), 180);
-            }
             return base.UseItem(player);
         }
 
@@ -76,7 +66,7 @@ namespace QwertysRandomContent.Items.Etims
         public override void SetDefaults()
         {
             DisplayName.SetDefault("God of Blasphemy");
-            Description.SetDefault("");
+            Description.SetDefault("You look familiar...");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }

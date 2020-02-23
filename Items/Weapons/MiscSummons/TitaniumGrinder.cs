@@ -271,7 +271,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
             projectile.tileCollide = false;
-
+            projectile.GetGlobalProjectile<QwertyGlobalProjectile>().ignoresArmor = true;
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -281,18 +281,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
 
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            Player player = Main.player[projectile.owner];
-            int finalDefense = target.defense - player.armorPenetration;
-            target.ichor = false;
-            target.betsysCurse = false;
-            if (finalDefense < 0)
-            {
-                finalDefense = 0;
-            }
-            damage += finalDefense / 2;
-        }
+        
 
 
 

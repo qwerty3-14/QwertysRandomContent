@@ -231,7 +231,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 if (Main.expertMode)
                 {
                     //npc.DropBossBags();
-
+                    /*
                     if (Main.netMode == 0)
                     {
                         npc.DropBossBags();
@@ -248,7 +248,8 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                         }
 
                     }
-
+                    */
+                    npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("HydraBag"), 1, false);
 
 
 

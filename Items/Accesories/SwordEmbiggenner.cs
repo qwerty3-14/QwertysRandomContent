@@ -76,20 +76,8 @@ namespace QwertysRandomContent.Items.Accesories
     public class EnalargeItem : GlobalItem
     {
         public float defaultScale = 1f;
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
+       public override bool CloneNewInstances => true;
         public override void SetDefaults(Item item)
         {
             defaultScale = item.scale;

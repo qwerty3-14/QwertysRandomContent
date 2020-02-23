@@ -11,13 +11,7 @@ namespace QwertysRandomContent
 {
     public class QwertyGloabalNPC : GlobalNPC
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public int age = 0;
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {

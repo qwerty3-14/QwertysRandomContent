@@ -114,13 +114,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
     {
         public bool g;
 
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

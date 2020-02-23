@@ -35,7 +35,11 @@ namespace QwertysRandomContent.Items.Etims
         }
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("CloakedDarkBoss"));
+            if (item.owner == Main.myPlayer)
+            {
+                QwertyMethods.SpawnBoss(player, mod.NPCType("CloakedDarkBoss"));
+            }
+            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("CloakedDarkBoss"));
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

@@ -41,14 +41,6 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         public override bool CanUseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-            if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
-            {
-                player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
-            }
-            else
-            {
-                player.AddBuff(mod.BuffType("MorphSickness"), 180);
-            }
             return base.CanUseItem(player);
         }
         public override void AddRecipes()

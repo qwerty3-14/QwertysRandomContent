@@ -112,8 +112,6 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
                     instaVel = Collision.TileCollision(victim.position, instaVel, victim.width, victim.height);
                 }
                 victim.position += instaVel;
-
-
             }
             
         }

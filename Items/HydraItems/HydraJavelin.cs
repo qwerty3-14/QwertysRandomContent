@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             // Alter any of these values as you see fit, but you should probably keep useStyle on 1, as well as the noUseGraphic and noMelee bools
             item.shootSpeed = 10f;
-            item.damage = 50;
+            item.damage = 40;
             item.knockBack = 5f;
             item.useStyle = 1;
             item.useAnimation = 24;

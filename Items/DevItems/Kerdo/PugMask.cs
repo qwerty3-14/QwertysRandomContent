@@ -76,7 +76,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
                 int fHeight = 56;
 
                 Texture2D texture = mod.GetTexture("Items/DevItems/Kerdo/PugMask_AnimatedHead");
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), 0f);
+                Color color12 = drawInfo.upperArmorColor;
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                 Vector2 Position = drawInfo.position;

@@ -22,10 +22,6 @@ namespace QwertysRandomContent
         {
             return player.GetModPlayer<ShapeShifterPlayer>();
         }
-
-        // Vanilla only really has damage multipliers in code
-        // And crit and knockback is usually just added to
-        // As a modder, you could make separate variables for multipliers and simple addition bonuses
         public float morphDamage = 1f;
         public bool morphed = false;
         public int morphCrit = 4;
@@ -44,6 +40,9 @@ namespace QwertysRandomContent
         bool healMe = false;
         public bool drawGodOfBlasphemy = false;
         public float pulseCounter = 0f;
+        public bool Phase = false;
+        bool justMorphed = false;
+        bool noSick = false;
         public override void ResetEffects()
         {
             ResetVariables();
@@ -69,17 +68,35 @@ namespace QwertysRandomContent
                 }
             }
         }
-        public void justStableMorphed()
+        public void justStableMorphed(bool noSick = false)
         {
-
-            if (EyeBlessing && TwistedDarkSetBonus)
+            
+            justMorphed = true;
+            this.noSick = noSick;
+        }
+        void PostJustMorphed()
+        {
+            if (!noSick)
             {
-
-                player.statLifeMax2 += 100;
-
-                healMe = true;
-
-
+                if (EyeBlessing && TwistedDarkSetBonus)
+                {
+                    player.statLifeMax2 += 100;
+                    healMe = true;
+                }
+                if (EyeBlessing)
+                {
+                    EyeBlessing = false;
+                    if (Phase)
+                    {
+                        player.immuneTime += 180;
+                        player.immune = true;
+                        
+                    }
+                }
+                else
+                {
+                    player.AddBuff(mod.BuffType("MorphSickness"), 180);
+                }
             }
         }
         private void ResetVariables()
@@ -104,13 +121,13 @@ namespace QwertysRandomContent
             {
                 EyeBlessing = false;
             }
-
+            Phase = false;
             EyeEquiped = false;
             TwistedDarkSetBonus = false;
-
         }
         public override void PreUpdate()
         {
+           
             pulseCounter += (float)Math.PI / 30;
             //player.gravControl2 = true;
             if (healMe)
@@ -147,7 +164,11 @@ namespace QwertysRandomContent
         }
         public override void PostUpdateEquips()
         {
-
+            if(justMorphed)
+            {
+                PostJustMorphed();
+                justMorphed = false;
+            }
 
             if (player.meleeCrit > 4 && player.magicCrit > 4 && player.rangedCrit > 4 && player.thrownCrit > 4)
             {
@@ -321,20 +342,8 @@ namespace QwertysRandomContent
     }
     public class MorphProjectile : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
+       public override bool CloneNewInstances => true;
         public bool morph = false;
 
     }
@@ -343,20 +352,8 @@ namespace QwertysRandomContent
         public const int StableShiftType = 1;
         public const int QuickShiftType = 2;
 
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
+       public override bool CloneNewInstances => true;
         public bool morph;
         public int morphDef = 0;
         public int morphType = 0;

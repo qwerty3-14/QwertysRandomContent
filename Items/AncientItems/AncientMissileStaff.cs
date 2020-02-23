@@ -171,14 +171,14 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-            Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
+            Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlastFriendly"), projectile.damage, projectile.knockBack, projectile.owner, 1f)];
             e.localNPCImmunity[target.whoAmI] = -1;
 
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
 
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlast"), projectile.damage, projectile.knockBack, projectile.owner);
+            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlastFriendly"), projectile.damage, projectile.knockBack, projectile.owner);
             return true;
         }
         /*
@@ -199,6 +199,61 @@ namespace QwertysRandomContent.Items.AncientItems
             return false;
         }
     }
+    public class AncientBlastFriendly : ModProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Ancient Blast");
 
+
+        }
+        public override void SetDefaults()
+        {
+            projectile.aiStyle = 1;
+            aiType = ProjectileID.Bullet;
+            projectile.width = 150;
+            projectile.height = 150;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.magic = true;
+            projectile.tileCollide = false;
+            projectile.timeLeft = 2;
+            projectile.usesLocalNPCImmunity = true;
+
+
+        }
+        public override void AI()
+        {
+            Player player = Main.player[projectile.owner];
+            projectile.width = 150;
+            projectile.height = 150;
+            projectile.FriendlyFire();
+
+
+
+            Main.PlaySound(SoundID.Item62, projectile.position);
+
+
+            for (int i = 0; i < 400; i++)
+            {
+                float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(Main.rand.Next(2, 20), theta));
+                dust.noGravity = true;
+
+
+            }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+
+            projectile.localNPCImmunity[target.whoAmI] = -1;
+            target.immune[projectile.owner] = 0;
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            return false;
+        }
+    }
 }
 

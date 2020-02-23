@@ -114,13 +114,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
     }
     public class GrappleBoost : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public bool DoubleGrapple;
         bool runOnce = true;
 

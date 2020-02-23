@@ -64,7 +64,7 @@ namespace QwertysRandomContent.Items.DinoItems
                 //Main.NewText("Hi");
                 Vector2 Position = drawInfo.position;
                 DrawData value = default(DrawData);
-                Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Color.White), drawInfo.shadow);
+                Color color12 = drawInfo.middleArmorColor;
                 Vector2 zero = Vector2.Zero;
                 Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
 

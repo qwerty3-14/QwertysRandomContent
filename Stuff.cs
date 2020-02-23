@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent
@@ -217,6 +220,60 @@ namespace QwertysRandomContent
                 return (float)Math.PI * 2 - Math.Abs(angle1 - angle2);
             }
             return Math.Abs(angle1 - angle2);
+        }
+        public static void SpawnBoss(Player player, int type)
+        {
+            if(Main.netMode==0)
+            {
+                int num7 = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 2000, type);
+                Main.NewText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[num7].TypeName), 175, 75, 255, false);
+                
+            }
+            else if(Main.netMode ==1)
+            {
+                
+                ModPacket packet = QwertysRandomContent.Instance.GetPacket();
+                packet.Write((byte)ModMessageType.SummonBoss);
+                packet.WriteVector2(player.Center);
+                packet.Write(type);
+                packet.Send();
+            }
+        }
+        public static List<Projectile> ProjectileSpread(Vector2 position, int count, float speed, int type, int damage, float kb, int owner = 255, float ai0=0, float ai1=0, float rotation = 0f, float spread = (float)Math.PI*2 )
+        {
+            List<Projectile> me = new List<Projectile>();
+            for(int r =0; r < count; r++)
+            {
+                float rot = rotation + r *(spread / count) - (spread/2) + (spread / (2*count));
+                me.Add(Main.projectile[Projectile.NewProjectile(position, PolarVector(speed, rot), type, damage, kb, owner, ai0, ai1)]);
+            }
+            return me;
+        }
+    }
+    public static class StaticQwertyMethods
+    {
+        public static void FriendlyFire(this Projectile projectile) //allows friendly projectile to chit player and cause pvp death (like the grenade explosion)
+        {
+            Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
+            int myPlayer = projectile.owner;
+            if (Main.player[myPlayer].active && !Main.player[myPlayer].dead && !Main.player[myPlayer].immune && (!projectile.ownerHitCheck || projectile.CanHit(Main.player[myPlayer])))
+            {
+                Rectangle value = new Rectangle((int)Main.player[myPlayer].position.X, (int)Main.player[myPlayer].position.Y, Main.player[myPlayer].width, Main.player[myPlayer].height);
+                if (myRect.Intersects(value))
+                {
+                    if (Main.player[myPlayer].position.X + (float)(Main.player[myPlayer].width / 2) < projectile.position.X + (float)(projectile.width / 2))
+                    {
+                        projectile.direction = -1;
+                    }
+                    else
+                    {
+                        projectile.direction = 1;
+                    }
+                    int num4 = Main.DamageVar((float)projectile.damage);
+                    projectile.StatusPlayer(myPlayer);
+                    Main.player[myPlayer].Hurt(PlayerDeathReason.ByProjectile(projectile.owner, projectile.whoAmI), num4, projectile.direction, true, false, false, -1);
+                }
+            }
         }
     }
     public class Poke : ModProjectile

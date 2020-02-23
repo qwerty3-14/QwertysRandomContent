@@ -36,10 +36,11 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Hydra"));
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Head1"));
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Head2"));
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Head3"));
+            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Hydra"));
+            if (item.owner == Main.myPlayer)
+            {
+                QwertyMethods.SpawnBoss(player, mod.NPCType("Hydra"));
+            }
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

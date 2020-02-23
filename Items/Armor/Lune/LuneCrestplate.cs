@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lune Crestplate");
-            Tooltip.SetDefault("Ranged attacks pierce an extra enemy and use local immunity");
+            Tooltip.SetDefault("Ranged attacks pierce an extra enemy.\n Projectiles that normally don't pierce will use local immunity");
 
         }
 
@@ -119,47 +119,38 @@ namespace QwertysRandomContent.Items.Armor.Lune
     {
         public bool lunePierce;
         public bool runOnce = true;
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override void AI(Projectile projectile)
         {
 
 
             if (lunePierce && projectile.ranged)
             {
-                projectile.usesLocalNPCImmunity = true;
+               
                 if (runOnce)
                 {
                     if (projectile.penetrate > 0)
                     {
+                        
+                        if (!projectile.usesLocalNPCImmunity && projectile.penetrate == 1)
+                        {
+                            projectile.localNPCHitCooldown = -10;
+                            projectile.usesLocalNPCImmunity = true;
+                        }
                         projectile.penetrate += 1;
-                        projectile.localNPCHitCooldown = 30;
                     }
 
                     runOnce = false;
                 }
 
-
-
-
-
-
-
             }
         }
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
-            if (lunePierce && projectile.ranged)
+            if ( projectile.localNPCHitCooldown == -10)
             {
-                projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
+                projectile.localNPCImmunity[target.whoAmI] = 30;
                 target.immune[projectile.owner] = 0;
-
-
             }
         }
 
@@ -280,13 +271,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
     }
     public class moonBoost : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public bool boosted;
         bool runOnce = true;
         public override void AI(Projectile projectile)

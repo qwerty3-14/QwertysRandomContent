@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shaman Skull");
-            Tooltip.SetDefault("2% increased minion damage and melee critical strike chance \nImbues last much longer");
+            Tooltip.SetDefault("4% increased minion damage and melee critical strike chance \nImbues last much longer");
 
         }
 
@@ -45,8 +45,8 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void UpdateEquip(Player player)
         {
-            player.minionDamage += .02f;
-            player.meleeCrit += 2;
+            player.minionDamage += .04f;
+            player.meleeCrit += 4;
             player.GetModPlayer<ShamanHeadEffects>().ImbueBoost = true;
         }
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
@@ -185,13 +185,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
     }
     public class HastedProjectiles : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public int haste = 0;
         public override void AI(Projectile projectile)
         {

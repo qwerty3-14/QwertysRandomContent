@@ -20,7 +20,7 @@ namespace QwertysRandomContent.AbstractClasses
                 runOnce = false;
             }
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
-            projectile.velocity.Y += acceleration;
+            projectile.velocity.Y += acceleration*Main.player[projectile.owner].GetModPlayer<QwertyPlayer>().FlechetteDropAcceleration;
             if (projectile.velocity.Y > maxVerticalSpeed)
             {
                 projectile.velocity.Y = maxVerticalSpeed;

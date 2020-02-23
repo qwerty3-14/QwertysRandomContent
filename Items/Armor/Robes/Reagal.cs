@@ -100,7 +100,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
 
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.lowerArmorColor;
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Legs_Gold");
@@ -122,7 +122,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.middleArmorColor;
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Body_Gold");
@@ -141,7 +141,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.middleArmorColor;
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && drawPlayer.back == -1 && drawPlayer.wings == 0)
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalCape");
@@ -160,7 +160,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.middleArmorColor;
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/Reagal_Arms_Gold");
@@ -175,7 +175,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.middleArmorColor;
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalGloveF");
@@ -195,7 +195,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
             
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.middleArmorColor;
             if (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body))
             {
                 Texture2D texture = mod.GetTexture("Items/Armor/Robes/ReagalGloveB");

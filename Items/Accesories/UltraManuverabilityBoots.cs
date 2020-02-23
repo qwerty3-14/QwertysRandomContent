@@ -10,8 +10,8 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ultra Manuverability Boots");
-            Tooltip.SetDefault("Allows super fast running" + "\nAllows flight" + "\nIncreases jump speed" + "\nAllows auto jump" + "\nAllows swimming" + "\nProvides immunity to fall damage" + "\nDouble tap to dash (6.9 dash power)");
+            DisplayName.SetDefault("Frog Sprung Boots");
+            Tooltip.SetDefault("Allows super fast running" + "\nAllows flight" + "\nIncreases jump speed" + "\nAllows auto jump" + "\nProvides immunity to fall damage" );
 
         }
 
@@ -54,11 +54,8 @@ namespace QwertysRandomContent.Items.Accesories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Flipper);
-            recipe.AddIngredient(ItemID.Tabi);
             recipe.AddIngredient(ItemID.FrogLeg);
             recipe.AddIngredient(ItemID.LightningBoots);
-            recipe.AddIngredient(ItemID.LuckyHorseshoe);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();

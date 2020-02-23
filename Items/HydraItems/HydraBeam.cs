@@ -142,7 +142,7 @@ namespace QwertysRandomContent.Items.HydraItems
 
             Vector2 mousePos = Main.MouseWorld;
             Player player = Main.player[projectile.owner];
-            if (!shooter.active)
+            if (!shooter.active || shooter.type != mod.ProjectileType("BeamHead"))
             {
                 projectile.Kill();
             }

@@ -145,13 +145,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
     }
     public class MinionPursuit : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public int runeCounter;
         public float runeSpeed = 10;
 

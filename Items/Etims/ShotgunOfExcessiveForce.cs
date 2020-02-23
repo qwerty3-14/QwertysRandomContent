@@ -65,13 +65,7 @@ namespace QwertysRandomContent.Items.Etims
     public class Etims : GlobalProjectile
     {
         public bool effect = false;
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override void AI(Projectile projectile)
         {
             if (effect)

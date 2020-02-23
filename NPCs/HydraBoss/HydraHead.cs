@@ -83,7 +83,7 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             {
                 for (int n = 0; n < 200; n++)
                 {
-                    if (Main.npc[n].type == mod.NPCType("Hydra"))
+                    if (Main.npc[n].type == mod.NPCType("Hydra") && Main.npc[n].active)
                     {
                         npc.ai[0] = n;
                         break;

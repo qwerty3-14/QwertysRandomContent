@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Scalemail");
-            Tooltip.SetDefault("+1 life/sec regen rate" + "\n+1 max minions");
+            Tooltip.SetDefault("+0.5 life/sec regen rate" + "\n+1 max minions");
 
         }
 
@@ -34,7 +34,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void UpdateEquip(Player player)
         {
 
-            player.lifeRegen += 2;
+            player.lifeRegen += 1;
             player.maxMinions += 1;
         }
         public override void DrawHands(ref bool drawHands, ref bool drawArms)

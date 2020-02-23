@@ -24,20 +24,13 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             item.rare = 8;
             item.maxStack = 1;
         }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool CloneNewInstances => true;
         public override void UpdateInventory(Player player)
         {
 
             player.GetModPlayer<CoreManager>().gainCharges = true;
             if (player.GetModPlayer<CoreManager>().chargesToAdd > 0)
             {
-                Main.NewText("Hey");
                 charge += player.GetModPlayer<CoreManager>().chargesToAdd;
                 player.GetModPlayer<CoreManager>().chargesToAdd = 0;
             }

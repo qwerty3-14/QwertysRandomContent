@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         public override void SetDefaults()
         {
 
-            item.damage = 39;
+            item.damage = 24;
             item.mana = 20;
             item.width = 38;
             item.height = 38;
@@ -177,7 +177,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     {
                         aim = (target.Center - projectile.Top).ToRotation();
                     }
-                    if (shootCounter >= 40)
+                    if (shootCounter >= 60)
                     {
                         shootCounter = 0;
                         Projectile.NewProjectile(projectile.Top + QwertyMethods.PolarVector(30, gunRotation), QwertyMethods.PolarVector(10, gunRotation), mod.ProjectileType("MiniTankCannonBallFreindly"), projectile.damage, projectile.knockBack, player.whoAmI);

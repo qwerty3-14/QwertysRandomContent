@@ -54,13 +54,7 @@ namespace QwertysRandomContent.Items.Accesories
 
     public class GeminiProjectileEffect : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         bool runOnce = true;
         public override void AI(Projectile projectile)
         {

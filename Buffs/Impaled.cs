@@ -48,13 +48,7 @@ namespace QwertysRandomContent.Buffs
     }
     public class ImplaingProjectile : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public bool CanImpale = false;
         public int damagePerImpaler = 0;
         // public int maxImpalers = 0;

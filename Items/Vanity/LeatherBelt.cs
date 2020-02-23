@@ -35,20 +35,8 @@ namespace QwertysRandomContent.Items.Vanity
     public class BetterBelt : GlobalItem
     {
         public Texture2D BeltTexture = null;
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
+       public override bool CloneNewInstances => true;
     }
     public class BetterBelts : ModPlayer
     {
@@ -59,7 +47,7 @@ namespace QwertysRandomContent.Items.Vanity
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
             Vector2 Position = drawInfo.position;
-            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16, Microsoft.Xna.Framework.Color.White), drawInfo.shadow);
+            Color color12 = drawInfo.middleArmorColor;
             int shader8 = 0;
             //Main.NewText(drawPlayer.dye.Length);
             for (int i = 0; i < 20; i++)

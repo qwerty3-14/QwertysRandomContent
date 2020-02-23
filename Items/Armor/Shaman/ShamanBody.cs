@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shaman Warplate");
-            Tooltip.SetDefault("3% increased minion damage and melee critical strike chance \n+1 max minions \n14% increased melee speed");
+            Tooltip.SetDefault("+1 max minions \n14% increased melee speed");
 
         }
         public override void SetDefaults()
@@ -38,8 +38,6 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         }
         public override void UpdateEquip(Player player)
         {
-            player.minionDamage += .03f;
-            player.meleeCrit += 3;
             player.maxMinions++;
             player.meleeSpeed += .14f;
         }

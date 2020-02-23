@@ -61,8 +61,11 @@ namespace QwertysRandomContent.Items.AncientItems
         }
         public override bool UseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
-
+            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
+            if (item.owner == Main.myPlayer)
+            {
+                QwertyMethods.SpawnBoss(player, mod.NPCType("AncientMachine"));
+            }
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

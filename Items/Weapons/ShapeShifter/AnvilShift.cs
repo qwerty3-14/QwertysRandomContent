@@ -40,8 +40,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override bool CanUseItem(Player player)
         {
-
-            player.AddBuff(mod.BuffType("MorphSickness"), 0);
+            player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed(true);
 
 
             return base.CanUseItem(player);

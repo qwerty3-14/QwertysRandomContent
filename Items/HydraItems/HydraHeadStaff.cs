@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -94,9 +95,7 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
 
         public int varTime;
         public int Yvar = 0;
-        public int YvarOld = 0;
         public int Xvar = 0;
-        public int XvarOld = 0;
         public int f = 1;
         public float targetAngle = 90;
         public float s = 1;
@@ -111,21 +110,7 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             {
                 projectile.timeLeft = 2;
             }
-            if (Main.LocalPlayer == player)
-            {
-                projectile.ai[0] = Main.MouseWorld.X;
-                projectile.ai[1] = Main.MouseWorld.Y;
-                projectile.netUpdate = true;
-
-                //projectile.netUpdate = true;
-            }
-            projectile.rotation = (new Vector2(projectile.ai[0], projectile.ai[1]) - projectile.Center).ToRotation();
-            tarX = (float)Math.Cos(projectile.rotation) * 10;
-            tarY = (float)Math.Sin(projectile.rotation) * 10;
-
-            //  Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 24);
-
-
+            projectile.rotation = (QwertysRandomContent.LocalCursor[projectile.owner] - projectile.Center).ToRotation();
 
             if (player.maxMinions - player.numMinions >= 1 && Main.netMode != 2 && modPlayer.HydraHeadMinion && Main.myPlayer == projectile.owner)
             {
@@ -138,31 +123,38 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
 
 
             varTime++;
-            if (varTime == 30 && Main.netMode != 2 && Main.myPlayer == projectile.owner)
+            if (varTime == 30 && projectile.owner == Main.myPlayer)
             {
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, tarX, tarY, mod.ProjectileType("MinionBreath"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(10, projectile.rotation), mod.ProjectileType("MinionBreath"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
             if (varTime >= 60)
             {
-                if (Main.netMode != 2 && Main.myPlayer == projectile.owner)
+                if (projectile.owner == Main.myPlayer)
                 {
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, tarX, tarY, mod.ProjectileType("MinionBreath"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+                    Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(10, projectile.rotation), mod.ProjectileType("MinionBreath"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
                 }
-                YvarOld = Yvar;
-
-                XvarOld = Xvar;
-
                 varTime = 0;
-                if (Main.netMode != 2)
+                if (Main.netMode != 2 && Main.myPlayer == projectile.owner)
                 {
                     Yvar = Main.rand.Next(0, 80);
                     Xvar = Main.rand.Next(-80, 80);
+                    projectile.netUpdate = true;
                 }
             }
 
             Vector2 moveTo = new Vector2(player.Center.X + Xvar, player.Center.Y - Yvar) - projectile.Center;
             projectile.velocity = (moveTo) * .04f;
 
+        }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(Yvar);
+            writer.Write(Xvar);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            Yvar= reader.ReadInt32();
+            Xvar = reader.ReadInt32();
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {

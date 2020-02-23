@@ -92,6 +92,7 @@ namespace QwertysRandomContent.Items.Etims
                     {
                         ItemLoader.UpdateAccessory(player.armor[a - 1], player, player.hideVisual[a]);
                         ItemLoader.UpdateEquip(player.armor[a - 1], player);
+                        player.statDefense += player.armor[a - 1].defense;
                     }
                 }
             }

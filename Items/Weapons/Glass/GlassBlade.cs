@@ -72,7 +72,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             {
                 r += MathHelper.PiOver2 * player.direction;
             }
-            return Collision.CheckAABBvLineCollision(target.position, target.Size, player.MountedCenter, player.MountedCenter + new Vector2((float)Math.Cos(r), (float)Math.Sin(r)) * swordLength);
+            return Collision.CheckAABBvLineCollision(target.position, target.Size, player.MountedCenter, player.MountedCenter + new Vector2((float)Math.Cos(r), (float)Math.Sin(r)) * swordLength) && !target.friendly;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

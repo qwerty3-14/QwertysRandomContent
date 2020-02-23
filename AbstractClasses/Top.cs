@@ -82,7 +82,8 @@ namespace QwertysRandomContent.AbstractClasses
                 else
                 {
                     projectile.rotation = 0;
-                    initVel -= friction;
+                    
+                    initVel -= friction*Main.player[projectile.owner].GetModPlayer<QwertyPlayer>().TopFrictionMultiplier;
                 }
             }
             else

@@ -30,13 +30,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 
 
         }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool CloneNewInstances => true;
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

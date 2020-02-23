@@ -44,13 +44,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        public override bool CloneNewInstances
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool CloneNewInstances => true;
 
         int bonus = 0;
         string end = "%  increased morph damage (not morphed)";

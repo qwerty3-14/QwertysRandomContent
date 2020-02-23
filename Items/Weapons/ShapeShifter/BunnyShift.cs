@@ -42,15 +42,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-            if (player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
-            {
-
-                player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = false;
-            }
-            else
-            {
-                player.AddBuff(mod.BuffType("MorphSickness"), 180);
-            }
+            
             return base.UseItem(player);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)

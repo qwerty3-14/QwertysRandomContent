@@ -22,9 +22,5 @@ namespace QwertysRandomContent.Buffs
                 Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("DazzleSparkle"));
             }
         }
-
-
-
-
     }
 }

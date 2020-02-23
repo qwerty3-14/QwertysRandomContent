@@ -66,13 +66,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
     {
         public bool warpedArrow;
 
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
 
         NPC target;
         NPC possibleTarget;

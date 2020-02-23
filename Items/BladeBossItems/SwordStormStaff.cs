@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace QwertysRandomContent.Items.BladeBossItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace QwertysRandomContent.Items.BladeBossItems      
 {
     public class SwordStormStaff : ModItem
     {
@@ -88,17 +88,16 @@ namespace QwertysRandomContent.Items.BladeBossItems       ///We need this to bas
             projectile.penetrate = -1;
             projectile.magic = true;
 
-            projectile.usesLocalNPCImmunity = true;
-
+            projectile.usesLocalNPCImmunity = true; 
+            projectile.localNPCHitCooldown = 30;
             projectile.tileCollide = true;
 
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
-            projectile.localNPCImmunity[target.whoAmI] = -1;
-            target.immune[projectile.owner] = 0;
+            projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown; //set local immunity
+            target.immune[projectile.owner] = 0; //disable normal immune mechanic
         }
 
 

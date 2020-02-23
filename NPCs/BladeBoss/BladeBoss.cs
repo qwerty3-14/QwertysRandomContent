@@ -40,7 +40,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             npc.lifeMax = 25000;
             bossBag = mod.ItemType("BladeBossBag");
             npc.buffImmune[BuffID.Poisoned] = true;
-
+            npc.chaseable = false;
             npc.ai[3] = 1;
 
         }
@@ -105,6 +105,10 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                         Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("BladedArrowShaft"));
                         break;
                 }
+            }
+            if(Main.rand.Next(10)==0)
+            {
+                Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("BladeBossTrophy"));
             }
         }
         float bladeWidth = 74;

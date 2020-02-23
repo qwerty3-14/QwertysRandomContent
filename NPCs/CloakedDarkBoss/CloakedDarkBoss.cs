@@ -407,6 +407,10 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("EyeOfDarkness"));
                 }
+                if (Main.rand.Next(20) < 3)
+                {
+                    Item.NewItem(npc.getRect(), mod.ItemType("NoScope"));
+                }
             }
         }
 

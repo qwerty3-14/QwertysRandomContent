@@ -31,7 +31,6 @@ namespace QwertysRandomContent.Items.Etims
         public override void OpenBossBag(Player player)
         {
 
-            string[] loot = QwertysRandomContent.AMLoot.Draw(3);
 
 
             player.QuickSpawnItem(73, 8);
@@ -39,6 +38,10 @@ namespace QwertysRandomContent.Items.Etims
             if(Main.rand.Next(5)==0)
             {
                 player.QuickSpawnItem(mod.ItemType("EyeOfDarkness"));
+            }
+            if (Main.rand.Next(5) == 0)
+            {
+                player.QuickSpawnItem(mod.ItemType("NoScope"));
             }
             player.QuickSpawnItem(mod.ItemType("EtimsMaterial"), 20 + Main.rand.Next(17));
         }

@@ -26,7 +26,20 @@ namespace QwertysRandomContent
                     shop.item[nextSlot].SetDefaults(mod.ItemType("DuelistPants"));
                     nextSlot++;
                 }
+                if(Main.moonPhase < 4)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("ArcaneArmorBreaker"));
+                }
+                else
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("AerodynamicFins"));
+                }
 
+            }
+            if(type == NPCID.Demolitionist)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("PrimedGrenadeCore"));
+                nextSlot++;
             }
             if (type == NPCID.Cyborg)
             {

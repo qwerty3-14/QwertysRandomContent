@@ -734,7 +734,8 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             Player player = Main.player[projectile.owner];
             projectile.width = 150;
             projectile.height = 150;
-
+           
+               
 
 
             Main.PlaySound(SoundID.Item62, projectile.position);
@@ -749,6 +750,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
 
             }
         }
+       
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 
@@ -759,6 +761,5 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             return false;
         }
-
     }
 }

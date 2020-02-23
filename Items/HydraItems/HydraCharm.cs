@@ -51,13 +51,7 @@ namespace QwertysRandomContent.Items.HydraItems
     }
     public class minionDuplication : GlobalProjectile
     {
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
 
         public int wait;
         public override void AI(Projectile projectile)

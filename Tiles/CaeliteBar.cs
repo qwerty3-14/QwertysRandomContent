@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.addTile(Type);
 
-
+            
             dustType = mod.DustType("CaeliteDust");
 
             soundType = 21;

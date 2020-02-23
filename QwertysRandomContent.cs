@@ -62,6 +62,18 @@ namespace QwertysRandomContent
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(this);
+            recipe.AddIngredient(ItemType("ConspiratorEmblem"));
+            recipe.AddIngredient(ItemID.SoulofMight, 5);
+            recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddIngredient(ItemID.SoulofFright, 5);
+            recipe.AddTile(TileID.TinkerersWorkbench);
+
+            recipe = new ModRecipe(this);
+            recipe.AddIngredient(ItemType("YetAnotherThrowerEmblem"));
+            recipe.AddIngredient(ItemID.SoulofMight, 5);
+            recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddIngredient(ItemID.SoulofFright, 5);
+            recipe.AddTile(TileID.TinkerersWorkbench);
 
         }
         //internal static QwertysRandomContent instance;
@@ -77,11 +89,7 @@ namespace QwertysRandomContent
                 AutoloadGores = true,
                 AutoloadSounds = true
             };
-
-
         }
-
-
         public override void UpdateUI(GameTime gameTime)
         {
 
@@ -806,6 +814,18 @@ namespace QwertysRandomContent
                     }
 
                     break;
+                case ModMessageType.SummonBoss:
+                    Vector2 sumonerLocation = reader.ReadVector2();
+                    int type = reader.ReadInt32();
+                    int num7 =  NPC.NewNPC((int)sumonerLocation.X, (int)sumonerLocation.Y - 2000, type);
+                    if (Main.netMode == 2)
+                    {
+                        NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
+                        {
+                                Main.npc[num7].GetTypeNetName()
+                        }), new Color(175, 75, 255), -1);
+                    }
+                    break;
 
             }
         }
@@ -954,7 +974,8 @@ namespace QwertysRandomContent
         UpdatePlayerPosition,
         ProjectileAIUpdate,
         DivineCall,
-        StartDinoEvent
+        StartDinoEvent,
+        SummonBoss
 
     }
     public class CaeliteGreavesMale : EquipTexture

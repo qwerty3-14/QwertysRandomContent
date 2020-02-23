@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using QwertysRandomContent.AbstractClasses;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,7 +27,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             item.noUseGraphic = true;
             item.noMelee = true;
             item.value = 75;
-            item.damage = 71;
+            item.damage = 85;
             item.knockBack = 8f;
             item.thrown = true;
         }
@@ -41,24 +42,28 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             recipe.AddRecipe();
         }
     }
-    public class FrogGrenadeP : ModProjectile
+    public class FrogGrenadeP : Grenade
     {
         public override void SetDefaults()
         {
             projectile.width = 14;
             projectile.height = 14;
-            projectile.aiStyle = 16;
             projectile.friendly = true;
-            projectile.penetrate = 1;
+            projectile.penetrate = -1;
             projectile.thrown = true;
-            projectile.timeLeft = 600;
-            aiType = ProjectileID.Grenade;
+            projectile.timeLeft = 180;
+            sticky = false;
+            bouncyness = .6f;
+            explosionSize = 2;
         }
-        public override void Kill(int timeLeft)
+        public override bool ExplosionArea(int explosionSize)
         {
-
+            return false;
+        }
+        public override bool ExplosionEffect(int explosionSize)
+        {
             Main.PlaySound(SoundID.Frog, projectile.position);
-            int frogCount = Main.rand.Next(3) + 2;
+            int frogCount = Main.rand.Next(explosionSize) + 2;
             for (int i = 0; i < frogCount; i++)
             {
 
@@ -68,7 +73,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
                 frog.velocity.X = Main.rand.NextFloat(-6, 6);
 
             }
-
+            return false;
         }
     }
 }

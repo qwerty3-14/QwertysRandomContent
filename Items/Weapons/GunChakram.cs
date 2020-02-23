@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using QwertysRandomContent.Config;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -158,22 +159,21 @@ namespace QwertysRandomContent.Items.Weapons
             float weaponKnockback = projectile.knockBack;
             int bulletCount = 8 + (int)((((1 / player.meleeSpeed) - 1) * 100) / 10);
 
-            float bulletSpacing = 2 * (float)Math.PI / bulletCount;
             //CombatText.NewText(player.getRect(), new Color(38, 126, 126), bulletCount, true, false);
             Item sItem = QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol);
             sItem.damage = weaponDamage;
             player.PickAmmo(sItem, ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
-            for (; bulletCount > 0; bulletCount--)
+            List<Projectile> bullets = QwertyMethods.ProjectileSpread(projectile.Center, bulletCount, BulVel, bullet, weaponDamage, weaponKnockback, projectile.owner);
+            foreach(Projectile bul in bullets)
             {
-                Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
                 bul.melee = true;
                 bul.ranged = false;
                 if (Main.netMode == 1)
                 {
                     QwertysRandomContent.UpdateProjectileClass(bul);
                 }
-                dir += bulletSpacing;
             }
+            
 
 
         }

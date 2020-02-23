@@ -1,5 +1,6 @@
 
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -15,6 +16,7 @@ namespace QwertysRandomContent.Items.Weapons
             Tooltip.SetDefault("Right click to add an extra bullet to your next fire");
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGunChakram ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 100;

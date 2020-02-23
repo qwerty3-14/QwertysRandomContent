@@ -131,13 +131,7 @@ namespace QwertysRandomContent
         public int dashPower;
         public int recovery;
         public int dodgeChance;
-        public override bool InstancePerEntity
-        {
-            get
-            {
-                return true;
-            }
-        }
+       public override bool InstancePerEntity => true;
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             QwertyForge myClone = (QwertyForge)base.Clone(item, itemClone);
