@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             Tooltip.SetDefault("Summon spikes that rest on the ground, damaging enemies that step on them \nWill reposition if you walk away");
 
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
 
@@ -73,6 +74,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
     public class GlassSpike : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass Spike");

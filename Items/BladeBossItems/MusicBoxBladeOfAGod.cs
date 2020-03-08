@@ -7,7 +7,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Blade of a God)");
-
+            Tooltip.SetDefault("By Turquiose");
 
         }
 

@@ -437,12 +437,6 @@ namespace QwertysRandomContent
                 }
 
             }
-            /*
-            if (player.HeldItem.ranged)
-            {
-                player.HeldItem.shootSpeed *= rangedVelocity;
-            }
-            */
             if (player.grappling[0] == -1 && !player.tongued)
             {
                 customDashSpeedMovement();
@@ -459,22 +453,20 @@ namespace QwertysRandomContent
 
 
 
-        public int crateBonus = 1;
         public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
         {
-            if (player.FindBuffIndex(BuffID.Crate) > -1)
-            {
-                crateBonus = 2;
-            }
-            else
-            {
-                crateBonus = 1;
-            }
-            if (liquidType == 0 && Main.rand.Next(4) == 0 && caughtType == ItemID.WoodenCrate && NPC.downedBoss3)
+            if (liquidType == 0 && (Main.rand.Next(4) == 0 || fishingRod.type == mod.ItemType("RhuthiniumRod")) && caughtType == ItemID.WoodenCrate && NPC.downedBoss3)
             {
                 caughtType = mod.ItemType("RhuthiniumCrate");
             }
-
+            if (liquidType == 0 &&  caughtType == ItemID.FloatingIslandFishingCrate && player.GetModPlayer<FortressBiome>().TheFortress)
+            {
+                caughtType = mod.ItemType("FortressCrate");
+            }
+            if (liquidType == 0 && caughtType == ItemID.Bass && Main.rand.Next(2) == 0 && player.GetModPlayer<FortressBiome>().TheFortress)
+            {
+                caughtType = mod.ItemType("EnchantedSwimmer");
+            }
         }
 
 

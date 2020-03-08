@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using QwertysRandomContent.Config;
+using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
 {
@@ -8,9 +9,8 @@ namespace QwertysRandomContent.Items.Etims
         {
             DisplayName.SetDefault("Music Box (The Gods Bleed)");
 
-
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.useStyle = 1;

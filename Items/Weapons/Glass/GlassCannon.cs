@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +15,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             Tooltip.SetDefault("Do I even need to explain?");
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
         public const int dmg = 69;
         public const int crt = 0;
         public const float kb = 7f;
@@ -72,6 +74,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
     }
     public class GlassCannonMorph : ModMountData
     {
+        
         public override void SetDefaults()
         {
 
@@ -193,6 +196,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
     }
     public class GlassCannonball : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass cannon");

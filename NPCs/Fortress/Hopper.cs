@@ -119,6 +119,10 @@ namespace QwertysRandomContent.NPCs.Fortress
                         Point point;
                         for (int s = 0; s < 200; s++)
                         {
+                            if(npc.Top.ToTileCoordinates().X-10  < 0)
+                            {
+                                break;
+                            }
                             if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Up(2), new GenCondition[]
                             {
                                             new Conditions.IsSolid()

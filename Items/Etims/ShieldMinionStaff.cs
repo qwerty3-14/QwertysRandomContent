@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using QwertysRandomContent.NPCs.Fortress;
 using System;
 using Terraria;
@@ -14,6 +15,7 @@ namespace QwertysRandomContent.Items.Etims
         {
             Tooltip.SetDefault("protects you from foes and projectiles alike" + "\nCan only block projectiles weaker than the minion");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 30;

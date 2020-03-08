@@ -34,9 +34,6 @@ namespace QwertysRandomContent.NPCs.Fortress
         }
         float maxSpeed = 4;
         float maxFriendRepelDistance = 50;
-        bool foundfriend = false;
-        int antiTileChecks = 8;
-        bool runOnce = true;
         int freindCount = 0;
         int totalCount;
         public override void AI()
@@ -118,7 +115,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                 if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center - npc.Center).Length() < maxFriendRepelDistance)
                 {
                     npc.velocity += QwertyMethods.PolarVector(-4 * (1 - (Main.npc[n].Center - npc.Center).Length() / maxFriendRepelDistance), (Main.npc[n].Center - npc.Center).ToRotation());
-                    foundfriend = true;
                 }
             }
 
@@ -219,7 +215,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress && spawnInfo.player.HeldItem.fishingPole <=0)
             {
                 return 5f;
             }

@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using QwertysRandomContent.Config;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
@@ -11,6 +12,7 @@ namespace QwertysRandomContent.Items.Etims
             Tooltip.SetDefault("Forged from the blood of those slain by gods!");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.value = 10000;

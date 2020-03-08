@@ -13,15 +13,14 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Rod");
+            Tooltip.SetDefault("More likely to catch rhuthinium crates");
            
         }
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.GoldenFishingRod);  //This defines the fishing pole you want to clone
-
             item.fishingPole = 29; //this defines the fishing pole fishing power
-
             item.value = 25000;
             item.rare = 3;    //The color the title of your item when hovering over it ingame .
             item.shoot = mod.ProjectileType("RhuthiniumBobber");  //This defines what type of projectile this item will shot
@@ -35,14 +34,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.SetResult(this);   //this defines the resultat of hte crafting, so 15 bombs + 1 customtileitem = 15 Custom Explosive
             recipe.AddRecipe();
         }
-        /* The code below makes the pole shoot two additional bobbers
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Projectile.NewProjectile(position.X, position.Y+10f, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			Projectile.NewProjectile(position.X, position.Y-10f, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			return true;
-		}
-		*/
     }
 
 

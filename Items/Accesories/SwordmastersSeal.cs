@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Accesories
         {
             player.GetModPlayer<SkywardHiltEffect>().effect = true;
             player.GetModPlayer<BigSword>().Enlarger += 1f;
-            player.GetModPlayer<SwordsmanBadgeEffect>().effect = true;
+            player.GetModPlayer<AttackSpeedPlayer>().swordBadge = true;
 
         }
 

@@ -16,6 +16,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Shape Shifte: God of Blasphemy");
             Tooltip.SetDefault("");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public const int dmg = 48;
         public const int crt = 0;
         public const float kb = 1f;

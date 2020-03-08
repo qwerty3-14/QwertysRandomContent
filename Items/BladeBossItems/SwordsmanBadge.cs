@@ -27,45 +27,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<SwordsmanBadgeEffect>().effect = true;
-        }
-
-
-        public class SwordsmanBadgeEffect : ModPlayer
-        {
-            public bool effect;
-            public override void ResetEffects()
-            {
-                effect = false;
-
-            }
-            bool DoEffect()
-            {
-                return effect && Math.Abs(player.velocity.X) < 1f && !player.HeldItem.IsAir && !player.HeldItem.noMelee && (player.HeldItem.useStyle == ItemUseStyleID.SwingThrow || player.HeldItem.useStyle == ItemUseStyleID.Stabbing || player.HeldItem.useStyle == 101);
-            }
-            public override void PostItemCheck()
-            {
-                if (DoEffect())
-                {
-                    if (player.itemAnimation > 0)
-                    {
-                        player.itemAnimation--;
-                    }
-                    else
-                    {
-                        player.itemAnimation = 0;
-                    }
-                }
-            }
-            public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-            {
-
-                if (DoEffect())
-                {
-                    target.immune[player.whoAmI] = player.itemAnimation / 2;
-                }
-
-            }
+            player.GetModPlayer<AttackSpeedPlayer>().swordBadge = true;
         }
     }
 }

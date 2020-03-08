@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             item.CloneDefaults(ItemID.GoldenFishingRod);  //This defines the fishing pole you want to clone
 
-            item.fishingPole = 42; //this defines the fishing pole fishing power
+            item.fishingPole = 30; //this defines the fishing pole fishing power
 
             item.value = 25000;
             item.rare = 3;    //The color the title of your item when hovering over it ingame .

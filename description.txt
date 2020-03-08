@@ -38,8 +38,25 @@ Extra thanks
 
 
 changelog
-0.20.2
+0.20.3
 
+
+-rebalanced Rhuthinium crate loot
+-added fortress crate
+-added a fortress fish
+-added pierce potion
+-added twisted potion
+-added shape shift: laser shark!
+
+-fortress swarmers won't spawn if you are holding a fishing rod
+-nerfed Hydrator fishing power 42->30
+-Ancient wave damage reduced 42->31
+-hydrospear damage 26->30 stream fire rate now efected by melee speed
+-nerfed dino tooth armor penetration 25->18
+-new sprites for glass weapons thanks Kiar
+-shark with frickin laser beams does less damage and shoots slower
+
+0.20.2
 -added many 'primary' accesories (accesories that are not a combination of other accesories)
 	-added conspiritor emblem
 	-added thrower emblem (only drops when no other active mods supply one)

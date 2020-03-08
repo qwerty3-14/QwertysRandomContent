@@ -76,7 +76,6 @@ namespace QwertysRandomContent
             recipe.AddTile(TileID.TinkerersWorkbench);
 
         }
-        //internal static QwertysRandomContent instance;
         public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
         public const string HydraHead1 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
         public const string HydraHead2 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
@@ -622,7 +621,15 @@ namespace QwertysRandomContent
             AddTranslation(text);
 
             text = CreateTranslation("ClassicNoehtnapConfigTooltip");
-            text.SetDefault("Uses the origonal Noehnap sprite made by qwerty");
+            text.SetDefault("Uses the origonal Noehnap sprite made by qwerty as opposed to fazergamer's repsites");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicGlassConfigLabal");
+            text.SetDefault("Old Glass");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicGlassConfigTooltip");
+            text.SetDefault("Uses the origonal glass weapon sprites made by qwerty as opposed to kiar's repsites");
             AddTranslation(text);
             #endregion
 

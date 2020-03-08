@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
@@ -10,6 +11,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.maxStack = 999;

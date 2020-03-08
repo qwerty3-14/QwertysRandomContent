@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -8,6 +9,14 @@ namespace QwertysRandomContent.Tiles
 {
     public class AncientMachineTrophy : ModTile
     {
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                texture += "_Old";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -18,6 +19,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("The Massacre");
             Tooltip.SetDefault("Right click on the ground for an uppercut" + "\nRight click in the air to slam down!");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.useStyle = 101; //custom use style

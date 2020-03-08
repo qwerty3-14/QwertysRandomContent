@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Doppleganger");
             Tooltip.SetDefault("Pretends to be the accesory placed above it.\nWon't work if it's placed in the top most accesory slot.\nThe gods forbid equiping the same accesory twice!");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.accessory = true;

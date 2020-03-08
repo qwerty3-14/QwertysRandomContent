@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Ritual Interrupter");
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.width = 20;

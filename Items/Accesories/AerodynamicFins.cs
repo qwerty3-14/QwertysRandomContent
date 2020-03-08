@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Aerodynamic Fins");
-            Tooltip.SetDefault("Flechettes acceslerate faster, reaching their top speed sooner");
+            Tooltip.SetDefault("Flechettes accelerate faster, reaching their top speed sooner");
         }
         public override void SetDefaults()
         {

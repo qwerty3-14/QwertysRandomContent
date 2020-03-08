@@ -233,7 +233,7 @@ namespace QwertysRandomContent
             }
             else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().glassCannon)
             {
-                Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon");
+                Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon" + (ModContent.GetInstance<SpriteSettings>().ClassicGlass ? "_Old" : ""));
 
                 DrawData value = new DrawData(texture,
                     new Vector2(drawInfo.position.X + 15, drawInfo.position.Y) - Main.screenPosition,

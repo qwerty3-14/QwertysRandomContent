@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -9,6 +10,14 @@ namespace QwertysRandomContent.Tiles
 {
     class MusicBoxBuiltToDestroy : ModTile
     {
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            if (ModContent.GetInstance<SpriteSettings>().ClassicAncient)
+            {
+                texture += "_Old";
+            }
+            return base.Autoload(ref name, ref texture);
+        }
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -45,7 +54,7 @@ namespace QwertysRandomContent.Tiles
             {
                 zero = Vector2.Zero;
             }
-            Main.spriteBatch.Draw(mod.GetTexture("Tiles/MusicBoxBuiltToDestroy_Glow"), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 72 / 2), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(mod.GetTexture("Tiles/MusicBoxBuiltToDestroy_Glow" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" :"")), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 72 / 2), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

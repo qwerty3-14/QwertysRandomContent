@@ -14,7 +14,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Thrower's Bag of Tricks");
-            Tooltip.SetDefault("Doubles the amount of javelins you can stick into an enemy \nTops spin for longer \nFlechettes acceslerate faster, reaching their top speed sooner \nThrown grenades have a larger explosion");
+            Tooltip.SetDefault("Doubles the amount of javelins you can stick into an enemy \nTops spin for longer \nFlechettes accelerate faster, reaching their top speed sooner \nThrown grenades have a larger explosion");
         }
         public override void SetDefaults()
         {

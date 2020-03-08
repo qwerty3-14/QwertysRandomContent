@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
         public override void SetDefaults()
         {
-            item.damage = 26;
+            item.damage = 30;
             item.useStyle = 5;
             item.useAnimation = 40;
             item.useTime = 40;
@@ -84,9 +84,10 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         public bool runOnce = true;
         int streamCounter = 0;
         // It appears that for this AI, only the ai0 field is used!
+        bool noDust = false;
         public override void AI()
         {
-
+            noDust = false;
             // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             // Sadly, Projectile/ModProjectile does not have its own
             Player projOwner = Main.player[projectile.owner];
@@ -116,8 +117,9 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                         projOwner.itemAnimation++;
                         if (Collision.CanHit(projOwner.Center, 0, 0, projectile.Center, 0, 0))
                         {
+                            noDust = true;
                             streamCounter++;
-                            if (streamCounter % 16 == 0)
+                            if (streamCounter % (int)(16f*projOwner.meleeSpeed) == 0)
                             {
                                 //if (Main.netMode != 1)
                                 {
@@ -130,6 +132,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     {
                         projectile.friendly = true;
                         movementFactor -= movefactSpeed;
+                        
                     }
 
                     //Main.NewText("Hi");
@@ -156,9 +159,13 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             {
                 projectile.rotation -= MathHelper.ToRadians(90f);
             }
+            if(!noDust)
+            {
+                Dust k = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(-4, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(4, projectile.rotation - (1 * (float)Math.PI / 4)), 172);
+                k.velocity = Vector2.Zero;
+            }
+            
 
-            Dust k = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(-4, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(4, projectile.rotation - (1 * (float)Math.PI / 4)), 172);
-            k.velocity = Vector2.Zero;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

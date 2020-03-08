@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -15,6 +16,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             Tooltip.SetDefault("Breaks into shards upon striking an enemy");
 
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 14;

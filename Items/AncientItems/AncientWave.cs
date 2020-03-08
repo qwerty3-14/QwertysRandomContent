@@ -19,7 +19,7 @@ namespace QwertysRandomContent.Items.AncientItems
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
-            item.damage = 42;
+            item.damage = 31;
             item.magic = true;
 
             item.useTime = 40;

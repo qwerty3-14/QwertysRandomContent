@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,6 +12,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Eye of Darkness");
             Tooltip.SetDefault("You are more likely to critically hit in the dark!\nDarkness was the first thing the gods tried to banish... \nThey completely failed.");
         }
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.accessory = true;
