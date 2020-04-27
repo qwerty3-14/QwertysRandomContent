@@ -107,9 +107,9 @@ namespace QwertysRandomContent
             downedAncient = flags[1];
             downedhydra = flags[2];
             downedRuneGhost = flags[3];
-            downedRuneGhost = flags[4];
-            downedB4 = flags[5];
-            downedDinoMilitia = flags[6];
+            downedB4 = flags[4];
+            downedDinoMilitia = flags[5];
+            downedDinoMilitiaHard = flags[6];
             downedDinoMilitiaHard = flags[7];
             flags = reader.ReadByte();
             hasSummonedFortressBoss = flags[0];

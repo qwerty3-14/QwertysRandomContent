@@ -30,7 +30,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             item.noMelee = true;
             item.knockBack = 1f;
             item.value = 250000;
-            item.rare = 8;
+            item.rare = 1;
             item.UseSound = SoundID.Item43;
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("LuneCrest");

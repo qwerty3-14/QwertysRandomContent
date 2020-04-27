@@ -28,8 +28,6 @@ namespace QwertysRandomContent.NPCs
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 400f;
             npc.knockBackResist = 0.7f;
-            banner = NPCID.Shark;
-            bannerItem = ItemID.SharkBanner;
 
         }
 

@@ -271,6 +271,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 {
                     int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 2f);
                     Main.dust[dustIndex].velocity *= .6f;
+                    Main.dust[dustIndex].noGravity = true;
                 }
                 // Fire Dust spawn
                 for (int i = 0; i < 20; i++)
@@ -280,6 +281,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                     Main.dust[dustIndex].velocity *= 2f;
                     dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 2f);
                     Main.dust[dustIndex].velocity *= 1f;
+                    Main.dust[dustIndex].noGravity = true;
                 }
                 runOnce = false;
             }
@@ -306,7 +308,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             for (int i = 0; i < 10; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
+                Dust dust = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
+                dust.noGravity = true;
 
             }
             // Fire Dust spawn
@@ -317,6 +320,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 dustIndex.noGravity = true;
                 theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta), Scale: 2f);
+                dustIndex.noGravity = true;
             }
         }
     }

@@ -64,8 +64,13 @@ namespace QwertysRandomContent
 
             }
         }
-        public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1)
+        public delegate bool SpecialCondition(NPC possibleTarget);
+        public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1, SpecialCondition specialCondition = null)
         {
+            if (specialCondition == null)
+            {
+                specialCondition = delegate (NPC possibleTarget) { return true; };
+            }
             bool foundTarget = false;
             if (overrideTarget != -1)
             {
@@ -80,7 +85,7 @@ namespace QwertysRandomContent
             {
                 NPC possibleTarget = Main.npc[k];
                 float distance = (possibleTarget.Center - position).Length();
-                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0) || ignoreTiles))
+                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0) || ignoreTiles) && specialCondition(possibleTarget))
                 {
                     target = Main.npc[k];
                     foundTarget = true;
@@ -109,13 +114,13 @@ namespace QwertysRandomContent
         {
             if (Main.netMode == 1)
             {
-                Main.NewText("Client says It's " + q, Color.Pink);
+                Main.NewText("Client says it's " + q, Color.Pink);
             }
 
 
             if (Main.netMode == 2) // Server
             {
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says It's " + q), Color.Green);
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says it's " + q), Color.Green);
             }
         }
         public static void ServerClientCheck(int q)
@@ -128,14 +133,14 @@ namespace QwertysRandomContent
 
             if (Main.netMode == 2) // Server
             {
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says It's " + q), Color.Green);
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says it's " + q), Color.Green);
             }
         }
         public static void ServerClientCheck(string q)
         {
             if (Main.netMode == 1)
             {
-                Main.NewText("Client says It's " + q, Color.Pink);
+                Main.NewText("Client says  " + q, Color.Pink);
             }
 
 
@@ -148,13 +153,13 @@ namespace QwertysRandomContent
         {
             if (Main.netMode == 1)
             {
-                Main.NewText("Client says It's" + q, Color.Pink);
+                Main.NewText("Client says it's" + q, Color.Pink);
             }
 
 
             if (Main.netMode == 2) // Server
             {
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
+                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says it's" + q), Color.Green);
             }
         }
 
@@ -199,22 +204,8 @@ namespace QwertysRandomContent
         }
         public static float AngularDifference(float angle1, float angle2)
         {
-            while(angle1 > (float)Math.PI)
-            {
-                angle1 -= (float)Math.PI * 2;
-            }
-            while (angle2 > (float)Math.PI)
-            {
-                angle2 -= (float)Math.PI * 2;
-            }
-            while (angle1 < -(float)Math.PI)
-            {
-                angle1 += (float)Math.PI * 2;
-            }
-            while (angle2 < -(float)Math.PI)
-            {
-                angle1 += (float)Math.PI * 2;
-            }
+            angle1 = PolarVector(1f, angle1).ToRotation();
+            angle2 = PolarVector(1f, angle2).ToRotation();
             if (Math.Abs(angle1 - angle2) > Math.PI)
             {
                 return (float)Math.PI * 2 - Math.Abs(angle1 - angle2);
@@ -245,14 +236,14 @@ namespace QwertysRandomContent
             for(int r =0; r < count; r++)
             {
                 float rot = rotation + r *(spread / count) - (spread/2) + (spread / (2*count));
-                me.Add(Main.projectile[Projectile.NewProjectile(position, PolarVector(speed, rot), type, damage, kb, owner, ai0, ai1)]);
+                me.Add(Main.projectile[Projectile.NewProjectile(position, PolarVector(speed, rot).SafeNormalize(-Vector2.UnitY), type, damage, kb, owner, ai0, ai1)]);
             }
             return me;
         }
     }
     public static class StaticQwertyMethods
     {
-        public static void FriendlyFire(this Projectile projectile) //allows friendly projectile to chit player and cause pvp death (like the grenade explosion)
+        public static void FriendlyFire(this Projectile projectile) //allows friendly projectile to hit player and cause pvp death (like the grenade explosion)
         {
             Rectangle myRect = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
             int myPlayer = projectile.owner;
@@ -274,6 +265,53 @@ namespace QwertysRandomContent
                     Main.player[myPlayer].Hurt(PlayerDeathReason.ByProjectile(projectile.owner, projectile.whoAmI), num4, projectile.direction, true, false, false, -1);
                 }
             }
+        }
+        public static Vector2 to2(this Vector3 vector3)
+        {
+            return new Vector2(vector3.X, vector3.Y);
+        }
+        public static Vector3 add2(this Vector3 vector3, Vector2 vector2)
+        {
+            return new Vector3(vector3.X + vector2.X, vector3.Y + vector2.Y, vector3.Z);
+        }
+        public static void SlowRotation(this ref float currentRotation, float targetAngle, float speed)
+        {
+
+            int f = 1; //this is used to switch rotation direction
+            float actDirection = new Vector2((float)Math.Cos(currentRotation), (float)Math.Sin(currentRotation)).ToRotation();
+            targetAngle = new Vector2((float)Math.Cos(targetAngle), (float)Math.Sin(targetAngle)).ToRotation();
+
+            //this makes f 1 or -1 to rotate the shorter distance
+            if (Math.Abs(actDirection - targetAngle) > Math.PI)
+            {
+                f = -1;
+            }
+            else
+            {
+                f = 1;
+            }
+
+            if (actDirection <= targetAngle + speed * 2 && actDirection >= targetAngle - speed * 2)
+            {
+                actDirection = targetAngle;
+
+            }
+            else if (actDirection <= targetAngle)
+            {
+                actDirection += speed * f;
+            }
+            else if (actDirection >= targetAngle)
+            {
+                actDirection -= speed * f;
+            }
+            actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
+            /*
+            if(float.IsNaN(actDirection))
+            {
+                actDirection = 0;
+            }*/
+            currentRotation = actDirection;
+
         }
     }
     public class Poke : ModProjectile

@@ -8,7 +8,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sky Bound Spiral Staff");
+            DisplayName.SetDefault("Sky Spiral Staff");
             Tooltip.SetDefault("Higher beings will punish all enemies near this sentry!");
 
         }

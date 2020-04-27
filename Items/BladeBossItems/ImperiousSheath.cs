@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -13,6 +14,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
     public class ImperiousSheath : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperious's Sheath");
@@ -131,7 +133,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             if (drawPlayer.GetModPlayer<ImperiousEffect>().effect)
             {
 
-                Texture2D texture = mod.GetTexture("Items/BladeBossItems/SheathProgress");
+                Texture2D texture = mod.GetTexture("Items/BladeBossItems/SheathProgress"+ (ModContent.GetInstance<SpriteSettings>().ClassicImperious ?  "_Old" : ""));
 
 
 
@@ -160,7 +162,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             if (drawPlayer.GetModPlayer<ImperiousEffect>().effect)
             {
 
-                Texture2D texture = mod.GetTexture("Items/BladeBossItems/SheathBlip");
+                Texture2D texture = mod.GetTexture("Items/BladeBossItems/SheathBlip"+(ModContent.GetInstance<SpriteSettings>().ClassicImperious ? "_Old" : ""));
 
 
                 Color color = Color.White;
@@ -206,6 +208,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
     public class Imperious : ModProjectile
     {
         int rotateDirection = 1;
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.width = 84;

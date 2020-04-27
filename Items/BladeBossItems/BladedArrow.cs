@@ -1,4 +1,5 @@
-﻿using QwertysRandomContent.Items.Weapons.Dungeon;
+﻿using QwertysRandomContent.Config;
+using QwertysRandomContent.Items.Weapons.Dungeon;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class BladedArrow : Aqueous
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bladed Arrow");
@@ -55,6 +57,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
     }
     public class BladedArrowP : AqueousP
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;

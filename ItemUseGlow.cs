@@ -31,44 +31,43 @@ namespace QwertysRandomContent
 
                 if (texture != null && drawPlayer.itemAnimation > 0)
                 {
-                    Vector2 value2 = drawInfo.itemLocation;
+                    Vector2 location = drawInfo.itemLocation;
                     if (item.useStyle == 5)
                     {
-                        bool flag14 = Item.staff[item.type];
-                        if (flag14)
+                        if (Item.staff[item.type])
                         {
-                            float num104 = drawPlayer.itemRotation + 0.785f * (float)drawPlayer.direction;
-                            int num105 = 0;
-                            int num106 = 0;
-                            Vector2 zero3 = new Vector2(0f, (float)Main.itemTexture[item.type].Height);
+                            float rotation = drawPlayer.itemRotation + 0.785f * (float)drawPlayer.direction;
+                            int width = 0;
+                            Vector2 origin = new Vector2(0f, (float)Main.itemTexture[item.type].Height);
 
                             if (drawPlayer.gravDir == -1f)
                             {
                                 if (drawPlayer.direction == -1)
                                 {
-                                    num104 += 1.57f;
-                                    zero3 = new Vector2((float)Main.itemTexture[item.type].Width, 0f);
-                                    num105 -= Main.itemTexture[item.type].Width;
+                                    rotation += 1.57f;
+                                    origin = new Vector2((float)Main.itemTexture[item.type].Width, 0f);
+                                    width -= Main.itemTexture[item.type].Width;
                                 }
                                 else
                                 {
-                                    num104 -= 1.57f;
-                                    zero3 = Vector2.Zero;
+                                    rotation -= 1.57f;
+                                    origin = Vector2.Zero;
                                 }
                             }
                             else if (drawPlayer.direction == -1)
                             {
-                                zero3 = new Vector2((float)Main.itemTexture[item.type].Width, (float)Main.itemTexture[item.type].Height);
-                                num105 -= Main.itemTexture[item.type].Width;
+                                origin = new Vector2((float)Main.itemTexture[item.type].Width, (float)Main.itemTexture[item.type].Height);
+                                width -= Main.itemTexture[item.type].Width;
                             }
 
 
-                            DrawData value = new DrawData(texture, new Vector2((float)((int)(value2.X - Main.screenPosition.X + zero3.X + (float)num105)), (float)((int)(value2.Y - Main.screenPosition.Y + (float)num106))), new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height)), Color.White, num104, zero3, item.scale, drawInfo.spriteEffects, 0);
+                            DrawData value = new DrawData(texture, new Vector2((float)((int)(location.X - Main.screenPosition.X + origin.X + (float)width)), (float)((int)(location.Y - Main.screenPosition.Y))), new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height)), Color.White, rotation, origin, item.scale, drawInfo.spriteEffects, 0);
                             Main.playerDrawData.Add(value);
 
                         }
                         else
                         {
+                            
                             Vector2 vector10 = new Vector2((float)(Main.itemTexture[item.type].Width / 2), (float)(Main.itemTexture[item.type].Height / 2));
 
                             //Vector2 vector11 = this.DrawPlayerItemPos(drawPlayer.gravDir, item.type);
@@ -90,7 +89,7 @@ namespace QwertysRandomContent
                             //Main.playerDrawData.Add(value);
 
 
-                            DrawData value = new DrawData(texture, new Vector2((float)((int)(value2.X - Main.screenPosition.X + vector10.X)), (float)((int)(value2.Y - Main.screenPosition.Y + vector10.Y))), new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height)), Color.White, drawPlayer.itemRotation, origin5, item.scale, drawInfo.spriteEffects, 0);
+                            DrawData value = new DrawData(texture, new Vector2((float)((int)(location.X - Main.screenPosition.X + vector10.X)), (float)((int)(location.Y - Main.screenPosition.Y + vector10.Y))), new Microsoft.Xna.Framework.Rectangle?(new Rectangle(0, 0, Main.itemTexture[item.type].Width, Main.itemTexture[item.type].Height)), Color.White, drawPlayer.itemRotation, origin5, item.scale, drawInfo.spriteEffects, 0);
                             Main.playerDrawData.Add(value);
 
 
@@ -101,8 +100,8 @@ namespace QwertysRandomContent
 
 
                         DrawData value = new DrawData(texture,
-                            new Vector2((float)((int)(value2.X - Main.screenPosition.X)),
-                            (float)((int)(value2.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)),
+                            new Vector2((float)((int)(location.X - Main.screenPosition.X)),
+                            (float)((int)(location.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)),
                             Color.White,
                             drawPlayer.itemRotation,
                              new Vector2(texture.Width * 0.5f - texture.Width * 0.5f * (float)drawPlayer.direction, drawPlayer.gravDir == -1 ? 0f : texture.Height),

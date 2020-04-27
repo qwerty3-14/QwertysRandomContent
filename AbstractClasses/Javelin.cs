@@ -10,6 +10,7 @@ namespace QwertysRandomContent.AbstractClasses
     {
         //361496540
         protected int dropItem = -1;
+        protected bool alwaysDrop = false;
         protected int maxStickingJavelins = 5; // projectile is the max. amount of javelins being able to attach
         protected float rotationOffset = 0f;
         protected float maxTicks = 45f;
@@ -50,7 +51,7 @@ namespace QwertysRandomContent.AbstractClasses
             if (projectile.owner == Main.myPlayer && dropItem != -1)
             {
                 int item =
-                Main.rand.Next(18) == 0
+                (Main.rand.Next(18) == 0 || alwaysDrop)
                     ? Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, dropItem)
                     : 0;
 

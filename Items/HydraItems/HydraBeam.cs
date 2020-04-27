@@ -130,6 +130,7 @@ namespace QwertysRandomContent.Items.HydraItems
             projectile.tileCollide = false;
             projectile.hostile = false;
             projectile.hide = false;
+            projectile.magic = true;
         }
         // The AI of the projectile
         public bool runOnce = true;

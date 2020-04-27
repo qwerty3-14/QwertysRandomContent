@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -5,6 +6,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class BladeBossBag : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Treasure Bag");
@@ -37,10 +39,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
             itemNames.Add("SwordMinionStaff");
             itemNames.Add("SwordsmanBadge");
             itemNames.Add("BladedArrowShaft");
+            itemNames.Add("Imperium");
+            itemNames.Add("Swordquake");
 
-            string[] spawnThese = itemNames.Draw(2);
+            string[] spawnThese = itemNames.Draw(3);
             player.QuickSpawnItem(mod.ItemType(spawnThese[0]));
             player.QuickSpawnItem(mod.ItemType(spawnThese[1]));
+            player.QuickSpawnItem(mod.ItemType(spawnThese[2]));
 
             player.QuickSpawnItem(73, 15);
 

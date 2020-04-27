@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
     public class BladeBossSummon : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Icon of the Conqueror");
@@ -30,20 +32,16 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override bool CanUseItem(Player player)
         {
-
-            return !NPC.AnyNPCs(mod.NPCType("BladeBoss"));
-        }
-
-        public override bool UseItem(Player player)
-        {
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("BladeBoss"));
-            if (item.owner == Main.myPlayer)
+            if (!NPC.AnyNPCs(mod.NPCType("Imperious")))
             {
-                QwertyMethods.SpawnBoss(player, mod.NPCType("BladeBoss"));
+                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Imperious"));
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                return true;
             }
-            Main.PlaySound(SoundID.Roar, player.position, 0);
-            return true;
+            return false;
         }
+
+        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

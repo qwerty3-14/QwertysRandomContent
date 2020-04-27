@@ -1,10 +1,12 @@
-﻿using Terraria;
+﻿using QwertysRandomContent.Config;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class BladedArrowShaft : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Used to craft a powerful arrow!");

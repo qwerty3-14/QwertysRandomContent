@@ -69,7 +69,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("LaserSharkShiftB");
             mountData.spawnDust = 15;
 

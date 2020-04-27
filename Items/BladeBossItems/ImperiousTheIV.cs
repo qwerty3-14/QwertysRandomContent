@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -9,23 +10,24 @@ namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class ImperiousTheIV : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperious The IV");
-            Tooltip.SetDefault("Hitting enemies builds up swords which can be sent with right click");
+            Tooltip.SetDefault("Hitting enemies launches richoching swords");
 
         }
         public override void SetDefaults()
         {
-            item.damage = 41;
+            item.damage = 64;
             item.melee = true;
 
             item.useTime = 10;
             item.useAnimation = 10;
             item.useStyle = 1;
-            item.knockBack = 0;
+            item.knockBack = 3;
             item.value = Item.sellPrice(gold: 10);
-            item.rare = 3;
+            item.rare = 7;
             item.UseSound = SoundID.Item1;
 
             item.width = 40;
@@ -49,13 +51,14 @@ namespace QwertysRandomContent.Items.BladeBossItems
         {
             if (player.whoAmI == Main.myPlayer && !target.immortal && player.ownedProjectileCounts[mod.ProjectileType("ImperiousTheV")] < 40)
             {
-                Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("ImperiousTheV"), item.damage, item.knockBack, player.whoAmI);
+                Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("ImperiousTheV"), (int)(item.damage*player.meleeDamage), item.knockBack, player.whoAmI, target.whoAmI);
             }
         }
     }
 
     public class ImperiousTheV : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperious The V");
@@ -77,102 +80,30 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.tileCollide = false;
             projectile.melee = true;
             //projectile.minionSlots = 1;
-            projectile.timeLeft = 2;
+            projectile.timeLeft = 120;
             projectile.aiStyle = -1;
             projectile.usesLocalNPCImmunity = true;
+            projectile.extraUpdates = 1;
 
         }
-
-        int AttackMode = 1;
-        const int idle = 1;
-        const int charging = 2;
-        const int returning = 3;
-
-        Vector2 moveTo;
-        float acceleration = .3f;
-        float maxSpeed = 6f;
-        int timer = 61;
-        float distanceFromPlayer;
-        float maxDistanceFromPlayer = 500;
-        int attackTimer;
-        int attackCooldown = 30;
-        NPC target;
-        NPC possibleTarget;
-        float targetDistanceFromPlayer;
-        float targetMaxDistanceFromPlayer = 400;
-        bool foundTarget;
-        float chargeSpeed = 14f;
-        int chargeTime = 30;
+        NPC target = null;
+        bool runOnce = true;
         public override void AI()
         {
-
-            Player player = Main.player[projectile.owner];
-            //Main.NewText(moveTo);
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-
-
-
-            distanceFromPlayer = (player.Center - projectile.Center).Length();
-            timer++;
-            switch (AttackMode)
+            if(runOnce)
             {
-
-                case idle:
-                    projectile.timeLeft = 120;
-                    attackTimer++;
-                    if (timer > 60)
-                    {
-                        if (Main.netMode != 2 && projectile.owner == Main.myPlayer)
-                        {
-                            projectile.ai[0] = Main.rand.Next(0, 80);
-                            projectile.ai[1] = Main.rand.Next(-80, 80);
-                            if (Main.netMode == 1)
-                            {
-                                QwertysRandomContent.ProjectileAIUpdate(projectile);
-                            }
-                            projectile.netUpdate = true;
-
-                        }
-                        timer = 0;
-                    }
-                    moveTo = new Vector2(player.Center.X + projectile.ai[1], player.Center.Y - projectile.ai[0]);
-                    if (Main.mouseRight && Main.myPlayer == projectile.owner)
-                    {
-                        projectile.velocity = (Main.MouseWorld - projectile.Center).SafeNormalize(-Vector2.UnitY) * chargeSpeed;
-                        attackTimer = 0;
-                        AttackMode = charging;
-                    }
-
-                    break;
-                case charging:
-
-                    attackTimer++;
-
-                    break;
-
-
-
-
+                projectile.localNPCImmunity[(int)projectile.ai[0]] = -1;
+                runOnce = false;
             }
-            if (AttackMode == charging)
+            projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI/2;
+            if (QwertyMethods.ClosestNPC(ref target, 400, projectile.Center, true, specialCondition: delegate (NPC possibleTarget) { return projectile.localNPCImmunity[possibleTarget.whoAmI] == 0; }))
             {
-                projectile.friendly = true;
-                projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
+                projectile.velocity = (target.Center - projectile.Center).SafeNormalize(-Vector2.UnitY) * 10f;
             }
             else
             {
-                projectile.friendly = false;
-                projectile.velocity += (moveTo - projectile.Center).SafeNormalize(-Vector2.UnitY) * acceleration;
-                if (projectile.velocity.Length() > maxSpeed)
-                {
-                    projectile.velocity = (moveTo - projectile.Center).SafeNormalize(-Vector2.UnitY) * maxSpeed;
-                }
-                projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, projectile.velocity.ToRotation() + (float)Math.PI / 2, 3);
+                projectile.Kill();
             }
-            targetMaxDistanceFromPlayer = 400;
-            foundTarget = false;
-            //projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
-
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

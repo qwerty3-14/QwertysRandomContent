@@ -25,24 +25,24 @@ namespace QwertysRandomContent
         }
         public float GetSpeed(Item item, Player player)
         {
-            float speed = player.GetModPlayer<AttackSpeedPlayer>().allSpeed;
+            float speed = allSpeed;
             if (item.magic)
             {
-                speed += player.GetModPlayer<AttackSpeedPlayer>().magicSpeedBonus;
+                speed += magicSpeedBonus;
             }
             if (item.ranged)
             {
-                speed += player.GetModPlayer<AttackSpeedPlayer>().rangedSpeedBonus;
+                speed += rangedSpeedBonus;
             }
             if (item.melee)
             {
-                speed += player.GetModPlayer<AttackSpeedPlayer>().meleeUseSpeedBonus;
+                speed += meleeUseSpeedBonus;
             }
             return speed;
         }
         public override float MeleeSpeedMultiplier(Item item)
         {
-            return GetSpeed(item, player) * ((player.GetModPlayer<AttackSpeedPlayer>().swordBadge && Math.Abs(player.velocity.X) < .2f && (item.useStyle == 1 || item.useStyle == 3 || item.useStyle == 101)) ? 2f : 1f);
+            return GetSpeed(item, player) * ((swordBadge && Math.Abs(player.velocity.X) < .2f && (item.useStyle == 1 || item.useStyle == 3 || item.useStyle == 101)) ? 2f : 1f);
         }
         public override float UseTimeMultiplier(Item item)
         {

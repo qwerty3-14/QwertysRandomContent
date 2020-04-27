@@ -21,7 +21,7 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
         public override void SetDefaults()
         {
 
-            item.damage = 20;
+            item.damage = 26;
             item.mana = 7;
             item.width = 44;
             item.height = 44;
@@ -106,6 +106,11 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             }
 
 
+
+        }
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            damage = (int)(damage * 1.5f);
 
         }
         public override void Kill(int timeLeft)

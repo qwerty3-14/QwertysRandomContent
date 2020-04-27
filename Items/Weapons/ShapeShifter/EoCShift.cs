@@ -87,7 +87,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.hostile = false;
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
-            projectile.tileCollide = false;
+            //projectile.tileCollide = false;
             projectile.timeLeft = 60;
             projectile.usesLocalNPCImmunity = true;
             projectile.extraUpdates = 1;
@@ -143,7 +143,27 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             return true;
         }
-
+        public override bool OnTileCollide(Vector2 velocityChange)
+        {
+            for (int k = 0; k < 200; k++)
+            {
+                projectile.localNPCImmunity[k] = 0;
+            }
+            if (projectile.velocity.X != velocityChange.X)
+            {
+                projectile.velocity.X = -velocityChange.X;
+            }
+            if (projectile.velocity.Y != velocityChange.Y)
+            {
+                projectile.velocity.Y = -velocityChange.Y;
+            }
+            return false;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        {
+            width = height = 10;
+            return true;
+        }
     }
     public class EoCBagDrop : GlobalItem
     {

@@ -55,5 +55,11 @@ namespace QwertysRandomContent.Config
         [Label("$Mods.QwertysRandomContent.ClassicGlassConfigLabal")]
         [Tooltip("$Mods.QwertysRandomContent.ClassicGlassConfigTooltip")]
         public bool ClassicGlass;
+
+        [DefaultValue(false)]
+        [ReloadRequired]
+        [Label("$Mods.QwertysRandomContent.ClassicImperiousConfigLabal")]
+        [Tooltip("$Mods.QwertysRandomContent.ClassicImperiousConfigTooltip")]
+        public bool ClassicImperious;
     }
 }

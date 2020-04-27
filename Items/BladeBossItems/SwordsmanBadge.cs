@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QwertysRandomContent.Config;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -6,6 +7,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class SwordsmanBadge : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordsman Badge");

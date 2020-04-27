@@ -408,6 +408,10 @@ namespace QwertysRandomContent
         }
         public override void PostUpdateEquips()
         {
+            if(player.itemAnimation>0 && player.HeldItem.type == mod.ItemType("Imperium"))
+            {
+                player.HeldItem.TurnToAir();
+            }
             if (forcedAntiGravity > 0)
             {
                 player.gravDir = -1f;

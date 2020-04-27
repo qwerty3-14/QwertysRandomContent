@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             item.width = 52;
             item.height = 52;
             item.mana = 10;
-            item.damage = 7;
+            item.damage = 16;
 
             item.shoot = mod.ProjectileType("ManEaterP");
             item.shootSpeed = 0f;
@@ -29,7 +29,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
 
 
             item.useStyle = 1;
-            item.knockBack = 0f;
+            item.knockBack = 2f;
             item.value = Item.sellPrice(silver: 54);
             item.rare = 3;
             item.UseSound = SoundID.Item44;

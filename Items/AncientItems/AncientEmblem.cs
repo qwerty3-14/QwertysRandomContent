@@ -56,18 +56,13 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public override bool CanUseItem(Player player)
         {
-
-            return !NPC.AnyNPCs(mod.NPCType("AncientMachine"));
-        }
-        public override bool UseItem(Player player)
-        {
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
-            if (item.owner == Main.myPlayer)
+            if(!NPC.AnyNPCs(mod.NPCType("AncientMachine")))
             {
-                QwertyMethods.SpawnBoss(player, mod.NPCType("AncientMachine"));
+                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                return true;
             }
-            Main.PlaySound(SoundID.Roar, player.position, 0);
-            return true;
+            return false;
         }
 
         public override void AddRecipes()

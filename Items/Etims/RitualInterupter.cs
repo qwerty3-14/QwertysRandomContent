@@ -31,19 +31,15 @@ namespace QwertysRandomContent.Items.Etims
 
         public override bool CanUseItem(Player player)
         {
-
-            return !NPC.AnyNPCs(mod.NPCType("CloakedDarkBoss"));
-        }
-        public override bool UseItem(Player player)
-        {
-            if (item.owner == Main.myPlayer)
+            if (!NPC.AnyNPCs(mod.NPCType("CloakedDarkBoss")))
             {
-                QwertyMethods.SpawnBoss(player, mod.NPCType("CloakedDarkBoss"));
+                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("CloakedDarkBoss"));
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                return true;
             }
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("CloakedDarkBoss"));
-            Main.PlaySound(SoundID.Roar, player.position, 0);
-            return true;
+            return false;
         }
+        
 
         public override void AddRecipes()
         {

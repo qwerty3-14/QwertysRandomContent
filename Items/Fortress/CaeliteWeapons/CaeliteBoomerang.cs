@@ -90,10 +90,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         int spinDirection;
         bool returnToPlayer;
         NPC ConfirmedTarget;
-        NPC possibleTarget;
-        float distance;
-        float maxDistance = 300;
-        bool foundTarget;
         int timerAfterReturning;
         public override void AI()
         {
@@ -153,23 +149,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             target.immune[projectile.owner] = 0;
             if (!returnToPlayer)
             {
-
-                Player player = Main.player[projectile.owner];
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && projectile.localNPCImmunity[k] >= 0 && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
-                    {
-                        ConfirmedTarget = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (ConfirmedTarget.Center - projectile.Center).Length();
-                    }
-
-                }
-                if (foundTarget)
+                if(QwertyMethods.ClosestNPC(ref ConfirmedTarget, 300, projectile.Center, specialCondition: delegate (NPC possibleTarget) { return projectile.localNPCImmunity[possibleTarget.whoAmI] == 0; }))
                 {
                     projectile.velocity = QwertyMethods.PolarVector(maxSpeed, (ConfirmedTarget.Center - projectile.Center).ToRotation());
                     speed = maxSpeed;
@@ -178,8 +158,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 {
                     returnToPlayer = true;
                 }
-                foundTarget = false;
-                maxDistance = 300;
+                
             }
 
         }

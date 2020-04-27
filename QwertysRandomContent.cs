@@ -631,6 +631,14 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClassicGlassConfigTooltip");
             text.SetDefault("Uses the origonal glass weapon sprites made by qwerty as opposed to kiar's repsites");
             AddTranslation(text);
+
+            text = CreateTranslation("ClassicImperiousConfigLabal");
+            text.SetDefault("Classic Imperious");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicImperiousConfigTooltip");
+            text.SetDefault("If you think 2018 Darkpuppey was better than 2020 Darkpuppey");
+            AddTranslation(text);
             #endregion
 
             AddBossHeadTexture(AncientMachineHead);

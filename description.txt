@@ -38,9 +38,26 @@ Extra thanks
 
 
 changelog
+0.21.0
+
+-overhauled Imperious AI, now with smoother swings, tectonic activity and more!
+-fixed collision and homing against Imperious
+-added two new drops for Imperious
+--added Imperium
+--added Shape Shift : Swordquake
+
+-buffed Imperius The IV damage 41->64
+-Imperius the IV now sends out richoching swords on impacting instead of giving you a sword charge
+-Swordpocalypse damage 16->30
+-dark drop damage 20->26 and does 50% more damage when dropping down.
+-Shape shift: Cthulu's stare now bounces off of tiles instead of going through them
+-buffed man eater staff damage 7->16 and gave it knockback
+-nerfed The Devour's pick pwoer to 250% hopefully this is still high enough to instamine all vanilla blocks while low enough not to break progression from other mods.
+-Nerfed Devourur to 9x9 area instead of 13x13
+
+-messed with boss summons in multiplayer again, hopefully that weird bug where they sometimes don't work in multiplayer is fixed? Please let me know if you still encounter this bug aafter the update.
+
 0.20.3
-
-
 -rebalanced Rhuthinium crate loot
 -added fortress crate
 -added a fortress fish

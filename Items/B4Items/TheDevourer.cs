@@ -29,9 +29,9 @@ namespace QwertysRandomContent.Items.B4Items
             item.height = 82;
             //item.crit = 5;
             item.autoReuse = true;
-            item.pick = 600;
-            item.tileBoost = 8;
-            item.GetGlobalItem<AoePick>().miningRadius = 6;
+            item.pick = 250;
+            item.tileBoost = 6;
+            item.GetGlobalItem<AoePick>().miningRadius = 4;
 
 
 

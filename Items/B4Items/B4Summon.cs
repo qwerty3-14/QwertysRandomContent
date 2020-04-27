@@ -31,22 +31,17 @@ namespace QwertysRandomContent.Items.B4Items
 
         public override bool CanUseItem(Player player)
         {
-
-            return !NPC.AnyNPCs(mod.NPCType("OLORDv2"));
-        }
-
-
-        public override bool UseItem(Player player)
-        {
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("BossFour"));
-            //NPC npc = Main.npc[NPC.NewNPC((int)(player.position.X), (int)(player.position.Y - 3000), mod.NPCType("OLORDv2"))];
-            if (item.owner == Main.myPlayer)
+            if (!NPC.AnyNPCs(mod.NPCType("OLORDv2")))
             {
-                QwertyMethods.SpawnBoss(player, mod.NPCType("OLORDv2"));
+                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("OLORDv2"));
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                return true;
             }
-            Main.PlaySound(SoundID.Roar, player.position, 0);
-            return true;
+            return false;
         }
+
+
+        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

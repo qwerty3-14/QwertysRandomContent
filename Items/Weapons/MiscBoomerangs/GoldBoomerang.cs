@@ -80,7 +80,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Caelite Boomerang");
+            DisplayName.SetDefault("Gold Boomerang");
 
         }
         float speed;

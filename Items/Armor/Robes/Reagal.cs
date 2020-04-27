@@ -76,10 +76,7 @@ namespace QwertysRandomContent.Items.Armor.Robes
 
         public static readonly PlayerLayer HeelLegs = new PlayerLayer("QwertysRandomContent", "HeelLegs", PlayerLayer.Skin, delegate (PlayerDrawInfo drawInfo)
         {
-            if (drawInfo.shadow != 0f)
-            {
-                return;
-            }
+           
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             if ((drawPlayer.legs == mod.GetEquipSlot("DuelistPants_FemaleLegs", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.body == mod.GetEquipSlot("Reagal", EquipType.Body) && !drawPlayer.Male) || (drawPlayer.legs == mod.GetEquipSlot("ConduitRobes_Female", EquipType.Legs) && !drawPlayer.Male) || (drawPlayer.shoe == mod.GetEquipSlot("HighHeels", EquipType.Shoes)) || (drawPlayer.legs == mod.GetEquipSlot("TwistedDarkLegs_FemaleLegs", EquipType.Legs)))

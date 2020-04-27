@@ -77,25 +77,11 @@ namespace QwertysRandomContent.Items.Fortress
                     }
                 }
             }
-
-            /*
-            float swordLength = item.Size.Length() * item.scale;
-            float r = player.direction == 1 ? player.itemRotation - (float)Math.PI / 4 : player.itemRotation + 5*(float)Math.PI / 4;
-            if(player.gravDir == -1)
-            {
-                r += MathHelper.PiOver2 * player.direction;
-            }
-            Dust d = Dust.NewDustPerfect(player.MountedCenter + new Vector2((float)Math.Cos(r), (float)Math.Sin(r)) * swordLength, DustID.Fire);
-            d.noGravity = true;
-            d.velocity = Vector2.Zero;
-            */
         }
         Projectile clearCheck;
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 420);
-
-
         }
     }
 

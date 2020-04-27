@@ -270,6 +270,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 {
                     int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 1f);
                     Main.dust[dustIndex].velocity *= .6f;
+                    Main.dust[dustIndex].noGravity = true;
                 }
                 // Fire Dust spawn
                 for (int i = 0; i < 8; i++)
@@ -279,6 +280,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     Main.dust[dustIndex].velocity *= 2f;
                     dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 1f);
                     Main.dust[dustIndex].velocity *= 1f;
+                    Main.dust[dustIndex].noGravity = true;
                 }
                 runOnce = false;
             }
@@ -302,20 +304,21 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
 
             Main.PlaySound(SoundID.Item62, projectile.position);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 4; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 2f, theta), Scale: .5f);
-
+                dustIndex.noGravity = true;
             }
             // Fire Dust spawn
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 8; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 2f, theta), Scale: .5f);
                 dustIndex.noGravity = true;
                 theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 2f, theta), Scale: 1f);
+                dustIndex.noGravity = true;
             }
         }
     }

@@ -30,20 +30,15 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override bool CanUseItem(Player player)
         {
-
-            return !NPC.AnyNPCs(mod.NPCType("Hydra"));
-        }
-
-        public override bool UseItem(Player player)
-        {
-            //NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Hydra"));
-            if (item.owner == Main.myPlayer)
+            if (!NPC.AnyNPCs(mod.NPCType("Hydra")))
             {
-                QwertyMethods.SpawnBoss(player, mod.NPCType("Hydra"));
+                NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Hydra"));
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                return true;
             }
-            Main.PlaySound(SoundID.Roar, player.position, 0);
-            return true;
+            return false;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

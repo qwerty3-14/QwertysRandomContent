@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -9,6 +10,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class SwordStormStaff : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordpocalypse");
@@ -20,7 +22,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetDefaults()
         {
 
-            item.damage = 16;
+            item.damage = 30;
             item.mana = 4;
             item.width = 46;
             item.height = 46;
@@ -72,6 +74,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
     }
     public class SwordDrop : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sworddrop");

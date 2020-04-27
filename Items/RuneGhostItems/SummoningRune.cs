@@ -32,12 +32,10 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
 
 
-        public override bool UseItem(Player player)
+        public override bool CanUseItem(Player player)
         {
-            if (item.owner == Main.myPlayer)
-            {
-                QwertyMethods.SpawnBoss(player, mod.NPCType("RuneSpector"));
-            }
+
+            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("RuneSpector"));
             Main.PlaySound(SoundID.Roar, player.position, 0);
             return true;
         }

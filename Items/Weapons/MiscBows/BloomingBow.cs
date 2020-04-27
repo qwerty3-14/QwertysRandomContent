@@ -42,31 +42,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             return false;
         }
-        //Thanks Mirsario for this chunk of code
-        private static Dictionary<int, Item> vanillaItemCache = new Dictionary<int, Item>();
-        public static Item GetReference(int type)
-        {
-            if (type <= 0)
-            {
-                return null;
-            }
-            if (type >= ItemID.Count)
-            {
-                return ItemLoader.GetItem(type).item;
-            }
-            else
-            {
-                Item item;
-                if (!vanillaItemCache.TryGetValue(type, out item))
-                {
-                    item = new Item();
-                    item.SetDefaults(type, true);
-                    vanillaItemCache[type] = item;
-                }
-                return item;
-            }
-        }
-        /*------------------------------------------------- */
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
