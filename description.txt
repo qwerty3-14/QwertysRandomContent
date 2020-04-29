@@ -38,6 +38,9 @@ Extra thanks
 
 
 changelog
+0.21.1
+-fixed boss summons not being consumed
+
 0.21.0
 
 -overhauled Imperious AI, now with smoother swings, tectonic activity and more!

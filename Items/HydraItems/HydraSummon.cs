@@ -34,6 +34,7 @@ namespace QwertysRandomContent.Items.HydraItems
             {
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Hydra"));
                 Main.PlaySound(SoundID.Roar, player.position, 0);
+                item.stack--;
                 return true;
             }
             return false;

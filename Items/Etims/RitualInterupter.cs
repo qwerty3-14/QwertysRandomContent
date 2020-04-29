@@ -35,6 +35,7 @@ namespace QwertysRandomContent.Items.Etims
             {
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("CloakedDarkBoss"));
                 Main.PlaySound(SoundID.Roar, player.position, 0);
+                item.stack--;
                 return true;
             }
             return false;

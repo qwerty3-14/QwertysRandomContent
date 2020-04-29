@@ -37,6 +37,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
             NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("RuneSpector"));
             Main.PlaySound(SoundID.Roar, player.position, 0);
+            item.stack--;
             return true;
         }
 

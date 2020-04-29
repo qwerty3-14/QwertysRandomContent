@@ -35,6 +35,7 @@ namespace QwertysRandomContent.Items.B4Items
             {
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("OLORDv2"));
                 Main.PlaySound(SoundID.Roar, player.position, 0);
+                item.stack--;
                 return true;
             }
             return false;

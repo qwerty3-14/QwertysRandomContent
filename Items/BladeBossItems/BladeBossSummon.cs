@@ -32,10 +32,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override bool CanUseItem(Player player)
         {
+            Main.NewText(player.itemAnimation);
             if (!NPC.AnyNPCs(mod.NPCType("Imperious")))
             {
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Imperious"));
                 Main.PlaySound(SoundID.Roar, player.position, 0);
+                item.stack--;
                 return true;
             }
             return false;

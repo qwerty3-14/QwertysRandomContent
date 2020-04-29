@@ -60,6 +60,7 @@ namespace QwertysRandomContent.Items.AncientItems
             {
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
                 Main.PlaySound(SoundID.Roar, player.position, 0);
+                item.stack--;
                 return true;
             }
             return false;
