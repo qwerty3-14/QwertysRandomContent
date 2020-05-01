@@ -12,7 +12,7 @@ namespace QwertysRandomContent
     {
         public static bool DinoEvent = false;
         public static int DinoKillCount = 0;
-        public static int MaxDinoKillCount;
+        public static int MaxDinoKillCount = 150;
         public static int AbstractiveBlock = 0;
         public bool hasGeneratedRhuthinium;
         public static bool downedAncient;
@@ -156,61 +156,27 @@ namespace QwertysRandomContent
 
         public override void PreUpdate()
         {
-
-
-            //QwertyMethods.ServerClientCheck(DinoKillCount);
-
-            if (DinoEvent)
+            MaxDinoKillCount = 150;
+            if (DinoKillCount >= MaxDinoKillCount)
             {
-
-            }
-            if (NPC.downedMoonlord)
-            {
-                MaxDinoKillCount = 300;
-                if (DinoKillCount >= MaxDinoKillCount)
+                DinoEvent = false;
+                downedDinoMilitia = true;
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+                string key = "Mods.QwertysRandomContent.DinoDefeat";
+                Color messageColor = Color.Orange;
+                if (Main.netMode == 2) // Server
                 {
-                    DinoEvent = false;
-                    downedDinoMilitia = true;
-                    downedDinoMilitiaHard = true;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-                    string key = "Mods.QwertysRandomContent.DinoDefeat";
-                    Color messageColor = Color.Orange;
-                    if (Main.netMode == 2) // Server
-                    {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-                    }
-                    else if (Main.netMode == 0) // Single Player
-                    {
-                        Main.NewText(Language.GetTextValue(key), messageColor);
-                    }
-                    DinoKillCount = 0;
-
+                    NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
                 }
-            }
-            else
-            {
-                MaxDinoKillCount = 150;
-                if (DinoKillCount >= MaxDinoKillCount)
+                else if (Main.netMode == 0) // Single Player
                 {
-                    DinoEvent = false;
-                    downedDinoMilitia = true;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-                    string key = "Mods.QwertysRandomContent.DinoDefeat";
-                    Color messageColor = Color.Orange;
-                    if (Main.netMode == 2) // Server
-                    {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-                    }
-                    else if (Main.netMode == 0) // Single Player
-                    {
-                        Main.NewText(Language.GetTextValue(key), messageColor);
-                    }
-                    DinoKillCount = 0;
-
+                    Main.NewText(Language.GetTextValue(key), messageColor);
                 }
+                DinoKillCount = 0;
+
             }
+
 
             if (!hasGeneratedRhuthinium && NPC.downedBoss3)
             {

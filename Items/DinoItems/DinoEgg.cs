@@ -35,8 +35,7 @@ namespace QwertysRandomContent.Items.DinoItems
 
         public override bool UseItem(Player player)
         {
-            if (!NPC.downedMoonlord)
-            {
+            
                 string key = "Mods.QwertysRandomContent.DinoEventStart";
                 Color messageColor = Color.Orange;
                 if (Main.netMode == 2) // Server
@@ -47,20 +46,7 @@ namespace QwertysRandomContent.Items.DinoItems
                 {
                     Main.NewText(Language.GetTextValue(key), messageColor);
                 }
-            }
-            else
-            {
-                string key = "Mods.QwertysRandomContent.DinoHardStart";
-                Color messageColor = Color.Orange;
-                if (Main.netMode == 2) // Server
-                {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-                    Main.NewText(Language.GetTextValue(key), messageColor);
-                }
-            }
+            
 
             if (Main.netMode == 0)
             {

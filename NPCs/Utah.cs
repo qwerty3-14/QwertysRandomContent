@@ -7,7 +7,7 @@ namespace QwertysRandomContent.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Utah");
+            DisplayName.SetDefault("Utahraptor");
             Main.npcFrameCount[npc.type] = 4;
         }
 
@@ -15,18 +15,9 @@ namespace QwertysRandomContent.NPCs
         {
             npc.width = 80;
             npc.height = 48;
-            if (NPC.downedMoonlord)
-            {
-                npc.damage = 80;
-                npc.defense = 30;
-                npc.lifeMax = 1000;
-            }
-            else
-            {
-                npc.damage = 60;
-                npc.defense = 18;
-                npc.lifeMax = 340;
-            }
+            npc.damage = 60;
+            npc.defense = 18;
+            npc.lifeMax = 340;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 60f;

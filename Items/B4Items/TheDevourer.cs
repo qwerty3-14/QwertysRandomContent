@@ -9,7 +9,7 @@ namespace QwertysRandomContent.Items.B4Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Devourer");
-            Tooltip.SetDefault("Mines a 13x13 area!");
+            Tooltip.SetDefault("Mines a 9x9 area!");
 
         }
         public override void SetDefaults()

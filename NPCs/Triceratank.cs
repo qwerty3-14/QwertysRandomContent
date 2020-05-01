@@ -17,18 +17,11 @@ namespace QwertysRandomContent.NPCs
         {
             npc.width = 195;
             npc.height = 98;
-            if (NPC.downedMoonlord)
-            {
-                npc.damage = 240;
-                npc.defense = 100;
-                npc.lifeMax = 4000;
-            }
-            else
-            {
-                npc.damage = 200;
-                npc.defense = 40;
-                npc.lifeMax = 2000;
-            }
+
+            npc.damage = 200;
+            npc.defense = 40;
+            npc.lifeMax = 2000;
+
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.value = 6000f;
@@ -82,10 +75,6 @@ namespace QwertysRandomContent.NPCs
 
         public override void AI()
         {
-            if (NPC.downedMoonlord)
-            {
-                damage = 40;
-            }
             AI_Timer++;
 
             Player player = Main.player[npc.target];

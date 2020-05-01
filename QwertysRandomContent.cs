@@ -67,6 +67,7 @@ namespace QwertysRandomContent
             recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddTile(TileID.TinkerersWorkbench);
+            recipe.SetResult(ItemID.AvengerEmblem);
 
             recipe = new ModRecipe(this);
             recipe.AddIngredient(ItemType("YetAnotherThrowerEmblem"));
@@ -74,6 +75,7 @@ namespace QwertysRandomContent
             recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddTile(TileID.TinkerersWorkbench);
+            recipe.SetResult(ItemID.AvengerEmblem);
 
         }
         public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
@@ -113,17 +115,83 @@ namespace QwertysRandomContent
             if (bossChecklist != null)
             {
 
-                bossChecklist.Call("AddBossWithInfo", "Ancient Machine", 5.5f, (Func<bool>)(() => QwertyWorld.downedAncient), "Look into the [i:" + ItemType("AncientEmblem") + "]");
-                bossChecklist.Call("AddBossWithInfo", "The Hydra", 6.000001f, (Func<bool>)(() => QwertyWorld.downedhydra), "Tempt with [i:" + ItemType("HydraSummon") + "]");
-                bossChecklist.Call("AddBossWithInfo", "Rune Ghost", 12.2f, (Func<bool>)(() => QwertyWorld.downedRuneGhost), "Use a [i:" + ItemType("SummoningRune") + "] to challenge its power. [i:" + ItemType("SummoningRune") + "] drops from the dungeon's sneaking ghosts");
-                bossChecklist.Call("AddBossWithInfo", "Oversized Laser-emitting Obliteration Radiation-emitting Destroyer", 13.9999f, (Func<bool>)(() => QwertyWorld.downedB4), "Use a [i:" + ItemType("B4Summon") + "]");
-                bossChecklist.Call("AddEventWithInfo", "Dino Militia", 9.001f, (Func<bool>)(() => QwertyWorld.downedDinoMilitia), "Use a [i:" + ItemType("DinoEgg") + "] and they'll come to drive you extinct!");
-                bossChecklist.Call("AddEventWithInfo", "Dino Militia (post Moonlord)", 15f, (Func<bool>)(() => QwertyWorld.downedDinoMilitiaHard), "Use a [i:" + ItemType("DinoEgg") + "] the militia will hold nothing back this time!");
-                bossChecklist.Call("AddMiniBossWithInfo", "The Great Tyrannosaurus", 9.002f, (Func<bool>)(() => QwertyWorld.downedTyrant), "Fights with the dino militia, more likely to a apear near the end");
-                bossChecklist.Call("AddBossWithInfo", "The Divine Light", 4f, (Func<bool>)(() => QwertyWorld.downedFortressBoss), "Use a [i:" + ItemType("FortressBossSummon") + "]" + " at the altar in the sky fortress");
-                bossChecklist.Call("AddBossWithInfo", "Polar Exterminator", .7f, (Func<bool>)(() => QwertyWorld.downedBear), "Hibernates in the underground tundra, [i:" + ItemType("FrostCompass") + "]Helps find it");
-                bossChecklist.Call("AddBossWithInfo", "Imperious", 9.4f, (Func<bool>)(() => QwertyWorld.downedBlade), "Use the [i:" + ItemType("BladeBossSummon") + "], and accept its challenge");
-                bossChecklist.Call("AddBossWithInfo", "Noehtnap", 5.7f, (Func<bool>)(() => QwertyWorld.downedNoetnap), "Just use the [i:" + ItemType("RitualInterupter") + "] mortal!");
+
+                bossChecklist.Call("AddBoss", 5.5f, NPCType("AncientMachine"), this, "Ancient Machine", (Func<bool>)(() => QwertyWorld.downedAncient), ItemType("AncientEmblem"),
+                    new List<int> { ItemType("AncientMachineTrophy"), ItemType("AncientMusicBox") },
+                    new List<int> { ItemType("AncientMachineBag"), ItemType("AncientGemstone"), ItemType("AncientBlade"), ItemType("AncientThrow"), ItemType("AncientLongbow"), ItemType("AncientSniper"), ItemType("AncientMissileStaff"), ItemType("AncientWave"), ItemType("AncientMinionStaff"), ItemType("AncientNuke"), ItemType("AncientMiner"), ItemID.HealingPotion },
+                    "Look into the [i:" + ItemType("AncientEmblem") + "]", null, "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Checklist", "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss");
+
+                bossChecklist.Call("AddBoss", 6.000001f, NPCType("Hydra"), this, "The Hydra", (Func<bool>)(() => QwertyWorld.downedhydra), ItemType("HydraSummon"),
+                    new List<int> { ItemType("HydraTrophy"), ItemType("MusicBoxBeastOfThreeHeads") },
+                    new List<int> { ItemType("HydraBag"), ItemType("HydraWings"), ItemType("Hydrent"), ItemType("HydraCannon"), ItemType("HydraBeam"), ItemType("HydraHeadStaff"), ItemType("Hydrator"), ItemType("HydraHook"), ItemType("HydraScale"), ItemType("HydraArrow"), ItemID.GreaterHealingPotion },
+                    "Tempt with [i:" + ItemType("HydraSummon") + "]", null, "QwertysRandomContent/NPCs/HydraBoss/Hydra_Checklist", "QwertysRandomContent/NPCs/HydraBoss/MapHead1");
+
+                bossChecklist.Call("AddBoss", 12.2f, NPCType("RuneSpector"), this, "Rune Ghost", (Func<bool>)(() => QwertyWorld.downedRuneGhost), ItemType("SummoningRune"),
+                    new List<int> { ItemType("RuneGhostMask"), ItemType("RunicRobe"), ItemType("MusicBoxTheConjurer") },
+                    new List<int> { ItemType("RuneGhostBag"), ItemType("ExpertItem"), ItemType("AggroScroll"), ItemType("IceScroll"), ItemType("LeechScroll"), ItemType("PursuitScroll"), ItemType("CraftingRune"), ItemID.GreaterHealingPotion },
+                    "Use a [i:" + ItemType("SummoningRune") + "] to challenge its power. [i:" + ItemType("SummoningRune") + "] drops from the dungeon's sneaking ghosts", null, null, "QwertysRandomContent/NPCs/RuneSpectorBoss/RuneSpector_Head_Boss");
+
+                bossChecklist.Call("AddBoss", 13.8f, NPCType("OLORDv2"), this, "Oversized Laser-emitting Obliteration Radiation-emitting Destroyer", (Func<bool>)(() => QwertyWorld.downedB4), ItemType("B4Summon"),
+                    new List<int> { ItemType("B4MusicBox") },
+                    new List<int> { ItemType("B4Bag"), ItemType("B4ExpertItem"), ItemType("Jabber"), ItemType("B4Bow"), ItemType("B4GiantBow"), ItemType("BlackHoleStaff"), ItemType("ExplosivePierce"), ItemType("DreadnoughtStaff"), ItemType("TheDevourer"), ItemID.GreaterHealingPotion },
+                    "Use a [i:" + ItemType("B4Summon") + "]", null, "QwertysRandomContent/NPCs/BossFour/BackGround");
+
+                bossChecklist.Call("AddBoss", 4f, NPCType("FortressBoss"), this, "The Divine Light", (Func<bool>)(() => QwertyWorld.downedFortressBoss), ItemType("FortressBossSummon"),
+                    new List<int> { ItemType("FortressBossTrophy"), ItemType("DivineLightMask"), ItemType("MusicBoxHigherBeing") },
+                    new List<int> { ItemType("FortressBossBag"), ItemType("ExpertChalice"), ItemType("Lightling"), ItemType("SkywardHilt"), ItemType("CaeliteCore"), ItemID.LesserManaPotion },
+                    "Use a [i:" + ItemType("FortressBossSummon") + "]" + " at the altar in the sky fortress", null);
+
+                bossChecklist.Call("AddBoss", .7f, NPCType("PolarBear"), this, "Polar Exterminator", (Func<bool>)(() => QwertyWorld.downedBear), null,
+                    new List<int> { ItemType("PolarTrophy"), ItemType("PolarMask") },
+                    new List<int> { ItemType("TundraBossBag"), ItemType("PenguinGenerator"), ItemType("PenguinClub"), ItemType("PenguinLauncher"), ItemType("PenguinWhistle"), ItemID.Penguin, ItemID.LesserHealingPotion },
+                    "Hibernates in the underground tundra, [i:" + ItemType("FrostCompass") + "]Helps find it. After defeating it it will respawn the next day.", null);
+
+                bossChecklist.Call("AddBoss", 9.4f, NPCType("Imperious"), this, "Imperious", (Func<bool>)(() => QwertyWorld.downedBlade), null,
+                    new List<int> { ItemType("BladeBossTrophy"), ItemType("MusicBoxBladeOfAGod") },
+                    new List<int> { ItemType("BladeBossBag"), ItemType("ImperiousSheath"), ItemType("ImperiousTheIV"), ItemType("FlailSword"), ItemType("BladedArrowShaft"), ItemType("SwordStormStaff"), ItemType("SwordMinionStaff"), ItemType("Imperium"), ItemType("Swordquake"), ItemType("SwordsmanBadge"), ItemID.CopperShortsword, ItemID.GreaterHealingPotion },
+                    "Use the [i:" + ItemType("BladeBossSummon") + "], and accept its challenge", null);
+
+                bossChecklist.Call("AddBoss", 5.7f, NPCType("CloakedDarkBoss"), this, "Noehtnap", (Func<bool>)(() => QwertyWorld.downedNoetnap), ItemType("RitualInterupter"),
+                    new List<int> { ItemType("MusicBoxTheGodsBleed") },
+                    new List<int> { ItemType("NoehtnapBag"), ItemType("Doppleganger"), ItemType("EyeOfDarkness"), ItemType("NoScope"), ItemType("EtimsMaterial"), ItemID.HealingPotion },
+                    "Just use the [i:" + ItemType("RitualInterupter") + "] mortal!", null, "QwertysRandomContent/NPCs/CloakedDarkBoss/CloakedDarkBoss_Checklist");
+
+                bossChecklist.Call("AddEvent", 9.001f,
+                    new List<int> { NPCType("Utah"), NPCType("Triceratank"), NPCType("AntiAir"), NPCType("Velocichopper"), NPCType("TheGreatTyrannosaurus") },
+                    this, "Dino Militia", (Func<bool>)(() => QwertyWorld.downedDinoMilitia), ItemType("DinoEgg"),
+                    ItemType("MusicBoxOldDinosNewGuns"),
+                    new List<int> { ItemType("DinoFlail"), ItemType("DinoVulcan"), ItemType("TheTyrantsExtinctionGun"), ItemType("DinoBone"), ItemType("Tricerashield"), ItemType("DinoTooth"), ItemType("WornPrehistoricBow") },
+                    "Use a [i:" + ItemType("DinoEgg") + "] and they'll come to drive you extinct!", null, "QwertysRandomContent/NPCs/DinoMilitia_Checklist", "QwertysRandomContent/Items/DinoItems/DinoEgg");
+
+
+                bossChecklist.Call("AddMiniBoss", 9.002f, NPCType("TheGreatTyrannosaurus"), this, "The Great Tyrannosaurus", (Func<bool>)(() => QwertyWorld.downedTyrant), null,
+                    ItemType("MusicBoxOldDinosNewGuns"),
+                    new List<int> { ItemType("DinoFlail"), ItemType("TheTyrantsExtinctionGun"), ItemType("DinoBone"), ItemType("WornPrehistoricBow") },
+                    "Fights with the Dino Militia, more likely to a apear near the end", null);
+
+                bossChecklist.Call("AddToBossLoot", "Terraria", "KingSlime", new List<int> { ItemType("SpikedSlimeShift")});
+                bossChecklist.Call("AddToBossLoot", "Terraria", "EyeofCthulhu", new List<int> { ItemType("EoCShift") });
+                bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("ConspiratorEmblem") });
+                if (ModLoader.GetMod("ThoriumMod") == null && ModLoader.GetMod("SpiriteMod") == null && ModLoader.GetMod("ElementsAwoken") == null)
+                {
+                    bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("YetAnotherThrowerEmblem") });
+                }
+
+            }
+            Mod fargos = ModLoader.GetMod("Fargowiltas");
+            if (fargos != null)
+            {
+                // AddSummon, order or value in terms of vanilla bosses, your mod internal name, summon  
+                //item internal name, inline method for retrieving downed value, price to sell for in copper
+
+                fargos.Call("AddSummon", 4f, "QwertysRandomContent", "FortressBossSummon", (Func<bool>)(() => QwertyWorld.downedFortressBoss), 120000);
+                fargos.Call("AddSummon", 5.5f, "QwertysRandomContent", "AncientEmblem", (Func<bool>)(() => QwertyWorld.downedAncient), 180000);
+                fargos.Call("AddSummon", 5.7f, "QwertysRandomContent", "RitualInterupter", (Func<bool>)(() => QwertyWorld.downedNoetnap), 180000);
+                fargos.Call("AddSummon", 6.000001f, "QwertysRandomContent", "HydraSummon", (Func<bool>)(() => QwertyWorld.downedhydra), 240000);
+                fargos.Call("AddSummon", 9.4f, "QwertysRandomContent", "BladeBossSummon", (Func<bool>)(() => QwertyWorld.downedBlade), 450000);
+                fargos.Call("AddSummon", 12.2f, "QwertysRandomContent", "SummoningRune", (Func<bool>)(() => QwertyWorld.downedRuneGhost), 620000);
+                fargos.Call("AddSummon", 13.8f, "QwertysRandomContent", "B4Summon", (Func<bool>)(() => QwertyWorld.downedB4), 800000);
+
             }
         }
         public static Deck<string> AMLoot = new Deck<string>();

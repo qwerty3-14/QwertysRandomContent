@@ -19,19 +19,12 @@ namespace QwertysRandomContent.NPCs
         {
             npc.width = 286;
             npc.height = 104;
-            if (NPC.downedMoonlord)
-            {
-                npc.damage = 100;
-                npc.defense = 30;
-                npc.lifeMax = 18000;
 
-            }
-            else
-            {
-                npc.damage = 90;
-                npc.defense = 20;
-                npc.lifeMax = 4800;
-            }
+            npc.damage = 100;
+            npc.defense = 30;
+            npc.lifeMax = 18000;
+
+
             npc.noTileCollide = true;
             npc.noGravity = true;
             npc.HitSound = SoundID.NPCHit4;
@@ -57,16 +50,13 @@ namespace QwertysRandomContent.NPCs
 
             if (QwertyWorld.DinoEvent)
             {
-                if (!NPC.AnyNPCs(mod.NPCType("Velocichopper")) && !NPC.downedMoonlord)
+                if (!NPC.AnyNPCs(mod.NPCType("Velocichopper")))
                 {
                     return 7f;
                 }
                 else
                 {
-                    if (NPC.downedMoonlord)
-                    {
-                        return 7f;
-                    }
+                    
                     return 0f;
                 }
             }

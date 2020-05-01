@@ -18,18 +18,9 @@ namespace QwertysRandomContent.NPCs
         {
             npc.width = 170;
             npc.height = 148;
-            if (NPC.downedMoonlord)
-            {
-                npc.damage = 160;
-                npc.defense = 60;
-                npc.lifeMax = 40000;
-            }
-            else
-            {
-                npc.damage = 100;
-                npc.defense = 22;
-                npc.lifeMax = 28000;
-            }
+            npc.damage = 100;
+            npc.defense = 22;
+            npc.lifeMax = 28000;
 
             npc.boss = true;
             npc.HitSound = SoundID.NPCHit4;
@@ -50,40 +41,21 @@ namespace QwertysRandomContent.NPCs
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 1.2f);
+            npc.damage = (int)(npc.damage * .6f);
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
 
-            if (QwertyWorld.DinoEvent)
+            if (QwertyWorld.DinoEvent && !NPC.AnyNPCs(mod.NPCType("Velocichopper")) && !NPC.AnyNPCs(mod.NPCType("TheGreatTyrannosaurus")))
             {
-                if (!NPC.AnyNPCs(mod.NPCType("Velocichopper")) && !NPC.downedMoonlord)
+                if (QwertyWorld.DinoKillCount >= 140)
                 {
-                    if (QwertyWorld.DinoKillCount >= 140 && !NPC.downedMoonlord)
-                    {
-                        return 50f;
-                    }
-                    else
-                    {
-
-                        return 3f;
-                    }
-
+                    return 50f;
                 }
-                else
-                {
-                    if (NPC.downedMoonlord)
-                    {
-                        return 3f;
-                    }
+                return 3f;
+            }
+            return 0f;
 
-                    return 0f;
-                }
-            }
-            else
-            {
-                return 0f;
-            }
 
         }
         public override void BossLoot(ref string name, ref int potionType)
@@ -157,15 +129,7 @@ namespace QwertysRandomContent.NPCs
                 damage = 25;
 
             }
-            if (NPC.downedMoonlord)
-            {
-                damage = 50;
-                if (Main.expertMode)
-                {
-                    damage = 30;
-
-                }
-            }
+            
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
             if (!player.active || player.dead)

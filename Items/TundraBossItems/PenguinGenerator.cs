@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Penguin Generator");
-            Tooltip.SetDefault("Attacks have a 10% chance to release penguins");
+            Tooltip.SetDefault("Attacks have a 10% chance to release penguins/nHide visual if the noise bothers you");
 
         }
 

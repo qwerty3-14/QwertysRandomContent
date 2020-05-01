@@ -38,6 +38,11 @@ Extra thanks
 
 
 changelog
+0.21.2
+-added compatibility with boss checklist's new features
+-added support for Fargo's Mutant mod
+
+
 0.21.1
 -fixed boss summons not being consumed
 
