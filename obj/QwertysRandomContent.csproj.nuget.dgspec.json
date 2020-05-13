@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj": {}
+    "C:\\Users\\BRA0007\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj": {}
   },
   "projects": {
-    "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj": {
+    "C:\\Users\\BRA0007\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
+        "projectUniqueName": "C:\\Users\\BRA0007\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
         "projectName": "QwertysRandomContent",
-        "projectPath": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
-        "packagesPath": "C:\\Users\\noahg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\obj\\",
+        "projectPath": "C:\\Users\\BRA0007\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
+        "packagesPath": "C:\\Users\\BRA0007\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\BRA0007\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\noahg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\BRA0007\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

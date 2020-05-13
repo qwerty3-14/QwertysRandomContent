@@ -4,19 +4,18 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Dusts
 {
-    public class TurretLaserDust : ModDust
-    {
-        public override void OnSpawn(Dust dust)
-        {
-            dust.noGravity = true;
+	public class TurretLaserDust : ModDust
+	{
+		public override void OnSpawn(Dust dust)
+		{
+			dust.noGravity = true;
 
-            dust.scale = 1f;
+			dust.scale = 1f;
+		}
 
-        }
-
-        public override Color? GetAlpha(Dust dust, Color lightColor)
-        {
-            return Color.White;
-        }
-    }
+		public override Color? GetAlpha(Dust dust, Color lightColor)
+		{
+			return Color.White;
+		}
+	}
 }

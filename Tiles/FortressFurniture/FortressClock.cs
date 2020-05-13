@@ -6,35 +6,35 @@ using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles.FortressFurniture
 {
-    public class FortressClock : ModTile
-    {
-        public override void SetDefaults()
-        {
-            Main.tileFrameImportant[Type] = true;
-            Main.tileNoAttach[Type] = true;
-            Main.tileLavaDeath[Type] = true;
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
-            TileObjectData.newTile.Height = 5;
-            TileObjectData.newTile.CoordinateHeights = new[]
-            {
-                16,
-                16,
-                16,
-                16,
-                16
-            };
-            TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            // name.SetDefault("Example Clock"); // Automatic from .lang files
-            AddMapEntry(new Color(162, 184, 185), name);
-            dustType = mod.DustType("FortressDust");
-            adjTiles = new int[] { TileID.GrandfatherClocks };
-        }
+	public class FortressClock : ModTile
+	{
+		public override void SetDefaults()
+		{
+			Main.tileFrameImportant[Type] = true;
+			Main.tileNoAttach[Type] = true;
+			Main.tileLavaDeath[Type] = true;
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
+			TileObjectData.newTile.Height = 5;
+			TileObjectData.newTile.CoordinateHeights = new[]
+			{
+				16,
+				16,
+				16,
+				16,
+				16
+			};
+			TileObjectData.addTile(Type);
+			ModTranslation name = CreateMapEntryName();
+			// name.SetDefault("Example Clock"); // Automatic from .lang files
+			AddMapEntry(new Color(162, 184, 185), name);
+			dustType = mod.DustType("FortressDust");
+			adjTiles = new int[] { TileID.GrandfatherClocks };
+		}
 
-        public override void RightClick(int x, int y)
-        {
-            {
-                /*
+		public override void RightClick(int x, int y)
+		{
+			{
+				/*
                 string text = "AM";
                 //Get current weird time
                 double time = Main.time;
@@ -81,26 +81,26 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
                 //Whack it all together to get a HH:MM format
                 var newText = string.Concat("Time: ", intTime, ":", text2, " ", text);
                 */
-                Main.NewText("Get a watch kid!!", 255, 240, 20);
-            }
-        }
+				Main.NewText("Get a watch kid!!", 255, 240, 20);
+			}
+		}
 
-        public override void NearbyEffects(int i, int j, bool closer)
-        {
-            if (closer)
-            {
-                Main.clock = true;
-            }
-        }
+		public override void NearbyEffects(int i, int j, bool closer)
+		{
+			if (closer)
+			{
+				Main.clock = true;
+			}
+		}
 
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
-            num = fail ? 1 : 3;
-        }
+		public override void NumDust(int i, int j, bool fail, ref int num)
+		{
+			num = fail ? 1 : 3;
+		}
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(i * 16, j * 16, 48, 32, mod.ItemType("FortressClock"));
-        }
-    }
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Item.NewItem(i * 16, j * 16, 48, 32, mod.ItemType("FortressClock"));
+		}
+	}
 }
