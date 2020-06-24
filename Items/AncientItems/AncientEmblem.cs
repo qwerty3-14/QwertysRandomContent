@@ -7,16 +7,16 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-
     public class AncientEmblem : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Summons The Ancient Machine");
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.width = 22;
@@ -33,6 +33,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientEmblem_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientEmblem_Glow");
             }
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientEmblem_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientEmblem_Glow");
@@ -56,7 +57,7 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public override bool CanUseItem(Player player)
         {
-            if(!NPC.AnyNPCs(mod.NPCType("AncientMachine")))
+            if (!NPC.AnyNPCs(mod.NPCType("AncientMachine")))
             {
                 NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("AncientMachine"));
                 Main.PlaySound(SoundID.Roar, player.position, 0);
@@ -74,6 +75,5 @@ namespace QwertysRandomContent.Items.AncientItems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 }

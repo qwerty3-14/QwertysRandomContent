@@ -19,7 +19,9 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("The Massacre");
             Tooltip.SetDefault("Right click on the ground for an uppercut" + "\nRight click in the air to slam down!");
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.useStyle = 101; //custom use style
@@ -46,26 +48,27 @@ namespace QwertysRandomContent.Items.Etims
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
-
             return player.itemAnimation == 0;
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
-
     }
+
     public class AltSword : ModPlayer
     {
-        int[] localNPCImmunity = new int[Main.npc.Length];
-        bool uppercut = false;
-        bool slam = false;
-        bool hasRightClicked = false;
+        private int[] localNPCImmunity = new int[Main.npc.Length];
+        private bool uppercut = false;
+        private bool slam = false;
+        private bool hasRightClicked = false;
+
         public override void PostItemCheck()
         {
-
             if (!player.inventory[player.selectedItem].IsAir)
             {
                 Point origin = player.Bottom.ToTileCoordinates();
@@ -77,8 +80,6 @@ namespace QwertysRandomContent.Items.Etims
                 {
                     if (Main.mouseRight && Main.myPlayer == item.owner && !hasRightClicked)
                     {
-
-
                         if (WorldUtils.Find(origin, Searches.Chain(new Searches.Down(3), new GenCondition[]
                                             {
                                             new Conditions.IsSolid()
@@ -117,7 +118,6 @@ namespace QwertysRandomContent.Items.Etims
                         }
                         else if (uppercut)
                         {
-
                             shift = (float)Math.PI / 2 * ((float)player.itemAnimation / (float)player.itemAnimationMax) - (float)Math.PI / 4;
 
                             if (player.itemAnimation < player.itemAnimationMax * .5f)
@@ -160,7 +160,6 @@ namespace QwertysRandomContent.Items.Etims
                         if (player.itemAnimation < player.itemAnimationMax * .15f)
                         {
                             player.bodyFrame.Y = player.bodyFrame.Height * 3;
-
                         }
                         else if (player.itemAnimation < player.itemAnimationMax * .35f)
                         {
@@ -231,7 +230,6 @@ namespace QwertysRandomContent.Items.Etims
                             if (slam || uppercut)
                             {
                                 damageBeforeVariance *= 2;
-
                             }
                             if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(3), new GenCondition[]
                                             {
@@ -247,15 +245,13 @@ namespace QwertysRandomContent.Items.Etims
                             {
                                 p.GetGlobalProjectile<Etims>().effect = true;
                             }
-
                         }
                     }
                     hasRightClicked = (Main.mouseRight && Main.myPlayer == item.owner);
                 }
-
-
             }
         }
+
         public static readonly PlayerLayer AltSwordVisual = new PlayerLayer("QwertysRandomContent", "AltSwordVisual", PlayerLayer.HeldItem, delegate (PlayerDrawInfo drawInfo)
         {
             Player drawPlayer = drawInfo.drawPlayer;
@@ -269,8 +265,8 @@ namespace QwertysRandomContent.Items.Etims
                 DrawData value = new DrawData(texture, drawPlayer.itemLocation - Main.screenPosition, texture.Frame(), color12, drawPlayer.itemRotation, origin, item.scale, SpriteEffects.None, 0);
                 Main.playerDrawData.Add(value);
             }
-
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int itemLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("HeldItem"));
@@ -279,7 +275,6 @@ namespace QwertysRandomContent.Items.Etims
                 AltSwordVisual.visible = true;
                 layers.Insert(itemLayer + 1, AltSwordVisual);
             }
-
         }
     }
 }

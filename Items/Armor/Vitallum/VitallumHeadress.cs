@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.Items.Accesories;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -17,24 +16,27 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vitallum Headress");
-            Tooltip.SetDefault("Increases max life by 80 \n15% increased throwing damage \nStacks of throwing weapons will slowly grow in size" + "\nGrowth rate is lower for higher value throwables \nThrowing attacks poison enemies. \nHealth nearby enemies lose from debuffs heals you.");
+            Tooltip.SetDefault("Increases max life by 80 \n12% increased damage \nAttacks poison enemies. \nHealth nearby enemies lose from debuffs heals you.");
         }
+
         public override void SetDefaults()
         {
             item.rare = 8;
             item.value = Item.sellPrice(gold: 6);
         }
+
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 80;
-            player.thrownDamage += .15f;
-            player.GetModPlayer<BiomassEffect>().effect += 1.5f;
+            player.allDamage += .12f;
             player.GetModPlayer<HeadressEffects>().poisonHeal = true;
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -45,28 +47,29 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-
             return body.type == mod.ItemType("VitallumLifeguard") && legs.type == mod.ItemType("VitallumJeans");
-
         }
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = " ";
             player.GetModPlayer<HeadressEffects>().setBonus = true;
         }
+
         public override void OnCraft(Recipe recipe)
         {
             Main.player[item.owner].QuickSpawnItem(mod.ItemType("VitallumCoreUncharged"), 1);
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             String s = "Please go to conrols and bind the 'Yet another special ability key'";
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
-                s = "Set Bonus: You generate Vitallum hearts over time" + "\nEach active heart grants 4% thrown damage." + "\nPress "+ key+" to consume the hearts for health.";
-
+                s = "Set Bonus: You generate Vitallum hearts over time" + "\nEach active heart grants 4% damage." + "\nPress " + key + " to consume the hearts for health.";
             }
             foreach (TooltipLine line in tooltips) //runs through all tooltip lines
             {
@@ -74,28 +77,29 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 {
                     line.text = s;//change tooltip
                 }
-
             }
         }
     }
+
     public class HeadressEffects : ModPlayer
     {
-
         public bool poisonHeal = false;
-        int counter = 0;
-        List<Dust> leechDusts = new List<Dust>();
+        private int counter = 0;
+        private List<Dust> leechDusts = new List<Dust>();
         public bool setBonus = false;
-        int heartCount = 0;
-        int maxHearts = 5;
-        int heartReplenishTime = 300;
-        int heartCounter = 0;
-        int heartRadius = 60;
-        float trigCounter = 0;
+        private int heartCount = 0;
+        private int maxHearts = 5;
+        private int heartReplenishTime = 300;
+        private int heartCounter = 0;
+        private int heartRadius = 60;
+        private float trigCounter = 0;
+
         public override void ResetEffects()
         {
             poisonHeal = false;
             setBonus = false;
         }
+
         public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
         {
             if (QwertysRandomContent.YetAnotherSpecialAbility.JustPressed) //hotkey is pressed
@@ -106,9 +110,10 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 }
             }
         }
+
         public override void PreUpdate()
         {
-            if(setBonus)
+            if (setBonus)
             {
                 trigCounter += (float)Math.PI / 60;
                 heartCounter++;
@@ -116,15 +121,15 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 {
                     heartRadius = -heartCounter;
                 }
-                else if(heartCounter==0)
+                else if (heartCounter == 0)
                 {
-                    for(int i =0; i < heartCount; i++)
+                    for (int i = 0; i < heartCount; i++)
                     {
                         int amt = 20 + player.GetModPlayer<QwertyPlayer>().recovery;
                         player.statLife += amt;
                         player.HealEffect(amt, true);
                     }
-                    if(player.statLife > player.statLifeMax2)
+                    if (player.statLife > player.statLifeMax2)
                     {
                         player.statLife = player.statLifeMax2;
                     }
@@ -133,25 +138,23 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 }
                 else if (heartCount < maxHearts)
                 {
-
-                    if(heartCounter>heartReplenishTime+1)
+                    if (heartCounter > heartReplenishTime + 1)
                     {
                         heartCount++;
                         heartCounter = 1;
                     }
                 }
-                
             }
             else
             {
                 heartCount = 0;
                 heartCounter = 0;
             }
-           
         }
+
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
         {
-            player.thrownDamage += .04f * heartCount;
+            player.allDamage += .04f * heartCount;
             if (poisonHeal)
             {
                 for (int d = 0; d < leechDusts.Count; d++)
@@ -165,7 +168,6 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                         leechDusts[d].scale = 1;
                         leechDusts[d].velocity = QwertyMethods.PolarVector(10f, (player.Center - leechDusts[d].position).ToRotation());
                     }
-
                 }
                 counter++;
                 int regenBoost = 0;
@@ -190,13 +192,15 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 player.lifeRegen += regenBoost;
             }
         }
+
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (poisonHeal && proj.thrown)
+            if (poisonHeal)
             {
                 target.AddBuff(BuffID.Poisoned, 600);
             }
         }
+
         public PlayerLayer HeartRing = new PlayerLayer("QwertysRandomContent", "HeartRing", PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -217,28 +221,25 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 {
                     horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
                 }
-
             }
-            for (int e =0; e < modPlayer.heartCount; e++)
+            for (int e = 0; e < modPlayer.heartCount; e++)
             {
-                Vector2 heartPos = drawPlayer.Center + QwertyMethods.PolarVector(modPlayer.heartRadius, modPlayer.trigCounter + ((float)Math.PI*2 * e)/(float)modPlayer.heartCount) - Main.screenPosition;
+                Vector2 heartPos = drawPlayer.Center + QwertyMethods.PolarVector(modPlayer.heartRadius, modPlayer.trigCounter + ((float)Math.PI * 2 * e) / (float)modPlayer.heartCount) - Main.screenPosition;
                 Texture2D heartTexture = mod.GetTexture("Items/Armor/Vitallum/VitallumCoreUncharged");
                 DrawData data = new DrawData(heartTexture, heartPos, null, Color.White, 0, heartTexture.Size() * .5f, 1f, 0, 0);
                 data.shader = drawInfo.bodyArmorShader;
                 Main.playerDrawData.Add(data);
 
-                
                 Texture2D veinTexture = mod.GetTexture("Items/Armor/Vitallum/VitallumHeartVein");
-                data = new DrawData(veinTexture, heartPos, new Rectangle(0, 22*horizontalFrame, 26, 22), Color.White, 0, heartTexture.Size() * .5f, 1f, 0, 0);
+                data = new DrawData(veinTexture, heartPos, new Rectangle(0, 22 * horizontalFrame, 26, 22), Color.White, 0, heartTexture.Size() * .5f, 1f, 0, 0);
                 data.shader = drawPlayer.dye[3].dye;
                 Main.playerDrawData.Add(data);
             }
-            
-
         });
 
         public static readonly PlayerLayer Mask = LayerDrawing.DrawHeadSimple("VitallumHeadress", "Items/Armor/Vitallum/VitallumHeadress_HeadSimple", glowmask: false);
         public static readonly PlayerLayer MaskVien = LayerDrawing.DrawHeadSimple("VitallumHeadress", "Items/Armor/Vitallum/VitallumHeadress_HeadSimpleVein", "VitallumHeadressVein", false, 3, 4, true);
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -250,16 +251,16 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 layers.Insert(headLayer + 2, MaskVien);
                 layers.Insert(headLayer + 3, HeartRing);
             }
-
         }
+
         public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("VitallumHeadress", "Items/Armor/Vitallum/VitallumHeadress_HeadSimple");
         public static readonly PlayerHeadLayer MapMaskVein = LayerDrawing.DrawHeadLayer("VitallumHeadress", "Items/Armor/Vitallum/VitallumHeadress_HeadSimpleVein", "Vein", 3, 4, true);
+
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Armor"));
             if (headLayer != -1)
             {
-
                 MapMask.visible = true;
                 layers.Insert(headLayer + 1, MapMask);
                 layers.Insert(headLayer + 2, MapMaskVein);

@@ -1,4 +1,3 @@
-
 using QwertysRandomContent.Items.B4Items;
 using Terraria;
 using Terraria.ID;
@@ -12,8 +11,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Gun Arrow");
             Tooltip.SetDefault("Shoots 2 bullets from your inventory within its first second of flight!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 2;
@@ -30,10 +29,7 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("GunArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -44,14 +40,14 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.AddRecipe();
         }
     }
+
     public class GunArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gun Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -63,23 +59,16 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.arrow = true;
 
             projectile.tileCollide = true;
-
-
         }
-
-
-
-
-
 
         public int timer = 0;
         public int bullet = 14;
         public bool canShoot;
         public float speed = 14f;
+
         //public Item item = new item();
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             timer++;
             int weaponDamage = projectile.damage;
@@ -96,8 +85,6 @@ namespace QwertysRandomContent.Items.Ammo
                     b.scale *= 3;
 
                     b.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
-
-
                 }
             }
             if (timer == 60)
@@ -110,19 +97,13 @@ namespace QwertysRandomContent.Items.Ammo
                     b.scale *= 3;
 
                     b.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
-
-
                 }
-
             }
-
-
         }
 
-
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
 }
-

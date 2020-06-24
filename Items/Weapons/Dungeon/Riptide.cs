@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -9,16 +10,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
     public class Riptide : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicDungeon ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Riptide Sentry Staff");
             Tooltip.SetDefault("");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 4;
             item.mana = 20;
             item.width = 32;
@@ -35,7 +36,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.shoot = mod.ProjectileType("RiptideP");
             item.summon = true;
             item.sentry = true;
-
         }
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -45,11 +45,11 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -62,6 +62,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
     public class RiptideP : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicDungeon ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Riptide");
@@ -71,7 +73,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 34;
             projectile.height = 34;
@@ -86,18 +87,19 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.usesLocalNPCImmunity = true;
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
-        NPC target;
 
-        float maxDistance = 1000f;
-        float distance;
-        int timer;
-        int reloadTime = 6;
-        int si = 1;
+        private NPC target;
+
+        private float maxDistance = 1000f;
+        private float distance;
+        private int timer;
+        private int reloadTime = 6;
+        private int si = 1;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
-
 
             if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
             {
@@ -121,21 +123,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     {
                         Projectile.NewProjectile(shootFrom, QwertyMethods.PolarVector(1, projectile.rotation), mod.ProjectileType("RiptideStream"), projectile.damage, projectile.knockBack, projectile.owner);
                     }
-
                 }
-
-
             }
             else
             {
                 timer = 0;
                 projectile.frame = 0;
             }
-
         }
-
-
     }
+
     public class RiptideStream : ModProjectile
     {
         public override void SetDefaults()
@@ -147,10 +144,12 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.friendly = true;
             projectile.minion = true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
             if (Main.rand.Next(8) == 0)
@@ -160,11 +159,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 d.noGravity = true;
                 d.position = projectile.Center;
             }
-
         }
     }
-
-
-
-
 }

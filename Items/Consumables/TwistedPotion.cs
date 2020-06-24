@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QwertysRandomContent.Config;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,11 +6,14 @@ namespace QwertysRandomContent.Items.Consumables
 {
     public class TwistedPotion : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicPotions ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Twisted Potion");
             Tooltip.SetDefault("14% increased morph critical strike chance");
         }
+
         public override void SetDefaults()
         {
             item.UseSound = SoundID.Item3;
@@ -31,6 +30,7 @@ namespace QwertysRandomContent.Items.Consumables
             item.value = 1000;
             item.rare = 1;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

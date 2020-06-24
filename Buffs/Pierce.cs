@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Buffs
@@ -22,7 +17,6 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
             player.armorPenetration += 12;
         }
     }

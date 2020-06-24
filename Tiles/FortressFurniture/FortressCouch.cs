@@ -35,10 +35,7 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             AddMapEntry(new Color(162, 184, 185), name);
             dustType = mod.DustType("FortressDust");
             //disableSmartCursor = true;
-
-
         }
-
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

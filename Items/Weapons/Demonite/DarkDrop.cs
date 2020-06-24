@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectile to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class DarkDrop : ModItem
@@ -15,12 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             DisplayName.SetDefault("Dark Drop");
             Tooltip.SetDefault("");
             Item.staff[item.type] = true; //projectile makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 26;
             item.mana = 7;
             item.width = 44;
@@ -37,9 +34,7 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             item.shoot = mod.ProjectileType("DarkDropP");
             item.magic = true;
             item.shootSpeed = 8;
-
         }
-
 
         public override void AddRecipes()
         {
@@ -50,6 +45,7 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 62f;
@@ -60,9 +56,8 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI, (Main.MouseWorld - position).Length());
             return false;
         }
-
-
     }
+
     public class DarkDropP : ModProjectile
     {
         public override void SetDefaults()
@@ -73,11 +68,14 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             projectile.friendly = true;
             projectile.hostile = false;
         }
-        float trigCounter;
+
+        private float trigCounter;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
             trigCounter += (float)Math.PI / 30;
@@ -96,7 +94,6 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
                     Dust p = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(rad, trigCounter + ((float)Math.PI * 2 * (i / 3f))), 27, Vector2.Zero);
                     p.noGravity = true;
                 }
-
             }
             else
             {
@@ -104,15 +101,13 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
                 Dust p = Dust.NewDustPerfect(projectile.Center, 27, Vector2.Zero, Scale: 1.5f);
                 p.noGravity = true;
             }
-
-
-
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             damage = (int)(damage * 1.5f);
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 3; i++)
@@ -122,6 +117,4 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
             }
         }
     }
-
-
 }

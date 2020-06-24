@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
 {
     public class PlatinumBoomerang : ModItem
@@ -12,9 +11,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
         {
             DisplayName.SetDefault("Platinum Boomerang");
             Tooltip.SetDefault("This boomerang can be thrown notably far but is slower than most boomerangs");
-
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 16;
@@ -36,12 +34,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
             item.shoot = mod.ProjectileType("PlatinumBoomerangP");
             item.shootSpeed = 13f;
             item.channel = true;
-
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -51,6 +44,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
             for (int i = 0; i < 1000; ++i)
@@ -81,14 +75,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Boomerang");
-
         }
-        float speed;
-        float maxSpeed;
-        bool runOnce = true;
-        float decceleration = 1f / 7f;
-        int spinDirection;
-        bool returnToPlayer;
+
+        private float speed;
+        private float maxSpeed;
+        private bool runOnce = true;
+        private float decceleration = 1f / 7f;
+        private int spinDirection;
+        private bool returnToPlayer;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -102,9 +97,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
             projectile.rotation += MathHelper.ToRadians(maxSpeed * spinDirection);
             if (returnToPlayer)
             {
-
-
-
                 if (Collision.CheckAABBvAABBCollision(player.position, player.Size, projectile.position, projectile.Size))
                 {
                     projectile.Kill();
@@ -120,7 +112,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
             }
             else
             {
-
                 projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY) * speed;
                 speed -= decceleration;
                 if (speed < 1f)
@@ -128,23 +119,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscBoomerangs
                     returnToPlayer = true;
                 }
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             returnToPlayer = true;
-
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             returnToPlayer = true;
             return false;
         }
     }
-
-
 }
-

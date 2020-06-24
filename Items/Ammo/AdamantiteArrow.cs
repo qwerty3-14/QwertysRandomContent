@@ -10,8 +10,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Adamantite Arrow");
             Tooltip.SetDefault("Gives your enemies a nasty punch");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 18;
@@ -28,8 +28,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("AdamantiteArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -41,14 +39,14 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.AddRecipe();
         }
     }
+
     public class AdamantiteArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Adamantite Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -58,11 +56,9 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
             projectile.tileCollide = true;
-
-            //Main.PlaySound(2, -1, -1, 59, 1f, -.2f);
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             knockback = 0;
@@ -73,7 +69,6 @@ namespace QwertysRandomContent.Items.Ammo
                 {
                     target.velocity.X = projectile.velocity.X * 1f;
                     target.velocity.Y = projectile.velocity.Y * .5f;
-
                 }
             }
             else
@@ -83,17 +78,15 @@ namespace QwertysRandomContent.Items.Ammo
                 {
                     target.velocity.X = projectile.velocity.X * .5f;
                     target.velocity.Y = projectile.velocity.Y * .25f;
-
                 }
             }
         }
+
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
-
             if (crit)
             {
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f));
-
 
                 target.velocity.X = projectile.velocity.X * 1f;
                 target.velocity.Y = projectile.velocity.Y * .5f;
@@ -101,9 +94,6 @@ namespace QwertysRandomContent.Items.Ammo
                 {
                     QwertysRandomContent.UpdatePlayerVelocity(target.whoAmI, target.velocity);
                 }
-
-
-
             }
             else
             {
@@ -115,16 +105,12 @@ namespace QwertysRandomContent.Items.Ammo
                 {
                     QwertysRandomContent.UpdatePlayerVelocity(target.whoAmI, target.velocity);
                 }
-
-
             }
         }
 
-
-
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
 }
-

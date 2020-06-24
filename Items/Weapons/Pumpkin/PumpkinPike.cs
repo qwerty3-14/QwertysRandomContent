@@ -28,7 +28,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             item.value = 1000;
             item.rare = 1;
 
-
             item.melee = true;
             item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
             item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
@@ -37,6 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             item.UseSound = SoundID.Item1;
             item.shoot = mod.ProjectileType("PumpkinPikeP");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -45,11 +45,13 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
             // Ensures no more than one spear can be thrown out, use this when using autoReuse
             return player.ownedProjectileCounts[item.shoot] < 2;
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedBy((float)Math.PI / 16), type, damage, knockBack, player.whoAmI);
@@ -73,8 +75,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             projectile.penetrate = -1;
             projectile.scale = 1.3f;
 
-
-
             projectile.ownerHitCheck = true;
             projectile.melee = true;
             projectile.tileCollide = false;
@@ -95,10 +95,10 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
         public float maxDistance = 800;
         public float vel;
         public bool runOnce = true;
+
         // It appears that for this AI, only the ai0 field is used!
         public override void AI()
         {
-
             // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             // Sadly, Projectile/ModProjectile does not have its own
             Player projOwner = Main.player[projectile.owner];
@@ -144,10 +144,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             {
                 projectile.rotation -= MathHelper.ToRadians(90f);
             }
-
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = 10;

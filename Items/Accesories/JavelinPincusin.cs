@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,6 +11,7 @@ namespace QwertysRandomContent.Items.Accesories
             DisplayName.SetDefault("Javelin Pincusin");
             Tooltip.SetDefault("Doubles the amount of javelins you can stick into an enemy \nOnly works on javelins from this qwerty's bosses and items");
         }
+
         public override void SetDefaults()
         {
             item.value = 10000;
@@ -24,10 +20,12 @@ namespace QwertysRandomContent.Items.Accesories
             item.height = 18;
             item.accessory = true;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<QwertyPlayer>().PincusionMultiplier *= 2f;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -38,5 +36,4 @@ namespace QwertysRandomContent.Items.Accesories
             recipe.AddRecipe();
         }
     }
-    
 }

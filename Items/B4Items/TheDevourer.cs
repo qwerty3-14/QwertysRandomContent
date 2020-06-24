@@ -10,8 +10,8 @@ namespace QwertysRandomContent.Items.B4Items
         {
             DisplayName.SetDefault("The Devourer");
             Tooltip.SetDefault("Mines a 9x9 area!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 170;
@@ -32,14 +32,6 @@ namespace QwertysRandomContent.Items.B4Items
             item.pick = 250;
             item.tileBoost = 6;
             item.GetGlobalItem<AoePick>().miningRadius = 4;
-
-
-
         }
-
-
     }
-
-
 }
-

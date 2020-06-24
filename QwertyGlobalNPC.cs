@@ -4,22 +4,19 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-
-
-
 namespace QwertysRandomContent
 {
     public class QwertyGloabalNPC : GlobalNPC
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public int age = 0;
+        public int swordquakeCooldown = 0;
+
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (QwertyWorld.DinoEvent)
             {
-
                 if (NPC.AnyNPCs(mod.NPCType("TheGreatTyrannosaurus")) && !NPC.downedMoonlord)
                 {
                     spawnRate = 0;
@@ -27,7 +24,6 @@ namespace QwertysRandomContent
                 }
                 else
                 {
-
                     if (NPC.downedMoonlord)
                     {
                         spawnRate = 30;
@@ -38,7 +34,6 @@ namespace QwertysRandomContent
                         spawnRate = 10;
                         maxSpawns = 10;
                     }
-
                 }
             }
             if (modPlayer.TheAbstract)
@@ -46,7 +41,6 @@ namespace QwertysRandomContent
                 spawnRate = 100;
                 maxSpawns = 100;
             }
-
         }
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -55,7 +49,6 @@ namespace QwertysRandomContent
             {
                 //Main.NewText("Boost!");
                 damage = (int)(damage * 1.5f);
-
             }
             if (projectile.melee && projectile.minion)
             {
@@ -70,8 +63,10 @@ namespace QwertysRandomContent
                 damage = (int)(damage * 1.5f);
             }
         }
+
         public override bool PreAI(NPC npc)
         {
+            swordquakeCooldown--;
             age++;
             //Main.NewText(npc.lifeRegenExpectedLossPerSecond);
             if (npc.HasBuff(mod.BuffType("TitanicGrasp")) || npc.HasBuff(mod.BuffType("Stunned")))
@@ -84,10 +79,11 @@ namespace QwertysRandomContent
             }
             return base.PreAI(npc);
         }
-        float stunCounter = 0;
+
+        private float stunCounter = 0;
+
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
         {
-
             if (npc.HasBuff(mod.BuffType("Stunned")))
             {
                 //float area = npc.width * npc.height;
@@ -114,7 +110,6 @@ namespace QwertysRandomContent
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunCounter,
                             new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), scale, SpriteEffects.None, 0f);
 
-
                     CenterOfStunned = new Vector2(npc.Center.X - (float)Math.Sin(stunCounter) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
                     spriteBatch.Draw(texture, new Vector2(CenterOfStunned.X - Main.screenPosition.X, CenterOfStunned.Y - Main.screenPosition.Y),
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunCounter,
@@ -128,7 +123,6 @@ namespace QwertysRandomContent
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunCounter,
                             new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), scale, SpriteEffects.None, 0f);
 
-
                     CenterOfStunned = new Vector2(npc.Center.X + (float)Math.Sin(stunCounter) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
                     spriteBatch.Draw(texture, new Vector2(CenterOfStunned.X - Main.screenPosition.X, CenterOfStunned.Y - Main.screenPosition.Y),
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunCounter,
@@ -137,7 +131,12 @@ namespace QwertysRandomContent
             }
         }
 
+        public override void NPCLoot(NPC npc)
+        {
+            if (Main.bloodMoon && !npc.SpawnedFromStatue && Main.rand.Next(200) == 0)
+            {
+                Item.NewItem(npc.getRect(), mod.ItemType("BloodyMedalion"));
+            }
+        }
     }
-
-
 }

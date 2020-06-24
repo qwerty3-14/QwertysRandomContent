@@ -14,39 +14,36 @@ namespace QwertysRandomContent.Items.Dyes
             DisplayName.SetDefault("Custom Dye: Underhirt");
             Tooltip.SetDefault("Based on your default clothes' undershirt color");
         }
+
         public override void SetDefaults()
         {
-
             byte dye = item.dye;
             item.CloneDefaults(ItemID.GelDye);
             item.dye = dye;
             item.value = 150000;
         }
     }
+
     public class CustomArmorShader2 : ArmorShaderData
     {
-
         private static bool isInitialized = false;
 
-
         private static ArmorShaderData dustShaderData;
+
         public CustomArmorShader2(Ref<Effect> shader, string passName) : base(shader, passName)
         {
-
             dustShaderData = new ArmorShaderData(shader, passName);
         }
+
         /*
         public override void Apply(Entity entity, DrawData? drawData)
         {
-            
             Player player = entity as Player;
-            
+
             dustShaderData.UseColor(player.shirtColor).Apply(player, drawData);
-
-           
-
         }
         */
+
         public override void Apply(Entity entity, DrawData? drawData)
         {
             Player player = entity as Player;
@@ -65,9 +62,5 @@ namespace QwertysRandomContent.Items.Dyes
             Player player = entity as Player;
             return dustShaderData.UseColor(player.underShirtColor).UseSaturation(3f);
         }
-
-
-
-
     }
 }

@@ -30,17 +30,15 @@ namespace QwertysRandomContent.NPCs
             animationType = NPCID.Bee;
             npc.npcSlots = 0;
 
-
             npc.noGravity = true;
             npc.noTileCollide = false;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             return 0f;
-
         }
+
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
             if (Main.expertMode)
@@ -53,8 +51,10 @@ namespace QwertysRandomContent.NPCs
                 target.AddBuff(mod.BuffType("DinoPox"), 480);
             }
         }
+
         public bool runOnce = true;
         public int timer;
+
         public override void AI()
         {
             timer++;
@@ -72,12 +72,6 @@ namespace QwertysRandomContent.NPCs
             {
                 npc.aiStyle = 14;
             }
-
         }
-
-
-
-
-
     }
 }

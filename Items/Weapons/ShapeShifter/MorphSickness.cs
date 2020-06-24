@@ -22,9 +22,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 Dust dust = Main.dust[Dust.NewDust(player.position, player.width, player.height, 54)];
                 dust.noGravity = true;
             }
-
         }
-
     }
-
 }

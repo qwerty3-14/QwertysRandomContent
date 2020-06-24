@@ -12,10 +12,12 @@ namespace QwertysRandomContent
     public class FortressBiome : ModPlayer
     {
         public bool TheFortress = false;
+
         public override void UpdateBiomes()
         {
             TheFortress = (SkyFortress.fortressBrick > 100) && (((Main.maxTilesX < 6000) && (player.Center.Y / 16) < 160) || ((Main.maxTilesX < 8000 && Main.maxTilesX > 6000) && (player.Center.Y / 16) < 250) || ((Main.maxTilesX > 8000) && (player.Center.Y / 16) < 350));
         }
+
         public override bool CustomBiomesMatch(Player other)
         {
             FortressBiome modOther = other.GetModPlayer<FortressBiome>();
@@ -40,15 +42,16 @@ namespace QwertysRandomContent
             BitsByte flags = reader.ReadByte();
             TheFortress = flags[0];
         }
+
         public override void PostUpdate()
         {
-
         }
+
         public override void PreUpdate()
         {
-
         }
     }
+
     public class FortressSpawn : GlobalNPC
     {
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
@@ -89,34 +92,35 @@ namespace QwertysRandomContent
                         }
                     }
                 }
-
-
             }
         }
+
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-
             if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
             {
                 pool[0] = 0f;
             }
             //pool.Add(NPCID.Harpy, 0f);
         }
-
     }
+
     public class SkyFortress : ModWorld
     {
         public static int fortressBrick;
+
         public override void ResetNearbyTileEffects()
         {
             QwertyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<QwertyPlayer>();
 
             fortressBrick = 0;
         }
+
         public override void TileCountsAvailable(int[] tileCounts)
         {
             fortressBrick = tileCounts[mod.TileType("FortressBrick")];
         }
+
         #region
         private static int numIslandHouses = 0;
 
@@ -126,7 +130,6 @@ namespace QwertysRandomContent
 
         private static int[] fihY = new int[30];
         #endregion
-
 
         public int startingX;
 
@@ -160,10 +163,8 @@ namespace QwertysRandomContent
                 ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Full Desert"));
                 if (ShiniesIndex != -1)
                 {
-
                     tasks.Insert(ShiniesIndex + 1, new PassLegacy("Giving Sky Fortress space", delegate (GenerationProgress progress)
                     {
-
                         numIslandHouses = 0;
                         houseCount = 0;
                         progress.Message = Lang.gen[12].Value;
@@ -255,21 +256,16 @@ namespace QwertysRandomContent
                         }));
 
                         #endregion
-
                     }
                 }
                 #endregion
-
-
             }
         }
+
         public override void PostWorldGen()
         {
-
             Fortress2Builder.BuildFortress();
-
         }
-
     }
 
     public class BuildOldFortress : ModCommand
@@ -300,7 +296,6 @@ namespace QwertysRandomContent
                 {
                     for (int a = 0; a < 25; a++)
                     {
-
                         if (side == 0)
                         {
                             if (a < 8 && b == 8)
@@ -313,7 +308,6 @@ namespace QwertysRandomContent
                             }
                             else if (a > 16 && b == 12)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                                 if (a != 17 && a != 24)
                                 {
@@ -333,7 +327,6 @@ namespace QwertysRandomContent
                             }
                             else if (a > 16 && b == 8)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                                 if (a != 17 && a != 24)
                                 {
@@ -341,7 +334,6 @@ namespace QwertysRandomContent
                                 }
                             }
                         }
-
 
                         if ((a == 23 || a == 1 || a == 18 || a == 6) && !Main.tile[i + a, j + b].active())
                         {
@@ -351,6 +343,7 @@ namespace QwertysRandomContent
                 }
             }
         }
+
         public void generateBridge(int i, int j, int type = 0)
         {
             int tile1 = mod.TileType("FortressBrick");
@@ -400,7 +393,6 @@ namespace QwertysRandomContent
                         #endregion
                     }
                 }
-
             }
             if (type == 2) //shorter bridge with island in center
             {
@@ -438,7 +430,6 @@ namespace QwertysRandomContent
             }
             if (type == 3)
             {
-
                 for (int b = 0; b < 25; b++)
                 {
                     if (b > 2 && b < 22)
@@ -447,13 +438,11 @@ namespace QwertysRandomContent
                         WorldGen.PlaceTile(i + 74, j + b, tile1);
                     }
                 }
-
             }
-
         }
+
         public void generateRoom(int i, int j, int type = 0)
         {
-
             int pillar = mod.TileType("FortressPillar");
             int wall1 = mod.WallType("FortressWall");
             int tile1 = mod.TileType("FortressBrick");
@@ -469,14 +458,12 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, plat1);
                             }
                             else if (a >= 2 && a <= 22)
                             {
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
-
                         }
                     }
                     else if (b == 1 || b == 23)
@@ -485,7 +472,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14)
                             {
-
                             }
                             else if (a >= 1 && a <= 23)
                             {
@@ -499,7 +485,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14)
                             {
-
                             }
                             else
                             {
@@ -513,7 +498,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
                         }
@@ -522,10 +506,8 @@ namespace QwertysRandomContent
                     {
                         for (int a = 0; a < 25; a++)
                         {
-
                             if (a >= 6 && a <= 18)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
                         }
@@ -534,16 +516,12 @@ namespace QwertysRandomContent
                     {
                         for (int a = 0; a < 25; a++)
                         {
-
                             if (a >= 7 && a <= 17)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
                         }
                     }
-
-
                 }
                 #endregion
                 #region walls
@@ -556,7 +534,6 @@ namespace QwertysRandomContent
                             WorldGen.PlaceWall(i + a, j + b, wall1);
                         }
                     }
-
                 }
                 #endregion
                 #region pillars
@@ -583,14 +560,12 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14 && b == 0)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, plat1);
                             }
                             else if (a >= 2 && a <= 22)
                             {
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
-
                         }
                     }
                     else if (b == 1 || b == 23)
@@ -599,7 +574,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14 && b == 1)
                             {
-
                             }
                             else if (a >= 1 && a <= 23)
                             {
@@ -613,7 +587,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14 && b < 5)
                             {
-
                             }
                             else
                             {
@@ -641,8 +614,6 @@ namespace QwertysRandomContent
                             }
                         }
                     }
-
-
                 }
                 #endregion
                 #region walls
@@ -655,7 +626,6 @@ namespace QwertysRandomContent
                             WorldGen.PlaceWall(i + a, j + b, wall1);
                         }
                     }
-
                 }
                 #endregion
                 WorldGen.PlaceTile(i + 12, j + 17, mod.TileType("FortressAltar"));
@@ -674,14 +644,12 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14 && b == 0)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, plat1);
                             }
                             else if (a >= 2 && a <= 22)
                             {
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
-
                         }
                     }
                     else if (b == 1 || b == 23)
@@ -690,7 +658,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14 && b == 1)
                             {
-
                             }
                             else if (a >= 1 && a <= 23)
                             {
@@ -704,7 +671,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14 && b < 5)
                             {
-
                             }
                             else
                             {
@@ -738,7 +704,6 @@ namespace QwertysRandomContent
                         {
                             if (a >= 10 && a <= 14)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
                         }
@@ -747,10 +712,8 @@ namespace QwertysRandomContent
                     {
                         for (int a = 0; a < 25; a++)
                         {
-
                             if (a >= 6 && a <= 18)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
                         }
@@ -759,16 +722,12 @@ namespace QwertysRandomContent
                     {
                         for (int a = 0; a < 25; a++)
                         {
-
                             if (a >= 7 && a <= 17)
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, tile1);
                             }
                         }
                     }
-
-
                 }
                 #endregion
                 #region walls
@@ -784,7 +743,6 @@ namespace QwertysRandomContent
                             }
                         }
                     }
-
                 }
                 #endregion
                 WorldGen.PlaceTile(i + 12, j + 19, TileID.Anvils);
@@ -873,12 +831,10 @@ namespace QwertysRandomContent
                     /*
                     if (b == 6)
                     {
-
                         for (int a = 0; a < 25; a++)
                         {
                             if ((a >= 1 && a <= 3 && 1+gap != a) )
                             {
-
                                 WorldGen.PlaceTile(i + a, j + b, mod.TileType("CaeliteBar"));
 
                                 if((Main.rand.Next(1) ==0|| secondPlace) && hasntPlaced)
@@ -890,7 +846,6 @@ namespace QwertysRandomContent
                                 {
                                     secondPlace = true;
                                 }
-
                             }
                             if((a >= 21 && a <= 23 && 21 + gap != a))
                             {
@@ -905,22 +860,21 @@ namespace QwertysRandomContent
                                 {
                                     secondPlace2 = true;
                                 }
-
                             }
                         }
-
                     }
                     */
                 }
                 #endregion
-
             }
         }
+
         public int startingX;
-        float upperLimit = 60;
-        float lowerLimit;
-        int Center;
-        int maxDistanceFromCenter;
+        private float upperLimit = 60;
+        private float lowerLimit;
+        private int Center;
+        private int maxDistanceFromCenter;
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             Main.NewText("The sky has been Fortified!");
@@ -966,7 +920,6 @@ namespace QwertysRandomContent
             if (Main.maxTilesX > 8000)
             {
                 roomsPerLayer += 4;
-
             }
             if (Main.maxTilesX > 6000)
             {
@@ -974,7 +927,6 @@ namespace QwertysRandomContent
             }
             else
             {
-
             }
             int roomHeight = 25;
             int roomWidth = 25;
@@ -996,7 +948,6 @@ namespace QwertysRandomContent
             else
             {
                 startingY = 110;
-
             }
             if (Main.maxTilesX > 8000)
             {
@@ -1004,8 +955,6 @@ namespace QwertysRandomContent
             }
             startingX -= WidthOffset + (((roomsPerLayer - 1) / 2) * (roomWidth + bridgeWidth));
             startingY -= HeightOffset;
-
-
 
             int treasure = Main.rand.Next(roomsPerLayer - 1);
             if (treasure >= (roomsPerLayer - 1) / 2)
@@ -1031,15 +980,12 @@ namespace QwertysRandomContent
                         //Main.NewText(n + ", " + startingX + (n * (roomWidth + bridgeWidth)) + ", " + startingY);
                         generateRoom(startingX + (n * (roomWidth + bridgeWidth)), startingY, 1);
                     }
-
                 }
 
                 if (n != roomsPerLayer - 1)
                 {
                     generateBridge(startingX + roomWidth + (n * (roomWidth + bridgeWidth)), startingY, 0);
                 }
-
-
             }
             treasure = Main.rand.Next(roomsPerLayer);
             for (int n = 0; n < roomsPerLayer; n++)
@@ -1057,8 +1003,6 @@ namespace QwertysRandomContent
                 {
                     generateBridge(startingX + roomWidth + (n * (roomWidth + bridgeWidth)), startingY - 1 * (roomHeight + verticalHeight), 0);
                 }
-
-
             }
             if (Main.maxTilesX > 6000)
             {
@@ -1078,8 +1022,6 @@ namespace QwertysRandomContent
                     {
                         generateBridge(startingX + roomWidth + (n * (roomWidth + bridgeWidth)), startingY + 1 * (roomHeight + verticalHeight), 0);
                     }
-
-
                 }
                 treasure = Main.rand.Next(roomsPerLayer);
                 for (int n = 0; n < roomsPerLayer; n++)
@@ -1097,8 +1039,6 @@ namespace QwertysRandomContent
                     {
                         generateBridge(startingX + roomWidth + (n * (roomWidth + bridgeWidth)), startingY - 2 * (roomHeight + verticalHeight), 0);
                     }
-
-
                 }
             }
             if (Main.maxTilesX > 8000)
@@ -1119,16 +1059,8 @@ namespace QwertysRandomContent
                     {
                         generateBridge(startingX + roomWidth + (n * (roomWidth + bridgeWidth)), startingY + 2 * (roomHeight + verticalHeight), 0);
                     }
-
-
                 }
-
             }
-
         }
     }
-
-
-
-
 }

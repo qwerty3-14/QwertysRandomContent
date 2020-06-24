@@ -11,6 +11,7 @@ namespace QwertysRandomContent.Dusts
             dust.noGravity = true;
             dust.scale = 1f;
         }
+
         public override bool Update(Dust dust)
         {
             if (dust.alpha > 0)
@@ -19,6 +20,7 @@ namespace QwertysRandomContent.Dusts
             }
             return true;
         }
+
         public override Color? GetAlpha(Dust dust, Color lightColor)
         {
             return Color.White;

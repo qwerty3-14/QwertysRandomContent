@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using QwertysRandomContent.Config;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,19 +11,19 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rhuthinium Bow");
+            DisplayName.SetDefault("Rhuthinium Doubow");
             Tooltip.SetDefault("");
-           
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-            item.damage = 31;
+            item.damage = 18;
             item.ranged = true;
 
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 30;
+            item.useAnimation = 30;
             item.useStyle = 5;
             item.knockBack = 2;
             item.value = 25000;
@@ -33,11 +35,21 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.crit = 5;
             item.shoot = 40;
             item.useAmmo = 40;
-            item.shootSpeed = 8;
+            item.shootSpeed = 10;
             item.noMelee = true;
+        }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-4, 0);
+        }
 
-
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            float rot = new Vector2(speedX, speedY).ToRotation();
+            Projectile.NewProjectile(position + QwertyMethods.PolarVector(6, rot) + QwertyMethods.PolarVector(7.5f, rot + (float)Math.PI / 2), new Vector2(speedX, speedY), type, damage, knockBack, item.owner);
+            Projectile.NewProjectile(position + QwertyMethods.PolarVector(6, rot) + QwertyMethods.PolarVector(-7.5f, rot + (float)Math.PI / 2), new Vector2(speedX, speedY), type, damage, knockBack, item.owner);
+            return false;
         }
 
         public override void AddRecipes()
@@ -49,9 +61,5 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
-
-
 }
-

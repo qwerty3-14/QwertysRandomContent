@@ -7,8 +7,6 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Beast of Three Heads)");
-
-
         }
 
         public override void SetDefaults()
@@ -25,8 +23,6 @@ namespace QwertysRandomContent.Items.HydraItems
             item.rare = 5;
             item.value = 100000;
             item.accessory = true;
-
         }
-
     }
 }

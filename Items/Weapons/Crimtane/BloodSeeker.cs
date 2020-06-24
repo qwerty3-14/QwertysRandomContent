@@ -6,6 +6,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 //copied from example javelin forom example mod
 namespace QwertysRandomContent.Items.Weapons.Crimtane
 {
@@ -15,8 +16,8 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane
         {
             DisplayName.SetDefault("Blood Seeker");
             Tooltip.SetDefault("Has slight homing");
-
         }
+
         public override void SetDefaults()
         {
             // Alter any of these values as you see fit, but you should probably keep useStyle on 1, as well as the noUseGraphic and noMelee bools
@@ -28,30 +29,29 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane
             item.useTime = 21;
             item.width = 68;
             item.height = 68;
-            item.maxStack = 999;
             item.rare = 5;
-            item.value = 15;
-            item.consumable = true;
+            item.value = Item.sellPrice(silver: 30);
             item.noUseGraphic = true;
             item.noMelee = true;
             item.autoReuse = true;
-            item.thrown = true;
+            item.melee = true;
 
             item.UseSound = SoundID.Item1;
 
             item.shoot = mod.ProjectileType("BloodSeekerP");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.CrimtaneBar, 1);
+            recipe.AddIngredient(ItemID.CrimtaneBar, 10);
 
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 200);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class BloodSeekerP : Javelin
     {
         public override void SetStaticDefaults()
@@ -65,7 +65,7 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane
             projectile.height = 10;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.thrown = true;
+            projectile.melee = true;
             projectile.penetrate = 1;
             projectile.GetGlobalProjectile<ImplaingProjectile>().CanImpale = true;
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 5;
@@ -73,7 +73,9 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane
             dropItem = mod.ItemType("BloodSeeker");
             rotationOffset = (float)Math.PI / 4;
         }
-        NPC target;
+
+        private NPC target;
+
         public override void NonStickingBehavior()
         {
             if (QwertyMethods.ClosestNPC(ref target, 300, projectile.Center))
@@ -83,6 +85,7 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane
                 projectile.velocity = QwertyMethods.PolarVector(projectile.velocity.Length(), dir);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -91,6 +94,5 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
-
     }
 }

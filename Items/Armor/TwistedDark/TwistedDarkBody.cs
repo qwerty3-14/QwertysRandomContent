@@ -12,11 +12,10 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         {
             DisplayName.SetDefault("Etimsic Half Plate");
             Tooltip.SetDefault("Emerald Eye effect \nEye's knowledge preserve's the mask and robe bonuses \n10% reduced cooldown on quick morphs");
-
         }
+
         public override void SetDefaults()
         {
-
             item.value = Item.sellPrice(gold: 1);
             item.rare = 3;
             item.value = 120000;
@@ -25,8 +24,8 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             item.defense = 1;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 5;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 7;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -35,12 +34,12 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-
             return head.type == mod.ItemType("TwistedDarkMask") && legs.type == mod.ItemType("TwistedDarkLegs");
-
         }
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DarkSet");
@@ -48,9 +47,9 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
                 player.statLifeMax2 += 100;
-
             }
         }
+
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration *= .9f;
@@ -60,16 +59,12 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = true;
             }
         }
+
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
-
             drawHands = true;
 
             drawArms = true;
-
         }
-
     }
-
 }
-

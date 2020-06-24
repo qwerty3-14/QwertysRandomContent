@@ -6,7 +6,6 @@ namespace QwertysRandomContent.Buffs
 {
     public class CaeliteImbune : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Weapon Imbue: Caelite Wrath");
@@ -28,10 +27,8 @@ namespace QwertysRandomContent.Buffs
             }
             */
         }
-
-
-
     }
+
     public class InflictCaelite : GlobalNPC
     {
         public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
@@ -41,6 +38,7 @@ namespace QwertysRandomContent.Buffs
                 npc.AddBuff(mod.BuffType("PowerDown"), 420);
             }
         }
+
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             if (Main.player[projectile.owner].HasBuff(mod.BuffType("CaeliteImbune")) && projectile.melee)
@@ -49,6 +47,7 @@ namespace QwertysRandomContent.Buffs
             }
         }
     }
+
     public class CaeliteImbunedProjectile : GlobalProjectile
     {
         public override void AI(Projectile projectile)
@@ -59,6 +58,7 @@ namespace QwertysRandomContent.Buffs
             }
         }
     }
+
     public class CaeliteImbunedItem : GlobalItem
     {
         public override void MeleeEffects(Item item, Player player, Rectangle hitbox)

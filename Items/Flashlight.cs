@@ -11,19 +11,16 @@ namespace QwertysRandomContent.Items
         {
             DisplayName.SetDefault("Flashlight");
             Tooltip.SetDefault("Lights up a large area when used");
-
         }
+
         public override void SetDefaults()
         {
-
-
             item.useTime = 2;
             item.useAnimation = 2;
             item.useStyle = 5;
             item.knockBack = 5;
             item.value = 10000;
             item.rare = 1;
-
 
             item.width = 34;
             item.height = 12;
@@ -32,8 +29,6 @@ namespace QwertysRandomContent.Items
             item.shootSpeed = 1;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -51,29 +46,19 @@ namespace QwertysRandomContent.Items
                     {
                         Lighting.AddLight(position + (l * direction), .4f, .4f, .4f);
                     }
-
                 }
-
             }
             return false;
         }
+
         public override void AutoLightSelect(ref bool dryTorch, ref bool wetTorch, ref bool glowstick)
         {
             glowstick = true;
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
         }
-
-
-
-
-
-
-
     }
-
-
 }
-

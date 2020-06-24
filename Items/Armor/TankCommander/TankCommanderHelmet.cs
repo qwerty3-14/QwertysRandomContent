@@ -18,60 +18,50 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
             Tooltip.SetDefault("+1 max minions \n When morphed you'll occasionally get air support!");
         }
 
-
         public override void SetDefaults()
         {
-
             item.value = 100000;
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 14;
             item.defense = 5;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 8;
-
-
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("TankCommanderJacket") && legs.type == mod.ItemType("TankCommanderPants");
-
         }
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.TankSet");
             player.GetModPlayer<TankComHelmEffects>().setBonus = true;
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
-
         }
+
         public override void UpdateEquip(Player player)
         {
             player.maxMinions++;
             player.GetModPlayer<TankComHelmEffects>().effect = true;
         }
-
-
-
-
-
-
-
     }
+
     public class TankComHelmEffects : ModPlayer
     {
         public bool effect;
         public bool setBonus;
-        int bomberDelay = 300;
-        int[] selected = new int[3];
-        int bombingCounter = 0;
+        private int bomberDelay = 300;
+        private int[] selected = new int[3];
+        private int bombingCounter = 0;
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-
             int maxAgeToStun = 300;
             if (proj.GetGlobalProjectile<MorphProjectile>().morph && setBonus && target.GetGlobalNPC<QwertyGloabalNPC>().age < maxAgeToStun)
             {
@@ -82,17 +72,15 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
             {
                 damage = (int)(damage * 1.3f);
             }
-
         }
+
         public override void PreUpdate()
         {
-
             if (effect && player.GetModPlayer<ShapeShifterPlayer>().morphed)
             {
                 bomberDelay--;
                 if (bomberDelay <= 0)
                 {
-
                     if (bomberDelay % 30 == 0)
                     {
                         Deck<int> targets = new Deck<int>();
@@ -109,38 +97,30 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
                             float rotation = (float)Math.PI / 2;
 
                             Projectile.NewProjectile(new Vector2(Main.npc[targets[Main.rand.Next(targets.Count)]].Center.X, player.Center.Y) + QwertyMethods.PolarVector(-500, rotation), QwertyMethods.PolarVector(12, rotation), mod.ProjectileType("MiniBomb"), (int)(140 * player.minionDamage), 0f, player.whoAmI);
-
                         }
                     }
                     if (bomberDelay < -60)
                     {
                         bomberDelay = 260 + Main.rand.Next(120);
                     }
-
-
-
-
-
-
                 }
-
-
             }
         }
+
         public override void ResetEffects()
         {
             effect = false;
             setBonus = false;
         }
     }
+
     public class MiniBomb : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Bomb");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -153,33 +133,33 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
             projectile.timeLeft = 600;
             projectile.tileCollide = true;
             projectile.minion = true;
-
         }
+
         public bool runOnce = true;
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("MiniBombBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             e.localNPCImmunity[target.whoAmI] = -1;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("MiniBombBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             return true;
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
-
 
             Main.PlaySound(SoundID.Item62, projectile.position);
             for (int i = 0; i < 10; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
-
             }
             // Fire Dust spawn
             for (int i = 0; i < 20; i++)
@@ -191,17 +171,15 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
                 dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta), Scale: 2f);
             }
         }
-
-
     }
+
     public class MiniBombBlast : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mini Bomb");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -216,24 +194,24 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
             projectile.minion = true;
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
+
     public class DrawHelmet : ModPlayer
     {
         public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("TankCommanderHelmet", "Items/Armor/TankCommander/TankCommanderHelmet_HeadSimple", glowmask: false);
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -243,20 +221,18 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
                 Head.visible = true;
                 layers.Insert(headLayer + 1, Head);
             }
-
         }
 
         public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("TankCommanderHelmet", "Items/Armor/TankCommander/TankCommanderHelmet_HeadSimple");
+
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Armor"));
             if (headLayer != -1)
             {
-
                 MapMask.visible = true;
                 layers.Insert(headLayer + 1, MapMask);
             }
         }
     }
 }
-

@@ -47,7 +47,6 @@ namespace QwertysRandomContent
 
         public static Vector2 PolarVector(float radius, float theta)
         {
-
             return new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
         }
 
@@ -61,10 +60,11 @@ namespace QwertysRandomContent
                     WorldGen.KillWall(i + x, j + y, false);
                     Main.tile[i + x, j + y].liquid = 0;
                 }
-
             }
         }
+
         public delegate bool SpecialCondition(NPC possibleTarget);
+
         public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1, SpecialCondition specialCondition = null)
         {
             if (specialCondition == null)
@@ -79,7 +79,6 @@ namespace QwertysRandomContent
                     target = Main.npc[overrideTarget];
                     return true;
                 }
-
             }
             for (int k = 0; k < Main.npc.Length; k++)
             {
@@ -90,13 +89,12 @@ namespace QwertysRandomContent
                     target = Main.npc[k];
                     foundTarget = true;
 
-
                     maxDistance = (target.Center - position).Length();
                 }
-
             }
             return foundTarget;
         }
+
         public static void ServerClientCheck()
         {
             if (Main.netMode == 1)
@@ -104,12 +102,12 @@ namespace QwertysRandomContent
                 Main.NewText("Client says Hello!", Color.Pink);
             }
 
-
             if (Main.netMode == 2) // Server
             {
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says Hello!"), Color.Green);
             }
         }
+
         public static void ServerClientCheck(bool q)
         {
             if (Main.netMode == 1)
@@ -117,12 +115,12 @@ namespace QwertysRandomContent
                 Main.NewText("Client says it's " + q, Color.Pink);
             }
 
-
             if (Main.netMode == 2) // Server
             {
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says it's " + q), Color.Green);
             }
         }
+
         public static void ServerClientCheck(int q)
         {
             if (Main.netMode == 1)
@@ -130,12 +128,12 @@ namespace QwertysRandomContent
                 Main.NewText("Client says It's " + q, Color.Pink);
             }
 
-
             if (Main.netMode == 2) // Server
             {
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says it's " + q), Color.Green);
             }
         }
+
         public static void ServerClientCheck(string q)
         {
             if (Main.netMode == 1)
@@ -143,19 +141,18 @@ namespace QwertysRandomContent
                 Main.NewText("Client says  " + q, Color.Pink);
             }
 
-
             if (Main.netMode == 2) // Server
             {
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server says " + q), Color.Green);
             }
         }
+
         public static void ServerClientCheck(Vector2 q)
         {
             if (Main.netMode == 1)
             {
                 Main.NewText("Client says it's" + q, Color.Pink);
             }
-
 
             if (Main.netMode == 2) // Server
             {
@@ -181,6 +178,7 @@ namespace QwertysRandomContent
                 return item;
             }
         }
+
         public static Projectile PokeNPC(Player player, NPC npc, float damage, float knockback = 0f, bool melee = false, bool ranged = false, bool magic = false, bool summon = false, bool morph = false)
         {
             Projectile p = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, QwertysRandomContent.Instance.ProjectileType("Poke"), (int)damage, knockback, player.whoAmI)];
@@ -202,6 +200,7 @@ namespace QwertysRandomContent
             }
             return p;
         }
+
         public static float AngularDifference(float angle1, float angle2)
         {
             angle1 = PolarVector(1f, angle1).ToRotation();
@@ -212,17 +211,16 @@ namespace QwertysRandomContent
             }
             return Math.Abs(angle1 - angle2);
         }
+
         public static void SpawnBoss(Player player, int type)
         {
-            if(Main.netMode==0)
+            if (Main.netMode == 0)
             {
                 int num7 = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 2000, type);
                 Main.NewText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[num7].TypeName), 175, 75, 255, false);
-                
             }
-            else if(Main.netMode ==1)
+            else if (Main.netMode == 1)
             {
-                
                 ModPacket packet = QwertysRandomContent.Instance.GetPacket();
                 packet.Write((byte)ModMessageType.SummonBoss);
                 packet.WriteVector2(player.Center);
@@ -230,17 +228,19 @@ namespace QwertysRandomContent
                 packet.Send();
             }
         }
-        public static List<Projectile> ProjectileSpread(Vector2 position, int count, float speed, int type, int damage, float kb, int owner = 255, float ai0=0, float ai1=0, float rotation = 0f, float spread = (float)Math.PI*2 )
+
+        public static List<Projectile> ProjectileSpread(Vector2 position, int count, float speed, int type, int damage, float kb, int owner = 255, float ai0 = 0, float ai1 = 0, float rotation = 0f, float spread = (float)Math.PI * 2)
         {
             List<Projectile> me = new List<Projectile>();
-            for(int r =0; r < count; r++)
+            for (int r = 0; r < count; r++)
             {
-                float rot = rotation + r *(spread / count) - (spread/2) + (spread / (2*count));
-                me.Add(Main.projectile[Projectile.NewProjectile(position, PolarVector(speed, rot).SafeNormalize(-Vector2.UnitY), type, damage, kb, owner, ai0, ai1)]);
+                float rot = rotation + r * (spread / count) - (spread / 2) + (spread / (2 * count));
+                me.Add(Main.projectile[Projectile.NewProjectile(position, PolarVector(speed, rot), type, damage, kb, owner, ai0, ai1)]);
             }
             return me;
         }
     }
+
     public static class StaticQwertyMethods
     {
         public static void FriendlyFire(this Projectile projectile) //allows friendly projectile to hit player and cause pvp death (like the grenade explosion)
@@ -266,17 +266,19 @@ namespace QwertysRandomContent
                 }
             }
         }
+
         public static Vector2 to2(this Vector3 vector3)
         {
             return new Vector2(vector3.X, vector3.Y);
         }
+
         public static Vector3 add2(this Vector3 vector3, Vector2 vector2)
         {
             return new Vector3(vector3.X + vector2.X, vector3.Y + vector2.Y, vector3.Z);
         }
+
         public static void SlowRotation(this ref float currentRotation, float targetAngle, float speed)
         {
-
             int f = 1; //this is used to switch rotation direction
             float actDirection = new Vector2((float)Math.Cos(currentRotation), (float)Math.Sin(currentRotation)).ToRotation();
             targetAngle = new Vector2((float)Math.Cos(targetAngle), (float)Math.Sin(targetAngle)).ToRotation();
@@ -294,7 +296,6 @@ namespace QwertysRandomContent
             if (actDirection <= targetAngle + speed * 2 && actDirection >= targetAngle - speed * 2)
             {
                 actDirection = targetAngle;
-
             }
             else if (actDirection <= targetAngle)
             {
@@ -311,9 +312,9 @@ namespace QwertysRandomContent
                 actDirection = 0;
             }*/
             currentRotation = actDirection;
-
         }
     }
+
     public class Poke : ModProjectile
     {
         public override void SetDefaults()
@@ -326,10 +327,10 @@ namespace QwertysRandomContent
             projectile.usesLocalNPCImmunity = true;
             projectile.tileCollide = false;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
     }
-
 }

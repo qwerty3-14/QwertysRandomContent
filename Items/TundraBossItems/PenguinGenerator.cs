@@ -4,20 +4,16 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
 {
-
-
     public class PenguinGenerator : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Penguin Generator");
             Tooltip.SetDefault("Attacks have a 10% chance to release penguins/nHide visual if the noise bothers you");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 100000;
             item.rare = 1;
             item.expert = true;
@@ -26,35 +22,32 @@ namespace QwertysRandomContent.Items.TundraBossItems
             item.height = 32;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-
             player.GetModPlayer<PenguinEffect>().effect = true;
             player.GetModPlayer<PenguinEffect>().noSound = hideVisual;
         }
-
-
-
     }
+
     public class PenguinLimit : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public bool realeasedPenguin = false;
     }
+
     public class PenguinEffect : ModPlayer
     {
         public bool effect;
         public bool noSound;
+
         public override void ResetEffects()
         {
             effect = false;
             noSound = false;
         }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             if (Main.rand.Next(10) == 0 && effect && !target.immortal)
@@ -88,6 +81,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 }
             }
         }
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (Main.rand.Next(10) == 0 && effect && !target.immortal && !proj.GetGlobalProjectile<PenguinLimit>().realeasedPenguin)
@@ -122,7 +116,4 @@ namespace QwertysRandomContent.Items.TundraBossItems
             }
         }
     }
-
-
 }
-

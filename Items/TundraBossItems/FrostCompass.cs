@@ -7,51 +7,40 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
 {
-
-
     public class FrostCompass : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Frost Compass");
             Tooltip.SetDefault("Points toward the 'North pole'");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 20000;
             item.rare = 1;
-
 
             item.width = 28;
             item.height = 32;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-
             player.GetModPlayer<FrostCompassEffect>().effect = true;
         }
-
-
-
     }
 
     public class FrostCompassEffect : ModPlayer
     {
         public bool effect;
+
         public override void ResetEffects()
         {
             effect = false;
-
         }
+
         public static readonly PlayerLayer IceArrow = new PlayerLayer("QwertysRandomContent", "HydraShoes", PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -67,8 +56,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 //Main.NewText(drawPlayer.bodyFrame);
                 Texture2D texture = mod.GetTexture("Items/TundraBossItems/FrostArrow");
 
-
-
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                 int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                 Vector2 Position = drawPlayer.position;
@@ -80,9 +67,9 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 DrawData data = new DrawData(texture, pos, new Rectangle(0, 0, (int)texture.Size().X, (int)texture.Size().Y), Color.White, North, origin, 1f, 0, 0);
                 //data.shader = drawInfo.legArmorShader;
                 Main.playerDrawData.Add(data);
-
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int legLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Wings"));
@@ -95,10 +82,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
             {
                 IceArrow.visible = false;
             }
-
         }
     }
-
-
 }
-

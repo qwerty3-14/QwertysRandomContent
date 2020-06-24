@@ -10,6 +10,7 @@ namespace QwertysRandomContent.Items.HydraItems
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
+
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -20,8 +21,8 @@ namespace QwertysRandomContent.Items.HydraItems
             item.expert = true;
             //bossBagNPC = mod.NPCType("Hydra");
         }
-        public override int BossBagNPC => mod.NPCType("Hydra");
 
+        public override int BossBagNPC => mod.NPCType("Hydra");
 
         public override bool CanRightClick()
         {

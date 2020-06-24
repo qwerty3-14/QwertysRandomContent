@@ -16,6 +16,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             DisplayName.SetDefault("Support Cactus Staff");
             Tooltip.SetDefault("Use this when you're short on friends");
         }
+
         public override void SetDefaults()
         {
             item.width = 38;
@@ -27,7 +28,6 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             item.useTime = 20;
             item.useAnimation = 20;
 
-
             item.useStyle = 1;
             item.knockBack = 0f;
             item.value = Item.sellPrice(silver: 3, copper: 60);
@@ -38,6 +38,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             item.autoReuse = true;
             item.summon = true;
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;
@@ -53,6 +54,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             }
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -61,14 +63,15 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class SupportCactus : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 12;
@@ -77,12 +80,14 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             projectile.minion = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
         }
-        int cactusHeight = 0;
-        int maxCactusHeight = 82;
-        int branchOut = 0;
-        int maxBranchOut = 10;
-        float flowering = 0f;
-        Vector2 flowerPos = new Vector2(4, -76);
+
+        private int cactusHeight = 0;
+        private int maxCactusHeight = 82;
+        private int branchOut = 0;
+        private int maxBranchOut = 10;
+        private float flowering = 0f;
+        private Vector2 flowerPos = new Vector2(4, -76);
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -106,21 +111,21 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
                 flowerPos = new Vector2(Main.rand.Next(-6, 7), -76 - Main.rand.NextFloat(4f));
                 Projectile.NewProjectile(projectile.Bottom + flowerPos, QwertyMethods.PolarVector(8f, (player.Center - (projectile.Bottom + flowerPos)).ToRotation()), mod.ProjectileType("CactusFlower"), 0, 0, projectile.owner);
                 projectile.netUpdate = true;
-
-
             }
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.WriteVector2(flowerPos);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             flowerPos = reader.ReadVector2();
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             if (branchOut > 0)
             {
                 Texture2D arm = mod.GetTexture("Items/Weapons/Cactus/RightCactusArm");
@@ -147,6 +152,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             return false;
         }
     }
+
     public class CactusFlower : ModProjectile
     {
         public override void SetDefaults()
@@ -154,6 +160,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             projectile.width = 18;
             projectile.height = 18;
         }
+
         public override void AI()
         {
             projectile.rotation += (float)Math.PI / 120f * (projectile.velocity.X > 0 ? 1 : -1);
@@ -163,9 +170,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
                 player.HealEffect(2, false);
                 projectile.Kill();
                 player.statLife += 2;
-
             }
         }
     }
-
 }

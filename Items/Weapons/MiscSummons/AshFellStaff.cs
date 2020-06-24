@@ -14,9 +14,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             DisplayName.SetDefault("Ash Fell Staff");
             Tooltip.SetDefault("Thi Sentry suffocates your foes with ash missiles!");
         }
+
         public override void SetDefaults()
         {
-
             item.value = 54000;
             item.rare = 3;
             item.damage = 22;
@@ -32,6 +32,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.sentry = true;
             item.shoot = mod.ProjectileType("AshFell");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -43,15 +44,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;
             return true;
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -61,6 +65,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return base.UseItem(player);
         }
     }
+
     public class AshFell : ModProjectile
     {
         public override void SetDefaults()
@@ -75,10 +80,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.sentry = true; //tells the game that this is a sentry
             projectile.timeLeft = Projectile.SentryLifeTime; //allows for the sentry to automaticly be replaced when new sentries are summoned
         }
-        NPC target;
-        int[] missileCounters = new int[2];
-        int missileTime = 60;
-        float missileLoadPosition = 5;
+
+        private NPC target;
+        private int[] missileCounters = new int[2];
+        private int missileTime = 60;
+        private float missileLoadPosition = 5;
+
         public override void AI()
         {
             Main.player[projectile.owner].UpdateMaxTurrets();
@@ -102,11 +109,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         missileCounters[i] = 0;
                         Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(2f, projectile.rotation) + QwertyMethods.PolarVector(missileLoadPosition * (i == 0 ? 1 : -1), projectile.rotation + (float)Math.PI / 2),
                             QwertyMethods.PolarVector(2f, projectile.rotation), mod.ProjectileType("AshMissile"), projectile.damage, projectile.knockBack, projectile.owner);
-
                     }
                 }
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D missile = mod.GetTexture("Items/Weapons/MiscSummons/AshMissile");
@@ -120,6 +127,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return true;
         }
     }
+
     public class AshMissile : ModProjectile
     {
         public override void SetDefaults()
@@ -134,6 +142,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 600;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             if (projectile.timeLeft > finalTime)
@@ -145,9 +154,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return false;
         }
-        NPC target;
-        int finalTime = 120;
-        int blastSize = 30;
+
+        private NPC target;
+        private int finalTime = 120;
+        private int blastSize = 30;
 
         public override void AI()
         {
@@ -183,9 +193,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 Dust dust = Dust.NewDustPerfect(projectile.Center - QwertyMethods.PolarVector(6, projectile.rotation), 36, Vector2.Zero, Scale: .5f);
                 dust.noGravity = true;
             }
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (projectile.timeLeft > finalTime)
@@ -196,6 +205,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (projectile.timeLeft > finalTime)

@@ -11,16 +11,18 @@ namespace QwertysRandomContent.Items.BladeBossItems
     public class SwordMinionStaff : ModItem
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Longsword Staff");
             Tooltip.SetDefault("Who needs a horde of minions when you have a giant longsword?");
         }
+
         public override void SetDefaults()
         {
             item.summon = true;
-            item.mana = 20;
-            item.damage = 18;
+            item.mana = 4;
+            item.damage = 22;
             item.rare = 7;
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.knockBack = 2f;
@@ -39,7 +41,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             float minionCount = 0;
             foreach (Projectile projectile in Main.projectile)
             {
@@ -52,11 +53,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
             {
                 if (projectile.active && projectile.type == type && projectile.owner == item.owner)
                 {
-
                     if (player.maxMinions - minionCount >= 1)
                     {
                         projectile.minionSlots++;
-
                     }
                     return false;
                 }
@@ -65,10 +64,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
             position = Main.MouseWorld;
             return true;
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -78,14 +79,17 @@ namespace QwertysRandomContent.Items.BladeBossItems
             return base.UseItem(player);
         }
     }
+
     public class SwordMinion : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Longsword");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
         }
+
         public override void SetDefaults()
         {
             projectile.minion = true;
@@ -101,12 +105,14 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.ignoreWater = true;
             projectile.timeLeft = 2;
         }
-        float yetAnotherTrigCounter;
-        NPC target;
-        bool returningToPlayer = false;
-        float turnOffset = (float)Math.PI / 4;
-        int counter = 0;
-        float bladeLength = 10;
+
+        private float yetAnotherTrigCounter;
+        private NPC target;
+        private bool returningToPlayer = false;
+        private float turnOffset = (float)Math.PI / 4;
+        private int counter = 0;
+        private float bladeLength = 10;
+
         public override void AI()
         {
             bool spinAttack = false;
@@ -118,11 +124,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             yetAnotherTrigCounter += (float)Math.PI / 120;
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.SwordMinion)
+            if (player.GetModPlayer<MinionManager>().SwordMinion)
             {
                 projectile.timeLeft = 2;
-
             }
             if ((player.Center - projectile.Center).Length() > 1000)
             {
@@ -160,7 +164,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 {
                     turnTo += turnOffset;
                 }
-
             }
             Vector2 difference = flyTo - projectile.Center;
             if (difference.Length() < speed)
@@ -180,19 +183,20 @@ namespace QwertysRandomContent.Items.BladeBossItems
             {
                 projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, turnTo, 6);
             }
-
-
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float point = 0f;
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center, projectile.Center + QwertyMethods.PolarVector(bladeLength, projectile.rotation), 14f, ref point) || Collision.CheckAABBvAABBCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projHitbox.TopLeft(), projHitbox.Size());
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -210,9 +214,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
                        new Vector2(0, 11f), projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage += (int)projectile.minionSlots * damage / 2;
+            damage = (int)projectile.minionSlots * damage;
         }
     }
 }

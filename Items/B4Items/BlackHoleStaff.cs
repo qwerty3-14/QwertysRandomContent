@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.B4Items
 {
     public class BlackHoleStaff : ModItem
@@ -16,12 +15,10 @@ namespace QwertysRandomContent.Items.B4Items
 
             Item.staff[item.type] = true;
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(30, 29));
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 40;
             item.mana = 14;
             item.width = 100;
@@ -39,7 +36,9 @@ namespace QwertysRandomContent.Items.B4Items
             item.magic = true;
             item.channel = true;
         }
+
         public Projectile BlackHole;
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
@@ -55,12 +54,7 @@ namespace QwertysRandomContent.Items.B4Items
                 }
             }
             return true;
-
         }
-
-
-
-
     }
 
     public class BlackHolePlayer : ModProjectile
@@ -69,11 +63,10 @@ namespace QwertysRandomContent.Items.B4Items
         {
             DisplayName.SetDefault("BlackHole");
             Main.projFrames[projectile.type] = 1;
-
         }
+
         public override void SetDefaults()
         {
-
             projectile.width = 200;
             projectile.height = 200;
             projectile.friendly = true;
@@ -81,9 +74,8 @@ namespace QwertysRandomContent.Items.B4Items
             projectile.penetrate = -1;
             projectile.timeLeft = 600;
             projectile.tileCollide = false;
-
-
         }
+
         public float horiSpeed;
         public float vertSpeed;
         public float direction;
@@ -95,6 +87,7 @@ namespace QwertysRandomContent.Items.B4Items
         public Dust dust;
         public Item item;
         public int manaTimer;
+
         public override void AI()
         {
             pullSpeed = projectile.damage / 100f;
@@ -112,7 +105,6 @@ namespace QwertysRandomContent.Items.B4Items
                 manaTimer++;
                 if (manaTimer % 15 == 0)
                 {
-
                     if (player.statMana > player.inventory[player.selectedItem].mana)
                     {
                         player.statMana -= player.inventory[player.selectedItem].mana;
@@ -122,11 +114,9 @@ namespace QwertysRandomContent.Items.B4Items
                     {
                         projectile.Kill();
                     }
-
                 }
                 else
                 {
-
                 }
             }
 
@@ -136,21 +126,16 @@ namespace QwertysRandomContent.Items.B4Items
             player.velocity += new Vector2(horiSpeed, vertSpeed);
             for (int d = 0; d < (int)(80 * projectile.scale); d++)
             {
-
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(Main.rand.NextFloat(10 * projectile.scale, 200 * projectile.scale), theta), mod.DustType("BlackHoleMatter"), QwertyMethods.PolarVector(6 * projectile.scale, theta + (float)Math.PI / 2));
                 dust.scale = 1f;
-
             }
-
-
 
             for (int i = 0; i < Main.dust.Length; i++)
             {
                 dust = Main.dust[i];
                 if (!dust.noGravity)
                 {
-
                     direction = (projectile.Center - dust.position).ToRotation();
                     horiSpeed = (float)Math.Cos(direction) * pullSpeed * 5;
                     vertSpeed = (float)Math.Sin(direction) * pullSpeed * 5;
@@ -168,8 +153,6 @@ namespace QwertysRandomContent.Items.B4Items
                     {
                         dust.scale = .35f;
                     }
-
-
                 }
             }
             for (int i = 0; i < 200; i++)
@@ -177,7 +160,6 @@ namespace QwertysRandomContent.Items.B4Items
                 mass = Main.npc[i];
                 if (!mass.boss && mass.active && mass.knockBackResist != 0f)
                 {
-
                     direction = (projectile.Center - mass.Center).ToRotation();
                     horiSpeed = (float)Math.Cos(direction) * pullSpeed;
                     vertSpeed = (float)Math.Sin(direction) * pullSpeed;
@@ -201,26 +183,20 @@ namespace QwertysRandomContent.Items.B4Items
                         {
                             if (projectile.owner == Main.myPlayer && (player.inventory[player.selectedItem].type != 0 || player.itemAnimation <= 0))
                             {
-
-
-
                                 if (ItemID.Sets.NebulaPickup[item.type])
                                 {
                                     item.velocity = new Vector2(0, 0);
                                     item.position = player.Center;
-
                                 }
                                 if (item.type == 58 || item.type == 1734 || item.type == 1867)
                                 {
                                     item.velocity = new Vector2(0, 0);
                                     item.position = player.Center;
-
                                 }
                                 else if (item.type == 184 || item.type == 1735 || item.type == 1868)
                                 {
                                     item.velocity = new Vector2(0, 0);
                                     item.position = player.Center;
-
                                 }
                                 else
                                 {
@@ -234,10 +210,7 @@ namespace QwertysRandomContent.Items.B4Items
                                     }
 
                                     //item = player.GetItem(projectile.owner, item, false, false);
-
                                 }
-
-
                             }
                         }
                     }
@@ -257,7 +230,6 @@ namespace QwertysRandomContent.Items.B4Items
                 proj = Main.projectile[i];
                 if (proj.active && proj.type != mod.ProjectileType("BlackHolePlayer") && proj.type != mod.ProjectileType("SideLaser"))
                 {
-
                     direction = (projectile.Center - proj.Center).ToRotation();
                     horiSpeed = (float)Math.Cos(direction) * pullSpeed;
                     vertSpeed = (float)Math.Sin(direction) * pullSpeed;
@@ -268,19 +240,6 @@ namespace QwertysRandomContent.Items.B4Items
                     }
                 }
             }
-
-
-
-
-
-
         }
-
-
-
-
-
-
     }
-
 }

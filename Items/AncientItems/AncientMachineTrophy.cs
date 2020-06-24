@@ -11,12 +11,12 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Machine Trophy");
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-
             item.width = 32;
             item.height = 32;
             item.maxStack = 99;
@@ -35,7 +35,6 @@ namespace QwertysRandomContent.Items.AncientItems
             }
         }
 
-        
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMachineTrophy_Glow");

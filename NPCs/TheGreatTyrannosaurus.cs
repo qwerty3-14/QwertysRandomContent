@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.NPCs
 {
     [AutoloadBossHead]
@@ -36,16 +37,16 @@ namespace QwertysRandomContent.NPCs
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/OldDinosNewGuns");
 
             bossBag = mod.ItemType("TRexBag");
-
         }
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.6f * bossLifeScale);
             npc.damage = (int)(npc.damage * .6f);
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (QwertyWorld.DinoEvent && !NPC.AnyNPCs(mod.NPCType("Velocichopper")) && !NPC.AnyNPCs(mod.NPCType("TheGreatTyrannosaurus")))
             {
                 if (QwertyWorld.DinoKillCount >= 140)
@@ -55,13 +56,13 @@ namespace QwertysRandomContent.NPCs
                 return 3f;
             }
             return 0f;
-
-
         }
+
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
         }
+
         public override bool CheckActive()
         {
             Player player = Main.player[npc.target];
@@ -77,9 +78,6 @@ namespace QwertysRandomContent.NPCs
         {
             if (npc.life <= 0)
             {
-
-
-
             }
             for (int i = 0; i < 10; i++)
             {
@@ -91,11 +89,12 @@ namespace QwertysRandomContent.NPCs
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
-        const int moveFrameType = 0;
-        const int attackFrameType = 1;
-        const int attackFrameUpType = 2;
-        const int attackFrameAngleType = 3;
-        const int launchFrameType = 4;
+
+        private const int moveFrameType = 0;
+        private const int attackFrameType = 1;
+        private const int attackFrameUpType = 2;
+        private const int attackFrameAngleType = 3;
+        private const int launchFrameType = 4;
         public int AI_Timer = 0;
         public int Pos = 1;
         public int damage = 35;
@@ -113,23 +112,19 @@ namespace QwertysRandomContent.NPCs
         public int meteorReloadTime = 30;
         public bool meteorsLaunched = false;
         public int multiplayerAttackCycle = 1;
+
         public override void AI()
         {
             if (runOnce == 0)
             {
-
-
-
-
                 runOnce = 1;
             }
             AI_Timer++;
             if (Main.expertMode)
             {
                 damage = 25;
-
             }
-            
+
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
             if (!player.active || player.dead)
@@ -149,16 +144,12 @@ namespace QwertysRandomContent.NPCs
 
             if (AI_Timer > walkTime)
             {
-
-
-
                 if (attack == 1)
                 {
                     meteorsLaunched = false;
                     climateTime++;
                     if (climateTime > climateReloadTime)
                     {
-
                         Main.PlaySound(16, npc.position, 0);
                         if (Main.netMode != 1)
                         {
@@ -174,10 +165,8 @@ namespace QwertysRandomContent.NPCs
                             }
                             else if (frameType == attackFrameAngleType)
                             {
-
                                 int spread = Main.rand.Next(-15, 15);
                                 Projectile.NewProjectile(npc.Center.X + (41f * npc.direction), npc.Center.Y - 24f, (float)Math.Cos(Math.PI / 4 + MathHelper.ToRadians(spread)) * 10f * npc.direction, -10f * (float)Math.Sin(Math.PI / 4 + MathHelper.ToRadians(spread)), mod.ProjectileType("SnowFlake"), damage, 3f, Main.myPlayer);
-
                             }
                         }
                         climateTime = 0;
@@ -197,14 +186,12 @@ namespace QwertysRandomContent.NPCs
                         frameType = attackFrameAngleType;
                     }
 
-
                     npc.velocity.X = (0);
                     npc.velocity.Y = (0);
                     if (AI_Timer > walkTime * 2)
                     {
                         multiplayerAttackCycle = 2;
                         AI_Timer = 0;
-
                     }
                 }
 
@@ -214,7 +201,6 @@ namespace QwertysRandomContent.NPCs
                     diseaseTime++;
                     if (diseaseTime > diseaseReloadTime)
                     {
-
                         Main.PlaySound(16, npc.position, 0);
                         if (Main.netMode != 1)
                         {
@@ -232,12 +218,10 @@ namespace QwertysRandomContent.NPCs
                             }
                             else if (frameType == attackFrameAngleType)
                             {
-
                                 int spread = Main.rand.Next(-15, 15);
 
                                 NPC.NewNPC((int)npc.Center.X + 31 * npc.direction, (int)npc.Center.Y - 24, mod.NPCType("Mosquitto"), 0, (float)Math.PI / 4 + MathHelper.ToRadians(spread), npc.direction);
                                 //NPC.NewNPC(int X, int Y, int Type, [int start = 0], [float ai0 = 0], [float ai1 = 0], [float ai2 = 0], [float ai3 = 0], [int target = 255])
-
                             }
                         }
                         diseaseTime = 0;
@@ -257,14 +241,12 @@ namespace QwertysRandomContent.NPCs
                         frameType = attackFrameAngleType;
                     }
 
-
                     npc.velocity.X = (0);
                     npc.velocity.Y = (0);
                     if (AI_Timer > walkTime * 2)
                     {
                         multiplayerAttackCycle = 3;
                         AI_Timer = 0;
-
                     }
                 }
                 if (attack == 3)
@@ -275,16 +257,12 @@ namespace QwertysRandomContent.NPCs
                     {
                         if (Main.netMode != 1)
                         {
-
                             Projectile.NewProjectile(npc.Center.X + (-28f * npc.direction), npc.Center.Y - 74f, 0f, -40f, mod.ProjectileType("MeteorLaunch"), damage, 3f, Main.myPlayer);
                         }
                         meteorTime = 0;
                     }
 
-
                     frameType = launchFrameType;
-
-
 
                     npc.velocity.X = (0);
                     npc.velocity.Y = (0);
@@ -293,7 +271,6 @@ namespace QwertysRandomContent.NPCs
                         multiplayerAttackCycle = 1;
                         AI_Timer = 0;
                         meteorsLaunched = true;
-
                     }
                 }
             }
@@ -313,8 +290,6 @@ namespace QwertysRandomContent.NPCs
                 {
                     attack = multiplayerAttackCycle;
                 }
-
-
             }
             if (meteorsLaunched)
             {
@@ -329,9 +304,8 @@ namespace QwertysRandomContent.NPCs
                     meteorTime = 0;
                 }
             }
-
-
         }
+
         public override void NPCLoot()
         {
             QwertyWorld.downedTyrant = true;
@@ -340,9 +314,6 @@ namespace QwertysRandomContent.NPCs
                 NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
             if (Main.netMode != 1)
             {
-
-
-
                 int centerX = (int)(npc.position.X + npc.width / 2) / 16;
                 int centerY = (int)(npc.position.Y + npc.height / 2) / 16;
                 int halfLength = npc.width / 2 / 16 + 1;
@@ -353,14 +324,14 @@ namespace QwertysRandomContent.NPCs
                     case 0:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoBone"));
                         break;
+
                     case 1:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoFlail"));
                         break;
+
                     case 2:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TheTyrantsExtinctionGun"));
                         break;
-
-
                 }
 
                 if (Main.rand.Next(4) == 0)
@@ -374,7 +345,6 @@ namespace QwertysRandomContent.NPCs
 				}
 				else
 				{
-					
 					if (weaponLoot == 1)
 					{
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
@@ -398,9 +368,9 @@ namespace QwertysRandomContent.NPCs
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
 				}
 				*/
-
             }
         }
+
         public int moveFrame = 0;
         public int moveFrame2 = 1;
 
@@ -415,7 +385,6 @@ namespace QwertysRandomContent.NPCs
 
         public int launchFrame = 8;
         public int launchFrame2 = 9;
-
 
         public override void FindFrame(int frameHeight)
         {
@@ -501,9 +470,7 @@ namespace QwertysRandomContent.NPCs
                     npc.frameCounter = 0;
                 }
             }
-
         }
-
     }
 
     public class SnowFlake : ModProjectile
@@ -511,9 +478,8 @@ namespace QwertysRandomContent.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("SnowFlake");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 0;
@@ -525,15 +491,13 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.tileCollide = true;
-
-
         }
-
 
         public override void AI()
         {
             projectile.rotation += 1.5f;
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (projectile.velocity.X != velocityChange.X)
@@ -546,16 +510,15 @@ namespace QwertysRandomContent.NPCs
             }
             return false;
         }
-
     }
+
     public class MeteorLaunch : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Meteor");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 0;
@@ -567,11 +530,10 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.tileCollide = true;
-
-
         }
 
         public bool runOnce = true;
+
         public override void AI()
         {
             if (runOnce)
@@ -595,17 +557,15 @@ namespace QwertysRandomContent.NPCs
             }
             projectile.rotation += 1.5f;
         }
-
-
     }
+
     public class MeteorFall : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Meteor");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 0;
@@ -617,14 +577,13 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 1200;
             projectile.tileCollide = true;
-
-
         }
 
         public override void AI()
         {
             projectile.rotation += 1.5f;
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (Main.netMode != 1)
@@ -647,7 +606,5 @@ namespace QwertysRandomContent.NPCs
             }
             return true;
         }
-
-
     }
 }

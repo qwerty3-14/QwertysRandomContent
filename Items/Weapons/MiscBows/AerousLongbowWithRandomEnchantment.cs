@@ -11,15 +11,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             DisplayName.SetDefault("Irregular Enchanted Aerous");
             Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats" + "\nRight click to shoot a random arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             item.CloneDefaults(mod.ItemType("AerousLongbow"));
-
-
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -27,9 +25,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
-
             if (player.altFunctionUse == 2)
             {
                 QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
@@ -43,14 +38,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 
                 return false;
-
             }
             else
             {
                 return true;
             }
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -61,11 +55,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
-
-
-
 }
-

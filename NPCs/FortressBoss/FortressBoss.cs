@@ -14,22 +14,18 @@ namespace QwertysRandomContent.NPCs.FortressBoss
     {
         public override void SetStaticDefaults()
         {
-
             DisplayName.SetDefault("The Divine Light");
             Main.npcFrameCount[npc.type] = 4;
-
         }
 
         public override void SetDefaults()
         {
-
             npc.width = 156;
             npc.height = 128;
             npc.damage = 24;
             npc.defense = 12;
             npc.boss = true;
             npc.HitSound = SoundID.NPCHit1;
-
 
             npc.value = 100000f;
             npc.knockBackResist = 0f;
@@ -43,26 +39,26 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             bossBag = mod.ItemType("FortressBossBag");
             npc.buffImmune[20] = true;
             npc.npcSlots = 200;
-
         }
+
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.LesserManaPotion;
         }
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-
             npc.lifeMax = (int)(6000 * bossLifeScale);
             npc.damage = (int)(42);
-
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             return 0f;
-
         }
-        bool startFight;
+
+        private bool startFight;
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (!startFight)
@@ -80,7 +76,9 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             }
             startFight = true;
         }
+
         public bool playerDied;
+
         public override bool CheckActive()
         {
             if (playerDied)
@@ -89,6 +87,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             }
             return false;
         }
+
         public override void NPCLoot()
         {
             if (Main.expertMode)
@@ -116,33 +115,39 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBossTrophy"));
             }
-            QwertyWorld.downedFortressBoss = true;
-            if (Main.netMode == NetmodeID.Server)
-                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            if (!QwertyWorld.downedFortressBoss)
+            {
+                QwertyWorld.downedFortressBoss = true;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
+                }
+            }
         }
 
-        float upperLimit = 60 * 16;
-        float lowerLimit;
-        int YDirection = -1;
-        int XDirection = 1;
-        float speedX;
-        float speedY = .4f;
-        int Center;
-        int maxDistanceFromCenter;
-        bool runOnce = true;
-        bool start = true;
-        int aggressionTimer;
-        int attackTimer;
-        int attackDelay = 120;
-        Player player;
-        bool pickAttack = true;
-        float directionOfPlayer;
-        int damage;
-        int impatient;
-        int quitCount;
-        int dpsCheckCounter;
-        int[] previousHealth = new int[5];
-        float dps = 0;
+        private float upperLimit = 60 * 16;
+        private float lowerLimit;
+        private int YDirection = -1;
+        private int XDirection = 1;
+        private float speedX;
+        private float speedY = .4f;
+        private int Center;
+        private int maxDistanceFromCenter;
+        private bool runOnce = true;
+        private bool start = true;
+        private int aggressionTimer;
+        private int attackTimer;
+        private int attackDelay = 120;
+        private Player player;
+        private bool pickAttack = true;
+        private float directionOfPlayer;
+        private int damage;
+        private int impatient;
+        private int quitCount;
+        private int dpsCheckCounter;
+        private int[] previousHealth = new int[5];
+        private float dps = 0;
+
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
@@ -197,14 +202,12 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             npc.TargetClosest(true);
             if (!player.active || player.dead)
             {
-
                 quitCount++;
                 if (quitCount >= 30)
                 {
                     npc.position.Y += 100000f;
                     playerDied = true;
                 }
-
             }
             else
             {
@@ -234,28 +237,21 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             {
                 YDirection = -1;
             }
+            attackDelay = 120;
             float Xdistance = Math.Abs(player.Center.X - npc.Center.X);
-            if (Xdistance > 1400)
+            npc.dontTakeDamage = false;
+            if (Xdistance > 1800)
             {
                 speedX = 0;
+                npc.dontTakeDamage = true;
                 impatient++;
-                if (impatient == 240 && !playerDied)
-                {
-                    string key = "Mods.QwertysRandomContent.DivineMock";
-                    Color messageColor = Color.Orange;
-                    if (Main.netMode == 2) // Server
-                    {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-                    }
-                    else if (Main.netMode == 0) // Single Player
-                    {
-                        Main.NewText(Language.GetTextValue(key), messageColor);
-                    }
-                }
-                if (impatient > 240 && npc.life < npc.lifeMax)
-                {
-                    npc.life++;
-                }
+                attackDelay = 10;
+            }
+            else if (Xdistance > 900)
+            {
+                speedX = 2;
+                attackDelay = 60;
+                impatient = 0;
             }
             else if (Xdistance > 400)
             {
@@ -264,6 +260,10 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             }
             else
             {
+                if (Xdistance < 200)
+                {
+                    attackDelay = 600;
+                }
                 speedX = (400f - Xdistance) / 80f + 2;
                 impatient = 0;
             }
@@ -271,7 +271,6 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             {
                 if (runOnce)
                 {
-
                     runOnce = false;
                 }
                 attackTimer++;
@@ -302,13 +301,11 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                         }
                         float spread = 2 * (float)Math.PI;
 
-
                         for (int p = 0; p < numberOfProjectiles; p++)
                         {
                             float shiftedAim = (directionOfPlayer - (spread / 2)) + (spread * ((float)p / (float)numberOfProjectiles));
                             float speed = 1;
                             Projectile.NewProjectile(npc.Center + QwertyMethods.PolarVector(speed, shiftedAim), QwertyMethods.PolarVector(speed, shiftedAim), mod.ProjectileType("CaeliteSaw"), damage, 0, player.whoAmI, npc.whoAmI);
-
                         }
                         attackTimer = 0;
                     }
@@ -318,25 +315,20 @@ namespace QwertysRandomContent.NPCs.FortressBoss
 
                         for (int i = 0; i < numberOfProjectiles; i++)
                         {
-
                             NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("HealingBarrier"), 0, (float)i / (float)numberOfProjectiles * 2 * (float)Math.PI, npc.whoAmI * -npc.direction);
-
                         }
                         attackTimer = 0;
-
                     }
                     else if (npc.ai[0] == 3)
                     {
                         int numberOfProjectiles = 7;
                         float spread = (float)Math.PI / 2;
 
-
                         for (int p = 0; p < numberOfProjectiles; p++)
                         {
                             float shiftedAim = (directionOfPlayer - (spread / 2)) + Main.rand.NextFloat(spread);
                             float speed = Main.rand.Next(7, 10);
                             Projectile.NewProjectile(npc.Center, QwertyMethods.PolarVector(speed, shiftedAim), mod.ProjectileType("Deflect"), (int)(damage * 1.2f), 0, player.whoAmI, npc.whoAmI);
-
                         }
                         attackTimer = 0;
                     }
@@ -345,16 +337,13 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                         int numberOfProjectiles = 3;
                         float spread = (float)Math.PI / 8;
 
-
                         for (int p = 0; p < numberOfProjectiles; p++)
                         {
                             float shiftedAim = (directionOfPlayer - (spread / 2)) + (spread * ((float)p / (float)numberOfProjectiles));
                             float speed = 5;
-                            Projectile.NewProjectile(npc.Center, QwertyMethods.PolarVector(speed, shiftedAim), mod.ProjectileType("BarrierSpread"), damage, 0, player.whoAmI, npc.whoAmI);
-
+                            Projectile.NewProjectile(npc.Center, QwertyMethods.PolarVector(Xdistance > 1800 ? speed * 3 : speed, shiftedAim), mod.ProjectileType("BarrierSpread"), Xdistance > 1800 ? damage * 3 : damage, 0, player.whoAmI, npc.whoAmI, Xdistance > 1800 ? 1 : 0);
                         }
                         attackTimer = 0;
-
                     }
                 }
                 else
@@ -379,7 +368,6 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             }
             else
             {
-
                 //Main.NewText(player.GetModPlayer<FortressBiome>().TheFortress);
                 QwertyWorld.hasSummonedFortressBoss = true;
                 if (Main.netMode != 2)
@@ -399,7 +387,6 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                         }
                         startFight = true;
                         npc.netUpdate = true;
-
                     }
                     else if (!player.GetModPlayer<FortressBiome>().TheFortress && aggressionTimer > 10)
                     {
@@ -418,21 +405,19 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 }
             }
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(startFight);
-
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             startFight = reader.ReadBoolean();
-
         }
 
         public override void FindFrame(int frameHeight)
         {
-
-
             npc.frameCounter++;
 
             if (npc.frameCounter < 10)
@@ -455,21 +440,17 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             {
                 npc.frameCounter = 0;
             }
-
-
-
         }
-
-
     }
+
     public class BarrierSpread : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Barrier Spread");
             Main.projFrames[projectile.type] = 2;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -481,12 +462,11 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.penetrate = -1;
             projectile.timeLeft = 1200;
             projectile.tileCollide = false;
-
-
         }
 
         public int dustTimer;
-        Projectile clearCheck;
+        private Projectile clearCheck;
+
         public override void AI()
         {
             projectile.rotation = projectile.velocity.ToRotation();
@@ -499,7 +479,6 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     projectile.frame = 0;
                 }
-
             }
             for (int p = 0; p < 1000; p++)
             {
@@ -514,6 +493,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 projectile.Kill();
             }
         }
+
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
             if (Main.expertMode)
@@ -522,12 +502,11 @@ namespace QwertysRandomContent.NPCs.FortressBoss
 
                 if (estimatedDamage < 18f)
                 {
-
                     damage = (int)((((float)target.statDefense / 4f * 3f) + 18f) / 4f);
                 }
             }
-
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (target.HasBuff(BuffID.PotionSickness))
@@ -539,8 +518,8 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 target.AddBuff(BuffID.PotionSickness, 600);
             }
         }
-
     }
+
     public class Deflect : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -549,6 +528,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
 
             Main.projFrames[projectile.type] = 4;
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -561,13 +541,15 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.light = .6f;
             projectile.tileCollide = false;
             projectile.timeLeft = 1200;
-
         }
 
         public int dustTimer;
-        Projectile clearCheck;
+        private Projectile clearCheck;
+        private int counter = 60;
+
         public override void AI()
         {
+            counter--;
             projectile.rotation += (float)Math.PI / 30;
             Dust dust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
             dust2.scale = .5f;
@@ -579,19 +561,26 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     projectile.frame = 0;
                 }
-
             }
             projectile.velocity *= .96f;
-            for (int p = 0; p < 1000; p++)
+            if (counter > 0)
             {
-                clearCheck = Main.projectile[p];
-                if (clearCheck.friendly && !clearCheck.sentry && clearCheck.velocity != Vector2.Zero && clearCheck.damage > 0 && clearCheck.minionSlots <= 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, clearCheck.position, clearCheck.Size))
+                projectile.alpha = 200;
+            }
+            else
+            {
+                projectile.alpha = 0;
+                for (int p = 0; p < 1000; p++)
                 {
-                    clearCheck.Kill();
-                    Projectile d = Main.projectile[Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity.SafeNormalize(-Vector2.UnitY) * 10f, mod.ProjectileType("Deflected"), clearCheck.damage / 2, clearCheck.knockBack, clearCheck.owner)];
-                    if (d.damage > 50)
+                    clearCheck = Main.projectile[p];
+                    if (clearCheck.friendly && !clearCheck.sentry && clearCheck.velocity != Vector2.Zero && clearCheck.damage > 0 && clearCheck.minionSlots <= 0 && Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, clearCheck.position, clearCheck.Size))
                     {
-                        d.damage = 50;
+                        clearCheck.Kill();
+                        Projectile d = Main.projectile[Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity.SafeNormalize(-Vector2.UnitY) * 10f, mod.ProjectileType("Deflected"), clearCheck.damage / 2, clearCheck.knockBack, clearCheck.owner)];
+                        if (d.damage > 50)
+                        {
+                            d.damage = 50;
+                        }
                     }
                 }
             }
@@ -600,17 +589,16 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 projectile.Kill();
             }
         }
-
-
     }
+
     public class Deflected : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deflected");
             Main.projFrames[projectile.type] = 2;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -623,8 +611,8 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.light = .6f;
             projectile.tileCollide = false;
             projectile.timeLeft = 600;
-
         }
+
         public override void AI()
         {
             if (Main.rand.Next(2) == 0)
@@ -641,15 +629,10 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     projectile.frame = 0;
                 }
-
             }
-
         }
-
-
-
-
     }
+
     public class HealingBarrier : ModNPC
     {
         public override void SetStaticDefaults()
@@ -679,6 +662,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             npc.lifeMax = Main.expertMode ? 22 : 44;
             //npc.timeLeft = 5 * 60;
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.lifeMax = 44;
@@ -700,15 +684,14 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             {
                 npc.frameCounter = 0;
             }
-
-
-
         }
-        int spinDirection = 1;
-        bool runOnce = true;
-        NPC parent;
-        float radius = 160;
-        int timer;
+
+        private int spinDirection = 1;
+        private bool runOnce = true;
+        private NPC parent;
+        private float radius = 160;
+        private int timer;
+
         public override void AI()
         {
             Lighting.AddLight(npc.Center, new Vector3(1f, 1f, 1f));
@@ -744,17 +727,16 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 }
                 npc.active = false;
             }
-
         }
     }
+
     public class CaeliteSaw : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Saw");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -763,13 +745,14 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             projectile.height = 20;
             projectile.friendly = false;
             projectile.hostile = true;
-            projectile.penetrate = -1;
+            projectile.penetrate = 3;
             projectile.light = .6f;
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
-
         }
-        int timer;
+
+        private int timer;
+
         public override void AI()
         {
             timer++;
@@ -783,9 +766,18 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 projectile.Kill();
             }
         }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"));
+            }
+        }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-
+            projectile.penetrate--;
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;
@@ -796,6 +788,7 @@ namespace QwertysRandomContent.NPCs.FortressBoss
             }
             return false;
         }
+
         public override void ModifyHitPlayer(Player target, ref int damage, ref bool crit)
         {
             if (Main.expertMode)
@@ -804,18 +797,14 @@ namespace QwertysRandomContent.NPCs.FortressBoss
 
                 if (estimatedDamage < 18f)
                 {
-
                     damage = (int)((((float)target.statDefense / 4f * 3f) + 18f) / 4f);
                 }
             }
-
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 600);
         }
-
-
     }
-
 }

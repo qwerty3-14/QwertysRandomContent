@@ -4,38 +4,29 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.HydraItems
 {
-
-
     public class HydraCharm : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Charm");
             Tooltip.SetDefault("Allows most minions to summon more minions to fill empty minion slots");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 5;
-
 
             item.width = 14;
             item.height = 22;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.hydraCharm = true;
-
         }
 
         public override void AddRecipes()
@@ -47,13 +38,14 @@ namespace QwertysRandomContent.Items.HydraItems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class minionDuplication : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
 
         public int wait;
+
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
@@ -75,9 +67,5 @@ namespace QwertysRandomContent.Items.HydraItems
                 wait = 0;
             }
         }
-
     }
-
-
 }
-

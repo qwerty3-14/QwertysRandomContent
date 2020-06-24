@@ -11,9 +11,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Arrow");
             Tooltip.SetDefault("Does more damage to enemies farther away from you");
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.shootSpeed = 3f;
@@ -28,8 +29,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.rare = 3;
             item.value = 5;
             item.ranged = true;
-
-
         }
 
         public override void AddRecipes()
@@ -41,15 +40,16 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.AddRecipe();
         }
     }
+
     public class RhuthiniumArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Arrow");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -59,11 +59,31 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
+            projectile.extraUpdates = 1;
             projectile.tileCollide = true;
-
-
+            aiType = ProjectileID.Bullet;
         }
+
+        public override void AI()
+        {
+            if (Main.rand.Next(10) == 0)
+            {
+                Dust d = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("RhuthiniumDust"))];
+                d.frame.Y = Main.rand.Next(2) == 0 ? 0 : 10;
+                d.noGravity = true;
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                Dust d = Dust.NewDustPerfect(projectile.Center, mod.DustType("RhuthiniumDust"));
+                d.velocity *= 2;
+                d.noGravity = true;
+            }
+        }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[projectile.owner];
@@ -73,14 +93,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                 distance = 1500;
             }
             damage = damage + (int)(((float)damage * distance / 1500f) / 2f);
-
         }
-
-
-
-
-
     }
-
 }
-

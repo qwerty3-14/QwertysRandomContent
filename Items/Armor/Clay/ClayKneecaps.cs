@@ -15,8 +15,8 @@ namespace QwertysRandomContent.Items.Armor.Clay
         {
             DisplayName.SetDefault("Clay Kneecaps");
             Tooltip.SetDefault("7% incresed morph damage");
-
         }
+
         public override bool Autoload(ref string name)
         {
             if (!Main.dedServ)
@@ -25,33 +25,30 @@ namespace QwertysRandomContent.Items.Armor.Clay
                 mod.AddEquipTexture(null, EquipType.Legs, "ClayKneecaps_Female", "QwertysRandomContent/Items/Armor/Clay/ClayKneecaps_FemaleLegs");
             }
             return true;
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 30000;
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 12;
             item.defense = 1;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 4;
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().morphDamage += .07f;
         }
+
         public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
         {
             if (male) equipSlot = mod.GetEquipSlot("ClayKneecaps", EquipType.Legs);
             if (!male) equipSlot = mod.GetEquipSlot("ClayKneecaps_Female", EquipType.Legs);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -60,16 +57,8 @@ namespace QwertysRandomContent.Items.Armor.Clay
             recipe.SetResult(this, 1);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
-
-
-
     }
+
     public class KneecapDrawing : ModPlayer
     {
         public static readonly PlayerLayer Pants = new PlayerLayer("QwertysRandomContent", "Pants", PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
@@ -103,9 +92,9 @@ namespace QwertysRandomContent.Items.Armor.Clay
                 value = new DrawData(texture, pos, new Microsoft.Xna.Framework.Rectangle?(drawPlayer.legFrame), drawInfo.shoeColor, drawPlayer.legRotation, drawInfo.legOrigin, 1f, drawInfo.spriteEffects, 0);
 
                 Main.playerDrawData.Add(value);
-
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int legLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Skin"));
@@ -116,6 +105,4 @@ namespace QwertysRandomContent.Items.Armor.Clay
             }
         }
     }
-
 }
-

@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class HydraMissileStaff : ModItem
@@ -14,12 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             DisplayName.SetDefault("Hydra Missile Rod");
             Tooltip.SetDefault("Fires a Hydra head that explodes and splits into more hydra heads which explodes and splits into more hydra heads!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 58;
             item.mana = 4;
             item.width = 100;
@@ -36,12 +33,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             item.shoot = mod.ProjectileType("HydraMissileBig");
             item.magic = true;
             item.shootSpeed = 8;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-
 
             recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
             recipe.AddIngredient(mod.ItemType("HydraScale"), 10);
@@ -49,10 +45,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-26, 0);
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 131f;
@@ -61,12 +59,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
                 position += muzzleOffset;
             }
             return true;
-
-
-
-
         }
     }
+
     public class HydraMissileBig : ModProjectile
     {
         public override void SetDefaults()
@@ -79,15 +74,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             projectile.penetrate = 1;
             //projectile.usesLocalNPCImmunity = true;
         }
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 10000f;
-        float distance;
-        int timer;
-        float speed = 15;
-        bool runOnce = true;
-        float direction;
+
+        private NPC target;
+        private float speed = 15;
+        private bool runOnce = true;
+        private float direction;
+
         public override void AI()
         {
             if (runOnce)
@@ -97,34 +89,17 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
                 runOnce = false;
             }
             Player player = Main.player[projectile.owner];
-            for (int k = 0; k < 200; k++)
-            {
-                possibleTarget = Main.npc[k];
-                distance = (possibleTarget.Center - projectile.Center).Length();
-                if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
-                {
-                    target = Main.npc[k];
-                    foundTarget = true;
-
-
-                    maxDistance = (target.Center - projectile.Center).Length();
-                }
-
-            }
-            if (foundTarget)
+            if (QwertyMethods.ClosestNPC(ref target, 10000, projectile.Center))
             {
                 direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
-
             }
             projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
-            foundTarget = false;
-            maxDistance = 10000f;
             Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             projectile.rotation = direction + ((float)Math.PI / 2);
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;
@@ -136,14 +111,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             direction = projectile.velocity.ToRotation();
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             //projectile.localNPCImmunity[target.whoAmI] = -1;
             //target.immune[projectile.owner] = 0;
-
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             projectile.alpha = 255;
@@ -163,27 +137,30 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             }
         }
     }
+
     public class HydraMissileMedium : ModProjectile
     {
         public override void SetDefaults()
         {
             projectile.width = 10;
             projectile.height = 10;
-            projectile.friendly = false;
+            projectile.friendly = true;
             projectile.aiStyle = 0;
             projectile.magic = true;
             projectile.penetrate = 1;
             //projectile.usesLocalNPCImmunity = true;
         }
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 10000f;
-        float distance;
-        int timer;
-        float speed = 15;
-        bool runOnce = true;
-        float direction;
+
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float maxDistance = 10000f;
+        private float distance;
+        private int timer;
+        private float speed = 15;
+        private bool runOnce = true;
+        private float direction;
+
         public override void AI()
         {
             if (runOnce)
@@ -192,49 +169,24 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
                 projectile.rotation = direction + ((float)Math.PI / 2);
                 runOnce = false;
             }
-            timer++;
             Player player = Main.player[projectile.owner];
-            if (timer > 20)
+            if (QwertyMethods.ClosestNPC(ref target, 10000, projectile.Center))
             {
-                projectile.friendly = true;
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - projectile.Center).Length();
-                    }
-
-                }
-                if (foundTarget)
-                {
-                    direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
-
-                }
-                projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
-                foundTarget = false;
-                maxDistance = 10000f;
-
+                direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
             }
+            projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
             Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             projectile.rotation = direction + ((float)Math.PI / 2);
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             //projectile.localNPCImmunity[target.whoAmI] = -1;
             //target.immune[projectile.owner] = 0;
-
-
-
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;
@@ -246,6 +198,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             direction = projectile.velocity.ToRotation();
             return false;
         }
+
         public override void Kill(int timeLeft)
         {
             projectile.alpha = 255;
@@ -265,27 +218,30 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             }
         }
     }
+
     public class HydraMissileSmall : ModProjectile
     {
         public override void SetDefaults()
         {
             projectile.width = 20;
             projectile.height = 20;
-            projectile.friendly = false;
+            projectile.friendly = true;
             projectile.aiStyle = 0;
             projectile.magic = true;
             projectile.penetrate = 1;
             //projectile.usesLocalNPCImmunity = true;
         }
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 10000f;
-        float distance;
-        int timer;
-        float speed = 15;
-        bool runOnce = true;
-        float direction;
+
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float maxDistance = 10000f;
+        private float distance;
+        private int timer;
+        private float speed = 15;
+        private bool runOnce = true;
+        private float direction;
+
         public override void AI()
         {
             if (runOnce)
@@ -294,49 +250,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
                 projectile.rotation = direction + ((float)Math.PI / 2);
                 runOnce = false;
             }
-            timer++;
             Player player = Main.player[projectile.owner];
-            if (timer > 20)
+            if (QwertyMethods.ClosestNPC(ref target, 10000, projectile.Center))
             {
-                projectile.friendly = true;
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - projectile.Center).Length();
-                    }
-
-                }
-                if (foundTarget)
-                {
-                    direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
-
-                }
-                projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
-                foundTarget = false;
-                maxDistance = 10000f;
-
+                direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
             }
+            projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
             Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             projectile.rotation = direction + ((float)Math.PI / 2);
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            //projectile.localNPCImmunity[target.whoAmI] = -1;
-            //target.immune[projectile.owner] = 0;
-
-
-
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;
@@ -348,6 +277,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             direction = projectile.velocity.ToRotation();
             return false;
         }
+
         public override void Kill(int timeLeft)
         {
             projectile.alpha = 255;
@@ -359,13 +289,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             }
-
-
         }
     }
-
-
-
-
-
 }

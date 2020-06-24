@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Glass
 {
     public class GlassBlade : ModItem
@@ -14,48 +13,48 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         {
             DisplayName.SetDefault("Glass Blade");
             Tooltip.SetDefault("Breaks into shards upon striking an enemy");
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 14;
-            item.thrown = true;
+            item.melee = true;
 
             item.useTime = 28;
             item.useAnimation = 28;
             item.useStyle = 1;
             item.knockBack = 3;
-            item.value = 1;
+            item.value = 10000;
             item.rare = 0;
             item.UseSound = SoundID.Item1;
 
             item.width = 64;
             item.height = 64;
-            item.maxStack = 999;
             item.autoReuse = true;
-            //item.scale = 5;
-
-
-
         }
-        int useCounter = 0;
+
+        private int useCounter = 0;
+
         public override bool CanUseItem(Player player)
         {
             return useCounter == 0;
         }
+
         public override void UpdateInventory(Player player)
         {
             if (useCounter > 0)
             {
                 useCounter--;
-
             }
         }
+
         public override bool ConsumeItem(Player player)
         {
             return false;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -64,7 +63,6 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             recipe.SetResult(this, 100);
             recipe.AddRecipe();
         }
-
 
         public override bool? CanHitNPC(Player player, NPC target)
         {
@@ -83,13 +81,8 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             {
                 player.itemAnimation = 0;
                 useCounter = 10;
-                if (player.GetModPlayer<QwertyPlayer>().throwReduction > Main.rand.NextFloat())
-                {
-                    item.stack--;
-                }
 
                 float swordLength = item.Size.Length() * item.scale;
-
 
                 float r = player.direction == 1 ? player.itemRotation - (float)Math.PI / 4 : player.itemRotation + 5 * (float)Math.PI / 4;
                 if (player.gravDir == -1)
@@ -106,9 +99,4 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
         }
     }
-
-
-
-
 }
-

@@ -11,8 +11,8 @@ namespace QwertysRandomContent.Items.DinoItems
         {
             DisplayName.SetDefault("The Tyrant's Extinction Gun");
             Tooltip.SetDefault("Left click shoots climate change!" + "\nRight click shoots disease!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 48;
@@ -32,14 +32,13 @@ namespace QwertysRandomContent.Items.DinoItems
             item.noMelee = true;
             //item.UseSound = 16
             item.autoReuse = true;
-
-
-
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -56,7 +55,6 @@ namespace QwertysRandomContent.Items.DinoItems
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 28f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -67,20 +65,21 @@ namespace QwertysRandomContent.Items.DinoItems
             speedY = trueSpeed.Y;
             return true;
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-20, -4);
         }
-
     }
+
     public class MosquittoF : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mosquitto");
             Main.projFrames[projectile.type] = 4;
-
         }
+
         public override void SetDefaults()
         {
             projectile.magic = true;
@@ -94,26 +93,21 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.extraUpdates = 3;
             aiType = ProjectileID.Bee;
             //animationType = ProjectileID.Bee;
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType("DinoPox"), 480);
         }
-
-
-
-
-
     }
+
     public class SnowFlakeF : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Snow Flake");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.magic = true;
@@ -127,14 +121,13 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.timeLeft = 120;
             projectile.tileCollide = true;
             projectile.usesLocalNPCImmunity = true;
-
         }
-
 
         public override void AI()
         {
             projectile.rotation += 1.5f;
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             for (int k = 0; k < 200; k++)
@@ -157,8 +150,5 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-
-
     }
 }
-

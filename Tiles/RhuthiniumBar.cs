@@ -18,8 +18,6 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.addTile(Type);
 
-
-
             dustType = mod.DustType("VarguleDust");
             soundType = 21;
             soundStyle = 2;
@@ -34,7 +32,5 @@ namespace QwertysRandomContent.Tiles
             g = 0.5f;
             b = 0.5f;
         }
-
-
     }
 }

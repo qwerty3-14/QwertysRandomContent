@@ -13,13 +13,13 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
     {
         public override void SetDefaults()
         {
-
             //Main.tileFlame[Type] = true;
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
+            TileObjectData.newTile.Direction = TileObjectDirection.PlaceRight;
             TileObjectData.newTile.Origin = new Point16(1, 0);
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, 1, 1);
             TileObjectData.newTile.AnchorBottom = AnchorData.Empty;
@@ -36,8 +36,8 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             //disableSmartCursor = true;
             adjTiles = new int[] { TileID.Chandeliers };
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
-
         }
+
         public override void HitWire(int i, int j)
         {
             int left = i - (Main.tile[i, j].frameX / 18) % 3;
@@ -46,7 +46,6 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             {
                 for (int y = top; y < top + 3; y++)
                 {
-
                     if (Main.tile[x, y].frameX >= 54)
                     {
                         Main.tile[x, y].frameX -= 54;
@@ -65,13 +64,13 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
                 Wiring.SkipWire(left + 1, top + 1);
             }
             NetMessage.SendTileSquare(-1, left, top + 1, 2);
-
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
         }
+
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
@@ -88,6 +87,7 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             Item.NewItem(i * 16, j * 16, 48, 32, mod.ItemType("FortressChandelier"));
             Chest.DestroyChest(i, j);
         }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));

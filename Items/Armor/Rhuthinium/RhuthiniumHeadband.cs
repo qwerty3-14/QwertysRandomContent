@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Config;
+using QwertysRandomContent.Items.Accesories;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,7 +17,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Headband");
-            Tooltip.SetDefault("+28% melee speed");
+            Tooltip.SetDefault("10% increased all melee attack speed \nSwords are 10% larger");
             if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
             {
                 Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumHeadband_Old");
@@ -24,73 +25,50 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             }
         }
 
-
         public override void SetDefaults()
         {
-
             item.value = 50000;
             item.rare = 3;
-
 
             item.width = 32;
             item.height = 20;
             item.defense = 2;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.meleeSpeed += .28f;
-
+            player.GetModPlayer<AttackSpeedPlayer>().meleeUseSpeedBonus += .1f;
+            player.GetModPlayer<BigSword>().Enlarger += .1f;
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawHair = true;
-
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("RhuthiniumChestplate") && legs.type == mod.ItemType("RhuthiniumGreaves");
-
         }
-
-
 
         public override void UpdateArmorSet(Player player)
         {
+            player.GetModPlayer<RhuthiniumArmorEfffects>().meleeSet = true;
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RHeadbandSet");
-            float speedBonus = (1.0f - ((player.statLife * 1.0f) / (player.statLifeMax2 * 1.0f)));
-            if (speedBonus > 0)
-            {
-                player.meleeSpeed += speedBonus;
-            }
-
-
-
-
         }
-
-
-
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 12);
-
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class HeadbandDraw : ModPlayer
     {
-
-
         public static readonly PlayerLayer Headband = new PlayerLayer("QwertysRandomContent", "Headband", PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -117,6 +95,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
                 Main.playerDrawData.Add(data);
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Face"));
@@ -125,9 +104,6 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
                 Headband.visible = true;
                 layers.Insert(headLayer + 1, Headband);
             }
-
         }
     }
-
 }
-

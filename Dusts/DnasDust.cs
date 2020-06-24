@@ -11,11 +11,11 @@ namespace QwertysRandomContent.Dusts
             dust.noLight = true;
             dust.scale = 1f;
         }
+
         public override bool Update(Dust dust)
         {
             dust.velocity.Y -= .1f;
             return true;
         }
-
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +9,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vile Emblem");
-            Tooltip.SetDefault("12% increased damage \n10% increased critical strike chance \nEnemies are less likely to target you");
+            Tooltip.SetDefault("10% increased damage \n8% increased critical strike chance \nEnemies are less likely to target you");
         }
 
         public override void SetDefaults()
@@ -25,6 +20,7 @@ namespace QwertysRandomContent.Items.Accesories
             item.height = 28;
             item.accessory = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -33,15 +29,15 @@ namespace QwertysRandomContent.Items.Accesories
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.allDamage += .12f;
-            player.magicCrit += 10;
-            player.rangedCrit += 10;
-            player.meleeCrit += 10;
-            player.thrownCrit += 10;
+            player.allDamage += .1f;
+            player.magicCrit += 8;
+            player.rangedCrit += 8;
+            player.meleeCrit += 8;
+            player.thrownCrit += 8;
             player.aggro -= 400;
         }
     }

@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.NPCs.BladeBoss;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,13 +16,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
         {
             DisplayName.SetDefault("Shape Shift: Swordquake");
             Tooltip.SetDefault("Turn into a sword that causes a deadly swordquake upon striking the ground!");
-
-
         }
+
         public const int dmg = 900;
         public const int crt = 0;
         public const float kb = 9f;
         public const int def = -1;
+
         public override void SetDefaults()
         {
             item.damage = dmg;
@@ -51,18 +48,16 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.shoot = mod.ProjectileType("SwordquakeP");
             item.shootSpeed = 1f;
             item.channel = true;
-
-
-
-
         }
     }
+
     public class SwordquakeP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordquake");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -75,9 +70,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.timeLeft = 90;
             projectile.usesLocalNPCImmunity = true;
             projectile.extraUpdates = 1;
-
         }
-        bool runOnce = true;
+
+        private bool runOnce = true;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -92,8 +88,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 projectile.rotation = player.direction == 1 ? (float)Math.PI : 0;
                 runOnce = false;
             }
-            
-            if(projectile.ai[0]==2)
+
+            if (projectile.ai[0] == 2)
             {
                 player.GetModPlayer<SwordQuakeShake>().shake = true;
             }
@@ -107,9 +103,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
                         projectile.timeLeft = 30;
                         projectile.ai[0] = 2;
                         Vector2 start = projectile.Center + QwertyMethods.PolarVector(180, projectile.rotation) + player.direction * 14 * Vector2.UnitX;
-                        
+
                         Point point;
-                        while (WorldUtils.Find(start.ToTileCoordinates(), Searches.Chain(new Searches.Up(1), new GenCondition[]{new Conditions.IsSolid()}), out point))
+                        while (WorldUtils.Find(start.ToTileCoordinates(), Searches.Chain(new Searches.Up(1), new GenCondition[] { new Conditions.IsSolid() }), out point))
                         {
                             start += -Vector2.UnitY;
                         }
@@ -117,18 +113,19 @@ namespace QwertysRandomContent.Items.BladeBossItems
                         {
                             start += Vector2.UnitY;
                         }
-                        start += Vector2.UnitY*20;
+                        start += Vector2.UnitY * 20;
                         Projectile.NewProjectile(start, Vector2.Zero, mod.ProjectileType("SwordlagmitePlayer"), projectile.damage, projectile.knockBack, projectile.owner, player.direction, 40);
                     }
                 }
             }
-            
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float CP = 0;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center + QwertyMethods.PolarVector(-12, projectile.rotation), projectile.Center + QwertyMethods.PolarVector(194-12, projectile.rotation), 34, ref CP);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center + QwertyMethods.PolarVector(-12, projectile.rotation), projectile.Center + QwertyMethods.PolarVector(194 - 12, projectile.rotation), 34, ref CP) && projectile.timeLeft < 30;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -136,6 +133,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             return false;
         }
     }
+
     public class SwordlagmitePlayer : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -143,6 +141,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             DisplayName.SetDefault("Swordlagmite");
             ProjectileID.Sets.DontAttachHideToAlpha[projectile.type] = true; // projectiles with hide but without this will draw in the lighting values of the owner player.
         }
+
         public override void SetDefaults()
         {
             projectile.width = 28;
@@ -153,16 +152,29 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.penetrate = -1;
             projectile.timeLeft = 61;
             projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
-            projectile.usesIDStaticNPCImmunity = true;
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = 300;
         }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsBehindNPCsAndTiles.Add(index);
         }
 
-        const int lingerTime = 60;
-        const int extendSpeed = 30;
-        int heightMax = 150;
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.GetGlobalNPC<QwertyGloabalNPC>().swordquakeCooldown > 0)
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
+
+        private const int lingerTime = 60;
+        private const int extendSpeed = 30;
+        private int heightMax = 150;
+        private Projectile next = null;
+
         public override void AI()
         {
             if (projectile.timeLeft == lingerTime)
@@ -170,11 +182,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 projectile.height += extendSpeed;
                 projectile.position.Y -= extendSpeed;
 
-                if(projectile.height < heightMax)
+                if (projectile.height < heightMax)
                 {
                     projectile.timeLeft++;
                 }
-
             }
             if (projectile.timeLeft == lingerTime - 1)
             {
@@ -192,7 +203,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
                         start += Vector2.UnitY;
                     }
                     start += Vector2.UnitY * 20;
-                    Projectile.NewProjectile(start, Vector2.Zero, mod.ProjectileType("SwordlagmitePlayer"), projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1] - 1);
+                    next = Main.projectile[Projectile.NewProjectile(start, Vector2.Zero, mod.ProjectileType("SwordlagmitePlayer"), projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1] - 1)];
                 }
             }
             if (projectile.timeLeft == 1)
@@ -206,9 +217,22 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
         }
 
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.GetGlobalNPC<QwertyGloabalNPC>().swordquakeCooldown = 300;
+            projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
+            target.immune[projectile.owner] = 0;
+            if (next != null)
+            {
+                for (int i = 0; i < Main.npc.Length - 1; i++)
+                {
+                    next.localNPCImmunity[i] = projectile.localNPCImmunity[i];
+                }
+            }
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-            
             int tipHeight = 14;
             int segmentHeight = 12;
             Texture2D texture = Main.projectileTexture[projectile.type];

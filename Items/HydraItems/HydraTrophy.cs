@@ -6,7 +6,6 @@ namespace QwertysRandomContent.Items.HydraItems
     {
         public override void SetDefaults()
         {
-
             item.width = 32;
             item.height = 32;
             item.maxStack = 99;
@@ -26,6 +25,5 @@ namespace QwertysRandomContent.Items.HydraItems
             DisplayName.SetDefault("Hydra Trophy");
             Tooltip.SetDefault("");
         }
-
     }
 }

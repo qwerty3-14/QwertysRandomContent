@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Tiles
 {
     public class RhuthiniumOre : ModTile
@@ -21,11 +22,8 @@ namespace QwertysRandomContent.Tiles
             name.SetDefault("Rhuthinium Ore");
             drop = mod.ItemType("RhuthiniumOre");
 
-
             minPick = 1;
-
         }
-
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {

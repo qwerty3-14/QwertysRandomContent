@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Tiles
 {
     public class LuneOre : ModTile
@@ -21,11 +22,8 @@ namespace QwertysRandomContent.Tiles
             name.SetDefault("Lune Ore");
             drop = mod.ItemType("LuneOre");
 
-
             minPick = 1;
-
         }
-
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
@@ -33,9 +31,9 @@ namespace QwertysRandomContent.Tiles
             g = 0.5f;
             b = 0.5f;
         }
+
         public override bool CanExplode(int i, int j)
         {
-
             if (!NPC.downedBoss3)
             {
                 return false;
@@ -44,11 +42,6 @@ namespace QwertysRandomContent.Tiles
             {
                 return true;
             }
-
-
-
         }
-
-
     }
 }

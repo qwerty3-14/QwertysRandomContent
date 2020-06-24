@@ -13,8 +13,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
             DisplayName.SetDefault("Holy Exiler");
             Tooltip.SetDefault("Higher beings will help you shoot your enemies!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 16;
@@ -37,11 +37,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.shootSpeed = 12f;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
 
         public Projectile arrow;
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -50,32 +49,31 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             //Vector2 trueSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
             arrow = Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI)];
             arrow.GetGlobalProjectile<ArrowWarping>().warpedArrow = true;
             return false;
         }
-
-
     }
 
     public class ArrowWarping : GlobalProjectile
     {
         public bool warpedArrow;
 
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
 
-        NPC target;
-        NPC possibleTarget;
-        List<int> targets = new List<int>();
-        float maxDistance = 300;
-        Projectile portal1;
-        Projectile portal2;
-        float teleportDistance = 80;
-        int teleportTries = 100;
+        private NPC target;
+        private NPC possibleTarget;
+        private List<int> targets = new List<int>();
+        private float maxDistance = 300;
+        private Projectile portal1;
+        private Projectile portal2;
+        private float teleportDistance = 80;
+        private int teleportTries = 100;
+
         public override void Kill(Projectile projectile, int timeLeft)
         {
             if (warpedArrow && projectile.type != mod.ProjectileType("HydraArrowP"))
@@ -94,7 +92,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                     target = Main.npc[targets[Main.rand.Next(targets.Count)]]; // pick a random value in the targets list and use that to pick a target
                     for (int c = 0; c < teleportTries; c++)
                     {
-
                         if (Main.netMode != 1) // don't run on client
                         {
                             //Use the npc.ai[0] variable as it's easy to sync in multiplayer
@@ -105,17 +102,15 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                         Vector2 teleTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[0]) * teleportDistance, target.Center.Y + (float)Math.Sin(projectile.ai[0]) * teleportDistance);
                         if (Collision.CanHit(new Vector2(teleTo.X - projectile.width / 2, teleTo.Y - projectile.height / 2), projectile.width, projectile.height, target.position, target.width, target.height))// checks if there are no tiles between player and potential teleport spot
                         {
-                            portal1 = Main.projectile[Projectile.NewProjectile(teleTo, Vector2.Zero, mod.ProjectileType("ArrowPortal"), projectile.damage, projectile.knockBack, projectile.owner, projectile.type, projectile.velocity.Length())];
+                            portal1 = Main.projectile[Projectile.NewProjectile(teleTo, Vector2.Zero, mod.ProjectileType("ArrowPortal"), projectile.damage, projectile.knockBack, projectile.owner, projectile.type, 12f)];
                             portal1.rotation = (target.Center - teleTo).ToRotation();
-                            portal1.timeLeft = 30;
+                            portal1.timeLeft = 15;
                             break; //end for loop
-
                         }
                     }
                     target = Main.npc[targets[Main.rand.Next(targets.Count)]]; // pick a random value in the targets list and use that to pick a target
                     for (int c = 0; c < teleportTries; c++)
                     {
-
                         if (Main.netMode != 1) // don't run on client
                         {
                             //Use the npc.ai[0] variable as it's easy to sync in multiplayer
@@ -126,25 +121,24 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                         Vector2 teleTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[0]) * teleportDistance, target.Center.Y + (float)Math.Sin(projectile.ai[0]) * teleportDistance);
                         if (Collision.CanHit(new Vector2(teleTo.X - projectile.width / 2, teleTo.Y - projectile.height / 2), projectile.width, projectile.height, target.position, target.width, target.height))// checks if there are no tiles between player and potential teleport spot
                         {
-                            portal2 = Main.projectile[Projectile.NewProjectile(teleTo, Vector2.Zero, mod.ProjectileType("ArrowPortal"), projectile.damage, projectile.knockBack, projectile.owner, projectile.type, projectile.velocity.Length())];
+                            portal2 = Main.projectile[Projectile.NewProjectile(teleTo, Vector2.Zero, mod.ProjectileType("ArrowPortal"), projectile.damage, projectile.knockBack, projectile.owner, projectile.type, 12f)];
                             portal2.rotation = (target.Center - teleTo).ToRotation();
-                            portal2.timeLeft = 45;
+                            portal2.timeLeft = 30;
                             break; //end for loop
-
                         }
                     }
                 }
             }
         }
-
-
     }
+
     public class ArrowPortal : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 3;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 36;
@@ -157,10 +151,11 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             projectile.tileCollide = false;
             projectile.light = .5f;
         }
-        int activeTime = 30;
+
+        private int activeTime = 15;
+
         public override void AI()
         {
-
             if (projectile.timeLeft < activeTime)
             {
                 Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
@@ -194,6 +189,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.alpha = 0;
             }
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 30; i++)
@@ -205,8 +201,4 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             }
         }
     }
-
-
-
 }
-

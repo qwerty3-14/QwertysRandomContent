@@ -7,8 +7,6 @@ namespace QwertysRandomContent.Items.DinoItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Old Dinos New Guns)");
-
-
         }
 
         public override void SetDefaults()

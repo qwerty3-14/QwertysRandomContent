@@ -4,10 +4,8 @@ using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
     [AutoloadEquip(EquipType.Body)]
-
-    class RunicRobe : ModItem
+    internal class RunicRobe : ModItem
     {
-
         public override bool Autoload(ref string name)
         {
             // All code below runs only if we're not loading on a server
@@ -19,12 +17,12 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             }
             return true;
         }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Runic Robe");
-
-
         }
+
         public override void SetDefaults()
         {
             item.width = 34;
@@ -39,7 +37,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
             if (male) equipSlot = mod.GetEquipSlot("RunicRobe_Legs", EquipType.Legs);
             if (!male) equipSlot = mod.GetEquipSlot("RunicRobe_FemaleLegs", EquipType.Legs);
-
         }
 
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
@@ -47,18 +44,13 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             drawHands = true;
             drawArms = true;
         }
-
-
-
-
     }
 
     public class DressLegs : EquipTexture
     {
-
     }
+
     public class DressLegsFemale : EquipTexture
     {
     }
-
 }

@@ -11,23 +11,17 @@ namespace QwertysRandomContent.Items.Armor.Clay
         {
             DisplayName.SetDefault("Clay Plate");
             Tooltip.SetDefault("Grants knockback immunity when morphed");
-
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = 30000;
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 12;
             item.defense = 2;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 5;
-
-
         }
 
         public override void UpdateEquip(Player player)
@@ -36,15 +30,12 @@ namespace QwertysRandomContent.Items.Armor.Clay
             player.GetModPlayer<plateEffect>().effect = true;
         }
 
-
-
-
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
             drawArms = true;
             drawHands = true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -53,12 +44,8 @@ namespace QwertysRandomContent.Items.Armor.Clay
             recipe.SetResult(this, 1);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
+
     public class plateEffect : ModPlayer
     {
         public bool effect = false;
@@ -70,13 +57,10 @@ namespace QwertysRandomContent.Items.Armor.Clay
                 //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().morphed);
                 if (player.GetModPlayer<ShapeShifterPlayer>().morphed)
                 {
-
                     player.noKnockback = true;
                 }
             }
             effect = false;
         }
     }
-
 }
-

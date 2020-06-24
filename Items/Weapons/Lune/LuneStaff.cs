@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class LuneStaff : ModItem
@@ -14,12 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             DisplayName.SetDefault("Lune Staff");
             Tooltip.SetDefault("Fires a Lune crest" + "\nWhen the Lune crest hits an enemy it will orbit it shooting nearby enemies" + "\nInflicts Lune curse making enemies more vulnerable to critical hits");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 16;
             item.mana = 9;
             item.width = 42;
@@ -29,23 +26,20 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 1f;
-            item.value = 250000;
+            item.value = 20000;
             item.rare = 1;
             item.UseSound = SoundID.Item43;
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("LuneCrest");
             item.magic = true;
             item.shootSpeed = 8;
-
         }
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
             return true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -55,10 +49,8 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
     }
+
     public class LuneCrest : ModProjectile
     {
         public override void SetDefaults()
@@ -73,30 +65,30 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             projectile.hostile = false;
             projectile.penetrate = -1;
         }
-        bool runOnce = true;
-        bool orbitting;
-        NPC planet;
-        float radius = 10;
-        float direciton;
-        float orbitSpeed = 1;
-        int shootTimer;
-        int shootCooldown = 20;
-        NPC prey;
-        bool foundPrey;
-        float preyDistance;
-        float maxPreyDistance = 1000;
-        NPC possiblePrey;
-        float preyDirection;
+
+        private bool runOnce = true;
+        private bool orbitting;
+        private NPC planet;
+        private float radius = 10;
+        private float direciton;
+        private float orbitSpeed = 1;
+        private int shootTimer;
+        private int shootCooldown = 20;
+        private NPC prey;
+        private bool foundPrey;
+        private float preyDistance;
+        private float maxPreyDistance = 1000;
+        private NPC possiblePrey;
+        private float preyDirection;
+
         public override void AI()
         {
             if (runOnce)
             {
-
                 runOnce = false;
             }
             if (orbitting)
             {
-
                 //Main.NewText(direciton);
                 direciton += (float)((2 * Math.PI) / (6 * radius / orbitSpeed));
                 projectile.velocity = new Vector2((float)Math.Cos(direciton) * orbitSpeed, (float)Math.Sin(direciton) * orbitSpeed);
@@ -122,7 +114,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
                     }
                     if (foundPrey)
                     {
-
                         Projectile shot = Main.projectile[Projectile.NewProjectile(prey.Center, new Vector2(0, 0), mod.ProjectileType("FighterShot"), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f)];
                         shot.minion = false;
                         shot.magic = true;
@@ -137,8 +128,8 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LuneDust"));
             foundPrey = false;
             maxPreyDistance = 1000;
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType("LuneCurse"), 120);
@@ -152,10 +143,4 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             projectile.tileCollide = false;
         }
     }
-
-
-
-
-
-
 }

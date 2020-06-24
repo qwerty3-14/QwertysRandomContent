@@ -33,8 +33,6 @@ namespace QwertysRandomContent.Items.HydraItems
             {
                 modPlayer.customDashSpeed = 5f;
             }
-
-
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -52,12 +50,10 @@ namespace QwertysRandomContent.Items.HydraItems
             speed = 9f;
             acceleration *= 2.5f;
         }
-
-
     }
+
     public class HydraWingsGlowMask : ModPlayer
     {
-
         public static readonly PlayerLayer HydraWingsGlow = new PlayerLayer("QwertysRandomContent", "HydraWingsGlow", PlayerLayer.Wings, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -73,7 +69,6 @@ namespace QwertysRandomContent.Items.HydraItems
                 //Main.NewText(drawPlayer.bodyFrame);
                 Texture2D texture = mod.GetTexture("Items/HydraItems/HydraWings_Wings_Glow");
 
-
                 int num65 = 0;
                 int num66 = 0;
                 int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
@@ -87,6 +82,7 @@ namespace QwertysRandomContent.Items.HydraItems
                 Main.playerDrawData.Add(data);
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int wingLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Wings"));
@@ -95,7 +91,6 @@ namespace QwertysRandomContent.Items.HydraItems
                 HydraWingsGlow.visible = true;
                 layers.Insert(wingLayer + 1, HydraWingsGlow);
             }
-
         }
     }
 }

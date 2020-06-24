@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
         {
             DisplayName.SetDefault("Pumpgun");
             Tooltip.SetDefault("Turns seeds into pumpkin seeds" + "\nPumpkin seeds will stick to enemies then grow into pumkin rockets" + "\nAllows for the collection of seeds");
-
         }
+
         public override void SetDefaults()
         {
             item.useStyle = 5;
@@ -32,10 +32,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             item.rare = 1;
             item.knockBack = 3.5f;
             item.ranged = true;
-
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -44,10 +42,12 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, -4);
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (type == ProjectileID.Seed)
@@ -56,10 +56,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             }
             return true;
         }
-
-
-
     }
+
     public class PumpkinSeed : ModProjectile
     {
         public override void SetDefaults()
@@ -76,6 +74,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             projectile.ranged = true;
             projectile.extraUpdates = 1;
         }
+
         // Here's an example on how you could make your AI even more readable, by giving AI fields more descriptive names
         // These are not used in AI, but it is good practice to apply some form like this to keep things organized
 
@@ -92,7 +91,9 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             get { return projectile.ai[1]; }
             set { projectile.ai[1] = value; }
         }
-        int d;
+
+        private int d;
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit,
             ref int hitDirection)
         {
@@ -193,9 +194,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                     projectile.velocity.ToRotation() +
                     MathHelper.ToRadians(
                         90f); // Please notice the MathHelper usage, offset the rotation by 135 degrees (to radians because rotation uses radians) because the sprite's rotation is not aligned!
-
-
-
             }
             // This code is ran when the javelin is sticking to a target
             if (isStickingToTarget)
@@ -208,7 +206,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
 
                 projectile.localAI[0] += 1f;
 
-
                 int projTargetIndex = (int)targetWhoAmI;
                 if (projectile.localAI[0] >= (float)(60 * aiFactor)// If it's time for this javelin to die, kill it
                     || (projTargetIndex < 0 || projTargetIndex >= 200)) // If the index is past its limits, kill it
@@ -220,7 +217,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                     // Set the projectile's position relative to the target's center
                     projectile.Center = Main.npc[projTargetIndex].Center - projectile.velocity * 2f;
                     projectile.gfxOffY = Main.npc[projTargetIndex].gfxOffY;
-
                 }
                 else // Otherwise, kill the projectile
                 {
@@ -229,11 +225,11 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
 
                 if (killProj) // Kill the projectile
                 {
-
                     projectile.Kill();
                 }
             }
         }
+
         public override void Kill(int timeLeft)
         {
             if (isStickingToTarget)
@@ -241,8 +237,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                 Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(8, projectile.rotation + (float)Math.PI / 2), mod.ProjectileType("PumpkinRocket"), d, projectile.knockBack, projectile.owner);
             }
         }
-
     }
+
     public class PumpkinRocket : ModProjectile
     {
         public override void SetDefaults()
@@ -260,15 +256,17 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
             projectile.ranged = true;
             //projectile.extraUpdates = 1;
         }
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 10000f;
-        float distance;
-        int timer;
-        float speed = 8;
-        bool runOnce = true;
-        float direction;
+
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float maxDistance = 10000f;
+        private float distance;
+        private int timer;
+        private float speed = 8;
+        private bool runOnce = true;
+        private float direction;
+
         public override void AI()
         {
             if (runOnce)
@@ -291,26 +289,22 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
                         target = Main.npc[k];
                         foundTarget = true;
 
-
                         maxDistance = (target.Center - projectile.Center).Length();
                     }
-
                 }
                 if (foundTarget)
                 {
                     direction = QwertyMethods.SlowRotation(direction, (target.Center - projectile.Center).ToRotation(), 3f);
-
                 }
                 projectile.velocity = new Vector2((float)Math.Cos(direction) * speed, (float)Math.Sin(direction) * speed);
                 foundTarget = false;
                 maxDistance = 10000f;
-
             }
 
             projectile.rotation = direction + ((float)Math.PI / 2);
         }
-
     }
+
     public class DropSeed : GlobalTile
     {
         public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
@@ -326,4 +320,3 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin
         }
     }
 }
-

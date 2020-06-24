@@ -22,9 +22,6 @@ namespace QwertysRandomContent
 
         public bool DinoPox = false;
         public bool HydraSetBonus = false;
-        public bool HydraHeadMinion = false;
-        public bool LuneArcher = false;
-        public bool Dreadnought = false;
         public bool HydraCannon = false;
         public bool HydraCannonConfirm = false;
         public bool Metronome = false;
@@ -61,29 +58,19 @@ namespace QwertysRandomContent
         public float ammoReduction = 1f;
         public float throwReduction = 1f;
         public int recovery;
-        public bool AncientMinion;
-        public bool GoldDagger;
-        public bool PlatinumDagger;
         public int dodgeChance = 0;
         public bool dodgeImmuneBoost = false;
         public bool dodgeDamageBoost = false;
         public bool damageBoostFromDodge = false;
-        public bool mythrilPrism = false;
-        public float mythrilPrismRotation = 0;
-        public bool OrichalcumDrifter = false;
-        public bool chlorophyteSniper = false;
         public bool Lightling = false;
-        public bool miniTank = false;
         public int forcedAntiGravity = 0;
-        public bool GlassSpike = false;
-        public bool SpaceFighter = false;
-        public bool ShieldMinion = false;
-        public bool SwordMinion = false;
         public int ArmorFrameCounter = 0;
         public float PincusionMultiplier = 1f;
         public float TopFrictionMultiplier = 1f;
         public float FlechetteDropAcceleration = 1f;
         public float GrenadeExplosionModifier = 1f;
+        public int deflectCooldown = 0;
+
         public override void ResetEffects()
         {
             ninjaSabatoge = false;
@@ -97,8 +84,6 @@ namespace QwertysRandomContent
 
             DinoPox = false;
             HydraSetBonus = false;
-            HydraHeadMinion = false;
-            Dreadnought = false;
             HydraCannon = false;
             HydraCannonConfirm = false;
             Metronome = false;
@@ -123,22 +108,10 @@ namespace QwertysRandomContent
             ammoReduction = 1f;
             throwReduction = 1f;
             recovery = 0;
-            AncientMinion = false;
-            LuneArcher = false;
-            GoldDagger = false;
-            PlatinumDagger = false;
             dodgeChance = 0;
             dodgeImmuneBoost = false;
             dodgeDamageBoost = false;
-            mythrilPrism = false;
-            OrichalcumDrifter = false;
-            chlorophyteSniper = false;
             Lightling = false;
-            miniTank = false;
-            GlassSpike = false;
-            SpaceFighter = false;
-            ShieldMinion = false;
-            SwordMinion = false;
             if (!player.channel)
             {
                 shotNumber = 0;
@@ -147,7 +120,6 @@ namespace QwertysRandomContent
             TopFrictionMultiplier = 1f;
             FlechetteDropAcceleration = 1f;
             GrenadeExplosionModifier = 1f;
-            //forcedAntiGravity = 0;
         }
 
         public override void UpdateDead()
@@ -162,6 +134,7 @@ namespace QwertysRandomContent
             aggroScroll = false;
             shotNumber = 0;
         }
+
         public override void UpdateBadLifeRegen()
         {
             if (DinoPox)//Dino Pox
@@ -172,7 +145,6 @@ namespace QwertysRandomContent
                 }
                 player.lifeRegenTime = 0;
                 player.lifeRegen -= 20;
-
             }
             if (noRegen)
             {
@@ -182,40 +154,37 @@ namespace QwertysRandomContent
                 }
                 player.lifeRegenTime = 0;
             }
-
         }
+
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
             damage += (int)(damage * .02f * killCount);
         }
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             damage += (int)(damage * .02f * killCount);
         }
+
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             base.ModifyDrawHeadLayers(layers);
         }
+
         public void PickRandomAmmo(Item sItem, ref int shoot, ref float speed, ref bool canShoot, ref int Damage, ref float KnockBack, bool dontConsume = false)
         {
             Item item = new Item();
             List<int> possibleAmmo = new List<int>();
 
-
             for (int i = 0; i < 58; i++)
             {
                 if (player.inventory[i].ammo == sItem.useAmmo && player.inventory[i].stack > 0)
                 {
-
-
                     //item = player.inventory[i];
 
                     possibleAmmo.Add(i);
 
-
                     canShoot = true;
-
-
                 }
             }
 
@@ -255,7 +224,6 @@ namespace QwertysRandomContent
                 ItemLoader.PickAmmo(sItem, item, player, ref shoot, ref speed, ref Damage, ref KnockBack);
                 bool flag2 = dontConsume;
 
-
                 if (player.magicQuiver && sItem.useAmmo == AmmoID.Arrow && Main.rand.Next(5) == 0)
                 {
                     flag2 = true;
@@ -294,9 +262,9 @@ namespace QwertysRandomContent
                 {
                     flag2 = true;
                 }
-
             }
         }
+
         public override void UpdateBiomes()
         {
             TheAbstract = (QwertyWorld.AbstractiveBlock > 50);
@@ -304,22 +272,19 @@ namespace QwertysRandomContent
 
         public override void PreUpdate()
         {
-            ArmorFrameCounter++;
-            if (Main.myPlayer == player.whoAmI)
+            deflectCooldown--;
+            if (deflectCooldown == 1)
             {
-                //QwertyMethods.ServerClientCheck(Main.myPlayer);
-                QwertysRandomContent.LocalCursor[Main.myPlayer] = Main.MouseWorld;
-
-                if (Main.netMode == 1)
+                Main.PlaySound(25, (int)player.position.X, (int)player.position.Y, 1, 1f, 0f);
+                for (int num71 = 0; num71 < 5; num71++)
                 {
-                    ModPacket packet = mod.GetPacket();
-                    packet.Write((byte)ModMessageType.UpdateLocalCursor); // Message type, you would need to create an enum for this
-                    packet.Write((byte)Main.myPlayer);
-                    packet.WriteVector2(QwertysRandomContent.LocalCursor[Main.myPlayer]);
-                    packet.Send();
+                    int num72 = Dust.NewDust(player.position, player.width, player.height, 45, 0f, 0f, 255, default(Color), (float)Main.rand.Next(20, 26) * 0.1f);
+                    Main.dust[num72].noLight = true;
+                    Main.dust[num72].noGravity = true;
+                    Main.dust[num72].velocity *= 0.5f;
                 }
             }
-            mythrilPrismRotation += (float)Math.PI / 90f;
+            ArmorFrameCounter++;
             if (grappleBoost)
             {
                 //Main.NewText("double??");
@@ -339,7 +304,6 @@ namespace QwertysRandomContent
                 }
             }
 
-
             if (gemRegen)
             {
                 regenTimer++;
@@ -355,7 +319,6 @@ namespace QwertysRandomContent
                     //CombatText.NewText(player.getRect(), Color.Green, "Reconstructed", true, false);
                     player.statLife += 999;
                 }
-
             }
 
             if (usingVulcan)
@@ -363,23 +326,18 @@ namespace QwertysRandomContent
                 player.accRunSpeed = 0f;
                 player.moveSpeed = 0f;
                 player.rangedDamage += 10;
-
             }
 
             if (Main.mouseRight)
             {
                 while (RhuthiniumCharge > 0)
                 {
-
-
                     float angle = (Main.MouseWorld - player.Center).ToRotation() + MathHelper.ToRadians(Main.rand.Next(-100, 101) * .05f);
-
 
                     Projectile.NewProjectile(player.Center.X, player.Center.Y, (float)Math.Cos(angle) * 12f, (float)Math.Sin(angle) * 12f, mod.ProjectileType("RhuthiniumCharge"), 20, 2f, player.whoAmI);
                     RhuthiniumCharge--;
                 }
             }
-
 
             if (iceScroll)
             {
@@ -391,12 +349,10 @@ namespace QwertysRandomContent
                     iceScrollCounter = 0;
                 }
                 iceScrollCounter++;
-
             }
 
             if (heldItemOld != player.inventory[player.selectedItem])
             {
-
                 if (Metronome && killCount != 0)
                 {
                     CombatText.NewText(player.getRect(), Color.DarkRed, "Reset!", true, false);
@@ -404,14 +360,10 @@ namespace QwertysRandomContent
                 killCount = 0;
             }
             heldItemOld = player.inventory[player.selectedItem];
-
         }
+
         public override void PostUpdateEquips()
         {
-            if(player.itemAnimation>0 && player.HeldItem.type == mod.ItemType("Imperium"))
-            {
-                player.HeldItem.TurnToAir();
-            }
             if (forcedAntiGravity > 0)
             {
                 player.gravDir = -1f;
@@ -421,7 +373,6 @@ namespace QwertysRandomContent
                 if (forcedAntiGravity == 1)
                 {
                     player.velocity.Y = 0;
-
                 }
             }
             if (forcedAntiGravity < 0)
@@ -432,14 +383,12 @@ namespace QwertysRandomContent
             {
                 if (player.immuneTime > 0)
                 {
-                    player.thrownDamage += .5f;
-                    player.thrownVelocity += .5f;
+                    player.allDamage += .35f;
                 }
                 else
                 {
                     damageBoostFromDodge = false;
                 }
-
             }
             if (player.grappling[0] == -1 && !player.tongued)
             {
@@ -449,13 +398,7 @@ namespace QwertysRandomContent
             {
                 customDashSpeedMovement();
             }
-
-
-
         }
-
-
-
 
         public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
         {
@@ -463,7 +406,7 @@ namespace QwertysRandomContent
             {
                 caughtType = mod.ItemType("RhuthiniumCrate");
             }
-            if (liquidType == 0 &&  caughtType == ItemID.FloatingIslandFishingCrate && player.GetModPlayer<FortressBiome>().TheFortress)
+            if (liquidType == 0 && caughtType == ItemID.FloatingIslandFishingCrate && player.GetModPlayer<FortressBiome>().TheFortress)
             {
                 caughtType = mod.ItemType("FortressCrate");
             }
@@ -472,10 +415,6 @@ namespace QwertysRandomContent
                 caughtType = mod.ItemType("EnchantedSwimmer");
             }
         }
-
-
-
-
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
@@ -554,7 +493,6 @@ namespace QwertysRandomContent
                 return false;
             }
 
-
             if (damageSource.SourceProjectileType == mod.ProjectileType("SnowFlake"))
             {
                 damageSource = PlayerDeathReason.ByCustomReason(player.name + " was driven to extintion by climate change!"); // change death message
@@ -603,6 +541,7 @@ namespace QwertysRandomContent
             killCount = 0;
             return true;
         }
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if (player.HasBuff(mod.BuffType("DinoPox")))
@@ -613,17 +552,10 @@ namespace QwertysRandomContent
             return true;
         }
 
-
-
-
-
-
-
-
         public int runeRate;
+
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (target.life <= 0 && !target.SpawnedFromStatue && stormEnchantment)
             {
@@ -637,18 +569,14 @@ namespace QwertysRandomContent
                     modPlayer.charge++;
                     CombatText.NewText(target.getRect(), Color.Cyan, modPlayer.charge, true, false);
                 }
-
-
             }
 
             if (aggroScroll && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue && proj.magic && proj.type != mod.ProjectileType("AggroRuneFreindly"))
             {
                 Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("AggroRuneFreindly"), (int)(420 * player.magicDamage), 3f, Main.myPlayer);
-
             }
             if (leechScroll && proj.ranged && proj.type != mod.ProjectileType("LeechRuneFreindly"))
             {
-
                 runeRate = damage;
 
                 while (runeRate > 200)
@@ -662,8 +590,6 @@ namespace QwertysRandomContent
                     float theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
                     Projectile.NewProjectile(target.Center.X + (float)Math.Cos(theta) * 150, target.Center.Y + (float)Math.Sin(theta) * 150, -(float)Math.Cos(theta) * 10, -(float)Math.Sin(theta) * 10, mod.ProjectileType("LeechRuneFreindly"), (int)(25 * player.rangedDamage), 3f, Main.myPlayer);
                 }
-
-
             }
 
             if (Metronome && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue)
@@ -701,25 +627,18 @@ namespace QwertysRandomContent
             }
             if (ninjaSabatoge)
             {
-
                 if (proj.thrown == true)
                 {
-
                     target.AddBuff(20, 999999);
                     target.AddBuff(31, 999999);
                 }
-
             }
             if (minionIchor)
             {
-
                 if (proj.minion)
                 {
-
                     target.AddBuff(69, 120);
                 }
-
-
             }
             if (siphon)
             {
@@ -727,36 +646,30 @@ namespace QwertysRandomContent
                 {
                     if (proj.melee == true)
                     {
-
                         player.statMana += (damage / 2);
                         CombatText.NewText(player.getRect(), Color.Blue, damage / 2, false, false);
                     }
                 }
-
             }
 
             if (circletSetBonus)
             {
                 if (!target.immortal && !target.SpawnedFromStatue)
                 {
-
                     if (proj.melee == true)
                     {
                         player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600);
                     }
                     if (proj.magic == true)
                     {
-
                         player.AddBuff(mod.BuffType("RhuthiniumMight"), 600);
                     }
                 }
-
             }
-
         }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-
             if (Metronome && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue)
             {
                 killCount++;
@@ -772,7 +685,6 @@ namespace QwertysRandomContent
             }
             if (meleeSiphon)
             {
-
                 if (!target.immortal && !target.SpawnedFromStatue)
                 {
                     if (item.melee == true)
@@ -781,40 +693,29 @@ namespace QwertysRandomContent
                         CombatText.NewText(player.getRect(), Color.Blue, damage / 2, false, false);
                     }
                 }
-
             }
 
             if (meleeCircletSetBonus)
             {
                 if (!target.immortal && !target.SpawnedFromStatue)
                 {
-
                     if (item.melee == true)
                     {
-
                         player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600);
                     }
                     if (item.magic == true)
                     {
-
                         player.AddBuff(mod.BuffType("RhuthiniumMight"), 600);
                     }
                 }
-
             }
-
-
-
         }
+
         public void customDashSpeedMovement()
         {
             if (hyperRune)
             {
-
-
-
                 hyperRuneTimer++;
-
             }
             if (customDashRam > 0 && player.eocDash > 0)
             {
@@ -869,12 +770,10 @@ namespace QwertysRandomContent
                         }
                     }
                 }
-
             }
 
             if (player.dash < 1)
             {
-
                 if (player.dashDelay > 0)
                 {
                     if (player.eocDash > 0)
@@ -918,12 +817,8 @@ namespace QwertysRandomContent
                         }
                     }
 
-
-
                     if ((customDashSpeed > 0 || customDashBonusSpeed > 0) && player.dash < 1)
                     {
-
-
                         player.vortexStealthActive = false;
                         if (player.velocity.X > num7 || player.velocity.X < -num7)
                         {
@@ -950,7 +845,6 @@ namespace QwertysRandomContent
                         }
                     }
                 }
-
                 else if (player.dash < 1 && (customDashSpeed > 0 || customDashBonusSpeed > 0) && !player.mount.Active)
                 {
                     if ((customDashSpeed > 0 || customDashBonusSpeed > 0))
@@ -995,7 +889,6 @@ namespace QwertysRandomContent
                         {
                             player.velocity.X = (customDashSpeed + 10f + customDashBonusSpeed) * (float)num16;
 
-
                             Point point = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), player.gravDir * -(float)player.height / 2f + player.gravDir * 2f)).ToTileCoordinates();
                             Point point2 = (player.Center + new Vector2((float)(num16 * player.width / 2 + 2), 0f)).ToTileCoordinates();
                             if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
@@ -1030,15 +923,8 @@ namespace QwertysRandomContent
                             return;
                         }
                     }
-
                 }
-
             }
         }
-
-
-
     }
-
-
 }

@@ -11,8 +11,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
             DisplayName.SetDefault("Steambath");
             Tooltip.SetDefault("Ignores defense");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 4;
@@ -33,11 +33,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             item.shoot = mod.ProjectileType("Steam");
             item.shootSpeed = 25;
             item.noMelee = true;
-
-
-
-
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int shots = Main.rand.Next(2, 5);
@@ -52,18 +49,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
             return false;
         }
-
-
-
     }
+
     public class Steam : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Steam");
             Main.projFrames[projectile.type] = 5;
-
         }
+
         public override void SetDefaults()
         {
             //projectile.aiStyle = 1;
@@ -78,11 +73,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
             projectile.GetGlobalProjectile<QwertyGlobalProjectile>().ignoresArmor = true;
-
-
         }
+
         public int dustTimer;
-        int frameTimer;
+        private int frameTimer;
+
         public override void AI()
         {
             frameTimer++;
@@ -103,19 +98,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             {
                 projectile.velocity.Y += .1f;
             }
-
         }
-        
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
             //damage += target.defense / 2;
         }
-
-
-
     }
-
 }
-

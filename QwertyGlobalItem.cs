@@ -2,22 +2,17 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent
 {
     public class QwertyGlobalItem : GlobalItem
     {
-
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (item.type == ItemID.Tabi || item.type == ItemID.MasterNinjaGear)
             {
-
-
-
                 player.dash = 0;
-
-
 
                 if (modPlayer.customDashSpeed < 6.9f)
                 {
@@ -34,8 +29,8 @@ namespace QwertysRandomContent
                 player.GetModPlayer<QwertyPlayer>().ammoReduction *= .8f;
                 player.ammoCost80 = false;
             }
-
         }
+
         public override void UpdateEquip(Item item, Player player)
         {
             if (player.ammoCost75)
@@ -49,6 +44,7 @@ namespace QwertysRandomContent
                 player.ammoCost80 = false;
             }
         }
+
         public override void UpdateArmorSet(Player player, string set)
         {
             if (player.ammoCost75)
@@ -62,6 +58,7 @@ namespace QwertysRandomContent
                 player.ammoCost80 = false;
             }
         }
+
         public override bool CanUseItem(Item item, Player player)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
@@ -86,11 +83,8 @@ namespace QwertysRandomContent
                         //tooltips.Remove(line);
                         line.text = "";
                     }
-
                 }
             }
-
         }
-
     }
 }

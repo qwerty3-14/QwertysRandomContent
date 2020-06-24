@@ -7,15 +7,14 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.HydraBoss
 {
-
     public class HydraBreath : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Breath");
             Main.projFrames[projectile.type] = 1;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -28,13 +27,13 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             projectile.timeLeft = 240;
             projectile.tileCollide = false;
             projectile.light = 1f;
-
         }
 
-        int frameCounter;
-        float trigCounter;
-        float amplitude = 10;
-        Vector2[] pseudoProjectileVelocities = new Vector2[2];
+        private int frameCounter;
+        private float trigCounter;
+        private float amplitude = 10;
+        private Vector2[] pseudoProjectileVelocities = new Vector2[2];
+
         public override void AI()
         {
             trigCounter += (float)Math.PI / 30;
@@ -44,10 +43,6 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation), mod.DustType("HydraBreathGlow"), Vector2.Zero);
             Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation - (float)Math.PI), mod.DustType("HydraBreathGlow"), Vector2.Zero);
         }
-
-
-
-
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -69,14 +64,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 spriteBatch.Draw(texture, (projectile.Center + QwertyMethods.PolarVector((float)Math.Sin(trigCounter) * amplitude, projectile.rotation)) - Main.screenPosition,
                             texture.Frame(), Color.White, pseudoProjectileVelocities[0].ToRotation() + (float)Math.PI / 2,
                             texture.Size() / 2f, 1f, SpriteEffects.None, 0f);
-
             }
 
             return false;
         }
-
-
-
     }
-
 }

@@ -46,9 +46,7 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             dustType = mod.DustType("FortressDust");
             //disableSmartCursor = true;
             adjTiles = new int[] { TileID.Bookcases };
-
         }
-
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

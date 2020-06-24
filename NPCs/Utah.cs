@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.NPCs
 {
     public class Utah : ModNPC
@@ -15,7 +16,7 @@ namespace QwertysRandomContent.NPCs
         {
             npc.width = 80;
             npc.height = 48;
-            npc.damage = 60;
+            npc.damage = 70;
             npc.defense = 18;
             npc.lifeMax = 340;
             npc.HitSound = SoundID.NPCHit1;
@@ -33,7 +34,6 @@ namespace QwertysRandomContent.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (QwertyWorld.DinoEvent)
             {
                 return 45f;
@@ -42,12 +42,10 @@ namespace QwertysRandomContent.NPCs
             {
                 return 0f;
             }
-
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-
             for (int i = 0; i < 10; i++)
             {
                 int dustType = mod.DustType("DinoSkin");
@@ -58,12 +56,11 @@ namespace QwertysRandomContent.NPCs
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
+
         public override void AI()
         {
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
-
-
         }
 
         public override void FindFrame(int frameHeight)
@@ -92,6 +89,7 @@ namespace QwertysRandomContent.NPCs
                 npc.frameCounter = 0;
             }
         }
+
         public override void NPCLoot()
         {
             QwertyWorld.DinoKillCount += 1;
@@ -105,12 +103,6 @@ namespace QwertysRandomContent.NPCs
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WornPrehistoricBow"));
             }
-
-
-
-
-
-
         }
     }
 }

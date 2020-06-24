@@ -7,11 +7,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
     public class BladeBossBag : ModItem
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
+
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -22,8 +24,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.expert = true;
             //bossBagNPC = mod.NPCType("BladeBoss");
         }
-        public override int BossBagNPC => mod.NPCType("BladeBoss");
 
+        public override int BossBagNPC => mod.NPCType("Imperious");
 
         public override bool CanRightClick()
         {
@@ -50,7 +52,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             player.QuickSpawnItem(73, 15);
 
             player.QuickSpawnItem(mod.ItemType("ImperiousSheath"));
-
         }
     }
 }

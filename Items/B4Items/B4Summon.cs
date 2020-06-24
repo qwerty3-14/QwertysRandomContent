@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.B4Items
 {
-
     public class B4Summon : ModItem
     {
         public override void SetStaticDefaults()
@@ -28,7 +27,6 @@ namespace QwertysRandomContent.Items.B4Items
             item.consumable = true;
         }
 
-
         public override bool CanUseItem(Player player)
         {
             if (!NPC.AnyNPCs(mod.NPCType("OLORDv2")))
@@ -41,8 +39,6 @@ namespace QwertysRandomContent.Items.B4Items
             return false;
         }
 
-
-        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -53,7 +49,5 @@ namespace QwertysRandomContent.Items.B4Items
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

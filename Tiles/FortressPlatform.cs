@@ -17,6 +17,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             Main.tileLighted[Type] = true;

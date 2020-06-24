@@ -9,12 +9,13 @@ namespace QwertysRandomContent.Items.BladeBossItems
     public class BladedArrow : Aqueous
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bladed Arrow");
             Tooltip.SetDefault("Shot from your bow alongside normal arrows");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 50;
@@ -29,13 +30,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.useTime = 100;
 
             item.maxStack = 1;
-
-
         }
+
         public override void ReturningDust()
         {
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -46,18 +46,20 @@ namespace QwertysRandomContent.Items.BladeBossItems
             recipe.AddRecipe();
         }
     }
+
     public class BladedArrowShot : AqueousShot
     {
-
         public override void Initialize()
         {
             arrowID = mod.ItemType("BladedArrow");
             shootID = mod.ProjectileType("BladedArrowP");
         }
     }
+
     public class BladedArrowP : AqueousP
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -71,12 +73,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
             assosiatedItemID = mod.ItemType("BladedArrow");
-
         }
+
         public override void AI()
         {
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;

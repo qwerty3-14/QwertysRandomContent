@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 {
-
     public class CaeliteFlask : ModItem
     {
         public override void SetStaticDefaults()
@@ -28,16 +27,12 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.buffTime = 72000;
             item.value = Item.sellPrice(0, 0, 5, 0);
             item.rare = 4;
-
         }
-
 
         public override bool CanUseItem(Player player)
         {
-
             return true;
         }
-
 
         public override void AddRecipes()
         {
@@ -48,7 +43,5 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Tiles
 {
     public class FortressBrick : ModTile
@@ -30,9 +31,7 @@ namespace QwertysRandomContent.Tiles
             AddMapEntry(new Color(162, 184, 185));
             mineResist = 1;
             drop = mod.ItemType("FortressBrick");
-
         }
-
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
@@ -40,17 +39,10 @@ namespace QwertysRandomContent.Tiles
             g = 0.0f;
             b = 0.0f;
         }
+
         public override bool CanExplode(int i, int j)
         {
-
-
             return true;
-
-
-
-
         }
-
-
     }
 }

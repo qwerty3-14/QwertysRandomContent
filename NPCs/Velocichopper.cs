@@ -20,10 +20,9 @@ namespace QwertysRandomContent.NPCs
             npc.width = 286;
             npc.height = 104;
 
-            npc.damage = 100;
+            npc.damage = 90;
             npc.defense = 30;
-            npc.lifeMax = 18000;
-
+            npc.lifeMax = 10000;
 
             npc.noTileCollide = true;
             npc.noGravity = true;
@@ -39,15 +38,13 @@ namespace QwertysRandomContent.NPCs
             banner = npc.type;
             bannerItem = mod.ItemType("VelocichopperBanner");
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
-
-
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (QwertyWorld.DinoEvent)
             {
                 if (!NPC.AnyNPCs(mod.NPCType("Velocichopper")))
@@ -56,24 +53,14 @@ namespace QwertysRandomContent.NPCs
                 }
                 else
                 {
-                    
                     return 0f;
                 }
             }
             else
             {
-
                 return 0f;
             }
-
         }
-
-
-
-
-
-
-
 
         public int Pos = 1;
         public int damage = 40;
@@ -88,9 +75,9 @@ namespace QwertysRandomContent.NPCs
         public int rushDirection = 1;
         public int bombTimer;
         public int bombReload = 30;
+
         public override void AI()
         {
-
             if (NPC.downedMoonlord)
             {
                 damage = 45;
@@ -115,19 +102,16 @@ namespace QwertysRandomContent.NPCs
                     Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 0, mod.ProjectileType("DinoBomb"), damage, 3f, Main.myPlayer);
                     bombTimer = 0;
                 }
-
             }
             else if (AI_Timer > 480)
             {
                 if (npc.Center.X < player.Center.X)
                 {
                     rushDirection = 1;
-
                 }
                 else
                 {
                     rushDirection = -1;
-
                 }
             }
             else if (AI_Timer > 420)
@@ -148,17 +132,8 @@ namespace QwertysRandomContent.NPCs
 
                     Projectile.NewProjectile(npc.Center.X + (100f * npc.direction), npc.Center.Y, 5.00f * (1 + Xvar * .01f) * npc.direction, 5.00f * (1 + Yvar * .01f), 110, damage, 3f, Main.myPlayer);
 
-
-
-
-
-
-
                     Reload_Timer = 0;
-
                 }
-
-
             }
             else if (AI_Timer > attackTime - 120)
             {
@@ -169,13 +144,13 @@ namespace QwertysRandomContent.NPCs
                 Vector2 moveTo = new Vector2(player.Center.X - (300f * npc.direction), player.Center.Y + -300f) - npc.Center;
                 npc.velocity = (moveTo) * .03f;
             }
-
         }
 
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(AI_Timer);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             AI_Timer = reader.ReadInt32();
@@ -214,12 +189,12 @@ namespace QwertysRandomContent.NPCs
             {
                 npc.frame.Y = 0 * frameHeight;
             }
-
             else
             {
                 npc.frameCounter = 0;
             }
         }
+
         public override void NPCLoot()
         {
             QwertyWorld.DinoKillCount += 5;
@@ -247,23 +222,16 @@ namespace QwertysRandomContent.NPCs
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DinoVulcan"));
                 }
             }
-
-
-
-
-
-
         }
-
     }
+
     public class DinoBomb : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("DinoBomb");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -275,15 +243,15 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.tileCollide = true;
-
-
         }
+
         public bool runOnce = true;
 
         public override void AI()
         {
             projectile.timeLeft = 2;
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
@@ -308,16 +276,15 @@ namespace QwertysRandomContent.NPCs
                 Main.dust[dustIndex].velocity *= 3f;
             }
         }
-
     }
+
     public class DinoBombExplosion : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dino Bomb Explosion");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -330,10 +297,8 @@ namespace QwertysRandomContent.NPCs
 
             projectile.tileCollide = false;
             projectile.timeLeft = 2;
-
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;

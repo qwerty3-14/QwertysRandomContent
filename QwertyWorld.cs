@@ -27,6 +27,7 @@ namespace QwertysRandomContent
         public static bool downedBear;
         public static bool downedBlade;
         public static bool downedNoetnap;
+
         public override void Initialize()
         {
             hasGeneratedRhuthinium = false;
@@ -43,6 +44,7 @@ namespace QwertysRandomContent
             downedBlade = false;
             downedNoetnap = false;
         }
+
         public override TagCompound Save()
         {
             return new TagCompound
@@ -62,6 +64,7 @@ namespace QwertysRandomContent
                 {"downedNoehtnap", downedNoetnap }
             };
         }
+
         public override void Load(TagCompound tag)
         {
             hasGeneratedRhuthinium = tag.GetBool("genned");
@@ -78,6 +81,7 @@ namespace QwertysRandomContent
             downedBlade = tag.GetBool("downedBlade");
             downedNoetnap = tag.GetBool("downedNoehtnap");
         }
+
         public override void NetSend(BinaryWriter writer)
         {
             BitsByte flags = new BitsByte();
@@ -100,6 +104,7 @@ namespace QwertysRandomContent
             writer.Write(flags);
             writer.Write(DinoKillCount);
         }
+
         public override void NetReceive(BinaryReader reader)
         {
             BitsByte flags = reader.ReadByte();
@@ -119,8 +124,8 @@ namespace QwertysRandomContent
             DinoEvent = flags[4];
             downedNoetnap = flags[5];
             DinoKillCount = reader.ReadInt32();
-
         }
+
         public static void FortressBossQuotes()
         {
             string key;
@@ -143,12 +148,14 @@ namespace QwertysRandomContent
                 Main.NewText(Language.GetTextValue(key), messageColor);
             }
         }
+
         public override void ResetNearbyTileEffects()
         {
             QwertyPlayer modPlayer = Main.LocalPlayer.GetModPlayer<QwertyPlayer>();
 
             AbstractiveBlock = 0;
         }
+
         public override void TileCountsAvailable(int[] tileCounts)
         {
             AbstractiveBlock = tileCounts[mod.TileType("Abstractive")];
@@ -174,20 +181,17 @@ namespace QwertysRandomContent
                     Main.NewText(Language.GetTextValue(key), messageColor);
                 }
                 DinoKillCount = 0;
-
             }
-
 
             if (!hasGeneratedRhuthinium && NPC.downedBoss3)
             {
-
                 for (int i = 0; i < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 6E-06); i++)
                 {
                     WorldGen.OreRunner(
                         WorldGen.genRand.Next(0, Main.maxTilesX), // X Coord of the tile
                         WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY - 200), // Y Coord of the tile
                         (double)WorldGen.genRand.Next(18, 28), // Strength (High = more)
-                        WorldGen.genRand.Next(2, 6), // Steps 
+                        WorldGen.genRand.Next(2, 6), // Steps
                         (ushort)mod.TileType("RhuthiniumOre") // The tile type that will be spawned
                        );
                 }
@@ -204,9 +208,5 @@ namespace QwertysRandomContent
                 hasGeneratedRhuthinium = true;
             }
         }
-
-
     }
-
-
 }

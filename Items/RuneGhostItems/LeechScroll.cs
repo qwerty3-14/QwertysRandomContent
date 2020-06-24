@@ -2,23 +2,18 @@
 using Terraria;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
-
-
     public class LeechScroll : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Leech Scroll");
             Tooltip.SetDefault("Ranged attacks may summon leech runes that can heal you" + "\nHigher damaging attacks are more likely to summon leech runes");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 500000;
             item.rare = 9;
             item.ranged = true;
@@ -28,9 +23,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.height = 56;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -38,14 +30,10 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
 
             modPlayer.leechScroll = true;
-
-
         }
-
-
-
     }
-    class LeechRuneFreindly : ModProjectile
+
+    internal class LeechRuneFreindly : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -60,9 +48,8 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             projectile.tileCollide = true;
             projectile.timeLeft = 180;
             projectile.ranged = true;
-
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
@@ -72,13 +59,9 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void AI()
         {
-
-
             projectile.rotation += MathHelper.ToRadians(3);
-
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)
@@ -86,6 +69,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));
             }
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(0, 3) == 0)
@@ -94,12 +78,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                 player.statLife += damage / 10;
                 CombatText.NewText(player.getRect(), Color.Green, damage / 10, false, false);
             }
-
         }
-
     }
-
-
-
 }
-

@@ -8,8 +8,6 @@ namespace QwertysRandomContent.Items.Banners
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Anti Air Banner");
-
-
         }
 
         public override void SetDefaults()

@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.MiscSwords
 {
     public class TerraBladeWithSlashEnchantment : ModItem
@@ -14,20 +13,20 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
         {
             DisplayName.SetDefault("Terra Blade With Slash Enchantment");
             Tooltip.SetDefault("Right click for a powerful slash attack");
-
         }
+
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.TerraBlade);
-
-
         }
+
         public override bool OnlyShootOnSwing => true;
 
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -48,6 +47,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             }
             return base.CanUseItem(player);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,7 +58,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public int useAlt = 1;
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (player.altFunctionUse == 2)
@@ -82,21 +84,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
                 return true;
             }
         }
-
-
     }
+
     public class TerraSlash : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Slash");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-
 
             projectile.width = 40;
             projectile.height = 40;
@@ -106,34 +105,27 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             projectile.melee = true;
             projectile.tileCollide = false;
             projectile.timeLeft = 4;
-
-
-
-
         }
+
         public bool runOnce = true;
         public Vector2 oriVel;
+
         public override void AI()
         {
-
-
             projectile.rotation = (projectile.velocity).ToRotation() + (float)(Math.PI / 2);
-
         }
-
     }
+
     public class TerraSlashB : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Slash");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-
 
             projectile.width = 40;
             projectile.height = 40;
@@ -143,34 +135,27 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             projectile.melee = true;
             projectile.tileCollide = false;
             projectile.timeLeft = 4;
-
-
-
-
         }
+
         public bool runOnce = true;
         public Vector2 oriVel;
+
         public override void AI()
         {
-
-
             projectile.rotation = (projectile.velocity).ToRotation() + (float)(Math.PI / 2);
-
         }
-
     }
+
     public class TerraSlashInv : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Terra Slash");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
-
 
             projectile.width = 40;
             projectile.height = 40;
@@ -180,28 +165,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             projectile.melee = true;
             projectile.tileCollide = false;
             projectile.timeLeft = 4;
-
-
-
-
         }
+
         public bool runOnce = true;
         public Vector2 oriVel;
+
         public override void AI()
         {
-
-
             projectile.rotation = (projectile.velocity).ToRotation() + (float)(Math.PI / 2);
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
-
-
-
 }
-

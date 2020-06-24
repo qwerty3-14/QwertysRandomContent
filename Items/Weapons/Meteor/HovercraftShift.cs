@@ -13,12 +13,13 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
         {
             DisplayName.SetDefault("Shape Shift: Hovercraft!");
             Tooltip.SetDefault("Turn into a hovercraft with decent mobility and firepower");
-
         }
+
         public const int dmg = 22;
         public const int crt = 0;
         public const float kb = 1f;
         public const int def = 14;
+
         public override void SetDefaults()
         {
             item.width = 42;
@@ -37,18 +38,19 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-            
+
             return base.UseItem(player);
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -57,8 +59,8 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class HovercraftMorphB : ModBuff
     {
         public override void SetDefaults()
@@ -75,11 +77,11 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class HovercraftMorph : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("HovercraftMorphB");
             mountData.spawnDust = 15;
 
@@ -121,7 +123,6 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
@@ -131,6 +132,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
         {
             player.GetModPlayer<HovercraftControl>().controlled = true;
         }
+
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
             if (Math.Abs(velocity.X) < 2f)
@@ -155,23 +157,26 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
 
             return true;
         }
-
     }
+
     public class HovercraftControl : ModPlayer
     {
         public bool controlled = false;
+
         public override void ResetEffects()
         {
             controlled = false;
         }
-        int shotCooldown = 0;
-        float hoverHeight = 80;
-        float hoverTo = 0;
-        float hoverDrift = 0f;
-        float currentHeight = 0;
-        const int maxHoverHeight = 160;
-        const int minHoverHeight = 20;
-        float hoverSpeed = 3f;
+
+        private int shotCooldown = 0;
+        private float hoverHeight = 80;
+        private float hoverTo = 0;
+        private float hoverDrift = 0f;
+        private float currentHeight = 0;
+        private const int maxHoverHeight = 160;
+        private const int minHoverHeight = 20;
+        private float hoverSpeed = 3f;
+
         public override void PostUpdateMiscEffects()
         {
             if (controlled)
@@ -225,8 +230,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
 
                 Vector2 shootFrom = player.Top;
                 shootFrom.Y += 8;
-                float pointAt = (QwertysRandomContent.LocalCursor[player.whoAmI] - shootFrom).ToRotation();
-
+                float pointAt = (QwertysRandomContent.GetLocalCursor(player.whoAmI) - shootFrom).ToRotation();
 
                 player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
                 //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
@@ -256,5 +260,4 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             }
         }
     }
-
 }

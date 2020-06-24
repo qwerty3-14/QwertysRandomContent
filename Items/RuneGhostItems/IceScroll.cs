@@ -3,23 +3,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
-
-
     public class IceScroll : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Scroll");
             Tooltip.SetDefault("Summons two ice runes to orbit you");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 500000;
             item.rare = 9;
             item.melee = true;
@@ -29,9 +24,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.height = 60;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -39,14 +31,10 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
 
             modPlayer.iceScroll = true;
-
-
         }
-
-
-
     }
-    class IceRuneFreindly : ModProjectile
+
+    internal class IceRuneFreindly : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -61,9 +49,8 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             projectile.tileCollide = false;
             projectile.timeLeft = (int)(2 * Math.PI * 10);
             projectile.melee = true;
-
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
@@ -73,7 +60,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (runOnce)
@@ -81,8 +67,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                 projectile.rotation = (player.Center - projectile.Center).ToRotation() - (float)Math.PI / 2;
                 runOnce = false;
             }
-
-
 
             if (modPlayer.iceScroll)
             {
@@ -93,20 +77,12 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             else
             {
                 projectile.Kill();
-
             }
-
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 1200);
         }
-
     }
-
-
-
 }
-

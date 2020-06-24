@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.RuneSpectorBoss
 {
-    class CyanRune : ModProjectile
+    internal class CyanRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -21,9 +21,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.tileCollide = false;
             projectile.timeLeft = 128 + 720;
             projectile.light = 1f;
-
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float theta;
@@ -31,6 +30,7 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public Projectile IceB;
         public Projectile IceC;
         public Projectile IceD;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -42,8 +42,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             runeTimer++;
             if (runeTimer == 128)
             {
-
-
                 if (Main.netMode == 0)
                 {
                     theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
@@ -54,13 +52,11 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 }
                 else
                 {
-
                     theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
                     IceA = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, player.Center.X + (float)Math.Cos(theta) * startDistance, player.Center.Y + (float)Math.Sin(theta) * startDistance, mod.ProjectileType("IceRune"), projectile.damage, 3f, Main.myPlayer)];
                     IceB = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("IceRune"), projectile.damage, 3f, Main.myPlayer)];
                     IceC = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("IceRune"), projectile.damage, 3f, Main.myPlayer)];
                     IceD = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("IceRune"), projectile.damage, 3f, Main.myPlayer)];
-
 
                     IceA.scale = theta;
                     IceB.scale = (float)(theta + Math.PI / 2);
@@ -70,18 +66,13 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                     //IceB.position = new Vector2(player.Center.X + (float)Math.Cos(theta + Math.PI / 2) * startDistance, player.Center.Y + (float)Math.Sin(theta + Math.PI / 2) * startDistance);
                     //IceC.position = new Vector2(player.Center.X + (float)Math.Cos(theta + Math.PI) * startDistance, player.Center.Y + (float)Math.Sin(theta + Math.PI) * startDistance);
                     //IceD.position = new Vector2(player.Center.X + (float)Math.Cos(theta + 3 * Math.PI / 2) * startDistance, player.Center.Y + (float)Math.Sin(theta + 3 * Math.PI / 2) * startDistance);
-
                 }
-
-
             }
             if (runeTimer == 129)
             {
-
             }
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)
@@ -90,7 +81,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             }
         }
     }
-    class IceRune : ModProjectile
+
+    internal class IceRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -106,8 +98,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.timeLeft = 720;
             projectile.light = 1f;
             projectile.coldDamage = true;
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
@@ -115,9 +107,9 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
         public bool runOnce = true;
         public float aim;
         public float theta;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
@@ -142,7 +134,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             else if (projectile.timeLeft <= 120)
             {
                 projectile.velocity = new Vector2(0, 0);
-
             }
             else
             {
@@ -150,13 +141,13 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.velocity.X = runeSpeed * (float)Math.Cos(projectile.rotation) + player.velocity.X;
                 projectile.velocity.Y = runeSpeed * (float)Math.Sin(projectile.rotation) + player.velocity.Y;
             }
-
-
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Frozen, 60);
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)

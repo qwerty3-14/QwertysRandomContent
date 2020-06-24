@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.RuneSpectorBoss
 {
-    class RedRune : ModProjectile
+    internal class RedRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -19,11 +19,12 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.alpha = 255;
             projectile.tileCollide = false;
             projectile.light = 1f;
-
         }
+
         public bool runOnce = true;
         public Projectile aggroRune;
         public int runeCounter;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -46,10 +47,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                     projectile.Kill();
                 }
             }
-
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)
@@ -58,7 +57,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             }
         }
     }
-    class AggroRune : ModProjectile
+
+    internal class AggroRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -72,11 +72,11 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.alpha = 255;
             projectile.tileCollide = false;
             projectile.light = 1f;
-
-
         }
+
         public bool runOnce = true;
         public int time;
+
         public override void AI()
         {
             if (runOnce)
@@ -84,7 +84,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 if (Main.netMode == 0)
                 {
                     time = Main.rand.Next(300, 481);
-
                 }
                 else
                 {
@@ -95,7 +94,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 runOnce = false;
             }
             Player player = Main.player[projectile.owner];
-
 
             if (projectile.alpha > 0)
                 projectile.alpha--;
@@ -128,7 +126,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                     {
                         player.Hurt(PlayerDeathReason.ByProjectile(mod.NPCType("RuneSpector"), projectile.whoAmI), num4, projectile.direction, true, false, false, -1);
                     }
-
                 }
                 for (int d = 0; d <= 100; d++)
                 {
@@ -145,8 +142,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.position.Y = player.Center.Y - 31;
                 projectile.rotation += MathHelper.ToRadians(3);
             }
-
         }
-
     }
 }

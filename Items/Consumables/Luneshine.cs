@@ -1,12 +1,14 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Consumables
 {
-
     public class Luneshine : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicPotions ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Luneshine");
@@ -28,16 +30,12 @@ namespace QwertysRandomContent.Items.Consumables
             item.useTurn = true;
             item.buffType = mod.BuffType("LuneRecovery");
             item.buffTime = 9 * 60 * 60;
-
         }
-
 
         public override bool CanUseItem(Player player)
         {
-
             return true;
         }
-
 
         public override void AddRecipes()
         {
@@ -50,7 +48,5 @@ namespace QwertysRandomContent.Items.Consumables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

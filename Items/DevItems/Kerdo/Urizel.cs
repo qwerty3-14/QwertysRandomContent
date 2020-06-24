@@ -10,8 +10,8 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
         {
             DisplayName.SetDefault("Urizel");
             Tooltip.SetDefault("This sword once killed a sleeper \nDev item");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 321;
@@ -28,15 +28,11 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
             item.width = 68;
             item.height = 68;
 
-
             item.autoReuse = true;
 
             item.shootSpeed = 9;
-
-
-
-
         }
+
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(BuffID.Electrified, 1200);

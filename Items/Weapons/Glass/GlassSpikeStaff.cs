@@ -14,12 +14,12 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         {
             DisplayName.SetDefault("Glass Spike Staff");
             Tooltip.SetDefault("Summon spikes that rest on the ground, damaging enemies that step on them \nWill reposition if you walk away");
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-
             item.damage = 12;
             item.mana = 20;
             item.width = 38;
@@ -48,6 +48,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
@@ -56,11 +57,11 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -69,23 +70,20 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
             return base.UseItem(player);
         }
-
     }
 
     public class GlassSpike : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass Spike");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 10;
             projectile.height = 10;
             projectile.hostile = false;
@@ -102,9 +100,10 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             projectile.usesLocalNPCImmunity = true;
         }
 
-        float orientation = 0;
-        bool orientationSet = false;
-        bool spin = true;
+        private float orientation = 0;
+        private bool orientationSet = false;
+        private bool spin = true;
+
         public override void AI()
         {
             if (spin)
@@ -113,8 +112,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
             spin = true;
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.GlassSpike)
+            if (player.GetModPlayer<MinionManager>().GlassSpike)
             {
                 projectile.timeLeft = 2;
             }
@@ -143,8 +141,8 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 }
                 projectile.velocity = vel;
             }
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -153,6 +151,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                         new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.velocity = Vector2.Zero;
@@ -164,16 +163,11 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             spin = false;
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = 20;
             target.immune[projectile.owner] = 0;
         }
-
-
-
     }
-
-
 }

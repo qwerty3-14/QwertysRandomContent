@@ -70,6 +70,7 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             player.showItemIcon2 = mod.ItemType("FortressDoor");
         }
     }
+
     public class FortressDoorOpen : ModTile
     {
         public override void SetDefaults()

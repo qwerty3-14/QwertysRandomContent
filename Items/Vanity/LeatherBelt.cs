@@ -15,7 +15,6 @@ namespace QwertysRandomContent.Items.Vanity
         {
             DisplayName.SetDefault("Leather Belt");
             Tooltip.SetDefault("It's a belt");
-
         }
 
         public override void SetDefaults()
@@ -32,17 +31,18 @@ namespace QwertysRandomContent.Items.Vanity
             }
         }
     }
+
     public class BetterBelt : GlobalItem
     {
         public Texture2D BeltTexture = null;
-       public override bool InstancePerEntity => true;
-       public override bool CloneNewInstances => true;
+        public override bool InstancePerEntity => true;
+        public override bool CloneNewInstances => true;
     }
+
     public class BetterBelts : ModPlayer
     {
         public static readonly PlayerLayer BetterBelt = new PlayerLayer("QwertysRandomContent", "BetterBelt", PlayerLayer.NeckAcc, delegate (PlayerDrawInfo drawInfo)
         {
-           
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             //ExamplePlayer modPlayer = drawPlayer.GetModPlayer<ExamplePlayer>();
@@ -74,10 +74,6 @@ namespace QwertysRandomContent.Items.Vanity
                 BetterBelt.visible = true;
                 layers.Insert(neckLayer + 1, BetterBelt);
             }
-
         }
     }
-
-
 }
-

@@ -15,6 +15,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             DisplayName.SetDefault("Man Eater Staff");
             Tooltip.SetDefault("Summons a man eater to munch on nearby enemies \nCounts as a sentry");
         }
+
         public override void SetDefaults()
         {
             item.width = 52;
@@ -27,7 +28,6 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             item.useTime = 20;
             item.useAnimation = 20;
 
-
             item.useStyle = 1;
             item.knockBack = 2f;
             item.value = Item.sellPrice(silver: 54);
@@ -38,6 +38,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             item.autoReuse = true;
             item.summon = true;
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;
@@ -53,6 +54,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             }
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -64,14 +66,15 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class ManEaterP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Man Eater");
         }
+
         public override void SetDefaults()
         {
             projectile.minion = true;
@@ -84,15 +87,17 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
         }
-        Vector2 HeadPos = new Vector2(0, 0);
-        Vector2 Goto;
-        int frame = 0;
-        int animationDir = -1;
-        NPC target;
-        float trigCounter;
-        int wanderTimer;
-        float maxSpeed = 3;
-        Vector2 HeadOffPos;
+
+        private Vector2 HeadPos = new Vector2(0, 0);
+        private Vector2 Goto;
+        private int frame = 0;
+        private int animationDir = -1;
+        private NPC target;
+        private float trigCounter;
+        private int wanderTimer;
+        private float maxSpeed = 3;
+        private Vector2 HeadOffPos;
+
         public override void AI()
         {
             trigCounter += (float)Math.PI / 60;
@@ -121,7 +126,6 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
                     projectile.ai[1] = Main.rand.NextFloat(2 * (float)Math.PI);
                 }
                 wanderTimer = 0;
-
             }
             if (QwertyMethods.ClosestNPC(ref target, 700, projectile.Center, true, player.MinionAttackTargetNPC))
             {
@@ -153,6 +157,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             //Dust.NewDustPerfect((projectile.Center + HeadOffPos) + QwertyMethods.PolarVector(-13, HeadPos.ToRotation()), DustID.Fire);
             // Dust.NewDustPerfect((projectile.Center + HeadOffPos) + QwertyMethods.PolarVector(28, HeadPos.ToRotation()), DustID.Fire);
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D vine = Main.chain4Texture;
@@ -171,6 +176,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
                        new Vector2(22, Head.Height / 6), 1f, 0, 0f);
             return false;
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float p = 0;
@@ -185,13 +191,11 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
                 (projectile.Center + HeadOffPos),
                 new Vector2(1, 1));
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
     }
-
-
 }

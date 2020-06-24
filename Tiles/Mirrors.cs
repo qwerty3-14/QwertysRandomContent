@@ -3,11 +3,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+
 namespace QwertysRandomContent.Tiles
 {
     public class Mirrors : ModTile
     {
-
         public override void SetDefaults()
         {
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -23,7 +23,6 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.addTile(Type);
 
-
             Main.tileFrameImportant[Type] = true;
 
             Main.tileLavaDeath[Type] = true;
@@ -35,12 +34,8 @@ namespace QwertysRandomContent.Tiles
 
             AddMapEntry(new Color(162, 184, 185));
             name.SetDefault("Fortress Carving");
-
-
-
-
-
         }
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             int style = frameX / 18;
@@ -50,13 +45,12 @@ namespace QwertysRandomContent.Tiles
                 case 1:
                     Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("WoodenMirror"));
                     break;
+
                 case 2:
                 case 3:
                     Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("FortressMirror"));
                     break;
             }
-
         }
-
     }
 }

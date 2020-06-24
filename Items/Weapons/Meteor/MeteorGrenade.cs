@@ -14,6 +14,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             DisplayName.SetDefault("Meteor Grenade");
             Tooltip.SetDefault("Calls meteors!");
         }
+
         public override void SetDefaults()
         {
             item.useStyle = 5;
@@ -21,28 +22,27 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             item.shoot = mod.ProjectileType("MeteorGrenadeP");
             item.width = 20;
             item.height = 20;
-            item.maxStack = 999;
-            item.consumable = true;
             item.UseSound = SoundID.Item1;
             item.useAnimation = 45;
             item.useTime = 45;
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.value = 75;
+            item.value = Item.sellPrice(silver: 40);
             item.damage = 65;
             item.knockBack = 8f;
-            item.thrown = true;
+            item.melee = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.MeteoriteBar, 1);
-            recipe.AddIngredient(ItemID.Grenade, 50);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 20);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 50);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }
+
     public class MeteorGrenadeP : Grenade
     {
         public override void SetDefaults()
@@ -52,13 +52,14 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
             //projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.thrown = true;
+            projectile.melee = true;
             projectile.timeLeft = 180;
             //aiType = ProjectileID.Grenade;
             sticky = false;
             bouncyness = .4f;
             explosionSize = 128;
         }
+
         public override bool ExplosionEffect(int explosionSize)
         {
             Main.PlaySound(SoundID.Item62, projectile.position);
@@ -72,7 +73,6 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 {
                     QwertysRandomContent.UpdateProjectileClass(meteor);
                 }
-
             }
             return true;
         }

@@ -1,11 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
 
 namespace QwertysRandomContent.Items.HydraItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
@@ -15,12 +13,10 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
         {
             DisplayName.SetDefault("Hydra Head Staff");
             Tooltip.SetDefault("Summons a hydra head to shoot towards your cursor" + "\nThe hydra head will automatically summon more heads if there are empty minion slots");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 30;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 80;    //The size of the width of the hitbox in pixels.
@@ -48,11 +44,11 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -61,7 +57,6 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             }
             return base.UseItem(player);
         }
-
     }
 
     public class MinionHead : ModProjectile
@@ -70,13 +65,10 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
         {
             DisplayName.SetDefault("Hydra Head");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 42; //Set the hitbox width
             projectile.height = 36;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -89,9 +81,7 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             projectile.minion = true;
             projectile.minionSlots = 1;
             projectile.timeLeft = 2;
-
         }
-
 
         public int varTime;
         public int Yvar = 0;
@@ -101,26 +91,20 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
         public float s = 1;
         public float tarX;
         public float tarY;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.HydraHeadMinion)
+            if (player.GetModPlayer<MinionManager>().HydraHeadMinion)
             {
                 projectile.timeLeft = 2;
             }
-            projectile.rotation = (QwertysRandomContent.LocalCursor[projectile.owner] - projectile.Center).ToRotation();
+            projectile.rotation = (QwertysRandomContent.GetLocalCursor(projectile.owner) - projectile.Center).ToRotation();
 
-            if (player.maxMinions - player.numMinions >= 1 && Main.netMode != 2 && modPlayer.HydraHeadMinion && Main.myPlayer == projectile.owner)
+            if (player.maxMinions - player.numMinions >= 1 && Main.netMode != 2 && player.GetModPlayer<MinionManager>().HydraHeadMinion && Main.myPlayer == projectile.owner)
             {
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.Center.X, projectile.Center.Y, mod.ProjectileType("MinionHead"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
-
-
-
-
-
 
             varTime++;
             if (varTime == 30 && projectile.owner == Main.myPlayer)
@@ -144,18 +128,20 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
 
             Vector2 moveTo = new Vector2(player.Center.X + Xvar, player.Center.Y - Yvar) - projectile.Center;
             projectile.velocity = (moveTo) * .04f;
-
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Yvar);
             writer.Write(Xvar);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            Yvar= reader.ReadInt32();
+            Yvar = reader.ReadInt32();
             Xvar = reader.ReadInt32();
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
@@ -182,6 +168,7 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             }
             return true;
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             spriteBatch.Draw(mod.GetTexture("Items/HydraItems/MinionHead_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
@@ -189,14 +176,14 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
         }
     }
+
     public class MinionBreath : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Minion Breath");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -208,23 +195,16 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             projectile.minion = true;
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
-
-
-
         }
+
         public override void AI()
         {
             CreateDust();
         }
+
         public virtual void CreateDust()
         {
-
             int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBreathGlow"));
-
-
-
         }
-
-
     }
 }

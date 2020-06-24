@@ -4,31 +4,23 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
-
-
     public class HydratedSkull : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydrated Skull");
             Tooltip.SetDefault("Increases your maximun number of minions by 1" + "\nMakes minion attacks trigger melee effects" + "\nAllows most minions to summon more minions to fill empty minion slots" + "\nHide the accesory to disable this effect");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 200000;
             item.rare = 5;
-
 
             item.width = 18;
             item.height = 16;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -40,7 +32,6 @@ namespace QwertysRandomContent.Items.Accesories
             }
             modPlayer.minionFang = true;
             player.maxMinions++;
-
         }
 
         public override void AddRecipes()
@@ -53,10 +44,5 @@ namespace QwertysRandomContent.Items.Accesories
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
-
-
-
 }
-

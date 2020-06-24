@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Tiles
 {
     public class ReverseSand : ModTile
@@ -15,14 +16,9 @@ namespace QwertysRandomContent.Tiles
             ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("DnasDust");
 
-
-
             AddMapEntry(Color.Blue, name);
             name.SetDefault("Dnas");
             drop = mod.ItemType("ReverseSand");
-
-
-
         }
 
         public override void RandomUpdate(int i, int j)
@@ -33,6 +29,7 @@ namespace QwertysRandomContent.Tiles
                 Projectile.NewProjectile(new Vector2(i, j) * 16 + new Vector2(8, 8), Vector2.Zero, mod.ProjectileType("ReverseSandBall"), 50, 0f, Main.myPlayer);
             }
         }
+
         public override void PlaceInWorld(int i, int j, Item item)
         {
             if (!Main.tile[i, j - 1].active())
@@ -41,6 +38,7 @@ namespace QwertysRandomContent.Tiles
                 Projectile.NewProjectile(new Vector2(i, j) * 16 + new Vector2(8, 8), Vector2.Zero, mod.ProjectileType("ReverseSandBall"), 50, 0f, Main.myPlayer);
             }
         }
+
         public override void NearbyEffects(int i, int j, bool closer)
         {
             Vector2 entityCoord = new Vector2(i, j) * 16 + new Vector2(8, 8);
@@ -56,13 +54,9 @@ namespace QwertysRandomContent.Tiles
                 // Main.LocalPlayer.gravDir = -1f;
                 //Main.LocalPlayer.gravControl2 = true;
             }
-
         }
-
-
-
-
     }
+
     public class ReverseSandBall : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -75,6 +69,7 @@ namespace QwertysRandomContent.Tiles
             projectile.hostile = true;
             projectile.penetrate = -1;
         }
+
         public override void AI()
         {
             // Main.NewText(projectile.width);
@@ -87,33 +82,26 @@ namespace QwertysRandomContent.Tiles
                 dust.velocity.X = dust.velocity.X * 0.4f;
             }
 
-
-
             projectile.tileCollide = true;
             projectile.localAI[1] = 0f;
 
-
             projectile.velocity.Y = projectile.velocity.Y - 0.41f;
-
-
 
             projectile.rotation -= 0.1f;
 
             if (projectile.velocity.Y < -10f)
             {
                 projectile.velocity.Y = -10f;
-
             }
             //projectile.velocity = Collision.TileCollision(projectile.position, projectile.velocity, projectile.width, projectile.height, false, false, 1);
         }
+
         public override void Kill(int timeLeft)
         {
-
             int i = (int)(projectile.position.X + (float)(projectile.width / 2)) / 16;
             int j = (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16;
             int tileToPlace = 0;
             int num835 = 2;
-
 
             {
                 tileToPlace = mod.TileType("ReverseSand");
@@ -126,7 +114,6 @@ namespace QwertysRandomContent.Tiles
             }*/
             if (!Main.tile[i, j].active() && tileToPlace >= 0)
             {
-
                 WorldGen.PlaceTile(i, j, tileToPlace, false, true, -1, 0);
 
                 /*
@@ -145,15 +132,12 @@ namespace QwertysRandomContent.Tiles
                         NetMessage.SendData(17, -1, -1, null, 1, (float)i, (float)j, (float)tileToPlace, 0, 0, 0);
                     }
                 }*/
-
             }
-
-
         }
     }
+
     public class ReverseGravity : ModPlayer
     {
-
         public override void PostUpdateEquips()
         {
             int xPos = (int)(player.Top.X) / 16;
@@ -169,13 +153,10 @@ namespace QwertysRandomContent.Tiles
                     if (player.GetModPlayer<QwertyPlayer>().forcedAntiGravity == 0)
                     {
                         player.velocity.Y = 0;
-
                     }
                     player.GetModPlayer<QwertyPlayer>().forcedAntiGravity = 10;
                 }
             }
-
-
         }
     }
 }

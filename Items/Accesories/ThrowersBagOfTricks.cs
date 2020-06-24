@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
-    class ThrowersBagOfTricks : ModItem
+    internal class ThrowersBagOfTricks : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Thrower's Bag of Tricks");
             Tooltip.SetDefault("Doubles the amount of javelins you can stick into an enemy \nTops spin for longer \nFlechettes accelerate faster, reaching their top speed sooner \nThrown grenades have a larger explosion");
         }
+
         public override void SetDefaults()
         {
             item.value = 100000;
@@ -24,6 +20,7 @@ namespace QwertysRandomContent.Items.Accesories
             item.height = 26;
             item.accessory = true;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<QwertyPlayer>().PincusionMultiplier *= 2f;
@@ -31,6 +28,7 @@ namespace QwertysRandomContent.Items.Accesories
             player.GetModPlayer<QwertyPlayer>().FlechetteDropAcceleration += 2f;
             player.GetModPlayer<QwertyPlayer>().GrenadeExplosionModifier += .75f;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

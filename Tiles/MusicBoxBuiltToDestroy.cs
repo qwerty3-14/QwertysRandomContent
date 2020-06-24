@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
-    class MusicBoxBuiltToDestroy : ModTile
+    internal class MusicBoxBuiltToDestroy : ModTile
     {
         public override bool Autoload(ref string name, ref string texture)
         {
@@ -18,6 +18,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -45,6 +46,7 @@ namespace QwertysRandomContent.Tiles
             player.showItemIcon = true;
             player.showItemIcon2 = mod.ItemType("AncientMusicBox");
         }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Main.tile[i, j];
@@ -54,7 +56,7 @@ namespace QwertysRandomContent.Tiles
             {
                 zero = Vector2.Zero;
             }
-            Main.spriteBatch.Draw(mod.GetTexture("Tiles/MusicBoxBuiltToDestroy_Glow" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" :"")), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 72 / 2), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(mod.GetTexture("Tiles/MusicBoxBuiltToDestroy_Glow" + (ModContent.GetInstance<SpriteSettings>().ClassicAncient ? "_Old" : "")), new Vector2(i * 16 - (int)Main.screenPosition.X, j * 16 - (int)Main.screenPosition.Y) + zero, new Rectangle(tile.frameX, tile.frameY, 16, 72 / 2), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace QwertysRandomContent
         {
             return player.GetModPlayer<ShapeShifterPlayer>();
         }
+
         public float morphDamage = 1f;
         public bool morphed = false;
         public int morphCrit = 4;
@@ -37,12 +38,13 @@ namespace QwertysRandomContent
         public bool glassCannon = false;
         public bool hovercraft = false;
         public bool TwistedDarkSetBonus = false;
-        bool healMe = false;
+        private bool healMe = false;
         public bool drawGodOfBlasphemy = false;
         public float pulseCounter = 0f;
         public bool Phase = false;
-        bool justMorphed = false;
-        bool noSick = false;
+        private bool justMorphed = false;
+        private bool noSick = false;
+
         public override void ResetEffects()
         {
             ResetVariables();
@@ -52,6 +54,7 @@ namespace QwertysRandomContent
         {
             ResetVariables();
         }
+
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
         {
             if (!player.miscEquips[3].IsAir)
@@ -68,13 +71,14 @@ namespace QwertysRandomContent
                 }
             }
         }
+
         public void justStableMorphed(bool noSick = false)
         {
-            
             justMorphed = true;
             this.noSick = noSick;
         }
-        void PostJustMorphed()
+
+        private void PostJustMorphed()
         {
             if (!noSick)
             {
@@ -90,7 +94,6 @@ namespace QwertysRandomContent
                     {
                         player.immuneTime += 180;
                         player.immune = true;
-                        
                     }
                 }
                 else
@@ -99,11 +102,11 @@ namespace QwertysRandomContent
                 }
             }
         }
+
         private void ResetVariables()
         {
             if (!drawTankCannon && !glassCannon && !hovercraft)
             {
-
                 tankCannonRotation = (player.direction == -1 ? (float)Math.PI : 0f);
             }
             glassCannon = false;
@@ -125,9 +128,9 @@ namespace QwertysRandomContent
             EyeEquiped = false;
             TwistedDarkSetBonus = false;
         }
+
         public override void PreUpdate()
         {
-           
             pulseCounter += (float)Math.PI / 30;
             //player.gravControl2 = true;
             if (healMe)
@@ -162,9 +165,10 @@ namespace QwertysRandomContent
                 player.AddBuff(mod.BuffType("EyeBless"), 2);
             }
         }
+
         public override void PostUpdateEquips()
         {
-            if(justMorphed)
+            if (justMorphed)
             {
                 PostJustMorphed();
                 justMorphed = false;
@@ -211,7 +215,6 @@ namespace QwertysRandomContent
                     0);
                 value.shader = drawPlayer.miscDyes[3].dye;
                 Main.playerDrawData.Add(value);
-
             }
             else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawTankCannon)
             {
@@ -229,7 +232,6 @@ namespace QwertysRandomContent
                     0);
                 value.shader = drawPlayer.miscDyes[3].dye;
                 Main.playerDrawData.Add(value);
-
             }
             else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().glassCannon)
             {
@@ -249,25 +251,22 @@ namespace QwertysRandomContent
             }
             else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy)
             {
-                
-                
                 Texture2D texture = mod.GetTexture("Items/Etims/Back" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
                 DrawData value = new DrawData(texture,
                     drawPlayer.Center - Main.screenPosition,
                     null,
                     color12,
                     0,
-                    texture.Size()*.5f,
+                    texture.Size() * .5f,
                     drawPlayer.GetModPlayer<MorphFlightControl>().scale,
                     0,
                     0);
                 value.shader = drawPlayer.miscDyes[3].dye;
                 Main.playerDrawData.Add(value);
 
-
                 texture = mod.GetTexture("Items/Etims/Pupil" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
                 value = new DrawData(texture,
-                    drawPlayer.Center + drawPlayer.GetModPlayer<MorphFlightControl>().pupilPosition - Main.screenPosition ,
+                    drawPlayer.Center + drawPlayer.GetModPlayer<MorphFlightControl>().pupilPosition - Main.screenPosition,
                     null,
                     color12,
                     0,
@@ -279,6 +278,7 @@ namespace QwertysRandomContent
                 Main.playerDrawData.Add(value);
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             if (noDraw)
@@ -290,7 +290,6 @@ namespace QwertysRandomContent
                     if (l.Name.Equals("MountBack") || l.Name.Equals("cl"))
                     {
                         l.visible = true;
-
                     }
                     else
                     {
@@ -310,14 +309,13 @@ namespace QwertysRandomContent
                 {
                     layers.Insert(mountLayer - 1, TankCannon);
                 }
-
             }
-
         }
+
         public override void PostUpdate()
         {
-
         }
+
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (proj.GetGlobalProjectile<MorphProjectile>().morph && Main.rand.Next(100) < morphCrit)
@@ -325,6 +323,7 @@ namespace QwertysRandomContent
                 crit = true;
             }
         }
+
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
             if (glassCannon)
@@ -332,6 +331,7 @@ namespace QwertysRandomContent
                 damage *= 3;
             }
         }
+
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             if (glassCannon)
@@ -340,20 +340,21 @@ namespace QwertysRandomContent
             }
         }
     }
+
     public class MorphProjectile : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
-       public override bool CloneNewInstances => true;
+        public override bool InstancePerEntity => true;
+        public override bool CloneNewInstances => true;
         public bool morph = false;
-
     }
+
     public class ShapeShifterItem : GlobalItem
     {
         public const int StableShiftType = 1;
         public const int QuickShiftType = 2;
 
-       public override bool InstancePerEntity => true;
-       public override bool CloneNewInstances => true;
+        public override bool InstancePerEntity => true;
+        public override bool CloneNewInstances => true;
         public bool morph;
         public int morphDef = 0;
         public int morphType = 0;
@@ -363,6 +364,7 @@ namespace QwertysRandomContent
         public int prefixMorphCrit;
         public float prefixMorphDamage = 0;
         public int equipedMorphDefense = 0;
+
         public override bool CanUseItem(Item item, Player player)
         {
             if (morphType == QuickShiftType && !item.IsAir)
@@ -383,9 +385,9 @@ namespace QwertysRandomContent
             }
             return base.CanUseItem(item, player);
         }
+
         public override int ChoosePrefix(Item item, UnifiedRandom rand)
         {
-
             if (item.GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.StableShiftType)
             {
                 int random = rand.Next(100);
@@ -449,8 +451,6 @@ namespace QwertysRandomContent
                 {
                     return mod.PrefixType("Sturdy");
                 }
-
-
 
                 /*
                  // mod.AddPrefix("Sturdy", new StableMorphPrefix(0, 0, 5, 0, 0));
@@ -555,7 +555,6 @@ namespace QwertysRandomContent
 
                 return rand.NextBool() ? mod.PrefixType("Rigorous") : mod.PrefixType("Clumsy");
 
-
                 /*
                 mod.AddPrefix("Refreshing", new QuickMorphPrefix(1f, 0, 1f, .9f));
                 mod.AddPrefix("Rejuvenating", new QuickMorphPrefix(1f, 0, 1f, .8f));
@@ -568,6 +567,7 @@ namespace QwertysRandomContent
             }
             return -1;
         }
+
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             ShapeShifterItem myClone = (ShapeShifterItem)base.Clone(item, itemClone);
@@ -579,6 +579,7 @@ namespace QwertysRandomContent
 
             return myClone;
         }
+
         public override bool NewPreReforge(Item item)
         {
             PrefixorphCooldownModifier = 1f;
@@ -587,6 +588,7 @@ namespace QwertysRandomContent
             prefixMorphCrit = 0;
             return base.NewPreReforge(item);
         }
+
         public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult)
         {
             if (item.GetGlobalItem<ShapeShifterItem>().morph)
@@ -594,6 +596,7 @@ namespace QwertysRandomContent
                 mult *= player.GetModPlayer<ShapeShifterPlayer>().morphDamage;
             }
         }
+
         /*
         [Obsolete]
         public override void GetWeaponDamage(Item item, Player player, ref int damage)
@@ -603,6 +606,7 @@ namespace QwertysRandomContent
                 damage = (int)(damage * ShapeShifterPlayer.ModPlayer(player).morphDamage + 5E-06f);
             }
         }*/
+
         public override void GetWeaponCrit(Item item, Player player, ref int crit)
         {
             if (item.GetGlobalItem<ShapeShifterItem>().morph)
@@ -632,7 +636,6 @@ namespace QwertysRandomContent
                 int Index = tooltips.FindIndex(TooltipLine => TooltipLine.Name.Equals("Defense"));
                 TooltipLine line = new TooltipLine(mod, "MorphDefense", equipedMorphDefense + " defense when morphed");
                 {
-
                 }
                 if (Index != -1)
                 {
@@ -655,7 +658,6 @@ namespace QwertysRandomContent
                 tooltips.Insert(KBIndex + 1, line);
                 if (item.GetGlobalItem<ShapeShifterItem>().morphDef == -1)
                 {
-
                     line = new TooltipLine(mod, "MorphDef", "Invulnerable when morphed");
                     {
                         line.overrideColor = Color.Orange;
@@ -665,7 +667,6 @@ namespace QwertysRandomContent
                 }
                 else
                 {
-
                     line = new TooltipLine(mod, "MorphDef", (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef) + " defense when morphed");
                     {
                         line.overrideColor = Color.Orange;
@@ -737,28 +738,25 @@ namespace QwertysRandomContent
                 tooltips.Add(line);
                 line.text = 100 - (int)(PrefixorphCooldownModifier * 100f) + Language.GetTextValue("Mods.QwertysRandomContent.PrefixorphCooldownModifierShorter");
             }
-
         }
+
         public override void NetSend(Item item, BinaryWriter writer)
         {
-
             writer.Write(prefixMorphDamage);
             writer.Write(prefixMorphDef);
             writer.Write(prefixMorphCrit);
             writer.Write(PrefixorphCooldownModifier);
-
         }
+
         public override void NetReceive(Item item, BinaryReader reader)
         {
             prefixMorphDamage = reader.ReadSingle();
             prefixMorphDef = reader.ReadInt32();
             prefixMorphCrit = reader.ReadInt32();
             PrefixorphCooldownModifier = reader.ReadSingle();
-
-
         }
-
     }
+
     public class StableMorphPrefix : ModPrefix
     {
         private byte damage;
@@ -766,18 +764,21 @@ namespace QwertysRandomContent
         private byte defense;
         private byte negetiveDefense;
         private byte negetiveDamage;
+
         public override float RollChance(Item item)
         {
             return 1f;
         }
+
         public override bool CanRoll(Item item)
         {
             return true;
         }
+
         public StableMorphPrefix()
         {
-
         }
+
         public StableMorphPrefix(byte damage, byte crit, byte defense, byte negetiveDamage, byte negetiveDefense)
         {
             this.damage = damage;
@@ -786,11 +787,11 @@ namespace QwertysRandomContent
             this.negetiveDefense = negetiveDefense;
             this.negetiveDamage = negetiveDamage;
         }
+
         public override bool Autoload(ref string name)
         {
             if (base.Autoload(ref name))
             {
-
                 mod.AddPrefix("Sturdy", new StableMorphPrefix(0, 0, 5, 0, 0));
                 mod.AddPrefix("Plated", new StableMorphPrefix(0, 0, 10, 0, 0));
                 mod.AddPrefix("Damaging", new StableMorphPrefix(10, 0, 0, 0, 0));
@@ -812,7 +813,6 @@ namespace QwertysRandomContent
 
         public override void Apply(Item item)
         {
-
             if (negetiveDamage > 0)
             {
                 item.GetGlobalItem<ShapeShifterItem>().prefixMorphDamage = -negetiveDamage;
@@ -830,24 +830,25 @@ namespace QwertysRandomContent
                 item.GetGlobalItem<ShapeShifterItem>().prefixMorphDef = defense;
             }
             item.GetGlobalItem<ShapeShifterItem>().prefixMorphCrit = crit;
-
         }
+
         public override void ModifyValue(ref float valueMult)
         {
             float multiplier = 1f * (1 + damage * 0.04f) * (1 + crit * 0.04f) * (1 + defense * 0.04f) * (1 - negetiveDefense * 0.04f) * (1 - negetiveDamage * 0.04f);
             valueMult *= multiplier;
         }
     }
+
     public class QuickMorphPrefix : ModPrefix
     {
-        float damage = 1f;
-        int crit = 0;
-        float kb = 1f;
-        float cooldown = 1f;
+        private float damage = 1f;
+        private int crit = 0;
+        private float kb = 1f;
+        private float cooldown = 1f;
 
-
-
-        public QuickMorphPrefix() { }
+        public QuickMorphPrefix()
+        {
+        }
 
         public QuickMorphPrefix(float damage = 1f, int crit = 0, float kb = 1f, float cooldown = 1f)
         {
@@ -855,7 +856,6 @@ namespace QwertysRandomContent
             this.crit = crit;
             this.kb = kb;
             this.cooldown = cooldown;
-
         }
 
         public override bool Autoload(ref string name)
@@ -870,35 +870,35 @@ namespace QwertysRandomContent
                 mod.AddPrefix("Rigorous", new QuickMorphPrefix(1.15f, 5, 1.15f, .8f));
 
                 mod.AddPrefix("Clumsy", new QuickMorphPrefix(1f, 0, 1f, 1.1f));
-
             }
             return false;
         }
+
         public override void Apply(Item item)
         {
             item.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier = cooldown;
         }
 
-
         public override bool CanRoll(Item item)
         {
             return true;
         }
+
         public override float RollChance(Item item)
         {
             return 1f;
         }
+
         public override void ModifyValue(ref float valueMult)
         {
             valueMult *= (1f - (cooldown - 1f));
         }
+
         public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
         {
             damageMult = this.damage;
             knockbackMult = this.kb;
             critBonus = this.crit;
         }
-
-
     }
 }

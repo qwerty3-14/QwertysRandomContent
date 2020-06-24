@@ -7,12 +7,8 @@ namespace QwertysRandomContent
     {
         //This class is inspired and tries to simulate drawing from a deck of cards
 
-
         public F[] Draw(int n)
         {
-
-
-
             F[] selection = new F[n];
 
             Deck<F> g = ShuffledCopy();
@@ -23,8 +19,8 @@ namespace QwertysRandomContent
             }
 
             return selection;
-
         }
+
         public void Shuffle()
         {
             Deck<F> g = ShuffledCopy();
@@ -34,6 +30,7 @@ namespace QwertysRandomContent
                 Add(item);
             }
         }
+
         public Deck<F> ShuffledCopy()
         {
             Deck<F> g = new Deck<F>();

@@ -1,5 +1,4 @@
 using QwertysRandomContent.Config;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +11,9 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             DisplayName.SetDefault("Rhuthinium Pickaxe");
             Tooltip.SetDefault("");
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 11;
@@ -32,10 +33,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.autoReuse = true;
             item.pick = 100;
             item.tileBoost = 1;
-
-
-
-
         }
 
         public override void AddRecipes()
@@ -47,7 +44,4 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.AddRecipe();
         }
     }
-
-
 }
-

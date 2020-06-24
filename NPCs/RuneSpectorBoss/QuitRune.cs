@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.RuneSpectorBoss
 {
-    class QuitRune : ModProjectile
+    internal class QuitRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -18,9 +18,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.alpha = 255;
             projectile.tileCollide = false;
             projectile.timeLeft = 120;
-
-
         }
+
         public override void AI()
         {
             projectile.velocity = new Vector2(0, 0);
@@ -28,9 +27,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.alpha -= 10;
             else
                 projectile.alpha = 0;
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)

@@ -14,15 +14,14 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
     {
         public override void SetStaticDefaults()
         {
-
             DisplayName.SetDefault("Noehtnap");
             Main.npcFrameCount[npc.type] = 5;
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-
             npc.width = 166;
             npc.height = 128;
             npc.damage = 80;
@@ -39,67 +38,70 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/TheGodsBleed");
             npc.lifeMax = 5000;
             bossBag = mod.ItemType("NoehtnapBag");
-
-
-
         }
+
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.HealingPotion;
         }
-        bool canDespawn = false;
+
+        private bool canDespawn = false;
+
         public override bool CheckActive()
         {
             return canDespawn;
         }
+
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
             return npc.chaseable;
         }
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-
             npc.lifeMax = (int)(7000 * bossLifeScale);
             npc.damage = 120;
-
         }
-        static float randomRotation()
+
+        private static float randomRotation()
         {
             return Main.rand.NextFloat(-1, 1) * (float)Math.PI;
         }
 
         public Projectile cloak;
-        int timer = -360;
-        float playerviewRadius = 80;
-        float orbitalVelocity = 7f;
-        float orbitDistance = 350;
-        float retreatApproachSpeed = 4f;
-        float pupilDirection = 0f;
-        float greaterPupilRadius = 18;
-        float lesserPupilRadius = 6;
-        float pupilStareOutAmount = 1f;
-        float blinkCounter = 60;
-        int frame = 0;
-        float pulseCounter = 0f;
-        int attackType = -1;
-        Projectile myWall = null;
-        Vector2 lastMoved = Vector2.UnitX;
-        float defaultOrbitalSpeed()
+        private int timer = -360;
+        private float playerviewRadius = 80;
+        private float orbitalVelocity = 7f;
+        private float orbitDistance = 350;
+        private float retreatApproachSpeed = 4f;
+        private float pupilDirection = 0f;
+        private float greaterPupilRadius = 18;
+        private float lesserPupilRadius = 6;
+        private float pupilStareOutAmount = 1f;
+        private float blinkCounter = 60;
+        private int frame = 0;
+        private float pulseCounter = 0f;
+        private int attackType = -1;
+        private Projectile myWall = null;
+        private Vector2 lastMoved = Vector2.UnitX;
+
+        private float defaultOrbitalSpeed()
         {
-            if(orbitalVelocity == 0)
+            if (orbitalVelocity == 0)
             {
                 npc.netUpdate = true;
                 return 7f * (Main.rand.Next(2) == 0 ? 1f : -1f);
             }
             return 7f * (orbitalVelocity > 0 ? 1f : -1f);
         }
+
         public override void AI()
         {
             //QwertyMethods.ServerClientCheck(timer);
-            
+
             Player player = Main.player[npc.target];
             npc.chaseable = false;
-            if ( npc.ai[3] > 10)
+            if (npc.ai[3] > 10)
             {
                 npc.chaseable = true;
             }
@@ -107,7 +109,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             {
                 for (int i = 0; i < Main.player.Length; i++)
                 {
-                    if ((Main.player[i].active && (QwertysRandomContent.LocalCursor[i] - npc.Center).Length() < 180) || (Main.player[i].Center - npc.Center).Length() < orbitDistance )
+                    if ((Main.player[i].active && (QwertysRandomContent.GetLocalCursor(i) - npc.Center).Length() < 180) || (Main.player[i].Center - npc.Center).Length() < orbitDistance)
                     {
                         npc.chaseable = true;
                         break;
@@ -141,7 +143,6 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             }
             else
             {
-                
                 frame = 0;
             }
             if (!player.active || player.dead)
@@ -161,15 +162,13 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             }
             else
             {
-                
                 canDespawn = false;
-                
+
                 if ((cloak == null || cloak.type != mod.ProjectileType("Cloak") || !cloak.active) && Main.netMode != 1)
                 {
-
                     cloak = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Cloak"), 0, 0, Main.myPlayer, npc.whoAmI)];
                 }
-                
+
                 if (playerviewRadius > 80)
                 {
                     playerviewRadius -= 10;
@@ -177,33 +176,36 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 if (Main.netMode != 1)
                 {
                     cloak.ai[1] = playerviewRadius;
-                    cloak.timeLeft = 2;
+                    cloak.timeLeft = 30;
                 }
-                
-                
-                if(myWall != null)
+
+                if (myWall != null)
                 {
                     myWall.timeLeft = 2;
                 }
-                
-                if(npc.ai[3]>0)
+
+                if (npc.ai[3] > 0)
                 {
                     npc.ai[3]--;
                 }
-                if(attackType != 0)
+                if (attackType != 0)
                 {
                     timer++;
-                    if(player.velocity.Length() > 0f)
+                    if (player.velocity.Length() > 0f)
                     {
                         lastMoved = player.velocity;
                     }
-                    
+                }
+                if (Main.expertMode && (float)npc.life / npc.lifeMax < .1f)
+                {
+                    attackType = 2;
+                    orbitalVelocity = defaultOrbitalSpeed() * 2f;
                 }
                 switch (attackType)
                 {
                     case -1:
-                        
-                        if (timer > 120 *  (Main.expertMode ? .2f + .8f*((float)npc.life/npc.lifeMax) : 1f) && (player.Center - npc.Center).Length() < 1000f)
+
+                        if (timer > 120 * (Main.expertMode ? .2f + .8f * ((float)npc.life / npc.lifeMax) : 1f) && (player.Center - npc.Center).Length() < 1000f)
                         {
                             if (Main.netMode != 1)
                             {
@@ -217,33 +219,35 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                                             orbitalVelocity *= -1;
                                         }
                                         break;
+
                                     case 0:
-                                        orbitalVelocity = defaultOrbitalSpeed()*4f;
+                                        orbitalVelocity = defaultOrbitalSpeed() * 4f;
                                         break;
+
                                     case 1:
-                                        orbitalVelocity = 0;
                                         Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Warning"), 0, 0f, Main.myPlayer, 0, 0);
-                                        if(!Main.dedServ)
+                                        if (!Main.dedServ)
                                         {
                                             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Notice").WithVolume(3f).WithPitchVariance(.5f), npc.Center);
                                         }
                                         npc.velocity = Vector2.Zero;
                                         break;
                                 }
-                                
+
                                 npc.netUpdate = true;
                             }
                             timer = 0;
                         }
                         break;
+
                     default:
-                        if (timer>=60)
+                        if (timer >= 60 && !(Main.expertMode && (float)npc.life / npc.lifeMax < .1f))
                         {
                             orbitalVelocity = defaultOrbitalSpeed();
                             timer = 0;
                             attackType = -1;
                         }
-                        else if(timer % 15==0 && Main.netMode != 1)
+                        else if (timer % 15 == 0 && Main.netMode != 1)
                         {
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("EtimsicCannon"), Main.expertMode ? 18 : 24, 0f, Main.myPlayer, (player.Center - npc.Center).ToRotation());
                             Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Warning"), 0, 0f, Main.myPlayer, 1, (player.Center - npc.Center).ToRotation());
@@ -251,9 +255,9 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                             {
                                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Notice").WithVolume(3f).WithPitchVariance(.5f), npc.Center);
                             }
-                                
                         }
                         break;
+
                     case 0:
                         if (timer == 0 && QwertyMethods.AngularDifference(lastMoved.ToRotation(), (npc.Center - player.Center).ToRotation()) < (float)Math.PI / 30)
                         {
@@ -262,20 +266,20 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                                 myWall = Main.projectile[Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("EtimsicWall"), Main.expertMode ? 24 : 36, 0f, Main.myPlayer, (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2)];
                                 Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("Warning"), 0, 0f, Main.myPlayer, 2, (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2);
                             }
-                            
+
                             if (!Main.dedServ)
                             {
                                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/Notice").WithVolume(3f).WithPitchVariance(.5f), npc.Center);
                             }
-                            
+
                             timer = 1;
                             npc.netUpdate = true;
                         }
-                        if(timer >0)
+                        if (timer > 0)
                         {
                             timer++;
                         }
-                        if(timer >=60)
+                        if (timer >= 60)
                         {
                             orbitalVelocity = defaultOrbitalSpeed();
                             npc.netUpdate = true;
@@ -283,6 +287,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                             attackType = -1;
                         }
                         break;
+
                     case 1:
                         if (timer > 60)
                         {
@@ -298,42 +303,35 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                                 {
                                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PewPew").WithVolume(3f).WithPitchVariance(.5f), npc.Center);
                                 }
-                                   
                             }
-                            if(timer == 179 && Main.netMode != 1)
+                            if (timer == 179 && Main.netMode != 1)
                             {
                                 npc.netUpdate = true;
-
                             }
-                            if(timer == 180)
+                            if (timer == 180)
                             {
                                 npc.velocity = QwertyMethods.PolarVector(15, (player.Center - npc.Center).ToRotation());
                                 npc.netUpdate = true;
                             }
-                            if(timer > 240)
+                            if (timer > 240)
                             {
                                 npc.netUpdate = true;
                                 orbitalVelocity = defaultOrbitalSpeed();
                                 timer = 0;
                                 attackType = -1;
-
                             }
                         }
                         break;
                 }
-                
-                
-                
 
                 //movement
-                if (attackType == 1)
+                if (attackType == 1 && ((Main.expertMode && (float)npc.life / npc.lifeMax > .5f) || timer >= 180 || timer < 60))
                 {
-
                 }
                 else
                 {
                     npc.velocity = QwertyMethods.PolarVector(orbitalVelocity, (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2);
-                   
+
                     if ((player.Center - npc.Center).Length() < orbitDistance - 50)
                     {
                         npc.velocity += QwertyMethods.PolarVector(-retreatApproachSpeed, (player.Center - npc.Center).ToRotation());
@@ -343,24 +341,23 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                         npc.velocity += QwertyMethods.PolarVector(retreatApproachSpeed, (player.Center - npc.Center).ToRotation());
                     }
                 }
-
-
             }
-
-
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(timer);
             writer.Write(orbitalVelocity);
             writer.Write(attackType);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             timer = reader.ReadInt32();
             orbitalVelocity = reader.ReadSingle();
             attackType = reader.ReadInt32();
         }
+
         public override void FindFrame(int frameHeight)
         {
             if (frame > 4)
@@ -371,9 +368,8 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             {
                 npc.frame.Y = frame * frameHeight;
             }
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Texture2D texture = Main.npcTexture[npc.type];
@@ -390,12 +386,17 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                        new Vector2(npc.width * 0.5f, npc.height * 0.5f), npc.scale, SpriteEffects.None, 0f);
             return false;
         }
-       
+
         public override void NPCLoot()
         {
-            QwertyWorld.downedNoetnap = true;
-            if (Main.netMode == NetmodeID.Server)
-                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
+            if (!QwertyWorld.downedNoetnap)
+            {
+                QwertyWorld.downedNoetnap = true;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
+                }
+            }
             if (Main.expertMode)
             {
                 npc.DropBossBags();
@@ -403,7 +404,7 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             else
             {
                 Item.NewItem(npc.getRect(), mod.ItemType("EtimsMaterial"), 12 + Main.rand.Next(13));
-                if(Main.rand.Next(20)<3)
+                if (Main.rand.Next(20) < 3)
                 {
                     Item.NewItem(npc.getRect(), mod.ItemType("EyeOfDarkness"));
                 }
@@ -413,12 +414,12 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 }
             }
         }
-
     }
 
     public class Cloak : ModProjectile
     {
         public bool cloak;
+
         public override void SetStaticDefaults()
         {
             projectile.hostile = false;
@@ -428,13 +429,22 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             projectile.timeLeft = 2;
             projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsOverWiresUI.Add(index);
         }
-        List<Vector3> lightSpots = new List<Vector3>();
+
+        private List<Vector3> lightSpots = new List<Vector3>();
+
+        private int fadeInTimer = 0;
+
         public override void AI()
         {
+            if (fadeInTimer < 255)
+            {
+                fadeInTimer++;
+            }
             projectile.Center = Main.npc[(int)projectile.ai[0]].Center;
             // QwertyMethods.ServerClientCheck((int)projectile.ai[1]);
             if (Main.netMode != 1)
@@ -442,14 +452,16 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 projectile.netUpdate = true;
             }
         }
-        int screenWidthOld = 0;
-        int screenHeightOld = 0;
-        int height=0;
-        int width=0;
-        Color[] defaultdataColors = null;
-        Color trans = new Color(0, 0, 0, 0);
-        float scale = 4;
-        void lightsUpdate(Color color)
+
+        private int screenWidthOld = 0;
+        private int screenHeightOld = 0;
+        private int height = 0;
+        private int width = 0;
+        private Color[] defaultdataColors = null;
+        private Color trans = new Color(0, 0, 0, 0);
+        private float scale = 4;
+
+        private void lightsUpdate(Color color)
         {
             foreach (Vector3 spot in lightSpots)
             {
@@ -460,11 +472,10 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                     {
                         if (new Vector2(localX, localY).Length() < spot.Z / scale)
                         {
-
                             int x = (int)spotCoords.X + localX;
                             int y = (int)spotCoords.Y + localY;
                             int loc = x + y * width;
-                            if (loc < defaultdataColors.Length && x < width && x > 0 && loc>=0)
+                            if (loc < defaultdataColors.Length && x < width && x > 0 && loc >= 0)
                             {
                                 defaultdataColors[loc] = color;
                             }
@@ -494,25 +505,24 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
                 }
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             Player drawPlayer = Main.LocalPlayer;
-            if(drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy)
+            if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy)
             {
                 return false;
             }
-            
+
             if (Main.screenWidth != screenWidthOld || Main.screenHeight != screenHeightOld)
             {
                 height = (int)(Main.screenHeight / scale);
                 width = (int)(Main.screenWidth / scale);
                 height++;
-                Texture2D defaultShadow = new Texture2D(Main.graphics.GraphicsDevice, width, height);
                 defaultdataColors = new Color[width * height];
-                for(int x =0; x < width; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    for(int y =0; y < height; y++)
+                    for (int y = 0; y < height; y++)
                     {
                         defaultdataColors[x + y * width] = Color.Black;
                     }
@@ -522,20 +532,20 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             lightsUpdate(Color.Black); //reset color
 
             lightSpots = new List<Vector3>();
-            lightSpots.Add(new Vector3((drawPlayer.Center.X-Main.screenPosition.X)/scale, (drawPlayer.Center.Y-Main.screenPosition.Y)/scale, projectile.ai[1]));
+            lightSpots.Add(new Vector3((drawPlayer.Center.X - Main.screenPosition.X) / scale, (drawPlayer.Center.Y - Main.screenPosition.Y) / scale, projectile.ai[1]));
             if (!Main.gamePaused)
             {
-                lightSpots.Add(new Vector3(Main.mouseX/scale, Main.mouseY/scale, 80));
+                lightSpots.Add(new Vector3(Main.mouseX / scale, Main.mouseY / scale, 80));
             }
 
             NPC master = Main.npc[(int)projectile.ai[0]];
             if (master.ai[3] > 0)
             {
-                lightSpots.Add(new Vector3((master.Center.X - Main.screenPosition.X)/scale, (master.Center.Y-Main.screenPosition.Y)/scale, master.ai[3]));
+                lightSpots.Add(new Vector3((master.Center.X - Main.screenPosition.X) / scale, (master.Center.Y - Main.screenPosition.Y) / scale, master.ai[3]));
             }
-            for(int i =0; i < Main.projectile.Length; i++)
+            for (int i = 0; i < Main.projectile.Length; i++)
             {
-                if(Main.projectile[i].active && (Main.projectile[i].type == mod.ProjectileType("EtimsicCannon") || Main.projectile[i].type == mod.ProjectileType("EtimsicWall")) && Main.projectile[i].ai[1]==1)
+                if (Main.projectile[i].active && (Main.projectile[i].type == mod.ProjectileType("EtimsicCannon") || Main.projectile[i].type == mod.ProjectileType("EtimsicWall")) && Main.projectile[i].ai[1] == 1)
                 {
                     lightSpots.Add(new Vector3((Main.projectile[i].Center.X - Main.screenPosition.X) / scale, (Main.projectile[i].Center.Y - Main.screenPosition.Y) / scale, 40));
                 }
@@ -544,16 +554,12 @@ namespace QwertysRandomContent.NPCs.CloakedDarkBoss
             lightsUpdate(trans); //now that we have lights make them transparent
             Texture2D TheShadow = new Texture2D(Main.graphics.GraphicsDevice, width, height);
             TheShadow.SetData(0, null, defaultdataColors, 0, width * height);
-            spriteBatch.Draw(TheShadow, Vector2.Zero, null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, .2f);
-            
+            spriteBatch.Draw(TheShadow, Vector2.Zero, null, new Color(fadeInTimer, fadeInTimer, fadeInTimer, fadeInTimer), 0, Vector2.Zero, scale, SpriteEffects.None, .2f);
+
             screenWidthOld = Main.screenWidth;
             screenHeightOld = Main.screenHeight;
+
             return false;
         }
-
-
-
     }
-    
-
 }

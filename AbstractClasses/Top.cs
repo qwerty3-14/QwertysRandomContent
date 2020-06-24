@@ -7,12 +7,13 @@ namespace QwertysRandomContent.AbstractClasses
 {
     public abstract class Top : ModProjectile
     {
-        bool runOnce = true;
-        float initVel;
-        bool hitGround;
-        int timeOutTimer;
+        private bool runOnce = true;
+        private float initVel;
+        private bool hitGround;
+        private int timeOutTimer;
         protected float friction = .002666f;
         protected float enemyFriction = .1f;
+
         public override void AI()
         {
             if (runOnce)
@@ -31,13 +32,11 @@ namespace QwertysRandomContent.AbstractClasses
                 if (projectile.velocity.X < 0)
                 {
                     projectile.velocity.X = -initVel;
-
                 }
                 else
                 {
                     projectile.velocity.X = initVel;
                 }
-
 
                 if (initVel < 2)
                 {
@@ -74,16 +73,12 @@ namespace QwertysRandomContent.AbstractClasses
                         projectile.rotation = 0;
                         projectile.rotation += (float)MathHelper.ToRadians(1);
                     }
-
-
-
-
                 }
                 else
                 {
                     projectile.rotation = 0;
-                    
-                    initVel -= friction*Main.player[projectile.owner].GetModPlayer<QwertyPlayer>().TopFrictionMultiplier;
+
+                    initVel -= friction * Main.player[projectile.owner].GetModPlayer<QwertyPlayer>().TopFrictionMultiplier;
                 }
             }
             else
@@ -92,6 +87,7 @@ namespace QwertysRandomContent.AbstractClasses
             }
             ExtraTopNonesense();
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             hitGround = true;
@@ -102,6 +98,7 @@ namespace QwertysRandomContent.AbstractClasses
 
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             int immutime = 20 - (int)(10f * (float)Math.Abs(projectile.velocity.X) / initVel);
@@ -113,15 +110,15 @@ namespace QwertysRandomContent.AbstractClasses
 
             initVel -= enemyFriction;
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             knockback = ((float)Math.Abs(projectile.velocity.X) / initVel) * projectile.knockBack;
             hitDirection = projectile.velocity.X > 0 ? -1 : 1;
         }
+
         public virtual void ExtraTopNonesense()
         {
-
         }
-
     }
 }

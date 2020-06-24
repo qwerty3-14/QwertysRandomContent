@@ -12,20 +12,32 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-
 namespace QwertysRandomContent
 {
     public class QwertysRandomContent : Mod
     {
         public static QwertysRandomContent Instance;
 
-
         public static ModHotKey YetAnotherSpecialAbility;
-        public static Vector2[] LocalCursor = new Vector2[Main.player.Length];
+        private static Vector2[] LocalCursor = new Vector2[Main.player.Length];
+
+        public static Vector2 GetLocalCursor(int id)
+        {
+            LocalCursor[id] = Main.MouseWorld;
+
+            if (Main.netMode == 1)
+            {
+                ModPacket packet = Instance.GetPacket();
+                packet.Write((byte)ModMessageType.UpdateLocalCursor); // Message type, you would need to create an enum for this
+                packet.Write((byte)id);
+                packet.WriteVector2(LocalCursor[id]);
+                packet.Send();
+            }
+            return LocalCursor[id];
+        }
+
         public override void AddRecipeGroups()
         {
-
-
             RecipeGroup group = new RecipeGroup(() => Lang.misc[37].Value + " evil bow", new int[]
             {
                 ItemID.DemonBow,
@@ -39,26 +51,23 @@ namespace QwertysRandomContent
                 ItemType("AerousLongbow"),
                 ItemType("AerousLongbowWithRandomEnchantment"),
                 ItemType("AerousLongbowWithStormEnchantment"),
-
             });
             RecipeGroup.RegisterGroup("QwertysrandomContent:AerousBow", group);
-
 
             group = new RecipeGroup(() => Lang.misc[37].Value + " Evil Powder", new int[]
             {
                 ItemID.VilePowder,
                 ItemID.ViciousPowder,
-
             });
             RecipeGroup.RegisterGroup("QwertysrandomContent:EvilPowder", group);
             group = new RecipeGroup(() => Lang.misc[37].Value + " Silver Bar", new int[]
            {
                 ItemID.SilverBar,
                 ItemID.TungstenBar,
-
            });
             RecipeGroup.RegisterGroup("QwertysrandomContent:SilverBar", group);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(this);
@@ -68,20 +77,13 @@ namespace QwertysRandomContent
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(ItemID.AvengerEmblem);
-
-            recipe = new ModRecipe(this);
-            recipe.AddIngredient(ItemType("YetAnotherThrowerEmblem"));
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddIngredient(ItemID.SoulofFright, 5);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(ItemID.AvengerEmblem);
-
         }
+
         public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
         public const string HydraHead1 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
         public const string HydraHead2 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
         public const string HydraHead3 = "QwertysRandomContent/NPCs/HydraBoss/MapHead1";
+
         public QwertysRandomContent()
         {
             Properties = new ModProperties()
@@ -91,10 +93,11 @@ namespace QwertysRandomContent
                 AutoloadSounds = true
             };
         }
+
         public override void UpdateUI(GameTime gameTime)
         {
-
         }
+
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
@@ -105,17 +108,14 @@ namespace QwertysRandomContent
                     music = GetSoundSlot(SoundType.Music, "Sounds/Music/HeavenlyFortress");
                     priority = MusicPriority.Event;
                 }
-
             }
         }
+
         public override void PostSetupContent()
         {
-
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-
-
                 bossChecklist.Call("AddBoss", 5.5f, NPCType("AncientMachine"), this, "Ancient Machine", (Func<bool>)(() => QwertyWorld.downedAncient), ItemType("AncientEmblem"),
                     new List<int> { ItemType("AncientMachineTrophy"), ItemType("AncientMusicBox") },
                     new List<int> { ItemType("AncientMachineBag"), ItemType("AncientGemstone"), ItemType("AncientBlade"), ItemType("AncientThrow"), ItemType("AncientLongbow"), ItemType("AncientSniper"), ItemType("AncientMissileStaff"), ItemType("AncientWave"), ItemType("AncientMinionStaff"), ItemType("AncientNuke"), ItemType("AncientMiner"), ItemID.HealingPotion },
@@ -163,25 +163,23 @@ namespace QwertysRandomContent
                     new List<int> { ItemType("DinoFlail"), ItemType("DinoVulcan"), ItemType("TheTyrantsExtinctionGun"), ItemType("DinoBone"), ItemType("Tricerashield"), ItemType("DinoTooth"), ItemType("WornPrehistoricBow") },
                     "Use a [i:" + ItemType("DinoEgg") + "] and they'll come to drive you extinct!", null, "QwertysRandomContent/NPCs/DinoMilitia_Checklist", "QwertysRandomContent/Items/DinoItems/DinoEgg");
 
-
                 bossChecklist.Call("AddMiniBoss", 9.002f, NPCType("TheGreatTyrannosaurus"), this, "The Great Tyrannosaurus", (Func<bool>)(() => QwertyWorld.downedTyrant), null,
                     ItemType("MusicBoxOldDinosNewGuns"),
                     new List<int> { ItemType("DinoFlail"), ItemType("TheTyrantsExtinctionGun"), ItemType("DinoBone"), ItemType("WornPrehistoricBow") },
                     "Fights with the Dino Militia, more likely to a apear near the end", null);
 
-                bossChecklist.Call("AddToBossLoot", "Terraria", "KingSlime", new List<int> { ItemType("SpikedSlimeShift")});
+                bossChecklist.Call("AddToBossLoot", "Terraria", "KingSlime", new List<int> { ItemType("SpikedSlimeShift") });
                 bossChecklist.Call("AddToBossLoot", "Terraria", "EyeofCthulhu", new List<int> { ItemType("EoCShift") });
                 bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("ConspiratorEmblem") });
                 if (ModLoader.GetMod("ThoriumMod") == null && ModLoader.GetMod("SpiriteMod") == null && ModLoader.GetMod("ElementsAwoken") == null)
                 {
                     bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("YetAnotherThrowerEmblem") });
                 }
-
             }
             Mod fargos = ModLoader.GetMod("Fargowiltas");
             if (fargos != null)
             {
-                // AddSummon, order or value in terms of vanilla bosses, your mod internal name, summon  
+                // AddSummon, order or value in terms of vanilla bosses, your mod internal name, summon
                 //item internal name, inline method for retrieving downed value, price to sell for in copper
 
                 fargos.Call("AddSummon", 4f, "QwertysRandomContent", "FortressBossSummon", (Func<bool>)(() => QwertyWorld.downedFortressBoss), 120000);
@@ -191,10 +189,11 @@ namespace QwertysRandomContent
                 fargos.Call("AddSummon", 9.4f, "QwertysRandomContent", "BladeBossSummon", (Func<bool>)(() => QwertyWorld.downedBlade), 450000);
                 fargos.Call("AddSummon", 12.2f, "QwertysRandomContent", "SummoningRune", (Func<bool>)(() => QwertyWorld.downedRuneGhost), 620000);
                 fargos.Call("AddSummon", 13.8f, "QwertysRandomContent", "B4Summon", (Func<bool>)(() => QwertyWorld.downedB4), 800000);
-
             }
         }
+
         public static Deck<string> AMLoot = new Deck<string>();
+
         public override void Load()
         {
             Instance = this;
@@ -225,8 +224,6 @@ namespace QwertysRandomContent
                 AddEquipTexture(GetItem("HydraLeggings"), EquipType.Legs, "HydraLeggings_Female", "QwertysRandomContent/Items/HydraItems/HydraLeggings_FemaleLegs");
                 AddEquipTexture(GetItem("ShamanLegs"), EquipType.Legs, "ShamanLegs_Female", "QwertysRandomContent/Items/Armor/Shaman/ShamanLegs_FemaleLegs");
                 AddEquipTexture(GetItem("VitallumJeans"), EquipType.Legs, "VitallumJeans_Female", "QwertysRandomContent/Items/Armor/Vitallum/VitallumJeans_FemaleLegs");
-
-
 
                 GameShaders.Armor.BindShader<CustomArmorShader>(ItemType("CustomDye"), new CustomArmorShader(Main.PixelShaderRef, "ArmorColored"));
                 GameShaders.Armor.BindShader<CustomArmorShader2>(ItemType("CustomDye2"), new CustomArmorShader2(Main.PixelShaderRef, "ArmorColored"));
@@ -314,9 +311,8 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Chinese, "请去控制界面设定“另一个特殊能力键”");
             AddTranslation(text);
 
-
-
             #region set Bonus Translations
+
             text = CreateTranslation("ClaySet");
             text.SetDefault("Be like a clay statue and... \n Increased morph damage and morph defense when not moving");
             text.AddTranslation(GameCulture.Russian, "\n Увеличение урона оборотня и защита оборотня когда не двигаешься");
@@ -348,45 +344,27 @@ namespace QwertysRandomContent
             AddTranslation(text);
 
             text = CreateTranslation("RCapSet");
-            text.SetDefault("100% ranged crit chance when at 100% life");
+            text.SetDefault("Avoiding damage long enough will increase ranged damage by 10%");
             text.AddTranslation(GameCulture.Russian, "100%-й шанс критического удара при 100% жизни");
             text.AddTranslation(GameCulture.Chinese, "满血时100%暴击");
             AddTranslation(text);
 
-            text = CreateTranslation("RCircletSet");
-            text.SetDefault("Melee attacks boost magic damage and max mana" + "\nMagic attacks boost melee damage");
-            text.AddTranslation(GameCulture.Russian, "Атаки ближнего боя увеличивают магический урон и максимальную Ману " + " \nМагические атаки увеличивают урон ближнего боя");
-            text.AddTranslation(GameCulture.Chinese, "近战攻击强化魔法伤害和增加魔力上限\n魔法攻击强化近战伤害");
-            AddTranslation(text);
-
-            text = CreateTranslation("RGogglesSet");
-            text.SetDefault("Throwing attacks confuse and poison enemies" + "\n+10% throwing damage");
-            text.AddTranslation(GameCulture.Russian, "Метательные атаки сбивают с толку и отравляют врагов " + " \n + 10% к урону");
-            text.AddTranslation(GameCulture.Chinese, "投掷攻击会混乱和毒杀敌人\n增加10%投掷伤害");
-            AddTranslation(text);
-
             text = CreateTranslation("RHatSet");
-            text.SetDefault("20% bonus magic damage, but this bonus goes down as your mana goes down");
+            text.SetDefault("Crtical hits restore mana and boost magic damage by 10%");
             text.AddTranslation(GameCulture.Russian, "20% бонусного магического урона, но этот бонус уменьшается с уменьшением вашей маны");
             text.AddTranslation(GameCulture.Chinese, "增加20%魔法伤害奖励,但是这个奖励会随着魔力消耗而降低");
             AddTranslation(text);
 
             text = CreateTranslation("RHeadbandSet");
-            text.SetDefault("every 1% of life missing is converted to 1% extra melee speed");
+            text.SetDefault("Killing enemies increases melee damage and max movement speed by 20%");
             text.AddTranslation(GameCulture.Russian, "каждый 1% пропавшей жизни конвертируется в 1% к дополнительной скорости ближнего боя");
             text.AddTranslation(GameCulture.Chinese, "每丢失1%的生命将转化为1%的额外近战伤害");
             AddTranslation(text);
 
             text = CreateTranslation("RMaskSet");
-            text.SetDefault("Minion attacks inflict ichor and +1 max minions");
+            text.SetDefault("Attacks will call forth Rhuthimis's wraith!");
             text.AddTranslation(GameCulture.Russian, "Атаки прислужников накладывают ихор и +1 прислужник");
             text.AddTranslation(GameCulture.Chinese, "召唤物攻击造成脓血并+1召唤上限");
-            AddTranslation(text);
-
-            text = CreateTranslation("RMouthguardkSet");
-            text.SetDefault("+10% throwing damage and +100% throwing velocity when near a sentry");
-            text.AddTranslation(GameCulture.Russian, "+ 10% к урону и + 100% к скорости при нахождении рядом с турелью");
-            text.AddTranslation(GameCulture.Chinese, "在哨兵炮台附近增加10%投掷伤害和100%投掷速度");
             AddTranslation(text);
 
             text = CreateTranslation("ShamanSet1");
@@ -412,7 +390,6 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Russian, "+100 макс. Жизни при трансформации \nС благославлением глаза это дополнительное здоровье будет мгновенно восполнено при трансформации");
             text.AddTranslation(GameCulture.Chinese, "化形时增加100生命上限\n配合眼之真知在化形时可以立即将多出的血量补满");
             AddTranslation(text);
-
 
             text = CreateTranslation("VCharmSet");
             text.SetDefault("+1 max minions and sentries");
@@ -461,7 +438,8 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Russian, "Подобно гидре вы получаете больше 'голов' когда вас ранят" + "\n+1 Макс количество прислужников, когда уровень жизни ниже 80%" + "\n+2 Макс количество прислужников, когда уровень жизни ниже 60%" + "\n+3 Макс количество прислужников, когда жизнь ниже 40%" + "\n+4 Макс количество прислужников, когда жизнь ниже 20%" + "\n+20 макс количество прилужников, когда жизнь ниже 1%");
             text.AddTranslation(GameCulture.Chinese, "像海德拉一样，受伤越多你也有越多的“头”\n生命低于80%时，+1召唤上限\n生命低于60%时，+2召唤上限\n生命低于40%时，+3召唤上限\n生命低于20%时，+4召唤上限\n生命低于1%时，+20召唤上限");
             AddTranslation(text);
-            #endregion
+
+            #endregion set Bonus Translations
 
             #region gender Translation
 
@@ -475,9 +453,10 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Chinese, "她的");
             AddTranslation(text);
 
-            #endregion
+            #endregion gender Translation
 
             #region BloodyMedalionTranslation
+
             text = CreateTranslation("BloodyMedalionInfo1");
             text.SetDefault(" madly drained ");
             text.AddTranslation(GameCulture.Chinese, "疯狂的消耗");
@@ -497,9 +476,11 @@ namespace QwertysRandomContent
             text.SetDefault(" life!");
             text.AddTranslation(GameCulture.Chinese, "生命!");
             AddTranslation(text);
-            #endregion
+
+            #endregion BloodyMedalionTranslation
 
             #region prefixInfoTranslation
+
             text = CreateTranslation("Perfixdamage");
             text.SetDefault("% damage");
             text.AddTranslation(GameCulture.Chinese, "%伤害");
@@ -559,9 +540,11 @@ namespace QwertysRandomContent
             text.SetDefault("% dodge chance");
             text.AddTranslation(GameCulture.Chinese, "%闪避几率");
             AddTranslation(text);
-            #endregion
+
+            #endregion prefixInfoTranslation
 
             #region shapershifter translation
+
             text = CreateTranslation("morph");
             text.SetDefault(" morph ");
             text.AddTranslation(GameCulture.Chinese, "化形");
@@ -617,9 +600,10 @@ namespace QwertysRandomContent
             text.AddTranslation(GameCulture.Chinese, "%闪避几率");
             AddTranslation(text);
 
-            #endregion
+            #endregion shapershifter translation
 
             #region dino militia
+
             text = CreateTranslation("DinoMilitia");
             text.SetDefault("Dino Militia");
             text.AddTranslation(GameCulture.Chinese, "恐龙自卫军");
@@ -629,9 +613,11 @@ namespace QwertysRandomContent
             text.SetDefault("Cleared ");
             text.AddTranslation(GameCulture.Chinese, "已清理 ");
             AddTranslation(text);
-            #endregion
+
+            #endregion dino militia
 
             #region config
+
             text = CreateTranslation("ClassicFortressConfigLabel");
             text.SetDefault("Classic Fortress");
             AddTranslation(text);
@@ -639,7 +625,6 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClassicFortressConfigTooltip");
             text.SetDefault("Uses the older SUS and Qwerty's fortress sprites that are normaly replaced by DarkPuppey's");
             AddTranslation(text);
-
 
             text = CreateTranslation("ClassicRhuthiniumConfigLabel");
             text.SetDefault("Good Old Rhuthinium");
@@ -649,7 +634,6 @@ namespace QwertysRandomContent
             text.SetDefault("Uses the older Havoc and Qwerty's Rhuthinium item sprites that are normaly replaced by FailureOfMankind's");
             AddTranslation(text);
 
-
             text = CreateTranslation("ClassicAncientConfigLabel");
             text.SetDefault("Ancient Ancient Items");
             AddTranslation(text);
@@ -657,7 +641,6 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClassicAncientConfigTooltip");
             text.SetDefault("Uses the older ancient item sprites that are normaly replaced by Phobostar's newer ones");
             AddTranslation(text);
-
 
             text = CreateTranslation("DisableModdedPrefixesLabel");
             text.SetDefault("Disable Modded Prefixes");
@@ -674,7 +657,6 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClassicOLORDConfigTooltip");
             text.SetDefault("Uses the origonal O.L.O.R.D. sprite Olord!");
             AddTranslation(text);
-
 
             text = CreateTranslation("ClassicGunChakramConfigLabel");
             text.SetDefault("Old gun charkram");
@@ -707,7 +689,24 @@ namespace QwertysRandomContent
             text = CreateTranslation("ClassicImperiousConfigTooltip");
             text.SetDefault("If you think 2018 Darkpuppey was better than 2020 Darkpuppey");
             AddTranslation(text);
-            #endregion
+
+            text = CreateTranslation("ClassicPotionsConfigLabal");
+            text.SetDefault("Old Brew Potions");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicImperiousConfigTooltip");
+            text.SetDefault("Replaces a bat's resprites with the origonal potion sprites");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicDungeonConfigLabel");
+            text.SetDefault("Classic Dungeon Items");
+            AddTranslation(text);
+
+            text = CreateTranslation("ClassicDungeonTooltip");
+            text.SetDefault("Replaces a bat's resprites with the origonal dungeon item sprites");
+            AddTranslation(text);
+
+            #endregion config
 
             AddBossHeadTexture(AncientMachineHead);
             AddBossHeadTexture(HydraHead1);
@@ -725,23 +724,18 @@ namespace QwertysRandomContent
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BladeOfAGod"), ItemType("MusicBoxBladeOfAGod"), TileType("MusicBoxBladeOfAGod"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/BeastOfThreeHeads"), ItemType("MusicBoxBeastOfThreeHeads"), TileType("MusicBoxBeastOfThreeHeads"));
                 AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/TheGodsBleed"), ItemType("MusicBoxTheGodsBleed"), TileType("MusicBoxTheGodsBleed"));
-
-
-
             }
-
-
         }
+
         public override void Unload()
         {
-
             // Unload static references
-            // You need to clear static references to assets (Texture2D, SoundEffects, Effects). 
+            // You need to clear static references to assets (Texture2D, SoundEffects, Effects).
 
             YetAnotherSpecialAbility = null;
             Instance = null;
-
         }
+
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             ModMessageType msgType = (ModMessageType)reader.ReadByte();
@@ -787,6 +781,7 @@ namespace QwertysRandomContent
                         packet.Send();
                     }
                     break;
+
                 case ModMessageType.ScaleMessage:
 
                     int identity3 = reader.ReadInt32();
@@ -809,6 +804,7 @@ namespace QwertysRandomContent
                         packet.Send();
                     }
                     break;
+
                 case ModMessageType.UpdateClassBools:
                     int identity4 = reader.ReadInt32();
                     byte owner4 = reader.ReadByte();
@@ -828,6 +824,7 @@ namespace QwertysRandomContent
                         UpdateProjectileClass(Main.projectile[realIdentity4]);
                     }
                     break;
+
                 case ModMessageType.UpdateLocalCursor:
                     byte playerIndex = reader.ReadByte();
                     Vector2 Cursor = reader.ReadVector2();
@@ -842,6 +839,7 @@ namespace QwertysRandomContent
                         packet.Send();
                     }
                     break;
+
                 case ModMessageType.UpdatePlayerVelocity:
                     byte playerIndex2 = reader.ReadByte();
                     Vector2 vel = reader.ReadVector2();
@@ -853,6 +851,7 @@ namespace QwertysRandomContent
                         NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, playerIndex2);
                     }
                     break;
+
                 case ModMessageType.UpdatePlayerPosition:
                     byte playerIndex3 = reader.ReadByte();
                     Vector2 pos = reader.ReadVector2();
@@ -863,9 +862,9 @@ namespace QwertysRandomContent
                     {
                         UpdatePlayerPosition(playerIndex3, pos);
                         NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, playerIndex3);
-
                     }
                     break;
+
                 case ModMessageType.ProjectileAIUpdate:
                     int identity6 = reader.ReadInt32();
                     byte owner6 = reader.ReadByte();
@@ -883,11 +882,13 @@ namespace QwertysRandomContent
                     }
 
                     break;
+
                 case ModMessageType.DivineCall:
                     QwertyWorld.FortressBossQuotes();
                     Vector2 summonAt = reader.ReadVector2();
                     int npcID = NPC.NewNPC((int)summonAt.X, (int)summonAt.Y, NPCType("FortressBoss"));
                     break;
+
                 case ModMessageType.StartDinoEvent:
                     QwertyWorld.DinoEvent = true;
                     QwertyWorld.DinoKillCount = 0;
@@ -897,10 +898,11 @@ namespace QwertysRandomContent
                     }
 
                     break;
+
                 case ModMessageType.SummonBoss:
                     Vector2 sumonerLocation = reader.ReadVector2();
                     int type = reader.ReadInt32();
-                    int num7 =  NPC.NewNPC((int)sumonerLocation.X, (int)sumonerLocation.Y - 2000, type);
+                    int num7 = NPC.NewNPC((int)sumonerLocation.X, (int)sumonerLocation.Y - 2000, type);
                     if (Main.netMode == 2)
                     {
                         NetMessage.BroadcastChatMessage(NetworkText.FromKey("Announcement.HasAwoken", new object[]
@@ -909,7 +911,6 @@ namespace QwertysRandomContent
                         }), new Color(175, 75, 255), -1);
                     }
                     break;
-
             }
         }
 
@@ -932,7 +933,6 @@ namespace QwertysRandomContent
 
         public void DrawDinoEvent(SpriteBatch spriteBatch)
         {
-
             if (QwertyWorld.DinoEvent && !Main.gameMenu)
             {
                 float scaleMultiplier = 0.5f + 1 * 0.5f;
@@ -965,7 +965,6 @@ namespace QwertysRandomContent
 
                     if (QwertyWorld.DinoKillCount == 0)
                     {
-
                     }
                     // Main.NewText(MathHelper.Clamp((modWorld.DinoKillCount/modWorld.MaxDinoKillCount), 0f, 1f));
                     Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(waveBackground.X + waveBackground.Width * 0.5f, waveBackground.Y + waveBackground.Height * 0.75f), new Vector2(progressColor.Width, progressColor.Height));
@@ -999,9 +998,9 @@ namespace QwertysRandomContent
                 }
             }
         }
+
         public static void UpdateProjectileClass(Projectile projectile)
         {
-
             ModPacket packet = Instance.GetPacket();
             packet.Write((byte)ModMessageType.UpdateClassBools); // Message type, you would need to create an enum for this
             packet.Write(projectile.identity); // tells which projectile is being modified by the effect, the effect is then applied on the receiving end
@@ -1015,8 +1014,8 @@ namespace QwertysRandomContent
             flags[5] = projectile.GetGlobalProjectile<MorphProjectile>().morph;
             packet.Write(flags);
             packet.Send();
-
         }
+
         public static void UpdatePlayerVelocity(int playerIndex, Vector2 velocity)
         {
             ModPacket packet = Instance.GetPacket();
@@ -1025,6 +1024,7 @@ namespace QwertysRandomContent
             packet.WriteVector2(velocity);
             packet.Send();
         }
+
         public static void UpdatePlayerPosition(int playerIndex, Vector2 position)
         {
             ModPacket packet = Instance.GetPacket();
@@ -1033,6 +1033,7 @@ namespace QwertysRandomContent
             packet.WriteVector2(position);
             packet.Send();
         }
+
         public static void ProjectileAIUpdate(Projectile projectile)
         {
             ModPacket packet = Instance.GetPacket();
@@ -1043,9 +1044,9 @@ namespace QwertysRandomContent
             packet.Write(projectile.ai[1]);
             packet.Send();
         }
-
     }
-    enum ModMessageType : byte
+
+    internal enum ModMessageType : byte
     {
         ArrowMessage,
         FinnedRandomSwimMessage,
@@ -1059,8 +1060,8 @@ namespace QwertysRandomContent
         DivineCall,
         StartDinoEvent,
         SummonBoss
-
     }
+
     public class CaeliteGreavesMale : EquipTexture
     {
     }
@@ -1072,6 +1073,7 @@ namespace QwertysRandomContent
             return false;
         }
     }
+
     public class TwistedDarkLegs : EquipTexture
     {
     }
@@ -1083,13 +1085,12 @@ namespace QwertysRandomContent
             return false;
         }
     }
+
     public class RhuthiniumGreavesMale : EquipTexture
     {
-
     }
 
     public class RhuthiniumGreavesFemale : EquipTexture
     {
-
     }
 }

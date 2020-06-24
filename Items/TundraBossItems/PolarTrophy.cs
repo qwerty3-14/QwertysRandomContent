@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
 {
@@ -11,7 +6,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
     {
         public override void SetDefaults()
         {
-
             item.width = 32;
             item.height = 32;
             item.maxStack = 99;
@@ -31,6 +25,5 @@ namespace QwertysRandomContent.Items.TundraBossItems
             DisplayName.SetDefault("Polar Exterminator Trophy");
             Tooltip.SetDefault("");
         }
-
     }
 }

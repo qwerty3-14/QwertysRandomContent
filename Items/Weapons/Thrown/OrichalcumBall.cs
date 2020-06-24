@@ -12,15 +12,15 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
         {
             DisplayName.SetDefault("Orichalcum Ball");
             Tooltip.SetDefault("Behold! The terrifying power of bouncy balls!!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 45;
             item.crit = 20;
-            item.thrown = true;
+            item.melee = true;
             item.knockBack = 0;
-            item.value = 60;
+            item.value = Item.sellPrice(gold: 2);
             item.rare = 3;
             item.width = 8;
             item.height = 8;
@@ -28,33 +28,29 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             item.shootSpeed = 12f;
             item.useTime = 21;
             item.useAnimation = 21;
-            item.consumable = true;
             item.shoot = mod.ProjectileType("OrichalcumBallP");
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.maxStack = 999;
             item.autoReuse = true;
-
-
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.OrichalcumBar, 1);
+            recipe.AddIngredient(ItemID.OrichalcumBar, 12);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this, 333);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }
+
     public class OrichalcumBallP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Orichalcum Ball");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -63,15 +59,14 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.height = 8;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.thrown = true;
-
+            projectile.melee = true;
 
             projectile.tileCollide = true;
-
-
         }
+
         public int bounceCount;
         public int spinDirection = 1;
+
         public override void AI()
         {
             projectile.rotation += (float)Math.PI / 30 * spinDirection;
@@ -80,6 +75,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
                 projectile.Kill();
             }
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             bounceCount++;
@@ -94,6 +90,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             }
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             bounceCount++;
@@ -102,14 +99,5 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.velocity.Y = -projectile.velocity.Y;
             spinDirection *= -1;
         }
-
-
-
-
-
-
-
     }
-
 }
-

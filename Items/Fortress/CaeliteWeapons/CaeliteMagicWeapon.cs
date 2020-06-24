@@ -12,36 +12,33 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
             DisplayName.SetDefault("Restless Sun");
             Tooltip.SetDefault("Blessed by higher beings this weapon excels in large open areas!");
-
         }
+
         public override void SetDefaults()
         {
-            item.damage = 20;
+            item.damage = 18;
             item.magic = true;
             item.knockBack = 1;
-            item.value = 50;
+            item.value = 50000;
             item.rare = 3;
             item.width = 24;
             item.height = 28;
             item.useStyle = 5;
             item.shootSpeed = 12f;
-            item.useTime = 24;
-            item.useAnimation = 24;
+            item.useTime = 34;
+            item.useAnimation = 34;
             item.mana = 11;
             item.shoot = mod.ProjectileType("CaeliteMagicProjectile");
             item.noUseGraphic = false;
             item.noMelee = true;
             item.UseSound = SoundID.Item21;
             item.autoReuse = true;
-
-
-
         }
 
-        float direction;
+        private float direction;
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             int rng = Main.rand.Next(100);
             if (rng == 0)
             {
@@ -52,7 +49,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 {
                     direction = (new Vector2(speedX, speedY).ToRotation() - (spread / 2)) + (spread * ((float)p / (float)numberOfProjectiles));
                     Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
-
                 }
             }
             else if (rng < 10)
@@ -62,7 +58,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
                 direction = (new Vector2(speedX, speedY).ToRotation() + (float)Math.PI / 6);
                 Projectile.NewProjectile(position, QwertyMethods.PolarVector(speed, direction), type, damage, knockBack, player.whoAmI);
-
             }
             else
             {
@@ -70,6 +65,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             }
             return false;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -84,9 +80,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             public override void SetStaticDefaults()
             {
                 DisplayName.SetDefault("RestlessSun");
-
-
             }
+
             public override void SetDefaults()
             {
                 projectile.aiStyle = 0;
@@ -101,10 +96,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.localNPCHitCooldown = 30;
                 projectile.tileCollide = true;
                 projectile.light = 1f;
-
             }
 
-            float outOfPhaseHeight;
+            private float outOfPhaseHeight;
+
             public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
             {
                 if (Main.rand.Next(10) == 0)
@@ -114,15 +109,16 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.localNPCImmunity[target.whoAmI] = -1;
                 //target.immune[projectile.owner] = 0;
             }
-            NPC target;
-            NPC possibleTarget;
-            bool foundTarget;
-            float maxDistance = 10000f;
-            float distance;
-            int timer;
-            float speed = 24;
-            bool runOnce = true;
-            float direction;
+
+            private NPC target;
+            private NPC possibleTarget;
+            private bool foundTarget;
+            private float maxDistance = 10000f;
+            private float distance;
+            private int timer;
+            private float speed = 24;
+            private bool runOnce = true;
+            private float direction;
 
             public override void AI()
             {
@@ -151,24 +147,14 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"));
                 projectile.rotation += (float)Math.PI / 7.5f;
             }
+
             public override void Kill(int timeLeft)
             {
                 for (int i = 0; i < 6; i++)
                 {
-
                     Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
-
-
                 }
             }
-
-
-
-
-
-
         }
-
     }
 }
-

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.NPCs
 {
     public class Triceratank : ModNPC
@@ -18,7 +19,7 @@ namespace QwertysRandomContent.NPCs
             npc.width = 195;
             npc.height = 98;
 
-            npc.damage = 200;
+            npc.damage = 100;
             npc.defense = 40;
             npc.lifeMax = 2000;
 
@@ -38,7 +39,6 @@ namespace QwertysRandomContent.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (QwertyWorld.DinoEvent)
             {
                 return 35f;
@@ -47,12 +47,10 @@ namespace QwertysRandomContent.NPCs
             {
                 return 0f;
             }
-
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-
             for (int i = 0; i < 10; i++)
             {
                 int dustType = mod.DustType("DinoSkin2");
@@ -64,14 +62,9 @@ namespace QwertysRandomContent.NPCs
             }
         }
 
-
         public int AI_Timer = 0;
         public int damage = 30;
         public int walkTime = 300;
-
-
-
-
 
         public override void AI()
         {
@@ -80,24 +73,16 @@ namespace QwertysRandomContent.NPCs
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
 
-
             if (AI_Timer > walkTime)
             {
-
-
                 //Projectile.NewProjectile(npc.Center.X+(78f*npc.direction), npc.Center.Y-34f, 1f*npc.direction, 0, 102, damage, 3f, Main.myPlayer);
                 if (Main.netMode != 1)
                 {
                     Projectile.NewProjectile(npc.Center.X + (78f * npc.direction), npc.Center.Y - 34f, 10f * npc.direction, 0, mod.ProjectileType("TankCannonBall"), damage, 3f, Main.myPlayer);
-
                 }
 
                 AI_Timer = 0;
-
-
             }
-
-
         }
 
         public override void FindFrame(int frameHeight)
@@ -126,6 +111,7 @@ namespace QwertysRandomContent.NPCs
                 npc.frameCounter = 0;
             }
         }
+
         public override void NPCLoot()
         {
             QwertyWorld.DinoKillCount += 5;
@@ -153,22 +139,16 @@ namespace QwertysRandomContent.NPCs
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Tricerashield"));
                 }
             }
-
-
-
-
-
-
         }
     }
+
     public class TankCannonBall : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Triceratank's cannon");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -180,9 +160,8 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.tileCollide = true;
-
-
         }
+
         public bool runOnce = true;
 
         public override void AI()
@@ -207,6 +186,7 @@ namespace QwertysRandomContent.NPCs
                 runOnce = false;
             }
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
@@ -231,16 +211,15 @@ namespace QwertysRandomContent.NPCs
                 Main.dust[dustIndex].velocity *= 3f;
             }
         }
-
     }
+
     public class TankCannonBallExplosion : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tank Cannon Ball Explosion");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -253,14 +232,11 @@ namespace QwertysRandomContent.NPCs
 
             projectile.tileCollide = false;
             projectile.timeLeft = 2;
-
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
 }

@@ -16,50 +16,44 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gale Swiftplate");
-            Tooltip.SetDefault("+10% chance to dodge an attack" + "\n+15% thrown critical strike chance and velocity" + "\n20% chance not to consume thrown items" + "\nAllows you to cling to walls" + "\nThrowing damage increased by 25% while clinging to walls");
-
-
+            Tooltip.SetDefault("+10% chance to dodge an attack" + "\n+10% critical strike chance" + "\nAllows you to cling to walls" + "\nDamage increased by 20% while clinging to walls");
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = Item.sellPrice(0, 0, 75, 0);
             item.rare = 4;
             item.defense = 2;
             //item.vanity = true;
             item.width = 20;
             item.height = 20;
-
-
-
-
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-
             return head.type == mod.ItemType("GaleSwiftHelm") && legs.type == mod.ItemType("GaleSwiftRobes");
-
         }
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.GaleSet");
             player.GetModPlayer<GaleSetBonus>().setBonus = true;
         }
+
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<QwertyPlayer>().dodgeChance += 10;
-            player.thrownCrit += 15;
-            player.thrownVelocity += .15f;
-            player.GetModPlayer<QwertyPlayer>().throwReduction *= .8f;
+            player.thrownCrit += 10;
+            player.meleeCrit += 10;
+            player.rangedCrit += 10;
+            player.magicCrit += 10;
             player.spikedBoots = 2;
             if (player.sliding)
             {
-                //Main.NewText("Sliding");
-                player.thrownDamage += .25f;
+                player.allDamage += .2f;
             }
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -69,21 +63,15 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
-
     }
+
     public class GaleKnife : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gale Knife");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -97,48 +85,36 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
             //projectile.tileCollide = false;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
-            projectile.thrown = true;
-
+            projectile.minion = true;
         }
 
         public int dustTimer;
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
-
-
     }
+
     public class GaleSetBonus : ModPlayer
     {
         public bool setBonus = false;
         public Vector3[,] orb = new Vector3[10, Main.player.Length];
-        bool runOnce = true;
+        private bool runOnce = true;
+
         public override void Initialize()
         {
-            /*
-            if (Main.netMode == 1)
-            {
-                Main.NewText("client: " + "Hello");
-            }
-
-
-            if (Main.netMode == 2) // Server
-            {
-                NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + "Hello"), Color.White);
-            }
-            */
-
-
-
         }
+
         public override void ResetEffects()
         {
             setBonus = false;
         }
+
         public float counter = 0;
         public int timer;
+
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
         {
             for (int b = 0; b < 10; b++)
@@ -149,15 +125,15 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                 }
             }
         }
+
         public int rightclickTimer;
-        bool resetRTimer;
-        int orbFrameCounter;
+        private bool resetRTimer;
+        private int orbFrameCounter;
+
         public override void PreUpdate()
         {
-
             if (runOnce)
             {
-
                 for (int b = 0; b < 10; b++)
                 {
                     orb[b, player.whoAmI] = new Vector3(0, 2 * (float)Math.PI * (b / (float)10), 0);
@@ -183,8 +159,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
             {
                 if (Main.mouseRight && Main.mouseRightRelease)
                 {
-
-
                     if (rightclickTimer > 0)
                     {
                         for (int b = 0; b < 10; b++)
@@ -195,13 +169,12 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                                 Position.X += (float)Math.Sin(orb[b, player.whoAmI].Y) * 50;
                                 Position.Y += (float)Math.Sin(orb[b, player.whoAmI].Y) * 50 * (float)Math.Sin(counter);
                                 float speed = 10;
-                                Projectile.NewProjectile(Position, (Main.MouseWorld - Position).SafeNormalize(-Vector2.UnitY) * speed * player.thrownVelocity, mod.ProjectileType("GaleKnife"), (int)(75f * player.thrownDamage), 3f, player.whoAmI);
+                                Projectile.NewProjectile(Position, (Main.MouseWorld - Position).SafeNormalize(-Vector2.UnitY) * speed * player.thrownVelocity, mod.ProjectileType("GaleKnife"), (int)(75f * player.minionDamage), 3f, player.whoAmI);
                                 orb[b, player.whoAmI].X = 0;
                             }
                         }
                         //Main.NewText("Double tap!");
                         rightclickTimer = 0;
-
                     }
                 }
                 if (rightclickTimer > 0)
@@ -244,7 +217,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                     Main.NewText("client: " + "Hello");
                 }
 
-
                 if (Main.netMode == 2) // Server
                 {
                     NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + "Hello"), Color.White);
@@ -254,7 +226,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                 //orb[b].Z = orb[b].Y ;
                 if (orb[b, player.whoAmI].X != 0)
                 {
-
                     if ((float)Math.Cos(orb[b, player.whoAmI].Y) < 0)
                     {
                         orb[b, player.whoAmI].X = 1;
@@ -266,9 +237,8 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                 }
             }
             //Main.NewText(orb[0].Y);
-
-
         }
+
         public PlayerLayer GaleOrb = new PlayerLayer("QwertysRandomContent", "GaleOrb", PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
        {
            if (drawInfo.shadow != 0f)
@@ -280,7 +250,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
            Mod mod = ModLoader.GetMod("QwertysRandomContent");
 
            Texture2D texture = mod.GetTexture("Items/Fortress/GaleArmor/GaleOrb");
-
 
            for (int b = 0; b < 10; b++)
            {
@@ -300,8 +269,8 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                    Main.playerDrawData.Add(data);
                }
            }
-
        });
+
         public PlayerLayer GaleOrbBack = new PlayerLayer("QwertysRandomContent", "GaleOrbBack", PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -313,7 +282,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
 
             Texture2D texture = mod.GetTexture("Items/Fortress/GaleArmor/GaleOrb");
-
 
             for (int b = 0; b < 10; b++)
             {
@@ -333,7 +301,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                     Main.playerDrawData.Add(data);
                 }
             }
-
         });
 
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
@@ -350,11 +317,6 @@ namespace QwertysRandomContent.Items.Fortress.GaleArmor
                 GaleOrbBack.visible = true;
                 layers.Insert(0, GaleOrbBack);
             }
-
-
         }
     }
-
-
 }
-

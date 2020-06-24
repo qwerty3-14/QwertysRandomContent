@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent
 {
-    class WhereAmI : ModCommand
+    internal class WhereAmI : ModCommand
     {
         public override CommandType Type
         {
@@ -24,7 +24,6 @@ namespace QwertysRandomContent
         {
             Main.NewText("Entity coordinates: " + Main.player[Main.myPlayer].Center);
             Main.NewText("Tile coordinates: " + Main.player[Main.myPlayer].Center.ToTileCoordinates());
-
         }
     }
 }

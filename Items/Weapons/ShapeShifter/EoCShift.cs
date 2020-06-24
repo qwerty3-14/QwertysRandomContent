@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 {
     public class EoCShift : ModItem
@@ -13,13 +12,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             DisplayName.SetDefault("Shape Shift: Cthulhu's Stare");
             Tooltip.SetDefault("Breifly turns you into the eye of cthulhu charging toward where you point");
-
-
         }
+
         public const int dmg = 200;
         public const int crt = 0;
         public const float kb = 9f;
         public const int def = -1;
+
         public override void SetDefaults()
         {
             item.damage = dmg;
@@ -46,15 +45,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.shoot = mod.ProjectileType("EoCMorph");
             item.shootSpeed = 13f;
             item.channel = true;
-
-
-
-
         }
 
         public override bool CanUseItem(Player player)
         {
-
             for (int i = 0; i < 1000; ++i)
             {
                 if ((Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot) || player.HasBuff(mod.BuffType("MorphCooldown")))
@@ -68,6 +62,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             return true;
         }
     }
+
     public class EoCMorph : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -77,6 +72,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -91,8 +87,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.timeLeft = 60;
             projectile.usesLocalNPCImmunity = true;
             projectile.extraUpdates = 1;
-
         }
+
         public override void AI()
         {
             projectile.frameCounter++;
@@ -111,6 +107,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.statDefense = 0;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (Main.player[projectile.owner].Center.X < target.Center.X)
@@ -121,18 +118,16 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             {
                 hitDirection = -1;
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
             for (int k = 0; k < projectile.oldPos.Length; k++)
             {
@@ -143,6 +138,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             return true;
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             for (int k = 0; k < 200; k++)
@@ -159,15 +155,16 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
             return false;
         }
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             width = height = 10;
             return true;
         }
     }
+
     public class EoCBagDrop : GlobalItem
     {
-
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
             if (context == "bossBag" && arg == ItemID.EyeOfCthulhuBossBag && Main.rand.Next(4) == 0)
@@ -176,6 +173,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+
     public class EoCDrop : GlobalNPC
     {
         public override void NPCLoot(NPC npc)
@@ -186,7 +184,4 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
-
-
 }
-

@@ -31,28 +31,35 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             npc.noGravity = false;
             music = MusicID.Boss5;
             bossBag = mod.ItemType("TundraBossBag");
-
         }
-        const int IdleFrame = 4;
-        const int JumpFrame = 1;
-        const int AboutToJumpFrame = 0;
-        const int ShootSliderFrame = 3;
-        const int ShootFlierFrame = 2;
+
+        private const int IdleFrame = 4;
+        private const int JumpFrame = 1;
+        private const int AboutToJumpFrame = 0;
+        private const int ShootSliderFrame = 3;
+        private const int ShootFlierFrame = 2;
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.damage = 60;
             npc.lifeMax = (int)(2400 * bossLifeScale);
-
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             return 0f;
         }
+
         public override void NPCLoot()
         {
-            QwertyWorld.downedBear = true;
-            if (Main.netMode == NetmodeID.Server)
-                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            if (!QwertyWorld.downedBear)
+            {
+                QwertyWorld.downedBear = true;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
+                }
+            }
             if (Main.expertMode)
             {
                 npc.DropBossBags();
@@ -63,34 +70,36 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PolarMask"));
                 }
-                    
+
                 switch (Main.rand.Next(3))
                 {
                     case 0:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PenguinClub"));
                         break;
+
                     case 1:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PenguinLauncher"));
                         break;
+
                     case 2:
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PenguinWhistle"));
                         break;
-
                 }
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemID.Penguin, Main.rand.Next(35, 61));
             }
-            if (Main.rand.Next(0, 10)==0)
+            if (Main.rand.Next(0, 10) == 0)
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PolarTrophy"));
             }
-
         }
-        int timer;
-        int attackDelay = 60;
-        int resetAttacks = 360;
-        int attackCounter;
-        bool landed;
-        int frame = 4;
+
+        private int timer;
+        private int attackDelay = 60;
+        private int resetAttacks = 360;
+        private int attackCounter;
+        private bool landed;
+        private int frame = 4;
+
         public override void AI()
         {
             npc.TargetClosest(true);
@@ -98,7 +107,6 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
             if (!player.active || player.dead)
             {
-
                 npc.TargetClosest(false);
                 player = Main.player[npc.target];
 
@@ -114,14 +122,12 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     }
                     return;
                 }
-
             }
             else
             {
                 timer++;
                 if (timer > resetAttacks)
                 {
-
                     npc.velocity.X = 10 * npc.direction;
                     npc.velocity.Y = -10;
                     landed = false;
@@ -152,7 +158,6 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                             attackCounter++;
                             if (Main.netMode != 1)
                             {
-
                                 NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y + 14, mod.NPCType("SlidingPenguin"), ai0: npc.direction);
                             }
                             Main.PlaySound(SoundID.Item11, npc.position);
@@ -160,7 +165,6 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                             {
                                 Dust.NewDustPerfect(new Vector2((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y + 14), DustID.Ice, new Vector2(npc.direction * (2 + Main.rand.NextFloat() * 2f), 0).RotatedByRandom(Math.PI / 8));
                             }
-
                         }
                     }
                     else if (npc.ai[0] == 1)
@@ -174,7 +178,6 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                                 if (Main.netMode != 1)
                                 {
                                     NPC.NewNPC((int)npc.Center.X + 34 * npc.direction, (int)npc.Center.Y, mod.NPCType("FlyingPenguin"), 0, i);
-
                                 }
                                 Main.PlaySound(SoundID.Item11, npc.position);
                             }
@@ -204,7 +207,6 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     Main.NewText("client: " + timer);
                 }
 
-
                 if (Main.netMode == 2) // Server
                 {
                     NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + timer), Color.Black);
@@ -212,17 +214,19 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                 */
                 //Main.NewText(npc.collideY);
             }
-
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
             npc.spriteDirection = npc.direction;
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(timer);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             timer = reader.ReadInt32();

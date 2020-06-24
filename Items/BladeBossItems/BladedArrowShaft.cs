@@ -7,10 +7,12 @@ namespace QwertysRandomContent.Items.BladeBossItems
     public class BladedArrowShaft : ModItem
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Used to craft a powerful arrow!");
         }
+
         public override void SetDefaults()
         {
             item.rare = 7;

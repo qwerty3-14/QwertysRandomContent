@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Titanium Bullet");
             Tooltip.SetDefault("Takes its time to build up speed but hits hard");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 30;
@@ -30,8 +30,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("TitaniumBulletP");
             item.ammo = 97;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -42,16 +40,15 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.SetResult(this, 100);
             recipe.AddRecipe();
         }
-
     }
+
     public class TitaniumBulletP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanium Bullet");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 0;
@@ -61,14 +58,12 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.friendly = true;
             projectile.penetrate = 1;
             projectile.ranged = true;
-
-
-
-
         }
+
         public bool runOnce = true;
         public float targetRotation;
         public float speed = .1f;
+
         public override void AI()
         {
             if (runOnce)
@@ -85,14 +80,9 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.rotation += MathHelper.ToRadians(speed * 10);
         }
 
-
-
-
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
-
-
 }
-

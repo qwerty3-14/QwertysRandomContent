@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
 {
     [AutoloadEquip(EquipType.Head)]
@@ -9,48 +10,29 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Helm");
-            Tooltip.SetDefault("Enemies killed by thrown or magic attacks drop more money!" + "\n+3 recovery");
-
+            Tooltip.SetDefault("Enemies killed by melee or magic attacks drop more money!" + "\n+3 recovery");
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = 30000;
             item.rare = 3;
-
 
             item.width = 22;
 
             item.defense = 6;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
-
-
             player.GetModPlayer<CaeliteHelmEffect>().hasEffect = true;
             player.GetModPlayer<QwertyPlayer>().recovery += 2;
-
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawHair = false;
-
         }
-
-
-
-
-
-
-
-
-
 
         public override void AddRecipes()
         {
@@ -61,27 +43,23 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteArmor
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
+
     public class CaeliteHelmEffect : ModPlayer
     {
         public bool hasEffect;
+
         public override void ResetEffects()
         {
             hasEffect = false;
         }
+
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (damage > target.life && (proj.magic || proj.thrown))
+            if (damage > target.life && (proj.magic || proj.melee))
             {
                 target.value *= 2;
             }
         }
-
-
     }
-
-
 }
-

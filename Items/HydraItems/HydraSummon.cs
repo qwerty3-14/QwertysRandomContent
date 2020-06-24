@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.HydraItems
 {
-
     public class HydraSummon : ModItem
     {
         public override void SetStaticDefaults()
@@ -26,7 +25,6 @@ namespace QwertysRandomContent.Items.HydraItems
             item.UseSound = SoundID.Item44;
             item.consumable = true;
         }
-
 
         public override bool CanUseItem(Player player)
         {
@@ -50,7 +48,5 @@ namespace QwertysRandomContent.Items.HydraItems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

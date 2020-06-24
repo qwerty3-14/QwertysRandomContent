@@ -14,6 +14,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             DisplayName.SetDefault("Cactum");
             Tooltip.SetDefault("Rapidly shoots high velocity cactus needles");
         }
+
         public override void SetDefaults()
         {
             item.width = 36;
@@ -35,10 +36,12 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             item.noMelee = true;
             item.autoReuse = true;
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-8, 0);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -56,6 +59,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             DisplayName.SetDefault("Cactus Needle");
             Tooltip.SetDefault("Sticks to enemies dealing stacking DOT");
         }
+
         public override void SetDefaults()
         {
             item.ammo = mod.ItemType("CactusNeedle");
@@ -65,6 +69,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             item.maxStack = 999;
             item.consumable = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -74,6 +79,7 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             recipe.AddRecipe();
         }
     }
+
     public class CactusNeedleP : ModProjectile
     {
         public override void SetDefaults()
@@ -89,7 +95,8 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 1;
         }
 
-        int npcIndex = -1;
+        private int npcIndex = -1;
+
         public override void AI()
         {
             if (projectile.ai[0] == 1)
@@ -133,13 +140,11 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
             {
                 projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
             }
-
-
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit,
             ref int hitDirection)
         {
-
             projectile.ai[0] = 1;
             projectile.ai[1] = target.whoAmI; // Set the target whoAmI
             projectile.velocity =
@@ -191,12 +196,11 @@ namespace QwertysRandomContent.Items.Weapons.Cactus
                 Main.projectile[stickingJavelins[oldJavelinIndex].X].Kill();
             }
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-
-
         }
     }
 }

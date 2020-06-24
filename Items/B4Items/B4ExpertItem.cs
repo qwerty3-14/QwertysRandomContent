@@ -12,12 +12,10 @@ namespace QwertysRandomContent.Items.B4Items
             DisplayName.SetDefault("Soul Rod");
             Tooltip.SetDefault("Moves you toward your cursor when used");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.width = 40;
             item.height = 40;
             item.maxStack = 1;
@@ -31,6 +29,7 @@ namespace QwertysRandomContent.Items.B4Items
             item.useTime = 2;
             item.autoReuse = true;
         }
+
         public override bool UseItem(Player player)
         {
             float direction = (Main.MouseWorld - player.Center).ToRotation();
@@ -38,17 +37,11 @@ namespace QwertysRandomContent.Items.B4Items
             player.armorEffectDrawShadow = true;
             player.direction = Main.MouseWorld.X > player.Center.X ? 1 : -1;
 
-
             player.velocity = new Vector2((float)Math.Cos(direction), (float)Math.Sin(direction)) * distance / 10;
 
             int dust = Dust.NewDust(player.position, player.width, player.height, mod.DustType("B4PDust"), 0, 0);
             player.noFallDmg = true;
             return true;
         }
-
-
-
-
-
     }
 }

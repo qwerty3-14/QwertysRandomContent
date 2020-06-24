@@ -5,7 +5,6 @@ namespace QwertysRandomContent.Buffs
 {
     public class VarguleMight : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Vargule Might");
@@ -18,10 +17,7 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
             player.meleeDamage += .3f;
         }
-
-
     }
 }

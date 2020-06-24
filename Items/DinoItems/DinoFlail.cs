@@ -14,6 +14,7 @@ namespace QwertysRandomContent.Items.DinoItems
             DisplayName.SetDefault("Ankylosaurus Tail");
             Tooltip.SetDefault("Critical hits stun enemies");
         }
+
         public override void SetDefaults()
         {
             item.damage = 90;
@@ -35,9 +36,8 @@ namespace QwertysRandomContent.Items.DinoItems
             item.shoot = mod.ProjectileType("AnkylosaurusTail");
             item.shootSpeed = 15f;
         }
-
-
     }
+
     public class AnkylosaurusTail : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -46,6 +46,7 @@ namespace QwertysRandomContent.Items.DinoItems
             ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 34;
@@ -57,6 +58,7 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.penetrate = -1;
             //projectile.extraUpdates = 1;
         }
+
         public override void AI()
         {
             //copied from vanilla flail AI
@@ -169,9 +171,8 @@ namespace QwertysRandomContent.Items.DinoItems
 
             projectile.rotation = (float)Math.Atan2((double)num205, (double)num204) - projectile.velocity.X * 0.1f;
             return;
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (!target.boss && crit)
@@ -179,6 +180,7 @@ namespace QwertysRandomContent.Items.DinoItems
                 target.AddBuff(mod.BuffType("Stunned"), 240);
             }
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             bool flag11 = false;
@@ -213,9 +215,9 @@ namespace QwertysRandomContent.Items.DinoItems
             }
             return false;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
             Vector2 center = projectile.Center;
             Vector2 distToProj = playerCenter - projectile.Center;
@@ -243,4 +245,3 @@ namespace QwertysRandomContent.Items.DinoItems
         }
     }
 }
-

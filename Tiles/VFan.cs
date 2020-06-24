@@ -39,18 +39,19 @@ namespace QwertysRandomContent.Tiles
             disableSmartCursor = true;
             //adjTiles = new int[]{ TileID.Chairs };
             animationFrameHeight = 20;
-
         }
+
         public override bool CanPlace(int i, int j)
         {
             return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j - 1].active() || Main.tile[i + 1, j + 1].active() || Main.tile[i - 1, j + 1].active() || Main.tile[i, j + 2].active();
         }
+
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
         }
-        //public bool blowing;
 
+        //public bool blowing;
 
         //public int counter;
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
@@ -66,8 +67,6 @@ namespace QwertysRandomContent.Tiles
             }
             FanE FanE = (FanE)TileEntity.ByID[index];
             */
-
-
         }
 
         public override void HitWire(int i, int j)
@@ -98,7 +97,6 @@ namespace QwertysRandomContent.Tiles
             VfanE.switchBlow = true;
         }
 
-
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -106,7 +104,6 @@ namespace QwertysRandomContent.Tiles
             player.showItemIcon = true;
             player.showItemIcon2 = mod.ItemType("Fan");
         }
-
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
@@ -124,17 +121,19 @@ namespace QwertysRandomContent.Tiles
             VfanE.Kill(i, j);
         }
     }
+
     public class VFanE : ModTileEntity
     {
-
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
             return tile.active();
         }
+
         public int frameTimer;
         public bool blowing;
         public bool switchBlow;
+
         public override void Update()
         {
             //Main.tile[Position.X + 1, Position.Y].frameX =(short)( Main.tile[Position.X, Position.Y].frameX +18);
@@ -196,9 +195,7 @@ namespace QwertysRandomContent.Tiles
                     edge = Position.Y + 1;
                     blowOrigin = new Vector2(Position.X, edge) * 16;
                     // Main.NewText("I'm a big fan of the right!");
-
                 }
-
 
                 //Main.NewText("I'm a big fan!");
 
@@ -262,6 +259,7 @@ namespace QwertysRandomContent.Tiles
             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
             switchBlow = false;
         }
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
             //Main.NewText("I'm a big fan!");

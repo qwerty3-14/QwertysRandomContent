@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
@@ -15,6 +10,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("No scope scope");
             Tooltip.SetDefault("Very breifly gain 50% ranged damage when turning around");
         }
+
         public override void SetDefaults()
         {
             item.value = 10000;
@@ -23,33 +19,37 @@ namespace QwertysRandomContent.Items.Etims
             item.height = 34;
             item.accessory = true;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<NoScopeEffect>().effect = true;
         }
     }
+
     public class NoScopeEffect : ModPlayer
     {
         public bool effect = false;
-        int flipTime = 0;
-        int previusDirection;
+        private int flipTime = 0;
+        private int previusDirection;
+
         public override void ResetEffects()
         {
             effect = false;
         }
+
         public override void PostUpdateEquips()
         {
-            if(flipTime >0)
+            if (flipTime > 0)
             {
                 flipTime--;
-                if(effect)
+                if (effect)
                 {
                     player.rangedDamage += .5f;
                 }
             }
             else
             {
-                if(previusDirection != player.direction)
+                if (previusDirection != player.direction)
                 {
                     flipTime = 20;
                 }

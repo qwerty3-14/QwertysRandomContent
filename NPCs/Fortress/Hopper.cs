@@ -11,15 +11,14 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class Hopper : ModNPC
     {
-        
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Enchanted Tile");
             Main.npcFrameCount[npc.type] = 4;
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
+
         public override void SetDefaults()
         {
             npc.width = 32;
@@ -41,9 +40,10 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.buffImmune[24] = true;
             banner = npc.type;
             bannerItem = mod.ItemType("HopperBanner");
-            
+
             npc.buffImmune[BuffID.Confused] = false;
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
@@ -57,7 +57,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
                     dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
                 }
-
             }
             for (int i = 0; i < 4; i++)
             {
@@ -68,20 +67,23 @@ namespace QwertysRandomContent.NPCs.Fortress
                 dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
-
         }
+
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return preSetTimer <= 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             return preSetTimer <= 0;
         }
+
         public override void NPCLoot()
         {
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), Main.rand.Next(2, 5));
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
@@ -89,20 +91,21 @@ namespace QwertysRandomContent.NPCs.Fortress
                 return 140f;
             }
             return 0f;
-
         }
-        int frame;
-        int timer;
-        float jumpSpeedY = -10.5f;
-        float jumpSpeedX = 4;
-        float aggroDistance = 400;
-        float aggroDistanceY = 200;
-        bool jump;
-        float gravity = .3f;
-        bool runOnce = true;
-        bool flipped = false;
-        int preSetTimer = 120;
-        bool spawnChildren = false;
+
+        private int frame;
+        private int timer;
+        private float jumpSpeedY = -10.5f;
+        private float jumpSpeedX = 4;
+        private float aggroDistance = 400;
+        private float aggroDistanceY = 200;
+        private bool jump;
+        private float gravity = .3f;
+        private bool runOnce = true;
+        private bool flipped = false;
+        private int preSetTimer = 120;
+        private bool spawnChildren = false;
+
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
@@ -112,14 +115,15 @@ namespace QwertysRandomContent.NPCs.Fortress
                 {
                     case 0:
                         spawnChildren = true;
-                        
+
                         break;
+
                     case 1:
                         Point origin = npc.Center.ToTileCoordinates();
                         Point point;
                         for (int s = 0; s < 200; s++)
                         {
-                            if(npc.Top.ToTileCoordinates().X-10  < 0)
+                            if (npc.Top.ToTileCoordinates().X - 10 < 0)
                             {
                                 break;
                             }
@@ -163,7 +167,7 @@ namespace QwertysRandomContent.NPCs.Fortress
                 float d = Main.rand.NextFloat() * (float)Math.PI * 2;
                 Dust dusty = Dust.NewDustPerfect(npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height)) + QwertyMethods.PolarVector(30f, d + (float)Math.PI), mod.DustType("FortressDust"), QwertyMethods.PolarVector(3f, d), Scale: .5f);
                 dusty.noGravity = true;
-                if(preSetTimer==0 && spawnChildren)
+                if (preSetTimer == 0 && spawnChildren)
                 {
                     int children = Main.rand.Next(3);
                     for (int i = 0; i < children; i++)
@@ -174,8 +178,6 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             else
             {
-
-
                 if (frame == 0)
                 {
                     npc.dontTakeDamage = true;
@@ -200,7 +202,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
                 else
                 {
-
                     npc.rotation = 0f;
                     gravity = .3f;
                     float worldSizeModifier = (float)(Main.maxTilesX / 4200);
@@ -233,7 +234,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                             frame = 3;
                             if (!jump)
                             {
-
                                 if (player.Center.X > npc.Center.X)
                                 {
                                     npc.velocity.X = jumpSpeedX;
@@ -280,10 +280,10 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
             }
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
         }
     }
-
 }

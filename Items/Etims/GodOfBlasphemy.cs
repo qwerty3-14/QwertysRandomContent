@@ -8,7 +8,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Etims
 {
-    
     public class GodOfBlasphemy : ModItem
     {
         public override void SetStaticDefaults()
@@ -16,18 +15,20 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Shape Shifte: God of Blasphemy");
             Tooltip.SetDefault("");
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
         public const int dmg = 48;
         public const int crt = 0;
         public const float kb = 1f;
         public const int def = 13;
+
         public override void SetDefaults()
         {
             item.width = 50;
             item.height = 50;
             item.useTime = 20;
             item.useAnimation = 20;
-            item.useStyle = 1; 
+            item.useStyle = 1;
             item.value = 120000;
             item.rare = 3;
             item.UseSound = SoundID.Item79;
@@ -39,14 +40,13 @@ namespace QwertysRandomContent.Items.Etims
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool CanUseItem(Player player)
         {
-            
-
             return base.CanUseItem(player);
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
@@ -62,6 +62,7 @@ namespace QwertysRandomContent.Items.Etims
             recipe.AddRecipe();
         }
     }
+
     public class GodOfBlasphemyB : ModBuff
     {
         public override void SetDefaults()
@@ -78,11 +79,11 @@ namespace QwertysRandomContent.Items.Etims
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class GodOfBlasphemyShift : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("GodOfBlasphemyB");
             mountData.spawnDust = 15;
 
@@ -129,47 +130,47 @@ namespace QwertysRandomContent.Items.Etims
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-      
+
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<MorphFlightControl>().controlled = true;
-            
         }
-
     }
-    
+
     public class MorphFlightControl : ModPlayer
     {
-        float flySpeed = 6.2f;
-        int shotCooldown = 0;
+        private float flySpeed = 6.2f;
+        private int shotCooldown = 0;
         public bool controlled = false;
+
         public override void ResetEffects()
         {
             controlled = false;
         }
-        float pupilDirection = 0f;
-        float greaterPupilRadius = 18;
-        float lesserPupilRadius = 6;
+
+        private float pupilDirection = 0f;
+        private float greaterPupilRadius = 18;
+        private float lesserPupilRadius = 6;
         public float scale = 1f;
         public Vector2 pupilPosition;
+
         public override void PostUpdateMiscEffects()
         {
-
-            float pupilStareOutAmount = (QwertysRandomContent.LocalCursor[player.whoAmI] - player.Center).Length() / 300f;
-            if (pupilStareOutAmount > 1f)
-            {
-                pupilStareOutAmount = 1f;
-            }
-            scale = 1f + .05f * (float)Math.Sin(player.GetModPlayer<ShapeShifterPlayer>().pulseCounter);
-            pupilDirection = (QwertysRandomContent.LocalCursor[player.whoAmI] - player.Center).ToRotation();
-            pupilPosition = new Vector2((float)Math.Cos(pupilDirection) * greaterPupilRadius * pupilStareOutAmount, (float)Math.Sin(pupilDirection) * lesserPupilRadius) * scale;
             if (controlled)
             {
+                Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
+                float pupilStareOutAmount = (LocalCursor - player.Center).Length() / 300f;
+                if (pupilStareOutAmount > 1f)
+                {
+                    pupilStareOutAmount = 1f;
+                }
+                scale = 1f + .05f * (float)Math.Sin(player.GetModPlayer<ShapeShifterPlayer>().pulseCounter);
+                pupilDirection = (LocalCursor - player.Center).ToRotation();
+                pupilPosition = new Vector2((float)Math.Cos(pupilDirection) * greaterPupilRadius * pupilStareOutAmount, (float)Math.Sin(pupilDirection) * lesserPupilRadius) * scale;
                 player.nightVision = true;
                 player.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy = true;
                 player.noFallDmg = true;
@@ -181,7 +182,7 @@ namespace QwertysRandomContent.Items.Etims
                 player.noItems = true;
                 player.statDefense = GodOfBlasphemy.def + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
                 player.velocity = Vector2.Zero;
-                if(player.controlUp)
+                if (player.controlUp)
                 {
                     player.velocity.Y += -1;
                 }
@@ -204,7 +205,7 @@ namespace QwertysRandomContent.Items.Etims
                 if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
                 {
                     shotCooldown = 20;
-                    Projectile p = Main.projectile[Projectile.NewProjectile(player.Center + pupilPosition, QwertyMethods.PolarVector(10, (QwertysRandomContent.LocalCursor[player.whoAmI]-player.Center).ToRotation()), mod.ProjectileType("EtimsicRayFreindly"), (int)(GodOfBlasphemy.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), GodOfBlasphemy.kb, player.whoAmI)];
+                    Projectile p = Main.projectile[Projectile.NewProjectile(player.Center + pupilPosition, QwertyMethods.PolarVector(10, (LocalCursor - player.Center).ToRotation()), mod.ProjectileType("EtimsicRayFreindly"), (int)(GodOfBlasphemy.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), GodOfBlasphemy.kb, player.whoAmI)];
 
                     Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PewPew").WithVolume(3f).WithPitchVariance(.5f), player.Center);
                 }
@@ -213,17 +214,19 @@ namespace QwertysRandomContent.Items.Etims
                     player.velocity = player.velocity.SafeNormalize(-Vector2.UnitY);
                     player.velocity *= flySpeed;
                 }
-
             }
         }
     }
+
     public class EtimsicRayFreindly : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Etimsic Ray");
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -243,18 +246,16 @@ namespace QwertysRandomContent.Items.Etims
             projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
             projectile.GetGlobalProjectile<Etims>().effect = true;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
             drawCacheProjsOverWiresUI.Add(index);
         }
-
-
     }
-
 }

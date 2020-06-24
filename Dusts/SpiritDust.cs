@@ -13,7 +13,5 @@ namespace QwertysRandomContent.Dusts
             dust.noGravity = true;
             dust.alpha = 100;
         }
-
-
     }
 }

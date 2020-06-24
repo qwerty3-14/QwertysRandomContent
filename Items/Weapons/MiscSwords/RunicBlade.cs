@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.MiscSwords
 {
     public class RunicBlade : ModItem
@@ -13,8 +12,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
         {
             DisplayName.SetDefault("Runic Blade");
             Tooltip.SetDefault("Launches a spread Mini Ice Runes");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 35;
@@ -38,8 +37,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/Weapons/MiscSwords/RunicBlade_Glow");
             }
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSwords/RunicBlade_Glow");
@@ -60,6 +59,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
                 0f
             );
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -70,6 +70,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberProjectiles = 15 + Main.rand.Next(6);
@@ -83,20 +84,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
-
-
-
-
     }
+
     public class MiniIceRune : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 1;
             DisplayName.SetDefault("Mini Ice Rune");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -108,12 +105,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             projectile.melee = true;
             projectile.tileCollide = true;
             projectile.timeLeft = 40;
-
-
-
-
         }
+
         public int dustTimer;
+
         public override void AI()
         {
             //projectile.rotation += (float)((2 * Math.PI) / (Math.PI * 20));
@@ -124,6 +119,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
                 dustTimer = 0;
             }
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 10; d++)
@@ -131,6 +127,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("IceRuneDeath"));
             }
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (projectile.velocity.X != velocityChange.X)
@@ -143,15 +140,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
             }
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 1200);
         }
-
-
-
     }
-
-
 }
-

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 
-
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,8 +12,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Bouncy Arrow");
             Tooltip.SetDefault("BOING");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 6;
@@ -31,8 +30,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("BouncyArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -45,14 +42,14 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.AddRecipe();
         }
     }
+
     public class BouncyArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bouncy Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -63,17 +60,12 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.ranged = true;
             projectile.arrow = true;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public override void AI()
         {
-
-
-
-
-
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             projectile.penetrate--;
@@ -105,15 +97,9 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.velocity.X = -projectile.velocity.X;
             projectile.velocity.Y = -projectile.velocity.Y;
         }
+
         public override void Kill(int timeLeft)
         {
-
-
-
         }
-
-
     }
-
 }
-

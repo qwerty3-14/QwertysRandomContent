@@ -10,10 +10,6 @@ namespace QwertysRandomContent.Dusts
             dust.noGravity = true;
             dust.noLight = false;
             dust.scale = 10f;
-
         }
-
-
-
     }
 }

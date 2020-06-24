@@ -17,6 +17,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -36,6 +37,7 @@ namespace QwertysRandomContent.Tiles
                 Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType("AncientMachineTrophy"));
             }
         }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Main.tile[i, j];

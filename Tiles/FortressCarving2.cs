@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+
 namespace QwertysRandomContent.Tiles
 {
     public class FortressCarving2 : ModTile
@@ -16,6 +17,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -38,13 +40,7 @@ namespace QwertysRandomContent.Tiles
 
             AddMapEntry(new Color(162, 184, 185));
             name.SetDefault("Fortress Carving");
-
-
-
-
-
         }
-
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
@@ -52,22 +48,15 @@ namespace QwertysRandomContent.Tiles
             g = 0.5f;
             b = 0.5f;
         }
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("FortressCarving2"));
-
         }
+
         public override bool CanExplode(int i, int j)
         {
-
-
             return false;
-
-
-
-
         }
-
-
     }
 }

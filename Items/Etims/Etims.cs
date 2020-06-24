@@ -12,7 +12,9 @@ namespace QwertysRandomContent.Items.Etims
             Tooltip.SetDefault("Forged from the blood of those slain by gods!");
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.value = 10000;
@@ -20,7 +22,5 @@ namespace QwertysRandomContent.Items.Etims
             item.maxStack = 999;
             item.rare = 3;
         }
-
-
     }
 }

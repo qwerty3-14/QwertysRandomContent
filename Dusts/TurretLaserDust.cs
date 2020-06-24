@@ -11,7 +11,6 @@ namespace QwertysRandomContent.Dusts
             dust.noGravity = true;
 
             dust.scale = 1f;
-
         }
 
         public override Color? GetAlpha(Dust dust, Color lightColor)

@@ -9,11 +9,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             DisplayName.SetDefault("Aerous");
             Tooltip.SetDefault("The crazy bows are cool and all, but sometimes you just need a fairly normal bow with good stats");
-
         }
+
         public override void SetDefaults()
         {
-            item.damage = 160;
+            item.damage = 120;
             item.ranged = true;
 
             item.useTime = 29;
@@ -26,15 +26,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
             item.width = 26;
             item.height = 40;
-            item.crit = 20;
+            item.crit = 10;
             item.shoot = 40;
             item.useAmmo = 40;
             item.shootSpeed = 12f;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -45,11 +44,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
-
-
-
 }
-

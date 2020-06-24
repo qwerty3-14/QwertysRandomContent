@@ -12,15 +12,16 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Lance");
             Tooltip.SetDefault("Killing enemies builds up a charge. Right click to realease this charge.");
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-            item.damage = 18;
+            item.damage = 22;
             item.useStyle = 5;
-            item.useAnimation = 30;
-            item.useTime = 30;
+            item.useAnimation = 18;
+            item.useTime = 18;
             item.shootSpeed = 3.7f;
             item.knockBack = 6.5f;
             item.width = 70;
@@ -51,8 +52,8 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Lance");
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
@@ -82,7 +83,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         // It appears that for this AI, only the ai0 field is used!
         public override void AI()
         {
-
             // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             // Sadly, Projectile/ModProjectile does not have its own
             Player projOwner = Main.player[projectile.owner];
@@ -101,13 +101,13 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                     movementFactor = 3f; // Make sure the spear moves forward when initially thrown out
                     projectile.netUpdate = true; // Make sure to netUpdate this spear
                 }
-                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3) // Somewhere along the item animation, make sure the spear moves back
+                if (projOwner.itemAnimation < projOwner.itemAnimationMax / 2) // Somewhere along the item animation, make sure the spear moves back
                 {
-                    movementFactor -= 2.4f;
+                    movementFactor -= 4f;
                 }
                 else // Otherwise, increase the movement factor
                 {
-                    movementFactor += 2.1f;
+                    movementFactor += 4f;
                 }
             }
             // Change the spear position based off of the velocity and the movementFactor
@@ -125,9 +125,8 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             {
                 projectile.rotation -= MathHelper.ToRadians(90f);
             }
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             var modPlayer = Main.player[projectile.owner].GetModPlayer<QwertyPlayer>();

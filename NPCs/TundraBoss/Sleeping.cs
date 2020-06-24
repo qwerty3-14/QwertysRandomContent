@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.NPCs.TundraBoss
 {
     public class Sleeping : ModNPC
@@ -23,18 +24,18 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             npc.lifeMax = 200;
             npc.defense = 0;
             npc.noGravity = false;
-
-
-
         }
+
         public override bool CheckActive()
         {
             return false;
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             return 0f;
         }
+
         public override void NPCLoot()
         {
             FrozenDen.activeSleeper = false;
@@ -42,7 +43,9 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                 NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
             NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("PolarBear"));
         }
-        int frame;
+
+        private int frame;
+
         public override void FindFrame(int frameHeight)
         {
             npc.frameCounter++;

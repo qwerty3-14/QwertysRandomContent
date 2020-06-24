@@ -1,12 +1,14 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Consumables
 {
-
     public class DodgePotion : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicPotions ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dodge Potion");
@@ -28,16 +30,12 @@ namespace QwertysRandomContent.Items.Consumables
             item.useTurn = true;
             item.buffType = mod.BuffType("DodgeBuff");
             item.buffTime = 60 * 60 * 10;
-
         }
-
 
         public override bool CanUseItem(Player player)
         {
-
             return true;
         }
-
 
         public override void AddRecipes()
         {
@@ -50,7 +48,5 @@ namespace QwertysRandomContent.Items.Consumables
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

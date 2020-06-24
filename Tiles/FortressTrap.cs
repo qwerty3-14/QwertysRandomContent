@@ -7,11 +7,11 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+
 namespace QwertysRandomContent.Tiles
 {
     public class FortressTrap : ModTile
     {
-
         public override bool Autoload(ref string name, ref string texture)
         {
             if (ModContent.GetInstance<SpriteSettings>().ClassicFortress)
@@ -20,6 +20,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -39,7 +40,6 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
 
-
             dustType = mod.DustType("FortressDust");
             soundType = 21;
             soundStyle = 2;
@@ -47,8 +47,8 @@ namespace QwertysRandomContent.Tiles
             AddMapEntry(new Color(162, 184, 185));
             mineResist = 1;
             drop = mod.ItemType("FortressTrap");
-
         }
+
         public override bool CanPlace(int i, int j)
         {
             return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active(); ;
@@ -58,30 +58,32 @@ namespace QwertysRandomContent.Tiles
         {
             int num248 = 0;
 
-
             switch (Main.tile[i, j].frameX / 18)
             {
                 case 0:
                     num248 = 2;
                     break;
+
                 case 1:
                     num248 = 3;
                     break;
+
                 case 2:
                     num248 = 4;
                     break;
+
                 case 3:
                     num248 = 5;
                     break;
+
                 case 4:
                     num248 = 1;
                     break;
+
                 case 5:
                     num248 = 0;
                     break;
             }
-
-
 
             Main.tile[i, j].frameX = (short)(num248 * 18);
             if (Main.netMode == 1)
@@ -90,6 +92,7 @@ namespace QwertysRandomContent.Tiles
             }
             return false;
         }
+
         public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
         {
             if (Main.player[Main.myPlayer].dangerSense)
@@ -117,6 +120,7 @@ namespace QwertysRandomContent.Tiles
                 }
             }
         }
+
         public override void HitWire(int i, int j)
         {
             if (Wiring.CheckMech(i, j, 60))
@@ -142,16 +146,16 @@ namespace QwertysRandomContent.Tiles
                 Projectile.NewProjectile(new Vector2(i, j) * 16 + new Vector2(8, 8) + velocity.SafeNormalize(-Vector2.UnitY) * 16, velocity, mod.ProjectileType("FortressTrapP"), 18, .5f, Main.myPlayer, 20f);
             }
         }
-
     }
+
     public class FortressTrapP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caleite Pulse");
             Main.projFrames[projectile.type] = 2;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -164,9 +168,10 @@ namespace QwertysRandomContent.Tiles
             projectile.light = .6f;
             projectile.tileCollide = true;
             projectile.alpha = 255;
-
         }
-        int timer = 0;
+
+        private int timer = 0;
+
         public override void AI()
         {
             if (timer == (int)projectile.ai[0])
@@ -176,7 +181,6 @@ namespace QwertysRandomContent.Tiles
             }
             else if (timer > (int)projectile.ai[0])
             {
-
                 if (Main.rand.Next(2) == 0)
                 {
                     Dust dust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
@@ -191,11 +195,11 @@ namespace QwertysRandomContent.Tiles
                     {
                         projectile.frame = 0;
                     }
-
                 }
             }
             timer++;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Tiles/FortressTrapP");
@@ -209,6 +213,7 @@ namespace QwertysRandomContent.Tiles
         {
             target.AddBuff(mod.BuffType("PowerDown"), 1200);
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 1200);

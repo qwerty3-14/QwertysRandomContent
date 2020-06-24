@@ -19,6 +19,7 @@ namespace QwertysRandomContent.Buffs
         {
             player.GetModPlayer<QwertyPlayer>().DinoPox = true;
         }
+
         public override void Update(NPC npc, ref int buffIndex)
         {
             if (npc.lifeRegen > 0)
@@ -27,6 +28,5 @@ namespace QwertysRandomContent.Buffs
             }
             npc.lifeRegen -= 20;
         }
-
     }
 }

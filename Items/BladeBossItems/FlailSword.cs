@@ -6,18 +6,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class FlailSword : ModItem
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Impelial");
             Tooltip.SetDefault("");
-
         }
+
         public override void SetDefaults()
         {
             item.useStyle = 5;
@@ -37,15 +37,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.autoReuse = true;
             item.melee = true;
             item.damage = 75;
-
-
-
         }
-
-
-
-
     }
+
     /*
     public class flailSwordPlayer : ModPlayer
     {
@@ -63,15 +57,15 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 player.itemTime = item.useTime;
             }
         }
-       
     }
     */
+
     public class FlailSwordP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-
         }
+
         public override void SetDefaults()
         {
             projectile.width = 16;
@@ -86,9 +80,9 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.ignoreWater = true;
             projectile.usesLocalNPCImmunity = true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             //projectile.position + new Vector2((float)projectile.width, (float)projectile.height) / 2f + Vector2.UnitY * projectile.gfxOffY - Main.screenPosition;
             Texture2D texture2D22 = Main.projectileTexture[projectile.type];
             Color alpha = projectile.GetAlpha(lightColor);
@@ -116,7 +110,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
             if (ChainLength > 0f)
             {
-
                 float spacing = ChainLength / (segmentCount + 1);
                 while (segment < segmentCount * spacing)
                 {
@@ -132,7 +125,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             segment = 0f;
             if (ChainLength > 0f)
             {
-
                 while (segment + 1f < ChainLength / 2)
                 {
                     if (ChainLength - segment < (float)frame.Height)
@@ -145,14 +137,11 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 }
             }
 
-
             frame = new Rectangle(0, 52, texture2D22.Width, 10);
-
 
             float CL2 = ChainLength;
             if (ChainLength > 0f)
             {
-
                 while (segment + 1f < ChainLength)
                 {
                     if (ChainLength - segment < (float)frame.Height)
@@ -174,8 +163,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
             Main.spriteBatch.Draw(texture2D22, tipPosition - Main.screenPosition + playerHillClimbOffset, new Microsoft.Xna.Framework.Rectangle?(frame), alpha, drawRotation, texture2D22.Frame(1, 1, 0, 0).Top(), projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
-        float r;
-        bool runOnce = true;
+
+        private float r;
+        private bool runOnce = true;
+
         public override void AI()
         {
             //copied from vanilla solar eruption AI
@@ -219,7 +210,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
                 projectile.Kill();
             }
 
-
             projectile.position = player.RotatedRelativePoint(player.MountedCenter, true) - projectile.Size / 2f;
             projectile.rotation = projectile.velocity.ToRotation() + halfPi;
             projectile.spriteDirection = projectile.direction;
@@ -241,8 +231,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             vector24 -= new Vector2((float)(player.bodyFrame.Width - player.width), (float)(player.bodyFrame.Height - 42)) / 2f;
 
-
-
             //I added this part since I couldn't get the rotation working
             if (runOnce)
             {
@@ -257,9 +245,8 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.velocity = QwertyMethods.PolarVector(projectile.velocity.Length(), r);
 
             projectile.Center = player.RotatedRelativePoint(player.position + vector24, true) - projectile.velocity;
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = 8;
@@ -275,11 +262,5 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             return false;
         }
-
     }
-
-
-
-
 }
-

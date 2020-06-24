@@ -6,60 +6,49 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
-
-
     public class Gemini : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gemini's Quiver");
             Tooltip.SetDefault("When shooting a bow a second arrow will be shot in the opposite direction!");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 200000;
             item.rare = 2;
-
 
             item.width = 34;
             item.height = 32;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-
             player.GetModPlayer<GeminiEffect>().effect = true;
         }
-
-
-
     }
+
     public class GeminiEffect : ModPlayer
     {
         public bool effect;
+
         public override void ResetEffects()
         {
             effect = false;
-
         }
     }
 
     public class GeminiProjectileEffect : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
-        bool runOnce = true;
+        public override bool InstancePerEntity => true;
+        private bool runOnce = true;
+
         public override void AI(Projectile projectile)
         {
-
-            if (Main.player[projectile.owner].GetModPlayer<GeminiEffect>().effect && runOnce && projectile.arrow && projectile.type != mod.ProjectileType("HydraArrowP2") && projectile.type != mod.ProjectileType("AqueousP") && projectile.type != mod.ProjectileType("BladedArrowP") && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
+            if (Main.player[projectile.owner].GetModPlayer<GeminiEffect>().effect && runOnce && projectile.arrow && projectile.type != ProjectileID.PhantasmalBolt && projectile.type != mod.ProjectileType("HydraArrowP2") && projectile.type != mod.ProjectileType("AqueousP") && projectile.type != mod.ProjectileType("BladedArrowP") && !(projectile.type == ProjectileID.DD2BetsyArrow && projectile.ai[1] == -1))
             {
                 if (projectile.type == mod.ProjectileType("CobaltArrowP"))
                 {
@@ -82,4 +71,3 @@ namespace QwertysRandomContent.Items.Accesories
         }
     }
 }
-

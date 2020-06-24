@@ -14,39 +14,26 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
         {
             DisplayName.SetDefault("Pug Mask");
             Tooltip.SetDefault("Kerdo Loves Pugs \nDev Item");
-
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = 0;
             item.rare = 10;
 
             item.vanity = true;
             item.width = 20;
             item.height = 20;
-
-
-
         }
-
 
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawHair = false;
-
         }
-
-
-
     }
 
     public class AnimatedPug : ModPlayer
     {
-
-
         public static readonly PlayerLayer Pug = new PlayerLayer("QwertysRandomContent", "PugHead", PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -81,8 +68,6 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
                 int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                 Vector2 Position = drawInfo.position;
 
-
-
                 Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                 if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
                 {
@@ -107,6 +92,7 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
                 Main.playerDrawData.Add(data);
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -115,9 +101,6 @@ namespace QwertysRandomContent.Items.DevItems.Kerdo
                 Pug.visible = true;
                 layers.Insert(headLayer + 1, Pug);
             }
-
         }
     }
-
 }
-

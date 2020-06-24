@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need projectile to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class FrostburnStaff : ModItem
@@ -14,12 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             DisplayName.SetDefault("Frostburn Staff");
             Tooltip.SetDefault("Places burning cold flames on the ground");
             Item.staff[item.type] = true; //projectile makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 14;
             item.mana = 4;
             item.width = 48;
@@ -36,8 +33,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             item.shoot = mod.ProjectileType("FrostFlame");
             item.magic = true;
             item.shootSpeed = 8;
-
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 68f;
@@ -46,11 +43,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
                 position += muzzleOffset;
             }
             return true;
-
-
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -62,7 +56,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
 
     public class FrostFlame : ModProjectile
@@ -83,12 +76,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
         {
             return false;
         }
+
         public override void AI()
         {
-
-
-
-
             if (projectile.ai[1] == 0f && projectile.type >= 326 && projectile.type <= 328)
             {
                 projectile.ai[1] = 1f;
@@ -120,7 +110,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             }
             projectile.rotation = -projectile.velocity.X * 0.05f;
 
-
             projectile.ai[0] += 1f;
             if (projectile.ai[0] > 5f)
             {
@@ -138,18 +127,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             }
             projectile.rotation += projectile.velocity.X * 0.1f;
 
-
             if (projectile.velocity.Y > 16f)
             {
                 projectile.velocity.Y = 16f;
                 return;
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 240);
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.velocity.X *= .2f;
@@ -164,7 +153,4 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             return false;
         }
     }
-
-
-
 }

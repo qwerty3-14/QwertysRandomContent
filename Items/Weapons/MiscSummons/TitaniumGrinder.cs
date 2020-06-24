@@ -14,12 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Titanium Grinder staff");
             Tooltip.SetDefault("A very terryfiying and effective sentry" + "\nIgnores defense");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 6;
             item.mana = 20;
             item.width = 32;
@@ -32,12 +30,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.value = 161000;
             item.rare = 4;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("TitaniumGrinder");
             item.summon = true;
             item.sentry = true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -46,24 +43,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
-
-
-
-
-
-
             return true;
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -85,7 +77,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 60;
             projectile.height = 60;
@@ -102,21 +93,21 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
 
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 500f;
-        float distance;
-        int timer;
-        float pullAcceleration = .1f;
-        float maxPullSpeed = 10f;
-        bool runOnce = true;
-        bool rotateSaws;
-        bool drawChain;
-        int grindTimer;
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float maxDistance = 500f;
+        private float distance;
+        private int timer;
+        private float pullAcceleration = .1f;
+        private float maxPullSpeed = 10f;
+        private bool runOnce = true;
+        private bool rotateSaws;
+        private bool drawChain;
+        private int grindTimer;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             timer++;
@@ -132,7 +123,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         foundTarget = true;
                         maxDistance = (target.Center - projectile.Center).Length();
                     }
-
                 }
             }
             if (foundTarget)
@@ -142,7 +132,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
                 if ((projectile.Center - target.Center).Length() < 11 && target.active)
                 {
-
                     rotateSaws = true;
                     drawChain = false;
                     timer = 0;
@@ -154,8 +143,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     {
                         Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("TitaniumGrind"), projectile.damage, 0, projectile.owner, target.whoAmI);
                     }
-
-
                 }
                 else
                 {
@@ -164,7 +151,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     target.velocity = QwertyMethods.PolarVector(maxPullSpeed, (projectile.Center - target.Center).ToRotation());
                     foundTarget = false;
                 }
-
             }
             else
             {
@@ -185,15 +171,17 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.frameCounter = 0;
             }
             */
-
         }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
             // Add this projectile to the list of projectiles that will be drawn BEFORE tiles and NPC are drawn. This makes the projectile appear to be BEHIND the tiles and NPC.
             drawCacheProjsBehindNPCsAndTiles.Add(index);
         }
-        float sawRotation = 0;
-        float sawRotation2 = 0;
+
+        private float sawRotation = 0;
+        private float sawRotation2 = 0;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             /*
@@ -204,6 +192,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             return true;
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             if (drawChain)
@@ -247,7 +236,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             new Rectangle(0, 0, 48, 48), lightColor, sawRotation2,
             new Vector2(48 * 0.5f, 48 * 0.5f), 1f, SpriteEffects.FlipHorizontally, 0f);
         }
-
     }
 
     public class TitaniumGrind : ModProjectile
@@ -255,9 +243,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanium Grind");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -273,20 +260,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.tileCollide = false;
             projectile.GetGlobalProjectile<QwertyGlobalProjectile>().ignoresArmor = true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
-
         }
-        
-
-
-
     }
-
-
-
 }

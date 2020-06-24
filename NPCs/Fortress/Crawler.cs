@@ -42,6 +42,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.noTileCollide = true;
             //npc.scale = 1.2f;
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
@@ -55,7 +56,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
                     dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
                 }
-
             }
             for (int i = 0; i < 4; i++)
             {
@@ -66,8 +66,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                 dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
-
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress)
@@ -75,8 +75,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                 return 60f;
             }
             return 0f;
-
         }
+
         public override void NPCLoot()
         {
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteBullet"), Main.rand.Next(2, 5));
@@ -85,23 +85,24 @@ namespace QwertysRandomContent.NPCs.Fortress
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteFlask"), 1);
             }
         }
+
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
             return preSetTimer <= 0;
         }
-       
-        int timer;
-        bool drawLine;
-        bool alternateColor;
-        int startDirection = -1;
-        Vector2 shootFrom;
-        float gunShift = -5.5f;
-        float gunShiftUp = 11.5f;
-        float aimDirection;
-        int preSetTimer = 120;
+
+        private int timer;
+        private bool drawLine;
+        private bool alternateColor;
+        private int startDirection = -1;
+        private Vector2 shootFrom;
+        private float gunShift = -5.5f;
+        private float gunShiftUp = 11.5f;
+        private float aimDirection;
+        private int preSetTimer = 120;
+
         public override void AI()
         {
-            
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
 
             npc.dontTakeDamage = false;
@@ -128,7 +129,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     npc.position.Y++;
                     origin = npc.Center.ToTileCoordinates();
                 }
-
             }
             if (preSetTimer > 0)
             {
@@ -191,8 +191,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     timer++;
                     if (timer > 180)
                     {
-
-
                         float shootSpeed = 24;
 
                         Projectile.NewProjectile(shootFrom.X, shootFrom.Y, (float)Math.Cos(aimDirection) * shootSpeed, (float)Math.Sin(aimDirection) * shootSpeed, mod.ProjectileType("MollusketSnipe"), 15, 0, player.whoAmI);
@@ -214,11 +212,9 @@ namespace QwertysRandomContent.NPCs.Fortress
                     {
                         drawLine = false;
                     }
-
                 }
                 else
                 {
-
                     drawLine = false;
                     alternateColor = false;
                     timer = 0;
@@ -246,7 +242,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     }
                     */
                     //npc.spriteDirection = npc.direction;
-
                 }
 
                 float num281 = (float)(270 - (int)Main.mouseTextColor) / 400f;
@@ -272,28 +267,25 @@ namespace QwertysRandomContent.NPCs.Fortress
                 return;
             }
         }
-        int colorCounter;
-        Color lineColor;
-        float distance;
+
+        private int colorCounter;
+        private Color lineColor;
+        private float distance;
+
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             if (preSetTimer > 0)
             {
                 return;
             }
-            Texture2D texture = mod.GetTexture("NPCs/Fortress/Crawler" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : "") );
+            Texture2D texture = mod.GetTexture("NPCs/Fortress/Crawler" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : ""));
             spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : "")), new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),
                        npc.frame, drawColor, npc.rotation,
                        new Vector2(npc.width * 0.5f, npc.height * 0.5f), 1f, 0, 0f);
             Player player = Main.player[npc.target];
 
-
-            
-
-
             if (alternateColor)
             {
-
                 colorCounter++;
 
                 if (colorCounter >= 20)
@@ -326,7 +318,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                 distance = distToProj.Length();
                 //Color drawColor = lightColor;
 
-
                 spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/laser"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
                     new Rectangle(0, 0, 1, (int)distance - 10), lineColor, projRotation,
                     new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
@@ -336,23 +327,21 @@ namespace QwertysRandomContent.NPCs.Fortress
             spriteBatch.Draw(mod.GetTexture("NPCs/Fortress/Crawler_Turret" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_old" : "")), new Vector2(shootFrom.X - Main.screenPosition.X, shootFrom.Y - Main.screenPosition.Y + 2f),
                         new Rectangle(0, 0, 28, 14), drawColor, aimDirection,
                         new Vector2(5, 9), 1f, 0, 0f);
-
-            
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             return false;
         }
     }
+
     public class MollusketSnipe : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mollusket Snipe");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.width = 4;
@@ -368,15 +357,13 @@ namespace QwertysRandomContent.NPCs.Fortress
             projectile.timeLeft = 600;
             projectile.ranged = true;
             projectile.extraUpdates = 3;
-
-
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
             for (int d = 0; d < 1; d++)
@@ -385,12 +372,10 @@ namespace QwertysRandomContent.NPCs.Fortress
                 dust.frame.Y = 0;
             }
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(mod.BuffType("PowerDown"), 480);
         }
-
-
     }
-
 }

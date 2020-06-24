@@ -5,7 +5,6 @@ namespace QwertysRandomContent.Buffs
 {
     public class ThrowReduction : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Throw Reduction");
@@ -18,10 +17,7 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .6f;
         }
-
-
     }
 }

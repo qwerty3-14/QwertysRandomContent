@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.TundraBossItems
 {
@@ -15,7 +10,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
             DisplayName.SetDefault("Polar Exterminator Mask");
             Tooltip.SetDefault("");
         }
-
 
         public override void SetDefaults()
         {
@@ -30,7 +24,5 @@ namespace QwertysRandomContent.Items.TundraBossItems
         {
             return false;
         }
-
-
     }
 }

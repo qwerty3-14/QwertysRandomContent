@@ -14,9 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Rod");
             Tooltip.SetDefault("More likely to catch rhuthinium crates");
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.GoldenFishingRod);  //This defines the fishing pole you want to clone
@@ -26,6 +27,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.shoot = mod.ProjectileType("RhuthiniumBobber");  //This defines what type of projectile this item will shot
             item.shootSpeed = 9f; //this defines the the projectile speed when shot. for fishing pole also increases the fishing line length/range
         }
+
         public override void AddRecipes()   //This defines the crafting recepe for this item
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -36,15 +38,15 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         }
     }
 
-
     public class RhuthiniumBobber : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Bobber");
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.BobberGolden);   //so we are going to clone a bobber from vanilla terraria
@@ -52,7 +54,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 
         public override bool PreDrawExtras(SpriteBatch spriteBatch)      //this draws the fishing line correctly
         {
-
             Player player = Main.player[projectile.owner];
             if (projectile.bobber && Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].holdStyle > 0)
             {

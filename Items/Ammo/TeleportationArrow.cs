@@ -1,6 +1,4 @@
-
 using Microsoft.Xna.Framework;
-
 
 using Terraria;
 using Terraria.ModLoader;
@@ -13,8 +11,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Teleportation Arrow (Jump)");
             Tooltip.SetDefault("Teleports you where it lands");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 6;
@@ -31,9 +29,8 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("TeleportationArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
+
         /*
 		public override void AddRecipes()
 		{
@@ -46,14 +43,14 @@ namespace QwertysRandomContent.Items.Ammo
 		}
 		*/
     }
+
     public class TeleportationArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Teleportation Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -63,18 +60,13 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
-
-
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-
-
-
-
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             Player player = Main.player[projectile.owner];
@@ -91,6 +83,7 @@ namespace QwertysRandomContent.Items.Ammo
             player.position.Y = target.Center.Y - target.height;
             Main.PlaySound(25, player.position, 0);
         }
+
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
             Player player = Main.player[projectile.owner];
@@ -98,15 +91,9 @@ namespace QwertysRandomContent.Items.Ammo
             player.position.Y = target.Center.Y - target.height;
             Main.PlaySound(25, player.position, 0);
         }
+
         public override void Kill(int timeLeft)
         {
-
-
-
         }
-
-
     }
-
 }
-

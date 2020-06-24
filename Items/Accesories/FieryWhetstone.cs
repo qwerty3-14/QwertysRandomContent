@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,6 +13,7 @@ namespace QwertysRandomContent.Items.Accesories
             DisplayName.SetDefault("Fiery Whetstone");
             Tooltip.SetDefault("Melee attacks ingnite enemies\nMelee attacks do extra magic damage against enemies vulnerable to fire");
         }
+
         public override void SetDefaults()
         {
             item.value = 10000;
@@ -26,11 +23,13 @@ namespace QwertysRandomContent.Items.Accesories
 
             item.accessory = true;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<FieryWhetStoneEffect>().effect += .3f;
             player.magmaStone = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -41,11 +40,13 @@ namespace QwertysRandomContent.Items.Accesories
             recipe.AddRecipe();
         }
     }
+
     public class FieryMagicBonusOnProj : GlobalProjectile
     {
         public int magicBoost = 0;
         public bool whetStoned = false;
         public override bool InstancePerEntity => true;
+
         public override void AI(Projectile projectile)
         {
             if (Main.player[projectile.owner].GetModPlayer<FieryWhetStoneEffect>().effect > 0f && (!whetStoned && projectile.melee))
@@ -59,10 +60,10 @@ namespace QwertysRandomContent.Items.Accesories
     public class FieryWhetStoneEffect : ModPlayer
     {
         public float effect = 0f;
+
         public override void ResetEffects()
         {
             effect = 0f;
-
         }
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -70,18 +71,18 @@ namespace QwertysRandomContent.Items.Accesories
             if (effect != 0f && !target.buffImmune[BuffID.OnFire] && proj.melee)
             {
                 QwertyMethods.PokeNPC(player, target, proj.GetGlobalProjectile<FieryMagicBonusOnProj>().magicBoost * player.magicDamage, magic: true);
-
             }
         }
+
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
             if (effect != 0f && !target.buffImmune[BuffID.OnFire] && item.melee)
             {
                 QwertyMethods.PokeNPC(player, target, damage * effect, magic: true);
-
             }
         }
     }
+
     public class FieryWhetstoneTooltips : GlobalItem
     {
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

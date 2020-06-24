@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,7 +10,6 @@ namespace QwertysRandomContent.Items.Accesories
         {
             DisplayName.SetDefault("Eye of the Alchemist");
             Tooltip.SetDefault("Emerald Eye Effect" + "\nReduces the time on healing potions");
-
         }
 
         public override void SetDefaults()
@@ -26,6 +20,7 @@ namespace QwertysRandomContent.Items.Accesories
             item.height = 16;
             item.accessory = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -34,15 +29,14 @@ namespace QwertysRandomContent.Items.Accesories
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<ShapeShifterPlayer>().EyeEquiped = true;
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 600)
             {
                 player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = true;
-                
             }
             player.pStone = true;
         }

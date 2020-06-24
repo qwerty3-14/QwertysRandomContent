@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,17 +8,18 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
     public class BurstMiner : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicDungeon ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Burst Miner");
             Tooltip.SetDefault("Mines quickly with a cooldown");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 11;
             item.melee = true;
-
 
             item.useTime = 4;
             item.useAnimation = 4;
@@ -33,15 +35,12 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.noMelee = true;
             item.autoReuse = true;
             item.pick = 95;
-
-
-
-
-
         }
-        int useCounter;
-        const int maxUses = 20;
-        const int delay = 60;
+
+        private int useCounter;
+        private const int maxUses = 20;
+        private const int delay = 60;
+
         public override bool CanUseItem(Player player)
         {
             if (player.selectedItem == 58)
@@ -56,6 +55,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
             return true;
         }
+
         public override void UpdateInventory(Player player)
         {
             if (useCounter >= maxUses)
@@ -75,15 +75,12 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 }
             }
         }
+
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             int num292 = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, 172, player.velocity.X * 0.2f + (float)(player.direction * 3), player.velocity.Y * 0.2f, 100, default(Color), 0.9f);
             Main.dust[num292].noGravity = true;
             Main.dust[num292].velocity *= 0.1f;
         }
-
     }
-
-
 }
-

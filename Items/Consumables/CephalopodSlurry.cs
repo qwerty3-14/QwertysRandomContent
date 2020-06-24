@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Consumables
 {
-
     public class CephalopodSlurry : ModItem
     {
         public override void SetStaticDefaults()
@@ -28,14 +27,9 @@ namespace QwertysRandomContent.Items.Consumables
             item.buffTime = 72000;
             item.rare = 1;
             item.value = Item.sellPrice(0, 0, 5, 0);
-
         }
-
-
-
-
-
     }
+
     public class SlurryDrop : GlobalNPC
     {
         public override void NPCLoot(NPC npc)

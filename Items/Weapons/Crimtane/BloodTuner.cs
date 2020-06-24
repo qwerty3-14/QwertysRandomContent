@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectile to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class BloodTuner : ModItem
@@ -16,12 +15,10 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
             DisplayName.SetDefault("Blood Tuner");
             Tooltip.SetDefault("");
             Item.staff[item.type] = true; //projectile makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 10;
             item.mana = 4;
             item.width = 24;
@@ -39,9 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
             item.magic = true;
             item.channel = true;
             item.shootSpeed = 8;
-
         }
-
 
         public override void AddRecipes()
         {
@@ -52,6 +47,7 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             for (int i = 0; i < 1000; i++)
@@ -71,9 +67,8 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
             Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI, damage, 1f);
             return false;
         }
-
-
     }
+
     public class BloodP : ModProjectile
     {
         public override void SetDefaults()
@@ -83,8 +78,10 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
             projectile.magic = true;
             projectile.friendly = true;
         }
-        float trigCounter = 0f;
+
+        private float trigCounter = 0f;
         public List<Vector2> bloodSplatters = new List<Vector2>();
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -96,7 +93,7 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
                     bloodSplatters.Add(new Vector2((float)Math.PI * Main.rand.NextFloat(-1, 1), (float)Math.PI * Main.rand.NextFloat(-1, 1)));
                     projectile.ai[1] = 0;
                 }
-                projectile.velocity = 10f * (QwertysRandomContent.LocalCursor[projectile.owner] - projectile.Center).SafeNormalize(-Vector2.UnitY);
+                projectile.velocity = 10f * (QwertysRandomContent.GetLocalCursor(projectile.owner) - projectile.Center).SafeNormalize(-Vector2.UnitY);
                 Vector2 offset = QwertyMethods.PolarVector(20f, player.itemRotation);
                 offset *= player.direction;
                 projectile.Center = player.Center + offset;
@@ -110,6 +107,7 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
                 bloodSplatters[i] += new Vector2((float)Math.PI / 30f, (float)Math.PI / 30f);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D blood = Main.projectileTexture[projectile.type];
@@ -126,6 +124,4 @@ namespace QwertysRandomContent.Items.Weapons.Crimtane       ///We need projectil
             return false;
         }
     }
-
-
 }

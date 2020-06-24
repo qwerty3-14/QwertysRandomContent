@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
@@ -14,6 +9,7 @@ namespace QwertysRandomContent.Items.Fortress
         {
             DisplayName.SetDefault("Enchanted Swimmer");
         }
+
         public override void SetDefaults()
         {
             item.value = Item.sellPrice(0, 0, 30, 0);

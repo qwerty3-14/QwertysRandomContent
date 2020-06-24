@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Chestplate");
-            Tooltip.SetDefault("10% increased damage");
+            Tooltip.SetDefault("8% increased damage");
             if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
             {
                 Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumChestplate_Old");
@@ -21,35 +21,26 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             }
         }
 
-
         public override void SetDefaults()
         {
-
             item.value = 50000;
             item.rare = 3;
-
 
             item.width = 26;
             item.height = 18;
             item.defense = 4;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
-
-            player.allDamage += .1f;
+            player.allDamage += .08f;
         }
+
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
             drawHands = true;
             drawArms = true;
-
         }
-
-
 
         public override void AddRecipes()
         {
@@ -60,9 +51,5 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
-
-
 }
-

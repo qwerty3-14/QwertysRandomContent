@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             DisplayName.SetDefault("Fossil Bow");
             Tooltip.SetDefault("While shooting a skull will fly around bashing at enemies");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 16;
@@ -35,10 +35,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.shootSpeed = 8;
             item.noMelee = true;
             item.channel = true;
-
-
-
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = player.Center;
@@ -53,6 +51,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             Projectile.NewProjectile(player.Center.X, player.Center.Y, speedX, speedY, mod.ProjectileType("Skull"), item.damage, 0, Main.myPlayer);
             return true;
         }
+
         //Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("Skull"), 0, 0, Main.myPlayer);
         public override void AddRecipes()
         {
@@ -64,19 +63,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             recipe.AddRecipe();
         }
     }
+
     public class Skull : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Skull");
-
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 16; //Set the hitbox width
             projectile.height = 18;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -88,8 +84,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             projectile.tileCollide = true; //Tells the game whether or not it can collide with tiles/ terrain
 
             projectile.timeLeft = 2000;
-
         }
+
         public bool runOnce = true;
         public float direction;
         public float speed = 1;
@@ -100,12 +96,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         public NPC confirm;
         public float maxDistance = 1000;
         public float distance;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
-
                 runOnce = false;
             }
 
@@ -123,7 +119,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                         direction = (confirm.Center - projectile.Center).ToRotation();
                         maxDistance = (Main.MouseWorld - target.Center).Length();
                     }
-
                 }
                 if (!foundTarget)
                 {
@@ -140,7 +135,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                     projectile.velocity.Y = (float)Math.Sin(direction) * maxSpeed;
                 }
                 projectile.rotation = direction;
-
             }
             if (player.channel)
             {
@@ -154,6 +148,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             foundTarget = false;
             maxDistance = 1000;
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (projectile.velocity.X != velocityChange.X)
@@ -172,11 +167,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -projectile.velocity.X, -projectile.velocity.Y, mod.ProjectileType("BouncyArrowP"), projectile.damage, projectile.knockBack, Main.myPlayer);
             projectile.velocity.X = -2 * projectile.velocity.X;
             projectile.velocity.Y = -2 * projectile.velocity.Y;
-
         }
-
     }
-
-
 }
-

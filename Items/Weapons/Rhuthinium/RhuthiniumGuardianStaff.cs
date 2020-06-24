@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class RhuthiniumGuardianStaff : ModItem
@@ -15,15 +14,12 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
         {
             DisplayName.SetDefault("Rhuthinium Guardian Staff");
             Tooltip.SetDefault("Summons an extremely slow guardian to shoot at your enemies");
-            //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(38, 2));
-           
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
         {
-
             item.damage = 200;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 38;    //The size of the width of the hitbox in pixels.
@@ -36,35 +32,30 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             item.value = 25000;
             item.rare = 3;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
-            item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("RhuthiniumGuardian");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
             item.sentry = true; //tells the game that this is a sentry
         }
 
         public Projectile projC;
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
 
-
-            //projC = Main.projectile[Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("RhuthiniumGuardian"), damage, knockBack, Main.myPlayer, 0f, 0f)];
-
-
-
-
             return true;
         }
+
         public override bool CanUseItem(Player player)
         {
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -73,6 +64,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             }
             return base.UseItem(player);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -93,8 +85,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 30; //Set the hitbox width
             projectile.height = 30;   //Set the hitbox heinght
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -108,24 +98,23 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             projectile.timeLeft = Projectile.SentryLifeTime;
         }
 
+        private NPC confirmTarget;
+        private int timer;
+        private Color lineColor;
+        private bool drawLine;
+        private bool alternateColor = false;
+        private int colorCounter;
 
-        NPC confirmTarget;
-        int timer;
-        Color lineColor;
-        bool drawLine;
-        bool alternateColor = false;
-        int colorCounter;
+        private bool startCountdown;
+        private int countdownTimer;
+        private float Aim;
+        private float shardVelocity = 30f;
+        private float lineLength = 0;
 
-        bool startCountdown;
-        int countdownTimer;
-        float Aim;
-        float shardVelocity = 30f;
-        float lineLength = 0;
         public override void AI()
         {
             Main.player[projectile.owner].UpdateMaxTurrets();
             Player player = Main.player[projectile.owner];
-
 
             projectile.rotation += (float)Math.PI / 60;   //this make the projctile to rotate
 
@@ -152,7 +141,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
                 countdownTimer++;
                 if (countdownTimer == 180)
                 {
-
                     startCountdown = false;
                 }
             }
@@ -161,37 +149,16 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
                 alternateColor = false;
                 countdownTimer = 0;
             }
-
-
-
-
-
-
-
-
-
-
-
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
-
-
-
             spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumGuardianLower" + (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? "_Old" : "")), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                     new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), lightColor, -projectile.rotation,
                     new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
 
-
-
-
-
-
             if (alternateColor)
             {
-
                 colorCounter++;
 
                 if (colorCounter >= 20)
@@ -223,7 +190,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
                 distToProj = confirmTarget.Center - center;    //update distance
                 Color drawColor = lightColor;
 
-
                 spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/laser"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
                     new Rectangle(0, 0, 1, (int)lineLength - 10), lineColor, projRotation,
                     new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
@@ -234,26 +200,16 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             drawLine = false;
 
             return false;
-
-
         }
-
-
-
-
-
-
-
-
     }
+
     public class RhuthiniumShard : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Shard");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -265,27 +221,26 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium       ///We need this to
             projectile.minion = true;
             projectile.knockBack = 10f;
             projectile.extraUpdates = 3;
-
-
-
         }
+
         public override void AI()
         {
-
-
-
-
-
+            if (Main.rand.Next(10) == 0)
+            {
+                Dust d = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("RhuthiniumDust"))];
+                d.frame.Y = Main.rand.Next(2) == 0 ? 0 : 10;
+                d.noGravity = true;
+            }
         }
 
         public override void Kill(int timeLeft)
         {
-
-
-
+            for (int i = 0; i < 12; i++)
+            {
+                Dust d = Dust.NewDustPerfect(projectile.Center, mod.DustType("RhuthiniumDust"));
+                d.frame.Y = Main.rand.Next(2) == 0 ? 0 : 10;
+                d.noGravity = true;
+            }
         }
-
-
     }
-
 }

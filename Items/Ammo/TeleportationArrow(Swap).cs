@@ -1,5 +1,3 @@
-
-
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,8 +9,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Teleportation Arrow (Swap)");
             Tooltip.SetDefault("Swaps your position with the enemy hit");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 6;
@@ -29,9 +27,8 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("TeleportationArrowPSwap");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
+
         /*
 		public override void AddRecipes()
 		{
@@ -44,14 +41,14 @@ namespace QwertysRandomContent.Items.Ammo
 		}
 		*/
     }
+
     public class TeleportationArrowPSwap : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Teleportation Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -61,19 +58,12 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
-
-
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-
-
-
-
         }
-
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -89,12 +79,11 @@ namespace QwertysRandomContent.Items.Ammo
                 player.position.Y = jumpY - 30;
                 Main.PlaySound(25, target.position, 0);
                 Main.PlaySound(25, player.position, 0);
-
             }
         }
+
         public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
         {
-
             float jumpX = target.Center.X;
             float jumpY = target.Center.Y;
             Player player = Main.player[projectile.owner];
@@ -108,20 +97,10 @@ namespace QwertysRandomContent.Items.Ammo
 
             QwertysRandomContent.UpdatePlayerPosition(target.whoAmI, target.position);
             QwertysRandomContent.UpdatePlayerPosition(player.whoAmI, player.position);
-
-
-
         }
 
         public override void Kill(int timeLeft)
         {
-
-
-
         }
-
-
     }
-
 }
-

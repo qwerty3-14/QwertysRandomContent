@@ -7,19 +7,19 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 {
-    class RhuthiniumBarrage : ModItem
+    internal class RhuthiniumBarrage : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shape shift: Rhuthinium Barrage");
             Tooltip.SetDefault("Launches a HUGE barrage of darts dealing massive damage!");
-
-
         }
+
         public const int dmg = 26;
-        public const int crt = 0;
+        public const int crt = 5;
         public const float kb = 0f;
         public const int def = 3;
+
         public override void SetDefaults()
         {
             item.damage = dmg;
@@ -46,9 +46,8 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.shoot = mod.ProjectileType("RhuthiniumBarrageLauncher");
             item.shootSpeed = 0f;
             item.channel = true;
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -57,9 +56,9 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
-
             for (int i = 0; i < 1000; ++i)
             {
                 if ((Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot) || player.HasBuff(mod.BuffType("MorphCooldown")))
@@ -68,18 +67,18 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                 }
             }
 
-
             return true;
         }
     }
+
     public class RhuthiniumBarrageLauncher : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Barrage Launcher");
             Main.projFrames[projectile.type] = 1;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -91,17 +90,18 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             projectile.penetrate = -1;
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
             projectile.tileCollide = false;
-            projectile.timeLeft = 180;
-
+            projectile.timeLeft = 120;
         }
-        Deck<Projectile> Darts = new Deck<Projectile>();
-        bool runOnce = true;
-        int indexCounter = 0;
+
+        private Deck<Projectile> Darts = new Deck<Projectile>();
+        private bool runOnce = true;
+        private int indexCounter = 0;
+
         public override void AI()
         {
             if (runOnce)
             {
-                for (int d = 0; d < 120; d++)
+                for (int d = 0; d < 60; d++)
                 {
                     Darts.Add(Main.projectile[Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RhuthiniumBarrageDart"), projectile.damage, projectile.knockBack, projectile.owner, Main.rand.Next(-14, 15), 0f)]);
                 }
@@ -113,7 +113,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 
             player.statDefense = 0;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-            projectile.rotation = (QwertysRandomContent.LocalCursor[projectile.owner] - projectile.Center).ToRotation();
+            projectile.rotation = (QwertysRandomContent.GetLocalCursor(projectile.owner) - projectile.Center).ToRotation();
 
             foreach (Projectile dart in Darts)
             {
@@ -122,19 +122,17 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                     dart.Center = projectile.Center + QwertyMethods.PolarVector(25, projectile.rotation) + QwertyMethods.PolarVector(dart.ai[0], projectile.rotation + (float)Math.PI / 2);
                     dart.rotation = projectile.rotation;
                 }
-
             }
-            if (projectile.timeLeft < 150)
+            if (projectile.timeLeft < Darts.Count + 30)
             {
                 if (indexCounter < Darts.Count)
                 {
                     Darts[indexCounter].ai[1] = 1f;
                     indexCounter++;
                 }
-
-
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D drawDart = mod.GetTexture("Items/Weapons/Rhuthinium/RhuthiniumBarrageDart");
@@ -146,7 +144,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                        drawDart.Frame(), Lighting.GetColor((int)dart.Center.X / 16, (int)dart.Center.Y / 16), dart.rotation,
                        new Vector2(drawDart.Width, drawDart.Height * .5f), 1f, 0, 0f);
                 }
-
             }
             Texture2D Launcher = Main.projectileTexture[projectile.type];
             spriteBatch.Draw(Launcher, projectile.Center - Main.screenPosition,
@@ -154,18 +151,16 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                        new Vector2(0, Launcher.Height * .5f), 1f, 0, 0f);
             return false;
         }
-
-
-
     }
+
     public class RhuthiniumBarrageDart : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Barrage");
             Main.projFrames[projectile.type] = 1;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -179,10 +174,22 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             projectile.tileCollide = false;
             projectile.timeLeft = 300;
         }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Dust d = Dust.NewDustPerfect(projectile.Center, mod.DustType("RhuthiniumDust"));
+                d.frame.Y = Main.rand.Next(2) == 0 ? 0 : 10;
+                d.noGravity = true;
+            }
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
             if (projectile.ai[1] == 1f)

@@ -10,14 +10,12 @@ namespace QwertysRandomContent.Dusts
             dust.noGravity = true;
             dust.noLight = false;
             dust.scale = 1f;
-
         }
+
         public override bool Update(Dust dust)
         {
             Lighting.AddLight(dust.position, 1f, 1f, 1f);
             return true;
         }
-
-
     }
 }

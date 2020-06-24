@@ -12,13 +12,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Platinum Dagger Staff");
             Tooltip.SetDefault("Summons a Platinum Dagger to fight for you!");
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 8;
             item.mana = 20;
             item.width = 32;
@@ -37,6 +34,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.buffType = mod.BuffType("PlatinumDagger");
             item.buffTime = 3600;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -54,11 +52,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -67,7 +65,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return base.UseItem(player);
         }
-
     }
 
     public class PlatinumDagger : ModProjectile
@@ -76,13 +73,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Platinum Dagger");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 10;
             projectile.height = 10;
             projectile.hostile = false;
@@ -99,33 +93,31 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.usesLocalNPCImmunity = true;
         }
 
-        int AttackMode = 1;
-        const int idle = 1;
-        const int charging = 2;
-        const int returning = 3;
+        private int AttackMode = 1;
+        private const int idle = 1;
+        private const int charging = 2;
+        private const int returning = 3;
 
-        Vector2 moveTo;
-        float acceleration = .3f;
-        float maxSpeed = 6f;
-        int timer = 61;
-        float distanceFromPlayer;
-        float maxDistanceFromPlayer = 500;
-        int attackTimer;
-        int attackCooldown = 30;
-        NPC target;
+        private Vector2 moveTo;
+        private float acceleration = .3f;
+        private float maxSpeed = 6f;
+        private int timer = 61;
+        private float distanceFromPlayer;
+        private float maxDistanceFromPlayer = 500;
+        private int attackTimer;
+        private int attackCooldown = 30;
+        private NPC target;
 
-        float targetDistanceFromPlayer;
-        float targetMaxDistanceFromPlayer = 400;
+        private float targetDistanceFromPlayer;
+        private float targetMaxDistanceFromPlayer = 400;
 
-        float chargeSpeed = 14f;
-        int chargeTime = 30;
+        private float chargeSpeed = 14f;
+        private int chargeTime = 30;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
-            //Main.NewText(moveTo);
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.PlatinumDagger)
+            if (player.GetModPlayer<MinionManager>().PlatinumDagger)
             {
                 projectile.timeLeft = 2;
             }
@@ -133,7 +125,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             timer++;
             switch (AttackMode)
             {
-
                 case idle:
                     projectile.tileCollide = true;
                     attackTimer++;
@@ -148,7 +139,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                                 QwertysRandomContent.ProjectileAIUpdate(projectile);
                             }
                             projectile.netUpdate = true;
-
                         }
                         timer = 0;
                     }
@@ -172,6 +162,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         AttackMode = returning;
                     }
                     break;
+
                 case charging:
                     projectile.tileCollide = true;
                     attackTimer++;
@@ -182,6 +173,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         //projectile.velocity = Vector2.Zero;
                     }
                     break;
+
                 case returning:
                     projectile.tileCollide = false;
                     moveTo = player.Center;
@@ -190,9 +182,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         AttackMode = idle;
                     }
                     break;
-
-
-
             }
             if (AttackMode == charging)
             {
@@ -210,8 +199,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, projectile.velocity.ToRotation() + (float)Math.PI / 2, 3);
             }
 
-            //projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
-
+            if ((player.Center - projectile.Center).Length() > 2000)
+            {
+                projectile.rotation = (player.Center - projectile.Center).ToRotation();
+                projectile.Center = player.Center;
+            }
         }
 
         public override bool OnTileCollide(Vector2 velocityChange)
@@ -237,12 +229,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-
-
     }
-
 }

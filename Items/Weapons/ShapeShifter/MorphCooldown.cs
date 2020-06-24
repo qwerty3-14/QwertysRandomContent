@@ -14,9 +14,5 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
         }
-
-
-
     }
-
 }

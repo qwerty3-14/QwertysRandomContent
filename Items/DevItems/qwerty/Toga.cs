@@ -4,10 +4,8 @@ using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.DevItems.qwerty
 {
     [AutoloadEquip(EquipType.Body)]
-
-    class Toga : ModItem
+    internal class Toga : ModItem
     {
-
         public override bool Autoload(ref string name)
         {
             // All code below runs only if we're not loading on a server
@@ -19,12 +17,13 @@ namespace QwertysRandomContent.Items.DevItems.qwerty
             }
             return true;
         }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Toga");
             Tooltip.SetDefault("Because pants are so barbaric!" + "\nDev Item");
-
         }
+
         public override void SetDefaults()
         {
             item.vanity = true;
@@ -40,7 +39,6 @@ namespace QwertysRandomContent.Items.DevItems.qwerty
 
             if (male) equipSlot = mod.GetEquipSlot("Toga_Legs", EquipType.Legs);
             if (!male) equipSlot = mod.GetEquipSlot("Toga_FemaleLegs", EquipType.Legs);
-
         }
 
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
@@ -48,17 +46,13 @@ namespace QwertysRandomContent.Items.DevItems.qwerty
             drawHands = true;
             drawArms = true;
         }
-
-
-
-
     }
 
     public class TogaLegs : EquipTexture
     {
     }
+
     public class TogaLegsFemale : EquipTexture
     {
     }
-
 }

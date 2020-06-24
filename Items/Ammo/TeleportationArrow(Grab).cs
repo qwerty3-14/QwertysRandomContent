@@ -1,5 +1,3 @@
-
-
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,8 +9,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Teleportation Arrow (Grab)");
             Tooltip.SetDefault("Teleports the enemy hit above you");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 6;
@@ -29,9 +27,8 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("TeleportationArrowPGrab");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
+
         /*
 		public override void AddRecipes()
 		{
@@ -44,14 +41,14 @@ namespace QwertysRandomContent.Items.Ammo
 		}
 		*/
     }
+
     public class TeleportationArrowPGrab : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Teleportation Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -61,19 +58,12 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
-
-
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-
-
-
-
         }
-
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -85,6 +75,7 @@ namespace QwertysRandomContent.Items.Ammo
                 Main.PlaySound(25, target.position, 0);
             }
         }
+
         public override void ModifyHitPvp(Player target, ref int damage, ref bool crit)
         {
             //QwertyMethods.ServerClientCheck();
@@ -94,20 +85,10 @@ namespace QwertysRandomContent.Items.Ammo
             target.position.Y = player.Center.Y - 200f;
             Main.PlaySound(25, target.position, 0);
             QwertysRandomContent.UpdatePlayerPosition(target.whoAmI, target.position);
-
-
-
         }
 
         public override void Kill(int timeLeft)
         {
-
-
-
         }
-
-
     }
-
 }
-

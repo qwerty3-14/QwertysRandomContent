@@ -1,5 +1,4 @@
-﻿
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,14 +6,10 @@ namespace QwertysRandomContent
 {
     public class NPCItemSales : GlobalNPC
     {
-
-
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
-
             if (type == NPCID.SkeletonMerchant)
             {
-
                 shop.item[nextSlot].SetDefaults(mod.ItemType("ConjureBone"));
                 nextSlot++;
                 if (NPC.downedBoss1)
@@ -26,31 +21,30 @@ namespace QwertysRandomContent
                     shop.item[nextSlot].SetDefaults(mod.ItemType("DuelistPants"));
                     nextSlot++;
                 }
-                if(Main.moonPhase < 4)
+                if (Main.moonPhase < 4)
                 {
                     shop.item[nextSlot].SetDefaults(mod.ItemType("ArcaneArmorBreaker"));
+                    nextSlot++;
                 }
                 else
                 {
                     shop.item[nextSlot].SetDefaults(mod.ItemType("AerodynamicFins"));
+                    nextSlot++;
                 }
-
             }
-            if(type == NPCID.Demolitionist)
+            if (type == NPCID.Demolitionist)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("PrimedGrenadeCore"));
                 nextSlot++;
             }
             if (type == NPCID.Cyborg)
             {
-
                 shop.item[nextSlot].SetDefaults(mod.ItemType("TeleportationArrow"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("TeleportationArrowGrab"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("TeleportationArrowSwap"));
                 nextSlot++;
-
             }
             if (type == NPCID.WitchDoctor)
             {
@@ -98,11 +92,9 @@ namespace QwertysRandomContent
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("Flashlight"));
                 nextSlot++;
-
             }
             if (type == NPCID.Wizard)
             {
-
                 shop.item[nextSlot].SetDefaults(ItemID.MagicMirror);
                 nextSlot++;
             }
@@ -152,6 +144,7 @@ namespace QwertysRandomContent
                 nextSlot++;
             }
         }
+
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
             if (Main.rand.Next(0, 5) == 0)
@@ -166,21 +159,22 @@ namespace QwertysRandomContent
                     shop[nextSlot] = mod.ItemType("SwordEmbiggenner");
                     nextSlot++;
                     break;
+
                 case 1:
                     shop[nextSlot] = mod.ItemType("Gemini");
                     nextSlot++;
                     break;
+
                 case 2:
                     shop[nextSlot] = mod.ItemType("QuestionableSubstance");
                     nextSlot++;
                     break;
+
                 case 4:
                     shop[nextSlot] = mod.ItemType("BookOfMinionTactics");
                     nextSlot++;
                     break;
-
             }
         }
     }
-
 }

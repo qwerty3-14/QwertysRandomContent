@@ -14,8 +14,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
             DisplayName.SetDefault("Ring of Guns");
             Tooltip.SetDefault("A ring of guns appears around your cursor shooting inwards");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 24;
@@ -37,30 +37,28 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             item.shootSpeed = 25;
             item.noMelee = true;
             item.channel = true;
-
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-
 
             recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool ConsumeAmmo(Player player)
         {
             return false;
         }
-        Projectile gun;
-        float radius = 125;
+
+        private Projectile gun;
+        private float radius = 125;
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
             position = Main.MouseWorld;
             for (int n = 0; n < 6; n++)
             {
@@ -68,22 +66,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 gun.ai[1] = n;
             }
 
-
             return false;
         }
-
-
-
     }
+
     public class RingGun : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gun");
             Main.projFrames[projectile.type] = 1;
-
         }
+
         public override void SetDefaults()
         {
             //projectile.aiStyle = 1;
@@ -97,19 +91,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.timeLeft = 60 * 15;
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
-
-
         }
-        float radius = 125;
-        float rotateSpeed = (float)Math.PI / 100;
-        bool runOnce = true;
-        float angleInRing;
-        float trigTimer = 0;
-        float speed = 14f;
-        int reloadTimer;
+
+        private float radius = 125;
+        private float rotateSpeed = (float)Math.PI / 100;
+        private bool runOnce = true;
+        private float angleInRing;
+        private float trigTimer = 0;
+        private float speed = 14f;
+        private int reloadTimer;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             player.itemAnimation = 2;
             player.itemTime = 2;
@@ -157,20 +150,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                             QwertysRandomContent.UpdateProjectileClass(bul);
                         }
                     }
-
-
                 }
             }
             else
             {
-
             }
         }
-
-
-
-
     }
-
 }
-

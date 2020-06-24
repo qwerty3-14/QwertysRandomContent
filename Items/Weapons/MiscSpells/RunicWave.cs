@@ -13,8 +13,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
             DisplayName.SetDefault("Runic Wave");
             Tooltip.SetDefault("Cast a wave that draws runes in flight" + "\nRight click to switch runes");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 100;
@@ -35,11 +35,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             item.shoot = mod.ProjectileType("RunicWavep");
             item.shootSpeed = 9;
             item.noMelee = true;
-
-
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -50,11 +47,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        int runeMode = 0;
+
+        private int runeMode = 0;
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -84,6 +84,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             }
             return base.CanUseItem(player);
         }
+
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSpells/RunicWave_Glow");
@@ -103,6 +104,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 );
             }
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSpells/RunicWave_Glow");
@@ -123,27 +125,26 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 0f
             );
         }
-        Projectile wave;
+
+        private Projectile wave;
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
             wave = Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI)];
             wave.ai[1] = runeMode;
 
-
             return false;
         }
-
     }
+
     public class RunicWaveP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Runic Wave");
             Main.projFrames[projectile.type] = 4;
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -155,16 +156,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.magic = true;
             projectile.tileCollide = false;
             projectile.timeLeft = 60 * 3;
-
-
-
         }
+
         public int dustTimer;
         public int timer;
-        bool runOnce = true;
-        float iceRuneSpeed = 10;
-        Projectile ice1;
-        Projectile ice2;
+        private bool runOnce = true;
+        private float iceRuneSpeed = 10;
+        private Projectile ice1;
+        private Projectile ice2;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -234,13 +234,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                     dustTimer = 0;
                 }
             }
-
-
         }
-
-
     }
-    class IceRuneTome : ModProjectile
+
+    internal class IceRuneTome : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -255,9 +252,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.tileCollide = false;
             projectile.timeLeft = 60 * 3;
             projectile.melee = true;
-
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
@@ -267,7 +263,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (runOnce)
@@ -275,21 +270,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 projectile.rotation = (player.Center - projectile.Center).ToRotation() - (float)Math.PI / 2;
                 runOnce = false;
             }
-
-
-
-
-
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 1200);
         }
-
     }
-    class PursuitRuneTome : ModProjectile
+
+    internal class PursuitRuneTome : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -304,9 +293,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.tileCollide = true;
             projectile.timeLeft = 720;
             projectile.magic = true;
-
-
         }
+
         public int runeTimer;
         public NPC target;
 
@@ -315,12 +303,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public float runeTargetDirection;
         public bool runOnce = true;
         public int f;
-        bool foundTarget;
-        float maxDistance = 1000;
-        float distance;
+        private bool foundTarget;
+        private float maxDistance = 1000;
+        private float distance;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
@@ -337,16 +325,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 distance = (Main.npc[k].Center - projectile.Center).Length();
                 if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && !Main.npc[k].immortal && Main.npc[k].lifeMax > 5)
                 {
-
                     target = Main.npc[k];
                     foundTarget = true;
                     maxDistance = (target.Center - projectile.Center).Length();
-
-
-
                 }
-
-
             }
             if (foundTarget)
             {
@@ -357,13 +339,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
             foundTarget = false;
             maxDistance = 1000;
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Venom, 1200);
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)
@@ -371,9 +353,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("PursuitRuneDeath"));
             }
         }
-
     }
-    class LeechRuneTome : ModProjectile
+
+    internal class LeechRuneTome : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -389,22 +371,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.timeLeft = 60;
             projectile.magic = true;
             projectile.alpha = 255;
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
         public float runeSpeed = 10;
         public bool runOnce = true;
         public float aim;
-        NPC possibleTarget;
-        NPC target;
-        float distance;
-        float maxDistance = 1000;
-        bool foundTarget = false;
+        private NPC possibleTarget;
+        private NPC target;
+        private float distance;
+        private float maxDistance = 1000;
+        private bool foundTarget = false;
+
         public override void AI()
         {
-
             if (projectile.alpha > 0)
                 projectile.alpha -= 25;
             else
@@ -420,10 +402,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                         target = Main.npc[k];
                         foundTarget = true;
 
-
                         maxDistance = (target.Center - projectile.Center).Length();
                     }
-
                 }
                 if (foundTarget)
                 {
@@ -434,9 +414,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             {
                 projectile.rotation += MathHelper.ToRadians(3);
             }
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)
@@ -444,6 +423,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));
             }
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(0, 3) == 0)
@@ -452,11 +432,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 player.statLife += damage / 10;
                 CombatText.NewText(player.getRect(), Color.Green, damage / 10, false, false);
             }
-
         }
-
     }
-    class AggroRuneTome : ModProjectile
+
+    internal class AggroRuneTome : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -472,8 +451,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             projectile.timeLeft = 30;
             projectile.magic = true;
             projectile.usesLocalNPCImmunity = true;
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
@@ -483,7 +462,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
         public override void AI()
         {
-
             if (projectile.alpha > 0)
                 projectile.alpha -= 25;
             else
@@ -499,20 +477,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                     Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AggroRuneLash"));
                 }
             }
-
-
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-
-
     }
-
 }
-

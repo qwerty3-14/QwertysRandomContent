@@ -14,8 +14,8 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             DisplayName.SetDefault("Hydra Beam");
             Tooltip.SetDefault("Creates a beam of destructive energy from the sky");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 60;
@@ -36,14 +36,10 @@ namespace QwertysRandomContent.Items.HydraItems
             item.shoot = mod.ProjectileType("BeamHead");
             item.shootSpeed = 9;
             item.noMelee = true;
-
-
-
-
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             for (int l = 0; l < Main.projectile.Length; l++)
             {                                                                  //this make so you can only spawn one of this projectile at the time,
                 Projectile proj = Main.projectile[l];
@@ -54,21 +50,20 @@ namespace QwertysRandomContent.Items.HydraItems
             }
             return true;
         }
-
-
     }
+
     public class BeamHead : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Beam Head");
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -79,28 +74,25 @@ namespace QwertysRandomContent.Items.HydraItems
             projectile.penetrate = -1;
             projectile.magic = true;
             projectile.tileCollide = false;
-
         }
+
         public bool runOnce = true;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
-
                 projectile.position = new Vector2(player.Center.X, player.Center.Y - 900); ;
                 runOnce = false;
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("HeadBeam"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI, 0f);
             }
 
-
-
             projectile.velocity.X = 10f * player.direction;
             projectile.position.Y = player.Center.Y - 900;
         }
-
-
     }
+
     public class HeadBeam : ModProjectile
     {
         //The distance charge particle from the player center
@@ -110,17 +102,19 @@ namespace QwertysRandomContent.Items.HydraItems
         // By making a property to handle this it makes our life easier, and the accessibility more readable
         public float Distance;
 
-
         public Projectile shooter;
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             shooter = Main.projectile[(int)projectile.ai[0]];
             hitDirection = shooter.velocity.X > 0 ? 1 : -1;
         }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydra Beam");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -132,12 +126,12 @@ namespace QwertysRandomContent.Items.HydraItems
             projectile.hide = false;
             projectile.magic = true;
         }
+
         // The AI of the projectile
         public bool runOnce = true;
+
         public override void AI()
         {
-
-
             float rOffset = (float)Math.PI / 2;
             shooter = Main.projectile[(int)projectile.ai[0]];
 
@@ -149,7 +143,6 @@ namespace QwertysRandomContent.Items.HydraItems
             }
 
             #region Set projectile position
-
 
             Vector2 diff = new Vector2((float)Math.Cos(shooter.rotation + rOffset) * 14f, (float)Math.Sin(shooter.rotation + rOffset) * 14f);
             diff.Normalize();
@@ -167,11 +160,12 @@ namespace QwertysRandomContent.Items.HydraItems
             player.itemAnimation = 2;
             player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * dir, projectile.velocity.X * dir);
             */
-            #endregion
+
+            #endregion Set projectile position
 
             #region Charging process
-            // Kill the projectile if the player stops channeling
 
+            // Kill the projectile if the player stops channeling
 
             // Do we still have enough mana? If not, we kill the projectile because we cannot use it anymore
 
@@ -179,13 +173,7 @@ namespace QwertysRandomContent.Items.HydraItems
             offset *= MoveDistance - 20;
             Vector2 pos = new Vector2(shooter.Center.X, shooter.Center.Y) + offset - new Vector2(10, 10);
 
-
-
-
-
-            #endregion
-
-
+            #endregion Charging process
 
             Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
             Vector2 unit = projectile.velocity;
@@ -193,23 +181,16 @@ namespace QwertysRandomContent.Items.HydraItems
             for (Distance = MoveDistance; Distance <= 2200f; Distance += 5f)
             {
                 start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
-
             }
-
-
-
-
-
         }
+
         public int colorCounter;
         public Color lineColor;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
-
             DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], shooter.Center,
                 projectile.velocity, 10, projectile.damage, -1.57f, 1f, 4000f, Color.White, (int)MoveDistance);
-
 
             return false;
         }
@@ -221,6 +202,7 @@ namespace QwertysRandomContent.Items.HydraItems
             float r = unit.ToRotation() + rotation;
 
             #region Draw laser body
+
             for (float i = transDist; i <= Distance; i += step)
             {
                 Color c = Color.White;
@@ -229,17 +211,22 @@ namespace QwertysRandomContent.Items.HydraItems
                     new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r,
                     new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
             }
-            #endregion
+
+            #endregion Draw laser body
 
             #region Draw laser tail
+
             spriteBatch.Draw(texture, start + unit * (transDist - step) - Main.screenPosition,
                 new Rectangle(0, 0, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
-            #endregion
+
+            #endregion Draw laser tail
 
             #region Draw laser head
+
             spriteBatch.Draw(texture, start + (Distance + step) * unit - Main.screenPosition,
                 new Rectangle(0, 52, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
-            #endregion
+
+            #endregion Draw laser head
         }
 
         // Change the way of collision check of the projectile
@@ -275,8 +262,5 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             return false;
         }
-
     }
-
 }
-

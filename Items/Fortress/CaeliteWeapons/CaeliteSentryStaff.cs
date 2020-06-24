@@ -10,12 +10,10 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
             DisplayName.SetDefault("Sky Spiral Staff");
             Tooltip.SetDefault("Higher beings will punish all enemies near this sentry!");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 18;
             item.mana = 20;
             item.width = 32;
@@ -32,8 +30,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.shoot = mod.ProjectileType("CaeliteSentry");
             item.summon = true;
             item.sentry = true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -42,24 +40,19 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
-
-
-
-
-
-
             return true;
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -81,7 +74,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 32;
             projectile.height = 32;
@@ -95,12 +87,14 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             projectile.sentry = true;
             projectile.minion = true;
         }
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 300f;
-        float distance;
-        int timer;
+
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float maxDistance = 800f;
+        private float distance;
+        private int timer;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -123,7 +117,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                             dust.frame.Y = 0;
                         }
                     }
-
                 }
             }
             Dust dust2 = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
@@ -138,18 +131,15 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 }
                 projectile.frameCounter = 0;
             }
-
         }
-
     }
+
     /*
     public class CaeliteZap : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Zap");
-
-
         }
         public override void SetDefaults()
         {
@@ -166,9 +156,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             projectile.tileCollide = false;
             for (int n = 0; n < 200; n++)
             {
-
                 projectile.localNPCImmunity[n] = -1;
-
             }
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -177,10 +165,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         }
         public override void AI()
         {
-            
                     projectile.localNPCImmunity[(int)projectile.ai[0]] = 0;
-                
-            
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -188,12 +173,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             {
                 target.AddBuff(mod.BuffType("PowerDown"), 120);
             }
-            
         }
-
-
-
     }
     */
-
 }

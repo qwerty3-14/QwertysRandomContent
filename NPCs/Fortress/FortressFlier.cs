@@ -28,20 +28,17 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.noGravity = true; // recommended for flying enemies
             banner = npc.type;
             bannerItem = mod.ItemType("FortressFlierBanner");
-
-
         }
 
         public override void HitEffect(int hitDirection, double damage)//run whenever enemy is hit should be used for visuals like gore
         {
-
-
         }
+
         public override void NPCLoot() //drops
         {
-
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressHarpyBeak"), 1);
         }
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float
         {
             if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress && Main.hardMode) // checks if it's hardmode and player is in the fortress biome
@@ -49,21 +46,23 @@ namespace QwertysRandomContent.NPCs.Fortress
                 return 100f;
             }
             return 0f;
-
         }
+
         //here I set variables that the AI uses
-        float flySpeed = 6f;
-        bool clinged = false;
-        int timer;
-        float playerDistance;
-        bool runOnce = true;
-        int faceDirection = 1;
-        int frame;
-        int frameTimer;
-        int damage = 24;
-        float verticalSpeed = 3;
-        float verticalFlightTimer;
-        int attackTimer;
+        private float flySpeed = 6f;
+
+        private bool clinged = false;
+        private int timer;
+        private float playerDistance;
+        private bool runOnce = true;
+        private int faceDirection = 1;
+        private int frame;
+        private int frameTimer;
+        private int damage = 24;
+        private float verticalSpeed = 3;
+        private float verticalFlightTimer;
+        private int attackTimer;
+
         public override void AI() //this will run every frame
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
@@ -80,7 +79,6 @@ namespace QwertysRandomContent.NPCs.Fortress
             timer++;
             if (clinged) //run when the enemy is clinged to the wall
             {
-
                 npc.velocity.X = 0; // set velocity to 0 (no movement)
                 npc.velocity.Y = 0;// set velocity to 0 (no movement)
                 if (timer > 10 && playerDistance < 200 && Collision.CanHit(npc.Center, 0, 0, player.Center, 0, 0)) // this checks if the player is too close and not behind tiles, the timer is so it doesn't immediatly stick to a wall it jumps off
@@ -108,7 +106,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     {
                         frame = 2; // change the frame to normal cling
                     }
-
                 }
                 else // player too far away or can't be seen
                 {
@@ -146,8 +143,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                     timer = 0; // reset pattern
                 }
             }
-
         }
+
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) // this is run whenever the npc is hit by a projectile
         {
             if (playerDistance > 600) //this checks the distance, it will make it fly away if it's getting 'sniped
@@ -161,21 +158,21 @@ namespace QwertysRandomContent.NPCs.Fortress
                 timer = 0;
             }
         }
+
         public override void FindFrame(int frameHeight) // this part takes care of animations
         {
             npc.spriteDirection = faceDirection;
             npc.frame.Y = frameHeight * frame;
         }
-
     }
+
     public class FortressHarpyProjectile : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fortress Harpy Projectile");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -187,17 +184,12 @@ namespace QwertysRandomContent.NPCs.Fortress
             projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.tileCollide = true;
-
-
         }
 
         public int dustTimer;
 
         public override void AI()
         {
-
         }
-
     }
-
 }

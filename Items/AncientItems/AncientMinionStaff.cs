@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.AncientItems       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class AncientMinionStaff : ModItem
@@ -15,13 +14,12 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         {
             DisplayName.SetDefault("Ancient Minion Staff");
             Tooltip.SetDefault("Summons an ancient minion to fight for you!");
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
         {
-
             item.damage = 12;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 72;    //The size of the width of the hitbox in pixels.
@@ -44,6 +42,7 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
             }
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMinionStaff_Glow");
@@ -73,11 +72,11 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -86,7 +85,6 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             }
             return base.UseItem(player);
         }
-
     }
 
     public class AncientMinionFreindly : ModProjectile
@@ -97,13 +95,12 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
             Main.projFrames[projectile.type] = 1;
             ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-
-
             projectile.width = 42; //Set the hitbox width
             projectile.height = 56;   //Set the hitbox height
             projectile.hostile = false;    //Tells the game if is hostile or not.
@@ -131,26 +128,24 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         public bool charging;
         public NPC target;
 
-        int waitTime = 10;
-        int chargeTime = 30;
-        Vector2 moveTo;
-        bool justTeleported;
-        float chargeSpeed = 12;
-        bool runOnce = true;
+        private int waitTime = 10;
+        private int chargeTime = 20;
+        private Vector2 moveTo;
+        private bool justTeleported;
+        private float chargeSpeed = 12;
+        private bool runOnce = true;
 
-        float maxDistance = 1000f;
-        int frame;
-        int noTargetTimer = 0;
+        private float maxDistance = 1000f;
+        private int frame;
+        private int noTargetTimer = 0;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.AncientMinion)
+            if (player.GetModPlayer<MinionManager>().AncientMinion)
             {
                 projectile.timeLeft = 2;
             }
-
 
             if (runOnce)
             {
@@ -158,14 +153,13 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
 
                 if (Main.netMode != 2)
                 {
-                    moveTo.X = projectile.Center.X;
-                    moveTo.Y = projectile.Center.Y;
+                    moveTo = projectile.Center;
                     projectile.netUpdate = true;
                 }
                 runOnce = false;
             }
 
-            if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, true, player.MinionAttackTargetNPC))
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, false, player.MinionAttackTargetNPC))
             {
                 timer++;
                 if (timer > waitTime + chargeTime)
@@ -180,20 +174,15 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
 
                         Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-minionRingRadius / 10, theta));
                         dust.noGravity = true;
-
                     }
                     if (Main.netMode != 2)
                     {
-
-
-
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
-                    moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 180, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 180);
+                    moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 120, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 180);
                     if (Main.netMode != 2)
                     {
-
                         projectile.netUpdate = true;
                     }
                     justTeleported = true;
@@ -220,7 +209,7 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                 }
                 if (charging)
                 {
-                    projectile.velocity = new Vector2((float)Math.Cos(projectile.rotation) * chargeSpeed, (float)Math.Sin(projectile.rotation) * chargeSpeed);
+                    projectile.velocity = new Vector2((float)Math.Cos(projectile.rotation), (float)Math.Sin(projectile.rotation)) * chargeSpeed;
                 }
                 else
                 {
@@ -229,10 +218,6 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                     float targetAngle = new Vector2(target.Center.X - projectile.Center.X, target.Center.Y - projectile.Center.Y).ToRotation();
                     projectile.rotation = targetAngle;
                 }
-
-
-
-
             }
             else
             {
@@ -251,9 +236,6 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                 {
                     if (Main.netMode != 2)
                     {
-
-
-
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
@@ -276,19 +258,18 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             }
             if (justTeleported)
             {
-
                 justTeleported = false;
             }
 
             projectile.frameCounter++;
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
@@ -299,7 +280,5 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                         new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, Main.projectileTexture[projectile.type].Height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
-
     }
-
 }

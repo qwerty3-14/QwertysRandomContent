@@ -1,5 +1,4 @@
 using QwertysRandomContent.Config;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,10 +10,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Hamaxe");
             Tooltip.SetDefault("");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 11;
@@ -24,7 +23,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.useAnimation = 26;
             item.useStyle = 1;
             item.knockBack = 3;
-            item.value = 50000;
+            item.value = 25000;
             item.rare = 3;
             item.UseSound = SoundID.Item1;
 
@@ -35,10 +34,6 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.hammer = 75;
             item.axe = 33;
             item.tileBoost = 1;
-
-
-
-
         }
 
         public override void AddRecipes()
@@ -50,7 +45,4 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.AddRecipe();
         }
     }
-
-
 }
-

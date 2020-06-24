@@ -12,12 +12,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             DisplayName.SetDefault("Shape Shift: Anvil!");
             Tooltip.SetDefault("");
-
         }
+
         public const int dmg = 52;
         public const int crt = 0;
         public const float kb = 10f;
         public const int def = 30;
+
         public override void SetDefaults()
         {
             item.width = 42;
@@ -36,12 +37,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool CanUseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed(true);
-
 
             return base.CanUseItem(player);
         }
@@ -54,8 +54,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class AnvilMorphB : ModBuff
     {
         public override void SetDefaults()
@@ -72,11 +72,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class AnvilMorph : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("AnvilMorphB");
             mountData.spawnDust = 15;
 
@@ -123,14 +123,15 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
         }
-        bool kicking = false;
-        int kickTimer;
-        bool forcedRunKick = false;
+
+        private bool kicking = false;
+        private int kickTimer;
+        private bool forcedRunKick = false;
+
         public override void UpdateEffects(Player player)
         {
             player.maxFallSpeed = 30f;
@@ -152,19 +153,17 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 {
                     Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("AnvilImpact"), (int)(AnvilShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), AnvilShift.kb, player.whoAmI);
                 }
-
             }
         }
-
     }
+
     public class AnvilImpact : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Kick");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -178,9 +177,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.tileCollide = false;
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public override void AI()
         {
             projectile.Center = Main.player[projectile.owner].Center;
@@ -195,7 +193,4 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             return false;
         }
     }
-
-
-
 }

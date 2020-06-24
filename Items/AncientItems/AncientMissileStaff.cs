@@ -15,9 +15,10 @@ namespace QwertysRandomContent.Items.AncientItems
             DisplayName.SetDefault("Ancient Missile Staff");
             Tooltip.SetDefault("Fires explosive Ancient Missiles!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 32;
@@ -42,10 +43,8 @@ namespace QwertysRandomContent.Items.AncientItems
             item.shootSpeed = 9;
             item.noMelee = true;
             //item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientWave_Glow");
-
-
-
         }
+
         public override bool CanUseItem(Player player)
         {
             if (player.statMana > item.mana)
@@ -54,6 +53,7 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             return base.CanUseItem(player);
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 70f;
@@ -62,8 +62,8 @@ namespace QwertysRandomContent.Items.AncientItems
                 position += muzzleOffset;
             }
             return true;
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMissileStaff_Glow");
@@ -84,8 +84,8 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
-
     }
+
     public class AncientMissileP : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -93,9 +93,10 @@ namespace QwertysRandomContent.Items.AncientItems
             DisplayName.SetDefault("Ancient Missile");
 
             Main.projFrames[projectile.type] = 2;
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -112,16 +113,12 @@ namespace QwertysRandomContent.Items.AncientItems
         }
 
         public int dustTimer;
-        float direction;
-        float missileAcceleration = .5f;
-        float topSpeed = 10f;
-        int timer;
+        private float missileAcceleration = .5f;
+        private float topSpeed = 10f;
+        private int timer;
 
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 10000f;
-        float distance;
+        private NPC target;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -137,23 +134,7 @@ namespace QwertysRandomContent.Items.AncientItems
             timer++;
             if (timer > 30)
             {
-                //Player player = Main.player[projectile.owner];
-
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - player.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - player.Center).Length();
-                    }
-
-                }
-                if (foundTarget)
+                if (QwertyMethods.ClosestNPC(ref target, 10000f, projectile.Center))
                 {
                     projectile.velocity += QwertyMethods.PolarVector(missileAcceleration, (target.Center - projectile.Center).ToRotation());
                     if (projectile.velocity.Length() > topSpeed)
@@ -161,37 +142,28 @@ namespace QwertysRandomContent.Items.AncientItems
                         projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY) * topSpeed;
                     }
                 }
-
             }
-            //int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AncientGlow"), 0, 0, 0, default(Color), .4f);
             Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(26, projectile.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(Main.rand.Next(-6, 6), projectile.rotation), mod.DustType("AncientGlow"));
-            maxDistance = 10000;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlastFriendly"), projectile.damage, projectile.knockBack, projectile.owner, 1f)];
             e.localNPCImmunity[target.whoAmI] = -1;
-
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
             Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlastFriendly"), projectile.damage, projectile.knockBack, projectile.owner);
             return true;
         }
-        /*
-        public override void Kill(int timeLeft)
-        {
-            Player player = Main.player[projectile.owner];
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientBlast"), projectile.damage, projectile.knockBack, player.whoAmI);
 
-        }*/
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
-                        new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height/2, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height/2), drawColor, projectile.rotation,
+                        new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height / 2, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 2), drawColor, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMissileP_Glow_Old") : mod.GetTexture("NPCs/AncientMachine/AncientMissile_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, projectile.frame * Main.projectileTexture[projectile.type].Height / 2, Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height / 2), Color.White, projectile.rotation,
@@ -199,14 +171,14 @@ namespace QwertysRandomContent.Items.AncientItems
             return false;
         }
     }
+
     public class AncientBlastFriendly : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Blast");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -219,9 +191,8 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.tileCollide = false;
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -229,31 +200,25 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.height = 150;
             projectile.FriendlyFire();
 
-
-
             Main.PlaySound(SoundID.Item62, projectile.position);
-
 
             for (int i = 0; i < 400; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(Main.rand.Next(2, 20), theta));
                 dust.noGravity = true;
-
-
             }
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
     }
 }
-

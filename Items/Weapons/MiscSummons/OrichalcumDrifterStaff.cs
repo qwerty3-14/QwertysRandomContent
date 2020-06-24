@@ -12,13 +12,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Orichalcum Drifter Staff");
             Tooltip.SetDefault("Summons an Orichalcum Drifter to fight for you!");
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 32;
             item.mana = 20;
             item.width = 32;
@@ -31,7 +28,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.value = 126500;
             item.rare = 4;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("OrichalcumDrifter");
             item.summon = true;
             item.buffType = mod.BuffType("OrichalcumDrifter");
@@ -46,6 +42,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
@@ -54,11 +51,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -67,7 +64,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return base.UseItem(player);
         }
-
     }
 
     public class OrichalcumDrifter : ModProjectile
@@ -76,13 +72,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Orichalcum Drifter");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 14;
             projectile.height = 18;
             projectile.hostile = false;
@@ -100,32 +93,31 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.localNPCHitCooldown = 20;
         }
 
-        Vector2 flyTo;
-        int identity = 0;
-        int drifterCount = 0;
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float distance;
-        float maxDistance = 1000f;
-        Projectile Beam = new Projectile();
-        bool runOnce = true;
-        float flyDirection;
-        float acceleration = .1f;
-        float maxSpeed = 3f;
-        float driftTimer = 0;
-        float driftVariance = 1;
-        bool flyBack;
-        float speed = 3;
-        float turnSpeed = 2;
+        private Vector2 flyTo;
+        private int identity = 0;
+        private int drifterCount = 0;
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float distance;
+        private float maxDistance = 1000f;
+        private Projectile Beam = new Projectile();
+        private bool runOnce = true;
+        private float flyDirection;
+        private float acceleration = .1f;
+        private float maxSpeed = 3f;
+        private float driftTimer = 0;
+        private float driftVariance = 1;
+        private bool flyBack;
+        private float speed = 3;
+        private float turnSpeed = 2;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
 
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             drifterCount = player.ownedProjectileCounts[mod.ProjectileType("OrichalcumDrifter")];
-            if (modPlayer.OrichalcumDrifter)
+            if (player.GetModPlayer<MinionManager>().OrichalcumDrifter)
             {
                 projectile.timeLeft = 2;
             }
@@ -145,7 +137,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             if ((player.Center - projectile.Center).Length() > 750 || flyBack)
             {
-
                 flyTo = player.Center;
 
                 if (Collision.CheckAABBvAABBCollision(player.position, player.Size, projectile.position, projectile.Size))
@@ -163,7 +154,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             else
             {
-
                 if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
                 {
                     flyTo = target.Center;
@@ -179,11 +169,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     {
                         flyTo = player.Center;
                     }
-
                 }
                 speed = 3;
                 turnSpeed = 2;
-
             }
             flyDirection = QwertyMethods.SlowRotation(flyDirection, (flyTo - projectile.Center).ToRotation(), turnSpeed);
 
@@ -193,17 +181,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.velocity += QwertyMethods.PolarVector(driftVariance, flyDirection + (float)Math.PI / 2);
             projectile.rotation = projectile.velocity.ToRotation();
             // Main.NewText((player.Center - projectile.Center).Length());
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
-
-
     }
-
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent
@@ -15,6 +10,7 @@ namespace QwertysRandomContent
         public float meleeUseSpeedBonus = 0f; //melee speed from vanilla does not effect use time
         public float magicSpeedBonus = 0f;
         public bool swordBadge = false;
+
         public override void ResetEffects()
         {
             allSpeed = 1f;
@@ -23,6 +19,15 @@ namespace QwertysRandomContent
             magicSpeedBonus = 0f;
             swordBadge = false;
         }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            if (swordBadge && !target.immortal)
+            {
+                player.AddBuff(mod.BuffType("ImperialCourage"), 7 * 60);
+            }
+        }
+
         public float GetSpeed(Item item, Player player)
         {
             float speed = allSpeed;
@@ -40,10 +45,12 @@ namespace QwertysRandomContent
             }
             return speed;
         }
+
         public override float MeleeSpeedMultiplier(Item item)
         {
-            return GetSpeed(item, player) * ((swordBadge && Math.Abs(player.velocity.X) < .2f && (item.useStyle == 1 || item.useStyle == 3 || item.useStyle == 101)) ? 2f : 1f);
+            return GetSpeed(item, player);
         }
+
         public override float UseTimeMultiplier(Item item)
         {
             return GetSpeed(item, player);

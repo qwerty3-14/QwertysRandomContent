@@ -35,13 +35,10 @@ namespace QwertysRandomContent.NPCs
             npc.lifeMax = 1800;
             banner = npc.type;
             bannerItem = mod.ItemType("AntiAirBanner");
-
         }
-
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (QwertyWorld.DinoEvent)
             {
                 return 10f;
@@ -50,16 +47,10 @@ namespace QwertysRandomContent.NPCs
             {
                 return 0f;
             }
-
         }
-
-
-
-
 
         public override void HitEffect(int hitDirection, double damage)
         {
-
             for (int i = 0; i < 10; i++)
             {
                 int dustType = 148;
@@ -70,8 +61,9 @@ namespace QwertysRandomContent.NPCs
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
-        const int moveFrameType = 0;
-        const int attackFrameType = 1;
+
+        private const int moveFrameType = 0;
+        private const int attackFrameType = 1;
 
         public int AI_Timer = 0;
         public int Pos = 1;
@@ -83,9 +75,9 @@ namespace QwertysRandomContent.NPCs
         public int ReloadTime = 20;
         public int attackTime = 0;
         public bool secondShot = true;
+
         public override void AI()
         {
-
             Player player = Main.player[npc.target];
             npc.TargetClosest(true);
 
@@ -119,8 +111,6 @@ namespace QwertysRandomContent.NPCs
                         attackTime = 0;
                     }
                 }
-
-
             }
 
             float playerPositionSummery = player.Center.Y - npc.Center.Y;
@@ -137,14 +127,8 @@ namespace QwertysRandomContent.NPCs
             {
                 frameType = moveFrameType;
             }
-
-
-
-
-
-
-
         }
+
         public override void NPCLoot()
         {
             QwertyWorld.DinoKillCount += 2;
@@ -172,18 +156,7 @@ namespace QwertysRandomContent.NPCs
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AntiAirWrench"));
                 }
             }
-
-
-
-
-
-
         }
-
-
-
-
-
 
         public int moveFrame = 0;
         public int moveFrame2 = 1;
@@ -191,9 +164,6 @@ namespace QwertysRandomContent.NPCs
         public int attackFrameLeft = 2;
         public int attackFrameRight = 3;
         public int attackFrameAlternation = 4;
-
-
-
 
         public override void FindFrame(int frameHeight)
         {
@@ -238,19 +208,16 @@ namespace QwertysRandomContent.NPCs
                     npc.frameCounter = 0;
                 }
             }
-
-
         }
-
     }
+
     public class AntiAirRocket : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Anti Air Rocket");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -262,10 +229,10 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 240;
             projectile.tileCollide = true;
-
-
         }
+
         public bool runOnce = true;
+
         public override void AI()
         {
             if (runOnce)
@@ -294,8 +261,8 @@ namespace QwertysRandomContent.NPCs
             {
                 projectile.timeLeft = 0;
             }
-
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[0];
@@ -306,7 +273,6 @@ namespace QwertysRandomContent.NPCs
                 {
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 10f, 0f, mod.ProjectileType("AntiAirSide"), 40, 3f, Main.myPlayer);
                 }
-
             }
             else
             {
@@ -314,28 +280,19 @@ namespace QwertysRandomContent.NPCs
                 {
                     Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, -10f, 0f, mod.ProjectileType("AntiAirSide"), 40, 3f, Main.myPlayer);
                 }
-
             }
 
             //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, 102, 300, 3f, Main.myPlayer);
-
-
-
-
         }
-
-
-
-
     }
+
     public class AntiAirSide : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Anti Air Rocket");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -347,8 +304,6 @@ namespace QwertysRandomContent.NPCs
             projectile.penetrate = -1;
             projectile.timeLeft = 240;
             projectile.tileCollide = true;
-
-
         }
 
         public override void Kill(int timeLeft)
@@ -369,12 +324,5 @@ namespace QwertysRandomContent.NPCs
                 Main.dust[dustIndex].velocity *= 3f;
             }
         }
-
-
-
-
-
-
     }
-
 }

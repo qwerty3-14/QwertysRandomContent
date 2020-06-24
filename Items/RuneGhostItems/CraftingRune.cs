@@ -17,7 +17,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void SetDefaults()
         {
-
             item.width = 54;
             item.height = 54;
             item.maxStack = 999;
@@ -25,12 +24,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.rare = 3;
             item.value = 500;
             item.rare = 9;
-
         }
-
-
-
-
-
     }
 }

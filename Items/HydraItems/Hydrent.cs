@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +16,7 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override void SetDefaults()
         {
-            item.damage = 32;
+            item.damage = 38;
             item.useStyle = 5;
             item.useAnimation = 30;
             item.useTime = 30;
@@ -26,7 +27,6 @@ namespace QwertysRandomContent.Items.HydraItems
             item.scale = 1f;
             item.value = 250000;
             item.rare = 5;
-
 
             item.melee = true;
             item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
@@ -42,12 +42,9 @@ namespace QwertysRandomContent.Items.HydraItems
             // Ensures no more than one spear can be thrown out, use this when using autoReuse
             return player.ownedProjectileCounts[item.shoot] < 1;
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
-
-
             ////
 
             Vector2 muzzleOffset = new Vector2(speedX, speedY).SafeNormalize(-Vector2.UnitY);
@@ -56,16 +53,12 @@ namespace QwertysRandomContent.Items.HydraItems
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
-
-
-                Projectile.NewProjectile(position.X - 10f, position.Y + 0f, speedX * 5f, speedY * 5f, mod.ProjectileType("HydrentBreath"), damage, knockBack, player.whoAmI);
-                Projectile.NewProjectile(position.X, position.Y - 10f, speedX * 5f, speedY * 5f, mod.ProjectileType("HydrentBreath"), damage, knockBack, player.whoAmI);
-                Projectile.NewProjectile(position.X, position.Y + 10f, speedX * 5f, speedY * 5f, mod.ProjectileType("HydrentBreath"), damage, knockBack, player.whoAmI);
-
-
-
+                Vector2 speed = new Vector2(speedX, speedY) * 5;
+                float rot = speed.ToRotation();
+                Projectile.NewProjectile(position + QwertyMethods.PolarVector(5f, rot), speed, mod.ProjectileType("HydrentBreath"), damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position + QwertyMethods.PolarVector(7f, rot + (float)Math.PI / 2), speed * 5f, mod.ProjectileType("HydrentBreath"), damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position + QwertyMethods.PolarVector(7f, rot - (float)Math.PI / 2), speed * 5f, mod.ProjectileType("HydrentBreath"), damage, knockBack, player.whoAmI);
             }
-
 
             return true;
         }
@@ -155,18 +148,16 @@ namespace QwertysRandomContent.Items.HydraItems
             {
                 projectile.rotation -= MathHelper.ToRadians(90f);
             }
-
-
         }
     }
+
     public class HydrentBreath : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydrent Breath");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -177,24 +168,16 @@ namespace QwertysRandomContent.Items.HydraItems
             projectile.penetrate = 1;
             projectile.melee = true;
             projectile.tileCollide = true;
-
-
-
-
         }
+
         public override void AI()
         {
             CreateDust();
         }
+
         public virtual void CreateDust()
         {
-
             int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBreathGlow"));
-
-
-
         }
-
-
     }
 }

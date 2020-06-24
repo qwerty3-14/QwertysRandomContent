@@ -29,3 +29,4 @@ C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomCo
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.csproj.CopyComplete
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.dll
 C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.pdb
+C:\Users\noahg\Documents\My Games\Terraria\ModLoader\Mod Sources\QwertysRandomContent\obj\Debug\net45\QwertysRandomContent.csproj.CoreCompileInputs.cache

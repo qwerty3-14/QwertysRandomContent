@@ -14,6 +14,7 @@ namespace QwertysRandomContent.Items.HydraItems
             DisplayName.SetDefault("The Hydrator");
             Tooltip.SetDefault("Three bobbers are better than one!");
         }
+
         public override void SetDefaults()
         {
             item.CloneDefaults(ItemID.GoldenFishingRod);  //This defines the fishing pole you want to clone
@@ -33,9 +34,7 @@ namespace QwertysRandomContent.Items.HydraItems
             Projectile.NewProjectile(position.X, position.Y, speedX * 0.8f, speedY * 0.8f, type, damage, knockBack, player.whoAmI);
             return true;
         }
-
     }
-
 
     public class HydraBobber : ModProjectile
     {
@@ -43,6 +42,7 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             DisplayName.SetDefault("Hydra Bobber");
         }
+
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.BobberGolden);   //so we are going to clone a bobber from vanilla terraria
@@ -50,7 +50,6 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override bool PreDrawExtras(SpriteBatch spriteBatch)      //this draws the fishing line correctly
         {
-
             Player player = Main.player[projectile.owner];
             if (projectile.bobber && Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].holdStyle > 0)
             {

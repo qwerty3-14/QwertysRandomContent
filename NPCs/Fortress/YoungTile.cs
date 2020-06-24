@@ -11,14 +11,14 @@ namespace QwertysRandomContent.NPCs.Fortress
 {
     public class YoungTile : ModNPC
     {
-        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Young Tile");
             Main.npcFrameCount[npc.type] = 4;
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
+
         public override void SetDefaults()
         {
             npc.width = 16;
@@ -43,6 +43,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             //bannerItem = mod.ItemType("HopperBanner");
             npc.buffImmune[BuffID.Confused] = false;
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
@@ -56,7 +57,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
                     dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
                 }
-
             }
             for (int i = 0; i < 1; i++)
             {
@@ -67,26 +67,26 @@ namespace QwertysRandomContent.NPCs.Fortress
                 dust.velocity.Y = dust.velocity.Y + Main.rand.Next(-50, 51) * 0.01f;
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
-
         }
+
         public override void NPCLoot()
         {
             if (Main.rand.NextBool())
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBrick"), 1);
             }
-
         }
 
-        int frame;
-        int timer;
-        float jumpSpeedY = -10.5f;
-        float jumpSpeedX = 4;
-        float aggroDistance = 400;
-        float aggroDistanceY = 200;
-        bool jump;
-        float gravity = .3f;
-        bool runOnce = true;
+        private int frame;
+        private int timer;
+        private float jumpSpeedY = -10.5f;
+        private float jumpSpeedX = 4;
+        private float aggroDistance = 400;
+        private float aggroDistanceY = 200;
+        private bool jump;
+        private float gravity = .3f;
+        private bool runOnce = true;
+
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
@@ -153,7 +153,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     frame = 3;
                     if (!jump)
                     {
-
                         if (player.Center.X > npc.Center.X)
                         {
                             npc.velocity.X = jumpSpeedX;
@@ -198,19 +197,20 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             npc.velocity.Y += gravity;
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(jumpSpeedX);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             jumpSpeedX = reader.ReadSingle();
         }
     }
-
-
 }

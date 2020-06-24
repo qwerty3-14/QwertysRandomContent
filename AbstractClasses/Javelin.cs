@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.AbstractClasses
@@ -10,14 +9,15 @@ namespace QwertysRandomContent.AbstractClasses
     {
         //361496540
         protected int dropItem = -1;
-        protected bool alwaysDrop = false;
+
         protected int maxStickingJavelins = 5; // projectile is the max. amount of javelins being able to attach
         protected float rotationOffset = 0f;
         protected float maxTicks = 45f;
+
         public virtual void ExtraAI()
         {
-
         }
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             // For going through platforms and such, javelins use a tad smaller size
@@ -45,23 +45,11 @@ namespace QwertysRandomContent.AbstractClasses
                 (projectile.rotation - MathHelper.ToRadians(90f)).ToRotationVector2();
             usePos += rotVector * 16f;
 
+            ExtraKill(timeLeft);
+        }
 
-
-
-            if (projectile.owner == Main.myPlayer && dropItem != -1)
-            {
-                int item =
-                (Main.rand.Next(18) == 0 || alwaysDrop)
-                    ? Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, dropItem)
-                    : 0;
-
-                // Sync the drop for multiplayer
-                // Note the usage of Terraria.ID.MessageID, please use projectile!
-                if (Main.netMode == 1 && item >= 0)
-                {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, item, 1f);
-                }
-            }
+        public virtual void ExtraKill(int timeLeft)
+        {
         }
 
         // Here's an example on how you could make your AI even more readable, by giving AI fields more descriptive names
@@ -99,7 +87,7 @@ namespace QwertysRandomContent.AbstractClasses
 
             // The following code handles the javelin sticking to the enemy hit.
             Player player = Main.player[projectile.owner];
-            Point[] stickingJavelins = new Point[(int)(maxStickingJavelins*player.GetModPlayer<QwertyPlayer>().PincusionMultiplier)]; // The point array holding for sticking javelins
+            Point[] stickingJavelins = new Point[(int)(maxStickingJavelins * player.GetModPlayer<QwertyPlayer>().PincusionMultiplier)]; // The point array holding for sticking javelins
             int javelinIndex = 0; // The javelin index
             for (int i = 0; i < Main.maxProjectiles; i++) // Loop all projectiles
             {
@@ -141,8 +129,8 @@ namespace QwertysRandomContent.AbstractClasses
 
         public virtual void StuckEffects(NPC victim)
         {
-
         }
+
         public virtual void NonStickingBehavior()
         {
             targetWhoAmI += 1f;
@@ -183,9 +171,6 @@ namespace QwertysRandomContent.AbstractClasses
                 // Make sure to set the rotation accordingly to the velocity, and add some to work around the sprite's rotation
                 projectile.rotation =
                     projectile.velocity.ToRotation() + (float)Math.PI / 2 + rotationOffset;
-
-
-
             }
             // projectile code is ran when the javelin is sticking to a target
             if (isStickingToTarget)
@@ -225,7 +210,6 @@ namespace QwertysRandomContent.AbstractClasses
                 {
                     projectile.Kill();
                 }
-
             }
             ExtraAI();
         }

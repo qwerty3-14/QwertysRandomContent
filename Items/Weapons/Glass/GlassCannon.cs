@@ -13,13 +13,14 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         {
             DisplayName.SetDefault("Shape Shift: Glass cannon");
             Tooltip.SetDefault("Do I even need to explain?");
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
         public const int dmg = 69;
         public const int crt = 0;
         public const float kb = 7f;
         public const int def = 0;
+
         public override void SetDefaults()
         {
             item.width = 50;
@@ -38,13 +39,14 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool CanUseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             return base.CanUseItem(player);
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -54,8 +56,8 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
+
     public class GlassCannonMorphB : ModBuff
     {
         public override void SetDefaults()
@@ -72,12 +74,11 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class GlassCannonMorph : ModMountData
     {
-        
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("GlassCannonMorphB");
             mountData.spawnDust = 15;
 
@@ -119,7 +120,6 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
@@ -128,17 +128,20 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<GlassCannonControl>().controlled = true;
-
         }
     }
+
     public class GlassCannonControl : ModPlayer
     {
         public bool controlled = false;
+
         public override void ResetEffects()
         {
             controlled = false;
         }
-        int shotCooldown = 0;
+
+        private int shotCooldown = 0;
+
         public override void PostUpdateMiscEffects()
         {
             if (controlled)
@@ -156,10 +159,11 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
                 Vector2 shootFrom = player.Top;
                 //shootFrom.Y -= 4;
-                float pointAt = (QwertysRandomContent.LocalCursor[player.whoAmI] - shootFrom).ToRotation();
-                if (QwertysRandomContent.LocalCursor[player.whoAmI].Y > player.Top.Y)
+                Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
+                float pointAt = (LocalCursor - shootFrom).ToRotation();
+                if (LocalCursor.Y > player.Top.Y)
                 {
-                    if (QwertysRandomContent.LocalCursor[player.whoAmI].X > player.Top.X)
+                    if (LocalCursor.X > player.Top.X)
                     {
                         pointAt = 0;
                     }
@@ -194,15 +198,16 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             }
         }
     }
+
     public class GlassCannonball : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass cannon");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -215,10 +220,8 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
-
-
-
         }
+
         public bool runOnce = true;
 
         public override void AI()
@@ -236,20 +239,17 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 runOnce = false;
             }
         }
+
         public override void Kill(int timeLeft)
         {
             int c = Main.rand.Next(2) + 2;
             for (int n = 0; n < c; n++)
             {
-
                 Vector2 vel = QwertyMethods.PolarVector(8, Main.rand.NextFloat(-1, 1) * (float)Math.PI);
                 Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .7f), projectile.knockBack, projectile.owner)];
                 e.GetGlobalProjectile<MorphProjectile>().morph = true;
                 e.ranged = false;
             }
         }
-
-
     }
-
 }

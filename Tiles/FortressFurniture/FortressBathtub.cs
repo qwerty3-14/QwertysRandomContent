@@ -19,9 +19,7 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             name.SetDefault("Fortress Bathtub");
             AddMapEntry(new Color(162, 184, 185), name);
             dustType = mod.DustType("FortressDust");
-
         }
-
 
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
@@ -32,7 +30,5 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
         {
             Item.NewItem(i * 16, j * 16, 64, 32, mod.ItemType("FortressBathtub"));
         }
-
-
     }
 }

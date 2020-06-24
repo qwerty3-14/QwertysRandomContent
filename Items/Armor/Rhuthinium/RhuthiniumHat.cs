@@ -12,60 +12,45 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Hat");
-            Tooltip.SetDefault("+11% magic damage and critical strike chance");
+            Tooltip.SetDefault("10% increased magic casting speed \n10% reduced mana useage");
             if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
             {
                 Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumHat_Old");
                 Main.armorHeadTexture[item.headSlot] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumHat_Head_Old");
             }
-
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = 50000;
             item.rare = 3;
-
 
             item.width = 26;
             item.height = 12;
             item.defense = 2;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.magicDamage += .11f;
-            player.magicCrit += 11;
+            player.GetModPlayer<AttackSpeedPlayer>().magicSpeedBonus += .1f;
+            player.manaCost *= .9f;
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
-
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("RhuthiniumChestplate") && legs.type == mod.ItemType("RhuthiniumGreaves");
-
         }
-
-
 
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.RHatSet");
-            player.magicDamage += ((player.statMana * 1.0f) / (player.statManaMax2 * 1.0f) * .2f);
-
-
+            player.GetModPlayer<RhuthiniumArmorEfffects>().magicSet = true;
         }
-
-
-
 
         public override void AddRecipes()
         {
@@ -76,9 +61,5 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
-
-
 }
-

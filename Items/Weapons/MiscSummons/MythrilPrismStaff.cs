@@ -14,13 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Mythril Prism Staff");
             Tooltip.SetDefault("Summons a Mythril Prism to vaporize enemies that come near you!");
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 30;
             item.mana = 20;
             item.width = 32;
@@ -33,7 +30,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.value = 103500;
             item.rare = 4;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("MythrilPrism");
             item.summon = true;
             item.buffType = mod.BuffType("MythrilPrism");
@@ -48,6 +44,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
@@ -56,11 +53,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -69,7 +66,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return base.UseItem(player);
         }
-
     }
 
     public class MythrilPrism : ModProjectile
@@ -78,13 +74,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Mythril Prism");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 14;
             projectile.height = 18;
             projectile.hostile = false;
@@ -101,25 +94,20 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             //projectile.usesLocalNPCImmunity = true;
         }
 
-        Vector2 flyTo;
-        int identity = 0;
-        int prismCount = 0;
-        float beamRange = 100f;
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float distance;
-        float maxDistance = 200f;
-        Projectile Beam = new Projectile();
-        bool runOnce = true;
+        private Vector2 flyTo;
+        private int identity = 0;
+        private int prismCount = 0;
+        private float beamRange = 100f;
+        private NPC target;
+        private Projectile Beam = new Projectile();
+        private bool runOnce = true;
+        private float maxDistance = 400f;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
-            //Main.NewText(moveTo);
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             prismCount = player.ownedProjectileCounts[mod.ProjectileType("MythrilPrism")];
-            if (modPlayer.mythrilPrism)
+            if (player.GetModPlayer<MinionManager>().mythrilPrism)
             {
                 projectile.timeLeft = 2;
             }
@@ -137,40 +125,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     }
                 }
             }
-            if (player.MinionAttackTargetNPC != -1)
-            {
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - player.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal)
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - player.Center).Length();
-                    }
-
-                }
-            }
-            else
-            {
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - player.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal)
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - player.Center).Length();
-                    }
-
-                }
-            }
             if (runOnce)
             {
                 Beam = Main.projectile[Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("MiniBeam"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI, 0)];
@@ -179,43 +133,30 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             if (prismCount != 0)
             {
                 projectile.ai[0] = 40f;
-                if (foundTarget)
+                if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, true, player.MinionAttackTargetNPC))
                 {
-                    flyTo = target.Center + QwertyMethods.PolarVector(maxDistance / 2f, (player.Center - target.Center).ToRotation() + (.5f * (float)Math.PI * (identity + 1)) / (prismCount + 1) - (float)Math.PI * .25f);
+                    flyTo = target.Center + QwertyMethods.PolarVector(60f, (player.Center - target.Center).ToRotation() + (.5f * (float)Math.PI * (identity + 1)) / (prismCount + 1) - (float)Math.PI * .25f);
 
                     Beam.ai[1] = target.whoAmI;
-
                 }
                 else
                 {
                     Beam.ai[1] = -1;
-                    flyTo = player.Center + QwertyMethods.PolarVector(projectile.ai[0], modPlayer.mythrilPrismRotation + (2f * (float)Math.PI * identity) / prismCount);
+                    flyTo = player.Center + QwertyMethods.PolarVector(projectile.ai[0], player.GetModPlayer<MinionManager>().mythrilPrismRotation + (2f * (float)Math.PI * identity) / prismCount);
                 }
                 projectile.velocity = (flyTo - projectile.Center) * .1f;
                 //Main.NewText(projectile.Center);/
                 //projectile.Center = flyTo;
-
             }
-
-
-
-
-
-
-
             identity = 0;
-            maxDistance = beamRange * 2;
-            foundTarget = false;
         }
-
-
-
-
     }
+
     public class MiniBeam : ModProjectile
     {
         // The maximum charge value
         private const float MaxChargeValue = 0f;
+
         //The distance charge particle from the player center
         private const float MoveDistance = 0f;
 
@@ -229,10 +170,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             get { return projectile.localAI[0]; }
             set { projectile.localAI[0] = value; }
         }
+
         public Projectile shooter;
+
         // Are we at max charge? With c#6 you can simply use => which indicates this is a get only property
         public bool AtMaxCharge { get { return Charge == MaxChargeValue; } }
-        Vector2 diff;
+
+        private Vector2 diff;
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -246,11 +191,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.localNPCHitCooldown = 20;
             projectile.minion = true;
         }
+
         // The AI of the projectile
 
         public override void AI()
         {
-
             shooter = Main.projectile[(int)projectile.ai[0]];
             Vector2 mousePos = Main.MouseWorld;
             Player player = Main.player[projectile.owner];
@@ -270,8 +215,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 diff = new Vector2(2f, 0);
             }
 
-
-
             diff.Normalize();
             projectile.velocity = diff;
             projectile.direction = projectile.Center.X > shooter.Center.X ? 1 : -1;
@@ -287,13 +230,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             player.itemAnimation = 2;
             player.itemRotation = (float)Math.Atan2(projectile.velocity.Y * dir, projectile.velocity.X * dir);
             */
-            #endregion
+
+            #endregion Set projectile position
 
             #region Charging process
+
             // Kill the projectile if the player stops channeling
-
-
-
 
             Vector2 offset = projectile.velocity;
             offset *= MoveDistance - 20;
@@ -306,10 +248,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             int chargeFact = (int)(Charge / 20f);
 
-
-
-            #endregion
-
+            #endregion Charging process
 
             if (Charge < MaxChargeValue) return;
             Vector2 start = new Vector2(shooter.Center.X, shooter.Center.Y);
@@ -328,22 +267,17 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 */
             }
 
-
-
             //Add lights
             DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
             Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
                 DelegateMethods.CastLight);
-
-
-
-
         }
+
         public int colorCounter;
         public Color lineColor;
+
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             if (projectile.ai[1] != -1)
             {
                 DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], shooter.Center,
@@ -353,7 +287,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             spriteBatch.Draw(text, new Vector2(shooter.Center.X - Main.screenPosition.X, shooter.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, text.Width, text.Height), lightColor, projectile.rotation,
                         new Vector2(text.Width * 0.5f, text.Height * 0.5f), 1f, SpriteEffects.None, 0f);
-
         }
 
         // The core function of drawing a laser
@@ -363,6 +296,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             float r = unit.ToRotation() + rotation;
 
             #region Draw laser body
+
             for (float i = transDist; i <= Distance; i += step)
             {
                 Color c = Color.White;
@@ -372,20 +306,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     new Vector2(3, 1), scale, 0, 0);
             }
 
-
-
-            #endregion
-
-
+            #endregion Draw laser body
         }
 
         // Change the way of collision check of the projectile
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-
             if (projectile.ai[1] != -1)
             {
-
                 Player player = Main.player[projectile.owner];
                 Vector2 unit = projectile.velocity;
                 float point = 0f;
@@ -404,12 +332,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         // Set custom immunity time on hitting an NPC
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
-
-
 
         public override bool ShouldUpdatePosition()
         {

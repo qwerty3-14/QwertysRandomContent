@@ -12,7 +12,9 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Eye of Darkness");
             Tooltip.SetDefault("You are more likely to critically hit in the dark!\nDarkness was the first thing the gods tried to banish... \nThey completely failed.");
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.accessory = true;
@@ -21,6 +23,7 @@ namespace QwertysRandomContent.Items.Etims
             item.width = 32;
             item.height = 22;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             Color playerLight = Lighting.GetColor((int)player.Center.X / 16, (int)player.Center.Y / 16);

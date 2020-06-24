@@ -10,8 +10,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Cactus Arrow");
             Tooltip.SetDefault("Sounds painful.\nPierces 1 enemy");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 7;
@@ -28,8 +28,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("CactusArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -41,14 +39,14 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.AddRecipe();
         }
     }
+
     public class CactusArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cactus Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -58,18 +56,16 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 2;
             projectile.ranged = true;
             projectile.arrow = true;
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(30, 120);
-
         }
 
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
 }
-

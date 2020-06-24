@@ -13,12 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Adamantite Punnisher staff");
             Tooltip.SetDefault("Banned from boxing tournaments");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 25;
             item.mana = 20;
             item.width = 32;
@@ -31,12 +29,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.value = 138000;
             item.rare = 4;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("AdamantitePunnisher");
             item.summon = true;
             item.sentry = true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -45,24 +42,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
-
-
-
-
-
-
             return true;
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -84,7 +76,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 42;
             projectile.height = 42;
@@ -101,20 +92,21 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
 
-        NPC target;
+        private NPC target;
 
+        private int timer;
+        private bool runOnce = true;
+        private Projectile Fist;
 
-        int timer;
-        bool runOnce = true;
-        Projectile Fist;
         //bool returnFist;
-        float FistExtension = 17f;
-        float FistExtensionSpeed = 12f;
-        float maxFistExtension = 900f;
-        int wait;
+        private float FistExtension = 17f;
+
+        private float FistExtensionSpeed = 12f;
+        private float maxFistExtension = 900f;
+        private int wait;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             player.UpdateMaxTurrets();
             if (runOnce)
@@ -123,14 +115,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 runOnce = false;
             }
 
-
             if (projectile.ai[1] == 1)
             {
                 if (FistExtension <= 17)
                 {
                     FistExtension = 17;
                     projectile.ai[1] = 0;
-
                 }
                 else
                 {
@@ -151,7 +141,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 }
                 if (wait > 10)
                 {
-
                     FistExtension += FistExtensionSpeed;
                     if (FistExtension > maxFistExtension)
                     {
@@ -167,11 +156,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             Fist.timeLeft = 2;
             Fist.Center = projectile.Center + QwertyMethods.PolarVector(FistExtension, projectile.rotation);
             Fist.rotation = projectile.rotation + (float)Math.PI / 2;
-
         }
 
-        float sawRotation = 0;
-        float sawRotation2 = 0;
+        private float sawRotation = 0;
+        private float sawRotation2 = 0;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             /*
@@ -200,22 +189,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return true;
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
-
-
         }
-
     }
+
     public class PunnishFist : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Adamantite Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -230,15 +216,16 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.usesLocalNPCImmunity = true;
             //Main.PlaySound(2, -1, -1, 59, 1f, -.2f);
         }
-        Projectile parent;
+
+        private Projectile parent;
+
         public override void AI()
         {
             parent = Main.projectile[(int)projectile.ai[0]];
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             knockback = 0;
             if (crit)
             {
@@ -246,8 +233,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 if (!target.boss && !target.immortal)
                 {
                     target.velocity = QwertyMethods.PolarVector(2f, projectile.rotation - (float)Math.PI / 2);
-
-
                 }
             }
             else
@@ -256,7 +241,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 if (!target.boss && !target.immortal)
                 {
                     target.velocity = QwertyMethods.PolarVector(4f, projectile.rotation - (float)Math.PI / 2);
-
                 }
             }
             for (int k = 0; k < 200; k++)
@@ -267,20 +251,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             parent.ai[1] = 1;
         }
 
-
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             parent.ai[1] = 1;
             return false;
         }
-
-
-
-
-
     }
-
-
-
-
 }

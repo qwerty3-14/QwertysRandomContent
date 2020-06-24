@@ -10,8 +10,8 @@ namespace QwertysRandomContent.Items.TundraBossItems
         {
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-
         }
+
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -20,10 +20,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
             item.height = 34;
             item.rare = 9;
             item.expert = true;
-            //bossBagNPC = mod.NPCType("PolarBear"); 
+            //bossBagNPC = mod.NPCType("PolarBear");
         }
-        public override int BossBagNPC => mod.NPCType("PolarBear");
 
+        public override int BossBagNPC => mod.NPCType("PolarBear");
 
         public override bool CanRightClick()
         {
@@ -32,8 +32,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
         public override void OpenBossBag(Player player)
         {
-
-
             if (Main.rand.Next(7) == 0)
             {
                 player.QuickSpawnItem(mod.ItemType("PolarMask"));
@@ -43,13 +41,14 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 case 0:
                     player.QuickSpawnItem(mod.ItemType("PenguinClub"), 1);
                     break;
+
                 case 1:
                     player.QuickSpawnItem(mod.ItemType("PenguinLauncher"), 1);
                     break;
+
                 case 2:
                     player.QuickSpawnItem(mod.ItemType("PenguinWhistle"), 1);
                     break;
-
             }
             player.QuickSpawnItem(mod.ItemType("PenguinGenerator"), 1);
             player.QuickSpawnItem(ItemID.Penguin, Main.rand.Next(40, 81));
@@ -58,7 +57,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
                 player.QuickSpawnItem(mod.ItemType("DivineLightMask"));
                 */
             player.QuickSpawnItem(73, 4);
-
         }
     }
 }

@@ -21,6 +21,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             //Main.tileSolidTop[Type] = true;
@@ -45,14 +46,15 @@ namespace QwertysRandomContent.Tiles
             //disableSmartCursor = true;
             //adjTiles = new int[]{ TileID.Sinks };
         }
+
         public override void RightClick(int i, int j)
         {
             Main.PlaySound(SoundID.Mech, i * 16, j * 16, 0);
             HitWire(i, j);
         }
+
         public override void HitWire(int i, int j)
         {
-
             int left = i - (Main.tile[i, j].frameX / 18) % 2;
             int top = j - (Main.tile[i, j].frameY / 18) % 2;
             /*
@@ -60,7 +62,6 @@ namespace QwertysRandomContent.Tiles
             {
                 for (int y = top; y < top + 2; y++)
                 {
-                    
                     if(Main.tile[x, y].frameX>= 36)
                     {
                         Main.tile[x, y].frameX -= 36;
@@ -89,11 +90,11 @@ namespace QwertysRandomContent.Tiles
             DnasLanternE.toggle = true;
         }
 
-
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
         }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));
@@ -124,8 +125,8 @@ namespace QwertysRandomContent.Tiles
                 //Main.spriteBatch.Draw(texture, Center, new Rectangle(0, 0, 20, 20), new Color(255, 255, 255, 100), 0f, new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
                 //spriteBatch.Draw(texture, Center + new Vector2(499, 499) - Main.screenPosition, new Rectangle(0, 0, 998, 998), Color.White/*new Color(255, 255, 255, 100)*/);
             }
-
         }
+
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -133,22 +134,25 @@ namespace QwertysRandomContent.Tiles
             player.showItemIcon = true;
             player.showItemIcon2 = mod.ItemType("DnasLantern");
         }
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("DnasLantern"));
             mod.GetTileEntity("DnasLanternE").Kill(i, j);
         }
     }
+
     public class DnasLanternE : ModTileEntity
     {
-
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
             return tile.active();
         }
+
         public bool off = false;
         public bool toggle = false;
+
         public override void Update()
         {
             if (toggle)
@@ -183,20 +187,20 @@ namespace QwertysRandomContent.Tiles
                 Main.tile[Position.X, Position.Y + 1].frameX = 0 + 36;
 
                 Main.tile[Position.X + 1, Position.Y + 1].frameX = 18 + 36;
-
             }
             toggle = false;
         }
-
 
         public override void NetSend(BinaryWriter writer, bool lightSend)
         {
             writer.Write(off);
         }
+
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
             off = reader.ReadBoolean();
         }
+
         public override TagCompound Save()
         {
             return new TagCompound
@@ -204,13 +208,14 @@ namespace QwertysRandomContent.Tiles
                 {"off", off}
             };
         }
+
         public override void Load(TagCompound tag)
         {
             off = tag.GetBool("off");
         }
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-
             if (Main.netMode == 1)
             {
                 NetMessage.SendTileSquare(Main.myPlayer, i, j, 3);

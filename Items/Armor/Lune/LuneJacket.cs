@@ -14,24 +14,18 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
             DisplayName.SetDefault("Lune Jacket");
             Tooltip.SetDefault("Grappling hooks have double speed!" + "\nKilling an enemy with a ranged attack grants 10 sec of hunter");
-
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = 30000;
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 12;
             item.defense = 5;
-
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -41,6 +35,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void UpdateEquip(Player player)
         {
             /*
@@ -54,19 +49,18 @@ namespace QwertysRandomContent.Items.Armor.Lune
             */
             player.GetModPlayer<QwertyPlayer>().grappleBoost = true;
             player.GetModPlayer<JacketBonuses>().hunt = true;
-
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return head.type == mod.ItemType("LuneHat") && legs.type == mod.ItemType("LuneLeggings");
-
         }
+
         public override void ArmorSetShadows(Player player)
         {
             //Main.NewText("active set effect");
             if (!Main.dayTime)
             {
-
                 float radius = Main.rand.NextFloat(200);
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(radius, theta), mod.DustType("LuneDust"));
@@ -77,46 +71,31 @@ namespace QwertysRandomContent.Items.Armor.Lune
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.Transform);
             for (int num10 = 0; num10 < 3; num10++)
             {
-
                 Main.instance.DrawPlayer(player, player.shadowPos[num10], player.shadowRotation[num10], player.shadowOrigin[num10], 0.5f + 0.2f * (float)num10);
-
             }
             Main.spriteBatch.End();
             */
-
         }
-
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.LuneJacketSet");
             //player.GetModPlayer<crestSet>().setBonus = true;
             player.GetModPlayer<JacketBonuses>().setBonus = true;
-
-
-
-
-
         }
+
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
             drawArms = true;
             drawHands = true;
-
         }
-
-
-
-
-
-
     }
+
     public class GrappleBoost : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public bool DoubleGrapple;
-        bool runOnce = true;
+        private bool runOnce = true;
 
         public override void GrapplePullSpeed(Projectile projectile, Player player, ref float speed)
         {
@@ -128,18 +107,17 @@ namespace QwertysRandomContent.Items.Armor.Lune
             }
             //Main.NewText(speed);
         }
+
         /*
         public override void GrappleRetreatSpeed(Projectile projectile, Player player, ref float speed)
         {
-            
             if (player.GetModPlayer<QwertyPlayer>().grappleBoost)
             {
                 speed *= 2;
-
-                
             }
         }
         */
+
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
@@ -149,17 +127,14 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 runOnce = false;
                 //Main.NewText("DOUBLE!!");
             }
-
-
         }
-
-
-
     }
+
     public class JacketBonuses : ModPlayer
     {
         public bool setBonus;
         public bool hunt;
+
         public override void ResetEffects()
         {
             setBonus = false;
@@ -174,12 +149,11 @@ namespace QwertysRandomContent.Items.Armor.Lune
             }
             if (proj.ranged && (target.Center - player.Center).Length() > 400 && setBonus)
             {
-
                 target.AddBuff(mod.BuffType("LuneCurse"), (int)(target.Center - player.Center).Length());
             }
         }
-
     }
+
     public class JacketDamageBonus : GlobalNPC
     {
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -189,6 +163,4 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 damage = (int)(damage * 1.2f);
         }
     }
-
 }
-

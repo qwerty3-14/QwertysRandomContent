@@ -8,9 +8,10 @@ namespace QwertysRandomContent.Items.Etims
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (The Gods Bleed)");
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.useStyle = 1;
@@ -25,7 +26,6 @@ namespace QwertysRandomContent.Items.Etims
             item.rare = 4;
             item.value = 100000;
             item.accessory = true;
-
         }
     }
 }

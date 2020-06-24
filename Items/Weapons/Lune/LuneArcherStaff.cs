@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class LuneArcherStaff : ModItem
@@ -14,13 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
         {
             DisplayName.SetDefault("Lune Archer Staff");
             Tooltip.SetDefault("Summons a lune archer to shoot arrows from your inventory at enemies");
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 5;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 32;    //The size of the width of the hitbox in pixels.
@@ -30,7 +26,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             item.useStyle = 1;  //The way your Weapon will be used, 1 is the regular sword swing for example
             item.noMelee = true; //so the item's animation doesn't do damage
             item.knockBack = 1f;  //The knockback stat of your Weapon.
-            item.value = 10000;
+            item.value = 20000;
             item.rare = 1;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
             item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
@@ -47,6 +43,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
 
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -61,6 +58,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -69,7 +67,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             }
             return base.UseItem(player);
         }
-
     }
 
     public class LuneArcher : ModProjectile
@@ -78,13 +75,10 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
         {
             DisplayName.SetDefault("Lune Archer");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 40; //Set the hitbox width
             projectile.height = 40;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -97,29 +91,25 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             projectile.minion = true;
             projectile.minionSlots = 1;
             projectile.timeLeft = 2;
-
         }
 
-        NPC target;
+        private NPC target;
 
-
-        int timer;
+        private int timer;
         public int arrow = 1;
         public bool canShoot = true;
         public float speedB = 14f;
         public float BulVel = 12;
-        int varTime;
-        int Yvar;
-        int Xvar;
+        private int varTime;
+        private int Yvar;
+        private int Xvar;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
             varTime++;
             if (varTime >= 60)
             {
-
-
                 varTime = 0;
                 if (Main.netMode != 2)
                 {
@@ -131,7 +121,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
 
             Vector2 moveTo = new Vector2(player.Center.X + Xvar, player.Center.Y - Yvar) - projectile.Center;
             projectile.velocity = (moveTo) * .04f;
-            if (modPlayer.LuneArcher)
+            if (player.GetModPlayer<MinionManager>().LuneArcher)
             {
                 projectile.timeLeft = 2;
             }
@@ -158,22 +148,18 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
                 }
                 projectile.rotation += (float)Math.PI / 2;
             }
-
-
-
-
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(Yvar);
             writer.Write(Xvar);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             Yvar = reader.ReadInt32();
             Xvar = reader.ReadInt32();
         }
-
     }
-
 }

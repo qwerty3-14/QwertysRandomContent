@@ -13,10 +13,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Wave");
             Tooltip.SetDefault("Blows enemies away");
-           
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 31;
@@ -34,20 +34,18 @@ namespace QwertysRandomContent.Items.AncientItems
             item.height = 30;
             if (!Main.dedServ)
             {
-                item.GetGlobalItem<ItemUseGlow>().glowTexture =  ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientWave_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientWave_Glow");
+                item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientWave_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientWave_Glow");
             }
             item.mana = 12;
             item.shoot = mod.ProjectileType("AncientWaveP");
             item.shootSpeed = 9;
             item.noMelee = true;
             //item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientWave_Glow");
-
-
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            Texture2D texture =  ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientWave_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientWave_Glow");
+            Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientWave_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientWave_Glow");
             spriteBatch.Draw
             (
                 texture,
@@ -65,17 +63,17 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
-
     }
+
     public class AncientWaveP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Wave");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -87,11 +85,10 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.magic = true;
             projectile.tileCollide = false;
             projectile.timeLeft = 60 * 15;
-
-
-
         }
+
         public int dustTimer;
+
         public override void AI()
         {
             dustTimer++;
@@ -101,16 +98,13 @@ namespace QwertysRandomContent.Items.AncientItems
                 dustTimer = 0;
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-
             spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientWaveP_Old") : mod.GetTexture("Items/AncientItems/AncientWaveP"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 80, 48), Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0, 0, 0, 0), (float)projectile.alpha / 255f), projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
-
     }
-
 }
-

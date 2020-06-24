@@ -8,8 +8,6 @@ namespace QwertysRandomContent.Items.Banners
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fortress Swarmer Banner");
-
-
         }
 
         public override void SetDefaults()

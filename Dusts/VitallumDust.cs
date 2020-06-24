@@ -1,5 +1,4 @@
-﻿
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Dusts
@@ -11,7 +10,5 @@ namespace QwertysRandomContent.Dusts
             dust.noGravity = true;
             dust.scale = 1f;
         }
-
-
     }
 }

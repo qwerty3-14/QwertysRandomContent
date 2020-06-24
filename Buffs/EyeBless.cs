@@ -15,7 +15,6 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
         }
     }
 }

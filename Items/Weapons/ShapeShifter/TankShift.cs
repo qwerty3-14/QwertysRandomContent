@@ -16,12 +16,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             DisplayName.SetDefault("Shape Shift: Tank!");
             Tooltip.SetDefault("Turn into a tank with superior offense and defense!");
-
         }
+
         public const int dmg = 89;
         public const int crt = 0;
         public const float kb = 7f;
         public const int def = 40;
+
         public override void SetDefaults()
         {
             item.width = 42;
@@ -40,20 +41,20 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-            
+
             return base.UseItem(player);
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
         }
-
     }
+
     public class TankMorphB : ModBuff
     {
         public override void SetDefaults()
@@ -70,11 +71,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class TankMorph : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("TankMorphB");
             mountData.spawnDust = 15;
 
@@ -116,7 +117,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
@@ -125,18 +125,21 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<TankControl>().controlled = true;
-
         }
     }
+
     public class TankControl : ModPlayer
     {
         public bool controlled = false;
+
         public override void ResetEffects()
         {
             controlled = false;
         }
-        int shotCooldown = 0;
-        float flightTime = 0;
+
+        private int shotCooldown = 0;
+        private float flightTime = 0;
+
         public override void PostUpdateMiscEffects()
         {
             if (controlled)
@@ -154,10 +157,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
                 Vector2 shootFrom = player.Top;
                 shootFrom.Y -= 4;
-                float pointAt = (QwertysRandomContent.LocalCursor[player.whoAmI] - shootFrom).ToRotation();
-                if (QwertysRandomContent.LocalCursor[player.whoAmI].Y > player.Top.Y)
+                Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
+                float pointAt = (LocalCursor - shootFrom).ToRotation();
+                if (LocalCursor.Y > player.Top.Y)
                 {
-                    if (QwertysRandomContent.LocalCursor[player.whoAmI].X > player.Top.X)
+                    if (LocalCursor.X > player.Top.X)
                     {
                         pointAt = 0;
                     }
@@ -204,7 +208,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                         float scale2 = 2.5f;
                         int alpha2 = 100;
 
-
                         if (num104 == 0)
                         {
                             int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
@@ -212,7 +215,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                             Main.dust[num105].noGravity = true;
 
                             Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-
                         }
                         else
                         {
@@ -221,9 +223,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
                             Main.dust[num106].noGravity = true;
 
-
                             Main.dust[num106].velocity.Y = Main.dust[num106].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-
                         }
                     }
                 }
@@ -235,14 +235,14 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+
     public class TankCannonBallFreindly : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tank!!");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -256,9 +256,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public bool runOnce = true;
 
         public override void AI()
@@ -286,23 +285,24 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 runOnce = false;
             }
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("TankBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             e.localNPCImmunity[target.whoAmI] = -1;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("TankBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             return true;
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
-
 
             Main.PlaySound(SoundID.Item62, projectile.position);
             for (int i = 0; i < 10; i++)
@@ -310,7 +310,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
                 dust.noGravity = true;
-
             }
             // Fire Dust spawn
             for (int i = 0; i < 20; i++)
@@ -324,14 +323,14 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+
     public class TankBlast : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tank!!");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -346,20 +345,17 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
-
 }

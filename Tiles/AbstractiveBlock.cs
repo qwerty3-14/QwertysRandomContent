@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Tiles
 {
     public class Abstractive : ModTile
@@ -11,7 +12,6 @@ namespace QwertysRandomContent.Tiles
             Main.tileMergeDirt[Type] = true;
             //Main.tileSpelunker[Type] = true;
 
-
             dustType = mod.DustType("AbstractiveDust");
             soundType = 21;
             soundStyle = 2;
@@ -19,9 +19,7 @@ namespace QwertysRandomContent.Tiles
             AddMapEntry(new Color(47, 240, 240));
 
             drop = mod.ItemType("Abstractive");
-
         }
-
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
@@ -29,17 +27,10 @@ namespace QwertysRandomContent.Tiles
             g = 0.0f;
             b = 0.0f;
         }
+
         public override bool CanExplode(int i, int j)
         {
-
-
             return true;
-
-
-
-
         }
-
-
     }
 }

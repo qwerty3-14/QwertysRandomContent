@@ -1,11 +1,11 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 {
     public class Arachnophobia : ModItem
@@ -42,10 +42,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
             item.shoot = mod.ProjectileType("ArachnophobiaP");
         }
-        Projectile yoyo;
+
+        private Projectile yoyo;
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             for (int n = 0; n < 8; n++)
             {
                 yoyo = Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI)];
@@ -54,6 +55,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
             return false;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -70,13 +72,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
         public override void SetStaticDefaults()
         {
             // The following sets are only applicable to yoyo that use aiStyle 99.
-            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player. 
+            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player.
             // Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
             //ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = -1f;
-            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
+            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player.
             // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
             //ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 120f;
-            // YoyosTopSpeed is top speed of the yoyo projectile. 
+            // YoyosTopSpeed is top speed of the yoyo projectile.
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             //ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 13f;
         }
@@ -93,20 +95,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             projectile.melee = true;
             projectile.scale = 1f;
         }
-        // notes for aiStyle 99: 
+
+        // notes for aiStyle 99:
         // localAI[0] is used for timing up to YoyosLifeTimeMultiplier
         // localAI[1] can be used freely by specific types
         // ai[0] and ai[1] usually point towards the x and y world coordinate hover point
         // ai[0] is -1f once YoyosLifeTimeMultiplier is reached, when the player is stoned/frozen, when the yoyo is too far away, or the player is no longer clicking the shoot button.
         // ai[0] being negative makes the yoyo move back towards the player
         // Any AI method can be used for dust, spawning projectiles, etc specific to your yoyo.
-        float range = 120;
-        float speed = 13f;
-        float time = -1f;
-        Vector2 modifiedMousePosition;
+        private float range = 120;
+
+        private float speed = 13f;
+        private float time = -1f;
+        private Vector2 modifiedMousePosition;
+
         public override void AI()
         {
-
             {
                 bool notMain = false;
                 bool Orbital = false;
@@ -136,8 +140,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         projectile.ai[0] = -1f;
                     }
                 }
-
-
 
                 if (Main.player[projectile.owner].dead)
                 {
@@ -220,7 +222,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         }
                         else
                         {
-
                             Vector2 vector4 = Main.ReverseGravitySupport(Main.MouseScreen, 0f) + Main.screenPosition;
 
                             float rotationDirection = (vector4 - Main.player[projectile.owner].Center).ToRotation() + (2 * (float)Math.PI / 8 * projectile.localAI[1]);
@@ -347,17 +348,17 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             //Main.NewText(projectile.timeLeft);
             //Main.NewText(projectile.position);
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
-
             writer.Write(projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-
             projectile.localAI[1] = reader.ReadSingle();
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             bool notMain10 = false;
@@ -386,6 +387,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             }
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Venom, 360);
@@ -417,6 +419,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 }
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Vector2 mountedCenter = Main.player[projectile.owner].MountedCenter;
@@ -556,14 +559,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     color = new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * num12)), (int)((byte)((float)color.G * num12)), (int)((byte)((float)color.B * num12)), (int)((byte)((float)color.A * num12)));
                     Main.spriteBatch.Draw(Main.fishingLineTexture, new Vector2(vector.X - Main.screenPosition.X + (float)Main.fishingLineTexture.Width * 0.5f, vector.Y - Main.screenPosition.Y + (float)Main.fishingLineTexture.Height * 0.5f) - new Vector2(6f, 0f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.fishingLineTexture.Width, (int)num7)), color, rotation, new Vector2((float)Main.fishingLineTexture.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);
                 }
-
             }
             return true;
         }
     }
+
     public class CustomYoyoPlayer : ModPlayer
     {
-        bool farCounter = false;
+        private bool farCounter = false;
+
         public void Counterweight(Vector2 hitPos, int dmg, float kb, Projectile parent)
         {
             if (!player.yoyoGlove && player.counterWeight <= 0)
@@ -590,9 +594,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 Projectile yoyo = Main.projectile[Projectile.NewProjectile(player.Center.X, player.Center.Y, vector.X, vector.Y, parent.type, parent.damage, parent.knockBack, player.whoAmI, 1f, 0f)];
                 yoyo.localAI[1] = parent.localAI[1] + 8;
                 array[(int)parent.localAI[1]] = 1;
-
             }
-
             else
             {
                 for (int i = 0; i < 1000; i++)
@@ -606,11 +608,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                         else if (Main.projectile[i].type == mod.ProjectileType("ArachnophobiaP"))
                         {
                             num2++;
-
                         }
                     }
                 }
-
 
                 if (num3 < num2)
                 {
@@ -638,13 +638,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
         public override void SetStaticDefaults()
         {
             // The following sets are only applicable to yoyo that use aiStyle 99.
-            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player. 
+            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player.
             // Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
             //ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = -1f;
-            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
+            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player.
             // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
             //ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 120f;
-            // YoyosTopSpeed is top speed of the yoyo projectile. 
+            // YoyosTopSpeed is top speed of the yoyo projectile.
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             //ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 13f;
             Main.projFrames[projectile.type] = 3;
@@ -662,18 +662,21 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             projectile.melee = true;
             projectile.scale = 1f;
         }
-        // notes for aiStyle 99: 
+
+        // notes for aiStyle 99:
         // localAI[0] is used for timing up to YoyosLifeTimeMultiplier
         // localAI[1] can be used freely by specific types
         // ai[0] and ai[1] usually point towards the x and y world coordinate hover point
         // ai[0] is -1f once YoyosLifeTimeMultiplier is reached, when the player is stoned/frozen, when the yoyo is too far away, or the player is no longer clicking the shoot button.
         // ai[0] being negative makes the yoyo move back towards the player
         // Any AI method can be used for dust, spawning projectiles, etc specific to your yoyo.
-        float range = 120;
-        float speed = 13f;
-        float time = -1f;
-        Vector2 modifiedMousePosition;
-        int frameTimer;
+        private float range = 120;
+
+        private float speed = 13f;
+        private float time = -1f;
+        private Vector2 modifiedMousePosition;
+        private int frameTimer;
+
         public override void AI()
         {
             frameTimer++;
@@ -902,7 +905,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
                         vector8 *= 6f;
                         projectile.velocity = (projectile.velocity * 7f + vector8) / 8f;
-
                     }
                 }
                 if (projectile.velocity.Length() > num2)
@@ -935,17 +937,17 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             }
             projectile.rotation = (projectile.Center - Main.player[projectile.owner].Center).ToRotation() + (float)Math.PI / 2;
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
-
             writer.Write(projectile.localAI[1]);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-
             projectile.localAI[1] = reader.ReadSingle();
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             bool notMain10 = false;
@@ -1114,10 +1116,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     color = new Microsoft.Xna.Framework.Color((int)((byte)((float)color.R * num12)), (int)((byte)((float)color.G * num12)), (int)((byte)((float)color.B * num12)), (int)((byte)((float)color.A * num12)));
                     Main.spriteBatch.Draw(Main.fishingLineTexture, new Vector2(vector.X - Main.screenPosition.X + (float)Main.fishingLineTexture.Width * 0.5f, vector.Y - Main.screenPosition.Y + (float)Main.fishingLineTexture.Height * 0.5f) - new Vector2(6f, 0f), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, Main.fishingLineTexture.Width, (int)num7)), color, rotation, new Vector2((float)Main.fishingLineTexture.Width * 0.5f, 0f), 1f, SpriteEffects.None, 0f);
                 }
-
             }
             return true;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Venom, 360);

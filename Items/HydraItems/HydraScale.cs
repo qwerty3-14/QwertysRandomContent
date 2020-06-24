@@ -12,7 +12,6 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override void SetDefaults()
         {
-
             item.width = 24;
             item.height = 30;
             item.maxStack = 999;
@@ -20,12 +19,6 @@ namespace QwertysRandomContent.Items.HydraItems
             item.rare = 3;
             item.value = 500;
             item.rare = 5;
-
         }
-
-
-
-
-
     }
 }

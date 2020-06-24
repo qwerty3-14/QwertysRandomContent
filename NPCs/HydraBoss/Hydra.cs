@@ -34,16 +34,18 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             npc.lifeMax = 12;
             bossBag = mod.ItemType("HydraBag");
             npc.immortal = true;
-
         }
+
         public override bool? CanBeHitByItem(Player player, Item item)
         {
             return false;
         }
+
         public override bool? CanBeHitByProjectile(Projectile projectile)
         {
             return false;
         }
+
         public override bool? CanHitNPC(NPC target)
         {
             return false;
@@ -51,10 +53,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             return 0f;
-
         }
+
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
@@ -64,8 +65,6 @@ namespace QwertysRandomContent.NPCs.HydraBoss
         {
             if (npc.life <= 0)
             {
-
-
             }
             for (int i = 0; i < 10; i++)
             {
@@ -78,11 +77,9 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             }
         }
 
-
-
-
         public int damage = 30;
-        bool runOnce = true;
+        private bool runOnce = true;
+
         public override bool PreAI()
         {
             Player player = Main.player[npc.target];
@@ -94,13 +91,11 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 {
                     npc.life = 0;
                     npc.checkDead();
-
                 }
                 for (int n = 0; n < 200; n++)
                 {
                     if (Main.npc[n].type == mod.NPCType("HydraHead") && Main.npc[n].active && Main.npc[n].ai[0] == npc.whoAmI)
                     {
-
                         Main.npc[n].DeathSound = null;
                     }
                 }
@@ -108,14 +103,13 @@ namespace QwertysRandomContent.NPCs.HydraBoss
 
             return !(npc.ai[3] > 0);
         }
+
         public override void AI()
         {
-
             if (runOnce)
             {
                 if (Main.expertMode)
                 {
-
                     for (int p = 0; p < Main.player.Length; p++)
                     {
                         if (Main.player[p].active)
@@ -127,7 +121,6 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
                 for (int h = 0; h < 3; h++)
                 {
-
                     if (Main.netMode != 1)
                     {
                         NPC.NewNPC((int)npc.Center.X + h, (int)npc.Center.Y, mod.NPCType("HydraHead"), ai0: npc.whoAmI, ai1: h);
@@ -139,7 +132,6 @@ namespace QwertysRandomContent.NPCs.HydraBoss
             Player player = Main.player[npc.target];
             if (Main.netMode != 1)
             {
-
                 player = Main.player[npc.target];
                 npc.TargetClosest(true);
             }
@@ -158,24 +150,14 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                 }
             }
 
-
-
-
-
             Vector2 target = player.Center;
             Vector2 moveTo = target - npc.Center;
 
             npc.velocity = (moveTo) * .04f;
-
-
-
-
-
         }
 
         public override void FindFrame(int frameHeight)
         {
-
             npc.frameCounter++;
             if (npc.frameCounter < 5)
             {
@@ -205,21 +187,23 @@ namespace QwertysRandomContent.NPCs.HydraBoss
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-
-
-
             return false;
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-
         }
 
         public override void NPCLoot()
         {
-            QwertyWorld.downedhydra = true;
-            if (Main.netMode == NetmodeID.Server)
-                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            if (!QwertyWorld.downedhydra)
+            {
+                QwertyWorld.downedhydra = true;
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
+                }
+            }
             if (Main.netMode != 1)
             {
                 int centerX = (int)(npc.position.X + npc.width / 2) / 16;
@@ -246,20 +230,12 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraBag"));
                             }
                         }
-
                     }
                     */
                     npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("HydraBag"), 1, false);
-
-
-
-
-
-
                 }
                 else
                 {
-
                     int scaleCount = Main.rand.Next(20, 31);
                     int arrowCount = Main.rand.Next(80, 161);
                     int weaponLoot = Main.rand.Next(1, 4);
@@ -287,20 +263,16 @@ namespace QwertysRandomContent.NPCs.HydraBoss
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Hydrator"));
                     }
 
-
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 73, 12);
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraHeadStaff"));
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraScale"), scaleCount);
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraArrow"), arrowCount);
-
                 }
                 if (trophyChance == 1)
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraTrophy"));
                 }
-
             }
         }
-
     }
 }

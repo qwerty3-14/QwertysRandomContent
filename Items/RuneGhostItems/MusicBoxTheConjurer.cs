@@ -7,8 +7,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (The Conjurer)");
-
-
         }
 
         public override void SetDefaults()

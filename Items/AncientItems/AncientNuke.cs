@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.AncientItems
 {
     public class AncientNuke : ModItem
@@ -15,13 +14,14 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Shape shift: Ancient Nuke");
             Tooltip.SetDefault("Breifly turns you into an ancient nuke that causes a massive explosion when you collide with something... don't worry you'll live");
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
         public const int dmg = 300;
         public const int crt = 0;
         public const float kb = 9f;
         public const int def = -1;
+
         public override void SetDefaults()
         {
             item.damage = dmg;
@@ -48,11 +48,8 @@ namespace QwertysRandomContent.Items.AncientItems
             item.shoot = mod.ProjectileType("AncientNukeMorph");
             item.shootSpeed = 0f;
             item.channel = true;
-
-
-
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientNuke_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientNuke_Glow");
@@ -73,9 +70,9 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
+
         public override bool CanUseItem(Player player)
         {
-
             for (int i = 0; i < 1000; ++i)
             {
                 if ((Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot) || player.HasBuff(mod.BuffType("MorphCooldown")))
@@ -89,17 +86,17 @@ namespace QwertysRandomContent.Items.AncientItems
             return true;
         }
     }
+
     public class AncientNukeMorph : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Nuke");
             Main.projFrames[projectile.type] = 1;
-
         }
+
         public override void SetDefaults()
         {
-
             projectile.width = 18;
             projectile.height = 18;
             projectile.friendly = true;
@@ -110,9 +107,10 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.timeLeft = 600;
             projectile.usesLocalNPCImmunity = true;
             projectile.extraUpdates = 1;
-
         }
-        float dustYoffset;
+
+        private float dustYoffset;
+
         public override void AI()
         {
             //projectile.timeLeft = 2;
@@ -146,6 +144,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(dustYoffset, projectile.rotation + (float)Math.PI / 2) + QwertyMethods.PolarVector(Main.rand.Next(-9, 9), projectile.rotation), mod.DustType("AncientGlow"));
             }
         }
+
         public override void Kill(int timeLeft)
         {
             if (timeLeft == 0)
@@ -153,19 +152,21 @@ namespace QwertysRandomContent.Items.AncientItems
                 Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientFallout"), projectile.damage, projectile.knockBack, projectile.owner)];
             }
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientFallout"), projectile.damage, projectile.knockBack, projectile.owner)];
             e.localNPCImmunity[target.whoAmI] = -1;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("AncientFallout"), projectile.damage, projectile.knockBack, projectile.owner)];
             return true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientNukeMorph_Old") : mod.GetTexture("Items/AncientItems/AncientNukeMorph"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
@@ -176,16 +177,15 @@ namespace QwertysRandomContent.Items.AncientItems
                         new Vector2(46 * 0.5f, 56 * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
-
     }
+
     public class AncientFallout : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Fallout");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -199,27 +199,22 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
-
         }
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
 
-
-
-
             Main.PlaySound(SoundID.Item62, projectile.position);
-
 
             for (int i = 0; i < 1600; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("AncientGlow"), QwertyMethods.PolarVector(Main.rand.Next(2, 120), theta));
                 dust.noGravity = true;
-
-
             }
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (Collision.CanHit(projectile.Center, 1, 1, targetHitbox.Location.ToVector2(), targetHitbox.Width, targetHitbox.Height))
@@ -228,20 +223,16 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
-
-
-
 }
-

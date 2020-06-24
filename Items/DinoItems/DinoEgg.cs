@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.Items.DinoItems
 {
-
     public class DinoEgg : ModItem
     {
         public override void SetStaticDefaults()
@@ -26,27 +26,23 @@ namespace QwertysRandomContent.Items.DinoItems
             item.consumable = true;
         }
 
-
         public override bool CanUseItem(Player player)
         {
             return true;
-
         }
 
         public override bool UseItem(Player player)
         {
-            
-                string key = "Mods.QwertysRandomContent.DinoEventStart";
-                Color messageColor = Color.Orange;
-                if (Main.netMode == 2) // Server
-                {
-                    NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
-                }
-                else if (Main.netMode == 0) // Single Player
-                {
-                    Main.NewText(Language.GetTextValue(key), messageColor);
-                }
-            
+            string key = "Mods.QwertysRandomContent.DinoEventStart";
+            Color messageColor = Color.Orange;
+            if (Main.netMode == 2) // Server
+            {
+                NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+            }
+            else if (Main.netMode == 0) // Single Player
+            {
+                Main.NewText(Language.GetTextValue(key), messageColor);
+            }
 
             if (Main.netMode == 0)
             {
@@ -60,10 +56,9 @@ namespace QwertysRandomContent.Items.DinoItems
                 packet.Send();
             }
 
-
-
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -72,7 +67,5 @@ namespace QwertysRandomContent.Items.DinoItems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

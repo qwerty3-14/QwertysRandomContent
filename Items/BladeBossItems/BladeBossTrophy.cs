@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
 {
@@ -12,11 +7,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperious Trophy");
-
         }
+
         public override void SetDefaults()
         {
-
             item.width = 32;
             item.height = 32;
             item.maxStack = 99;
@@ -29,7 +23,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.value = 50000;
             item.createTile = mod.TileType("BladeBossTrophy");
             item.placeStyle = 0;
-            
         }
     }
 }

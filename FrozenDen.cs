@@ -18,10 +18,12 @@ namespace QwertysRandomContent
         public int denUpperHeight = 40;
         public static Vector2 BearSpawn = new Vector2(-1, -1);
         public static bool activeSleeper = false;
+
         public override void Initialize()
         {
             BearSpawn = new Vector2(-1, -1);
         }
+
         public override TagCompound Save()
         {
             return new TagCompound
@@ -31,16 +33,17 @@ namespace QwertysRandomContent
                 {"activeSleeper", activeSleeper }
             };
         }
+
         public override void Load(TagCompound tag)
         {
             BearSpawn.X = tag.GetFloat("BearSpawnX");
             BearSpawn.Y = tag.GetFloat("BearSpawnY");
             activeSleeper = tag.GetBool("activeSleeper");
         }
+
         public void GenerateDen(int x, int y)
         {
             //QwertyMethods.BreakTiles(x - (denLength-1)/2, y, denLength, denLowerHeight);
-
 
             for (int l = 0; l < denLength; l++)
             {
@@ -67,7 +70,6 @@ namespace QwertysRandomContent
                     {
                         WorldGen.PlaceTile(x - ((denLength - 1) / 2) + l, y - h, TileID.Platforms, style: 35);
                     }
-
                 }
                 for (int h = 0; h < denLowerHeight; h++)
                 {
@@ -79,7 +81,6 @@ namespace QwertysRandomContent
                 int ceilingHeight = (int)((float)Math.Sin(((float)l / (float)denLength) * (float)Math.PI) * (float)denUpperHeight);
                 for (int h = 0; h < ceilingHeight; h++)
                 {
-
                     if (l == 35 && h == 16)
                     {
                         Chest chest = Main.chest[WorldGen.PlaceChest(x - ((denLength - 1) / 2) + l, y - h, style: 11)];
@@ -99,12 +100,10 @@ namespace QwertysRandomContent
                         slot++;
                         if (Main.rand.Next(5) == 0)
                         {
-
                             chest.item[slot].SetDefaults(ItemID.IceMirror, false);
                             slot++;
                         }
                         slot++;
-
                     }
                     if (l == 64 && h == 16)
                     {
@@ -117,10 +116,12 @@ namespace QwertysRandomContent
                                 chest.item[slot].SetDefaults(ItemID.IceSkates, false);
                                 slot++;
                                 break;
+
                             case 1:
                                 chest.item[slot].SetDefaults(ItemID.FlurryBoots, false);
                                 slot++;
                                 break;
+
                             case 2:
                                 chest.item[slot].SetDefaults(ItemID.BlizzardinaBottle, false);
                                 slot++;
@@ -134,31 +135,16 @@ namespace QwertysRandomContent
                         slot++;
                         if (Main.rand.Next(5) == 0)
                         {
-
                             chest.item[slot].SetDefaults(ItemID.IceMirror, false);
                             slot++;
                         }
-
-
                     }
                 }
             }
             //int[] rocks = new int[] { 97, 92, 81, 60 };
-
+            /*
             for (int i = 0; i < 10; i++)
             {
-                /*
-                switch(Main.rand.Next(2))
-                {
-                    case 0:
-                        WorldGen.PlaceTile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y-1, 185, style:Main.rand.Next(42, 48));
-                        break;
-                    case 1:
-                        WorldGen.PlaceTile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y-2, 186, style: Main.rand.Next(26, 32));
-                        break;
-                    
-                }
-                */
                 if (Main.rand.Next(2) == 0)
                 {
                     WorldGen.PlaceSmallPile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y - 1, Main.rand.Next(42, 48), 0);
@@ -167,9 +153,7 @@ namespace QwertysRandomContent
                 {
                     WorldGen.PlaceSmallPile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y - 1, Main.rand.Next(25, 31), 1);
                 }
-
-            }
-
+            }*/
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
@@ -190,18 +174,17 @@ namespace QwertysRandomContent
                                 {
                                     if (Main.chest[c].item[i].type == 0)
                                     {
-
                                         Main.chest[c].item[i].SetDefaults(mod.ItemType("FrostCompass"), false);
                                         break;
                                     }
                                 }
                             }
                         }
-
                     }
                 }));
             }
         }
+
         public override void PostWorldGen()
         {
             for (int i = 0; i < 1000; i++)
@@ -219,13 +202,9 @@ namespace QwertysRandomContent
                 }
             }
         }
+
         public override void PreUpdate()
         {
-            if (Main.time % 120 == 0)
-            {
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-            }
             if (!NPC.AnyNPCs(mod.NPCType("PolarBear")) && !NPC.AnyNPCs(mod.NPCType("Sleeping")) && Main.dayTime && Main.time == 1 && BearSpawn.X != -1 && BearSpawn.Y != -1)
             {
                 activeSleeper = true;
@@ -241,16 +220,15 @@ namespace QwertysRandomContent
                 NPC.NewNPC((int)BearSpawn.X, (int)BearSpawn.Y, mod.NPCType("Sleeping"));
             }
         }
+
         public override void NetSend(BinaryWriter writer)
         {
             writer.WritePackedVector2(BearSpawn);
         }
+
         public override void NetReceive(BinaryReader reader)
         {
             BearSpawn = reader.ReadPackedVector2();
         }
     }
-
-
-
 }

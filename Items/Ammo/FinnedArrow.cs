@@ -1,6 +1,5 @@
 using System;
 
-
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,8 +12,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Finned Arrow");
             Tooltip.SetDefault("Excels in water");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 6;
@@ -31,9 +30,8 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("FinnedArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -43,17 +41,15 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.SetResult(this, 200);
             recipe.AddRecipe();
         }
-
-
     }
+
     public class FinnedArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Finned Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -63,14 +59,10 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
-
-
-
         }
+
         public float swimSpeed = 10;
         public float swimDirection;
-
 
         public int wanderTimer = 61;
         public bool runOnce = true;
@@ -81,12 +73,10 @@ namespace QwertysRandomContent.Items.Ammo
         public float maxDistance = 1000f;
         public NPC prey;
 
-
         public override void AI()
         {
             if (runOnce)
             {
-
                 actDirection = projectile.velocity.ToRotation();
                 projectile.velocity /= 5;
                 runOnce = false;
@@ -111,11 +101,9 @@ namespace QwertysRandomContent.Items.Ammo
                     projectile.ai[1] = Main.rand.NextFloat(2 * (float)Math.PI);
                 }
                 wanderTimer = 0;
-
             }
             if (projectile.wet)
             {
-
                 if (QwertyMethods.ClosestNPC(ref prey, 10000, projectile.Center))
                 {
                     swimDirection = (projectile.Center - prey.Center).ToRotation() - (float)Math.PI;
@@ -125,38 +113,21 @@ namespace QwertysRandomContent.Items.Ammo
                     swimDirection = projectile.ai[1] - (float)Math.PI;
                 }
 
-
-
                 actDirection = QwertyMethods.SlowRotation(actDirection, swimDirection, 4);
                 projectile.velocity.X = (float)Math.Cos(actDirection) * swimSpeed;
                 projectile.velocity.Y = (float)Math.Sin(actDirection) * swimSpeed;
                 projectile.rotation = actDirection + (float)Math.PI / 2;
                 actDirection = projectile.velocity.ToRotation();
-
             }
             else
             {
                 actDirection = projectile.velocity.ToRotation();
             }
-
-
-
-
-
-
-
-
         }
 
         public override void Kill(int timeLeft)
         {
-
-
-
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
         }
-
-
     }
-
 }
-

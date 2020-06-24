@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent
 {
-    class BuildFortress : ModCommand
+    internal class BuildFortress : ModCommand
     {
         public override CommandType Type
         {
@@ -16,14 +16,15 @@ namespace QwertysRandomContent
         {
             get { return "buildFortress"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             Fortress2Builder.BuildFortress();
         }
     }
-    class Fortress2Builder : ModWorld
-    {
 
+    internal class Fortress2Builder : ModWorld
+    {
         public static void BuildFortress()
         {
             int lowerLimit;
@@ -47,7 +48,6 @@ namespace QwertysRandomContent
                 lowerLimit = 320;
                 maxDistanceFromCenter = 750;
                 mediumRoomCount *= 6;
-
             }
             else if (Main.maxTilesX > 6000)
             {
@@ -78,7 +78,6 @@ namespace QwertysRandomContent
             int l = 4;
             if (Main.maxTilesX < 6000)
             {
-
                 //for (int l/2 = 1; l/2 < l; l/2++)
                 {
                     for (int b = 1; b < l; b++)
@@ -217,7 +216,6 @@ namespace QwertysRandomContent
             }
             else
             {
-
                 for (int q = 1; q < l; q++)
                 {
                     for (int b = 1; b < l; b++)
@@ -303,7 +301,7 @@ namespace QwertysRandomContent
                     }
                 }
             }
-            
+
             l = 8;
             for (int q = 1; q < l; q++)
             {
@@ -321,7 +319,7 @@ namespace QwertysRandomContent
                 }
             }
             l = 16;
-            
+
             for (int q = 1; q < l; q++)
             {
                 for (int b = 1; b < l; b++)
@@ -342,7 +340,7 @@ namespace QwertysRandomContent
             {
                 for (int b = 1; b < l; b++)
                 {
-                    if ((b % 2 != 0 && q % 2 == 0) || (b % 2 == 0 && q % 2 != 0)) 
+                    if ((b % 2 != 0 && q % 2 == 0) || (b % 2 == 0 && q % 2 != 0))
                     {
                         offset = new Vector2(b * 2 * maxDistanceFromCenter / l - Fortress2Blueprints.TinyRooms.GetLength(3) / 2, q * height / l - Fortress2Blueprints.TinyRooms.GetLength(2) / 2);
                         if (CheckRegion((int)offset.X, (int)offset.Y, Fortress2Blueprints.TinyRooms.GetLength(3), Fortress2Blueprints.TinyRooms.GetLength(2), region))
@@ -367,10 +365,6 @@ namespace QwertysRandomContent
                      AttemptRoomPlace(topLeft, Fortress2Blueprints.TinyRoomTileTypes, Fortress2Blueprints.TinyRooms, ref region);
                  }
              }*/
-
-
-
-
         }
 
         public static void OccupyRegion(int x, int y, int width, int height, ref bool[,] region)
@@ -382,8 +376,8 @@ namespace QwertysRandomContent
                     region[i + x, j + y] = true;
                 }
             }
-
         }
+
         public static bool CheckRegion(int x, int y, int width, int height, bool[,] region)
         {
             for (int i = 0; i < width; i++)
@@ -398,6 +392,7 @@ namespace QwertysRandomContent
             }
             return true;
         }
+
         public static void AttemptRoomPlace(Vector2 TopLeft, List<int[]>[] RoomTileTypes, int[,,,] Rooms, ref bool[,] region, int type = -1)
         {
             for (int i = 0; i < 100; i++)
@@ -411,7 +406,6 @@ namespace QwertysRandomContent
                     return;
                 }
             }
-
         }
     }
 }

@@ -5,47 +5,41 @@ using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.Accesories
 {
     [AutoloadEquip(EquipType.HandsOn)]
-
     public class ArcherGlove : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Archer Glove");
             Tooltip.SetDefault("Bows shoot faster");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 28;
 
             item.accessory = true;
-
-
-
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<ArcherGloveEffect>().effect = true;
         }
-
-
     }
+
     public class ArcherGloveEffect : ModPlayer
     {
         public bool effect;
-        int frameSkipCounter = 0;
+        private int frameSkipCounter = 0;
+
         public override void ResetEffects()
         {
             effect = false;
-
         }
+
         public override void PostItemCheck()
         {
             if (effect)
@@ -70,13 +64,9 @@ namespace QwertysRandomContent.Items.Accesories
                         {
                             player.itemTime--;
                         }
-
                     }
-
                 }
             }
         }
     }
-
 }
-

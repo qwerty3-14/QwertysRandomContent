@@ -9,8 +9,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Mythril Arrow");
             Tooltip.SetDefault("Pierces enemies and blocks, short range");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 16;
@@ -27,8 +27,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("MythrilArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -40,14 +38,14 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.AddRecipe();
         }
     }
+
     public class MythrilArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mythril Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -61,19 +59,12 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.tileCollide = false;
             projectile.alpha = 0;
             projectile.light = 0f;
-
         }
+
         public override void AI()
         {
             projectile.alpha += 10;
             projectile.light += .08f;
         }
-
-
-
-
-
     }
-
 }
-

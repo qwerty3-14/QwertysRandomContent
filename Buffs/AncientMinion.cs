@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
+            MinionManager modPlayer = player.GetModPlayer<MinionManager>();
             if (player.ownedProjectileCounts[mod.ProjectileType("AncientMinionFreindly")] > 0 || player.ownedProjectileCounts[mod.ProjectileType("RunicMinionFreindly")] > 0)
             {
                 modPlayer.AncientMinion = true;

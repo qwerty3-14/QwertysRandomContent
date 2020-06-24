@@ -18,9 +18,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
         {
             DisplayName.SetDefault("Lune Crestplate");
             Tooltip.SetDefault("Ranged attacks pierce an extra enemy.\n Projectiles that normally don't pierce will use local immunity");
-
         }
-
 
         public override void SetDefaults()
         {
@@ -30,6 +28,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             item.height = 12;
             item.defense = 5;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -39,6 +38,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void UpdateEquip(Player player)
         {
             for (int i = 0; i < 1000; i++)
@@ -49,15 +49,15 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 }
             }
         }
+
         public override bool IsVanitySet(int head, int body, int legs)
         {
             return base.IsVanitySet(head, body, legs);
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-
             return head.type == mod.ItemType("LuneHat") && legs.type == mod.ItemType("LuneLeggings");
-
         }
 
         public override void ArmorSetShadows(Player player)
@@ -65,7 +65,6 @@ namespace QwertysRandomContent.Items.Armor.Lune
             //Main.NewText("active set effect");
             if (!Main.dayTime)
             {
-
                 float radius = Main.rand.NextFloat(200);
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                 Dust dust = Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(radius, theta), mod.DustType("LuneDust"));
@@ -76,22 +75,17 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
         public override void UpdateArmorSet(Player player)
         {
-
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.LuneCrestSet");
             player.GetModPlayer<crestSet>().setBonus = true;
             //Main.NewText(player.ArmorSetDye());
-
-
-
-
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             String s = "Please go to conrols and bind the 'Yet another special ability key'";
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
                 s = "Set Bonus: Shoot the moon!" + "\nPress the " + key + " key to summon a moon" + "\nRanged attacks shot through the moon will be boosted";
-
             }
             foreach (TooltipLine line in tooltips) //runs through all tooltip lines
             {
@@ -99,39 +93,30 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 {
                     line.text = s;//change tooltip
                 }
-
             }
         }
+
         public override void DrawHands(ref bool drawHands, ref bool drawArms)
         {
             drawArms = true;
             drawHands = true;
-
         }
-
-
-
-
-
-
     }
+
     public class LunePierce : GlobalProjectile
     {
         public bool lunePierce;
         public bool runOnce = true;
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
+
         public override void AI(Projectile projectile)
         {
-
-
             if (lunePierce && projectile.ranged)
             {
-               
                 if (runOnce)
                 {
                     if (projectile.penetrate > 0)
                     {
-                        
                         if (!projectile.usesLocalNPCImmunity && projectile.penetrate == 1)
                         {
                             projectile.localNPCHitCooldown = -10;
@@ -142,30 +127,30 @@ namespace QwertysRandomContent.Items.Armor.Lune
 
                     runOnce = false;
                 }
-
             }
         }
+
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
-            if ( projectile.localNPCHitCooldown == -10)
+            if (projectile.localNPCHitCooldown == -10)
             {
                 projectile.localNPCImmunity[target.whoAmI] = 30;
                 target.immune[projectile.owner] = 0;
             }
         }
-
-
-
     }
+
     public class crestSet : ModPlayer
     {
         public bool setBonus = false;
+
         public override void ResetEffects()
         {
             setBonus = false;
         }
 
         public bool justSummonedMoon;
+
         public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
         {
             justSummonedMoon = false;
@@ -175,7 +160,6 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 {
                     if (player.HasBuff(mod.BuffType("MoonCooldown")))
                     {
-
                     }
                     else
                     {
@@ -186,13 +170,10 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 }
             }
         }
-
-
-
     }
+
     public class MoonTarget : ModProjectile
     {
-
         public override void SetDefaults()
         {
             projectile.width = 100;
@@ -201,25 +182,22 @@ namespace QwertysRandomContent.Items.Armor.Lune
             projectile.timeLeft = 60 * 15;
             projectile.light = 1;
             projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
-
         }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
-
             // Add this projectile to the list of projectiles that will be drawn BEFORE tiles and NPC are drawn. This makes the projectile appear to be BEHIND  NPC.
             drawCacheProjsBehindNPCsAndTiles.Add(index);
             drawCacheProjsBehindProjectiles.Add(index);
-
-
         }
-        int timer;
 
+        private int timer;
 
-        int shader;
-        bool runOnce = true;
+        private int shader;
+        private bool runOnce = true;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
@@ -245,6 +223,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 }
             }
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             // As mentioned above, be sure not to forget this step.
@@ -255,6 +234,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.Transform);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Player player = Main.player[projectile.owner];
@@ -269,11 +249,13 @@ namespace QwertysRandomContent.Items.Armor.Lune
             return true;
         }
     }
+
     public class moonBoost : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public bool boosted;
-        bool runOnce = true;
+        private bool runOnce = true;
+
         public override void AI(Projectile projectile)
         {
             if (boosted)
@@ -290,16 +272,13 @@ namespace QwertysRandomContent.Items.Armor.Lune
                 dust.shader = GameShaders.Armor.GetSecondaryShader(player.ArmorSetDye(), player);
             }
         }
+
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
             if (boosted)
             {
                 target.AddBuff(mod.BuffType("LuneCurse"), 60 * 3);
-
             }
         }
-
     }
-
 }
-

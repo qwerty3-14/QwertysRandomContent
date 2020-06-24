@@ -11,7 +11,9 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -22,8 +24,8 @@ namespace QwertysRandomContent.Items.Etims
             item.expert = true;
             //bossBagNPC = mod.NPCType("CloakedDarkBoss");
         }
-        public override int BossBagNPC => mod.NPCType("CloakedDarkBoss");
 
+        public override int BossBagNPC => mod.NPCType("CloakedDarkBoss");
 
         public override bool CanRightClick()
         {
@@ -32,12 +34,16 @@ namespace QwertysRandomContent.Items.Etims
 
         public override void OpenBossBag(Player player)
         {
-
-
-
             player.QuickSpawnItem(73, 8);
-            player.QuickSpawnItem(mod.ItemType("Doppleganger"));
-            if(Main.rand.Next(5)==0)
+            //player.QuickSpawnItem(mod.ItemType("Doppleganger"));
+
+            int number = Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("Doppleganger"), 1, false, 0, false, false);
+            if (Main.netMode == 1)
+            {
+                NetMessage.SendData(21, -1, -1, null, number, 1f, 0f, 0f, 0, 0, 0);
+            }
+
+            if (Main.rand.Next(5) == 0)
             {
                 player.QuickSpawnItem(mod.ItemType("EyeOfDarkness"));
             }

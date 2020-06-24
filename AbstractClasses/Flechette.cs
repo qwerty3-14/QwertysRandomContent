@@ -10,8 +10,9 @@ namespace QwertysRandomContent.AbstractClasses
     {
         protected float acceleration = .1f;
         protected float maxVerticalSpeed = 12f;
-        bool runOnce = true;
-        float initialVerticalVelocity;
+        private bool runOnce = true;
+        private float initialVerticalVelocity;
+
         public override void AI()
         {
             if (runOnce)
@@ -20,17 +21,18 @@ namespace QwertysRandomContent.AbstractClasses
                 runOnce = false;
             }
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
-            projectile.velocity.Y += acceleration*Main.player[projectile.owner].GetModPlayer<QwertyPlayer>().FlechetteDropAcceleration;
+            projectile.velocity.Y += acceleration * Main.player[projectile.owner].GetModPlayer<QwertyPlayer>().FlechetteDropAcceleration;
             if (projectile.velocity.Y > maxVerticalSpeed)
             {
                 projectile.velocity.Y = maxVerticalSpeed;
             }
             ExtraAI();
         }
+
         public virtual void ExtraAI()
         {
-
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             damage = damage + (int)(((projectile.velocity.Y - initialVerticalVelocity) / (maxVerticalSpeed - initialVerticalVelocity)) * .5f * (float)damage);
@@ -47,7 +49,6 @@ namespace QwertysRandomContent.AbstractClasses
             }
             if (projectile.velocity.Y == maxVerticalSpeed)
             {
-
                 for (int k = 0; k < projectile.oldPos.Length; k++)
                 {
                     Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
@@ -57,7 +58,6 @@ namespace QwertysRandomContent.AbstractClasses
             }
             if (projectile.type == mod.ProjectileType("SpectreFlechetteP"))
             {
-                
                 return false;
             }
             return true;

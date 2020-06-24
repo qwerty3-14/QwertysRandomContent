@@ -6,7 +6,6 @@ using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.Armor.Rhuthinium
 {
     [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
-
     public class RhuthiniumBracelet : ModItem
     {
         public override void SetStaticDefaults()
@@ -23,20 +22,14 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 3;
-
 
             item.width = 28;
             item.height = 22;
             item.vanity = true;
             item.accessory = true;
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -46,9 +39,5 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
-
-
 }
-

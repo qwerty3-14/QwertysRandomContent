@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
 namespace QwertysRandomContent.Config
 {
-
     [Label("Sprite Settings")]
     public class SpriteSettings : ModConfig
     {
@@ -61,5 +55,17 @@ namespace QwertysRandomContent.Config
         [Label("$Mods.QwertysRandomContent.ClassicImperiousConfigLabal")]
         [Tooltip("$Mods.QwertysRandomContent.ClassicImperiousConfigTooltip")]
         public bool ClassicImperious;
+
+        [DefaultValue(false)]
+        [ReloadRequired]
+        [Label("$Mods.QwertysRandomContent.ClassicPotionsConfigLabal")]
+        [Tooltip("$Mods.QwertysRandomContent.ClassicPotionsTooltip")]
+        public bool ClassicPotions;
+
+        [DefaultValue(false)]
+        [ReloadRequired]
+        [Label("$Mods.QwertysRandomContent.ClassicDungeonConfigLabel")]
+        [Tooltip("$Mods.QwertysRandomContent.ClassicDungeonTooltip")]
+        public bool ClassicDungeon;
     }
 }

@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.B4Items
         {
             DisplayName.SetDefault("Giant Bow");
             Tooltip.SetDefault("Arrows fired from this are MASSIVE and split into more arrows");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 112;
@@ -36,15 +36,12 @@ namespace QwertysRandomContent.Items.B4Items
             item.shootSpeed = 12f;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
+
         public Projectile arrow;
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
             arrow = Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI)];
             arrow.scale *= 3;
             arrow.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
@@ -58,15 +55,14 @@ namespace QwertysRandomContent.Items.B4Items
             }
             return false;
         }
-
-
     }
 
     public class arrowgigantism : GlobalProjectile
     {
         public bool GiganticArrow;
 
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
+
         public override void AI(Projectile projectile)
         {
             if (GiganticArrow)
@@ -74,13 +70,12 @@ namespace QwertysRandomContent.Items.B4Items
                 projectile.scale = 3;
             }
         }
+
         public override void Kill(Projectile projectile, int timeLeft)
         {
-
             if (GiganticArrow)
             {
                 projectile.netUpdate = true;
-
 
                 for (int r = 0; r < 8; r++)
                 {
@@ -95,21 +90,8 @@ namespace QwertysRandomContent.Items.B4Items
                         Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(r * (2 * Math.PI / 8)) * shotSpeed, (float)Math.Sin(r * (2 * Math.PI / 8)) * shotSpeed, projectile.type, projectile.damage / 2, 0, Main.myPlayer);
                         Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(r * (2 * Math.PI / 8) + Math.PI / 8) * shotSpeed * 1.5f, (float)Math.Sin(r * (2 * Math.PI / 8) + Math.PI / 8) * shotSpeed * 1.5f, projectile.type, projectile.damage / 2, 0, Main.myPlayer);
                     }
-
                 }
-
-
-
-
-
-
             }
         }
-
-
     }
-
-
-
 }
-

@@ -5,20 +5,16 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Accesories
 {
-
-
     public class Biomass : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Biomass");
-            Tooltip.SetDefault("Stacks of throwing weapons will slowly grow in size" + "\nGrowth rate is lower for higher value throwables");
-
+            Tooltip.SetDefault("Stacks of ammo will slowly grow in size" + "\nGrowth rate is lower for higher value ammo");
         }
 
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 1;
             item.width = 24;
@@ -28,21 +24,19 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-
             player.GetModPlayer<BiomassEffect>().effect += 1;
         }
-
-
-
     }
+
     public class BiomassEffect : ModPlayer
     {
         public float effect;
+
         public override void ResetEffects()
         {
             effect = 00;
-
         }
+
         public override void PreUpdate()
         {
             if (effect > 0)
@@ -54,13 +48,10 @@ namespace QwertysRandomContent.Items.Accesories
                 {
                     if (!player.inventory[i].IsAir)
                     {
-                        if (player.inventory[i].thrown && player.inventory[i].stack < player.inventory[i].maxStack)
+                        if (player.inventory[i].ammo != AmmoID.None && player.inventory[i].stack < player.inventory[i].maxStack)
                         {
-
                             possibleStacks.Add(i);
                             attemptGrowth = true;
-
-
                         }
                     }
                 }
@@ -82,6 +73,7 @@ namespace QwertysRandomContent.Items.Accesories
             }
         }
     }
+
     public class BiomassGrowth : ModWorld
     {
         public override void PostWorldGen()
@@ -100,17 +92,13 @@ namespace QwertysRandomContent.Items.Accesories
                             }
                             if (Main.chest[c].item[i].type == 0)
                             {
-
                                 Main.chest[c].item[i].SetDefaults(mod.ItemType("Biomass"), false);
                                 break;
                             }
                         }
                     }
                 }
-
             }
         }
     }
-
 }
-

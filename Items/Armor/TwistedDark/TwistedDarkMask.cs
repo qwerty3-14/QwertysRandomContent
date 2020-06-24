@@ -12,25 +12,21 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         {
             DisplayName.SetDefault("Etimsic Facemask");
             Tooltip.SetDefault("Morph critiacl strike chance increases the longer you're morphed. Max: 30%" + "\n");
-
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = 60000;
             item.rare = 3;
-
 
             item.width = 22;
             item.height = 14;
             item.defense = 1;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 7;
-
-
         }
-       public override bool CloneNewInstances => true;
+
+        public override bool CloneNewInstances => true;
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -39,13 +35,13 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        int bonus = 0;
-        float b = 0;
-        string end = "% morph critical strike chance (not morphed)";
+
+        private int bonus = 0;
+        private float b = 0;
+        private string end = "% morph critical strike chance (not morphed)";
+
         public override void UpdateEquip(Player player)
         {
-
-
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
                 b += .05f;
@@ -68,29 +64,28 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
 
             player.GetModPlayer<ShapeShifterPlayer>().morphCrit += bonus;
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
             foreach (TooltipLine line in tooltips) //runs through all tooltip lines
             {
                 if (line.mod == "Terraria" && line.Name == "Tooltip1") //this checks if it's the line we're interested in
                 {
                     line.text = "Current Bonus: " + bonus + end;//change tooltip
                 }
-
             }
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawHair = true;
-
         }
-
-
     }
+
     public class DrawHelmet : ModPlayer
     {
         public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("TwistedDarkMask", "Items/Armor/TwistedDark/TwistedDarkMask_HeadSimple", glowmask: false);
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Face"));
@@ -100,21 +95,18 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 Head.visible = true;
                 layers.Insert(headLayer + 1, Head);
             }
-
         }
 
         public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("TwistedDarkMask", "Items/Armor/TwistedDark/TwistedDarkMask_HeadSimple");
+
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Head"));
             if (headLayer != -1)
             {
-
                 MapMask.visible = true;
                 layers.Insert(headLayer + 1, MapMask);
             }
         }
     }
-
 }
-

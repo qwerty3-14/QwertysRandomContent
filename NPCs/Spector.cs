@@ -7,19 +7,18 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs
 {
-    class Spector : ModNPC
+    internal class Spector : ModNPC
     {
         public override void SetStaticDefaults()
         {
-
             DisplayName.SetDefault("Sneaking Ghost");
             Main.npcFrameCount[npc.type] = 1;
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGunChakram ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-
             npc.width = 28;
             npc.height = 44;
             npc.damage = 120;
@@ -39,25 +38,23 @@ namespace QwertysRandomContent.NPCs
             npc.rarity = 1000;
             banner = npc.type;
             bannerItem = mod.ItemType("SpectorBanner");
-
         }
+
         public float flyDirection;
         public float flySpeed = 3;
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             if (spawnInfo.player.ZoneDungeon && Main.hardMode && NPC.downedPlantBoss)
             {
-
                 return .1f;
-
             }
             else
             {
                 return 0f;
             }
-
         }
+
         public override void AI()
         {
             Player player = Main.player[npc.target];
@@ -74,7 +71,6 @@ namespace QwertysRandomContent.NPCs
             flyDirection = (player.Center - npc.Center).ToRotation();
             npc.velocity = new Vector2((float)Math.Cos(flyDirection) * flySpeed, (float)Math.Sin(flyDirection) * flySpeed);
 
-
             if (npc.alpha == 255)
             {
                 npc.dontTakeDamage = true;
@@ -84,20 +80,18 @@ namespace QwertysRandomContent.NPCs
                 npc.dontTakeDamage = false;
             }
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.spriteDirection = npc.direction;
         }
+
         public override void NPCLoot()
         {
             if (Main.rand.Next(3) == 0)
             {
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SummoningRune"));
             }
-
         }
     }
-   
-
-
 }

@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,8 +11,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             DisplayName.SetDefault("Blooming Bow");
             Tooltip.SetDefault("Randomly picks 2-8 random arrows to fire in random directions at random velocities randomly!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 18;
@@ -35,18 +34,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.shootSpeed = 4;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
+
         public override bool ConsumeAmmo(Player player)
         {
             return false;
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
-
             int numberProjectiles = 2 + Main.rand.Next(7);
             for (int i = 0; i < numberProjectiles; i++)
             {
@@ -63,10 +59,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             }
             return false;
         }
-
-
     }
-
-
 }
-

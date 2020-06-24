@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 {
     public class RhuthiniumBoomerang : ModItem
@@ -14,13 +13,13 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Boomerang");
             Tooltip.SetDefault("Hold down the throw button to make it fly further" + "\nRight click to make the boomerang stationary");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-            item.damage = 30;
+            item.damage = 26;
             item.melee = true;
             item.noMelee = true;
 
@@ -39,12 +38,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.shoot = mod.ProjectileType("RhuthiniumBoomerangP");
             item.shootSpeed = 10;
             item.channel = true;
-
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -54,6 +48,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
             for (int i = 0; i < 1000; ++i)
@@ -83,23 +78,28 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("RhuthiniumBoomerang");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public int timer;
         public bool runOnce = true;
         public int spinDirection;
         public Vector2 origonalVelocity;
+
         public override void AI()
         {
+            if (Main.rand.Next(10) == 0)
+            {
+                Dust d = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("RhuthiniumDust"))];
+                d.frame.Y = Main.rand.Next(2) == 0 ? 0 : 10;
+                d.noGravity = true;
+            }
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
                 spinDirection = player.direction;
                 origonalVelocity = projectile.velocity;
                 runOnce = false;
-
             }
             projectile.rotation += MathHelper.ToRadians(20 * spinDirection);
             timer++;
@@ -108,12 +108,9 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                 projectile.velocity.X = 0;
                 projectile.velocity.Y = 0;
             }
-
             else if (player.channel)
             {
-
                 projectile.velocity = origonalVelocity;
-
             }
             else
             {
@@ -127,25 +124,19 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
                 {
                     projectile.Kill();
                 }
-
             }
-
-
-
         }
+
         /*
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             timer = 40;
-
         }
         */
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             return false;
         }
     }
-
-
 }
-

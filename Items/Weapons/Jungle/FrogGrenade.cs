@@ -12,6 +12,7 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             DisplayName.SetDefault("Frog Grenade");
             Tooltip.SetDefault("Ribbit!");
         }
+
         public override void SetDefaults()
         {
             item.useStyle = 5;
@@ -19,29 +20,28 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             item.shoot = mod.ProjectileType("FrogGrenadeP");
             item.width = 20;
             item.height = 20;
-            item.maxStack = 999;
-            item.consumable = true;
             item.UseSound = SoundID.Item1;
             item.useAnimation = 38;
             item.useTime = 38;
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.value = 75;
+            item.value = Item.sellPrice(gold: 1);
             item.damage = 85;
             item.knockBack = 8f;
-            item.thrown = true;
+            item.melee = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.JungleSpores, 2);
-            recipe.AddIngredient(ItemID.Frog);
-            recipe.AddIngredient(ItemID.Grenade, 50);
+            recipe.AddIngredient(ItemID.JungleSpores, 12);
+            recipe.AddIngredient(ItemID.Frog, 6);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 50);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }
+
     public class FrogGrenadeP : Grenade
     {
         public override void SetDefaults()
@@ -50,28 +50,28 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             projectile.height = 14;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.thrown = true;
+            projectile.melee = true;
             projectile.timeLeft = 180;
             sticky = false;
             bouncyness = .6f;
             explosionSize = 2;
         }
+
         public override bool ExplosionArea(int explosionSize)
         {
             return false;
         }
+
         public override bool ExplosionEffect(int explosionSize)
         {
             Main.PlaySound(SoundID.Frog, projectile.position);
             int frogCount = Main.rand.Next(explosionSize) + 2;
             for (int i = 0; i < frogCount; i++)
             {
-
                 NPC frog = Main.npc[NPC.NewNPC((int)projectile.Center.X, (int)projectile.Center.Y, NPCID.Frog)];
                 frog.SpawnedFromStatue = true;
                 frog.velocity.Y = -4f - 3f * Main.rand.NextFloat();
                 frog.velocity.X = Main.rand.NextFloat(-6, 6);
-
             }
             return false;
         }

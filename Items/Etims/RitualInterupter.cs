@@ -13,7 +13,9 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Ritual Interrupter");
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.width = 20;
@@ -25,9 +27,7 @@ namespace QwertysRandomContent.Items.Etims
             item.useStyle = 4;
             item.UseSound = SoundID.Item44;
             item.consumable = true;
-
         }
-
 
         public override bool CanUseItem(Player player)
         {
@@ -40,7 +40,6 @@ namespace QwertysRandomContent.Items.Etims
             }
             return false;
         }
-        
 
         public override void AddRecipes()
         {

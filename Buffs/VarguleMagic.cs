@@ -5,7 +5,6 @@ namespace QwertysRandomContent.Buffs
 {
     public class VarguleMagic : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Vargule Magic");
@@ -21,7 +20,5 @@ namespace QwertysRandomContent.Buffs
             player.statManaMax2 += 800;
             player.magicDamage += .3f;
         }
-
-
     }
 }

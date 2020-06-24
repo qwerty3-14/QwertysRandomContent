@@ -32,10 +32,12 @@ namespace QwertysRandomContent.NPCs.Fortress
             npc.noTileCollide = true;
             npc.buffImmune[BuffID.Confused] = false;
         }
-        float maxSpeed = 4;
-        float maxFriendRepelDistance = 50;
-        int freindCount = 0;
-        int totalCount;
+
+        private float maxSpeed = 4;
+        private float maxFriendRepelDistance = 50;
+        private int freindCount = 0;
+        private int totalCount;
+
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
@@ -66,7 +68,6 @@ namespace QwertysRandomContent.NPCs.Fortress
             freindCount = 0;
             for (int n = 0; n < 200; n++)
             {
-
                 if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center - npc.Center).Length() < 200)
                 {
                     freindCount++;
@@ -87,14 +88,12 @@ namespace QwertysRandomContent.NPCs.Fortress
                     if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer"))
                     {
                         totalCount++;
-
                     }
                 }
                 if (totalCount >= 4)
                 {
                     for (int n = 0; n < 200; n++)
                     {
-
                         if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center - npc.Center).Length() > 150)
                         {
                             totalCount++;
@@ -108,16 +107,13 @@ namespace QwertysRandomContent.NPCs.Fortress
                 }
             }
 
-
             for (int n = 0; n < 200; n++)
             {
-
                 if (n != npc.whoAmI && Main.npc[n].active && Main.npc[n].type == mod.NPCType("Swarmer") && (Main.npc[n].Center - npc.Center).Length() < maxFriendRepelDistance)
                 {
                     npc.velocity += QwertyMethods.PolarVector(-4 * (1 - (Main.npc[n].Center - npc.Center).Length() / maxFriendRepelDistance), (Main.npc[n].Center - npc.Center).ToRotation());
                 }
             }
-
 
             if (npc.velocity.Length() > maxSpeed)
             {
@@ -143,8 +139,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                     {
                         npc.velocity += QwertyMethods.PolarVector(maxSpeed, Main.projectile[p].velocity.ToRotation() - (float)Math.PI / 2);
                     }
-
-
                 }
             }
 
@@ -157,20 +151,17 @@ namespace QwertysRandomContent.NPCs.Fortress
             maxSpeed = 4;
         }
 
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float
         {
             return 0f;
         }
 
-
-
-
         public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) // this is run whenever the npc is hit by a projectile
         {
-
         }
-        int frame = 0;
+
+        private int frame = 0;
+
         public override void FindFrame(int frameHeight) // this part takes care of animations
         {
             npc.frameCounter++;
@@ -181,8 +172,8 @@ namespace QwertysRandomContent.NPCs.Fortress
 
             npc.frame.Y = frameHeight * frame;
         }
-
     }
+
     public class Swarm : ModNPC
     {
         public override void SetStaticDefaults()
@@ -211,19 +202,17 @@ namespace QwertysRandomContent.NPCs.Fortress
             bannerItem = mod.ItemType("SwarmerBanner");
         }
 
-
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress && spawnInfo.player.HeldItem.fishingPole <=0)
+            if (spawnInfo.player.GetModPlayer<FortressBiome>().TheFortress && spawnInfo.player.HeldItem.fishingPole <= 0)
             {
                 return 5f;
             }
             return 0f;
-
         }
 
-        int swarmSize = 0;
+        private int swarmSize = 0;
+
         public override void AI()
         {
             if (Main.netMode != 1)
@@ -245,7 +234,5 @@ namespace QwertysRandomContent.NPCs.Fortress
         {
             return false;
         }
-
     }
-
 }

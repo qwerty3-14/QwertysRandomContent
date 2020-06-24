@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class CryonicBolt : ModItem
@@ -15,14 +14,10 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
             DisplayName.SetDefault("Raz's Cryonic Bolt");
             Tooltip.SetDefault("The first cryo weapon ever made" + "\nDev Item");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 50;
             item.mana = 25;
             item.width = 100;
@@ -41,7 +36,6 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
             item.shoot = mod.ProjectileType("CryonicBoltP");
             item.magic = true;
             item.shootSpeed = 14;
-
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -57,20 +51,16 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
                 Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom((float)Math.PI / 16f), type, damage, knockBack, player.whoAmI);
             }
             return false;
-
-
-
-
         }
     }
+
     public class CryonicBoltP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cryonic BoltP");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 0;
@@ -81,15 +71,13 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
             projectile.penetrate = 1;
             projectile.magic = true;
             projectile.tileCollide = true;
-
-
-
-
         }
+
         public override void AI()
         {
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135);
         }
+
         public override void Kill(int timeLeft)
         {
             int numOfShards = Main.rand.Next(2, 5);
@@ -99,6 +87,7 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
                 Projectile.NewProjectile(projectile.Center, vel, mod.ProjectileType("CryonicShard"), (int)(projectile.damage * .67f), projectile.knockBack, projectile.owner);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Items/DevItems/Raz/CryonicBoltP");
@@ -107,16 +96,15 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
-
     }
+
     public class CryonicShard : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cryonic BoltP");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -130,17 +118,6 @@ namespace QwertysRandomContent.Items.DevItems.Raz     ///We need this to basical
             projectile.tileCollide = true;
 
             projectile.timeLeft = 20;
-
-
         }
-
-
-
     }
-
-
-
-
-
-
 }

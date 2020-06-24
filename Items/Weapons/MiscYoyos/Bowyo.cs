@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -41,20 +40,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             item.useAmmo = AmmoID.Arrow;
             item.shoot = mod.ProjectileType("BowyoP");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-
 
             recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool ConsumeAmmo(Player player)
         {
             return false;
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             //reset damage and knockback to avoid ammo modifing
@@ -63,23 +64,20 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             type = mod.ProjectileType("BowyoP");
             return true;
         }
-
     }
-
 
     public class BowyoP : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             // The following sets are only applicable to yoyo that use aiStyle 99.
-            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player. 
+            // YoyosLifeTimeMultiplier is how long in seconds the yoyo will stay out before automatically returning to the player.
             // Vanilla values range from 3f(Wood) to 16f(Chik), and defaults to -1f. Leaving as -1 will make the time infinite.
             ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = -1f;
-            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
+            // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player.
             // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
             ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 300f;
-            // YoyosTopSpeed is top speed of the yoyo projectile. 
+            // YoyosTopSpeed is top speed of the yoyo projectile.
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 18f;
         }
@@ -96,7 +94,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             projectile.melee = true;
             projectile.scale = 1f;
         }
-        // notes for aiStyle 99: 
+
+        // notes for aiStyle 99:
         // localAI[0] is used for timing up to YoyosLifeTimeMultiplier
         // localAI[1] can be used freely by specific types
         // ai[0] and ai[1] usually point towards the x and y world coordinate hover point
@@ -104,16 +103,18 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
         // ai[0] being negative makes the yoyo move back towards the player
         // Any AI method can be used for dust, spawning projectiles, etc specific to your yoyo.
         public int arrow = 1;
+
         public bool canShoot = true;
         public float speedB = 14f;
         public float BulVel = 12;
-        NPC possibleTarget;
-        NPC target;
-        float distance;
-        float maxDistance = 1000;
-        bool foundTarget;
-        int timer;
-        float dir;
+        private NPC possibleTarget;
+        private NPC target;
+        private float distance;
+        private float maxDistance = 1000;
+        private bool foundTarget;
+        private int timer;
+        private float dir;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -126,10 +127,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                     target = Main.npc[k];
                     foundTarget = true;
 
-
                     maxDistance = (target.Center - projectile.Center).Length();
                 }
-
             }
             timer++;
             if (foundTarget)
@@ -149,7 +148,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
 
                     timer = 0;
                 }
-
             }
 
             maxDistance = 1000;

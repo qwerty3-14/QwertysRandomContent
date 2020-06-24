@@ -5,16 +5,15 @@ namespace QwertysRandomContent.Buffs
 {
     public class Impaled : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Impaled");
             Description.SetDefault("Ouch!");
             Main.debuff[Type] = true;
 
-
             longerExpertDebuff = false;
         }
+
         public override void Update(NPC npc, ref int buffIndex)
         {
             //int num = npc.lifeRegenExpectedLossPerSecond;
@@ -29,26 +28,18 @@ namespace QwertysRandomContent.Buffs
             {
                 if (Main.projectile[i].active && Main.projectile[i].GetGlobalProjectile<ImplaingProjectile>().CanImpale && Main.projectile[i].ai[0] == 1f && Main.projectile[i].ai[1] == (float)npc.whoAmI)
                 {
-
                     impaleDamage += Main.projectile[i].GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler;
                     JavelinCount++;
                 }
             }
             npc.lifeRegen -= impaleDamage * 2;
             npc.lifeRegenExpectedLossPerSecond = impaleDamage;
-
-
-
-
         }
-
-
-
-
     }
+
     public class ImplaingProjectile : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public bool CanImpale = false;
         public int damagePerImpaler = 0;
         // public int maxImpalers = 0;

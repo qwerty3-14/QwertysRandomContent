@@ -14,7 +14,9 @@ namespace QwertysRandomContent.Buffs
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = true;
         }
-        int timer;
+
+        private int timer;
+
         public override void Update(NPC npc, ref int buffIndex)
         {
             timer++;
@@ -27,8 +29,8 @@ namespace QwertysRandomContent.Buffs
                 }
                 timer = 0;
             }
-
         }
+
         public override void Update(Player player, ref int buffIndex)
         {
             timer++;
@@ -42,9 +44,8 @@ namespace QwertysRandomContent.Buffs
                 timer = 0;
             }
         }
-
-
     }
+
     public class PowerDownNPC : GlobalNPC
     {
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -54,6 +55,7 @@ namespace QwertysRandomContent.Buffs
                 damage = (int)(damage * .8f);
             }
         }
+
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
             if (player.HasBuff(mod.BuffType("PowerDown")))
@@ -61,6 +63,7 @@ namespace QwertysRandomContent.Buffs
                 damage = (int)(damage * .8f);
             }
         }
+
         public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
         {
             if (npc.HasBuff(mod.BuffType("PowerDown")))
@@ -68,6 +71,5 @@ namespace QwertysRandomContent.Buffs
                 damage = (int)(damage * .8f);
             }
         }
-
     }
 }

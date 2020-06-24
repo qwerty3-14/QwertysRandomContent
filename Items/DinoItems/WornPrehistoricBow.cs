@@ -8,12 +8,10 @@ namespace QwertysRandomContent.Items.DinoItems
         {
             DisplayName.SetDefault("Worn Prehistoric Bow");
             Tooltip.SetDefault("This Bow is over 65 million years old!" + "\nBut then... who made it?");
-
         }
 
         public override void SetDefaults()
         {
-
             item.width = 16;
             item.height = 40;
             item.maxStack = 999;
@@ -21,12 +19,6 @@ namespace QwertysRandomContent.Items.DinoItems
             item.rare = 3;
             item.value = 500;
             item.rare = 6;
-
         }
-
-
-
-
-
     }
 }

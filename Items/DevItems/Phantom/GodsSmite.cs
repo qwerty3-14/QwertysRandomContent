@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.DevItems.Phantom
 {
     public class GodsSmite : ModItem
@@ -13,9 +12,8 @@ namespace QwertysRandomContent.Items.DevItems.Phantom
         {
             DisplayName.SetDefault("God's smite");
             Tooltip.SetDefault("I don't understand Havoc's obsession with giant god weapons" + "\nDev Item");
-
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 800;
@@ -37,13 +35,7 @@ namespace QwertysRandomContent.Items.DevItems.Phantom
             item.shoot = mod.ProjectileType("GodsSmiteP");
             item.shootSpeed = 10;
             //item.channel = true;
-
-
-
-
         }
-
-
 
         public override bool CanUseItem(Player player)
         {
@@ -76,12 +68,13 @@ namespace QwertysRandomContent.Items.DevItems.Phantom
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("God's Smite");
-
         }
+
         public int timer;
         public bool runOnce = true;
         public int spinDirection;
         public Vector2 origonalVelocity;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -90,11 +83,9 @@ namespace QwertysRandomContent.Items.DevItems.Phantom
                 spinDirection = player.direction;
                 origonalVelocity = projectile.velocity;
                 runOnce = false;
-
             }
             projectile.rotation += MathHelper.ToRadians(20 * spinDirection);
             timer++;
-
 
             if (timer >= 120)
             {
@@ -108,25 +99,18 @@ namespace QwertysRandomContent.Items.DevItems.Phantom
                 {
                     projectile.Kill();
                 }
-
             }
             CreateDust();
-
-
         }
+
         public virtual void CreateDust()
         {
-
             int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HolyGlow"));
-
-
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             timer = 120;
-
         }
 
         public override bool OnTileCollide(Vector2 velocityChange)
@@ -134,7 +118,4 @@ namespace QwertysRandomContent.Items.DevItems.Phantom
             return false;
         }
     }
-
-
 }
-

@@ -19,7 +19,9 @@ namespace QwertysRandomContent.NPCs.BossFour
             DisplayName.SetDefault("Oversized Laser-emitting Obliteration Radiation-emitting Destroyer");
             Main.npcFrameCount[npc.type] = 2;
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             npc.width = 320;
@@ -41,11 +43,10 @@ namespace QwertysRandomContent.NPCs.BossFour
             npc.netAlways = true;
 
             npc.scale = 1f;
-            npc.lifeMax = 100000;
+            npc.lifeMax = 120000;
             bossBag = mod.ItemType("B4Bag");
-
-
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (npc.life <= 0)
@@ -57,42 +58,45 @@ namespace QwertysRandomContent.NPCs.BossFour
                 pos = pos = npc.Center + new Vector2(0, -30); ;
                 gore = Main.gore[Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/OGore3"), 1f)];
             }
-
         }
 
-        int frame = 0;
-        const int guideWidth = 750;
-        const int turretVerticalShift = -30;
-        Vector2[] turret = new Vector2[4] { new Vector2(0, 2), new Vector2(0, 2), new Vector2(0, 2), new Vector2(0, 2) }; //Y is the frame, X is the angle
-        Vector2[] turretPos = new Vector2[4] { new Vector2(-2 * (guideWidth / 3), turretVerticalShift), new Vector2(-1 * (guideWidth / 3), turretVerticalShift), new Vector2(1 * (guideWidth / 3), turretVerticalShift), new Vector2(2 * (guideWidth / 3), turretVerticalShift) };
-        int shotDamage = 35;
-        int quitCount;
-        bool playerDied = false;
+        private int frame = 0;
+        private const int guideWidth = 750;
+        private const int turretVerticalShift = -30;
+        private Vector2[] turret = new Vector2[4] { new Vector2(0, 2), new Vector2(0, 2), new Vector2(0, 2), new Vector2(0, 2) }; //Y is the frame, X is the angle
+        private Vector2[] turretPos = new Vector2[4] { new Vector2(-2 * (guideWidth / 3), turretVerticalShift), new Vector2(-1 * (guideWidth / 3), turretVerticalShift), new Vector2(1 * (guideWidth / 3), turretVerticalShift), new Vector2(2 * (guideWidth / 3), turretVerticalShift) };
+        private int shotDamage = 35;
+        private int quitCount;
+        private bool playerDied = false;
         public Projectile[] wall = new Projectile[2];
-        bool activeWalls = false;
-        bool[] shootLaser = new bool[] { false, false, false, false };
-        Projectile[] tLaser = new Projectile[4];
-        Projectile superLaser;
-        bool activeSuperLaser = false;
-        /// ///////////
-        int timer;
-        int attack = 0;
-        bool runOnce = true;
-        Vector2 GoTo;
-        float laserDistanceFromCenter = 800;
-        bool didHalfDeadSequence = false;
-        bool halfDeadSqequence = false;
+        private bool activeWalls = false;
+        private bool[] shootLaser = new bool[] { false, false, false, false };
+        private Projectile[] tLaser = new Projectile[4];
+        private Projectile superLaser;
+        private bool activeSuperLaser = false;
 
+        /// ///////////
+        private int timer;
+
+        private int attack = 0;
+        private bool runOnce = true;
+        private Vector2 GoTo;
+        private float laserDistanceFromCenter = 800;
+        private bool didHalfDeadSequence = false;
+        private bool halfDeadSqequence = false;
 
         public override void AI()
         {
+            for (int i = 0; i < 255; i++)
+            {
+                Main.player[i].AddBuff(BuffID.ChaosState, 2);
+            }
             Player player = Main.player[npc.target];
             if (Main.expertMode)
             {
                 shotDamage = (int)(npc.damage / 4 * 1.6f);
                 if (npc.life < (int)(npc.lifeMax * .3f))
                 {
-
                     npc.ai[3] = 1;
                     /*
                     if(!didHalfDeadSequence)
@@ -111,21 +115,17 @@ namespace QwertysRandomContent.NPCs.BossFour
                         didHalfDeadSequence = true;
                     }
                     */
-
                 }
                 else
                 {
                     npc.ai[3] = 1;
                 }
-
             }
             else
             {
                 shotDamage = npc.damage / 2;
                 npc.ai[3] = 1;
             }
-
-
 
             #region
             //////////////////
@@ -190,7 +190,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                         if (wall[w].type != mod.ProjectileType("SideLaser") && Main.netMode != 1)
                         {
                             wall[w] = Main.projectile[Projectile.NewProjectile(npc.Center.X + laserDistanceFromCenter, npc.position.Y, 0, 14f, mod.ProjectileType("SideLaser"), (int)(shotDamage * 1.5f), 3f, Main.myPlayer, npc.whoAmI, laserDistanceFromCenter * w == 1 ? -1 : 1)];
-
                         }
                         wall[w].localAI[0] = 0;
                         wall[w].netUpdate = true;
@@ -205,14 +204,12 @@ namespace QwertysRandomContent.NPCs.BossFour
                 {
                     superLaser.localAI[0] += (npc.ai[3] - 1);
                 }
-
             }
             for (int q = 0; q < (int)npc.ai[3]; q++)
             {
                 activeSuperLaser = false;
                 for (int t = 0; t < turret.Length; t++)
                 {
-
                     turret[t].Y = 2;
                     shootLaser[t] = false;
                 }
@@ -229,20 +226,18 @@ namespace QwertysRandomContent.NPCs.BossFour
                 npc.TargetClosest(true);
                 if (!player.active || player.dead)
                 {
-
                     quitCount++;
                     if (quitCount >= 120)
                     {
                         npc.position.Y += 100000f;
                         playerDied = true;
+                        npc.active = false;
                     }
-
                 }
                 else
                 {
                     quitCount = 0;
                 }
-
 
                 //////////////////
                 #endregion
@@ -250,8 +245,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                 timer++;
                 frame = 0;
                 int startAttacks = 420;
-
-
 
                 if ((Math.Abs(player.Center.X - npc.Center.X) > guideWidth || player.Center.Y < npc.Center.Y + 50))
                 {
@@ -294,7 +287,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                         case 0:
                             #region pew pew laser pew pew attack
 
-
                             int[] laserSwitch = new int[] { 300, 600, 900 };
                             if (timer > attackDuration + startAttacks)
                             {
@@ -304,7 +296,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                                     attack = Main.rand.Next(1, 4);
                                     npc.netUpdate = true;
                                 }
-
                             }
                             else if (timer > startAttacks + laserSwitch[2] + 60)
                             {
@@ -331,7 +322,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                                             {
                                                 Projectile.NewProjectile(new Vector2(npc.Center.X, npc.Center.Y + npc.height / 2), QwertyMethods.PolarVector(3 * npc.ai[3], p * (float)Math.PI / 6 + (float)Math.PI / 2), mod.ProjectileType("TurretShot"), shotDamage, 0, Main.myPlayer);
                                             }
-
                                         }
                                     }
                                 }
@@ -356,7 +346,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                                     if (shootLaser[t])
                                     {
                                         turret[t].Y = 1;
-
                                     }
                                     else
                                     {
@@ -381,12 +370,9 @@ namespace QwertysRandomContent.NPCs.BossFour
                                                         Dust.NewDustPerfect(center, mod.DustType("B4PDust"), QwertyMethods.PolarVector(dist / 10, theta));
                                                     }
                                                 }
-
                                             }
                                         }
                                     }
-
-
                                 }
                             }
                             else if (timer > startShooting / 2 + startAttacks)
@@ -399,6 +385,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
                             #endregion
                             break;
+
                         case 1:
                             #region Super Laser
                             if (timer > attackDuration + startAttacks)
@@ -413,68 +400,66 @@ namespace QwertysRandomContent.NPCs.BossFour
                                     }
                                     npc.netUpdate = true;
                                 }
-
                             }
                             else if (timer > startShooting + startAttacks)
                             {
                                 float laserProgress = 1f - (((float)timer - (float)startAttacks) / 960f);
+                                if (laserProgress < 0)
+                                {
+                                    laserProgress = 0;
+                                }
                                 //Main.NewText(laserProgress);
                                 if (timer < startAttacks + 960 + 120)
                                 {
                                     shootLaser[1] = true;
                                     shootLaser[2] = true;
+                                    for (int t = 0; t < turret.Length; t++)
+                                    {
+                                        if (shootLaser[t])
+                                        {
+                                            turret[t].Y = 1;
+                                            if (t == 1)
+                                            {
+                                                turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (float)Math.PI / 2 * laserProgress, 4);
+                                            }
+                                            else if (t == 2)
+                                            {
+                                                turret[t].X = QwertyMethods.SlowRotation(turret[t].X, -(float)Math.PI / 2 * laserProgress, 4);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (player.Center - (npc.Center + turretPos[t] * npc.scale)).ToRotation() - (float)Math.PI / 2, 4);
+                                            turret[t].Y = 1;
+                                            if (timer % 120 < 60 && timer % 10 == 0)
+                                            {
+                                                if (Main.netMode != 1)
+                                                {
+                                                    Projectile p = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(3 * npc.ai[3], turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretShot"), shotDamage, 0, Main.myPlayer)];
+                                                    p.scale = npc.scale;
+
+                                                    Vector2 center = (npc.Center + turretPos[t] * npc.scale);
+                                                    for (int i = 0; i < 10; i++)
+                                                    {
+                                                        float theta = turret[t].X + (float)Math.PI / 2 + Main.rand.NextFloat(-(float)Math.PI / 4, (float)Math.PI / 4);
+                                                        float dist = Main.rand.NextFloat(60f, 100f);
+                                                        if (Main.netMode != 1)
+                                                        {
+                                                            Dust.NewDustPerfect(center, mod.DustType("B4PDust"), QwertyMethods.PolarVector(dist / 10, theta));
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
+
                                 if (timer > startAttacks + 960)
                                 {
                                     activeSuperLaser = true;
                                     laserProgress = 0f;
                                     frame = 1;
                                 }
-                                for (int t = 0; t < turret.Length; t++)
-                                {
-                                    if (shootLaser[t])
-                                    {
-                                        turret[t].Y = 1;
-                                        if (t == 1)
-                                        {
-                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (float)Math.PI / 2 * laserProgress, 4);
-                                        }
-                                        else if (t == 2)
-                                        {
-                                            turret[t].X = QwertyMethods.SlowRotation(turret[t].X, -(float)Math.PI / 2 * laserProgress, 4);
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        turret[t].X = QwertyMethods.SlowRotation(turret[t].X, (player.Center - (npc.Center + turretPos[t] * npc.scale)).ToRotation() - (float)Math.PI / 2, 4);
-                                        turret[t].Y = 1;
-                                        if (timer % 120 < 60 && timer % 10 == 0)
-                                        {
-                                            if (Main.netMode != 1)
-                                            {
-
-                                                Projectile p = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(3 * npc.ai[3], turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretShot"), shotDamage, 0, Main.myPlayer)];
-                                                p.scale = npc.scale;
-
-                                                Vector2 center = (npc.Center + turretPos[t] * npc.scale);
-                                                for (int i = 0; i < 10; i++)
-                                                {
-                                                    float theta = turret[t].X + (float)Math.PI / 2 + Main.rand.NextFloat(-(float)Math.PI / 4, (float)Math.PI / 4);
-                                                    float dist = Main.rand.NextFloat(60f, 100f);
-                                                    if (Main.netMode != 1)
-                                                    {
-                                                        Dust.NewDustPerfect(center, mod.DustType("B4PDust"), QwertyMethods.PolarVector(dist / 10, theta));
-                                                    }
-                                                }
-
-                                            }
-                                        }
-                                    }
-
-
-                                }
-
                             }
                             else if (timer > startShooting / 2 + startAttacks)
                             {
@@ -484,9 +469,9 @@ namespace QwertysRandomContent.NPCs.BossFour
                                 }
                             }
 
-
                             #endregion
                             break;
+
                         case 2:
                             #region gravity attack
                             if (timer > attackDuration + startAttacks)
@@ -501,13 +486,11 @@ namespace QwertysRandomContent.NPCs.BossFour
                                     }
                                     npc.netUpdate = true;
                                 }
-
                             }
                             else if (timer > startShooting + startAttacks)
                             {
                                 if (timer > startAttacks + 960)
                                 {
-
                                     frame = 1;
                                 }
                                 if (timer == attackDuration + startAttacks - 480 && Main.netMode != 1)
@@ -523,7 +506,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                                         if (Main.netMode != 1)
                                         {
                                             Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(3 * npc.ai[3], turret[t].X + (float)Math.PI / 2), mod.ProjectileType("TurretGrav"), shotDamage, 0, Main.myPlayer);
-
                                         }
                                         Vector2 center = (npc.Center + turretPos[t] * npc.scale);
                                         for (int i = 0; i < 30; i++)
@@ -547,6 +529,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                             }
                             #endregion
                             break;
+
                         case 3:
                             #region Large bursts
                             if (timer > attackDuration + startAttacks)
@@ -557,7 +540,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                                     attack = Main.rand.Next(3);
                                     npc.netUpdate = true;
                                 }
-
                             }
                             else if (timer > startAttacks + 960)
                             {
@@ -576,13 +558,11 @@ namespace QwertysRandomContent.NPCs.BossFour
                             }
                             else if (timer > startShooting + startAttacks)
                             {
-
                                 for (int t = 0; t < turret.Length; t++)
                                 {
                                     if (t == 0 || t == 3)
                                     {
                                         turret[t].Y = 0;
-
                                     }
                                     else
                                     {
@@ -611,8 +591,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                                             }
                                             if (((timer % 180 == 0 && t == 2) || (timer % 180 != 0 && t == 1)))
                                             {
-
-
                                                 Projectile p = Main.projectile[Projectile.NewProjectile((npc.Center + turretPos[t] * npc.scale), QwertyMethods.PolarVector(9, turret[t].X + (float)Math.PI / 2), mod.ProjectileType("MagicMineLayer"), shotDamage, 0, Main.myPlayer, npc.whoAmI, (player.Center - npc.Center).Length())];
                                                 p.scale = npc.scale;
 
@@ -626,17 +604,9 @@ namespace QwertysRandomContent.NPCs.BossFour
                                                         Dust.NewDustPerfect(center, mod.DustType("B4PDust"), QwertyMethods.PolarVector(dist / 10, theta));
                                                     }
                                                 }
-
-
                                             }
-
-
                                         }
-
-
                                     }
-
-
                                 }
                             }
                             else if (timer > startShooting / 2 + startAttacks)
@@ -656,7 +626,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                         Main.NewText("client: " + attack);
                     }
 
-
                     if (Main.netMode == 2) // Server
                     {
                         NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + attack), Color.Black);
@@ -665,11 +634,8 @@ namespace QwertysRandomContent.NPCs.BossFour
             }
         }
 
-
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-
-
             if (activeWalls)
             {
                 Texture2D Walls = mod.GetTexture("NPCs/BossFour/SideLaser" + (ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? "_Old" : ""));
@@ -691,9 +657,9 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             return true;
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-
             for (int t = 0; t < turret.Length; t++)
             {
                 spriteBatch.Draw(mod.GetTexture("NPCs/BossFour/Turret" + (ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? "_Old" : "")), npc.Center + turretPos[t] * npc.scale - Main.screenPosition,
@@ -716,20 +682,24 @@ namespace QwertysRandomContent.NPCs.BossFour
                 }
             }*/
         }
+
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frameHeight * frame;
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(timer);
             writer.Write(attack);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             timer = reader.ReadInt32();
             attack = reader.ReadInt32();
         }
+
         /// ////////////////////////////////////////////////////////
 
         public override void NPCLoot()
@@ -750,8 +720,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             }
             else
             {
-
-
                 int selectWeapon = Main.rand.Next(1, 7);
 
                 if (selectWeapon == 1)
@@ -783,54 +751,43 @@ namespace QwertysRandomContent.NPCs.BossFour
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TheDevourer"));
                 }
 
-
-
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 73, 60);
-
-
-
             }
             if (trophyChance == 1)
             {
                 //Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraTrophy"));
             }
-
-
         }
+
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(120000 * bossLifeScale);
+            npc.lifeMax = (int)(160000 * bossLifeScale);
             npc.damage = 70;
         }
+
         public override void BossLoot(ref string name, ref int potionType)
         {
             potionType = ItemID.GreaterHealingPotion;
         }
+
         public override bool CheckActive()
         {
-
             return playerDied;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             return 0f;
-
         }
-
-
-
-
-
-
     }
+
     // The following laser shows a channeled ability, after charging up the laser will be fired
     // Using custom drawing, dust effects, and custom collision checks for tiles
     public class TurretLaser2 : ModProjectile
     {
         // The maximum charge value
         private const float MaxChargeValue = 120f;
+
         //The distance charge particle from the player center
         private const float MoveDistance = 63f;
 
@@ -844,6 +801,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             get { return projectile.localAI[0]; }
             set { projectile.localAI[0] = value; }
         }
+
         //public NPC shooter;
         // Are we at max charge? With c#6 you can simply use => which indicates this is a get only property
         public bool AtMaxCharge;
@@ -858,16 +816,19 @@ namespace QwertysRandomContent.NPCs.BossFour
             projectile.hostile = true;
             projectile.hide = false;
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(projectile.localAI[0]);
             writer.Write(projectile.rotation);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             projectile.localAI[0] = reader.ReadSingle();
             projectile.rotation = reader.ReadSingle();
         }
+
         // The AI of the projectile
 
         public override void AI()
@@ -882,14 +843,12 @@ namespace QwertysRandomContent.NPCs.BossFour
                 Main.NewText("client: " + projectile.whoAmI + ", "+ projectile.Center);
             }
 
-
             if (Main.netMode == 2) // Server
             {
                 NetMessage.BroadcastChatMessage(Terraria.Localization.NetworkText.FromLiteral("Server: " + projectile.whoAmI + ", " + projectile.Center), Color.Black);
             }
             */
             #region Set projectile position
-
 
             //Vector2 diff = new Vector2((float)Math.Cos(shooter.rotation + (float)Math.PI / 2) * 14f, (float)Math.Sin(shooter.rotation + (float)Math.PI / 2) * 14f);
 
@@ -909,7 +868,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             #region Charging process
             // Kill the projectile if the player stops channeling
 
-
             // Do we still have enough mana? If not, we kill the projectile because we cannot use it anymore
 
             Vector2 offset = projectile.velocity;
@@ -925,14 +883,9 @@ namespace QwertysRandomContent.NPCs.BossFour
             else
             {
                 AtMaxCharge = true;
-
-
-
             }
 
             int chargeFact = (int)(Charge / 20f);
-
-
 
             #endregion
             if (Charge > 10 && !AtMaxCharge)
@@ -958,23 +911,19 @@ namespace QwertysRandomContent.NPCs.BossFour
             {
                 //start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
                 start = new Vector2(projectile.ai[0], projectile.ai[1]) + projectile.velocity * Distance;
-
             }
-
-
 
             //Add lights
             DelegateMethods.v3_1 = new Vector3(0.8f, 0.8f, 1f);
             Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
                 DelegateMethods.CastLight);
-
-
         }
+
         public int colorCounter;
         public Color lineColor;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             if (AtMaxCharge)
             {
                 DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], new Vector2(projectile.ai[0], projectile.ai[1]),
@@ -1010,14 +959,13 @@ namespace QwertysRandomContent.NPCs.BossFour
                     spriteBatch.Draw(mod.GetTexture("Items/Weapons/Rhuthinium/laser"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 1, (int)lineLength - 10), lineColor, projRotation,
                         new Vector2(0, 0), 1f, SpriteEffects.None, 0f);
-
                 }
             }
             return false;
         }
 
         // The core function of drawing a laser
-        int frame = 0;
+        private int frame = 0;
 
         public void DrawLaser(SpriteBatch spriteBatch, Texture2D texture, Vector2 start, Vector2 unit, float step, int damage, float rotation = 0f, float scale = 1f, float maxDist = 4000f, Color color = default(Color), int transDist = 50)
         {
@@ -1048,8 +996,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             spriteBatch.Draw(texture, start + unit * (transDist - step) - Main.screenPosition,
                 new Rectangle(frame * 50, 0, 50, 48), Color.White, r, new Vector2(50 * .5f, 48 * .5f), scale, 0, 0);
             #endregion
-
-
         }
 
         // Change the way of collision check of the projectile
@@ -1074,8 +1020,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             target.immune[projectile.owner] = 5;
         }
 
-
-
         public override bool ShouldUpdatePosition()
         {
             return false;
@@ -1088,10 +1032,12 @@ namespace QwertysRandomContent.NPCs.BossFour
             Utils.PlotTileLine(projectile.Center, projectile.Center + unit * Distance, (projectile.width + 16) * projectile.scale, DelegateMethods.CutTiles);
         }
     }
+
     public class SuperLaser2 : ModProjectile
     {
         // The maximum charge value
         private const float MaxChargeValue = 270f;
+
         //The distance charge particle from the player center
         private const float MoveDistance = 80f;
 
@@ -1105,13 +1051,17 @@ namespace QwertysRandomContent.NPCs.BossFour
             get { return projectile.localAI[0]; }
             set { projectile.localAI[0] = value; }
         }
+
         public NPC shooter;
+
         // Are we at max charge? With c#6 you can simply use => which indicates this is a get only property
         public bool AtMaxCharge;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Laser");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -1123,21 +1073,24 @@ namespace QwertysRandomContent.NPCs.BossFour
             projectile.hide = false;
             projectile.timeLeft = 2;
         }
+
         // The AI of the projectile
         public float downFromCenter = 130;
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(projectile.localAI[0]);
             writer.Write(projectile.rotation);
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             projectile.localAI[0] = reader.ReadSingle();
             projectile.rotation = reader.ReadSingle();
         }
+
         public override void AI()
         {
-
             shooter = Main.npc[(int)projectile.ai[0]];
             Vector2 mousePos = Main.MouseWorld;
             Player player = Main.player[projectile.owner];
@@ -1151,7 +1104,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             {
                 Main.NewText("client: "  + projectile.timeLeft);
             }
-
 
             if (Main.netMode == 2) // Server
             {
@@ -1178,7 +1130,6 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             #region Charging process
             // Kill the projectile if the player stops channeling
-
 
             // Do we still have enough mana? If not, we kill the projectile because we cannot use it anymore
 
@@ -1212,9 +1163,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 }
             }
 
-
             #endregion
-
 
             if (Charge < MaxChargeValue) return;
 
@@ -1234,19 +1183,17 @@ namespace QwertysRandomContent.NPCs.BossFour
                 */
             }
 
-
-
             //Add lights
             DelegateMethods.v3_1 = new Vector3(10f, 10f, 10f);
             Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * (Distance - MoveDistance), 26,
                 DelegateMethods.CastLight);
-
         }
+
         public int colorCounter;
         public Color lineColor;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
-
             if (AtMaxCharge)
             {
                 DrawLaser(spriteBatch, Main.projectileTexture[projectile.type], new Vector2(shooter.Center.X, shooter.Center.Y),
@@ -1296,7 +1243,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             #region Draw laser body
             for (float i = transDist; i <= Distance; i += step)
             {
-
                 Color c = Color.White;
                 origin = start + i * unit;
                 origin.Y += 118;
@@ -1339,8 +1285,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             target.immune[projectile.owner] = 5;
         }
 
-
-
         public override bool ShouldUpdatePosition()
         {
             return false;
@@ -1353,15 +1297,18 @@ namespace QwertysRandomContent.NPCs.BossFour
             Utils.PlotTileLine(projectile.Center, projectile.Center + unit * Distance, (projectile.width + 16) * projectile.scale, DelegateMethods.CutTiles);
         }
     }
+
     public class OLORDScreenLock : ModPlayer
     {
         public int screenLock = -1;
         public bool shake = false;
+
         public override void ResetEffects()
         {
             screenLock = -1;
             shake = false;
         }
+
         public override void ModifyScreenPosition()
         {
             if (screenLock != -1 && player.active && player.statLife > 0)
@@ -1371,9 +1318,7 @@ namespace QwertysRandomContent.NPCs.BossFour
                 {
                     Main.screenPosition.X = OLORD.Center.X - Main.screenWidth / 2;
                     Main.screenPosition.Y = OLORD.position.Y - 100;
-
                 }
-
             }
             if (shake)
             {
@@ -1382,6 +1327,7 @@ namespace QwertysRandomContent.NPCs.BossFour
             }
         }
     }
+
     public class SideLaser : ModProjectile
     {
         private const float MaxChargeValue = 50f;
@@ -1394,12 +1340,15 @@ namespace QwertysRandomContent.NPCs.BossFour
             get { return projectile.localAI[0]; }
             set { projectile.localAI[0] = value; }
         }
+
         public NPC shooter;
         public bool AtMaxCharge { get { return Charge == MaxChargeValue; } }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("O.L.O.R.D.'s wall");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
@@ -1410,17 +1359,18 @@ namespace QwertysRandomContent.NPCs.BossFour
             projectile.hostile = true;
             projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
+
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
         {
-
             // Add this projectile to the list of projectiles that will be drawn BEFORE tiles and NPC are drawn. This makes the projectile appear to be BEHIND the tiles and NPC.
             drawCacheProjsBehindNPCs.Add(index);
         }
+
         // The AI of the projectile
         public float downFromCenter = 0;
+
         public override void AI()
         {
-
             shooter = Main.npc[(int)projectile.ai[0]];
             Vector2 mousePos = Main.MouseWorld;
             Player player = Main.player[projectile.owner];
@@ -1430,7 +1380,6 @@ namespace QwertysRandomContent.NPCs.BossFour
                 projectile.Kill();
             }
             #region Set projectile position
-
 
             Vector2 diff = new Vector2(0, 14);
             diff.Normalize();
@@ -1458,16 +1407,13 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             int chargeFact = (int)(Charge / 20f);
 
-
-
             #endregion
-
 
             if (Charge < MaxChargeValue) return;
             Vector2 start = new Vector2(shooter.Center.X + projectile.ai[1], shooter.Center.Y + downFromCenter);
             Vector2 unit = projectile.velocity;
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
@@ -1504,8 +1450,6 @@ namespace QwertysRandomContent.NPCs.BossFour
             }
 
             #endregion
-
-
         }
 
         // Change the way of collision check of the projectile
@@ -1523,6 +1467,7 @@ namespace QwertysRandomContent.NPCs.BossFour
 
             return false;
         }
+
         public override bool ShouldUpdatePosition()
         {
             return false;

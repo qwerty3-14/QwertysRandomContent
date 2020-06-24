@@ -14,12 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             DisplayName.SetDefault("Jack-o'-lantern Staff");
             Tooltip.SetDefault("Summons a stationary Jack-o'-lantern to burn nearbly enemies!");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 10;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 38;    //The size of the width of the hitbox in pixels.
@@ -32,11 +30,9 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             item.value = 1000;
             item.rare = 1;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
-            item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("PumpkinSentry");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
             item.sentry = true; //tells the game that this is a sentry
-
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -55,6 +51,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             position.Y -= 16;
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -68,6 +65,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -89,7 +87,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 60; //Set the hitbox width
             projectile.height = 36;   //Set the hitbox heinght
@@ -103,18 +100,20 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             projectile.sentry = true; //tells the game that this is a sentry
             projectile.usesLocalNPCImmunity = true;
         }
-        NPC target;
-        NPC possibleTarget;
-        bool foundTarget;
-        float maxDistance = 10000f;
-        float distance;
-        float flameRange = 400f;
-        int faceDirection;
-        int frameTimer;
-        float frameposition;
-        bool attacking;
-        float CP;
-        int d;
+
+        private NPC target;
+        private NPC possibleTarget;
+        private bool foundTarget;
+        private float maxDistance = 10000f;
+        private float distance;
+        private float flameRange = 400f;
+        private int faceDirection;
+        private int frameTimer;
+        private float frameposition;
+        private bool attacking;
+        private float CP;
+        private int d;
+
         public override void AI()
         {
             flameRange = 400f;
@@ -126,7 +125,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             {
                 target = Main.npc[player.MinionAttackTargetNPC];
                 foundTarget = true;
-
             }
             else
             {
@@ -139,10 +137,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
                         target = Main.npc[k];
                         foundTarget = true;
 
-
                         maxDistance = Math.Abs(target.Center.X - projectile.Center.X);
                     }
-
                 }
             }
             if (frameTimer % 10 == 0)
@@ -205,7 +201,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
                         dust.scale = 1.5f;
                         dust.noGravity = true;
                     }
-
                 }
                 else
                 {
@@ -227,6 +222,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
         {
             return false;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(mod.GetTexture("Items/Weapons/Pumpkin/PumpkinSentry"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
@@ -235,6 +231,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
 
             return false;
         }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (attacking)
@@ -251,6 +248,5 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin      ///We need this to bas
             projectile.localNPCImmunity[target.whoAmI] = 10;
             target.immune[projectile.owner] = 0;
         }
-
     }
 }

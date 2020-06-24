@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 namespace QwertysRandomContent.NPCs.TundraBoss
 {
     public class FlyingPenguin : ModNPC
@@ -27,28 +28,25 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             npc.damage = 0;
             npc.noTileCollide = true;
             npc.noGravity = true;
-
-
-
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             return 0f;
         }
+
         public override void NPCLoot()
         {
-
-
         }
-        int timer;
-        float flyAboveHeight = 150;
-        float penguinPoliteness = 80;
-        float flySpeed = 10;
-        int frame;
+
+        private int timer;
+        private float flyAboveHeight = 150;
+        private float penguinPoliteness = 80;
+        private float flySpeed = 10;
+        private int frame;
+
         public override void AI()
         {
-
             timer++;
             Player player = Main.player[npc.target];
 
@@ -118,13 +116,11 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * flySpeed;
                 }
             }
-
         }
 
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
-
         }
     }
 }

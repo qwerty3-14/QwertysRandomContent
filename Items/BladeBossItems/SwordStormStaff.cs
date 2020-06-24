@@ -5,23 +5,21 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
-namespace QwertysRandomContent.Items.BladeBossItems      
+namespace QwertysRandomContent.Items.BladeBossItems
 {
     public class SwordStormStaff : ModItem
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordpocalypse");
             Tooltip.SetDefault("Covers the screen in swords!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 30;
             item.mana = 4;
             item.width = 46;
@@ -38,21 +36,19 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.shoot = mod.ProjectileType("SwordDrop");
             item.magic = true;
             item.shootSpeed = 12;
-
         }
 
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-26, 0);
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float trueSpeed = new Vector2(speedX, speedY).Length();
             Vector2 Rposition = new Vector2(position.X, position.Y - 500);
             for (int i = 0; i < 15; i++)
             {
-
-
                 int shift = Main.rand.Next(-600, 600);
                 int Yshift = Main.rand.Next(50);
                 float sX = 0;
@@ -72,15 +68,16 @@ namespace QwertysRandomContent.Items.BladeBossItems
             return false;
         }
     }
+
     public class SwordDrop : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sworddrop");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -91,27 +88,15 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.penetrate = -1;
             projectile.magic = true;
 
-            projectile.usesLocalNPCImmunity = true; 
+            projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
             projectile.tileCollide = true;
-
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown; //set local immunity
             target.immune[projectile.owner] = 0; //disable normal immune mechanic
         }
-
-
-
-
-
-
-
     }
-
-
-
-
 }

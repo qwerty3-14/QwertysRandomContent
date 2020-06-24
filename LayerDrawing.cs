@@ -8,15 +8,14 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent
 {
-
     public static class LayerDrawing
     {
         public delegate bool DrawCondition(Player player);
+
         public static PlayerLayer DrawOnHead(string equip, string texturePath, string name = "HeadGlowmask", bool glowmask = true, int useShader = -1)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
             {
-
                 Player drawPlayer = drawInfo.drawPlayer;
                 Color color12 = drawInfo.upperArmorColor;
                 if (glowmask)
@@ -47,13 +46,14 @@ namespace QwertysRandomContent
                 }
             });
         }
+
         public static PlayerLayer DrawOnLegs(string equip, string texturePath, string femaleEquip = "n", string femaleTexturePath = "n", string name = "LegGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false, float shadow = 0f, DrawCondition drawCondition = null)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Legs, delegate (PlayerDrawInfo drawInfo)
             {
                 if (drawCondition == null)
                 {
-                    drawCondition = delegate (Player player) {   return player.legs == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(equip, EquipType.Legs) || (femaleEquip != "n" && player.legs == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(femaleEquip, EquipType.Legs)); };
+                    drawCondition = delegate (Player player) { return player.legs == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(equip, EquipType.Legs) || (femaleEquip != "n" && player.legs == ModLoader.GetMod("QwertysRandomContent").GetEquipSlot(femaleEquip, EquipType.Legs)); };
                 }
                 Player drawPlayer = drawInfo.drawPlayer;
                 Color color12 = Color.Multiply(drawInfo.lowerArmorColor, 1f - (shadow + (1f - shadow) * drawInfo.shadow));
@@ -80,7 +80,6 @@ namespace QwertysRandomContent
                         {
                             horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
                         }
-
                     }
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
@@ -100,11 +99,11 @@ namespace QwertysRandomContent
                 }
             });
         }
+
         public static PlayerLayer DrawOnBody(string equip, string texturePath, string femaleTexturePath = "n", string name = "BodyGlowmask", bool glowmask = true, int useShader = -1)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
             {
-
                 Player drawPlayer = drawInfo.drawPlayer;
                 Color color12 = drawPlayer.GetImmuneAlphaPure(drawInfo.middleArmorColor, drawInfo.shadow);
                 if (glowmask)
@@ -119,7 +118,6 @@ namespace QwertysRandomContent
                     {
                         texture = mod.GetTexture(femaleTexturePath);
                     }
-
 
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
@@ -140,6 +138,7 @@ namespace QwertysRandomContent
                 }
             });
         }
+
         public static PlayerLayer DrawOnBodySimple(string equip, string texturePath, string femaleTexturePath = "n", string name = "BodyGlowmask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false, float shadow = 0f, DrawCondition drawCondition = null)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Body, delegate (PlayerDrawInfo drawInfo)
@@ -174,7 +173,6 @@ namespace QwertysRandomContent
                         {
                             horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
                         }
-
                     }
 
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
@@ -193,7 +191,6 @@ namespace QwertysRandomContent
                         {
                             pos.Y -= 2;
                         }
-
                     }
                     DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame.Y == 280 ? new Rectangle(horizontalFrame * 40, fHeight, 40, fHeight) : new Rectangle(horizontalFrame * 40, 0, 40, fHeight), color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
                     if (useShader == -1)
@@ -208,11 +205,11 @@ namespace QwertysRandomContent
                 }
             });
         }
+
         public static PlayerLayer DrawOnArms(string equip, string texturePath, string name = "ArmsGlowmask", bool glowmask = true, int useShader = -1)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Arms, delegate (PlayerDrawInfo drawInfo)
             {
-
                 Player drawPlayer = drawInfo.drawPlayer;
                 Color color12 = drawInfo.lowerArmorColor;
                 if (glowmask)
@@ -226,14 +223,11 @@ namespace QwertysRandomContent
                     //Main.NewText(drawPlayer.bodyFrame);
                     Texture2D texture = mod.GetTexture(texturePath);
 
-
-
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                     Vector2 Position = drawInfo.position;
                     Vector2 origin = new Vector2((float)drawPlayer.legFrame.Width * 0.5f, (float)drawPlayer.legFrame.Height * 0.5f);
                     Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
-
 
                     DrawData data = new DrawData(texture, pos, drawPlayer.bodyFrame, color12, 0f, origin, 1f, drawInfo.spriteEffects, 0);
                     if (useShader == -1)
@@ -245,20 +239,18 @@ namespace QwertysRandomContent
                         data.shader = drawPlayer.dye[useShader].dye;
                     }
                     Main.playerDrawData.Add(data);
-
                 }
             });
         }
+
         public static PlayerLayer DrawHeadSimple(string equip, string texturePath, string name = "Mask", bool glowmask = true, int useShader = -1, int horizontalFrames = 1, bool pulseFrames = false)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.Head, delegate (PlayerDrawInfo drawInfo)
             {
-
                 Player drawPlayer = drawInfo.drawPlayer;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
                 if (drawPlayer.head == mod.GetEquipSlot(equip, EquipType.Head))
                 {
-
                     int fHeight = 56;
 
                     Texture2D texture = mod.GetTexture(texturePath);
@@ -278,13 +270,10 @@ namespace QwertysRandomContent
                         {
                             horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
                         }
-
                     }
                     int drawX = (int)(drawPlayer.position.X - Main.screenPosition.X);
                     int drawY = (int)(drawPlayer.position.Y - Main.screenPosition.Y);
                     Vector2 Position = drawInfo.position;
-
-
 
                     Vector2 pos = new Vector2((float)((int)(Position.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2))), (float)((int)(Position.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f))) + drawPlayer.bodyPosition + new Vector2((float)(drawPlayer.bodyFrame.Width / 2), (float)(drawPlayer.bodyFrame.Height / 2));
                     if (drawPlayer.bodyFrame.Y == 7 * fHeight || drawPlayer.bodyFrame.Y == 8 * fHeight || drawPlayer.bodyFrame.Y == 9 * fHeight || drawPlayer.bodyFrame.Y == 14 * fHeight || drawPlayer.bodyFrame.Y == 15 * fHeight || drawPlayer.bodyFrame.Y == 16 * fHeight)
@@ -297,7 +286,6 @@ namespace QwertysRandomContent
                         {
                             pos.Y -= 2;
                         }
-
                     }
                     Rectangle frame = new Rectangle(horizontalFrame * 40, 0, 40, fHeight);
                     Vector2 origin = new Vector2((float)frame.Width * 0.5f, (float)frame.Height * 0.5f);
@@ -314,15 +302,14 @@ namespace QwertysRandomContent
                 }
             });
         }
+
         public static PlayerLayer DrawOnFrontHand(string equip, string texturePath, string femaleTexturePath = "n", string name = "gloveF", bool glowmask = true, int useShader = -1, EquipType type = EquipType.Body)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.HandOnAcc, delegate (PlayerDrawInfo drawInfo)
             {
-
                 Player drawPlayer = drawInfo.drawPlayer;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
                 Color color12 = drawInfo.middleArmorColor;
-
 
                 if (drawPlayer.body == mod.GetEquipSlot(equip, type))
                 {
@@ -341,15 +328,14 @@ namespace QwertysRandomContent
                         value.shader = drawPlayer.dye[useShader].dye;
                     }
                     Main.playerDrawData.Add(value);
-
                 }
             });
         }
+
         public static PlayerLayer DrawOnBackHand(string equip, string texturePath, string femaleTexturePath = "n", string name = "gloveB", bool glowmask = true, int useShader = -1, EquipType type = EquipType.Body)
         {
             return new PlayerLayer("QwertysRandomContent", name, PlayerLayer.HandOffAcc, delegate (PlayerDrawInfo drawInfo)
             {
-
                 Player drawPlayer = drawInfo.drawPlayer;
                 Mod mod = ModLoader.GetMod("QwertysRandomContent");
                 Color color12 = drawInfo.middleArmorColor;
@@ -371,10 +357,10 @@ namespace QwertysRandomContent
                         value.shader = drawPlayer.dye[useShader].dye;
                     }
                     Main.playerDrawData.Add(value);
-
                 }
             });
         }
+
         public static PlayerHeadLayer DrawHeadLayer(string equip, string texturePath, string name = "Mask", int useShader = 0, int horizontalFrames = 1, bool pulseFrames = false)
         {
             return new PlayerHeadLayer("QwertysRandomContent", "Mask", delegate (PlayerHeadDrawInfo drawInfo)
@@ -419,7 +405,6 @@ namespace QwertysRandomContent
                     num += num6 * mapScale;
                     num2 += num7 * mapScale;
 
-
                     float num56 = (drawPlayer.position.X + (float)(drawPlayer.width / 2)) / 16f * mapScale;
                     float num57 = drawPlayer.position.Y / 16f * mapScale;
                     num56 += num;
@@ -435,7 +420,6 @@ namespace QwertysRandomContent
                 }
                 if (!Main.mapFullscreen && Main.mapStyle == 1)
                 {
-
                     num = (float)Main.miniMapX;
                     num2 = (float)Main.miniMapY;
                     num3 = num;
@@ -469,7 +453,6 @@ namespace QwertysRandomContent
                         Y = num79;
                         drawIt = true;
                     }
-
                 }
                 if (Main.mapFullscreen)
                 {
@@ -488,8 +471,6 @@ namespace QwertysRandomContent
                     num += num6 * mapScale;
                     num2 += num7 * mapScale;
 
-
-
                     float num137 = (((drawPlayer.position.X + drawPlayer.width / 2)) / 16f - num12) * mapScale;
                     float num138 = ((drawPlayer.position.Y + drawPlayer.gfxOffY + (float)(drawPlayer.height / 2)) / 16f - num13) * mapScale;
                     num137 += num;
@@ -499,7 +480,6 @@ namespace QwertysRandomContent
                     num138 -= 2f - mapScale / 5f * 2f;
                     num137 -= 10f * mapScale;
                     num138 -= 10f * mapScale;
-
 
                     X = num137;
                     Y = num138;
@@ -514,8 +494,6 @@ namespace QwertysRandomContent
                 drawPos.Y = drawPos.Y - mountOff;
                 if (drawPlayer.head == mod.GetEquipSlot(equip, EquipType.Head) && drawIt)
                 {
-
-
                     Texture2D texture = mod.GetTexture(texturePath);
                     int horizontalFrame = 0;
                     if (horizontalFrames > 1)
@@ -527,7 +505,6 @@ namespace QwertysRandomContent
                         {
                             horizontalFrame = (horizontalFrames - 1) - (horizontalFrame - (horizontalFrames - 1));
                         }
-
                     }
                     DrawData data = new DrawData(texture,
                         new Vector2(drawPos.X - Main.screenPosition.X - (float)(drawPlayer.bodyFrame.Width / 2) + (float)(drawPlayer.width / 2), drawPos.Y - Main.screenPosition.Y + (float)drawPlayer.height - (float)drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition + vector,
@@ -535,8 +512,6 @@ namespace QwertysRandomContent
                     GameShaders.Armor.Apply(drawPlayer.dye[useShader].dye, drawPlayer, new DrawData?(data));
                     data.Draw(Main.spriteBatch);
                 }
-
-
             });
         }
     }

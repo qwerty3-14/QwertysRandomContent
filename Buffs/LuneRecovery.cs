@@ -5,7 +5,6 @@ namespace QwertysRandomContent.Buffs
 {
     public class LuneRecovery : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Lune Recovery");
@@ -18,13 +17,9 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
 
             modPlayer.recovery += 8;
-
         }
-
-
     }
 }

@@ -1,19 +1,17 @@
 using QwertysRandomContent.Config;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.Fortress
 {
     public class MusicBoxHeavenlyFortress : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Music Box (Heavenly Fortress)");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Classic" : base.Texture;
+
         public override void SetDefaults()
         {
             item.useStyle = 1;

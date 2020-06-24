@@ -39,36 +39,47 @@ namespace QwertysRandomContent.Tiles.Banners
                 case 0:
                     item = "HopperBanner";
                     break;
+
                 case 1:
                     item = "CrawlerBanner";
                     break;
+
                 case 2:
                     item = "GuardTileBanner";
                     break;
+
                 case 3:
                     item = "FortressFlierBanner";
                     break;
+
                 case 4:
                     item = "CasterBanner";
                     break;
+
                 case 5:
                     item = "SpectorBanner";
                     break;
+
                 case 6:
                     item = "TriceratankBanner";
                     break;
+
                 case 7:
                     item = "UtahBanner";
                     break;
+
                 case 8:
                     item = "VelocichopperBanner";
                     break;
+
                 case 9:
                     item = "AntiAirBanner";
                     break;
+
                 case 10:
                     item = "SwarmerBanner";
                     break;
+
                 default:
                     return;
             }
@@ -87,36 +98,47 @@ namespace QwertysRandomContent.Tiles.Banners
                     case 0:
                         type = "Hopper" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_Classic" : "");
                         break;
+
                     case 1:
                         type = "Crawler";
                         break;
+
                     case 2:
                         type = "GuardTile" + (ModContent.GetInstance<SpriteSettings>().ClassicFortress ? "_Classic" : "");
                         break;
+
                     case 3:
                         type = "FortressFlier";
                         break;
+
                     case 4:
                         type = "Caster";
                         break;
+
                     case 5:
                         type = "Spector";
                         break;
+
                     case 6:
                         type = "Triceratank";
                         break;
+
                     case 7:
                         type = "Utah";
                         break;
+
                     case 8:
                         type = "Velocichopper";
                         break;
+
                     case 9:
                         type = "AntiAir";
                         break;
+
                     case 10:
                         type = "Swarmer";
                         break;
+
                     default:
                         return;
                 }

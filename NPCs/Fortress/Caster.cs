@@ -45,8 +45,8 @@ namespace QwertysRandomContent.NPCs.Fortress
                 return 10f;
             }
             return 0f;
-
         }
+
         public override void NPCLoot()
         {
             if (Main.expertMode)
@@ -58,17 +58,19 @@ namespace QwertysRandomContent.NPCs.Fortress
                 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressBossSummon"), 1);
             }
         }
-        int timer;
-        int GenerateRingTime = 30;
-        int throwRingTime = 150;
-        Projectile ring;
-        float ringSpeed = 6;
-        int ringProjectileCount;
-        bool castingFrames;
+
+        private int timer;
+        private int GenerateRingTime = 30;
+        private int throwRingTime = 150;
+        private Projectile ring;
+        private float ringSpeed = 6;
+        private int ringProjectileCount;
+        private bool castingFrames;
+
         public override void AI()
         {
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
-            if(npc.life < npc.lifeMax)
+            if (npc.life < npc.lifeMax)
             {
                 timer++;
             }
@@ -84,7 +86,6 @@ namespace QwertysRandomContent.NPCs.Fortress
             if (timer > GenerateRingTime && timer < GenerateRingTime + throwRingTime)
             {
                 ring.Center = npc.Center;
-
             }
             if (timer == GenerateRingTime + throwRingTime)
             {
@@ -105,17 +106,12 @@ namespace QwertysRandomContent.NPCs.Fortress
             */
             if (npc.ai[2] != 0f && npc.ai[3] != 0f)
             {
-
                 Main.PlaySound(SoundID.Item8, npc.position);
                 for (int num67 = 0; num67 < 50; num67++)
                 {
-
-
-
                     int num75 = Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("CaeliteDust"), 0f, 0f, 100, default(Color), 2.5f);
                     Main.dust[num75].velocity *= 3f;
                     Main.dust[num75].noGravity = true;
-
                 }
                 npc.position.X = npc.ai[2] * 16f - (float)(npc.width / 2) + 8f;
                 npc.position.Y = npc.ai[3] * 16f - (float)npc.height;
@@ -126,12 +122,9 @@ namespace QwertysRandomContent.NPCs.Fortress
                 Main.PlaySound(SoundID.Item8, npc.position);
                 for (int num76 = 0; num76 < 50; num76++)
                 {
-
-
                     int num84 = Dust.NewDust(npc.position, npc.width, npc.height, mod.DustType("CaeliteDust"), 0f, 0f, 100, default(Color), 2.5f);
                     Main.dust[num84].velocity *= 3f;
                     Main.dust[num84].noGravity = true;
-
                 }
             }
             //npc.ai[0] += 1f;
@@ -149,7 +142,6 @@ namespace QwertysRandomContent.NPCs.Fortress
                 int npcTilePositionY = (int)npc.position.Y / 16;
                 int playerTargetShift = 40;
                 int num90 = 0;
-
 
                 for (int s = 0; s < 100; s++)
                 {
@@ -181,26 +173,19 @@ namespace QwertysRandomContent.NPCs.Fortress
             if (npc.ai[1] > 0f)
             {
                 npc.ai[1] -= 1f;
-
             }
-
-
-
-
-
-
-
-
-
         }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             //timer = 0;
             npc.ai[0] = 650f;
             npc.TargetClosest(true);
         }
-        int frameCounter;
-        int frame;
+
+        private int frameCounter;
+        private int frame;
+
         public override void FindFrame(int frameHeight)
         {
             frameCounter++;
@@ -227,18 +212,19 @@ namespace QwertysRandomContent.NPCs.Fortress
             }
             npc.frame.Y = frameHeight * frame;
         }
-
     }
+
     public class RingCenter : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void SetDefaults()
         {
             projectile.width = 16;
@@ -248,8 +234,10 @@ namespace QwertysRandomContent.NPCs.Fortress
             projectile.tileCollide = false;
             projectile.timeLeft = 8 * 60;
         }
-        bool runOnce = true;
-        int projectilesInRing = 6;
+
+        private bool runOnce = true;
+        private int projectilesInRing = 6;
+
         public override void AI()
         {
             projectilesInRing = (int)projectile.ai[0];
@@ -268,13 +256,12 @@ namespace QwertysRandomContent.NPCs.Fortress
                     {
                         Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RingOuter"), projectile.damage, projectile.knockBack, projectile.owner, (float)i / (float)projectilesInRing * 2 * (float)Math.PI, -projectile.whoAmI);
                     }
-
-
                 }
                 runOnce = false;
             }
         }
     }
+
     public class RingOuter : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -291,13 +278,15 @@ namespace QwertysRandomContent.NPCs.Fortress
             projectile.hostile = true;
             projectile.tileCollide = false;
         }
-        bool runOnce = true;
-        int projectilesInRing = 4;
-        Projectile parent;
-        float radius = 60;
-        Projectile clearCheck;
-        int spinDirection = 1;
-        int frameTimer;
+
+        private bool runOnce = true;
+        private int projectilesInRing = 4;
+        private Projectile parent;
+        private float radius = 60;
+        private Projectile clearCheck;
+        private int spinDirection = 1;
+        private int frameTimer;
+
         public override void AI()
         {
             Dust dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CaeliteDust"))];
@@ -339,16 +328,16 @@ namespace QwertysRandomContent.NPCs.Fortress
                 frameTimer = 0;
             }
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 30; i++)
             {
-
                 Dust dust = Main.dust[Dust.NewDust(projectile.Center, 0, 0, mod.DustType("CaeliteDust"))];
                 dust.velocity *= 3;
-
             }
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (Main.rand.Next(3) == 0)
@@ -356,7 +345,5 @@ namespace QwertysRandomContent.NPCs.Fortress
                 target.AddBuff(mod.BuffType("PowerDown"), 600);
             }
         }
-
-
     }
 }

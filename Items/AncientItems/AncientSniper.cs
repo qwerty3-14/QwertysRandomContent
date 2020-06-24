@@ -13,10 +13,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Sniper");
             Tooltip.SetDefault("Harness the ancient power of sniping" + "\nRight click to zoom");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 48;
@@ -43,9 +43,8 @@ namespace QwertysRandomContent.Items.AncientItems
             item.shootSpeed = 36;
             item.noMelee = true;
             //item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/AncientItems/AncientSniper_Glow");
-
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientSniper_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientSniper_Glow");
@@ -71,14 +70,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             return new Vector2(item.GetGlobalItem<ItemUseGlow>().glowOffsetX, item.GetGlobalItem<ItemUseGlow>().glowOffsetY);
         }
+
         public override void HoldItem(Player player)
         {
             player.scope = true;
         }
-
-
     }
-
-
 }
-

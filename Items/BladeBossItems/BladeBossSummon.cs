@@ -5,10 +5,10 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.BladeBossItems
 {
-
     public class BladeBossSummon : ModItem
     {
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicImperious ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Icon of the Conqueror");
@@ -29,7 +29,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             item.consumable = true;
         }
 
-
         public override bool CanUseItem(Player player)
         {
             Main.NewText(player.itemAnimation);
@@ -43,7 +42,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             return false;
         }
 
-        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -53,7 +51,5 @@ namespace QwertysRandomContent.Items.BladeBossItems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
 }

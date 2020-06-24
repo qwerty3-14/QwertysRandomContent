@@ -6,7 +6,7 @@ using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
-    class MusicBoxOldDinosNewGuns : ModTile
+    internal class MusicBoxOldDinosNewGuns : ModTile
     {
         public override void SetDefaults()
         {

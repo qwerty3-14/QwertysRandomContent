@@ -14,8 +14,10 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             DisplayName.SetDefault("Vitallum Core");
             Tooltip.SetDefault("Uncharged, kill enemies to charge it.\nWhen charged can be used in crafting, removing the charge. \n");
         }
-        int charge = 0;
-        int maxCharge = 50;
+
+        private int charge = 0;
+        private int maxCharge = 50;
+
         public override void SetDefaults()
         {
             item.width = 13;
@@ -24,10 +26,11 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             item.rare = 8;
             item.maxStack = 1;
         }
-       public override bool CloneNewInstances => true;
+
+        public override bool CloneNewInstances => true;
+
         public override void UpdateInventory(Player player)
         {
-
             player.GetModPlayer<CoreManager>().gainCharges = true;
             if (player.GetModPlayer<CoreManager>().chargesToAdd > 0)
             {
@@ -36,11 +39,11 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             }
             if (charge > maxCharge)
             {
-
                 item.TurnToAir();
                 player.QuickSpawnItem(mod.ItemType("VitallumCoreCharged"), 1);
             }
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             String s = charge + "/" + maxCharge + " enemies killed.";
@@ -50,10 +53,10 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
                 {
                     line.text = s;//change tooltip
                 }
-
             }
         }
     }
+
     public class VitallumCoreCharged : ModItem
     {
         public override void SetStaticDefaults()
@@ -62,6 +65,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             Tooltip.SetDefault("Charged, ready for crafting.");
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(10, 6));
         }
+
         public override void SetDefaults()
         {
             item.width = 13;
@@ -71,23 +75,26 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             item.maxStack = 1;
         }
     }
+
     public class CoreManager : ModPlayer
     {
         public int chargesToAdd = 0;
         public bool gainCharges = false;
+
         public override void ResetEffects()
         {
             //chargesToAdd = 0;
             gainCharges = false;
         }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-
             if (gainCharges && target.life < 0)
             {
                 chargesToAdd++;
             }
         }
+
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             if (gainCharges && target.life < 0)
@@ -96,19 +103,20 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             }
         }
     }
+
     public class CoreDrop : GlobalNPC
     {
         public override void NPCLoot(NPC npc)
         {
-            if(npc.type == NPCID.Plantera && !Main.expertMode)
+            if (npc.type == NPCID.Plantera && !Main.expertMode)
             {
                 Item.NewItem(npc.Hitbox, mod.ItemType("VitallumCoreUncharged"));
             }
         }
     }
+
     public class CoreBagDrop : GlobalItem
     {
-
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
             if (context == "bossBag" && arg == ItemID.PlanteraBossBag)

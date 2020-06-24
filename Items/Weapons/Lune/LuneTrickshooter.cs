@@ -11,8 +11,8 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         {
             DisplayName.SetDefault("Lune Trickshooter");
             Tooltip.SetDefault("Musket balls are converted to Lune trick shots!" + "\nTrick shots can bounce off walls 3 times and gain significant damage if they do so");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 32;
@@ -22,7 +22,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             item.useAnimation = 28;
             item.useStyle = 5;
             item.knockBack = 1;
-            item.value = 10000;
+            item.value = 20000;
             item.rare = 1;
             item.UseSound = SoundID.Item11;
 
@@ -33,14 +33,13 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             item.useAmmo = 97;
             item.shootSpeed = 9f;
             item.noMelee = true;
-
-
-
         }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-4, 0);
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (type == ProjectileID.Bullet)
@@ -49,6 +48,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             }
             return true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,9 +58,8 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
+
     public class Trickshot : ModProjectile
     {
         public override void SetDefaults()
@@ -78,7 +77,9 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             projectile.ranged = true;
             projectile.extraUpdates = 1;
         }
-        int bounceCounter = 3;
+
+        private int bounceCounter = 3;
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (bounceCounter > 0)
@@ -94,17 +95,14 @@ namespace QwertysRandomContent.Items.Weapons.Lune
                 projectile.damage = (int)(projectile.damage * 1.5f);
                 bounceCounter--;
                 return false;
-
             }
 
             return true;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             bounceCounter = 0;
         }
-
     }
-
 }
-

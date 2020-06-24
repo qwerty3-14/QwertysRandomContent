@@ -14,14 +14,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Mini Tank Staff");
             Tooltip.SetDefault("Summons a Mini Tank!");
-
-
         }
 
         public override void SetDefaults()
         {
-
-            item.damage = 24;
+            item.damage = 30;
             item.mana = 20;
             item.width = 38;
             item.height = 38;
@@ -33,13 +30,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.value = 200000;
             item.rare = 3;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("MiniTank");
             item.summon = true;
             item.buffType = mod.BuffType("MiniTank");
             item.buffTime = 3600;
         }
-
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -49,11 +44,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -62,7 +57,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return base.UseItem(player);
         }
-
     }
 
     public class MiniTank : ModProjectile
@@ -71,13 +65,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Mini Tank");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 60;
             projectile.height = 24;
             projectile.hostile = false;
@@ -91,26 +82,26 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.minionSlots = 1;
             projectile.timeLeft = 2;
             projectile.aiStyle = -1;
-            //projectile.usesLocalprojectileImmunity = true;
         }
-        int tankCount = 0;
-        int identity = 0;
-        const float terminalVelocity = 10;
-        const float garvityAcceleration = .2f;
-        float gotoX;
-        const float spacing = 70;
-        const float maxSpeedX = 8;
-        bool returnToPlayer;
-        float gunRotation = 0;
-        NPC target;
-        float aim;
-        int shootCounter = 0;
+
+        private int tankCount = 0;
+        private int identity = 0;
+        private const float terminalVelocity = 10;
+        private const float garvityAcceleration = .2f;
+        private float gotoX;
+        private const float spacing = 70;
+        private const float maxSpeedX = 8;
+        private bool returnToPlayer;
+        private float gunRotation = 0;
+        private NPC target;
+        private float aim;
+        private int shootCounter = 0;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.miniTank)
+            if (player.GetModPlayer<MinionManager>().miniTank)
             {
                 projectile.timeLeft = 2;
             }
@@ -147,7 +138,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 }
                 projectile.tileCollide = true;
 
-
                 if (projectile.velocity.Y < terminalVelocity)
                 {
                     projectile.velocity.Y += garvityAcceleration;
@@ -160,7 +150,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 }
 
                 projectile.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
-                if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Top, false, player.MinionAttackTargetNPC))
+                if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Top, false, player.MinionAttackTargetNPC, delegate (NPC possibleTarget) { return possibleTarget.Center.Y < projectile.Bottom.Y; }))
                 {
                     if (target.Center.Y > projectile.Top.Y)
                     {
@@ -203,7 +193,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 //projectile.velocity = Collision.TileCollision(projectile.position, projectile.velocity, projectile.width, projectile.height, player.Center.Y > projectile.Bottom.Y, player.Center.Y > projectile.Bottom.Y);
             }
         }
-        
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Point origin = new Vector2(projectile.Center.X + (projectile.width / 2 - 6) * projectile.spriteDirection, projectile.Bottom.Y).ToTileCoordinates();
@@ -217,11 +207,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
             return false;
         }
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             fallThrough = Main.player[projectile.owner].Center.Y - projectile.Center.Y > 64;
             return base.TileCollideStyle(ref width, ref height, ref fallThrough);
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSummons/MiniTankGun");
@@ -230,18 +222,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         new Vector2(10, 10), 1f, SpriteEffects.None, 0f);
             return true;
         }
-
-
-
     }
+
     public class MiniTankCannonBallFreindly : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tank!!");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -255,9 +244,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.tileCollide = true;
             projectile.timeLeft = 600;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public bool runOnce = true;
 
         public override void AI()
@@ -285,23 +273,24 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 runOnce = false;
             }
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("MiniTankBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             e.localNPCImmunity[target.whoAmI] = -1;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("MiniTankBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             return true;
         }
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
-
 
             Main.PlaySound(SoundID.Item62, projectile.position);
             for (int i = 0; i < 4; i++)
@@ -322,14 +311,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
         }
     }
+
     public class MiniTankBlast : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tank!!");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -348,15 +337,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
-
 }

@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Lune
 {
     public class LuneBoomerang : ModItem
@@ -13,9 +12,8 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         {
             DisplayName.SetDefault("Lune Boomerang");
             Tooltip.SetDefault("Rapidly thrown in every direction");
-
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 11;
@@ -27,7 +25,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
 
             item.useStyle = 5;
             item.knockBack = 0;
-            item.value = 10000;
+            item.value = 20000;
             item.rare = 1;
             item.UseSound = SoundID.Item1;
             item.noUseGraphic = true;
@@ -38,12 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             item.shoot = mod.ProjectileType("LuneBoomerangP");
             item.shootSpeed = 10f;
             item.channel = true;
-
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -54,6 +47,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         /*
         public override bool CanUseItem(Player player)
 		{
@@ -66,6 +60,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
 			}
 			return true;
 		}*/
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 s = new Vector2(speedX, speedY);
@@ -95,14 +90,15 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Boomerang");
-
         }
-        float speed;
-        float maxSpeed;
-        bool runOnce = true;
-        float decceleration = 1f / 4f;
-        int spinDirection;
-        bool returnToPlayer;
+
+        private float speed;
+        private float maxSpeed;
+        private bool runOnce = true;
+        private float decceleration = 1f / 4f;
+        private int spinDirection;
+        private bool returnToPlayer;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -117,9 +113,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             projectile.rotation += MathHelper.ToRadians(maxSpeed * spinDirection);
             if (returnToPlayer)
             {
-
-
-
                 if (Collision.CheckAABBvAABBCollision(player.position, player.Size, projectile.position, projectile.Size))
                 {
                     projectile.Kill();
@@ -135,7 +128,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             }
             else
             {
-
                 projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY) * speed;
                 speed -= decceleration;
                 if (speed < 1f)
@@ -143,23 +135,20 @@ namespace QwertysRandomContent.Items.Weapons.Lune
                     returnToPlayer = true;
                 }
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(mod.BuffType("LuneCurse"), 60);
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             returnToPlayer = true;
-
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             returnToPlayer = true;
             return false;
         }
     }
-
-
 }
-

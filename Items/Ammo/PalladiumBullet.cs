@@ -13,8 +13,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Palladium Bullet");
             Tooltip.SetDefault("Right click to redirect in flight!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 10;
@@ -31,8 +31,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("PalladiumBulletP");
             item.ammo = 97;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -43,16 +41,15 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.SetResult(this, 100);
             recipe.AddRecipe();
         }
-
     }
+
     public class PalladiumBulletP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Palladium Bullet");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -63,19 +60,16 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.timeLeft = 300;
-
-
-
         }
+
         public bool runOnce = true;
         public bool HasRightClicked = false;
 
         public float targetRotation;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-
-
 
             if (Main.mouseRight && projectile.timeLeft <= 290 || HasRightClicked)
             {
@@ -93,7 +87,6 @@ namespace QwertysRandomContent.Items.Ammo
             }
             else
             {
-
                 projectile.alpha = (int)(255f - ((float)projectile.timeLeft / 300f) * 255f);
 
                 if (Main.LocalPlayer == player)
@@ -105,32 +98,25 @@ namespace QwertysRandomContent.Items.Ammo
                     //projectile.netUpdate = true;
                 }
                 targetRotation = (new Vector2(projectile.ai[0], projectile.ai[1]) - projectile.Center).ToRotation() + (float)Math.PI / 2;
-
             }
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(HasRightClicked);
             writer.Write(runOnce);
-
-
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             HasRightClicked = reader.ReadBoolean();
             runOnce = reader.ReadBoolean();
-
         }
 
-
-
-
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
-
-
 }
-

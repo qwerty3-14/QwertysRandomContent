@@ -13,9 +13,10 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Hold to charge up" + "\nFires 3 arrows at max charge" + "\nWooden arrows become ancient arrows");
-           
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.useStyle = 5;
@@ -53,10 +54,12 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             return true;
         }
+
         public override bool ConsumeAmmo(Player player)
         {
             return false;
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientLongbow_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientLongbow_Glow");
@@ -77,16 +80,16 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
-
-
     }
+
     public class AncientLongbowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.width = 50;
@@ -98,10 +101,7 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.hide = false;
             projectile.ranged = true;
             projectile.ignoreWater = true;
-
         }
-
-
 
         public int timer = 0;
         public int reloadTime;
@@ -109,21 +109,20 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public float Radd;
         public bool runOnce = true;
-        Projectile arrow = null;
-        float speed = 15f;
-        int maxTime = 120;
-        int weaponDamage = 10;
-        int Ammo = 0;
-        float weaponKnockback = 0;
-        bool giveTileCollision = false;
+        private Projectile arrow = null;
+        private float speed = 15f;
+        private int maxTime = 120;
+        private int weaponDamage = 10;
+        private int Ammo = 0;
+        private float weaponKnockback = 0;
+        private bool giveTileCollision = false;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
-
                 runOnce = false;
-
             }
             projectile.timeLeft = 2;
 
@@ -132,7 +131,6 @@ namespace QwertysRandomContent.Items.AncientItems
 
             Ammo = AmmoID.Arrow;
 
-
             weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
             direction = (Main.MouseWorld - player.Center).ToRotation();
             weaponKnockback = player.inventory[player.selectedItem].knockBack;
@@ -140,6 +138,7 @@ namespace QwertysRandomContent.Items.AncientItems
             if (firing)
             {
                 #region drill ai
+
                 ///////////////////////////////////// copied from vanilla drill/chainsaw AI
                 Vector2 vector24 = Main.player[projectile.owner].RotatedRelativePoint(Main.player[projectile.owner].MountedCenter, true);
                 if (Main.myPlayer == projectile.owner)
@@ -198,9 +197,8 @@ namespace QwertysRandomContent.Items.AncientItems
                 projectile.velocity.X = projectile.velocity.X * (1f + (float)Main.rand.Next(-3, 4) * 0.01f);
 
                 ///////////////////////////////
-                #endregion
 
-
+                #endregion drill ai
 
                 if (timer == 0)
                 {
@@ -212,11 +210,8 @@ namespace QwertysRandomContent.Items.AncientItems
                     }
                     if (Main.netMode != 2)
                     {
-
                         arrow = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, Ammo, weaponDamage, weaponKnockback, projectile.owner)];
-
                     }
-
                 }
                 arrow.velocity = QwertyMethods.PolarVector(speed, projectile.rotation - (float)Math.PI / 2);
                 arrow.Center = projectile.Center + QwertyMethods.PolarVector(40 - 2 * speed, projectile.rotation - (float)Math.PI / 2);
@@ -247,19 +242,13 @@ namespace QwertysRandomContent.Items.AncientItems
                         Main.PlaySound(25, player.position, 0);
                     }
                 }
-
-
-
-
-
             }
             else
             {
-
-
                 projectile.Kill();
             }
         }
+
         public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Item5, projectile.position);
@@ -275,6 +264,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 Projectile.NewProjectile(arrow.Center, arrow.velocity * 1.2f, arrow.type, arrow.damage, arrow.knockBack, projectile.owner);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientLongbowP_Old") : mod.GetTexture("Items/AncientItems/AncientLongbowP"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
@@ -286,15 +276,16 @@ namespace QwertysRandomContent.Items.AncientItems
             return false;
         }
     }
+
     public class AncientArrow : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Arrow");
-           
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -306,18 +297,15 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.arrow = true;
             projectile.usesLocalNPCImmunity = true;
             projectile.tileCollide = true;
-
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-
-
         }
-        void drawArrowCore(SpriteBatch spriteBatch, Color drawColor)
+
+        private void drawArrowCore(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, 0, 18, 36), drawColor, projectile.rotation,
@@ -326,15 +314,18 @@ namespace QwertysRandomContent.Items.AncientItems
                         new Rectangle(0, 0, 18, 36), Color.White, projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
         }
-        void drawOrbital(SpriteBatch spriteBatch, Color drawColor, Vector2 Loc)
+
+        private void drawOrbital(SpriteBatch spriteBatch, Color drawColor, Vector2 Loc)
         {
             spriteBatch.Draw(ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientArrow_Orbital_Old") : mod.GetTexture("Items/AncientItems/AncientArrow_Orbital"), Loc - Main.screenPosition,
                         new Rectangle(0, 0, 6, 10), drawColor, projectile.rotation,
                         new Vector2(3, 5), 1f, SpriteEffects.None, 0f);
         }
-        float orbitalCounter = 0;
-        float lengthDown = 10;
-        float orbitRadius = 11;
+
+        private float orbitalCounter = 0;
+        private float lengthDown = 10;
+        private float orbitRadius = 11;
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             orbitalCounter += (float)Math.PI / 60;
@@ -356,15 +347,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 drawOrbital(spriteBatch, drawColor, orbitalLocation);
             }
 
-
-
             return false;
         }
-
-
-
-
-
     }
-
 }

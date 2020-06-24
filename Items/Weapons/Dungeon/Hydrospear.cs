@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -9,6 +10,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
     public class Hydrospear : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicDungeon ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydrospear");
@@ -29,7 +32,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.value = Item.sellPrice(silver: 54);
             item.rare = 2;
 
-
             item.melee = true;
             item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
             item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
@@ -48,6 +50,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
     public class HydrospearP : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicDungeon ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydrospear");
@@ -61,7 +65,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.penetrate = -1;
             projectile.scale = 1.3f;
             projectile.usesLocalNPCImmunity = true;
-
 
             projectile.ownerHitCheck = true;
             projectile.melee = true;
@@ -82,9 +85,11 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
         public float maxDistance = 750;
         public float vel;
         public bool runOnce = true;
-        int streamCounter = 0;
+        private int streamCounter = 0;
+
         // It appears that for this AI, only the ai0 field is used!
-        bool noDust = false;
+        private bool noDust = false;
+
         public override void AI()
         {
             noDust = false;
@@ -119,12 +124,9 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                         {
                             noDust = true;
                             streamCounter++;
-                            if (streamCounter % (int)(16f*projOwner.meleeSpeed) == 0)
+                            if (streamCounter % (int)(16f * projOwner.meleeSpeed) == 0)
                             {
-                                //if (Main.netMode != 1)
-                                {
-                                    Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(180, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(5, projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(1, projectile.rotation - (3 * (float)Math.PI / 4)), mod.ProjectileType("HydrospearStream"), projectile.damage, projectile.knockBack, projectile.owner);
-                                }
+                                Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(180, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(5, projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(1, projectile.rotation - (3 * (float)Math.PI / 4)), mod.ProjectileType("HydrospearStream"), projectile.damage, projectile.knockBack, projectile.owner);
                             }
                         }
                     }
@@ -132,7 +134,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     {
                         projectile.friendly = true;
                         movementFactor -= movefactSpeed;
-                        
                     }
 
                     //Main.NewText("Hi");
@@ -142,7 +143,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                     projectile.friendly = true;
                     movementFactor += movefactSpeed;
                 }
-
             }
             // Change the spear position based off of the velocity and the movementFactor
             projectile.position += projectile.velocity * movementFactor;
@@ -159,21 +159,20 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             {
                 projectile.rotation -= MathHelper.ToRadians(90f);
             }
-            if(!noDust)
+            if (!noDust)
             {
                 Dust k = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(-4, projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(4, projectile.rotation - (1 * (float)Math.PI / 4)), 172);
                 k.velocity = Vector2.Zero;
             }
-            
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = 10;
             target.immune[projectile.owner] = 0;
         }
     }
+
     public class HydrospearStream : ModProjectile
     {
         public override void SetDefaults()
@@ -187,16 +186,18 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.usesLocalNPCImmunity = true;
             projectile.melee = true;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
             if (Main.rand.Next(8) == 0)
@@ -206,7 +207,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 d.noGravity = true;
                 d.position = projectile.Center;
             }
-
         }
     }
 }

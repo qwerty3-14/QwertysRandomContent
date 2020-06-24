@@ -1,23 +1,18 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
-
-
     public class AggroScroll : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Aggro Scroll");
             Tooltip.SetDefault("Killing enemies with magic will summon aggro runes");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 500000;
             item.rare = 9;
             item.magic = true;
@@ -27,9 +22,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.height = 56;
 
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -37,14 +29,10 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
 
             modPlayer.aggroScroll = true;
-
-
         }
-
-
-
     }
-    class AggroRuneFreindly : ModProjectile
+
+    internal class AggroRuneFreindly : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -59,9 +47,8 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             projectile.tileCollide = false;
             projectile.timeLeft = 120;
             projectile.magic = true;
-
-
         }
+
         public int runeTimer;
         public float startDistance = 200f;
         public float direction;
@@ -71,7 +58,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void AI()
         {
-
             if (projectile.alpha > 0)
                 projectile.alpha--;
             else
@@ -87,16 +73,6 @@ namespace QwertysRandomContent.Items.RuneGhostItems
                     Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("AggroRuneLash"));
                 }
             }
-
-
-
-
         }
-
-
     }
-
-
-
 }
-

@@ -11,8 +11,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             DisplayName.SetDefault("True Blooming Bow");
             Tooltip.SetDefault("Randomly picks 1-11 randomly random arrows to fire in randomly random directions at randomly random velocities randomly!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 27;
@@ -34,13 +34,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.shootSpeed = 4;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
+
         public override bool ConsumeAmmo(Player player)
         {
             return false;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -54,9 +54,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
-
-
             int numberProjectiles = 1 + Main.rand.Next(11);
             for (int i = 0; i < numberProjectiles; i++)
             {
@@ -73,10 +70,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             }
             return false;
         }
-
-
     }
-
-
 }
-

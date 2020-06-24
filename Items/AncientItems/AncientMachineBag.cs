@@ -12,9 +12,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -25,6 +26,7 @@ namespace QwertysRandomContent.Items.AncientItems
             item.expert = true;
             // bossBagNPC = mod.NPCType("AncientMachine");
         }
+
         public override int BossBagNPC => mod.NPCType("AncientMachine");
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
@@ -55,7 +57,6 @@ namespace QwertysRandomContent.Items.AncientItems
 
         public override void OpenBossBag(Player player)
         {
-
             string[] loot = QwertysRandomContent.AMLoot.Draw(3);
 
             foreach (string item in loot)

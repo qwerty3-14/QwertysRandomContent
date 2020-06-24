@@ -10,14 +10,14 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
         {
             DisplayName.SetDefault("Titanium Knife");
             Tooltip.SetDefault("Flies straight and reverses direction soon after hitting an enemy");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 52;
-            item.thrown = true;
+            item.melee = true;
             item.knockBack = 1;
-            item.value = 80;
+            item.value = Item.sellPrice(gold: 2);
             item.rare = 3;
             item.width = 14;
             item.height = 34;
@@ -25,14 +25,10 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             item.shootSpeed = 12f;
             item.useTime = 18;
             item.useAnimation = 18;
-            item.consumable = true;
             item.shoot = mod.ProjectileType("TitaniumKnifeP");
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.maxStack = 999;
             item.autoReuse = true;
-
-
         }
 
         public override void AddRecipes()
@@ -44,14 +40,14 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             recipe.AddRecipe();
         }
     }
+
     public class TitaniumKnifeP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanium Knife");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -59,18 +55,17 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.width = 14;
             projectile.height = 14;
             projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.thrown = true;
-
+            projectile.penetrate = 5;
+            projectile.melee = true;
 
             projectile.tileCollide = true;
-
-
         }
+
         public NPC grabbed = new NPC();
 
         public bool re;
         public int reTimer;
+
         public override void AI()
         {
             if (re)
@@ -87,21 +82,11 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             {
                 reTimer = 0;
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             re = true;
-
-
         }
-
-
-
-
-
-
     }
-
 }
-

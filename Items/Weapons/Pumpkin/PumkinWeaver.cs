@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class PumkinWeaver : ModItem
@@ -15,14 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             DisplayName.SetDefault("Pumpkin Weaver");
             Tooltip.SetDefault("Shoots a vine with exploding pumpkins attached!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 30;
             item.mana = 40;
             item.width = 46;
@@ -41,8 +36,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             item.shoot = mod.ProjectileType("Vine");
             item.magic = true;
             item.shootSpeed = 14;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -51,6 +46,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             for (int p = 0; p < 1000; p++)
@@ -62,16 +58,15 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             }
             return true;
         }
-
     }
+
     public class Vine : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("PumpkinVine");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -85,14 +80,14 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             projectile.tileCollide = false;
 
             projectile.timeLeft = 1200;
-
-
         }
-        float vineDirection;
-        bool runOnce = true;
-        float Length;
-        bool dontPumpkin;
-        float pumkinTimer;
+
+        private float vineDirection;
+        private bool runOnce = true;
+        private float Length;
+        private bool dontPumpkin;
+        private float pumkinTimer;
+
         public override void AI()
         {
             if (runOnce)
@@ -109,7 +104,6 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             pumkinTimer += Length / 20;
             if (Length > (float)Math.PI * 10 && pumkinTimer > (float)Math.PI * 100)
             {
-
                 float s = Main.rand.NextFloat(Length);
                 Vector2 offset = QwertyMethods.PolarVector(s, vineDirection) + QwertyMethods.PolarVector((float)Math.Sin(s / 30) * 40, vineDirection + (float)Math.PI / 2);
                 Projectile pumkin = Main.projectile[Projectile.NewProjectile(projectile.Center + offset, Vector2.Zero, mod.ProjectileType("ExplodingPumpkin"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI)];
@@ -120,9 +114,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
                 }
                 pumkinTimer = 0;
             }
-
-
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             for (float s = 0; s < Length; s += (float)Math.PI / 2)
@@ -133,21 +126,20 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
-
     }
+
     public class ExplodingPumpkin : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Exploding Pumpkin");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -161,9 +153,8 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             projectile.tileCollide = false;
 
             projectile.timeLeft = 120;
-
-
         }
+
         public override void AI()
         {
             projectile.scale += (1f / 60f);
@@ -173,6 +164,7 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
                 projectile.Kill();
             }
         }
+
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 100; i++)
@@ -182,18 +174,15 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             }
             Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("PumpkinBlast"), projectile.damage, projectile.knockBack, projectile.owner);
         }
-
-
-
     }
+
     public class PumpkinBlast : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pumpkin Blast");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -207,22 +196,17 @@ namespace QwertysRandomContent.Items.Weapons.Pumpkin     ///We need this to basi
             projectile.tileCollide = false;
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
     }
-
-
-
-
 }

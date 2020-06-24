@@ -12,14 +12,14 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
         {
             DisplayName.SetDefault("Cobalt Shuriken");
             Tooltip.SetDefault("Sticks to tiles damaging enemies that touch them");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 35;
-            item.thrown = true;
+            item.melee = true;
             item.knockBack = 5;
-            item.value = 50;
+            item.value = Item.sellPrice(gold: 2);
             item.rare = 3;
             item.width = 34;
             item.height = 34;
@@ -27,14 +27,10 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             item.shootSpeed = 14f;
             item.useTime = 18;
             item.useAnimation = 18;
-            item.consumable = true;
             item.shoot = mod.ProjectileType("CoblatShurikenP");
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.maxStack = 999;
             item.autoReuse = true;
-
-
         }
 
         public override void AddRecipes()
@@ -46,14 +42,14 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             recipe.AddRecipe();
         }
     }
+
     public class CoblatShurikenP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cobalt Shuriken");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 2;
@@ -62,13 +58,11 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.height = 18;
             projectile.friendly = true;
             projectile.penetrate = 7;
-            projectile.thrown = true;
-
+            projectile.melee = true;
 
             projectile.tileCollide = true;
-
-
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/Thrown/CoblatShurikenP");
@@ -77,17 +71,12 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
                         new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.velocity = Vector2.Zero;
             projectile.aiStyle = 0;
             return false;
-
         }
-
-
-
     }
-
 }
-

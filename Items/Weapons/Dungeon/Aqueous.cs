@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,12 +9,14 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 {
     public class Aqueous : ModItem
     {
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicDungeon ? base.Texture + "_Old" : base.Texture;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Aqueous");
             Tooltip.SetDefault("Shot from your bow alongside normal arrows");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 20;
@@ -28,15 +31,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.useTime = 100;
 
             item.maxStack = 1;
-
-
         }
+
         public override bool CanUseItem(Player player)
         {
             return false;
         }
-        Player player = Main.player[0];
-        float closestDistance = 10000;
+
+        private Player player = Main.player[0];
+        private float closestDistance = 10000;
+
         public virtual void ReturningDust()
         {
             if (Main.rand.Next(6) == 0)
@@ -44,18 +48,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 Dust.NewDust(item.position, item.width, item.height, 172);
             }
         }
+
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {
-
             for (int p = 0; p < 255; p++)
             {
                 if (Main.player[p].active && (Main.player[p].Center - item.Center).Length() < closestDistance)
                 {
-
                     closestDistance = (Main.player[p].Center - item.Center).Length();
 
                     player = Main.player[p];
-
                 }
             }
 
@@ -70,10 +72,11 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
             ReturningDust();
 
-
             closestDistance = 10000;
         }
-        float r = 0f;
+
+        private float r = 0f;
+
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
         {
             r += (float)Math.PI / 60f * (100 / (float)item.useTime);
@@ -97,6 +100,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             return false;
         }
     }
+
     public class AqueousShot : ModPlayer
     {
         protected int arrowID = -1;
@@ -115,8 +119,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 {
                     if (player.inventory[i].type == arrowID && player.inventory[i].stack > 0 && Main.LocalPlayer == player)
                     {
-
-
                         Projectile p = Main.projectile[Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 32).SafeNormalize(default(Vector2)) * player.inventory[i].shootSpeed, shootID, player.inventory[i].damage, player.inventory[i].knockBack, player.whoAmI)];
                         p.localAI[1] = player.inventory[i].prefix;
                         p.localAI[0] = player.inventory[i].crit;
@@ -127,16 +129,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             return base.Shoot(item, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
     }
+
     public class AqueousP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Aqueous");
-
-
         }
 
         protected int assosiatedItemID = -1;
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -149,6 +151,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
             projectile.tileCollide = true;
         }
+
         public override void Kill(int timeLeft)
         {
             if (assosiatedItemID == -1)
@@ -160,24 +163,20 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 Item i = Main.item[Item.NewItem(projectile.Center, assosiatedItemID)];
                 i.Prefix((int)projectile.localAI[1]);
             }
-
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
         }
+
         public override void AI()
         {
             if (Main.rand.Next(6) == 0)
             {
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
             }
-
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             crit = Main.rand.Next(100) < ((int)projectile.localAI[0] + Main.player[projectile.owner].rangedCrit);
         }
-
-
-
     }
-
 }
-

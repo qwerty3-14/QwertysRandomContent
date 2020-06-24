@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
             DisplayName.SetDefault("Caelite Pickaxe");
             Tooltip.SetDefault("Mines a 3x3 area!!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 7;
@@ -34,9 +34,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.pick = 95;
             item.tileBoost = 2;
             item.GetGlobalItem<AoePick>().miningRadius = 1;
-
-
-
         }
 
         public override void AddRecipes()
@@ -48,23 +45,23 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-
             Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType("CaeliteDust"));
             Lighting.AddLight(hitbox.Center.ToVector2(), new Vector3(.6f, .6f, .6f));
         }
     }
+
     public class AoePick : GlobalItem
     {
-       public override bool InstancePerEntity => true;
-       public override bool CloneNewInstances => true;
+        public override bool InstancePerEntity => true;
+        public override bool CloneNewInstances => true;
         public int miningRadius = 0;
-
     }
+
     public class SpecialPick : ModPlayer
     {
-
         public override void PostItemCheck()
         {
             if (!player.inventory[player.selectedItem].IsAir)
@@ -77,18 +74,14 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 }
                 if (flag18)
                 {
-
                     if (item.GetGlobalItem<AoePick>().miningRadius > 0)
                     {
-
                         if ((item.pick > 0 && !Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && !Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]) || (item.axe > 0 && Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]) || (item.hammer > 0 && Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
                         {
-
                         }
                         if (player.toolTime == 0 && player.itemAnimation > 0 && player.controlUseItem)
                         {
                             int tileId = player.hitTile.HitObject(Player.tileTargetX, Player.tileTargetY, 1);
-
 
                             if (item.pick > 0)
                             {
@@ -103,13 +96,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                                     }
                                 }
 
-
-
                                 player.itemTime = (int)((float)item.useTime * player.pickSpeed);
                             }
-
-
-
 
                             {
                                 player.poundRelease = false;
@@ -189,12 +177,9 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                                 }
                             }
                         }
-
                     }
                 }
             }
-
         }
     }
 }
-

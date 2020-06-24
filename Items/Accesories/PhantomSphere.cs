@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,8 +9,9 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Phantom Sphere");
-            Tooltip.SetDefault("Magic attacks pierce 2 extra enemies\nProjectiles that normally don't pierce will use local immunity\nMagic attacks ignore defense\n10% reduced magic damage");
+            Tooltip.SetDefault("Magic attacks pierce 2 extra enemies\nProjectiles that normally don't pierce will use local immunity\nMagic attacks ignore 15 defense\n10% reduced magic damage");
         }
+
         public override void SetDefaults()
         {
             item.width = 22;
@@ -24,12 +20,14 @@ namespace QwertysRandomContent.Items.Accesories
             item.rare = 2;
             item.accessory = true;
         }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<MagicPierePlayer>().pierceBoost += 2;
             player.magicDamage -= .1f;
             player.GetModPlayer<MagicPierePlayer>().negateArmor = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

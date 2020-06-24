@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+
 namespace QwertysRandomContent.Tiles
 {
     public class Illuminator : ModTile
@@ -23,19 +24,21 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.Height = 1;
             TileObjectData.addTile(Type);
 
-
             dustType = 1;
             drop = mod.ItemType("Illuminator");
         }
+
         public override bool CanPlace(int i, int j)
         {
             return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active(); ;
         }
+
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             //Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("Fan"));
             mod.GetTileEntity("IlluminatorE").Kill(i, j);
         }
+
         public override void HitWire(int i, int j)
         {
             Main.tile[i, j].frameX += 18;
@@ -44,6 +47,7 @@ namespace QwertysRandomContent.Tiles
                 Main.tile[i, j].frameX = 0;
             }
         }
+
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
             if (Main.tile[i, j + 1].type == mod.TileType("Illuminator"))
@@ -56,7 +60,6 @@ namespace QwertysRandomContent.Tiles
                 }
                 else
                 {
-
                     Main.tile[i, j].frameY = 18;
                     //top
                     if (Main.tile[i, j].frameX == 0)
@@ -71,7 +74,6 @@ namespace QwertysRandomContent.Tiles
                         }
                         */
                     }
-
                 }
             }
             else if (Main.tile[i, j - 1].type == mod.TileType("Illuminator"))
@@ -95,8 +97,6 @@ namespace QwertysRandomContent.Tiles
                 */
             }
         }
-
-
     }
 
     public class IlluminatorE : ModTileEntity
@@ -106,6 +106,7 @@ namespace QwertysRandomContent.Tiles
             Tile tile = Main.tile[i, j];
             return tile.active();
         }
+
         public override void Update()
         {
             int i = Position.X;
@@ -120,7 +121,6 @@ namespace QwertysRandomContent.Tiles
                 }
                 else
                 {
-
                     //Main.tile[i, j].frameY = 18;
                     //top
                     if (Main.tile[i, j].frameX == 0)
@@ -135,7 +135,6 @@ namespace QwertysRandomContent.Tiles
                             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
                         }
                     }
-
                 }
             }
             else if (Main.tile[i, j - 1].type == mod.TileType("Illuminator"))
@@ -158,9 +157,8 @@ namespace QwertysRandomContent.Tiles
                     NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
                 }
             }
-
-
         }
+
         /*
         public override void NetSend(BinaryWriter writer, bool lightSend)
         {
@@ -176,7 +174,6 @@ namespace QwertysRandomContent.Tiles
                 }
                 else
                 {
-
                     //Main.tile[i, j].frameY = 18;
                     //top
                     if (Main.tile[i, j].frameX == 0)
@@ -188,12 +185,8 @@ namespace QwertysRandomContent.Tiles
                             writer.WriteVector2(new Vector2(i, j - 2 - (g * 4)) * 16);
                             writer.WriteVector2(new Vector2(i, j - 3 - (g * 4)) * 16);
                             writer.WriteVector2(new Vector2(i, j - 4 - (g * 4)) * 16);
-
-                           
-                            
                         }
                     }
-
                 }
             }
             else if (Main.tile[i, j - 1].type == mod.TileType("Illuminator"))
@@ -208,15 +201,12 @@ namespace QwertysRandomContent.Tiles
                 //solo
                 if (Main.tile[i, j].frameX == 0)
                 {
-                    
                     writer.WriteVector2(new Vector2(i, j - 1) * 16);
                     writer.WriteVector2(new Vector2(i, j - 2) * 16);
                     writer.WriteVector2(new Vector2(i, j - 3) * 16);
                     writer.WriteVector2(new Vector2(i, j - 4 ) * 16);
-
                 }
             }
-
         }
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
@@ -232,7 +222,6 @@ namespace QwertysRandomContent.Tiles
                 }
                 else
                 {
-
                     //Main.tile[i, j].frameY = 18;
                     //top
                     if (Main.tile[i, j].frameX == 0)
@@ -240,15 +229,12 @@ namespace QwertysRandomContent.Tiles
                         int count =reader.ReadInt32();
                         for (int g = 1; g < count+1; g++)
                         {
-                            
                             Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
                             Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
                             Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
                             Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
-
                         }
                     }
-
                 }
             }
             else if (Main.tile[i, j - 1].type == mod.TileType("Illuminator"))
@@ -267,11 +253,11 @@ namespace QwertysRandomContent.Tiles
                     Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
                     Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
                     Lighting.AddLight(reader.ReadVector2(), 1f, 1f, 1f);
-                   
                 }
             }
         }
 */
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
             //Main.NewText("I'm a big fan!");

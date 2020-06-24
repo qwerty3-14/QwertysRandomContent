@@ -14,9 +14,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Miner");
             Tooltip.SetDefault("Right click to mine a 3x3 area");
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 29;
@@ -40,10 +41,8 @@ namespace QwertysRandomContent.Items.AncientItems
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMiner_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
             }
-
-
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMiner_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
@@ -64,10 +63,12 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -84,10 +85,5 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             return base.CanUseItem(player);
         }
-
-
     }
-
-
 }
-

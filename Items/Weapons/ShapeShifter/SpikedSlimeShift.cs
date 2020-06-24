@@ -20,12 +20,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             ItemID.Sets.AnimatesAsSoul[item.type] = true;
             ItemID.Sets.ItemIconPulse[item.type] = true;
             ItemID.Sets.ItemNoGravity[item.type] = true;
-
         }
+
         public const int dmg = 26;
         public const int crt = 0;
         public const float kb = 1f;
         public const int def = 13;
+
         public override void SetDefaults()
         {
             item.width = 42;
@@ -44,8 +45,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool GrabStyle(Player player)
         {
             Vector2 vectorItemToPlayer = player.Center - item.Center;
@@ -54,17 +55,18 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.velocity = Collision.TileCollision(item.position, item.velocity, item.width, item.height);
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
             return base.UseItem(player);
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
         }
-
     }
+
     public class SpikedSlimeMorphB : ModBuff
     {
         public override void SetDefaults()
@@ -81,11 +83,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class SpikedSlimeMorph : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("SpikedSlimeMorphB");
             mountData.spawnDust = 15;
 
@@ -96,7 +98,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             mountData.acceleration = 0.13f;
             mountData.jumpHeight = 15;
             mountData.jumpSpeed = 6f;
-
 
             mountData.totalFrames = 2;
             mountData.constantJump = true;
@@ -132,7 +133,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
@@ -140,7 +140,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void UpdateEffects(Player player)
         {
-
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
             Mount mount = player.mount;
             player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
@@ -151,7 +150,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
-
             if (mountedPlayer.GetModPlayer<SpikedSlimeControl>().count > 0)
             {
                 mountedPlayer.GetModPlayer<SpikedSlimeControl>().count--;
@@ -162,7 +160,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
             if (state == 2 || state == 4)
             {
-
                 mountData.runSpeed = 8f;
                 mountData.dashSpeed = 8f;
             }
@@ -180,18 +177,19 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             return base.UpdateFrame(mountedPlayer, state, velocity);
         }
-
     }
+
     public class SpikedSlimeControl : ModPlayer
     {
         public int count = 0;
     }
+
     public class PlayerSlimeSpike : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-
         }
+
         public override void SetDefaults()
         {
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
@@ -204,14 +202,15 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-
-
         }
-        int shader;
+
+        private int shader;
+
         public override void AI()
         {
             if (projectile.ai[1] == 0f)
@@ -234,13 +233,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 projectile.alpha = 0;
             }
 
-
             if (projectile.ai[0] >= 5f)
             {
                 projectile.ai[0] = 5f;
                 projectile.velocity.Y = projectile.velocity.Y + 0.15f;
             }
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             // As mentioned above, be sure not to forget this step.
@@ -251,6 +250,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.Transform);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Player player = Main.player[projectile.owner];
@@ -265,9 +265,9 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             return true;
         }
     }
+
     public class KingSlimeBagDrop : GlobalItem
     {
-
         public override void OpenVanillaBag(string context, Player player, int arg)
         {
             if (context == "bossBag" && arg == ItemID.KingSlimeBossBag && Main.rand.Next(2) == 0)
@@ -276,6 +276,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+
     public class KingSlimeDrop : GlobalNPC
     {
         public override void NPCLoot(NPC npc)

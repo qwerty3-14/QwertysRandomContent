@@ -24,7 +24,5 @@ namespace QwertysRandomContent.Buffs
                 player.buffTime[player.FindBuffIndex(BuffID.PotionSickness)]++;
             }
         }
-
-
     }
 }

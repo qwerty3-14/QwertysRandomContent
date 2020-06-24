@@ -13,12 +13,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             DisplayName.SetDefault("Shape Shift: Bunny");
             Tooltip.SetDefault("Turns you into a cute BUT DEADLY bunny");
-
         }
+
         public const int dmg = 18;
         public const int crt = 0;
         public const float kb = 7f;
         public const int def = 6;
+
         public override void SetDefaults()
         {
             item.width = 42;
@@ -37,18 +38,19 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-            
+
             return base.UseItem(player);
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -58,12 +60,14 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void OnCraft(Recipe recipe)
         {
             Player player = Main.player[item.owner];
             NPC.NewNPC((int)player.Center.X, (int)player.Center.Y, NPCID.Bunny);
         }
     }
+
     public class BunnyShiftB : ModBuff
     {
         public override void SetDefaults()
@@ -80,11 +84,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class BunnyShift : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("BunnyShiftB");
             mountData.spawnDust = 15;
 
@@ -130,7 +134,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
@@ -140,6 +143,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             player.GetModPlayer<BunnyControl>().controlled = true;
         }
+
         public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
         {
             //Main.NewText(state);
@@ -200,20 +204,22 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 mountData.idleFrameStart = 4;
             }
             return true;
-
-
         }
     }
+
     public class BunnyControl : ModPlayer
     {
         public bool controlled = false;
+
         public override void ResetEffects()
         {
             controlled = false;
         }
+
         public bool kicking = false;
-        int kickTimer;
+        private int kickTimer;
         public bool forcedRunKick = false;
+
         public override void PostUpdateMiscEffects()
         {
             if (controlled)
@@ -232,12 +238,9 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 }
                 if (kicking)
                 {
-
-
                     kickTimer++;
                     if (player.whoAmI == Main.myPlayer)
                     {
-
                         // mount._flipDraw = true;
                     }
                     if (kickTimer >= 30)
@@ -265,14 +268,14 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+
     public class Kick : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Kick");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -286,15 +289,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             projectile.tileCollide = false;
             projectile.timeLeft = 10;
             projectile.usesLocalNPCImmunity = true;
-
-
         }
+
         public override void AI()
         {
-
             projectile.Center = new Vector2(Main.player[projectile.owner].Center.X + projectile.ai[0] * 8, Main.player[projectile.owner].Center.Y);
-
         }
+
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (Main.player[projectile.owner].Center.X < target.Center.X)
@@ -305,11 +306,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             {
                 hitDirection = -1;
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
             if (!target.boss && Main.rand.Next(5) == 0)
@@ -317,12 +317,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 target.AddBuff(mod.BuffType("Stunned"), 240);
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
-
     }
-
-
 }

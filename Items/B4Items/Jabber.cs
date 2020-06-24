@@ -61,8 +61,6 @@ namespace QwertysRandomContent.Items.B4Items
             projectile.penetrate = -1;
             projectile.scale = 1.3f;
 
-
-
             projectile.ownerHitCheck = true;
             projectile.melee = true;
             projectile.tileCollide = false;
@@ -82,10 +80,10 @@ namespace QwertysRandomContent.Items.B4Items
         public float maxDistance = 1500;
         public float vel;
         public bool runOnce = true;
+
         // It appears that for this AI, only the ai0 field is used!
         public override void AI()
         {
-
             // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             // Sadly, Projectile/ModProjectile does not have its own
             Player projOwner = Main.player[projectile.owner];
@@ -100,7 +98,6 @@ namespace QwertysRandomContent.Items.B4Items
             projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
             if (runOnce && Main.netMode != 2)
             {
-
                 Projectile.NewProjectile(ownerMountedCenter.X - (float)(projectile.width / 2), ownerMountedCenter.Y - (float)(projectile.height / 2), projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("JabberP2"), projectile.damage, projectile.knockBack, projOwner.whoAmI);
                 runOnce = false;
             }
@@ -136,12 +133,9 @@ namespace QwertysRandomContent.Items.B4Items
             {
                 projectile.rotation -= MathHelper.ToRadians(90f);
             }
-
-
-
         }
-
     }
+
     public class JabberP2 : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -164,10 +158,12 @@ namespace QwertysRandomContent.Items.B4Items
             projectile.tileCollide = false;
             projectile.friendly = true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         // In here the AI uses this example, to make the code more organized and readable
         // Also showcased in ExampleJavelinProjectile.cs
         public float movementFactor // Change this value to alter how fast the spear moves
@@ -175,15 +171,16 @@ namespace QwertysRandomContent.Items.B4Items
             get { return projectile.ai[0]; }
             set { projectile.ai[0] = value; }
         }
+
         public int debugTimer;
         public float movefactSpeed = 1f;
         public float maxDistance = 1500;
         public float vel;
         public bool runOnce = true;
+
         // It appears that for this AI, only the ai0 field is used!
         public override void AI()
         {
-
             // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             // Sadly, Projectile/ModProjectile does not have its own
             Player projOwner = Main.player[projectile.owner];
@@ -236,9 +233,6 @@ namespace QwertysRandomContent.Items.B4Items
                 CombatText.NewText(projOwner.getRect(), new Color(38, 126, 126), projOwner.itemAnimation, true, false);
             }
             */
-
-
         }
-
     }
 }

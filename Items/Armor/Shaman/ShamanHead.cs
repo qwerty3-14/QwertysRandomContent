@@ -16,24 +16,18 @@ namespace QwertysRandomContent.Items.Armor.Shaman
         {
             DisplayName.SetDefault("Shaman Skull");
             Tooltip.SetDefault("4% increased minion damage and melee critical strike chance \nImbues last much longer");
-
         }
-
 
         public override void SetDefaults()
         {
-
             item.value = Item.sellPrice(gold: 1);
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 14;
             item.defense = 5;
-
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -43,21 +37,24 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void UpdateEquip(Player player)
         {
             player.minionDamage += .04f;
             player.meleeCrit += 4;
             player.GetModPlayer<ShamanHeadEffects>().ImbueBoost = true;
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
-
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("ShamanBody") && legs.type == mod.ItemType("ShamanLegs");
         }
+
         public override void UpdateArmorSet(Player player)
         {
             String s = Language.GetTextValue("Mods.QwertysRandomContent.BindKey");
@@ -68,26 +65,22 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             player.setBonus = s;
             player.GetModPlayer<ShamanHeadEffects>().setBonus = true;
         }
-
-
-
-
-
-
     }
+
     public class ShamanHeadEffects : ModPlayer
     {
-
         public bool ImbueBoost = false;
-        bool freezeImbueTime = false;
+        private bool freezeImbueTime = false;
         public bool setBonus = false;
         public int hasteTime = 0;
+
         public override void ResetEffects()
         {
             ImbueBoost = false;
             setBonus = false;
             //hasteTime = 0;
         }
+
         public override void PreUpdate()
         {
             if (ImbueBoost)
@@ -112,8 +105,8 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                     freezeImbueTime = true;
                 }
             }
-
         }
+
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
         {
             if (hasteTime > 0)
@@ -124,15 +117,13 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                 {
                     Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(player.Size.Length(), Main.rand.NextFloat(-1, 1) * (float)Math.PI), mod.DustType("SpiritDust"), new Vector2(0, -6));
                 }
-
-
             }
         }
+
         public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
         {
             if (QwertysRandomContent.YetAnotherSpecialAbility.JustPressed) //hotkey is pressed
             {
-
                 if (setBonus && !player.HasBuff(mod.BuffType("SpiritCallCooldown")))
                 {
                     hasteTime = 600;
@@ -149,8 +140,10 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                 }
             }
         }
+
         public static readonly PlayerLayer Mask = LayerDrawing.DrawHeadSimple("ShamanHead", "Items/Armor/Shaman/ShamanHead_HeadSimple", glowmask: false);
         public static readonly PlayerLayer WarpaintHead = LayerDrawing.DrawHeadSimple("ShamanHead", "Items/Armor/Shaman/Warpaint_Head", glowmask: false, useShader: 3);
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -165,17 +158,16 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                 WarpaintHead.visible = true;
                 layers.Insert(headLayer + 1, WarpaintHead);
             }
-
-
         }
+
         public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("ShamanHead", "Items/Armor/Shaman/ShamanHead_HeadSimple");
         public static readonly PlayerHeadLayer PaintMapMask = LayerDrawing.DrawHeadLayer("ShamanHead", "Items/Armor/Shaman/Warpaint_Head", useShader: 3);
+
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Armor"));
             if (headLayer != -1)
             {
-
                 MapMask.visible = true;
                 layers.Insert(headLayer + 1, MapMask);
                 PaintMapMask.visible = true;
@@ -183,10 +175,12 @@ namespace QwertysRandomContent.Items.Armor.Shaman
             }
         }
     }
+
     public class HastedProjectiles : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public int haste = 0;
+
         public override void AI(Projectile projectile)
         {
             if (haste > 0)
@@ -195,13 +189,9 @@ namespace QwertysRandomContent.Items.Armor.Shaman
                 if (haste == 1 && projectile.extraUpdates > 0)
                 {
                     projectile.extraUpdates--;
-
                 }
                 Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(projectile.Size.Length(), Main.rand.NextFloat(-1, 1) * (float)Math.PI), mod.DustType("SpiritDust"), new Vector2(0, -6));
             }
-
         }
     }
-
 }
-

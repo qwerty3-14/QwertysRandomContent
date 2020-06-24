@@ -10,14 +10,13 @@ namespace QwertysRandomContent.Items.Etims
 {
     public class StaffOfJob : ModItem
     {
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Staff Of Job");
             Tooltip.SetDefault("Inflicts grave misery at the victim near your cursor!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
         }
+
         public override void SetDefaults()
         {
             item.magic = true;
@@ -35,6 +34,7 @@ namespace QwertysRandomContent.Items.Etims
             item.rare = 3;
             item.value = 120000;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -43,9 +43,9 @@ namespace QwertysRandomContent.Items.Etims
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-
             foreach (TooltipLine line in tooltips) //runs through all tooltip lines
             {
                 if (line.mod == "Terraria" && line.Name == "Damage") //this checks if it's the line we're interested in
@@ -56,10 +56,9 @@ namespace QwertysRandomContent.Items.Etims
                 {
                     line.text = "";
                 }
-
-
             }
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             NPC target = new NPC();
@@ -70,10 +69,12 @@ namespace QwertysRandomContent.Items.Etims
             return false;
         }
     }
+
     public class GraveMisery : GlobalNPC
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
         public int MiseryIntensity = 0;
+
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             if (MiseryIntensity > 0)
@@ -85,12 +86,12 @@ namespace QwertysRandomContent.Items.Etims
                 }
                 npc.lifeRegen -= MiseryIntensity;
             }
-
         }
-        float trigCounter = 0f;
+
+        private float trigCounter = 0f;
+
         public override void AI(NPC npc)
         {
-
             if (MiseryIntensity > 0)
             {
                 MiseryIntensity--;
@@ -100,8 +101,8 @@ namespace QwertysRandomContent.Items.Etims
                     MiseryIntensity = 5;
                 }
             }
-
         }
+
         public Texture2D DrawCurve(int width, int height, float shift, bool increasing)
         {
             if (Math.Sin(trigCounter + shift) < 0)
@@ -130,7 +131,6 @@ namespace QwertysRandomContent.Items.Etims
             int semiMinor = (minor - 1) / 2;
             if (major != 0 && minor != 0 && semiMajor != 0 && semiMinor != 0)
             {
-
                 Texture2D curve = new Texture2D(Main.graphics.GraphicsDevice, width, height);
                 Color[] dataColors = new Color[width * height];
                 for (int x = 0; x < width; x++)
@@ -144,13 +144,13 @@ namespace QwertysRandomContent.Items.Etims
             }
             return new Texture2D(Main.graphics.GraphicsDevice, 1, 1); ;
         }
-        int painRings = 2;
+
+        private int painRings = 2;
+
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
         {
-
             if (MiseryIntensity > 0)
             {
-
                 for (int i = 0; i < painRings; i++)
                 {
                     Texture2D curve = DrawCurve(npc.width + 50, npc.height + 50, i * ((float)Math.PI) / painRings, false);
@@ -158,10 +158,10 @@ namespace QwertysRandomContent.Items.Etims
                            curve.Frame(), Color.White, 0f,
                            curve.Size() * .5f, 2f, SpriteEffects.None, 0f);
                 }
-
             }
             return base.PreDraw(npc, spriteBatch, drawColor);
         }
+
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
         {
             if (MiseryIntensity > 0)
@@ -176,6 +176,4 @@ namespace QwertysRandomContent.Items.Etims
             }
         }
     }
-
-
 }

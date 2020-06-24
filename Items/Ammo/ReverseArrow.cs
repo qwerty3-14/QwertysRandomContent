@@ -13,8 +13,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Reverse Arrow");
             Tooltip.SetDefault("Flies backwards into your bow!");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 7;
@@ -31,9 +31,8 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("ReverseArrowS");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -43,8 +42,6 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.SetResult(this, 50);
             recipe.AddRecipe();
         }
-
-
     }
 
     public class ReverseArrowS : ModProjectile
@@ -52,9 +49,8 @@ namespace QwertysRandomContent.Items.Ammo
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Reverse Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -66,29 +62,27 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.ranged = true;
             projectile.arrow = true;
             projectile.timeLeft = 1;
-
-
         }
+
         public int startDistance = 1000;
         public float startX;
         public float startY;
+
         public override void AI()
         {
             startX = (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-90)) * startDistance;
             startY = (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-90)) * startDistance;
         }
+
         public override void Kill(int timeLeft)
         {
             if (projectile.owner == Main.myPlayer)
             {
-
                 float V = 30;
                 Projectile arrow1 = Main.projectile[Projectile.NewProjectile(projectile.Center.X + startX, projectile.Center.Y + startY, -(float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-90)) * V, -(float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-90)) * V, mod.ProjectileType("ReverseArrowP"), projectile.damage, projectile.knockBack, Main.myPlayer)];
                 if (projectile.GetGlobalProjectile<arrowHoming>().B4HomingArrow)
                 {
                     arrow1.GetGlobalProjectile<arrowHoming>().B4HomingArrow = true;
-
-
                 }
                 if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
                 {
@@ -98,23 +92,17 @@ namespace QwertysRandomContent.Items.Ammo
 
                     projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow = false;
                 }
-
-
             }
         }
-
-
-
-
     }
+
     public class ReverseArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Reverse Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -125,10 +113,8 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.arrow = true;
-
-
-
         }
+
         public float travelDistance = 1000;
         public float distance;
         public float startX;
@@ -153,15 +139,6 @@ namespace QwertysRandomContent.Items.Ammo
             {
                 projectile.timeLeft = 0;
             }
-
         }
-
-
-
-
-
-
     }
-
 }
-

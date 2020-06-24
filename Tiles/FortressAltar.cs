@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+
 namespace QwertysRandomContent.Tiles
 {
     public class FortressAltar : ModTile
@@ -34,12 +35,8 @@ namespace QwertysRandomContent.Tiles
             minPick = 10000;
             AddMapEntry(new Color(162, 184, 185));
             name.SetDefault("Altar");
-
-
-
-
-
         }
+
         public override void RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -50,8 +47,6 @@ namespace QwertysRandomContent.Tiles
                 {
                     if (player.inventory[b].type == mod.ItemType("FortressBossSummon") && player.inventory[b].stack > 0) //this checks if the slot has the valid item
                     {
-
-
                         if (Main.netMode == 0)
                         {
                             QwertyWorld.FortressBossQuotes();
@@ -65,18 +60,13 @@ namespace QwertysRandomContent.Tiles
                             packet.Send();
                         }
 
-
-
-
                         player.inventory[b].stack--;
                         break;
-
-
-
                     }
                 }
             }
         }
+
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -91,17 +81,10 @@ namespace QwertysRandomContent.Tiles
             g = 0.5f;
             b = 0.5f;
         }
+
         public override bool CanExplode(int i, int j)
         {
-
-
             return false;
-
-
-
-
         }
-
-
     }
 }

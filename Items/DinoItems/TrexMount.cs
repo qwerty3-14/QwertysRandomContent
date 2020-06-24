@@ -10,7 +10,6 @@ namespace QwertysRandomContent.Items.DinoItems
         {
             DisplayName.SetDefault("Dino Bone");
             Tooltip.SetDefault("No this isn't a bone from a dinosaur... it's a bone dinosaurs like to chew on." + "\nSummons a Trex mount!" + "\nWhen mounted the dino vulcan's speed penalty is removed");
-
         }
 
         public override void SetDefaults()
@@ -26,9 +25,8 @@ namespace QwertysRandomContent.Items.DinoItems
             item.noMelee = true;
             item.mountType = mod.MountType("TrexMount");
         }
-
-
     }
+
     public class TrexMountB : ModBuff
     {
         public override void SetDefaults()
@@ -45,11 +43,11 @@ namespace QwertysRandomContent.Items.DinoItems
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class TrexMount : ModMountData
     {
         public override void SetDefaults()
         {
-
             mountData.buff = mod.BuffType("TrexMountB");
             mountData.heightBoost = 80;
             mountData.fallDamage = 0f;
@@ -103,7 +101,6 @@ namespace QwertysRandomContent.Items.DinoItems
 
         public override void UpdateEffects(Player player)
         {
-
         }
     }
 }

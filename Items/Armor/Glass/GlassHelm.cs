@@ -18,9 +18,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
         {
             DisplayName.SetDefault("Glass Helm");
             Tooltip.SetDefault("A glass prism orbits you zapping enemies");
-
         }
-
 
         public override void SetDefaults()
         {
@@ -35,21 +33,23 @@ namespace QwertysRandomContent.Items.Armor.Glass
         {
             player.GetModPlayer<HelmEffects>().helmEffect = true;
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
-
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("GlassAbsorber") && legs.type == mod.ItemType("GlassLimbguards");
-
         }
+
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.GlassSet");
             player.GetModPlayer<HelmEffects>().setBonus = true;
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -59,19 +59,15 @@ namespace QwertysRandomContent.Items.Armor.Glass
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
-
-
-
     }
+
     public class HelmEffects : ModPlayer
     {
-
         public float PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName;
         public bool helmEffect = false;
         public int prismDazzleCounter = 60;
         public bool setBonus = false;
+
         public override void ResetEffects()
         {
             setBonus = false;
@@ -81,6 +77,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
             }
             helmEffect = false;
         }
+
         public override void PreUpdate()
         {
             if (helmEffect)
@@ -95,15 +92,14 @@ namespace QwertysRandomContent.Items.Armor.Glass
                     prismDazzleCounter = 60;
                 }
             }
-
         }
+
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             if (proj.ranged && setBonus)
             {
                 target.AddBuff(mod.BuffType("ArcanelyTuned"), 360);
             }
-
         }
 
         public static readonly PlayerLayer PrismFront = new PlayerLayer("QwertysRandomContent", "PrismFront", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
@@ -125,6 +121,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
                 Main.playerDrawData.Add(data);
             }
         });
+
         public static readonly PlayerLayer PrismBack = new PlayerLayer("QwertysRandomContent", "PrismBack", PlayerLayer.MiscEffectsBack, delegate (PlayerDrawInfo drawInfo)
         {
             if (drawInfo.shadow != 0f)
@@ -144,27 +141,27 @@ namespace QwertysRandomContent.Items.Armor.Glass
                 Main.playerDrawData.Add(data);
             }
         });
+
         public static readonly PlayerLayer Head = LayerDrawing.DrawHeadSimple("GlassHelm", "Items/Armor/Glass/GlassHelm_HeadSimple", glowmask: false);
         public static readonly PlayerLayer GlassHead = LayerDrawing.DrawHeadSimple("GlassHelm", "Items/Armor/Glass/GlassHelm_HeadSimple_Glass", glowmask: false, useShader: 3);
 
         public static readonly PlayerHeadLayer MapMask = LayerDrawing.DrawHeadLayer("GlassHelm", "Items/Armor/Glass/GlassHelm_HeadSimple");
         public static readonly PlayerHeadLayer GlassMapMask = LayerDrawing.DrawHeadLayer("GlassHelm", "Items/Armor/Glass/GlassHelm_HeadSimple_Glass", useShader: 3);
+
         public override void ModifyDrawHeadLayers(List<PlayerHeadLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerHeadLayer => PlayerHeadLayer.Name.Equals("Armor"));
             if (headLayer != -1)
             {
-
                 MapMask.visible = true;
                 layers.Insert(headLayer + 1, MapMask);
                 GlassMapMask.visible = true;
                 layers.Insert(headLayer + 1, GlassMapMask);
             }
         }
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
-
-
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
             if (headLayer != -1)
             {
@@ -185,9 +182,9 @@ namespace QwertysRandomContent.Items.Armor.Glass
                 PrismBack.visible = true;
                 layers.Insert(backLayer + 1, PrismBack);
             }
-
         }
     }
+
     public class PrismDazzle : ModProjectile
     {
         public override void SetDefaults()
@@ -201,10 +198,12 @@ namespace QwertysRandomContent.Items.Armor.Glass
             projectile.penetrate = 2;
             projectile.usesLocalNPCImmunity = true;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             return false;
         }
+
         public override void AI()
         {
             if (Main.rand.Next(8) == 0)
@@ -217,15 +216,13 @@ namespace QwertysRandomContent.Items.Armor.Glass
             }
             for (int k = 0; k < 200; k++)
             {
-
                 if (!Collision.CheckAABBvAABBCollision(projectile.position, projectile.Size, Main.npc[k].position, Main.npc[k].Size))
                 {
                     projectile.localNPCImmunity[k] = 0;
                 }
-
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (!target.boss && Main.rand.Next(20) == 0)
@@ -235,21 +232,20 @@ namespace QwertysRandomContent.Items.Armor.Glass
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-
     }
+
     public class ArcanelyTunedHoming : GlobalProjectile
     {
-       public override bool InstancePerEntity => true;
-        NPC target;
-        bool foundTarget = false;
+        public override bool InstancePerEntity => true;
+        private NPC target;
+        private bool foundTarget = false;
+
         public override void PostAI(Projectile projectile)
         {
             float maxDistance = 10000;
             foundTarget = false;
             if (projectile.magic && projectile.friendly)
             {
-
-
                 for (int k = 0; k < 200; k++)
                 {
                     NPC possibleTarget = Main.npc[k];
@@ -259,10 +255,8 @@ namespace QwertysRandomContent.Items.Armor.Glass
                         target = Main.npc[k];
                         foundTarget = true;
 
-
                         maxDistance = (target.Center - projectile.Center).Length();
                     }
-
                 }
                 if (foundTarget)
                 {
@@ -272,9 +266,6 @@ namespace QwertysRandomContent.Items.Armor.Glass
                     projectile.velocity = QwertyMethods.PolarVector(projectile.velocity.Length(), dir);
                 }
             }
-
         }
-
     }
 }
-

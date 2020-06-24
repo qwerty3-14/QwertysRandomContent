@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
-
     public class SummoningRune : ModItem
     {
         public override void SetStaticDefaults()
@@ -29,19 +28,12 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.noUseGraphic = true;
         }
 
-
-
-
         public override bool CanUseItem(Player player)
         {
-
             NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("RuneSpector"));
             Main.PlaySound(SoundID.Roar, player.position, 0);
             item.stack--;
             return true;
         }
-
-
-
     }
 }

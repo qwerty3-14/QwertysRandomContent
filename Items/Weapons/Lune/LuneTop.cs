@@ -10,14 +10,14 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         {
             DisplayName.SetDefault("Lune Top");
             Tooltip.SetDefault("Inflicts Lune curse making enemies more vulnerable to critical hits");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 28;
-            item.thrown = true;
+            item.melee = true;
             item.knockBack = 5;
-            item.value = 5;
+            item.value = 20000;
             item.rare = 1;
             item.width = 30;
             item.height = 38;
@@ -25,31 +25,29 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             item.shootSpeed = 4.5f;
             item.useTime = 32;
             item.useAnimation = 32;
-            item.consumable = true;
             item.shoot = mod.ProjectileType("LuneTopP");
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.maxStack = 999;
             item.autoReuse = true;
-
-
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("LuneBar"), 1);
+            recipe.AddIngredient(mod.ItemType("LuneBar"), 8);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 100);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }
+
     public class LuneTopP : Top
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lune Top");
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -58,8 +56,7 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             projectile.height = 38;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.thrown = true;
-
+            projectile.melee = true;
 
             projectile.tileCollide = true;
             friction = .004f;
@@ -67,4 +64,3 @@ namespace QwertysRandomContent.Items.Weapons.Lune
         }
     }
 }
-

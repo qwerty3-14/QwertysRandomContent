@@ -6,21 +6,18 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.AncientItems
 {
-
-
     public class AncientGemstone : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Gemstone");
             Tooltip.SetDefault("Halves you max health but avoiding damge for 5 sec after being hit will fully heal you");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 1;
 
@@ -30,10 +27,8 @@ namespace QwertysRandomContent.Items.AncientItems
             item.value = 150000;
             item.rare = 3;
             item.accessory = true;
-
-
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientGemstone_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientGemstone_Glow");
@@ -54,18 +49,12 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
+
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 /= 2;
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             modPlayer.gemRegen = true;
-
         }
-
-
-
     }
-
-
 }
-

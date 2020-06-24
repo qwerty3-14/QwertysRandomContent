@@ -13,8 +13,8 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             DisplayName.SetDefault("Hydra Helmet");
             Tooltip.SetDefault("+0.5 life/sec regen rate" + "\n+10% summon damage");
-
         }
+
         public override bool Autoload(ref string name)
         {
             // All code below runs only if we're not loading on a server
@@ -22,45 +22,35 @@ namespace QwertysRandomContent.Items.HydraItems
             {
                 // Add certain equip textures
                 mod.AddEquipTexture(new HydraHelmetGlow(), null, EquipType.Head, "HydraHelmet_Glow", "QwertysRandomContent/Items/HydraItems/HydraHelmet_Glow");
-
             }
             return true;
         }
 
         public override void SetDefaults()
         {
-
             item.value = 50000;
             item.rare = 5;
-
 
             item.width = 28;
             item.height = 22;
             item.defense = 13;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
         {
-
             player.lifeRegen += 2;
             player.minionDamage += .1f;
-
         }
+
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
             drawAltHair = true;
-
         }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("HydraScalemail") && legs.type == mod.ItemType("HydraLeggings");
-
         }
-
-
 
         public override void UpdateArmorSet(Player player)
         {
@@ -85,8 +75,6 @@ namespace QwertysRandomContent.Items.HydraItems
             {
                 player.maxMinions += 1;
             }
-
-
         }
 
         public override void AddRecipes()
@@ -98,21 +86,22 @@ namespace QwertysRandomContent.Items.HydraItems
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
-
     }
+
     public class HydraHelmetGlow : EquipTexture
     {
         /*
         public override void DrawArmorColor(Player  drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
-		{	
+		{
 			glowMask = mod.GetEquipSlot("HydraHelmet_Glow", EquipType.Head);
 		}
         */
     }
+
     public class HydraHelmetGlowmask : ModPlayer
     {
         public static readonly PlayerLayer HydraEye = LayerDrawing.DrawOnHead("HydraHelmet", "Items/HydraItems/HydraHelmet_Glow");
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int headLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("Head"));
@@ -121,8 +110,6 @@ namespace QwertysRandomContent.Items.HydraItems
                 HydraEye.visible = true;
                 layers.Insert(headLayer + 1, HydraEye);
             }
-
         }
     }
 }
-

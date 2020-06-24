@@ -3,10 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
 using QwertysRandomContent.Buffs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,50 +14,51 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetDefaults()
         {
             item.shootSpeed = 17f;
-            item.damage = 300;
+            item.damage = 160;
             item.knockBack = 5f;
             item.useStyle = 1;
-            item.useAnimation = 23;
-            item.useTime = 23;
+            item.useAnimation = 30;
+            item.useTime = 30;
             item.width = 68;
             item.height = 68;
-            item.maxStack = 1; 
+            item.maxStack = 1;
             item.rare = 7;
             item.value = Item.sellPrice(0, 10, 0, 0);
-            item.consumable = true;
+            item.consumable = false;
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.thrown = true;
+            item.melee = true;
 
+            item.autoReuse = true;
             item.UseSound = SoundID.Item1;
-
             item.shoot = mod.ProjectileType("ImperiumP");
         }
-        
     }
+
     public class ImperiumP : Javelin
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Imperium");
         }
+
         public override void SetDefaults()
         {
             projectile.width = 10;
             projectile.height = 10;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.thrown = true;
+            projectile.melee = true;
             projectile.penetrate = 1;
             projectile.GetGlobalProjectile<ImplaingProjectile>().CanImpale = true;
-            projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 300;
+            projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 32;
             maxStickingJavelins = 12;
             dropItem = mod.ItemType("Imperium");
             rotationOffset = (float)Math.PI / 4;
-            alwaysDrop = true;
             maxTicks = 60f;
-            maxStickingJavelins = 1;
+            maxStickingJavelins = 10;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Items/BladeBossItems/ImperiumP");

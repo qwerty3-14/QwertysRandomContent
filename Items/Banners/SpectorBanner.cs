@@ -8,8 +8,6 @@ namespace QwertysRandomContent.Items.Banners
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sneaking Ghost Banner");
-
-
         }
 
         public override void SetDefaults()

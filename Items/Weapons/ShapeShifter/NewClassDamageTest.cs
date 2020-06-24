@@ -31,8 +31,5 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.UseSound = SoundID.Item1;      //The sound when the weapon is using
             item.autoReuse = true;          //Whether the weapon can use automatically by pressing mousebutton
         }
-
-
-
     }
 }

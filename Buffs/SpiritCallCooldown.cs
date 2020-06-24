@@ -14,9 +14,5 @@ namespace QwertysRandomContent.Buffs
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
         }
-
-
-
-
     }
 }

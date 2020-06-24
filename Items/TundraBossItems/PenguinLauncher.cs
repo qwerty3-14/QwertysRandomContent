@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.TundraBossItems
         {
             DisplayName.SetDefault("Penguin Launcher");
             Tooltip.SetDefault("Uses penguins as ammo");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 30;
@@ -35,23 +35,14 @@ namespace QwertysRandomContent.Items.TundraBossItems
             item.shootSpeed = 6;
             item.noMelee = true;
             item.autoReuse = true;
-
-
         }
-
 
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-18, -1);
         }
-
-
-
-
-
-
-
     }
+
     public class PenguinAmmo : GlobalItem
     {
         public override void SetDefaults(Item item)
@@ -60,18 +51,17 @@ namespace QwertysRandomContent.Items.TundraBossItems
             {
                 item.ammo = ItemID.Penguin;
                 item.shoot = mod.ProjectileType("SlidingPenguin");
-
             }
         }
     }
+
     public class SlidingPenguin : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sliding Penguin");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -83,18 +73,15 @@ namespace QwertysRandomContent.Items.TundraBossItems
             projectile.ranged = true;
             projectile.tileCollide = true;
             projectile.usesLocalNPCImmunity = true;
-
-
-
         }
-        bool runOnce = true;
-        float initVel;
-        bool hitGround;
-        int timer;
+
+        private bool runOnce = true;
+        private float initVel;
+        private bool hitGround;
+        private int timer;
+
         public override void AI()
         {
-
-
             projectile.spriteDirection = -(int)(projectile.velocity.X * Math.Abs(1f / projectile.velocity.X));
             if (runOnce)
             {
@@ -118,12 +105,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
                         }
                         projectile.Kill();
                     }
-
                 }
                 if (projectile.velocity.X < 0)
                 {
                     projectile.velocity.X = -initVel;
-
                 }
                 else
                 {
@@ -140,13 +125,13 @@ namespace QwertysRandomContent.Items.TundraBossItems
             }
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = 10;
             target.immune[projectile.owner] = 0;
-
-
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             hitGround = true;
@@ -158,6 +143,4 @@ namespace QwertysRandomContent.Items.TundraBossItems
             return false;
         }
     }
-
 }
-

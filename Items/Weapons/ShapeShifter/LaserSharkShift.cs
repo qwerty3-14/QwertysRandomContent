@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,12 +11,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             DisplayName.SetDefault("Shape Shift: Laser shark!");
             Tooltip.SetDefault("I have one simple request and that is sharks with fricken' laser beams attached to their heads!");
-
         }
+
         public const int dmg = 100;
         public const int crt = 0;
         public const float kb = 2f;
         public const int def = 2;
+
         public override void SetDefaults()
         {
             item.width = 42;
@@ -40,8 +36,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
@@ -49,6 +45,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             return base.UseItem(player);
         }
     }
+
     public class LaserSharkShiftB : ModBuff
     {
         public override void SetDefaults()
@@ -65,6 +62,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.buffTime[buffIndex] = 10;
         }
     }
+
     public class LaserSharkMorph : ModMountData
     {
         public override void SetDefaults()
@@ -117,7 +115,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
             if (Main.netMode != 2)
             {
-
                 mountData.textureWidth = mountData.backTexture.Width;
                 mountData.textureHeight = mountData.backTexture.Height;
             }
@@ -126,7 +123,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override void UpdateEffects(Player player)
         {
             player.GetModPlayer<SharkControl>().controlled = true;
-            if(player.mount._frameState==4)
+            if (player.mount._frameState == 4)
             {
                 mountData.fallDamage = 0f;
                 mountData.runSpeed = mountData.swimSpeed;
@@ -145,14 +142,18 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
+
     public class SharkControl : ModPlayer
     {
         public bool controlled = false;
+
         public override void ResetEffects()
         {
             controlled = false;
         }
-        int shotCooldown = 0;
+
+        private int shotCooldown = 0;
+
         public override void PostUpdateMiscEffects()
         {
             if (controlled)
@@ -168,15 +169,16 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 if (player.whoAmI == Main.myPlayer && player.wet && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
                 {
                     shotCooldown = 60;
-                    Projectile.NewProjectile(player.Center + Vector2.UnitX * 58 *player.direction, Vector2.UnitX * 12f * player.direction, mod.ProjectileType("SharkLaser"), (int)(LaserSharkShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), LaserSharkShift.kb, player.whoAmI);
+                    Projectile.NewProjectile(player.Center + Vector2.UnitX * 58 * player.direction, Vector2.UnitX * 12f * player.direction, mod.ProjectileType("SharkLaser"), (int)(LaserSharkShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), LaserSharkShift.kb, player.whoAmI);
                 }
-                else if(shotCooldown>0)
+                else if (shotCooldown > 0)
                 {
                     shotCooldown--;
                 }
             }
         }
     }
+
     public class SharkLaser : ModProjectile
     {
         public override void SetDefaults()
@@ -194,6 +196,5 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             aiType = ProjectileID.PinkLaser;
             projectile.GetGlobalProjectile<MorphProjectile>().morph = true;
         }
-        
     }
 }

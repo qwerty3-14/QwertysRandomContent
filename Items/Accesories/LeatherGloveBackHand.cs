@@ -4,32 +4,24 @@ using Terraria.ModLoader;
 namespace QwertysRandomContent.Items.Accesories
 {
     [AutoloadEquip(EquipType.HandsOff)]
-
     public class LeatherGloveBackHand : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Leather Glove (Back Hand)");
             Tooltip.SetDefault("Just a regular old leather glove");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 1;
-
 
             item.width = 22;
             item.height = 28;
             item.vanity = true;
             item.accessory = true;
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -39,9 +31,5 @@ namespace QwertysRandomContent.Items.Accesories
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-
     }
-
-
 }
-

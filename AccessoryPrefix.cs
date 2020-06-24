@@ -10,7 +10,6 @@ namespace QwertysRandomContent
 {
     public class AccessoryPrefix : ModPrefix
     {
-
         private byte damage;
         private byte crit;
         private byte moveSpeed;
@@ -24,14 +23,17 @@ namespace QwertysRandomContent
         private byte dashPower;
         private byte recovery;
         private byte dodgeChance;
+
         public override float RollChance(Item item)
         {
             return ModContent.GetInstance<GameplaySettings>().DisableModdedPrefixes ? 0f : 1f;
         }
+
         public override bool CanRoll(Item item)
         {
             return true;
         }
+
         public override PrefixCategory Category { get { return PrefixCategory.Accessory; } }
 
         public AccessoryPrefix()
@@ -40,7 +42,6 @@ namespace QwertysRandomContent
 
         public AccessoryPrefix(byte damage, byte crit, byte moveSpeed, byte meleeSpeed, byte defense, byte manaReduction, byte ammoReduction, byte throwVel, byte rangedVel, byte dashPower, byte recovery, byte dodgeChance)
         {
-
             this.damage = damage;
             this.crit = crit;
             this.moveSpeed = moveSpeed;
@@ -53,7 +54,6 @@ namespace QwertysRandomContent
             this.dashPower = dashPower;
             this.recovery = recovery;
             this.dodgeChance = dodgeChance;
-
         }
 
         public override bool Autoload(ref string name)
@@ -94,9 +94,9 @@ namespace QwertysRandomContent
             }
             return false;
         }
+
         public override void Apply(Item item)
         {
-
             item.GetGlobalItem<QwertyForge>().damage = damage;
             item.GetGlobalItem<QwertyForge>().crit = crit;
             item.GetGlobalItem<QwertyForge>().moveSpeed = moveSpeed;
@@ -110,15 +110,16 @@ namespace QwertysRandomContent
             item.GetGlobalItem<QwertyForge>().recovery = recovery;
             item.GetGlobalItem<QwertyForge>().dodgeChance = dodgeChance;
         }
+
         public override void ModifyValue(ref float valueMult)
         {
             float multiplier = 1f * (1 + damage * 0.04f) * (1 + crit * 0.04f) * (1 + moveSpeed * 0.04f) * (1 + meleeSpeed * 0.04f) * (1 + defense * 0.04f) * (1 + manaReduction * 0.02f) * (1 + ammoReduction * 0.02f) * (1 + throwVel * 0.01f) * (1 + rangedVel * 0.01f) * (1 + dashPower * 0.12f) * (1 + recovery * 0.04f) * (1 + dodgeChance * 0.04f);
             valueMult *= multiplier;
         }
     }
+
     public class QwertyForge : GlobalItem
     {
-
         public int damage;
         public int crit;
         public int moveSpeed;
@@ -131,7 +132,8 @@ namespace QwertysRandomContent
         public int dashPower;
         public int recovery;
         public int dodgeChance;
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
+
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             QwertyForge myClone = (QwertyForge)base.Clone(item, itemClone);
@@ -150,9 +152,9 @@ namespace QwertysRandomContent
             myClone.dodgeChance = dodgeChance;
             return myClone;
         }
+
         public override bool NewPreReforge(Item item)
         {
-
             damage = 0;
             crit = 0;
             moveSpeed = 0;
@@ -167,9 +169,9 @@ namespace QwertysRandomContent
             dodgeChance = 0;
             return base.NewPreReforge(item);
         }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-
             if (damage > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "damage", "+" + damage + "% damage");
@@ -255,12 +257,8 @@ namespace QwertysRandomContent
                 tooltips.Add(line);
                 line.text = "+" + dodgeChance + Language.GetTextValue("Mods.QwertysRandomContent.PerfixdodgeChance");
             }
-
-
-
-
-
         }
+
         public override void UpdateEquip(Item item, Player player)
         {
             if (item.prefix > 0)
@@ -280,12 +278,11 @@ namespace QwertysRandomContent
                 player.GetModPlayer<QwertyPlayer>().customDashBonusSpeed += dashPower;
                 player.GetModPlayer<QwertyPlayer>().recovery += recovery;
                 player.GetModPlayer<QwertyPlayer>().dodgeChance += dodgeChance;
-
             }
         }
+
         public override void NetSend(Item item, BinaryWriter writer)
         {
-
             writer.Write(damage);
             writer.Write(crit);
             writer.Write(moveSpeed);
@@ -298,8 +295,8 @@ namespace QwertysRandomContent
             writer.Write(dashPower);
             writer.Write(recovery);
             writer.Write(dodgeChance);
-
         }
+
         public override void NetReceive(Item item, BinaryReader reader)
         {
             damage = reader.ReadInt32();
@@ -314,9 +311,8 @@ namespace QwertysRandomContent
             dashPower = reader.ReadInt32();
             recovery = reader.ReadInt32();
             dodgeChance = reader.ReadInt32();
-
-
         }
+
         public override bool ConsumeAmmo(Item item, Player player)
         {
             if (Main.rand.NextFloat() > player.GetModPlayer<QwertyPlayer>().ammoReduction)
@@ -325,6 +321,7 @@ namespace QwertysRandomContent
             }
             return true;
         }
+
         public override bool ConsumeItem(Item item, Player player)
         {
             if (item.thrown)
@@ -356,10 +353,10 @@ namespace QwertysRandomContent
 
                     return false;
                 }
-
             }
             return base.OnPickup(item, player);
         }
+
         public override bool UseItem(Item item, Player player)
         {
             if (item.healLife > 0 && player.GetModPlayer<QwertyPlayer>().recovery > 0)
@@ -371,6 +368,4 @@ namespace QwertysRandomContent
             return false;
         }
     }
-
-
 }

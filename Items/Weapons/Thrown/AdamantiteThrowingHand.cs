@@ -12,14 +12,14 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
         {
             DisplayName.SetDefault("Adamantite Throwing Hand");
             Tooltip.SetDefault("Body slams enemies dealing massive damage! (doesn't work on bosses)");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 50;
-            item.thrown = true;
+            item.melee = true;
             item.knockBack = 5;
-            item.value = 80;
+            item.value = Item.sellPrice(gold: 2);
             item.rare = 3;
             item.width = 14;
             item.height = 26;
@@ -27,33 +27,29 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             item.shootSpeed = 12f;
             item.useTime = 22;
             item.useAnimation = 22;
-            item.consumable = true;
             item.shoot = mod.ProjectileType("AdamantiteThrowingHandP");
             item.noUseGraphic = true;
             item.noMelee = true;
-            item.maxStack = 999;
             item.autoReuse = true;
-
-
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.AdamantiteBar, 1);
+            recipe.AddIngredient(ItemID.AdamantiteBar, 12);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this, 333);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }
+
     public class AdamantiteThrowingHandP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Adamantite Hand");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 2;
@@ -62,18 +58,17 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.height = 14;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.thrown = true;
-
+            projectile.melee = true;
 
             projectile.tileCollide = true;
-
-
         }
+
         public NPC grabbed = new NPC();
         public bool hasGrabbed;
         public bool runOnce = true;
         public bool falling;
         public bool hasHit;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -93,8 +88,8 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
                 grabbed.position = projectile.Center - new Vector2((grabbed.width / 2), (grabbed.height / 2));
                 grabbed.AddBuff(mod.BuffType("Grabbed"), 2);
             }
-
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (!target.boss && !hasGrabbed && !target.immortal && !target.HasBuff(mod.BuffType("Grabbed")))
@@ -103,20 +98,18 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
                 projectile.friendly = false;
                 grabbed = target;
                 hasGrabbed = true;
-
             }
             if (hasHit)
             {
                 Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PUNCH").WithVolume(.8f).WithPitchVariance(.5f), (int)target.position.X, (int)target.position.Y);
             }
-
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Player player = Main.player[projectile.owner];
             if (hasGrabbed)
             {
-
                 grabbed.rotation = 0;
                 if (falling)
                 {
@@ -130,21 +123,19 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
                     projectile.timeLeft = 3;
                 }
                 return false;
-
-
             }
             else
             {
                 return true;
             }
         }
+
         /*
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[projectile.owner];
             if (hasGrabbed)
             {
-                
                 grabbed.rotation = 0;
                 projectile.friendly = true;
                 projectile.penetrate = 1;
@@ -152,18 +143,9 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
                 grabbed.life -= (int)(300 * player.thrownDamage);
                 if(grabbed.life <0)
                 {
-                    
                 }
-                
             }
         }
          */
-
-
-
-
-
     }
-
 }
-

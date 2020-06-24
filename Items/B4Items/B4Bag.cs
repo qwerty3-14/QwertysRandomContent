@@ -9,8 +9,8 @@ namespace QwertysRandomContent.Items.B4Items
         {
             DisplayName.SetDefault("Treasure Bag");
             Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-
         }
+
         public override void SetDefaults()
         {
             item.maxStack = 999;
@@ -19,10 +19,10 @@ namespace QwertysRandomContent.Items.B4Items
             item.height = 34;
             item.rare = 9;
             item.expert = true;
-            //bossBagNPC = mod.NPCType("WeakPoint"); 
+            //bossBagNPC = mod.NPCType("WeakPoint");
         }
-        public override int BossBagNPC => mod.NPCType("OLORDv2");
 
+        public override int BossBagNPC => mod.NPCType("OLORDv2");
 
         public override bool CanRightClick()
         {
@@ -31,7 +31,6 @@ namespace QwertysRandomContent.Items.B4Items
 
         public override void OpenBossBag(Player player)
         {
-
             int selectWeapon = Main.rand.Next(1, 7);
 
             if (selectWeapon == 1)
@@ -63,8 +62,6 @@ namespace QwertysRandomContent.Items.B4Items
                 player.QuickSpawnItem(mod.ItemType("TheDevourer"));
             }
             player.QuickSpawnItem(mod.ItemType("B4ExpertItem"));
-
-
 
             player.QuickSpawnItem(73, 60);
             if (Main.rand.Next(99) < 30)

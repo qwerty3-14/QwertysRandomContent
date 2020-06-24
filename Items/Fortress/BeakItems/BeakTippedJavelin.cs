@@ -1,10 +1,10 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using QwertysRandomContent.AbstractClasses;
 using QwertysRandomContent.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+
 //copied from example javelin forom example mod
 namespace QwertysRandomContent.Items.Fortress.BeakItems
 {
@@ -14,8 +14,8 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
         {
             DisplayName.SetDefault("Beak Tipped Javelin");
             Tooltip.SetDefault("If a crit fails to land the crit attempt will be rerolled for every javelin stuck in an enemy");
-
         }
+
         public override void SetDefaults()
         {
             // Alter any of these values as you see fit, but you should probably keep useStyle on 1, as well as the noUseGraphic and noMelee bools
@@ -27,38 +27,37 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             item.useTime = 38;
             item.width = 68;
             item.height = 68;
-            item.maxStack = 999;
             item.rare = 4;
-            //item.crit = 5;
             item.value = 100;
-            item.consumable = true;
             item.noUseGraphic = true;
             item.noMelee = true;
             item.autoReuse = true;
-            item.thrown = true;
+            item.melee = true;
 
             item.UseSound = SoundID.Item1;
 
             item.shoot = mod.ProjectileType("BeakTippedJavelinP");
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 2);
-            recipe.AddIngredient(mod.ItemType("FortressHarpyBeak"), 2);
+            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 12);
+            recipe.AddIngredient(mod.ItemType("FortressHarpyBeak"), 12);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 222);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-
             float angle = (new Vector2(speedX, speedY)).ToRotation();
             float trueSpeed = (new Vector2(speedX, speedY)).Length();
 
             return true;
         }
     }
+
     public class BeakTippedJavelinP : Javelin
     {
         public override void SetStaticDefaults()
@@ -72,19 +71,19 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             projectile.height = 10;
             projectile.aiStyle = -1;
             projectile.friendly = true;
-            projectile.thrown = true;
+            projectile.melee = true;
             projectile.penetrate = 1;
             projectile.GetGlobalProjectile<ImplaingProjectile>().CanImpale = true;
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 12;
             dropItem = mod.ItemType("BeakTippedJavelin");
             maxStickingJavelins = 3;
         }
-
-
     }
+
     public class JavelinCritReroll : GlobalNPC
     {
-       public override bool InstancePerEntity => true;
+        public override bool InstancePerEntity => true;
+
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             //crit = true;
@@ -139,7 +138,6 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
                     //rerollAttempts = 0;
                 }
             }
-
         }
     }
 }

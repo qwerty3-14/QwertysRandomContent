@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Glass Bullet");
             Tooltip.SetDefault("Shatters upon firing, releasing 9 short-ranged shards dealing 40% damage each");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 7;
@@ -30,8 +30,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("GlassBulletP");
             item.ammo = 97;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -42,16 +40,15 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.SetResult(this, 40);
             recipe.AddRecipe();
         }
-
     }
+
     public class GlassBulletP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass Bullet");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -63,15 +60,12 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.ranged = true;
 
             projectile.timeLeft = 1;
-
-
         }
 
         public override void Kill(int timeLeft)
         {
             if (projectile.owner == Main.myPlayer)
             {
-
                 float V = 30;
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-90)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-90)) * V, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .4f), projectile.knockBack, Main.myPlayer);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-82)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-82)) * V, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .4f), projectile.knockBack, Main.myPlayer);
@@ -83,23 +77,17 @@ namespace QwertysRandomContent.Items.Ammo
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-106)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-106)) * V, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .4f), projectile.knockBack, Main.myPlayer);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-114)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-114)) * V, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .4f), projectile.knockBack, Main.myPlayer);
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation + MathHelper.ToRadians(-122)) * V, (float)Math.Sin(projectile.rotation + MathHelper.ToRadians(-122)) * V, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .4f), projectile.knockBack, Main.myPlayer);
-
-
             }
         }
-
-
-
-
     }
+
     public class GlassBulletShard : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glass Bullet Shard");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -109,16 +97,11 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.penetrate = 1;
             projectile.ranged = true;
             projectile.timeLeft = 10;
-
-
-
         }
 
-
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
-
 }
-

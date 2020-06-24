@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.RuneSpectorBoss
 {
-    class GrayRune : ModProjectile
+    internal class GrayRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -16,9 +16,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.penetrate = -1;
             projectile.alpha = 255;
             projectile.tileCollide = false;
-
-
         }
+
         public override void AI()
         {
             projectile.velocity = new Vector2(0, 0);
@@ -26,8 +25,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.alpha--;
             else
                 projectile.alpha = 0;
-
-
         }
     }
 }

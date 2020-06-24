@@ -14,12 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Hallowed Sentry Staff");
             Tooltip.SetDefault("Summons a hallowed sentry that casts blades around your enemies!");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 25;
             item.mana = 20;
             item.width = 32;
@@ -29,15 +27,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.useStyle = 1;
             item.noMelee = true;
             item.knockBack = .01f;
-            item.value = 424000;
+            item.value = 212000;
             item.rare = 4;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("HallowedSentry");
             item.summon = true;
             item.sentry = true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -46,24 +43,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
-
-
-
-
-
-
             return true;
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -85,7 +77,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 38;
             projectile.height = 38;
@@ -101,12 +92,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.usesLocalNPCImmunity = true;
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }
-        NPC target;
 
-        float maxDistance = 1000f;
-        float distance;
-        int timer;
-        float bladeStartDist = 100;
+        private NPC target;
+
+        private float maxDistance = 1000f;
+        private float distance;
+        private int timer;
+        private float bladeStartDist = 100;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -115,7 +108,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
             {
-
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
                 if (timer % 10 == 0)
                 {
@@ -146,13 +138,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(8, projectile.rotation - (float)Math.PI / 2), mod.ProjectileType("ExcaliminiDraw"), projectile.damage, projectile.knockBack, player.whoAmI);
                     }
                 }
-
-
             }
-
         }
-
-
     }
 
     public class Excalimini : ModProjectile
@@ -174,6 +161,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 1;
             projectile.alpha = 255;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSummons/Excalimini");
@@ -182,6 +170,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), 1f, SpriteEffects.None, 0f);
             return false;
         }
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             // For going through platforms and such, javelins use a tad smaller size
@@ -199,8 +188,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             // Return if the hitboxes intersects, which means the javelin collides or not
             return projHitbox.Intersects(targetHitbox);
         }
-
-
 
         // Here's an example on how you could make your AI even more readable, by giving AI fields more descriptive names
         // These are not used in AI, but it is good practice to apply some form like this to keep things organized
@@ -316,9 +303,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     projectile.velocity.ToRotation() +
                     MathHelper.ToRadians(
                         135f); // Please notice the MathHelper usage, offset the rotation by 135 degrees (to radians because rotation uses radians) because the sprite's rotation is not aligned!
-
-
-
             }
             // This code is ran when the javelin is sticking to a target
             if (isStickingToTarget)
@@ -360,6 +344,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
         }
     }
+
     public class ExcaliminiDraw : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -373,13 +358,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.height = 4;
             projectile.aiStyle = -1;
             projectile.friendly = false;
-            //projectile.thrown = true;
             projectile.penetrate = 1;
             projectile.GetGlobalProjectile<ImplaingProjectile>().CanImpale = true;
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 1;
             projectile.alpha = 0;
             projectile.tileCollide = false;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSummons/Excalimini");
@@ -389,17 +374,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             return false;
         }
 
-
-
-
-
-
-
         private const int alphaIncrease = 20;
 
         public override void AI()
         {
-
             if (projectile.alpha < 255)
             {
                 projectile.alpha += alphaIncrease;
@@ -415,14 +393,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.velocity.ToRotation() +
                 MathHelper.ToRadians(
                     135f); // Please notice the MathHelper usage, offset the rotation by 135 degrees (to radians because rotation uses radians) because the sprite's rotation is not aligned!
-
-
-
-
-
         }
     }
-
-
-
 }

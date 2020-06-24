@@ -43,16 +43,18 @@ namespace QwertysRandomContent.Tiles
             //adjTiles = new int[]{ TileID.Chairs };
             animationFrameHeight = 38;
         }
+
         public override bool CanPlace(int i, int j)
         {
             return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i + 1, j - 1].active() || Main.tile[i - 1, j - 1].active() || Main.tile[i, j - 2].active();
         }
+
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
         }
-        //public bool blowing;
 
+        //public bool blowing;
 
         //public int counter;
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
@@ -68,8 +70,6 @@ namespace QwertysRandomContent.Tiles
             }
             FanE FanE = (FanE)TileEntity.ByID[index];
             */
-
-
         }
 
         public override void HitWire(int i, int j)
@@ -104,7 +104,7 @@ namespace QwertysRandomContent.Tiles
         public override void RightClick(int i, int j)
         {
             Player player = player;
-            
+
             for (int b = 0; b < 58; b++) // this searches every invintory slot
             {
                 if (player.inventory[b].type == mod.ItemType("Abstractive") && player.inventory[b].stack > 0) //this checks if the slot has the valid item
@@ -113,13 +113,11 @@ namespace QwertysRandomContent.Tiles
                     NPC.NewNPC(i*16, j*16, NPCID.EyeofCthulhu);
                     player.inventory[b].stack--;
                     break;
-                    
-
-
                 }
             }
         }
         */
+
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -128,27 +126,27 @@ namespace QwertysRandomContent.Tiles
             player.showItemIcon2 = mod.ItemType("Fan");
         }
 
-
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("Fan"));
             mod.GetTileEntity("FanE").Kill(i, j);
         }
     }
+
     public class FanE : ModTileEntity
     {
-
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
             return tile.active();
         }
+
         public int frameTimer;
         public bool blowing;
         public bool switchBlow;
+
         public override void Update()
         {
-
             if (switchBlow)
             {
                 blowing = !blowing;
@@ -207,9 +205,7 @@ namespace QwertysRandomContent.Tiles
                     edge = Position.X + 1;
                     blowOrigin = new Vector2(edge, Position.Y) * 16;
                     // Main.NewText("I'm a big fan of the right!");
-
                 }
-
 
                 //Main.NewText("I'm a big fan!");
 
@@ -278,6 +274,7 @@ namespace QwertysRandomContent.Tiles
         {
             writer.Write(blowing);
         }
+
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
             blowing = reader.ReadBoolean();

@@ -14,9 +14,10 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             DisplayName.SetDefault("Ancient Minion");
             Main.npcFrameCount[npc.type] = 1;
-            
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             npc.width = 42;
@@ -37,14 +38,11 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             npc.noTileCollide = true;
             npc.aiStyle = -1;
             npc.lifeMax = 70;
-
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-
             return 0f;
-
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -75,9 +73,10 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 dust.scale *= 1f + Main.rand.Next(-30, 31) * 0.01f;
             }
         }
+
         public const int minionRingRadius = 50;
         public const int minionRingDustQty = 50;
-        const int AI_Timer_Slot = 1;
+        private const int AI_Timer_Slot = 1;
 
         public int timer;
         public int Pos = 1;
@@ -88,22 +87,21 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         public int attackType = 1;
         public bool charging;
         public NPC parent;
-        int waitTime = 120;
-        int chargeTime = 120;
-        Vector2 moveTo;
-        bool justTeleported;
-        float chargeSpeed = 12;
-        bool runOnce = true;
+        private int waitTime = 120;
+        private int chargeTime = 120;
+        private Vector2 moveTo;
+        private bool justTeleported;
+        private float chargeSpeed = 12;
+        private bool runOnce = true;
+
         public override void AI()
         {
             if (justTeleported)
             {
-
                 justTeleported = false;
             }
             if (runOnce)
             {
-
                 if (Main.netMode != 1)
                 {
                     npc.ai[2] = npc.Center.X;
@@ -140,9 +138,6 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 }
                 if (Main.netMode != 1)
                 {
-
-
-
                     npc.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                     npc.netUpdate = true;
                 }
@@ -186,6 +181,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
                 npc.rotation = targetAngle;
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             spriteBatch.Draw(Main.npcTexture[npc.type], new Vector2(npc.Center.X - Main.screenPosition.X, npc.Center.Y - Main.screenPosition.Y),

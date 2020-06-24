@@ -15,6 +15,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             Main.wallHouse[Type] = true;
@@ -27,7 +28,5 @@ namespace QwertysRandomContent.Tiles
         {
             num = fail ? 1 : 3;
         }
-
-
     }
 }

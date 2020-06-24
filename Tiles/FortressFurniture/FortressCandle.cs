@@ -34,10 +34,9 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             drop = mod.ItemType("FortressCandle");
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTorch);
         }
+
         public override void HitWire(int i, int j)
         {
-
-
             if (Main.tile[i, j].frameX >= 18)
             {
                 Main.tile[i, j].frameX -= 18;
@@ -46,17 +45,18 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             {
                 Main.tile[i, j].frameX += 18;
             }
-
-
         }
+
         public override void RightClick(int i, int j)
         {
             Main.player[Main.myPlayer].PickTile(i, j, 100);
         }
+
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
         }
+
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
@@ -64,11 +64,13 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
             player.showItemIcon = true;
             player.showItemIcon2 = mod.ItemType("FortressCandle");
         }
+
         /*
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
 			Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("FortressCandle"));
 		}*/
+
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
@@ -79,6 +81,7 @@ namespace QwertysRandomContent.Tiles.FortressFurniture
                 b = 0.9f;
             }
         }
+
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong randSeed = Main.TileFrameSeed ^ (ulong)((long)j << 32 | (long)((ulong)i));

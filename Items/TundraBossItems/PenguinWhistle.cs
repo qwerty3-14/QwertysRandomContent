@@ -4,10 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
-
     public class PenguinWhistle : ModItem
     {
         public override void SetStaticDefaults()
@@ -15,14 +13,10 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
             DisplayName.SetDefault("Penguin Whistle");
             Tooltip.SetDefault("Calls flying penguins!");
             //Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 20;
             item.mana = 10;
             item.width = 100;
@@ -42,8 +36,8 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
             item.shootSpeed = 0;
             item.noMelee = true;
             item.noUseGraphic = true;
-
         }
+
         public override bool UseItem(Player player)
         {
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PenguinCall").WithVolume(1f).WithPitchVariance(0), player.Center);
@@ -63,12 +57,9 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
                 }
             }
             return false;
-
-
-
-
         }
     }
+
     public class PenguinFall : ModProjectile
     {
         public override void SetStaticDefaults()
@@ -87,16 +78,15 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
             projectile.penetrate = 1;
             projectile.GetGlobalProjectile<ImplaingProjectile>().CanImpale = true;
             projectile.GetGlobalProjectile<ImplaingProjectile>().damagePerImpaler = 2;
-
         }
+
         public override void Kill(int timeLeft)
         {
-
             NPC Penguin = Main.npc[NPC.NewNPC((int)projectile.Top.X, (int)projectile.Top.Y, NPCID.Penguin)];
 
             Penguin.SpawnedFromStatue = true;
-
         }
+
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
         {
             // For going through platforms and such, javelins use a tad smaller size
@@ -206,7 +196,9 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
 
         // Change this number if you want to alter how the alpha changes
         private const int alphaReduction = 25;
-        int timer;
+
+        private int timer;
+
         public override void AI()
         {
             timer++;
@@ -246,11 +238,6 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
                     projectile.velocity.X = projectile.velocity.X * velXmult;
                     projectile.velocity.Y = projectile.velocity.Y + velYmult;
                 }
-
-
-
-
-
             }
             // This code is ran when the javelin is sticking to a target
             if (isStickingToTarget)
@@ -292,11 +279,4 @@ namespace QwertysRandomContent.Items.TundraBossItems     ///We need this to basi
             }
         }
     }
-
-
-
-
-
-
-
 }

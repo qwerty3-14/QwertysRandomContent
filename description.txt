@@ -38,6 +38,93 @@ Extra thanks
 
 
 changelog
+0.21.4
+-guard tiles now have a chance of dropping a new summon weapon
+-added rhuthinium scepter
+-added rhuthinium vaporizer
+-added rhuthinium darts
+
+-I've decided to stop supporting the thrower class, for a while I was planning on supporting it even after journey's end but on some futrther reflection I've decided the class just didn't offer enough.
+-Thrown weapons in the mod have been made non consumable and reclassed to melee
+-Caelite armor now supports melee instead of thrower
+-biomass effects ammo instead of thrown items
+-questionable substance/H.Y.D.R.A/amulet of patience effects all damage types now
+-gale armor and vitallum armor will become class neutral, the 'alternate defense' is what made these sets interesting not the throwing part.
+
+
+-tweaked some OLORD attacks, the turrets stop shooting right before the super laser, and the big burst shots split into less projectiles.
+-OLORD now inflicts chaos state for the duration of the fight
+-OLORD health has been increased 100,000->120,000 (normal), 120,000->160,000 (expert)
+
+-Divine light's deflector projectiles now take 1 second to activate
+-Divine light's caelite saws are now limited to 2 bounces
+-divine light attacks much slower when in melee range but attacks faster when further away
+-divine light no longer mocks the player for being unable to keep up but instead attacks much faster
+
+-Noehtnap's darkness slowly fades in at the start of the fight
+-Noehtnap will now move during its etimsic ray attack when below half health
+-on expert mode Noehtnap will go berzerk when below 10% health
+
+-fire hydrent damage increased 32->38
+-fire hydrent firing pattern tweaked very slightly
+
+-substantially reduced the damage triceratanks do on contact
+-buffed Utahraptor damage slightly
+-nerfed velocichopper damage slightly
+-subsatancially reduced velocichoper's health
+
+-overhauled Rhuthinium armor
+
+-rod of command damage increased 60-> 80
+-the dreadnaught and fighter minion now ignore defense (defense wasn't a thing in star control)
+-cleaned up the ai
+-reduced volume
+
+-ancient minion attacks slightly faster (still slower than pre nerf, attack speed had gone from 20->40->30 frames long) but can no longer attack what isn't in LoS to the player
+-mini tank staff dmaage increased 24->30
+-shield minion no longer blocks projectiles (it was hard to blaance either being usless or op depending on the damage), damage increased to 48
+-chlorophyte sniper damage reduced 162->120
+
+-guard tile defense reduced 40->30
+-guard tile hp reduced 700->480 (doubled on expert)
+-guard tile now accelerates up to max speed
+
+-increased sight range on mythril prism minion
+-longsword minion's damage is more consistent, it is now a multiple of its base damage and the number of minion slots used.
+-fixed skeleton merchent's aerodynamic fins and armor breaker slots being overwriten by other mods
+-fixed hydra missile rod's smaller hydra heads not dealing dmaage
+-vile emblem now has same offensive bonuses as destroyer emblem
+-the initial swordquake sword can only deal damage when swinging
+-conjure bone mana cost increased 1->3
+-rhuthinium bow damage and speed reduces, now fires 2 arrows at once
+-rhuthinium javelin's damage increased 21->25
+-Imperium got its stats totally changed (it was balanced around being consumed)
+-aerus bow damage reduced 160->120, crit reduced to 20->10
+-death string useTime increased 30->42
+-halved the nubmer of Rhuthinium barrage darts
+-buffed rhuthinium sword and lance
+-nerfed rhuthinium boomerang damage 30->26
+-rhuthinium arrows now travel straight and have extra updates (more velocity)
+-doppleganger can no longer get modifiers
+-bloody medalion now doubles magic damage
+-removed cursed medailon, bloody medailon now drops from blood moon
+-blessed medalion uses bloody medalion in recipe instead of cursed medalion
+-shroomite javelin use time 26->18
+-restless sun use time increased 24->34, damage reduced 20->18
+-arrow portals created by the holy exiler deploy faster and will shoot thier arrows with higher velocity
+-angelic tracker use time reduced 42->34
+-sky spiral sentry range increased 300->700
+-removed the damage limit on divine blade's deflect ability, however it now has a 5 second cooldown
+-added a cap to caelite greaves effect
+-swordsman badge effect changed, now increases attack speed after hitting something with your sword.
+
+
+0.21.3
+-fixed some net spam
+-swordquake is now significanlty less likely to hit the same enemy multiple times
+-fixed gun chakram and one of OLORDs attacks having very slow projectile spread
+-New resprites by A bat, Donmar resprited the trex mount
+
 0.21.2
 -added compatibility with boss checklist's new features
 -added support for Fargo's Mutant mod

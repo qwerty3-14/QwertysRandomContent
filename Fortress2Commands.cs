@@ -21,6 +21,7 @@ namespace QwertysRandomContent
         {
             get { return "generateTinyRoom"; }
         }
+
         public override string Usage
         {
             get { return "/generateTinyRoom type"; }
@@ -30,6 +31,7 @@ namespace QwertysRandomContent
         {
             get { return "Generates a tiny room where you click, giving it a number will pick a specific type of room"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input != "/generateTinyRoom")
@@ -47,6 +49,7 @@ namespace QwertysRandomContent
             tw.Close();
         }
     }
+
     public class ExportTinyRoom : ModCommand
     {
         public override CommandType Type
@@ -58,6 +61,7 @@ namespace QwertysRandomContent
         {
             get { return "exportTinyRoom"; }
         }
+
         public override string Usage
         {
             get { return "/exportTinyRoom name"; }
@@ -67,6 +71,7 @@ namespace QwertysRandomContent
         {
             get { return "Exports the room so it's easy to add into the mod's code!"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input == "/exportTinyRoom")
@@ -77,12 +82,10 @@ namespace QwertysRandomContent
             {
                 caller.Player.GetModPlayer<RoomPlacement>().exportTinyRoom = true;
                 caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
-
             }
-
-
         }
     }
+
     public class GenerateSmallRoom : ModCommand
     {
         public override CommandType Type
@@ -94,6 +97,7 @@ namespace QwertysRandomContent
         {
             get { return "generateSmallRoom"; }
         }
+
         public override string Usage
         {
             get { return "/generateSmallRoom type"; }
@@ -103,6 +107,7 @@ namespace QwertysRandomContent
         {
             get { return "Generates a small room where you click, giving it a number will pick a specific type of room"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input != "/generateSmallRoom")
@@ -110,9 +115,9 @@ namespace QwertysRandomContent
                 caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
             caller.Player.GetModPlayer<RoomPlacement>().placeSmallRoom = true;
-
         }
     }
+
     public class ExportSmallRoom : ModCommand
     {
         public override CommandType Type
@@ -124,6 +129,7 @@ namespace QwertysRandomContent
         {
             get { return "exportSmallRoom"; }
         }
+
         public override string Usage
         {
             get { return "/exportSmallRoom name"; }
@@ -133,6 +139,7 @@ namespace QwertysRandomContent
         {
             get { return "Exports the room so it's easy to add into the mod's code!"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input == "/exportSmallRoom")
@@ -143,12 +150,10 @@ namespace QwertysRandomContent
             {
                 caller.Player.GetModPlayer<RoomPlacement>().exportSmallRoom = true;
                 caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
-
             }
-
-
         }
     }
+
     public class GenerateMediumRoom : ModCommand
     {
         public override CommandType Type
@@ -160,6 +165,7 @@ namespace QwertysRandomContent
         {
             get { return "generateMediumRoom"; }
         }
+
         public override string Usage
         {
             get { return "/generateMediumRoom type"; }
@@ -169,6 +175,7 @@ namespace QwertysRandomContent
         {
             get { return "Generates a medium room where you click, giving it a number will pick a specific type of room"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input != "/generateMediumRoom")
@@ -176,9 +183,9 @@ namespace QwertysRandomContent
                 caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
             caller.Player.GetModPlayer<RoomPlacement>().placeMediumRoom = true;
-
         }
     }
+
     public class ExportMediumRoom : ModCommand
     {
         public override CommandType Type
@@ -190,6 +197,7 @@ namespace QwertysRandomContent
         {
             get { return "exportMediumRoom"; }
         }
+
         public override string Usage
         {
             get { return "/exportMediumRoom name"; }
@@ -199,6 +207,7 @@ namespace QwertysRandomContent
         {
             get { return "Exports the room so it's easy to add into the mod's code!"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input == "/exportMediumRoom")
@@ -209,12 +218,10 @@ namespace QwertysRandomContent
             {
                 caller.Player.GetModPlayer<RoomPlacement>().exportMediumRoom = true;
                 caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
-
             }
-
-
         }
     }
+
     public class GenerateLargeRoom : ModCommand
     {
         public override CommandType Type
@@ -226,6 +233,7 @@ namespace QwertysRandomContent
         {
             get { return "generateLargeRoom"; }
         }
+
         public override string Usage
         {
             get { return "/generateLargeRoom type"; }
@@ -235,6 +243,7 @@ namespace QwertysRandomContent
         {
             get { return "Generates a large room where you click, giving it a number will pick a specific type of room"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input != "/generateLargeRoom")
@@ -242,9 +251,9 @@ namespace QwertysRandomContent
                 caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
             caller.Player.GetModPlayer<RoomPlacement>().placeLargeRoom = true;
-
         }
     }
+
     public class ExportLargeRoom : ModCommand
     {
         public override CommandType Type
@@ -256,6 +265,7 @@ namespace QwertysRandomContent
         {
             get { return "exportLargeRoom"; }
         }
+
         public override string Usage
         {
             get { return "/exportLargeRoom name"; }
@@ -265,6 +275,7 @@ namespace QwertysRandomContent
         {
             get { return "Exports the room so it's easy to add into the mod's code!"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input == "/exportLargeRoom")
@@ -275,12 +286,10 @@ namespace QwertysRandomContent
             {
                 caller.Player.GetModPlayer<RoomPlacement>().exportLargeRoom = true;
                 caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
-
             }
-
-
         }
     }
+
     public class GenerateAltarRoom : ModCommand
     {
         public override CommandType Type
@@ -292,6 +301,7 @@ namespace QwertysRandomContent
         {
             get { return "generateAltarRoom"; }
         }
+
         public override string Usage
         {
             get { return "/generateAltarRoom type"; }
@@ -301,6 +311,7 @@ namespace QwertysRandomContent
         {
             get { return "Generates an altar room where you click, giving it a number will pick a specific type of room"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input != "/generateAltarRoom")
@@ -308,9 +319,9 @@ namespace QwertysRandomContent
                 caller.Player.GetModPlayer<RoomPlacement>().roomType = int.Parse(args[0]);
             }
             caller.Player.GetModPlayer<RoomPlacement>().placeAltarRoom = true;
-
         }
     }
+
     public class ExportAltarRoom : ModCommand
     {
         public override CommandType Type
@@ -322,6 +333,7 @@ namespace QwertysRandomContent
         {
             get { return "exportAltarRoom"; }
         }
+
         public override string Usage
         {
             get { return "/exportAltarRoom name"; }
@@ -331,6 +343,7 @@ namespace QwertysRandomContent
         {
             get { return "Exports the room so it's easy to add into the mod's code!"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             if (input == "/exportAltarRoom")
@@ -341,12 +354,10 @@ namespace QwertysRandomContent
             {
                 caller.Player.GetModPlayer<RoomPlacement>().exportAltarRoom = true;
                 caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
-
             }
-
-
         }
     }
+
     public class PlaceAltar : ModCommand
     {
         public override CommandType Type
@@ -359,18 +370,17 @@ namespace QwertysRandomContent
             get { return "placeAltar"; }
         }
 
-
         public override string Description
         {
             get { return "Allows you to place a fortress Altar"; }
         }
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-
             caller.Player.GetModPlayer<RoomPlacement>().placeAltar = true;
-
         }
     }
+
     public class RoomPlacement : ModPlayer
     {
         public Vector2 UIDimensions = Vector2.Zero;
@@ -387,7 +397,8 @@ namespace QwertysRandomContent
         public bool placeAltarRoom = false;
         public bool exportAltarRoom = false;
         public bool placeAltar = false;
-        void PlaceUpdate()
+
+        private void PlaceUpdate()
         {
             placeSmallRoom = false;
             placeTinyRoom = false;
@@ -404,6 +415,7 @@ namespace QwertysRandomContent
             exportAltarRoom = false;
             placeAltar = false;
         }
+
         public static readonly PlayerLayer PlacementUI = new PlayerLayer("QwertysRandomContent", "PlacementUI", PlayerLayer.MiscEffectsFront, delegate (PlayerDrawInfo drawInfo)
         {
             Player drawPlayer = drawInfo.drawPlayer;
@@ -437,6 +449,7 @@ namespace QwertysRandomContent
                 }
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int f = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("MiscEffectsFront"));
@@ -444,11 +457,9 @@ namespace QwertysRandomContent
             {
                 PlacementUI.visible = true;
                 layers.Insert(f + 1, PlacementUI);
-
             }
-
-
         }
+
         public override void PreUpdate()
         {
             /*
@@ -471,7 +482,6 @@ namespace QwertysRandomContent
 
                     PlaceUpdate();
                 }
-
             }
             if (placeTinyRoom)
             {
@@ -486,8 +496,6 @@ namespace QwertysRandomContent
 
                     PlaceUpdate();
                 }
-
-
             }
             if (exportTinyRoom)
             {
@@ -497,8 +505,6 @@ namespace QwertysRandomContent
                     Vector2 position = Main.MouseWorld / 16f;
                     ExportRoom(position, Fortress2Blueprints.TinyRooms);
                 }
-
-
             }
             if (placeSmallRoom)
             {
@@ -513,8 +519,6 @@ namespace QwertysRandomContent
 
                     PlaceUpdate();
                 }
-
-
             }
             if (exportSmallRoom)
             {
@@ -524,8 +528,6 @@ namespace QwertysRandomContent
                     Vector2 position = Main.MouseWorld / 16f;
                     ExportRoom(position, Fortress2Blueprints.SmallRooms);
                 }
-
-
             }
             if (placeMediumRoom)
             {
@@ -540,8 +542,6 @@ namespace QwertysRandomContent
 
                     PlaceUpdate();
                 }
-
-
             }
             if (exportMediumRoom)
             {
@@ -551,8 +551,6 @@ namespace QwertysRandomContent
                     Vector2 position = Main.MouseWorld / 16f;
                     ExportRoom(position, Fortress2Blueprints.MediumRooms);
                 }
-
-
             }
             if (placeLargeRoom)
             {
@@ -567,8 +565,6 @@ namespace QwertysRandomContent
 
                     PlaceUpdate();
                 }
-
-
             }
             if (exportLargeRoom)
             {
@@ -578,8 +574,6 @@ namespace QwertysRandomContent
                     Vector2 position = Main.MouseWorld / 16f;
                     ExportRoom(position, Fortress2Blueprints.LargeRooms);
                 }
-
-
             }
             if (placeAltarRoom)
             {
@@ -594,8 +588,6 @@ namespace QwertysRandomContent
 
                     PlaceUpdate();
                 }
-
-
             }
             if (exportAltarRoom)
             {
@@ -605,18 +597,14 @@ namespace QwertysRandomContent
                     Vector2 position = Main.MouseWorld / 16f;
                     ExportRoom(position, Fortress2Blueprints.AltarRooms);
                 }
-
-
             }
-
         }
+
         public void ExportRoom(Vector2 position, int[,,,] Rooms)
         {
-
             position.X = (int)position.X;
             position.Y = (int)position.Y;
             //BuildTinyRoom((int)position.X, (int)position.Y, roomType);
-
 
             String tileList = "Tile type list: new int[] {-1";
             String wallList = "Wall type list: new int[] {-1";
@@ -632,12 +620,10 @@ namespace QwertysRandomContent
                     {
                         if (!foundTiles.Contains(Main.tile[i, j].type))
                         {
-
                             foundTiles.Add(Main.tile[i, j].type);
 
                             if (Main.tile[i, j].type > 470) //checks if it's a modded tile
                             {
-
                                 if (Main.tile[i, j].type == mod.TileType("FortressBrick"))
                                 {
                                     tileList += ", mod.TileType(\"FortressBrick\")";
@@ -779,7 +765,6 @@ namespace QwertysRandomContent
                                     tileList += ", " + Main.tile[i, j].type;
                                     tileList += "m";
                                 }
-
                             }
                             else
                             {
@@ -829,7 +814,6 @@ namespace QwertysRandomContent
 
                     if (Main.tile[i, j].active())
                     {
-
                         if (Main.tileFrameImportant[Main.tile[i, j].type])
                         {
                             int width = TileObjectData.GetTileData(Main.tile[i, j].type, Main.tile[i, j].frameX).Width;
@@ -847,7 +831,6 @@ namespace QwertysRandomContent
                         {
                             tileStructure += foundTiles.IndexOf(Main.tile[i, j].type);
                         }
-
                     }
                     else
                     {
@@ -874,7 +857,6 @@ namespace QwertysRandomContent
 
                     if (foundWalls.IndexOf(Framing.GetTileSafely(i, j).wall) != -1)
                     {
-
                         tileStructure += foundWalls.IndexOf(Framing.GetTileSafely(i, j).wall);
                     }
                     else
@@ -987,7 +969,6 @@ namespace QwertysRandomContent
                     }
 
                     tileStructure += Main.tile[i, j].frameX;
-
                 }
             }
             tileStructure += "} }, { {";
@@ -1008,7 +989,6 @@ namespace QwertysRandomContent
                     }
 
                     tileStructure += Main.tile[i, j].frameY;
-
                 }
             }
             tileStructure += "} } }";
@@ -1017,7 +997,5 @@ namespace QwertysRandomContent
             tw.Close();
             PlaceUpdate();
         }
-
-
     }
 }

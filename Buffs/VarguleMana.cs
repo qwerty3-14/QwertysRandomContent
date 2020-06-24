@@ -5,7 +5,6 @@ namespace QwertysRandomContent.Buffs
 {
     public class VarguleMana : ModBuff
     {
-
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Vargule Mana");
@@ -20,7 +19,5 @@ namespace QwertysRandomContent.Buffs
         {
             player.manaCost -= 1.0f;
         }
-
-
     }
 }

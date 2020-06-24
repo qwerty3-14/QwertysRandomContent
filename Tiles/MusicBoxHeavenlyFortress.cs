@@ -7,7 +7,7 @@ using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
-    class MusicBoxHeavenlyFortress : ModTile
+    internal class MusicBoxHeavenlyFortress : ModTile
     {
         public override bool Autoload(ref string name, ref string texture)
         {
@@ -17,6 +17,7 @@ namespace QwertysRandomContent.Tiles
             }
             return base.Autoload(ref name, ref texture);
         }
+
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;

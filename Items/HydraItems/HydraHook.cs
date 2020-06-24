@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.HydraItems
 {
-    class HydraHook : ModItem
+    internal class HydraHook : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -40,7 +40,8 @@ namespace QwertysRandomContent.Items.HydraItems
             item.rare = 5;
         }
     }
-    class HydraHookP : ModProjectile
+
+    internal class HydraHookP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -159,6 +160,7 @@ namespace QwertysRandomContent.Items.HydraItems
             }
             return true;
         }
+
         public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             spriteBatch.Draw(mod.GetTexture("Items/HydraItems/HydraHookP_Glow"), new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
@@ -168,17 +170,16 @@ namespace QwertysRandomContent.Items.HydraItems
     }
 
     // Animated hook example
-    // Multiple, 
+    // Multiple,
     // only 1 connected, spawn mult
     // Light the path
     // Gem Hooks: 1 spawn only
     // Thorn: 4 spawns, 3 connected
-    // Dual: 2/1 
+    // Dual: 2/1
     // Lunar: 5/4 -- Cycle hooks, more than 1 at once
     // AntiGravity -- Push player to position
     // Static -- move player with keys, don't pull to wall
     // Christmas -- light ends
     // Web slinger -- 9/8, can shoot more than 1 at once
     // Bat hook -- Fast reeling
-
 }

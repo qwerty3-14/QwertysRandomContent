@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 {
     public class RhuthiniumSword : ModItem
@@ -13,13 +12,13 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             DisplayName.SetDefault("Rhuthinium Sword");
             Tooltip.SetDefault("Killing enemies builds up a charge. Right click to realease this charge.");
-           
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
-            item.damage = 22;
+            item.damage = 30;
             item.melee = true;
 
             item.useTime = 20;
@@ -35,11 +34,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.crit = 5;
             item.autoReuse = true;
             //item.scale = 5;
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -49,6 +44,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
@@ -60,14 +56,14 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             }
         }
     }
+
     public class RhuthiniumCharge : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Charge");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
@@ -78,29 +74,27 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             projectile.penetrate = 1;
             projectile.melee = true;
             projectile.knockBack = 10f;
-
-
-
-
         }
+
         public override void AI()
         {
-
-
-
-
-
+            if (Main.rand.Next(2) == 0)
+            {
+                Dust d = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("RhuthiniumDust"))];
+                d.frame.Y = 0;
+                d.noGravity = true;
+            }
         }
 
         public override void Kill(int timeLeft)
         {
-
-
-
+            for (int i = 0; i < 32; i++)
+            {
+                Dust d = Dust.NewDustPerfect(projectile.Center, mod.DustType("RhuthiniumDust"));
+                d.frame.Y = 0;
+                d.velocity *= 2;
+                d.noGravity = true;
+            }
         }
     }
-
-
-
 }
-

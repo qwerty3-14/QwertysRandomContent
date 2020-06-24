@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.RuneSpectorBoss
 {
-    class PurpleRune : ModProjectile
+    internal class PurpleRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -21,10 +21,11 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.tileCollide = false;
             projectile.timeLeft = 720 + 128;
             projectile.light = 1f;
-
         }
+
         public int runeTimer;
         public float runeSpeed = 10;
+
         public override void AI()
         {
             projectile.velocity = new Vector2(0, 0);
@@ -41,11 +42,9 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((3 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((3 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
                 //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((4 * 2 * Math.PI) / 5) * runeSpeed, (float)Math.Sin((4 * 2 * Math.PI) / 5) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
                 //Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((5 * 2 * Math.PI) / 5) * runeSpeed, (float)Math.Sin((5 * 2 * Math.PI) / 5) * runeSpeed, mod.ProjectileType("PursuitRune"), projectile.damage, 3f, Main.myPlayer);
-
             }
-
-
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)
@@ -54,7 +53,8 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             }
         }
     }
-    class PursuitRune : ModProjectile
+
+    internal class PursuitRune : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -69,17 +69,17 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
             projectile.tileCollide = false;
             projectile.timeLeft = 720;
             projectile.light = 1f;
-
         }
+
         public int runeTimer;
         public float runeSpeed = 10;
         public float runeDirection;
         public float runeTargetDirection;
         public bool runOnce = true;
         public int f;
+
         public override void AI()
         {
-
             Player player = Main.player[projectile.owner];
             if (runOnce)
             {
@@ -89,7 +89,6 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.alpha -= 5;
             else
                 projectile.alpha = 0;
-
 
             if (Math.Abs(projectile.rotation - runeTargetDirection) > Math.PI)
             {
@@ -113,15 +112,13 @@ namespace QwertysRandomContent.NPCs.RuneSpectorBoss
                 projectile.rotation -= MathHelper.ToRadians(1) * f;
             }
             projectile.velocity = new Vector2((float)(Math.Cos(projectile.rotation) * runeSpeed), (float)(Math.Sin(projectile.rotation) * runeSpeed));
-
-
-
-
         }
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Venom, 360);
         }
+
         public override void Kill(int timeLeft)
         {
             for (int d = 0; d <= 100; d++)

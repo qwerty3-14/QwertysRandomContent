@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 {
     public class CaeliteBoomerang : ModItem
@@ -12,17 +11,16 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
             DisplayName.SetDefault("Angelic Tracker");
             Tooltip.SetDefault("Higher beings will guide your boomerang!");
-
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 38;
             item.melee = true;
             item.noMelee = true;
 
-            item.useTime = 42;
-            item.useAnimation = 42;
+            item.useTime = 34;
+            item.useAnimation = 34;
             item.useStyle = 5;
             item.knockBack = 0;
             item.value = 50000;
@@ -36,12 +34,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.shoot = mod.ProjectileType("CaeliteBoomerangP");
             item.shootSpeed = 15;
             item.channel = true;
-
-
-
-
         }
-
 
         public override void AddRecipes()
         {
@@ -51,6 +44,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
             for (int i = 0; i < 1000; ++i)
@@ -81,16 +75,17 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Caelite Boomerang");
-
         }
-        float speed;
-        float maxSpeed;
-        bool runOnce = true;
-        float decceleration = 1f / 3f;
-        int spinDirection;
-        bool returnToPlayer;
-        NPC ConfirmedTarget;
-        int timerAfterReturning;
+
+        private float speed;
+        private float maxSpeed;
+        private bool runOnce = true;
+        private float decceleration = 1f / 3f;
+        private int spinDirection;
+        private bool returnToPlayer;
+        private NPC ConfirmedTarget;
+        private int timerAfterReturning;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -128,7 +123,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             }
             else
             {
-
                 projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY) * speed;
                 speed -= decceleration;
                 if (speed < 1f)
@@ -139,6 +133,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             //Main.NewText("MaxSpeed: " + maxSpeed);
             //Main.NewText("speed: " + speed);
         }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (Main.rand.Next(10) == 0)
@@ -149,7 +144,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             target.immune[projectile.owner] = 0;
             if (!returnToPlayer)
             {
-                if(QwertyMethods.ClosestNPC(ref ConfirmedTarget, 300, projectile.Center, specialCondition: delegate (NPC possibleTarget) { return projectile.localNPCImmunity[possibleTarget.whoAmI] == 0; }))
+                if (QwertyMethods.ClosestNPC(ref ConfirmedTarget, 300, projectile.Center, specialCondition: delegate (NPC possibleTarget) { return projectile.localNPCImmunity[possibleTarget.whoAmI] == 0; }))
                 {
                     projectile.velocity = QwertyMethods.PolarVector(maxSpeed, (ConfirmedTarget.Center - projectile.Center).ToRotation());
                     speed = maxSpeed;
@@ -158,17 +153,13 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 {
                     returnToPlayer = true;
                 }
-                
             }
-
         }
+
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             returnToPlayer = true;
             return false;
         }
     }
-
-
 }
-

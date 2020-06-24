@@ -26,15 +26,15 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.Height = 1;
             TileObjectData.addTile(Type);
 
-
-
             dustType = 1;
             drop = mod.ItemType("Transmutator");
         }
+
         public override bool CanPlace(int i, int j)
         {
             return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active(); ;
         }
+
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             //Item.NewItem(i * 16, j * 16, 16, 16, mod.ItemType("Fan"));
@@ -43,20 +43,17 @@ namespace QwertysRandomContent.Tiles
 
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
-
         }
-
-
-
     }
+
     public class TransmutatorE : ModTileEntity
     {
-
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
             return tile.active();
         }
+
         public override void Update()
         {
             int i = Position.X;
@@ -193,15 +190,11 @@ namespace QwertysRandomContent.Tiles
                             // Sending 86 aka, TileEntitySharing, triggers NetSend. Think of it like manually calling sync.
                             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y - g);
                         }
-
                     }
-
                 }
-
             }
             // Sending 86 aka, TileEntitySharing, triggers NetSend. Think of it like manually calling sync.
             NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y);
-
         }
 
         public override void NetSend(BinaryWriter writer, bool lightSend)
@@ -210,10 +203,9 @@ namespace QwertysRandomContent.Tiles
             {
                 //NetMessage.SendData(MessageID.TileEntitySharing, -1, -1, null, ID, Position.X, Position.Y - g);
                 writer.Write(Main.tile[Position.X, Position.Y - g].type);
-
             }
-
         }
+
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
             for (int g = 1; g < 6; g++)

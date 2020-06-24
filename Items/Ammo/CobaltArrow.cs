@@ -13,8 +13,8 @@ namespace QwertysRandomContent.Items.Ammo
         {
             DisplayName.SetDefault("Cobalt Arrow");
             Tooltip.SetDefault("Remains stationarry until you right click, which sends it flying at your cursor");
-
         }
+
         public override void SetDefaults()
         {
             item.damage = 10;
@@ -31,8 +31,6 @@ namespace QwertysRandomContent.Items.Ammo
             item.shoot = mod.ProjectileType("CobaltArrowP");
             item.ammo = 40;
             item.maxStack = 999;
-
-
         }
 
         public override void AddRecipes()
@@ -44,14 +42,14 @@ namespace QwertysRandomContent.Items.Ammo
             recipe.AddRecipe();
         }
     }
+
     public class CobaltArrowP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cobalt Arrow");
-
-
         }
+
         public override void SetDefaults()
         {
             projectile.aiStyle = -1;
@@ -64,17 +62,15 @@ namespace QwertysRandomContent.Items.Ammo
             projectile.timeLeft = 300;
             projectile.tileCollide = true;
             projectile.alpha = 0;
-
-
         }
+
         public bool HasRightClicked = false;
         public bool runOnce = true;
         public float targetRotation;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-
-
 
             if ((Main.mouseRight && projectile.timeLeft <= 290 && Main.myPlayer == projectile.owner || HasRightClicked))
             {
@@ -93,7 +89,6 @@ namespace QwertysRandomContent.Items.Ammo
             }
             else
             {
-
                 projectile.alpha = (int)(255f - ((float)projectile.timeLeft / 300f) * 255f);
                 projectile.velocity.X = 0;
                 projectile.velocity.Y = 0;
@@ -110,28 +105,24 @@ namespace QwertysRandomContent.Items.Ammo
                 }
                 targetRotation = projectile.ai[0] + (float)Math.PI / 2;
                 projectile.rotation = targetRotation;
-
-
             }
         }
+
         public override void SendExtraAI(BinaryWriter writer)
         {
             writer.Write(HasRightClicked);
             writer.Write(runOnce);
-
-
         }
+
         public override void ReceiveExtraAI(BinaryReader reader)
         {
             HasRightClicked = reader.ReadBoolean();
             runOnce = reader.ReadBoolean();
-
         }
 
-
-
+        public override void Kill(int timeLeft)
+        {
+            Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+        }
     }
-
-
 }
-

@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.AncientItems
 {
     public class AncientBlade : ModItem
@@ -15,10 +14,10 @@ namespace QwertysRandomContent.Items.AncientItems
         {
             DisplayName.SetDefault("Ancient Blade");
             Tooltip.SetDefault("Launches a spread of orbs");
-            
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             item.damage = 14;
@@ -42,11 +41,8 @@ namespace QwertysRandomContent.Items.AncientItems
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("AncientOrb");
             item.shootSpeed = 9;
-
-
-
-
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientBlade_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientBlade_Glow");
@@ -67,6 +63,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 0f
             );
         }
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberProjectiles = 8 + Main.rand.Next(6);
@@ -80,21 +77,18 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
-
-
-
-
     }
+
     public class AncientOrb : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             Main.projFrames[projectile.type] = 2;
             DisplayName.SetDefault("Ancient Orb");
-           
-
         }
+
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicFortress ? base.Texture + "_Old" : base.Texture;
+
         public override void SetDefaults()
         {
             projectile.width = 20;
@@ -105,14 +99,13 @@ namespace QwertysRandomContent.Items.AncientItems
             projectile.tileCollide = true;
             projectile.timeLeft = 40;
             projectile.alpha = 255;
-
-
-
         }
+
         public int dustTimer;
+
         public override void AI()
         {
-            if(projectile.ai[0] != 0)
+            if (projectile.ai[0] != 0)
             {
                 projectile.timeLeft = (int)projectile.ai[0];
                 projectile.ai[0] = 0;
@@ -155,6 +148,7 @@ namespace QwertysRandomContent.Items.AncientItems
                 dustTimer = 0;
             }
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             if (projectile.velocity.X != velocityChange.X)
@@ -167,18 +161,13 @@ namespace QwertysRandomContent.Items.AncientItems
             }
             return false;
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-
             spriteBatch.Draw(Main.projectileTexture[projectile.type], new Vector2(projectile.Center.X - Main.screenPosition.X, projectile.Center.Y - Main.screenPosition.Y),
                         new Rectangle(0, projectile.frame * projectile.height, projectile.width, projectile.height), Color.Lerp(new Color(1f, 1f, 1f, 1f), new Color(0, 0, 0, 0), (float)projectile.alpha / 255f), projectile.rotation,
                         new Vector2(projectile.width * 0.5f, projectile.height * 0.5f), projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
-
-
     }
-
-
 }
-

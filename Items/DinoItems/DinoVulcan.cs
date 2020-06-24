@@ -11,7 +11,6 @@ namespace QwertysRandomContent.Items.DinoItems
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'As heavy as a dinosaur'" + "\nSlows you down when used... unless you're riding a dinosaur" + "\nBuilds up in speed while used, up to 100 rounds a second!" + "\n50% chance not to consume ammo");
-
         }
 
         public override void SetDefaults()
@@ -36,12 +35,14 @@ namespace QwertysRandomContent.Items.DinoItems
 
             item.autoReuse = true;
         }
+
         public override void HoldItem(Player player)
         {
             player.accRunSpeed *= .5f;
             player.maxRunSpeed *= .5f;
             player.jumpSpeedBoost *= .5f;
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             type = mod.ProjectileType("DinoVulcanP");
@@ -56,27 +57,19 @@ namespace QwertysRandomContent.Items.DinoItems
             }
             return true;
         }
+
         public override bool ConsumeAmmo(Player player)
         {
             return false;
         }
 
-
-
-
-
-
-
-
         /*
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(40));
 			speedX = perturbedSpeed.X;
 			speedY = perturbedSpeed.Y;
-			
-			
+
 			Vector2 muzzleOffset = new Vector2(speedX, speedY).SafeNormalize(-Vector2.UnitY);
 			position += new Vector2(muzzleOffset.Y * player.direction, muzzleOffset.X * -player.direction) * 5.5f; // change 5.5f to change the height
 			muzzleOffset *= 50f; // change 38f to change the offset from the player
@@ -85,7 +78,6 @@ namespace QwertysRandomContent.Items.DinoItems
 				position += muzzleOffset;
 			}
 			return true;
-			
 		}
         */
 
@@ -93,15 +85,14 @@ namespace QwertysRandomContent.Items.DinoItems
         {
             return new Vector2(-20, -8);
         }
-
-
     }
+
     public class DinoVulcanP : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-
         }
+
         public override void SetDefaults()
         {
             projectile.width = 18;
@@ -113,9 +104,7 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.hide = false;
             projectile.ranged = true;
             projectile.ignoreWater = true;
-
         }
-
 
         public int timer = 0;
         public int reloadTime;
@@ -132,6 +121,7 @@ namespace QwertysRandomContent.Items.DinoItems
         public float SVarE;
         public float Radd;
         public bool runOnce = true;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -139,7 +129,6 @@ namespace QwertysRandomContent.Items.DinoItems
             {
                 reloadTime = player.inventory[player.selectedItem].useTime;
                 runOnce = false;
-
             }
             projectile.timeLeft = 10;
             timer++;
@@ -154,7 +143,6 @@ namespace QwertysRandomContent.Items.DinoItems
             float weaponKnockback = player.inventory[player.selectedItem].knockBack;
             if (firing)
             {
-
                 ///////////////////////////////////// copied from vanilla drill/chainsaw AI
                 Vector2 vector24 = Main.player[projectile.owner].RotatedRelativePoint(Main.player[projectile.owner].MountedCenter, true);
                 if (Main.myPlayer == projectile.owner)
@@ -231,8 +219,6 @@ namespace QwertysRandomContent.Items.DinoItems
                     player.velocity.Y = (float)Math.Abs(VelYOld);
                 }
 
-
-
                 if (timer >= reloadTime)
                 {
                     VarA = direction + MathHelper.ToRadians(Main.rand.Next(-100, 101) / 10);
@@ -287,12 +273,9 @@ namespace QwertysRandomContent.Items.DinoItems
                     if (reloadTime > 3)
                     {
                         reloadTime -= 1;
-
                     }
                     timer = 0;
                 }
-
-
             }
             else
             {
@@ -302,19 +285,16 @@ namespace QwertysRandomContent.Items.DinoItems
             }
         }
     }
+
     public class Shell : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shell");
-
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 6; //Set the hitbox width
             projectile.height = 10;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -326,10 +306,11 @@ namespace QwertysRandomContent.Items.DinoItems
             projectile.tileCollide = true; //Tells the game whether or not it can collide with tiles/ terrain
 
             projectile.timeLeft = 90;
-
         }
+
         public bool runOnce = true;
         public float rotationSpeed;
+
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -344,17 +325,12 @@ namespace QwertysRandomContent.Items.DinoItems
             {
                 projectile.alpha = (int)(255f - ((float)projectile.timeLeft / 20f) * 255f);
             }
-
-
-
         }
+
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             projectile.velocity.X /= 2;
             return false;
-
-
         }
-
     }
 }

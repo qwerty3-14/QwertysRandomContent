@@ -2,7 +2,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using static QwertysRandomContent.Items.Accesories.SkywardHilt;
-using static QwertysRandomContent.Items.BladeBossItems.SwordsmanBadge;
 
 namespace QwertysRandomContent.Items.Accesories
 {
@@ -11,8 +10,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordmasters Seal");
-            Tooltip.SetDefault("Greatly enhances swordplay performance!" + "\nMakes your sword much larger" + "\nHitting things with your sword while airborne does more damage" + "\nSwing your sword faster when standing still");
-
+            Tooltip.SetDefault("Greatly enhances swordplay performance!" + "\nMakes your sword much larger" + "\nHitting things with your sword while airborne does more damage" + "\nStriking with a sword increases attack speed");
         }
 
         public override void SetDefaults()
@@ -29,7 +27,6 @@ namespace QwertysRandomContent.Items.Accesories
             player.GetModPlayer<SkywardHiltEffect>().effect = true;
             player.GetModPlayer<BigSword>().Enlarger += 1f;
             player.GetModPlayer<AttackSpeedPlayer>().swordBadge = true;
-
         }
 
         public override void AddRecipes()

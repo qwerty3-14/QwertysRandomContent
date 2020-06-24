@@ -11,12 +11,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
         {
             DisplayName.SetDefault("Chlorophyte Sentry Staff");
             Tooltip.SetDefault("Summons a Chlorophyte Sentry that launches clouds of spores!");
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 42;
             item.mana = 20;
             item.width = 32;
@@ -29,12 +27,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.value = Item.sellPrice(0, 4, 52, 0);
             item.rare = 4;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("ChlorophyteSentry");
             item.summon = true;
             item.sentry = true;
-
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -43,24 +40,19 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
-
-
-
-
-
-
             return true;
         }
-
 
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -82,7 +74,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void SetDefaults()
         {
-
             projectile.sentry = true;
             projectile.width = 38;
             projectile.height = 38;
@@ -96,14 +87,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.sentry = true;
             projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
-
         }
-        NPC target;
 
-        float maxDistance = 1000f;
+        private NPC target;
 
-        int timer;
+        private float maxDistance = 1000f;
 
+        private int timer;
 
         public override void AI()
         {
@@ -113,7 +103,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
             if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
             {
-
                 projectile.rotation = (target.Center - projectile.Center).ToRotation();
                 if (timer % 60 == 0 && player.whoAmI == Main.myPlayer)
                 {
@@ -129,17 +118,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                         }
                     }
                 }
-
-
             }
-
         }
-
-
     }
-
-
-
-
-
 }

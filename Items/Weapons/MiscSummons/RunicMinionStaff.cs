@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class RunicMinionStaff : ModItem
@@ -14,13 +13,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
         {
             DisplayName.SetDefault("Leech Rune Staff");
             Tooltip.SetDefault("Summons an leech rune to fight for you!" + "\nchance to steal life");
-
-
         }
 
         public override void SetDefaults()
         {
-
             item.damage = 24;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 72;    //The size of the width of the hitbox in pixels.
@@ -33,7 +29,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             item.value = 500000;
             item.rare = 9;
             item.UseSound = SoundID.Item8;   //The sound played when using your Weapon
-            item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("RunicMinionFreindly");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
             item.buffType = mod.BuffType("AncientMinion");  //The buff added to player after used the item
@@ -43,6 +38,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = mod.GetTexture("Items/Weapons/MiscSummons/RunicMinionStaff_Glow");
             }
         }
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -53,6 +49,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = mod.GetTexture("Items/Weapons/MiscSummons/RunicMinionStaff_Glow");
@@ -73,6 +70,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 0f
             );
         }
+
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 SPos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);   //this make so the projectile will spawn at the mouse cursor position
@@ -81,11 +79,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             return true;
         }
 
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
+
         public override bool UseItem(Player player)
         {
             if (player.altFunctionUse == 2)
@@ -94,7 +92,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             }
             return base.UseItem(player);
         }
-
     }
 
     public class RunicMinionFreindly : ModProjectile
@@ -103,13 +100,10 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
         {
             DisplayName.SetDefault("Leech Rune");
             ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true; //This is necessary for right-click targeting
-
         }
 
         public override void SetDefaults()
         {
-
-
             projectile.width = 40; //Set the hitbox width
             projectile.height = 40;   //Set the hitbox height
             projectile.hostile = false;    //tells the game if is hostile or not.
@@ -125,7 +119,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             projectile.usesLocalNPCImmunity = true;
         }
 
-
         public int timer;
         public int Pos = 1;
         public int damage = 30;
@@ -135,17 +128,14 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
         public int attackType = 1;
         public bool charging;
         public NPC target;
-        public NPC possibleTarget;
-        int waitTime = 5;
-        int chargeTime = 15;
-        Vector2 moveTo;
-        bool justTeleported;
-        float chargeSpeed = 12;
-        bool runOnce = true;
-        bool foundTarget;
-        float maxDistance = 1000f;
-        float distance;
-        float targetAngle;
+        private int waitTime = 5;
+        private int chargeTime = 15;
+        private Vector2 moveTo;
+        private bool justTeleported;
+        private float chargeSpeed = 12;
+        private bool runOnce = true;
+        private float targetAngle;
+
         public override void AI()
         {
             if (projectile.alpha > 0)
@@ -153,35 +143,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 projectile.alpha -= 255 / 5;
             }
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (modPlayer.AncientMinion)
+            if (player.GetModPlayer<MinionManager>().AncientMinion)
             {
                 projectile.timeLeft = 2;
             }
-            if (player.MinionAttackTargetNPC != -1)
-            {
-                target = Main.npc[player.MinionAttackTargetNPC];
-                foundTarget = true;
 
-            }
-            else
-            {
-                for (int k = 0; k < 200; k++)
-                {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - player.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal)
-                    {
-                        target = Main.npc[k];
-                        foundTarget = true;
-
-
-                        maxDistance = (target.Center - player.Center).Length();
-                    }
-
-                }
-            }
-            maxDistance = 1000f;
             if (runOnce)
             {
                 //Main.PlaySound(SoundID.Item8);
@@ -195,7 +161,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 runOnce = false;
             }
 
-            if (foundTarget)
+            if (QwertyMethods.ClosestNPC(ref target, 1000, player.Center, true, player.MinionAttackTargetNPC))
             {
                 timer++;
                 if (timer > waitTime + chargeTime)
@@ -207,20 +173,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                     for (int i = 0; i < 100; i++)
                     {
                         Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));
-
                     }
                     if (Main.netMode != 2)
                     {
-
-
-
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
                     moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 100, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 100);
                     if (Main.netMode != 2)
                     {
-
                         projectile.netUpdate = true;
                     }
                     justTeleported = true;
@@ -246,10 +207,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                     targetAngle = new Vector2(target.Center.X - projectile.Center.X, target.Center.Y - projectile.Center.Y).ToRotation();
                     //projectile.rotation = targetAngle;
                 }
-
-
-
-
             }
             else
             {
@@ -257,9 +214,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 {
                     if (Main.netMode != 2)
                     {
-
-
-
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
@@ -286,7 +240,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 }
                 justTeleported = false;
             }
-            foundTarget = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -300,8 +253,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
         }
-
-
     }
-
 }

@@ -7,7 +7,6 @@ using Terraria.ModLoader;
 
 namespace QwertysRandomContent.Items.DinoItems
 {
-
     [AutoloadEquip(EquipType.Shield)]
     public class Tricerashield : ModItem
     {
@@ -15,12 +14,10 @@ namespace QwertysRandomContent.Items.DinoItems
         {
             DisplayName.SetDefault("Tricerashield");
             Tooltip.SetDefault("Allows you to dash into an enemy(5.6 dash power)" + "\nProvides immunity to knockback");
-
         }
 
         public override void SetDefaults()
         {
-
             item.value = 10000;
             item.rare = 6;
             item.damage = 180;
@@ -29,9 +26,6 @@ namespace QwertysRandomContent.Items.DinoItems
             item.height = 26;
             item.defense = 3;
             item.accessory = true;
-
-
-
         }
 
         public override void UpdateEquip(Player player)
@@ -44,19 +38,14 @@ namespace QwertysRandomContent.Items.DinoItems
             modPlayer.customDashRam = item.damage;
             player.thorns = .2f;
             player.noKnockback = true;
-
         }
-
-
-
     }
+
     public class TricerashieldTexture : ModPlayer
     {
-
         //shield was too big to fit vanilla terraria's shield slot
         public static readonly PlayerLayer BigShield = new PlayerLayer("QwertysRandomContent", "BigShield", PlayerLayer.ShieldAcc, delegate (PlayerDrawInfo drawInfo)
         {
-            
             Player drawPlayer = drawInfo.drawPlayer;
             Mod mod = ModLoader.GetMod("QwertysRandomContent");
             if (drawPlayer.shield == mod.GetEquipSlot("Tricerashield", EquipType.Shield))
@@ -71,12 +60,9 @@ namespace QwertysRandomContent.Items.DinoItems
                 Rectangle BigShieldFrame = new Rectangle(drawPlayer.bodyFrame.X, drawPlayer.bodyFrame.Y, drawPlayer.bodyFrame.Width * 2, drawPlayer.bodyFrame.Height);
                 if (drawPlayer.direction == 1)
                 {
-
-
                 }
                 else
                 {
-
                     Position.X -= drawPlayer.bodyFrame.Width;
                 }
                 int shader8 = 0;
@@ -95,7 +81,6 @@ namespace QwertysRandomContent.Items.DinoItems
                 }
                 if (drawPlayer.shieldRaised)
                 {
-
                     float num92 = (float)Math.Sin((double)(Main.GlobalTime * 6.28318548f));
                     float x2 = 2.5f + 1.5f * num92;
                     Microsoft.Xna.Framework.Color color33 = color12;
@@ -141,9 +126,9 @@ namespace QwertysRandomContent.Items.DinoItems
                 {
                     Main.playerDrawData.Reverse(Main.playerDrawData.Count - 2, 2);
                 }
-
             }
         });
+
         public override void ModifyDrawLayers(List<PlayerLayer> layers)
         {
             int shieldLayer = layers.FindIndex(PlayerLayer => PlayerLayer.Name.Equals("ShieldAcc"));
@@ -152,9 +137,6 @@ namespace QwertysRandomContent.Items.DinoItems
                 BigShield.visible = true;
                 layers.Insert(shieldLayer + 1, BigShield);
             }
-
         }
     }
-
 }
-
