@@ -115,7 +115,7 @@ namespace QwertysRandomContent.Items.Armor.Lune
             {
                 if (runOnce)
                 {
-                    if (projectile.penetrate > 0)
+                    if (projectile.penetrate > 0 && projectile.type != ProjectileID.ChlorophyteBullet)
                     {
                         if (!projectile.usesLocalNPCImmunity && projectile.penetrate == 1)
                         {

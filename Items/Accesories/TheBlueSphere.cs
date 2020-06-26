@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +10,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Blue Sphere");
-            Tooltip.SetDefault("Magic attacks pierce 2 extra enemies\n Projectiles that normally don't pierce will use local immunity\n10% reduced magic damage");
+            Tooltip.SetDefault("Magic attacks pierce 2 extra enemies\n Projectiles that normally don't pierce will use local immunity\n10% reduced magic damage\nExtra pierces will do reduced damage when hitting the same target multiple times");
         }
 
         public override void SetDefaults()
@@ -60,7 +61,7 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override bool InstancePerEntity => true;
         private bool gotBoost = false;
-
+        int[] hitCounts = new int[200];
         public override void AI(Projectile projectile)
         {
             if (Main.player[projectile.owner].GetModPlayer<MagicPierePlayer>().pierceBoost > 0 && !gotBoost && projectile.friendly && projectile.magic)
@@ -74,6 +75,21 @@ namespace QwertysRandomContent.Items.Accesories
                         projectile.usesLocalNPCImmunity = true;
                     }
                     projectile.penetrate += Main.player[projectile.owner].GetModPlayer<MagicPierePlayer>().pierceBoost;
+                }
+            }
+        }
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+           
+            if(gotBoost && projectile.penetrate > 0)
+            {
+                if (projectile.penetrate <= Main.player[projectile.owner].GetModPlayer<MagicPierePlayer>().pierceBoost)
+                {
+                    damage = (int)((float)damage / (float)Math.Pow(2, hitCounts[target.whoAmI]));
+                }
+                if (projectile.penetrate <= Main.player[projectile.owner].GetModPlayer<MagicPierePlayer>().pierceBoost || hitCounts[target.whoAmI] < 1)
+                {
+                    hitCounts[target.whoAmI]++;
                 }
             }
         }

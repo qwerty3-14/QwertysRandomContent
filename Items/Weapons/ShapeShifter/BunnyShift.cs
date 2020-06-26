@@ -217,6 +217,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
 
         public bool kicking = false;
+        public bool digging = false;
         private int kickTimer;
         public bool forcedRunKick = false;
 
@@ -231,11 +232,12 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 //player.height = 30;
                 player.noItems = true;
                 player.statDefense = 6 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && Main.mouseLeftRelease && !kicking && !player.HasBuff(mod.BuffType("MorphSickness")))
+                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && Main.mouseLeftRelease && !kicking && !player.HasBuff(mod.BuffType("MorphSickness")) && !digging)
                 {
                     kicking = true;
                     //Main.NewText("kick");
                 }
+                
                 if (kicking)
                 {
                     kickTimer++;
@@ -264,6 +266,35 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 {
                     kickTimer = 0;
                     forcedRunKick = false;
+                    if (player.whoAmI == Main.myPlayer && Main.mouseRight)
+                    {
+                        Vector2 instaVel = Vector2.Zero;
+                        if (player.controlDown)
+                        {
+                            instaVel = Vector2.UnitY;
+                            
+                        }
+                        else if (player.controlUp)
+                        {
+                            instaVel = -Vector2.UnitY;
+                        }
+                        else if (player.controlRight)
+                        {
+                            instaVel = Vector2.UnitX;
+                            player.direction = 1;
+                        }
+                        else if (player.controlLeft)
+                        {
+                            instaVel = -Vector2.UnitX;
+                            player.direction = -1;
+                        }
+                        if (Collision.TileCollision(player.position, instaVel, player.width, player.height) != instaVel)
+                        {
+                            Main.NewText("Do Dig!");
+                            //digging = true;
+                            //player.position += instaVel;
+                        }
+                    }
                 }
             }
         }

@@ -265,10 +265,6 @@ namespace QwertysRandomContent
             }
         }
 
-        public override void UpdateBiomes()
-        {
-            TheAbstract = (QwertyWorld.AbstractiveBlock > 50);
-        }
 
         public override void PreUpdate()
         {

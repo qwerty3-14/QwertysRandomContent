@@ -8,13 +8,8 @@ Includes
 -A new event the dino militia!
 -28 new accesory prefixes!
 -over 340 items total! including...
--12 armor sets
+-many new armor sets all with unique effects
 -LOADS of cool and unique weapons!
--Diverse melee weapons with a mix of swords, spears,  boomerangs, and yoyos instead of just a bunch of projectile swords like in some other mods.
--9 new arrows and 6 new bullets giving rangers much more to play with on top of the ranged weapons added!
--Plenty of magic weapons to shoot interesting projectiles in interesting ways!
--A bunch of new summons with unique AIs and quirks to make them feel fresh from the vanilla clones of other mods!
--More throwing weapons, currently gets up to early hardmode more throwing weapons are planned!
 -A new 'shapeshifter' class! (WIP)
 
 
@@ -38,6 +33,16 @@ Extra thanks
 
 
 changelog
+0.21.5
+-added a command to generate the frozen den.
+-fixed issue where the world couldn't generate with the mod
+-the piercing effects from the blue sphere and phantom sphere will do reduced damage when attacking the same target multiple times
+
+If due to the bug in the previus update you had to generate your world with the mod disabled use the following commands to add worldgen to your world.
+/createDen 
+/AddDungeonLoot
+/buildFortress
+
 0.21.4
 -guard tiles now have a chance of dropping a new summon weapon
 -added rhuthinium scepter

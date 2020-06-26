@@ -18,7 +18,7 @@ namespace QwertysRandomContent
         public int denUpperHeight = 40;
         public static Vector2 BearSpawn = new Vector2(-1, -1);
         public static bool activeSleeper = false;
-
+        public static FrozenDen instance;
         public override void Initialize()
         {
             BearSpawn = new Vector2(-1, -1);
@@ -39,6 +39,7 @@ namespace QwertysRandomContent
             BearSpawn.X = tag.GetFloat("BearSpawnX");
             BearSpawn.Y = tag.GetFloat("BearSpawnY");
             activeSleeper = tag.GetBool("activeSleeper");
+            instance = this;
         }
 
         public void GenerateDen(int x, int y)
@@ -229,6 +230,41 @@ namespace QwertysRandomContent
         public override void NetReceive(BinaryReader reader)
         {
             BearSpawn = reader.ReadPackedVector2();
+        }
+    }
+    class CreateDen : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
+
+        public override string Command
+        {
+            get { return "createDen"; }
+        }
+
+        public override string Description
+        {
+            get { return "Create's a den in the underground tundra and places the polar exterminator in it"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                int x = WorldGen.genRand.Next(Main.maxTilesX);
+                int y = WorldGen.genRand.Next(Main.maxTilesY);
+                if ((Main.tile[x, y].type == TileID.SnowBlock || Main.tile[x, y].type == TileID.IceBlock) && y > WorldGen.rockLayer)
+                {
+                    FrozenDen.BearSpawn = new Vector2(x * 16, (y - 2) * 16);
+                    FrozenDen.activeSleeper = true;
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+                    FrozenDen.instance.GenerateDen(x, y);
+                    break;
+                }
+            }
         }
     }
 }

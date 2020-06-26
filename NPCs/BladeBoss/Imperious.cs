@@ -105,6 +105,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 }
             }
             ClearPhantoms();
+            /*
             if (!QwertyWorld.downedBlade)
             {
                 QwertyWorld.downedBlade = true;
@@ -113,7 +114,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                     NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
                 }
             }
-
+            */
             if (Main.expertMode)
             {
                 npc.DropBossBags();
