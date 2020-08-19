@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using QwertysRandomContent.Config;
-using QwertysRandomContent.Items.Etims;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
-using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -30,20 +27,20 @@ namespace QwertysRandomContent
         public float coolDownDuration = 1f;
         public bool noDraw = false;
         public int overrideWidth = -1;
+        public int overrideHeight = -1;
         public bool drawTankCannon = false;
         public float tankCannonRotation = 0f;
         public int morphTime = 0;
-        public bool EyeBlessing = false;
         public bool EyeEquiped = false;
         public bool glassCannon = false;
         public bool hovercraft = false;
-        public bool TwistedDarkSetBonus = false;
         private bool healMe = false;
         public bool drawGodOfBlasphemy = false;
         public float pulseCounter = 0f;
         public bool Phase = false;
         private bool justMorphed = false;
         private bool noSick = false;
+        public Vector2? stableMorphCenter = null;
 
         public override void ResetEffects()
         {
@@ -72,34 +69,15 @@ namespace QwertysRandomContent
             }
         }
 
-        public void justStableMorphed(bool noSick = false)
+        public void justStableMorphed()
         {
             justMorphed = true;
-            this.noSick = noSick;
         }
 
         private void PostJustMorphed()
         {
             if (!noSick)
             {
-                if (EyeBlessing && TwistedDarkSetBonus)
-                {
-                    player.statLifeMax2 += 100;
-                    healMe = true;
-                }
-                if (EyeBlessing)
-                {
-                    EyeBlessing = false;
-                    if (Phase)
-                    {
-                        player.immuneTime += 180;
-                        player.immune = true;
-                    }
-                }
-                else
-                {
-                    player.AddBuff(mod.BuffType("MorphSickness"), 180);
-                }
             }
         }
 
@@ -120,13 +98,10 @@ namespace QwertysRandomContent
             coolDownDuration = 1f;
             noDraw = false;
             overrideWidth = -1;
-            if (!EyeEquiped)
-            {
-                EyeBlessing = false;
-            }
+            overrideHeight = -1;
             Phase = false;
             EyeEquiped = false;
-            TwistedDarkSetBonus = false;
+            stableMorphCenter = null;
         }
 
         public override void PreUpdate()
@@ -152,6 +127,47 @@ namespace QwertysRandomContent
             {
                 player.width = 20;
             }
+            if (player.mount.Type == -1)
+            {
+                if (overrideHeight != -1)
+                {
+                    player.height = overrideHeight;
+                    player.position.Y += 42 - overrideHeight;
+                    /*
+                    switch(overrideHeight)
+                    {
+                        case 128:
+                            player.position.Y += -85;
+                            break;
+
+                        case 42:
+                            player.position.Y += 0;
+                            break;
+
+                        case 16:
+                            player.position.Y += 26;
+                            break;
+
+                        case 34:
+                            player.position.Y += 8;
+                            break;
+                    }*/
+                }
+                else
+                {
+                    player.height = 42;
+                }
+            }
+            /*
+            Dust dust = Dust.NewDustPerfect(player.position, DustID.Fire, Vector2.Zero);
+            dust.noGravity = true;
+            dust = Dust.NewDustPerfect(player.position + Vector2.UnitX * player.width, DustID.Fire, Vector2.Zero);
+            dust.noGravity = true;
+            dust = Dust.NewDustPerfect(player.position + Vector2.UnitY * player.height, DustID.Fire, Vector2.Zero);
+            dust.noGravity = true;
+            dust = Dust.NewDustPerfect(player.position + Vector2.UnitX * player.width + Vector2.UnitY * player.height, DustID.Fire, Vector2.Zero);
+            dust.noGravity = true;
+            */
             if (morphed)
             {
                 morphTime++;
@@ -160,10 +176,138 @@ namespace QwertysRandomContent
             {
                 morphTime = 0;
             }
-            if (EyeBlessing)
+        }
+
+        private int savedItemSlot = -1;
+        public int delayThing = 0;
+        private bool attemptQuickMorph = false;
+        private bool attemptStableMorph = false;
+
+        public override void ProcessTriggers(TriggersSet triggersSet) //runs hotkey effects
+        {
+            if (!player.HasBuff(mod.BuffType("MorphCooldown")) && QwertysRandomContent.QuickQuickMorph.JustPressed) //hotkey is pressed
             {
-                player.AddBuff(mod.BuffType("EyeBless"), 2);
+                if (!attemptQuickMorph && !attemptStableMorph)
+                {
+                    for (int i = 0; i < 50; i++)
+                    {
+                        if (!player.inventory[i].IsAir && player.inventory[i].GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.QuickShiftType)
+                        {
+                            attemptQuickMorph = true;
+                            delayThing = 2;
+                            break;
+                        }
+                    }
+                }
             }
+            if (QwertysRandomContent.QuickStableMorph.JustPressed) //hotkey is pressed
+            {
+                if (!player.HeldItem.IsAir && player.HeldItem.GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.StableShiftType && player.itemAnimation > 0 && player.itemTime > 0)
+                {
+                    if (player.HasBuff(mod.BuffType("GodOfBlasphemyB")))
+                    {
+                        player.ClearBuff(mod.BuffType("GodOfBlasphemyB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("AnvilMorphB")))
+                    {
+                        player.ClearBuff(mod.BuffType("AnvilMorphB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("LaserSharkShiftB")))
+                    {
+                        player.ClearBuff(mod.BuffType("LaserSharkShiftB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("SpikedSlimeMorphB")))
+                    {
+                        player.ClearBuff(mod.BuffType("SpikedSlimeMorphB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("TankMorphB")))
+                    {
+                        player.ClearBuff(mod.BuffType("TankMorphB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("HovercraftMorphB")))
+                    {
+                        player.ClearBuff(mod.BuffType("HovercraftMorphB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("GlassCannonMorphB")))
+                    {
+                        player.ClearBuff(mod.BuffType("GlassCannonMorphB"));
+                    }
+                    if (player.HasBuff(mod.BuffType("BunnyShiftB")))
+                    {
+                        player.ClearBuff(mod.BuffType("BunnyShiftB"));
+                    }
+                }
+                else
+                {
+                    if (!attemptQuickMorph && !attemptStableMorph)
+                    {
+                        for (int i = 0; i < 50; i++)
+                        {
+                            if (!player.inventory[i].IsAir && player.inventory[i].GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.StableShiftType)
+                            {
+                                attemptStableMorph = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public override bool PreItemCheck()
+        {
+            if (player.HeldItem.IsAir || (player.itemAnimation == 0 && player.itemTime == 0))
+            {
+                if (attemptQuickMorph)
+                {
+                    for (int i = 0; i < 50; i++)
+                    {
+                        if (!player.inventory[i].IsAir && player.inventory[i].GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.QuickShiftType)
+                        {
+                            attemptQuickMorph = false;
+                            // player.itemTime = player.itemAnimation = 0;
+                            player.channel = false;
+                            morphed = false;
+                            if (savedItemSlot == -1)
+                            {
+                                savedItemSlot = player.selectedItem;
+                            }
+                            player.selectedItem = i;
+                            player.controlUseItem = true;
+                            delayThing = 2;
+                            break;
+                        }
+                    }
+                }
+                if (attemptStableMorph)
+                {
+                    for (int i = 0; i < 50; i++)
+                    {
+                        if (!player.inventory[i].IsAir && player.inventory[i].GetGlobalItem<ShapeShifterItem>().morphType == ShapeShifterItem.StableShiftType)
+                        {
+                            attemptStableMorph = false;
+                            //player.itemTime = player.itemAnimation = 0;
+                            player.channel = false;
+                            morphed = false;
+                            if (savedItemSlot == -1)
+                            {
+                                savedItemSlot = player.selectedItem;
+                            }
+                            player.selectedItem = i;
+                            player.controlUseItem = true;
+                            delayThing = 2;
+                            break;
+                        }
+                    }
+                }
+            }
+            delayThing--;
+            if (savedItemSlot != -1 && !morphed && delayThing <= 0 && player.itemTime == 0 && player.itemAnimation == 0)
+            {
+                player.selectedItem = savedItemSlot;
+                savedItemSlot = -1;
+            }
+            return base.PreItemCheck();
         }
 
         public override void PostUpdateEquips()
@@ -174,7 +318,7 @@ namespace QwertysRandomContent
                 justMorphed = false;
             }
 
-            if (player.meleeCrit > 4 && player.magicCrit > 4 && player.rangedCrit > 4 && player.thrownCrit > 4)
+            if (player.meleeCrit > 4 && player.magicCrit > 4 && player.rangedCrit > 4)
             {
                 int[] crits = { player.meleeCrit, player.magicCrit, player.rangedCrit };
                 int smallest = 0;
@@ -187,6 +331,10 @@ namespace QwertysRandomContent
                 }
                 morphCrit += crits[smallest] - 4;
             }
+        }
+
+        public override void PostUpdateMiscEffects()
+        {
         }
 
         public static readonly PlayerLayer TankCannon = new PlayerLayer("QwertysRandomContent", "TankCannon", PlayerLayer.MountBack, delegate (PlayerDrawInfo drawInfo)
@@ -202,80 +350,9 @@ namespace QwertysRandomContent
             if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().hovercraft)
             {
                 //Main.NewText("Tank!!");
-                Texture2D texture = mod.GetTexture("Items/Weapons/Meteor/Hovercraft_Cannon");
-
-                DrawData value = new DrawData(texture,
-                    new Vector2(drawInfo.position.X + 20, drawInfo.position.Y + 8) - Main.screenPosition,
-                    new Rectangle(0, 0, 24, 10),
-                    color12,
-                    drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
-                    new Vector2(5, 5),
-                    1f,
-                    0,
-                    0);
-                value.shader = drawPlayer.miscDyes[3].dye;
-                Main.playerDrawData.Add(value);
-            }
-            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawTankCannon)
-            {
-                //Main.NewText("Tank!!");
-                Texture2D texture = mod.GetTexture("Items/Weapons/ShapeShifter/TankMorph_Cannon");
-
-                DrawData value = new DrawData(texture,
-                    new Vector2(drawInfo.position.X + 75, drawInfo.position.Y - 4) - Main.screenPosition,
-                    new Rectangle(0, 0, 130, 34),
-                    color12,
-                    drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
-                    new Vector2(18, 18),
-                    1f,
-                    0,
-                    0);
-                value.shader = drawPlayer.miscDyes[3].dye;
-                Main.playerDrawData.Add(value);
             }
             else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().glassCannon)
             {
-                Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon" + (ModContent.GetInstance<SpriteSettings>().ClassicGlass ? "_Old" : ""));
-
-                DrawData value = new DrawData(texture,
-                    new Vector2(drawInfo.position.X + 15, drawInfo.position.Y) - Main.screenPosition,
-                    new Rectangle(0, 0, 30, 8),
-                    color12,
-                    drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
-                    new Vector2(4, 4),
-                    1f,
-                    0,
-                    0);
-                value.shader = drawPlayer.miscDyes[3].dye;
-                Main.playerDrawData.Add(value);
-            }
-            else if (drawPlayer.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy)
-            {
-                Texture2D texture = mod.GetTexture("Items/Etims/Back" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
-                DrawData value = new DrawData(texture,
-                    drawPlayer.Center - Main.screenPosition,
-                    null,
-                    color12,
-                    0,
-                    texture.Size() * .5f,
-                    drawPlayer.GetModPlayer<MorphFlightControl>().scale,
-                    0,
-                    0);
-                value.shader = drawPlayer.miscDyes[3].dye;
-                Main.playerDrawData.Add(value);
-
-                texture = mod.GetTexture("Items/Etims/Pupil" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
-                value = new DrawData(texture,
-                    drawPlayer.Center + drawPlayer.GetModPlayer<MorphFlightControl>().pupilPosition - Main.screenPosition,
-                    null,
-                    color12,
-                    0,
-                    texture.Size() * .5f,
-                    drawPlayer.GetModPlayer<MorphFlightControl>().scale,
-                    0,
-                    0);
-                value.shader = drawPlayer.miscDyes[3].dye;
-                Main.playerDrawData.Add(value);
             }
         });
 
@@ -326,7 +403,7 @@ namespace QwertysRandomContent
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
-            if (glassCannon)
+            if (player.HasBuff(mod.BuffType("GlassCannonMorphB")))
             {
                 damage *= 3;
             }
@@ -334,9 +411,17 @@ namespace QwertysRandomContent
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
-            if (glassCannon)
+            if (player.HasBuff(mod.BuffType("GlassCannonMorphB")))
             {
                 damage *= 3;
+            }
+        }
+
+        public override void ModifyScreenPosition()
+        {
+            if (stableMorphCenter != null)
+            {
+                Main.screenPosition = (Vector2)stableMorphCenter - new Vector2(Main.screenWidth / 2, Main.screenHeight / 2);
             }
         }
     }
@@ -372,10 +457,6 @@ namespace QwertysRandomContent
                 if (player.HasBuff(mod.BuffType("MorphCooldown")))
                 {
                     return false;
-                }
-                if (player.GetModPlayer<ShapeShifterPlayer>().EyeEquiped)
-                {
-                    player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = true;
                 }
                 //Main.NewText("Totals: " + (int)((item.GetGlobalItem<ShapeShifterItem>().morphCooldown * player.HeldItem.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier * player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration) * 60f));
                 //Main.NewText("Cooldown stat: " + player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration);
@@ -589,27 +670,18 @@ namespace QwertysRandomContent
             return base.NewPreReforge(item);
         }
 
-        public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult)
-        {
-            if (item.GetGlobalItem<ShapeShifterItem>().morph)
-            {
-                mult *= player.GetModPlayer<ShapeShifterPlayer>().morphDamage;
-            }
-        }
-
-        /*
         [Obsolete]
         public override void GetWeaponDamage(Item item, Player player, ref int damage)
         {
-            if (item.GetGlobalItem<ShapeShifterItem>().morph)
+            if (morph)
             {
-                damage = (int)(damage * ShapeShifterPlayer.ModPlayer(player).morphDamage + 5E-06f);
+                damage = (int)(damage * ShapeShifterPlayer.ModPlayer(player).morphDamage);
             }
-        }*/
+        }
 
         public override void GetWeaponCrit(Item item, Player player, ref int crit)
         {
-            if (item.GetGlobalItem<ShapeShifterItem>().morph)
+            if (morph)
             {
                 crit = crit + ShapeShifterPlayer.ModPlayer(player).morphCrit;
             }
@@ -667,12 +739,12 @@ namespace QwertysRandomContent
                 }
                 else
                 {
-                    line = new TooltipLine(mod, "MorphDef", (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef) + " defense when morphed");
+                    line = new TooltipLine(mod, "MorphDef", (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef + prefixMorphDef) + " defense when morphed");
                     {
                         line.overrideColor = Color.Orange;
                         tooltips.Insert(KBIndex + 2, line);
                     }
-                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef) + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
+                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef + prefixMorphDef) + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
                 }
 
                 if (item.GetGlobalItem<ShapeShifterItem>().morphCooldown != 0)
@@ -685,22 +757,7 @@ namespace QwertysRandomContent
                     line.text = (item.GetGlobalItem<ShapeShifterItem>().morphCooldown * PrefixorphCooldownModifier * Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().coolDownDuration) + Language.GetTextValue("Mods.QwertysRandomContent.Morphcooldown");
                 }
             }
-            if (prefixMorphDamage > 0)
-            {
-                TooltipLine line = new TooltipLine(mod, "morphDamage", "+" + prefixMorphDamage + "% morph damage");
-                line.isModifier = true;
-                tooltips.Add(line);
 
-                line.text = "+" + prefixMorphDamage + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDamage");
-            }
-            else if (prefixMorphDamage < 0)
-            {
-                TooltipLine line = new TooltipLine(mod, "morphDamage", prefixMorphDamage + "% morph damage");
-                line.isModifierBad = true;
-                line.overrideColor = Color.Red;
-                tooltips.Add(line);
-                line.text = prefixMorphDamage + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDamage");
-            }
             if (prefixMorphDef > 0)
             {
                 TooltipLine line = new TooltipLine(mod, "morphDefense", "+" + prefixMorphDef + " defense when morphed");
@@ -716,13 +773,7 @@ namespace QwertysRandomContent
                 tooltips.Add(line);
                 line.text = prefixMorphDef + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphDef");
             }
-            if (prefixMorphCrit > 0)
-            {
-                TooltipLine line = new TooltipLine(mod, "morphCrit", "+" + prefixMorphCrit + "% morph critical strike chance");
-                line.isModifier = true;
-                tooltips.Add(line);
-                line.text = "+" + prefixMorphCrit + Language.GetTextValue("Mods.QwertysRandomContent.prefixMorphCrit");
-            }
+
             if (PrefixorphCooldownModifier > 1f)
             {
                 TooltipLine line = new TooltipLine(mod, "PrefixorphCooldownModifier", (int)(PrefixorphCooldownModifier * 100f) - 100 + "% longer cooldown");
@@ -813,14 +864,6 @@ namespace QwertysRandomContent
 
         public override void Apply(Item item)
         {
-            if (negetiveDamage > 0)
-            {
-                item.GetGlobalItem<ShapeShifterItem>().prefixMorphDamage = -negetiveDamage;
-            }
-            else
-            {
-                item.GetGlobalItem<ShapeShifterItem>().prefixMorphDamage = damage;
-            }
             if (negetiveDefense > 0)
             {
                 item.GetGlobalItem<ShapeShifterItem>().prefixMorphDef = -negetiveDefense;
@@ -829,13 +872,25 @@ namespace QwertysRandomContent
             {
                 item.GetGlobalItem<ShapeShifterItem>().prefixMorphDef = defense;
             }
-            item.GetGlobalItem<ShapeShifterItem>().prefixMorphCrit = crit;
         }
 
         public override void ModifyValue(ref float valueMult)
         {
             float multiplier = 1f * (1 + damage * 0.04f) * (1 + crit * 0.04f) * (1 + defense * 0.04f) * (1 - negetiveDefense * 0.04f) * (1 - negetiveDamage * 0.04f);
             valueMult *= multiplier;
+        }
+
+        public override void SetStats(ref float damageMult, ref float knockbackMult, ref float useTimeMult, ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
+        {
+            if (negetiveDamage > 0)
+            {
+                damageMult = 1f + (-this.negetiveDamage) * .01f;
+            }
+            else
+            {
+                damageMult = 1f + (this.damage) * .01f; ;
+            }
+            critBonus = this.crit;
         }
     }
 

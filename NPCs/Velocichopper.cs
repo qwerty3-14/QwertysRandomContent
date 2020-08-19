@@ -78,10 +78,6 @@ namespace QwertysRandomContent.NPCs
 
         public override void AI()
         {
-            if (NPC.downedMoonlord)
-            {
-                damage = 45;
-            }
             AI_Timer++;
 
             Player player = Main.player[npc.target];

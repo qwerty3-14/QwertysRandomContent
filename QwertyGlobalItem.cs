@@ -74,7 +74,7 @@ namespace QwertysRandomContent
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (item.type > ItemID.Count && item.summon && item.modItem.mod.Name == "QwertysRandomContent")
+            if (item.type > ItemID.Count && (item.summon || item.GetGlobalItem<ShapeShifterItem>().morph) && item.modItem.mod.Name == "QwertysRandomContent")
             {
                 foreach (TooltipLine line in tooltips) //runs through all tooltip lines
                 {

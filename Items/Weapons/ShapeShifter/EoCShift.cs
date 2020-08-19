@@ -106,6 +106,8 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             player.immuneTime = 2;
             player.statDefense = 0;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
+            player.itemTime = 2;
+            player.itemAnimation = 2;
         }
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

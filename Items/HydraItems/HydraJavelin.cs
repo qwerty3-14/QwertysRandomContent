@@ -28,8 +28,8 @@ namespace QwertysRandomContent.Items.HydraItems
             item.useTime = 24;
             item.width = 58;
             item.height = 58;
+            item.value = 250000;
             item.rare = 5;
-            item.value = 30;
             item.consumable = false;
             item.noUseGraphic = true;
             item.noMelee = true;
@@ -39,16 +39,6 @@ namespace QwertysRandomContent.Items.HydraItems
             item.UseSound = SoundID.Item1;
 
             item.shoot = mod.ProjectileType("HydraJavelinP");
-        }
-
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("HydraScale"), 18);
-
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

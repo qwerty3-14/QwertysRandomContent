@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.melee = true;
 
             item.useTime = 28;
-            item.useAnimation = 28;
+            item.useAnimation = 30;
             item.useStyle = 1;
             item.knockBack = 3;
             item.value = 25000;

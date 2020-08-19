@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +36,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             item.noUseGraphic = true;
 
             item.UseSound = SoundID.Item1;
-            item.useAmmo = AmmoID.Arrow;
             item.shoot = mod.ProjectileType("BowyoP");
         }
 
@@ -49,20 +47,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
-
-        public override bool ConsumeAmmo(Player player)
-        {
-            return false;
-        }
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            //reset damage and knockback to avoid ammo modifing
-            damage = (int)(item.damage * player.meleeDamage);
-            knockBack = item.knockBack * knockBack;
-            type = mod.ProjectileType("BowyoP");
-            return true;
         }
     }
 
@@ -138,14 +122,12 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.WoodenBow), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
-                    if (Main.netMode != 1)
+                    if (projectile.UseAmmo(AmmoID.Arrow, ref arrow, ref speedB, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0))
                     {
                         Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(dir) * BulVel, (float)Math.Sin(dir) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];
                         bul.melee = true;
                         bul.ranged = false;
                     }
-
                     timer = 0;
                 }
             }

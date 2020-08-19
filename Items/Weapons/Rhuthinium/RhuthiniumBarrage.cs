@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public const int dmg = 26;
         public const int crt = 5;
         public const float kb = 0f;
-        public const int def = 3;
+        public const int def = -1;
 
         public override void SetDefaults()
         {
@@ -110,8 +110,11 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 
             Player player = Main.player[projectile.owner];
             player.Center = projectile.Center;
-
+            player.itemTime = 2;
+            player.itemAnimation = 2;
             player.statDefense = 0;
+            player.immune = true;
+            player.immuneTime = 2;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
             projectile.rotation = (QwertysRandomContent.GetLocalCursor(projectile.owner) - projectile.Center).ToRotation();
 

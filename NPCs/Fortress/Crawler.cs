@@ -82,7 +82,7 @@ namespace QwertysRandomContent.NPCs.Fortress
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteBullet"), Main.rand.Next(2, 5));
             if (Main.rand.Next(20) == 0)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteFlask"), 1);
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("LaserSight"), 1);
             }
         }
 

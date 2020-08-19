@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.AbstractClasses;
 using QwertysRandomContent.Items.Armor.TankCommander;
 using System;
 using System.Collections.Generic;
@@ -34,13 +35,19 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.rare = 1;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.mountType = mod.MountType("TankMorph");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
+            item.shoot = mod.ProjectileType("TankMorph");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            player.AddBuff(mod.BuffType("TankMorphB"), 2);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool UseItem(Player player)
@@ -67,172 +74,165 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType("TankMorph"), player);
-            player.buffTime[buffIndex] = 10;
-        }
-    }
-
-    public class TankMorph : ModMountData
-    {
-        public override void SetDefaults()
-        {
-            mountData.buff = mod.BuffType("TankMorphB");
-            mountData.spawnDust = 15;
-
-            mountData.heightBoost = 0;
-            mountData.flightTimeMax = 0;
-            mountData.fallDamage = 0f;
-            mountData.runSpeed = 4f;
-            mountData.dashSpeed = 6.2f;
-            mountData.acceleration = 0.06f;
-            mountData.jumpHeight = 0;
-            mountData.jumpSpeed = 0f;
-            mountData.totalFrames = 1;
-            mountData.constantJump = false;
-
-            mountData.playerYOffsets = new int[] { 0 };
-            mountData.xOffset = 0;
-            mountData.bodyFrame = 1;
-            mountData.yOffset = 0;
-            mountData.playerHeadOffset = 0;
-            mountData.standingFrameCount = 1;
-            mountData.standingFrameDelay = 1;
-            mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = 1;
-            mountData.runningFrameDelay = 1;
-            mountData.runningFrameStart = 0;
-            mountData.flyingFrameCount = 0;
-            mountData.flyingFrameDelay = 0;
-            mountData.flyingFrameStart = 0;
-            mountData.inAirFrameCount = 1;
-            mountData.inAirFrameDelay = 1;
-            mountData.inAirFrameStart = 0;
-            mountData.idleFrameCount = 1;
-            mountData.idleFrameDelay = 1;
-            mountData.idleFrameStart = 0;
-            mountData.idleFrameLoop = true;
-            mountData.swimFrameCount = mountData.inAirFrameCount;
-            mountData.swimFrameDelay = mountData.inAirFrameDelay;
-            mountData.swimFrameStart = mountData.inAirFrameStart;
-
-            if (Main.netMode != 2)
+            if (player.GetModPlayer<ShapeShifterPlayer>().delayThing <= 0)
             {
-                mountData.textureWidth = mountData.backTexture.Width;
-                mountData.textureHeight = mountData.backTexture.Height;
+                player.buffTime[buffIndex] = 2;
             }
         }
-
-        public override void UpdateEffects(Player player)
-        {
-            player.GetModPlayer<TankControl>().controlled = true;
-        }
     }
 
-    public class TankControl : ModPlayer
+    public class TankMorph : StableMorph
     {
-        public bool controlled = false;
-
-        public override void ResetEffects()
-        {
-            controlled = false;
-        }
-
         private int shotCooldown = 0;
         private float flightTime = 0;
 
-        public override void PostUpdateMiscEffects()
+        public override void SetSafeDefaults()
         {
-            if (controlled)
+            projectile.width = 150;
+            projectile.height = 42;
+            buffName = "TankMorphB";
+            itemName = "TankShift";
+        }
+
+        public override void Effects(Player player)
+        {
+            player.noKnockback = true;
+        }
+
+        public override void Movement(Player player)
+        {
+            Vector2 shootFrom = projectile.Top;
+            shootFrom.Y -= 4;
+            Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
+            float pointAt = (LocalCursor - shootFrom).ToRotation();
+            if (LocalCursor.Y > projectile.Top.Y)
             {
-                player.noKnockback = true;
-                //player.Hitbox.Height = 30;
-                player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-                player.GetModPlayer<ShapeShifterPlayer>().drawTankCannon = true;
-                Mount mount = player.mount;
-                player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-                player.GetModPlayer<ShapeShifterPlayer>().overrideWidth = 150;
-                //player.height = 30;
-                player.noItems = true;
-                player.statDefense = 40 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-
-                Vector2 shootFrom = player.Top;
-                shootFrom.Y -= 4;
-                Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
-                float pointAt = (LocalCursor - shootFrom).ToRotation();
-                if (LocalCursor.Y > player.Top.Y)
+                if (LocalCursor.X > projectile.Top.X)
                 {
-                    if (LocalCursor.X > player.Top.X)
-                    {
-                        pointAt = 0;
-                    }
-                    else
-                    {
-                        pointAt = (float)Math.PI;
-                    }
+                    pointAt = 0;
                 }
-
-                player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
-                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
-                if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
+                else
                 {
-                    if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > (float)Math.PI / 2)
-                    {
-                        player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = (float)Math.PI;
-                    }
-                    else
-                    {
-                        player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = 0;
-                    }
-                }
-                if (shotCooldown > 0)
-                {
-                    shotCooldown--;
-                }
-                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
-                {
-                    shotCooldown = 26;
-                    Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(112, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("TankCannonBallFreindly"), (int)(TankShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), TankShift.kb, player.whoAmI);
-                }
-
-                if (player.controlJump && player.GetModPlayer<TankComPantsEffects>().effect && flightTime < 120)
-                {
-                    Main.PlaySound(SoundID.Item24, player.position);
-                    if (player.velocity.Y > -2)
-                    {
-                        player.velocity.Y = -2f;
-                        flightTime++;
-                    }
-                    for (int num104 = 0; num104 < 2; num104++)
-                    {
-                        int type3 = 6;
-                        float scale2 = 2.5f;
-                        int alpha2 = 100;
-
-                        if (num104 == 0)
-                        {
-                            int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
-                            Main.dust[num105].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
-                            Main.dust[num105].noGravity = true;
-
-                            Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-                        }
-                        else
-                        {
-                            int num106 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * -player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
-                            Main.dust[num106].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
-
-                            Main.dust[num106].noGravity = true;
-
-                            Main.dust[num106].velocity.Y = Main.dust[num106].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-                        }
-                    }
-                }
-
-                if (player.velocity.Y == 0 && player.oldVelocity.Y == 0)
-                {
-                    flightTime = 0;
+                    pointAt = (float)Math.PI;
                 }
             }
+            player.GetModPlayer<ShapeShifterPlayer>().drawTankCannon = true;
+            player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
+            //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
+            if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
+            {
+                if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > (float)Math.PI / 2)
+                {
+                    player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = (float)Math.PI;
+                }
+                else
+                {
+                    player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = 0;
+                }
+            }
+            if (shotCooldown > 0)
+            {
+                shotCooldown--;
+            }
+            if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
+            {
+                shotCooldown = 26;
+                Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(112, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("TankCannonBallFreindly"), (int)projectile.damage, projectile.knockBack, player.whoAmI);
+            }
+
+            if (projectile.velocity.Y == 0 && projectile.oldVelocity.Y == 0)
+            {
+                flightTime = 0;
+            }
+            projectile.velocity.Y += .4f;
+            if (projectile.velocity.Y > 10)
+            {
+                projectile.velocity.Y = 10;
+            }
+            if (player.controlJump && player.GetModPlayer<TankComPantsEffects>().effect && flightTime < 120)
+            {
+                Main.PlaySound(SoundID.Item24, player.position);
+                if (projectile.velocity.Y > -2)
+                {
+                    projectile.velocity.Y = -2f;
+                    flightTime++;
+                }
+                for (int num104 = 0; num104 < 2; num104++)
+                {
+                    int type3 = 6;
+                    float scale2 = 2.5f;
+                    int alpha2 = 100;
+
+                    if (num104 == 0)
+                    {
+                        int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
+                        Main.dust[num105].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+                        Main.dust[num105].noGravity = true;
+
+                        Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+                    }
+                    else
+                    {
+                        int num106 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * -player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
+                        Main.dust[num106].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
+
+                        Main.dust[num106].noGravity = true;
+
+                        Main.dust[num106].velocity.Y = Main.dust[num106].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
+                    }
+                }
+            }
+
+            if (player.controlRight)
+            {
+                projectile.velocity.X += 0.1f;
+            }
+            else if (player.controlLeft)
+            {
+                projectile.velocity.X -= 0.1f;
+            }
+            else
+            {
+                projectile.velocity.X *= .9f;
+            }
+            if (projectile.velocity.X > 6)
+            {
+                projectile.velocity.X = 6;
+            }
+            if (projectile.velocity.X < -6)
+            {
+                projectile.velocity.X = -6;
+            }
+        }
+
+        public override bool Running()
+        {
+            speed = 6;
+            acceleration = .1f;
+            jumpHeight = 0;
+            jumpSpeed = 0f;
+
+            return true;
+        }
+
+        public override bool DrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Player drawPlayer = Main.player[projectile.owner];
+
+            //Main.NewText("Tank!!");
+            Texture2D texture = mod.GetTexture("Items/Weapons/ShapeShifter/TankMorph_Cannon");
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)drawPlayer.Center.X / 16, (int)drawPlayer.Center.Y / 16, Color.White), 0f);
+            spriteBatch.Draw(texture,
+                new Vector2(projectile.position.X + 75, projectile.position.Y - 4) - Main.screenPosition,
+                new Rectangle(0, 0, 130, 34),
+                color12,
+                drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
+                new Vector2(18, 18),
+                1f,
+                0,
+                0);
+
+            return true;
         }
     }
 

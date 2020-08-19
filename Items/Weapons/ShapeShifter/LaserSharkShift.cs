@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using QwertysRandomContent.AbstractClasses;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,13 +30,19 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.rare = 1;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.mountType = mod.MountType("LaserSharkMorph");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
+            item.shoot = mod.ProjectileType("LaserSharkMorph");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            player.AddBuff(mod.BuffType("LaserSharkShiftB"), 2);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool UseItem(Player player)
@@ -58,87 +65,96 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType("LaserSharkMorph"), player);
-            player.buffTime[buffIndex] = 10;
+            if (player.GetModPlayer<ShapeShifterPlayer>().delayThing <= 0)
+            {
+                player.buffTime[buffIndex] = 2;
+            }
         }
     }
 
-    public class LaserSharkMorph : ModMountData
+    public class LaserSharkMorph : StableMorph
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            mountData.buff = mod.BuffType("LaserSharkShiftB");
-            mountData.spawnDust = 15;
-
-            mountData.heightBoost = 0;
-            mountData.constantJump = false;
-            mountData.flightTimeMax = 0;
-            mountData.fallDamage = 1f;
-            mountData.runSpeed = 2f;
-            mountData.dashSpeed = 2f;
-            mountData.swimSpeed = 6f;
-            mountData.acceleration = 0.08f;
-            mountData.jumpHeight = 10;
-            mountData.jumpSpeed = 3.15f;
-
-            mountData.swimSpeed = 10f;
-            mountData.totalFrames = 4;
-            int[] array = new int[mountData.totalFrames];
-            for (int l = 0; l < array.Length; l++)
-            {
-                array[l] = 0;
-            }
-            mountData.playerYOffsets = array;
-            mountData.xOffset = 0;
-            mountData.bodyFrame = 1;
-            mountData.yOffset = 0;
-            mountData.playerHeadOffset = 0;
-            mountData.standingFrameCount = 1;
-            mountData.standingFrameDelay = 1;
-            mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = 1;
-            mountData.runningFrameDelay = 1;
-            mountData.runningFrameStart = 0;
-            mountData.flyingFrameCount = 0;
-            mountData.flyingFrameDelay = 0;
-            mountData.flyingFrameStart = 0;
-            mountData.inAirFrameCount = 1;
-            mountData.inAirFrameDelay = 1;
-            mountData.inAirFrameStart = 0;
-            mountData.idleFrameCount = 1;
-            mountData.idleFrameDelay = 1;
-            mountData.idleFrameStart = 0;
-            mountData.swimFrameCount = 4;
-            mountData.swimFrameDelay = 30;
-            mountData.swimFrameStart = 0;
-            mountData.idleFrameLoop = true;
-
-            if (Main.netMode != 2)
-            {
-                mountData.textureWidth = mountData.backTexture.Width;
-                mountData.textureHeight = mountData.backTexture.Height;
-            }
+            Main.projFrames[projectile.type] = 4;
         }
 
-        public override void UpdateEffects(Player player)
+        public override void SetSafeDefaults()
         {
-            player.GetModPlayer<SharkControl>().controlled = true;
-            if (player.mount._frameState == 4)
+            projectile.width = 120;
+            projectile.height = 42;
+            buffName = "LaserSharkShiftB";
+            itemName = "LaserSharkShift";
+        }
+
+        public override void Effects(Player player)
+        {
+            player.gills = true;
+        }
+
+        private int shotCooldown = 60;
+        private float frameTimer = 0;
+
+        public override void Movement(Player player)
+        {
+            if (player.controlJump && projectile.wet)
             {
-                mountData.fallDamage = 0f;
-                mountData.runSpeed = mountData.swimSpeed;
-                mountData.dashSpeed = 4f;
-                mountData.jumpHeight = 10;
-                mountData.jumpSpeed = 5f;
-                //player.jump = 100;
+                projectile.velocity.Y -= .4f;
             }
             else
             {
-                mountData.fallDamage = 1f;
-                mountData.runSpeed = 0;
-                mountData.dashSpeed = 0;
-                mountData.jumpHeight = 10;
-                mountData.jumpSpeed = 5f;
+                projectile.velocity.Y += .4f;
+            }
+
+            if (projectile.velocity.Y > 10)
+            {
+                projectile.velocity.Y = 10;
+            }
+            if (projectile.velocity.Y < -10)
+            {
+                projectile.velocity.Y = -10;
+            }
+            if (projectile.velocity.Y == 0 && !projectile.wet)
+            {
+                projectile.velocity.X = 0;
+            }
+
+            if (player.controlRight && projectile.wet)
+            {
+                projectile.velocity.X += 0.5f;
+            }
+            if (player.controlLeft && projectile.wet)
+            {
+                projectile.velocity.X -= 0.5f;
+            }
+            if (projectile.velocity.X > 6)
+            {
+                projectile.velocity.X = 6;
+            }
+            if (projectile.velocity.X < -6)
+            {
+                projectile.velocity.X = -6;
+            }
+
+            frameTimer += (float)projectile.velocity.Length();
+            if (frameTimer > 64f)
+            {
+                frameTimer = 0;
+                projectile.frame++;
+                if (projectile.frame > 3)
+                {
+                    projectile.frame = 0;
+                }
+            }
+
+            if (player.whoAmI == Main.myPlayer && projectile.wet && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
+            {
+                shotCooldown = 60;
+                Projectile.NewProjectile(player.Center + Vector2.UnitX * 58 * projectile.direction, Vector2.UnitX * 12f * player.direction, mod.ProjectileType("SharkLaser"), (int)projectile.damage, projectile.knockBack, player.whoAmI);
+            }
+            else if (shotCooldown > 0)
+            {
+                shotCooldown--;
             }
         }
     }

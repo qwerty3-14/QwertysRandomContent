@@ -104,7 +104,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
-            //damage += target.defense / 2;
         }
     }
 }

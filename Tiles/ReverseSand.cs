@@ -13,11 +13,12 @@ namespace QwertysRandomContent.Tiles
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
 
-            ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("DnasDust");
 
-            AddMapEntry(Color.Blue, name);
+            ModTranslation name = CreateMapEntryName();
             name.SetDefault("Dnas");
+            AddMapEntry(Color.Blue, name);
+
             drop = mod.ItemType("ReverseSand");
         }
 

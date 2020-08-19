@@ -214,59 +214,22 @@ namespace QwertysRandomContent.NPCs.HydraBoss
 
                 if (Main.expertMode)
                 {
-                    //npc.DropBossBags();
-                    /*
-                    if (Main.netMode == 0)
-                    {
-                        npc.DropBossBags();
-                    }
-                    else
-                    {
-                        npc.value = 0f;
-                        for (int i = 0; i < 200; i++)
-                        {
-                            if (Main.player[i].active)
-                            {
-                                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraBag"));
-                            }
-                        }
-                    }
-                    */
                     npc.DropItemInstanced(npc.position, npc.Size, mod.ItemType("HydraBag"), 1, false);
                 }
                 else
                 {
-                    int scaleCount = Main.rand.Next(20, 31);
-                    int arrowCount = Main.rand.Next(80, 161);
-                    int weaponLoot = Main.rand.Next(1, 4);
-                    int getHook = Main.rand.Next(0, 100);
-                    int getHydrator = Main.rand.Next(0, 100);
-
-                    if (weaponLoot == 1)
-                    {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Hydrent"));
-                    }
-                    if (weaponLoot == 2)
-                    {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraBeam"));
-                    }
-                    if (weaponLoot == 3)
-                    {
-                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraCannon"));
-                    }
-                    if (getHook < 10)
+                    if (Main.rand.Next(20) < 3)
                     {
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraHook"));
                     }
-                    if (getHydrator < 10)
+                    if (Main.rand.Next(20) < 3)
                     {
                         Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Hydrator"));
                     }
-
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 73, 12);
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraHeadStaff"));
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraScale"), scaleCount);
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraArrow"), arrowCount);
+                    string[] spawnThese = QwertysRandomContent.HydraLoot.Draw(2);
+                    Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType(spawnThese[0]));
+                    Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType(spawnThese[1]));
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HydraScale"), Main.rand.Next(20, 31));
                 }
                 if (trophyChance == 1)
                 {

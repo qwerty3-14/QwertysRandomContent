@@ -137,21 +137,19 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
 
         private void Shoot()
         {
-            Player player = Main.player[projectile.owner];
-            Main.PlaySound(SoundID.Item11, projectile.position);
             int weaponDamage = projectile.damage;
             float weaponKnockback = projectile.knockBack;
-            Item sItem = QwertyMethods.MakeItemFromID(ItemID.Handgun);
-            sItem.damage = weaponDamage;
-            player.PickAmmo(sItem, ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
-            Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(29, gunRotation), QwertyMethods.PolarVector(10, gunRotation), bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
-            bul.ranged = false;
-            bul.minion = true;
-            if (Main.netMode == 1)
+            if (projectile.UseAmmo(AmmoID.Bullet, ref bullet, ref speedB, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0))
             {
-                QwertysRandomContent.UpdateProjectileClass(bul);
+                Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector(29, gunRotation), QwertyMethods.PolarVector(10, gunRotation), bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
+                bul.ranged = false;
+                bul.minion = true;
+                if (Main.netMode == 1)
+                {
+                    QwertysRandomContent.UpdateProjectileClass(bul);
+                }
+                shotCooldown = 0;
             }
-            shotCooldown = 0;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

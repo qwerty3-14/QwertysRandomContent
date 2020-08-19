@@ -9,7 +9,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Brutal Necklace");
-            Tooltip.SetDefault("Increases armor penetration by 6");
+            Tooltip.SetDefault("Increases armor penetration by 5");
         }
 
         public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.armorPenetration += 6;
+            player.armorPenetration += 5;
         }
     }
 }

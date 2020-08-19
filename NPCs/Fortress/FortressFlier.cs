@@ -37,6 +37,10 @@ namespace QwertysRandomContent.NPCs.Fortress
         public override void NPCLoot() //drops
         {
             Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressHarpyBeak"), 1);
+            if (Main.rand.Next(5) == 0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FortressHarpyFeather"), 1);
+            }
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo) //changes spawn rates must return a float

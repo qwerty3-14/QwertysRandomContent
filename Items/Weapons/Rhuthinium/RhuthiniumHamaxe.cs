@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.melee = true;
 
             item.useTime = 14;
-            item.useAnimation = 26;
+            item.useAnimation = 27;
             item.useStyle = 1;
             item.knockBack = 3;
             item.value = 25000;

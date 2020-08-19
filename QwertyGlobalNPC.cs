@@ -17,23 +17,15 @@ namespace QwertysRandomContent
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (QwertyWorld.DinoEvent)
             {
-                if (NPC.AnyNPCs(mod.NPCType("TheGreatTyrannosaurus")) && !NPC.downedMoonlord)
+                if (NPC.AnyNPCs(mod.NPCType("TheGreatTyrannosaurus")))
                 {
                     spawnRate = 0;
                     maxSpawns = 0;
                 }
                 else
                 {
-                    if (NPC.downedMoonlord)
-                    {
-                        spawnRate = 30;
-                        maxSpawns = 30;
-                    }
-                    else
-                    {
-                        spawnRate = 10;
-                        maxSpawns = 10;
-                    }
+                    spawnRate = 10;
+                    maxSpawns = 10;
                 }
             }
             if (modPlayer.TheAbstract)

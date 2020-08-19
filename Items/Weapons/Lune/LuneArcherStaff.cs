@@ -29,7 +29,6 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
             item.value = 20000;
             item.rare = 1;
             item.UseSound = SoundID.Item44;   //The sound played when using your Weapon
-            item.autoReuse = true;   //Weather your Weapon will be used again after use while holding down, if false you will need to click again after use to use it again.
             item.shoot = mod.ProjectileType("LuneArcher");   //This defines what type of projectile this weapon will shot
             item.summon = true;    //This defines if it does Summon damage and if its effected by Summon increasing Armor/Accessories.
             item.buffType = mod.BuffType("LuneArcher"); //The buff added to player after used the item
@@ -134,14 +133,15 @@ namespace QwertysRandomContent.Items.Weapons.Lune       ///We need this to basic
                 {
                     int weaponDamage = projectile.damage;
                     float weaponKnockback = projectile.knockBack;
-                    player.PickAmmo(QwertyMethods.MakeItemFromID(39), ref arrow, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
-
-                    Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];
-                    bul.ranged = false;
-                    bul.minion = true;
-                    if (Main.netMode == 1)
+                    if (projectile.UseAmmo(AmmoID.Arrow, ref arrow, ref speedB, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0))
                     {
-                        QwertysRandomContent.UpdateProjectileClass(bul);
+                        Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos(projectile.rotation) * BulVel, (float)Math.Sin(projectile.rotation) * BulVel, arrow, weaponDamage, weaponKnockback, Main.myPlayer)];
+                        bul.ranged = false;
+                        bul.minion = true;
+                        if (Main.netMode == 1)
+                        {
+                            QwertysRandomContent.UpdateProjectileClass(bul);
+                        }
                     }
 
                     timer = 0;

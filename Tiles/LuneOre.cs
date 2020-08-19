@@ -13,13 +13,14 @@ namespace QwertysRandomContent.Tiles
             Main.tileSpelunker[Type] = true;
             Main.tileValue[Type] = 325;
 
-            ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("LuneDust");
             soundType = 21;
             soundStyle = 2;
 
-            AddMapEntry(new Color(102, 143, 204), name);
+            ModTranslation name = CreateMapEntryName();
             name.SetDefault("Lune Ore");
+            AddMapEntry(new Color(102, 143, 204), name);
+
             drop = mod.ItemType("LuneOre");
 
             minPick = 1;

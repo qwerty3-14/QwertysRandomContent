@@ -51,9 +51,9 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 }
                 end = "% morph critical strike chance";
             }
-            else if (!player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
+            else
             {
-                b -= .125f;
+                b -= .05f;
                 if (b < 0)
                 {
                     b = 0;

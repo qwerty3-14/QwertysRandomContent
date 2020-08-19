@@ -29,7 +29,6 @@ namespace QwertysRandomContent.Items.Accesories
 
     internal class GyroLoot : ModWorld
     {
-
         public override void PostWorldGen()
         {
             for (int c = 0; c < Main.chest.Length; c++)

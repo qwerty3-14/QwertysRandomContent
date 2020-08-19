@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.AbstractClasses;
 using QwertysRandomContent.Config;
 using System;
 using Terraria;
@@ -16,7 +18,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         }
 
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
-        public const int dmg = 69;
+        public const int dmg = 50;
         public const int crt = 0;
         public const float kb = 7f;
         public const int def = 0;
@@ -32,13 +34,19 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             item.rare = 1;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.mountType = mod.MountType("GlassCannonMorph");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
+            item.shoot = mod.ProjectileType("GlassCannonMorph");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            player.AddBuff(mod.BuffType("GlassCannonMorphB"), 2);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool CanUseItem(Player player)
@@ -70,132 +78,90 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType("GlassCannonMorph"), player);
-            player.buffTime[buffIndex] = 10;
+            if (player.GetModPlayer<ShapeShifterPlayer>().delayThing <= 0)
+            {
+                player.buffTime[buffIndex] = 2;
+            }
         }
     }
 
-    public class GlassCannonMorph : ModMountData
+    public class GlassCannonMorph : StableMorph
     {
-        public override void SetDefaults()
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicGlass ? base.Texture + "_Old" : base.Texture;
+        private int shotCooldown;
+
+        public override void SetSafeDefaults()
         {
-            mountData.buff = mod.BuffType("GlassCannonMorphB");
-            mountData.spawnDust = 15;
+            projectile.width = 30;
+            projectile.height = 18;
+            buffName = "GlassCannonMorphB";
+            itemName = "GlassCannonShift";
+        }
 
-            mountData.heightBoost = -24;
-            mountData.flightTimeMax = 0;
-            mountData.fallDamage = 0f;
-            mountData.runSpeed = 0f;
-            mountData.dashSpeed = 0f;
-            mountData.acceleration = 0f;
-            mountData.jumpHeight = 0;
-            mountData.jumpSpeed = 0f;
-            mountData.totalFrames = 1;
-            mountData.constantJump = false;
-
-            mountData.playerYOffsets = new int[] { 0 };
-            mountData.xOffset = 0;
-            mountData.bodyFrame = 1;
-            mountData.yOffset = 0;
-            mountData.playerHeadOffset = 0;
-            mountData.standingFrameCount = 1;
-            mountData.standingFrameDelay = 1;
-            mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = 1;
-            mountData.runningFrameDelay = 1;
-            mountData.runningFrameStart = 0;
-            mountData.flyingFrameCount = 0;
-            mountData.flyingFrameDelay = 0;
-            mountData.flyingFrameStart = 0;
-            mountData.inAirFrameCount = 1;
-            mountData.inAirFrameDelay = 1;
-            mountData.inAirFrameStart = 0;
-            mountData.idleFrameCount = 1;
-            mountData.idleFrameDelay = 1;
-            mountData.idleFrameStart = 0;
-            mountData.idleFrameLoop = true;
-            mountData.swimFrameCount = mountData.inAirFrameCount;
-            mountData.swimFrameDelay = mountData.inAirFrameDelay;
-            mountData.swimFrameStart = mountData.inAirFrameStart;
-
-            if (Main.netMode != 2)
+        public override void Movement(Player player)
+        {
+            projectile.velocity.Y += .4f;
+            if (projectile.velocity.Y > 10)
             {
-                mountData.textureWidth = mountData.backTexture.Width;
-                mountData.textureHeight = mountData.backTexture.Height;
+                projectile.velocity.Y = 10;
+            }
+            player.GetModPlayer<ShapeShifterPlayer>().glassCannon = true;
+
+            Vector2 shootFrom = projectile.Top;
+            //shootFrom.Y -= 4;
+            Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
+            float pointAt = (LocalCursor - shootFrom).ToRotation();
+            if (LocalCursor.Y > projectile.Top.Y)
+            {
+                if (LocalCursor.X > projectile.Top.X)
+                {
+                    pointAt = 0;
+                }
+                else
+                {
+                    pointAt = (float)Math.PI;
+                }
+            }
+
+            player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
+            //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
+            if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
+            {
+                if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > (float)Math.PI / 2)
+                {
+                    player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = (float)Math.PI;
+                }
+                else
+                {
+                    player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = 0;
+                }
+            }
+            if (shotCooldown > 0)
+            {
+                shotCooldown--;
+            }
+            if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
+            {
+                shotCooldown = 15;
+                Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(30, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("GlassCannonball"), projectile.damage, projectile.knockBack, player.whoAmI);
             }
         }
 
-        public override void UpdateEffects(Player player)
+        public override bool DrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
         {
-            player.GetModPlayer<GlassCannonControl>().controlled = true;
-        }
-    }
-
-    public class GlassCannonControl : ModPlayer
-    {
-        public bool controlled = false;
-
-        public override void ResetEffects()
-        {
-            controlled = false;
-        }
-
-        private int shotCooldown = 0;
-
-        public override void PostUpdateMiscEffects()
-        {
-            if (controlled)
-            {
-                player.noKnockback = true;
-                //player.Hitbox.Height = 30;
-                player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-                player.GetModPlayer<ShapeShifterPlayer>().glassCannon = true;
-                Mount mount = player.mount;
-                player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-                player.GetModPlayer<ShapeShifterPlayer>().overrideWidth = 30;
-                //player.height = 30;
-                player.noItems = true;
-                player.statDefense = 0 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-
-                Vector2 shootFrom = player.Top;
-                //shootFrom.Y -= 4;
-                Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
-                float pointAt = (LocalCursor - shootFrom).ToRotation();
-                if (LocalCursor.Y > player.Top.Y)
-                {
-                    if (LocalCursor.X > player.Top.X)
-                    {
-                        pointAt = 0;
-                    }
-                    else
-                    {
-                        pointAt = (float)Math.PI;
-                    }
-                }
-
-                player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
-                //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
-                if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
-                {
-                    if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > (float)Math.PI / 2)
-                    {
-                        player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = (float)Math.PI;
-                    }
-                    else
-                    {
-                        player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = 0;
-                    }
-                }
-                if (shotCooldown > 0)
-                {
-                    shotCooldown--;
-                }
-                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
-                {
-                    shotCooldown = 21;
-                    Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(30, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("GlassCannonball"), (int)(GlassCannonShift.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), GlassCannonShift.kb, player.whoAmI);
-                }
-            }
+            Player drawPlayer = Main.player[projectile.owner];
+            Texture2D texture = mod.GetTexture("Items/Weapons/Glass/GlassCannon" + (ModContent.GetInstance<SpriteSettings>().ClassicGlass ? "_Old" : ""));
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)drawPlayer.Center.X / 16, (int)drawPlayer.Center.Y / 16, Color.White), 0f);
+            spriteBatch.Draw(texture,
+                 new Vector2(projectile.position.X + 15, projectile.position.Y) - Main.screenPosition,
+                 new Rectangle(0, 0, 30, 8),
+                 color12,
+                 drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
+                 new Vector2(4, 4),
+                 1f,
+                 0,
+                 0);
+            return true;
         }
     }
 
@@ -237,18 +203,6 @@ namespace QwertysRandomContent.Items.Weapons.Glass
                 }
 
                 runOnce = false;
-            }
-        }
-
-        public override void Kill(int timeLeft)
-        {
-            int c = Main.rand.Next(2) + 2;
-            for (int n = 0; n < c; n++)
-            {
-                Vector2 vel = QwertyMethods.PolarVector(8, Main.rand.NextFloat(-1, 1) * (float)Math.PI);
-                Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, mod.ProjectileType("GlassBulletShard"), (int)(projectile.damage * .7f), projectile.knockBack, projectile.owner)];
-                e.GetGlobalProjectile<MorphProjectile>().morph = true;
-                e.ranged = false;
             }
         }
     }

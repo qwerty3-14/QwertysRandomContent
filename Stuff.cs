@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent
@@ -65,13 +64,16 @@ namespace QwertysRandomContent
 
         public delegate bool SpecialCondition(NPC possibleTarget);
 
+        //used for homing projectile
         public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1, SpecialCondition specialCondition = null)
         {
+            //very advance users can use a delegate to insert special condition into the function like only targetting enemies not currently having local iFrames, but if a special condition isn't added then just return it true
             if (specialCondition == null)
             {
                 specialCondition = delegate (NPC possibleTarget) { return true; };
             }
             bool foundTarget = false;
+            //If you want to prioritse a certain target this is where it's processed, mostly used by minions that haave a target priority
             if (overrideTarget != -1)
             {
                 if ((Main.npc[overrideTarget].Center - position).Length() < maxDistance)
@@ -80,6 +82,7 @@ namespace QwertysRandomContent
                     return true;
                 }
             }
+            //this is the meat of the targetting logic, it loops through every NPC to check if it is valid the miniomum distance and target selected are updated so that the closest valid NPC is selected
             for (int k = 0; k < Main.npc.Length; k++)
             {
                 NPC possibleTarget = Main.npc[k];
@@ -93,6 +96,27 @@ namespace QwertysRandomContent
                 }
             }
             return foundTarget;
+        }
+
+        //used by minions to give each minion of the same type a unique identifier so they don't stack
+        public static int MinionHordeIdentity(Projectile projectile)
+        {
+            int identity = 0;
+            for (int p = 0; p < 1000; p++)
+            {
+                if (Main.projectile[p].active && Main.projectile[p].type == projectile.type && Main.projectile[p].owner == projectile.owner)
+                {
+                    if (projectile.whoAmI == p)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        identity++;
+                    }
+                }
+            }
+            return identity;
         }
 
         public static void ServerClientCheck()
@@ -212,23 +236,6 @@ namespace QwertysRandomContent
             return Math.Abs(angle1 - angle2);
         }
 
-        public static void SpawnBoss(Player player, int type)
-        {
-            if (Main.netMode == 0)
-            {
-                int num7 = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 2000, type);
-                Main.NewText(Language.GetTextValue("Announcement.HasAwoken", Main.npc[num7].TypeName), 175, 75, 255, false);
-            }
-            else if (Main.netMode == 1)
-            {
-                ModPacket packet = QwertysRandomContent.Instance.GetPacket();
-                packet.Write((byte)ModMessageType.SummonBoss);
-                packet.WriteVector2(player.Center);
-                packet.Write(type);
-                packet.Send();
-            }
-        }
-
         public static List<Projectile> ProjectileSpread(Vector2 position, int count, float speed, int type, int damage, float kb, int owner = 255, float ai0 = 0, float ai1 = 0, float rotation = 0f, float spread = (float)Math.PI * 2)
         {
             List<Projectile> me = new List<Projectile>();
@@ -265,6 +272,107 @@ namespace QwertysRandomContent
                     Main.player[myPlayer].Hurt(PlayerDeathReason.ByProjectile(projectile.owner, projectile.whoAmI), num4, projectile.direction, true, false, false, -1);
                 }
             }
+        }
+
+        //used for projectiles using ammo, the vanilla PickAmmo had a bunch of clutter we don't need
+        public static bool UseAmmo(this Projectile projectile, int ammoID, ref int shoot, ref float speed, ref int Damage, ref float KnockBack, bool dontConsume = false)
+        {
+            Player player = Main.player[projectile.owner];
+            Item item = new Item();
+            bool hasFoundAmmo = false;
+            for (int i = 54; i < 58; i++)
+            {
+                if (player.inventory[i].ammo == ammoID && player.inventory[i].stack > 0)
+                {
+                    item = player.inventory[i];
+                    hasFoundAmmo = true;
+                    break;
+                }
+            }
+            if (!hasFoundAmmo)
+            {
+                for (int j = 0; j < 54; j++)
+                {
+                    if (player.inventory[j].ammo == ammoID && player.inventory[j].stack > 0)
+                    {
+                        item = player.inventory[j];
+                        hasFoundAmmo = true;
+                        break;
+                    }
+                }
+            }
+
+            if (hasFoundAmmo)
+            {
+                shoot = item.shoot;
+                if (player.magicQuiver && (ammoID == AmmoID.Arrow || ammoID == AmmoID.Stake))
+                {
+                    KnockBack = (float)((int)((double)KnockBack * 1.1));
+                    speed *= 1.1f;
+                }
+                speed += item.shootSpeed;
+                if (item.ranged)
+                {
+                    if (item.damage > 0)
+                    {
+                        Damage += (int)((float)item.damage * player.rangedDamage);
+                    }
+                }
+                else
+                {
+                    Damage += item.damage;
+                }
+                if (ammoID == AmmoID.Arrow && player.archery)
+                {
+                    if (speed < 20f)
+                    {
+                        speed *= 1.2f;
+                        if (speed > 20f)
+                        {
+                            speed = 20f;
+                        }
+                    }
+                    Damage = (int)((double)((float)Damage) * 1.2);
+                }
+                KnockBack += item.knockBack;
+                bool flag2 = dontConsume;
+
+                if (player.magicQuiver && ammoID == AmmoID.Arrow && Main.rand.Next(5) == 0)
+                {
+                    flag2 = true;
+                }
+                if (player.ammoBox && Main.rand.Next(5) == 0)
+                {
+                    flag2 = true;
+                }
+                if (player.ammoPotion && Main.rand.Next(5) == 0)
+                {
+                    flag2 = true;
+                }
+
+                if (player.ammoCost80 && Main.rand.Next(5) == 0)
+                {
+                    flag2 = true;
+                }
+                if (player.ammoCost75 && Main.rand.Next(4) == 0)
+                {
+                    flag2 = true;
+                }
+                if (!flag2 && item.consumable)
+                {
+                    item.stack--;
+                    if (item.stack <= 0)
+                    {
+                        item.active = false;
+                        item.TurnToAir();
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
         }
 
         public static Vector2 to2(this Vector3 vector3)
@@ -306,11 +414,6 @@ namespace QwertysRandomContent
                 actDirection -= speed * f;
             }
             actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
-            /*
-            if(float.IsNaN(actDirection))
-            {
-                actDirection = 0;
-            }*/
             currentRotation = actDirection;
         }
     }

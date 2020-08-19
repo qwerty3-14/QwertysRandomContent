@@ -11,7 +11,7 @@ namespace QwertysRandomContent.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Triceratank");
-            Main.npcFrameCount[npc.type] = 4;
+            Main.npcFrameCount[npc.type] = 6;
         }
 
         public override void SetDefaults()
@@ -105,6 +105,14 @@ namespace QwertysRandomContent.NPCs
             else if (npc.frameCounter < 40)
             {
                 npc.frame.Y = 3 * frameHeight;
+            }
+            else if (npc.frameCounter < 50)
+            {
+                npc.frame.Y = 4 * frameHeight;
+            }
+            else if (npc.frameCounter < 60)
+            {
+                npc.frame.Y = 5 * frameHeight;
             }
             else
             {

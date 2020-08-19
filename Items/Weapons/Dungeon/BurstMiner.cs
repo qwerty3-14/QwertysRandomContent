@@ -12,8 +12,8 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Burst Miner");
-            Tooltip.SetDefault("Mines quickly with a cooldown");
+            DisplayName.SetDefault("Stream Miner");
+            Tooltip.SetDefault("");
         }
 
         public override void SetDefaults()
@@ -21,8 +21,9 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.damage = 11;
             item.melee = true;
 
-            item.useTime = 4;
-            item.useAnimation = 4;
+            item.useTime = 9;
+            item.useAnimation = 9;
+            item.tileBoost = -1;
 
             item.useStyle = 1;
             item.knockBack = 3;
@@ -35,45 +36,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.noMelee = true;
             item.autoReuse = true;
             item.pick = 95;
-        }
-
-        private int useCounter;
-        private const int maxUses = 20;
-        private const int delay = 60;
-
-        public override bool CanUseItem(Player player)
-        {
-            if (player.selectedItem == 58)
-            {
-                return false;
-            }
-            if (useCounter >= maxUses)
-            {
-                return false;
-            }
-            useCounter++;
-
-            return true;
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            if (useCounter >= maxUses)
-            {
-                useCounter++;
-                if (useCounter >= maxUses + delay)
-                {
-                    useCounter = 0;
-                    Main.PlaySound(25, (int)player.position.X, (int)player.position.Y, 1, 1f, 0f);
-                    for (int num71 = 0; num71 < 5; num71++)
-                    {
-                        int num72 = Dust.NewDust(player.position, player.width, player.height, 45, 0f, 0f, 255, default(Color), (float)Main.rand.Next(20, 26) * 0.1f);
-                        Main.dust[num72].noLight = true;
-                        Main.dust[num72].noGravity = true;
-                        Main.dust[num72].velocity *= 0.5f;
-                    }
-                }
-            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)

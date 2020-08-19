@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Etimsic Half Plate");
-            Tooltip.SetDefault("Emerald Eye effect \nEye's knowledge preserve's the mask and robe bonuses \n10% reduced cooldown on quick morphs");
+            Tooltip.SetDefault("15% reduced cooldown on quick morphs");
         }
 
         public override void SetDefaults()
@@ -43,21 +43,15 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = Language.GetTextValue("Mods.QwertysRandomContent.DarkSet");
-            player.GetModPlayer<ShapeShifterPlayer>().TwistedDarkSetBonus = true;
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
-                player.statLifeMax2 += 100;
+                player.lifeRegen += 8;
             }
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration *= .9f;
-            player.GetModPlayer<ShapeShifterPlayer>().EyeEquiped = true;
-            if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 600)
-            {
-                player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing = true;
-            }
+            player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration *= .85f;
         }
 
         public override void DrawHands(ref bool drawHands, ref bool drawArms)

@@ -62,7 +62,7 @@ namespace QwertysRandomContent.Items.Armor.TankCommander
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            int maxAgeToStun = 300;
+            int maxAgeToStun = 1200;
             if (proj.GetGlobalProjectile<MorphProjectile>().morph && setBonus && target.GetGlobalNPC<QwertyGloabalNPC>().age < maxAgeToStun)
             {
                 damage = (int)(damage * 1.2f);

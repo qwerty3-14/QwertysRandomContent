@@ -42,7 +42,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-
             recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
@@ -80,8 +79,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
         public override void SetDefaults()
         {
-            //projectile.aiStyle = 1;
-            //aiType = ProjectileID.Bullet;
             projectile.width = 42;
             projectile.height = 42;
             projectile.friendly = false;
@@ -128,26 +125,28 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
                 projectile.timeLeft = 2;
                 if (reloadTimer % 15 == 0)
                 {
-                    player.PickAmmo(QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol), ref Ammo, ref speed, ref firing, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0);
-                    if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), !player.GetModPlayer<BloodMedalionEffect>().effect))
+                    if (projectile.UseAmmo(AmmoID.Bullet, ref Ammo, ref speed, ref weaponDamage, ref weaponKnockback, Main.rand.Next(2) == 0))
                     {
-                        if (player.GetModPlayer<BloodMedalionEffect>().effect)
+                        if (firing && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana / 6f), !player.GetModPlayer<BloodMedalionEffect>().effect))
                         {
-                            player.statLife -= (int)(player.inventory[player.selectedItem].mana / 6f * player.manaCost);
-                            if (player.statLife <= 0)
+                            if (player.GetModPlayer<BloodMedalionEffect>().effect)
                             {
-                                player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " madly drained " + (player.Male ? "his " : "her") + " lifeforce!"), (int)(player.inventory[player.selectedItem].mana * player.manaCost), 0);
+                                player.statLife -= (int)(player.inventory[player.selectedItem].mana / 6f * player.manaCost);
+                                if (player.statLife <= 0)
+                                {
+                                    player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " madly drained " + (player.Male ? "his " : "her") + " lifeforce!"), (int)(player.inventory[player.selectedItem].mana * player.manaCost), 0);
+                                }
                             }
-                        }
-                        player.manaRegenDelay = (int)player.maxRegenDelay;
-                        Main.PlaySound(SoundID.Item11, player.position);
+                            player.manaRegenDelay = (int)player.maxRegenDelay;
+                            Main.PlaySound(SoundID.Item11, player.position);
 
-                        Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(projectile.rotation) * speed, (float)Math.Sin(projectile.rotation) * speed), Ammo, projectile.damage, projectile.knockBack, player.whoAmI)];
-                        bul.magic = true;
-                        bul.ranged = false;
-                        if (Main.netMode == 1)
-                        {
-                            QwertysRandomContent.UpdateProjectileClass(bul);
+                            Projectile bul = Main.projectile[Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(projectile.rotation) * speed, (float)Math.Sin(projectile.rotation) * speed), Ammo, projectile.damage, projectile.knockBack, player.whoAmI)];
+                            bul.magic = true;
+                            bul.ranged = false;
+                            if (Main.netMode == 1)
+                            {
+                                QwertysRandomContent.UpdateProjectileClass(bul);
+                            }
                         }
                     }
                 }

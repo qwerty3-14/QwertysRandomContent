@@ -31,7 +31,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
     internal class DungeonLoot : ModWorld
     {
-
         public override void PostWorldGen()
         {
             AddDungeonLoot();

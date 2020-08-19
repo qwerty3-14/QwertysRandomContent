@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.AbstractClasses;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -31,13 +33,19 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.rare = 1;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.mountType = mod.MountType("BunnyShift");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
+            item.shoot = mod.ProjectileType("BunnyShift");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            player.AddBuff(mod.BuffType("BunnyShiftB"), 2);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool UseItem(Player player)
@@ -80,223 +88,142 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType("BunnyShift"), player);
-            player.buffTime[buffIndex] = 10;
+            if (player.GetModPlayer<ShapeShifterPlayer>().delayThing <= 0)
+            {
+                player.buffTime[buffIndex] = 2;
+            }
         }
     }
 
-    public class BunnyShift : ModMountData
+    public class BunnyShift : StableMorph
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            mountData.buff = mod.BuffType("BunnyShiftB");
-            mountData.spawnDust = 15;
-
-            mountData.heightBoost = -12;
-            mountData.flightTimeMax = 0;
-            mountData.fallDamage = 0.4f;
-            mountData.runSpeed = 4f;
-            mountData.dashSpeed = 6.2f;
-            mountData.acceleration = 0.13f;
-            mountData.jumpHeight = 15;
-            mountData.jumpSpeed = 5.01f;
-            mountData.totalFrames = 9;
-            mountData.constantJump = true;
-            int[] array = new int[mountData.totalFrames];
-            for (int l = 0; l < array.Length; l++)
-            {
-                array[l] = 0;
-            }
-            mountData.playerYOffsets = array;
-            mountData.xOffset = 0;
-            mountData.bodyFrame = 1;
-            mountData.yOffset = 2;
-            mountData.playerHeadOffset = 0;
-            mountData.standingFrameCount = 1;
-            mountData.standingFrameDelay = 10;
-            mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = 7;
-            mountData.runningFrameDelay = 10;
-            mountData.runningFrameStart = 0;
-            mountData.flyingFrameCount = 0;
-            mountData.flyingFrameDelay = 0;
-            mountData.flyingFrameStart = 0;
-            mountData.inAirFrameCount = 1;
-            mountData.inAirFrameDelay = 12;
-            mountData.inAirFrameStart = 4;
-            mountData.idleFrameCount = 1;
-            mountData.idleFrameDelay = 12;
-            mountData.idleFrameStart = 4;
-            mountData.idleFrameLoop = true;
-            mountData.swimFrameCount = mountData.inAirFrameCount;
-            mountData.swimFrameDelay = mountData.inAirFrameDelay;
-            mountData.swimFrameStart = mountData.inAirFrameStart;
-
-            if (Main.netMode != 2)
-            {
-                mountData.textureWidth = mountData.backTexture.Width;
-                mountData.textureHeight = mountData.backTexture.Height;
-            }
+            Main.projFrames[projectile.type] = 8;
         }
 
-        public override void UpdateEffects(Player player)
+        public override void SetSafeDefaults()
         {
-            player.GetModPlayer<BunnyControl>().controlled = true;
-        }
-
-        public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
-        {
-            //Main.NewText(state);
-            if (mountedPlayer.GetModPlayer<BunnyControl>().kicking)
-            {
-                //state = 0;
-                //velocity.X = 0;
-                int count = 2;
-                int delay = 10;
-                int start = 7;
-                if (state != 2)
-                {
-                    mountedPlayer.velocity.X = 0;
-                }
-                mountData.standingFrameCount = count;
-                mountData.standingFrameDelay = delay;
-                mountData.standingFrameStart = start;
-                if (mountedPlayer.GetModPlayer<BunnyControl>().forcedRunKick)
-                {
-                    mountData.runningFrameCount = 1;
-                    mountData.runningFrameDelay = delay;
-                    mountData.runningFrameStart = start + 1;
-                }
-                else
-                {
-                    mountData.runningFrameCount = 1;
-                    mountData.runningFrameDelay = delay;
-                    mountData.runningFrameStart = start;
-                }
-
-                mountData.flyingFrameCount = count;
-                mountData.flyingFrameDelay = delay;
-                mountData.flyingFrameStart = start;
-                mountData.inAirFrameCount = count;
-                mountData.inAirFrameDelay = delay;
-                mountData.inAirFrameStart = start;
-                mountData.idleFrameCount = count;
-                mountData.idleFrameDelay = delay;
-                mountData.idleFrameStart = start;
-                //mountedPlayer.mount._flipDraw = true;
-            }
-            else
-            {
-                mountData.standingFrameCount = 1;
-                mountData.standingFrameDelay = 10;
-                mountData.standingFrameStart = 0;
-                mountData.runningFrameCount = 7;
-                mountData.runningFrameDelay = 10;
-                mountData.runningFrameStart = 0;
-                mountData.flyingFrameCount = 0;
-                mountData.flyingFrameDelay = 0;
-                mountData.flyingFrameStart = 0;
-                mountData.inAirFrameCount = 1;
-                mountData.inAirFrameDelay = 12;
-                mountData.inAirFrameStart = 4;
-                mountData.idleFrameCount = 1;
-                mountData.idleFrameDelay = 12;
-                mountData.idleFrameStart = 4;
-            }
-            return true;
-        }
-    }
-
-    public class BunnyControl : ModPlayer
-    {
-        public bool controlled = false;
-
-        public override void ResetEffects()
-        {
-            controlled = false;
+            projectile.width = 48;
+            projectile.height = 30;
+            buffName = "BunnyShiftB";
+            itemName = "BunnyStone";
         }
 
         public bool kicking = false;
-        public bool digging = false;
+        public int digging = 0;
         private int kickTimer;
         public bool forcedRunKick = false;
 
-        public override void PostUpdateMiscEffects()
+        public override void Effects(Player player)
         {
-            if (controlled)
+            projectile.frameCounter++;
+            if (Math.Abs(projectile.velocity.X) > 2f)
             {
-                //player.Hitbox.Height = 30;
-                player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-                Mount mount = player.mount;
-                player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-                //player.height = 30;
-                player.noItems = true;
-                player.statDefense = 6 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && Main.mouseLeftRelease && !kicking && !player.HasBuff(mod.BuffType("MorphSickness")) && !digging)
-                {
-                    kicking = true;
-                    //Main.NewText("kick");
-                }
-                
+                projectile.frameCounter++;
+            }
+            if (projectile.frameCounter > 8)
+            {
+                projectile.frameCounter = 0;
                 if (kicking)
                 {
-                    kickTimer++;
-                    if (player.whoAmI == Main.myPlayer)
+                    if (forcedRunKick)
                     {
-                        // mount._flipDraw = true;
-                    }
-                    if (kickTimer >= 30)
-                    {
-                        kicking = false;
-                    }
-                    else if (kickTimer == 10 && player.whoAmI == Main.myPlayer)
-                    {
-                        Projectile.NewProjectile(new Vector2(player.Center.X + player.direction * 8, player.Center.Y), Vector2.Zero, mod.ProjectileType("Kick"), (int)(BunnyStone.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), BunnyStone.kb, player.whoAmI, player.direction);
-                    }
-                    if (kickTimer >= 10 && kickTimer <= 20)
-                    {
-                        forcedRunKick = true;
+                        projectile.frame = 7;
                     }
                     else
                     {
-                        forcedRunKick = false;
+                        projectile.frame = 6;
                     }
                 }
                 else
                 {
-                    kickTimer = 0;
-                    forcedRunKick = false;
-                    if (player.whoAmI == Main.myPlayer && Main.mouseRight)
+                    if (Math.Abs(projectile.velocity.X) < .1f)
                     {
-                        Vector2 instaVel = Vector2.Zero;
-                        if (player.controlDown)
+                        projectile.frame = 0;
+                    }
+                    else if (projectile.velocity.Y == 0)
+                    {
+                        projectile.frame++;
+                        if (projectile.frame >= 7)
                         {
-                            instaVel = Vector2.UnitY;
-                            
+                            projectile.frame = 0;
                         }
-                        else if (player.controlUp)
-                        {
-                            instaVel = -Vector2.UnitY;
-                        }
-                        else if (player.controlRight)
-                        {
-                            instaVel = Vector2.UnitX;
-                            player.direction = 1;
-                        }
-                        else if (player.controlLeft)
-                        {
-                            instaVel = -Vector2.UnitX;
-                            player.direction = -1;
-                        }
-                        if (Collision.TileCollision(player.position, instaVel, player.width, player.height) != instaVel)
-                        {
-                            Main.NewText("Do Dig!");
-                            //digging = true;
-                            //player.position += instaVel;
-                        }
+                    }
+                    else
+                    {
+                        projectile.frame = 5;
                     }
                 }
             }
+        }
+
+        public override void Movement(Player player)
+        {
+            //player.height = 30;
+            player.noItems = true;
+            player.statDefense = 6 + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
+            digging--;
+            if (digging > 0)
+            {
+                player.gravity = 0;
+                player.velocity = Vector2.Zero;
+            }
+            else if (player.whoAmI == Main.myPlayer && Main.mouseLeft && Main.mouseLeftRelease && !kicking && !player.HasBuff(mod.BuffType("MorphSickness")))
+            {
+                kicking = true;
+                //Main.NewText("kick");
+            }
+
+            if (kicking)
+            {
+                if (projectile.velocity.X != 0)
+                {
+                    projectile.spriteDirection *= -1;
+                }
+
+                kickTimer++;
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    // mount._flipDraw = true;
+                }
+                if (kickTimer >= 30)
+                {
+                    kicking = false;
+                    kickTimer = 0;
+                }
+                else if (kickTimer == 10 && player.whoAmI == Main.myPlayer)
+                {
+                    Projectile.NewProjectile(new Vector2(player.Center.X + player.direction * 8, player.Center.Y), Vector2.Zero, mod.ProjectileType("Kick"), (int)(BunnyStone.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), BunnyStone.kb, player.whoAmI, player.direction);
+                }
+                if (kickTimer >= 10 && kickTimer <= 20)
+                {
+                    forcedRunKick = true;
+                }
+                else
+                {
+                    forcedRunKick = false;
+                }
+            }
+            base.Movement(player);
+        }
+
+        public override bool Running()
+        {
+            if (projectile.velocity.Y == 0 && forcedRunKick)
+            {
+                speed = .01f;
+            }
+            else
+            {
+                speed = 6;
+            }
+
+            acceleration = .3f;
+            jumpHeight = 15;
+            jumpSpeed = 5.01f;
+
+            return true;
         }
     }
 

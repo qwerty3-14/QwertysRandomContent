@@ -61,7 +61,8 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override bool InstancePerEntity => true;
         private bool gotBoost = false;
-        int[] hitCounts = new int[200];
+        private int[] hitCounts = new int[200];
+
         public override void AI(Projectile projectile)
         {
             if (Main.player[projectile.owner].GetModPlayer<MagicPierePlayer>().pierceBoost > 0 && !gotBoost && projectile.friendly && projectile.magic)
@@ -78,10 +79,10 @@ namespace QwertysRandomContent.Items.Accesories
                 }
             }
         }
+
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-           
-            if(gotBoost && projectile.penetrate > 0)
+            if (gotBoost && projectile.penetrate > 0)
             {
                 if (projectile.penetrate <= Main.player[projectile.owner].GetModPlayer<MagicPierePlayer>().pierceBoost)
                 {

@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void SetDefaults()
         {
-            item.damage = 30;
+            item.damage = 32;
             item.mana = 20;
             item.width = 38;
             item.height = 38;
@@ -150,7 +150,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 }
 
                 projectile.spriteDirection = projectile.velocity.X > 0 ? 1 : -1;
-                if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Top, false, player.MinionAttackTargetNPC, delegate (NPC possibleTarget) { return possibleTarget.Center.Y < projectile.Bottom.Y; }))
+                if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Top, false, player.MinionAttackTargetNPC, delegate (NPC possibleTarget) { return possibleTarget.Top.Y < projectile.Bottom.Y; }))
                 {
                     if (target.Center.Y > projectile.Top.Y)
                     {

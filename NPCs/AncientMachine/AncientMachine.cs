@@ -20,7 +20,7 @@ namespace QwertysRandomContent.NPCs.AncientMachine
             npc.width = 392;
             npc.height = 348;
             npc.damage = 50;
-            npc.defense = 18;
+            npc.defense = 14;
             npc.boss = true;
             npc.HitSound = SoundID.NPCHit4;
             npc.DeathSound = SoundID.NPCDeath14;

@@ -19,6 +19,8 @@ namespace QwertysRandomContent
         public static QwertysRandomContent Instance;
 
         public static ModHotKey YetAnotherSpecialAbility;
+        public static ModHotKey QuickQuickMorph;
+        public static ModHotKey QuickStableMorph;
         private static Vector2[] LocalCursor = new Vector2[Main.player.Length];
 
         public static Vector2 GetLocalCursor(int id)
@@ -123,7 +125,7 @@ namespace QwertysRandomContent
 
                 bossChecklist.Call("AddBoss", 6.000001f, NPCType("Hydra"), this, "The Hydra", (Func<bool>)(() => QwertyWorld.downedhydra), ItemType("HydraSummon"),
                     new List<int> { ItemType("HydraTrophy"), ItemType("MusicBoxBeastOfThreeHeads") },
-                    new List<int> { ItemType("HydraBag"), ItemType("HydraWings"), ItemType("Hydrent"), ItemType("HydraCannon"), ItemType("HydraBeam"), ItemType("HydraHeadStaff"), ItemType("Hydrator"), ItemType("HydraHook"), ItemType("HydraScale"), ItemType("HydraArrow"), ItemID.GreaterHealingPotion },
+                    new List<int> { ItemType("HydraBag"), ItemType("HydraWings"), ItemType("Hydrent"), ItemType("HydraJavelin"), ItemType("HydraCannon"), ItemType("HydraBeam"), ItemType("HydraMissileStaff"), ItemType("HydraHeadStaff"), ItemType("HydraBarrage"), ItemType("Hydrill"), ItemType("Hydrator"), ItemType("HydraHook"), ItemType("HydraScale"), ItemID.GreaterHealingPotion },
                     "Tempt with [i:" + ItemType("HydraSummon") + "]", null, "QwertysRandomContent/NPCs/HydraBoss/Hydra_Checklist", "QwertysRandomContent/NPCs/HydraBoss/MapHead1");
 
                 bossChecklist.Call("AddBoss", 12.2f, NPCType("RuneSpector"), this, "Rune Ghost", (Func<bool>)(() => QwertyWorld.downedRuneGhost), ItemType("SummoningRune"),
@@ -138,7 +140,7 @@ namespace QwertysRandomContent
 
                 bossChecklist.Call("AddBoss", 4f, NPCType("FortressBoss"), this, "The Divine Light", (Func<bool>)(() => QwertyWorld.downedFortressBoss), ItemType("FortressBossSummon"),
                     new List<int> { ItemType("FortressBossTrophy"), ItemType("DivineLightMask"), ItemType("MusicBoxHigherBeing") },
-                    new List<int> { ItemType("FortressBossBag"), ItemType("ExpertChalice"), ItemType("Lightling"), ItemType("SkywardHilt"), ItemType("CaeliteCore"), ItemID.LesserManaPotion },
+                    new List<int> { ItemType("FortressBossBag"), ItemType("ExpertChalice"), ItemType("Lightling"), ItemType("SkywardHilt"), ItemType("CaeliteBar"), ItemType("CaeliteCore"), ItemID.LesserManaPotion },
                     "Use a [i:" + ItemType("FortressBossSummon") + "]" + " at the altar in the sky fortress", null);
 
                 bossChecklist.Call("AddBoss", .7f, NPCType("PolarBear"), this, "Polar Exterminator", (Func<bool>)(() => QwertyWorld.downedBear), null,
@@ -148,7 +150,7 @@ namespace QwertysRandomContent
 
                 bossChecklist.Call("AddBoss", 9.4f, NPCType("Imperious"), this, "Imperious", (Func<bool>)(() => QwertyWorld.downedBlade), null,
                     new List<int> { ItemType("BladeBossTrophy"), ItemType("MusicBoxBladeOfAGod") },
-                    new List<int> { ItemType("BladeBossBag"), ItemType("ImperiousSheath"), ItemType("ImperiousTheIV"), ItemType("FlailSword"), ItemType("BladedArrowShaft"), ItemType("SwordStormStaff"), ItemType("SwordMinionStaff"), ItemType("Imperium"), ItemType("Swordquake"), ItemType("SwordsmanBadge"), ItemID.CopperShortsword, ItemID.GreaterHealingPotion },
+                    new List<int> { ItemType("BladeBossBag"), ItemType("ImperiousSheath"), ItemType("ImperiousTheIV"), ItemType("FlailSword"), ItemType("Arsenal"), ItemType("BladedArrowShaft"), ItemType("SwordStormStaff"), ItemType("SwordMinionStaff"), ItemType("Imperium"), ItemType("Swordquake"), ItemType("SwordsmanBadge"), ItemID.GreaterHealingPotion },
                     "Use the [i:" + ItemType("BladeBossSummon") + "], and accept its challenge", null);
 
                 bossChecklist.Call("AddBoss", 5.7f, NPCType("CloakedDarkBoss"), this, "Noehtnap", (Func<bool>)(() => QwertyWorld.downedNoetnap), ItemType("RitualInterupter"),
@@ -193,6 +195,8 @@ namespace QwertysRandomContent
         }
 
         public static Deck<string> AMLoot = new Deck<string>();
+        public static Deck<string> ImperiousLoot = new Deck<string>();
+        public static Deck<string> HydraLoot = new Deck<string>();
 
         public override void Load()
         {
@@ -206,8 +210,29 @@ namespace QwertysRandomContent
             AMLoot.Add("AncientLongbow");
             AMLoot.Add("AncientNuke");
 
+            ImperiousLoot.Add("SwordStormStaff");
+            ImperiousLoot.Add("ImperiousTheIV");
+            ImperiousLoot.Add("FlailSword");
+            ImperiousLoot.Add("SwordMinionStaff");
+            ImperiousLoot.Add("Arsenal");
+            ImperiousLoot.Add("BladedArrowShaft");
+            ImperiousLoot.Add("Imperium");
+            ImperiousLoot.Add("Swordquake");
+
+            HydraLoot.Add("HydraBarrage");
+            HydraLoot.Add("HydraBeam");
+            HydraLoot.Add("HydraCannon");
+            HydraLoot.Add("HydraHeadStaff");
+            HydraLoot.Add("HydraJavelin");
+            //HydraLoot.Add("Hydrator");
+            HydraLoot.Add("Hydrent");
+            HydraLoot.Add("Hydrill");
+            HydraLoot.Add("HydraMissileStaff");
+
             // Registers a new hotkey
             YetAnotherSpecialAbility = RegisterHotKey("Yet Another Special Ability", "Mouse3");
+            QuickQuickMorph = RegisterHotKey("Quick Quick Morph", "F");
+            QuickStableMorph = RegisterHotKey("Quick Stable Morph", "V");
             if (!Main.dedServ)
             {
                 // Add the female leg variants
@@ -386,7 +411,7 @@ namespace QwertysRandomContent
             AddTranslation(text);
 
             text = CreateTranslation("DarkSet");
-            text.SetDefault("+100 max life when morphed \nWith Eye's knowledge this extra health will be filled instantly upon morphing");
+            text.SetDefault("Greatly increased life regeneration when morphed");
             text.AddTranslation(GameCulture.Russian, "+100 макс. Жизни при трансформации \nС благославлением глаза это дополнительное здоровье будет мгновенно восполнено при трансформации");
             text.AddTranslation(GameCulture.Chinese, "化形时增加100生命上限\n配合眼之真知在化形时可以立即将多出的血量补满");
             AddTranslation(text);
@@ -958,7 +983,7 @@ namespace QwertysRandomContent
 
                     //draw wave text
 
-                    string waveText = Language.GetTextValue("Mods.QwertysRandomContent.DinoMilitiaCleared") + (int)(((float)QwertyWorld.DinoKillCount / (NPC.downedMoonlord ? 300 : 150)) * 100) + "%";
+                    string waveText = Language.GetTextValue("Mods.QwertysRandomContent.DinoMilitiaCleared") + (int)(((float)QwertyWorld.DinoKillCount / 150f) * 100) + "%";
                     Utils.DrawBorderString(spriteBatch, waveText, new Vector2(waveBackground.X + waveBackground.Width / 2, waveBackground.Y), Color.White, scaleMultiplier, 0.5f, -0.1f);
 
                     //draw the progress bar
@@ -968,7 +993,7 @@ namespace QwertysRandomContent
                     }
                     // Main.NewText(MathHelper.Clamp((modWorld.DinoKillCount/modWorld.MaxDinoKillCount), 0f, 1f));
                     Rectangle waveProgressBar = Utils.CenteredRectangle(new Vector2(waveBackground.X + waveBackground.Width * 0.5f, waveBackground.Y + waveBackground.Height * 0.75f), new Vector2(progressColor.Width, progressColor.Height));
-                    Rectangle waveProgressAmount = new Rectangle(0, 0, (int)(progressColor.Width * MathHelper.Clamp(((float)QwertyWorld.DinoKillCount / (float)(NPC.downedMoonlord ? 300 : 150)), 0f, 1f)), progressColor.Height);
+                    Rectangle waveProgressAmount = new Rectangle(0, 0, (int)(progressColor.Width * MathHelper.Clamp(((float)QwertyWorld.DinoKillCount / 150f), 0f, 1f)), progressColor.Height);
                     Vector2 offset = new Vector2((waveProgressBar.Width - (int)(waveProgressBar.Width * scaleMultiplier)) * 0.5f, (waveProgressBar.Height - (int)(waveProgressBar.Height * scaleMultiplier)) * 0.5f);
 
                     spriteBatch.Draw(progressBg, waveProgressBar.Location.ToVector2() + offset, null, Color.White * alpha, 0f, new Vector2(0f), scaleMultiplier, SpriteEffects.None, 0f);

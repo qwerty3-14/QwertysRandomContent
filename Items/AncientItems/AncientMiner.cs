@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Miner");
-            Tooltip.SetDefault("Right click to mine a 3x3 area");
+            Tooltip.SetDefault("Mines a 3x3 area");
         }
 
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
@@ -23,8 +23,8 @@ namespace QwertysRandomContent.Items.AncientItems
             item.damage = 29;
             item.melee = true;
 
-            item.useTime = 14;
-            item.useAnimation = 14;
+            item.useTime = 22;
+            item.useAnimation = 30;
             item.useStyle = 1;
             item.knockBack = 3;
             item.value = 25000;
@@ -36,7 +36,8 @@ namespace QwertysRandomContent.Items.AncientItems
             //item.crit = 5;
             item.autoReuse = true;
             item.pick = 100;
-            item.tileBoost = 1;
+            item.tileBoost = 2;
+            item.GetGlobalItem<AoePick>().miningRadius = 1;
             if (!Main.dedServ)
             {
                 item.GetGlobalItem<ItemUseGlow>().glowTexture = ModContent.GetInstance<SpriteSettings>().ClassicAncient ? mod.GetTexture("Items/AncientItems/AncientMiner_Glow_Old") : mod.GetTexture("Items/AncientItems/AncientMiner_Glow");
@@ -62,28 +63,6 @@ namespace QwertysRandomContent.Items.AncientItems
                 SpriteEffects.None,
                 0f
             );
-        }
-
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                item.useTime = 24;
-                item.useAnimation = 24;
-                item.GetGlobalItem<AoePick>().miningRadius = 1;
-            }
-            else
-            {
-                item.useTime = 14;
-                item.useAnimation = 14;
-                item.GetGlobalItem<AoePick>().miningRadius = 0;
-            }
-            return base.CanUseItem(player);
         }
     }
 }

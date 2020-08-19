@@ -103,7 +103,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             {
                 if (effect && damageTally >= damageTallyMax)
                 {
-                    if (NPC.AnyNPCs(mod.NPCType("BladeBoss"))) //don't want to summon Imperious if he's already active!
+                    if (NPC.AnyNPCs(mod.NPCType("Imperious"))) //don't want to summon Imperious if he's already active!
                     {
                         Main.NewText("You're already fighting Imperious!");
                     }

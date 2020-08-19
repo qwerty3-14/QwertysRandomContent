@@ -29,7 +29,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             npc.damage = 40;
             npc.boss = true;
             npc.noGravity = false;
-            music = MusicID.Boss5;
+            music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/PolarOpposition");
             bossBag = mod.ItemType("TundraBossBag");
         }
 
@@ -52,7 +52,6 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
         public override void NPCLoot()
         {
-            /*
             if (!QwertyWorld.downedBear)
             {
                 QwertyWorld.downedBear = true;
@@ -61,7 +60,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
                 }
             }
-            */
+
             if (Main.expertMode)
             {
                 npc.DropBossBags();

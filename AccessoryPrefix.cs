@@ -61,36 +61,36 @@ namespace QwertysRandomContent
             if (base.Autoload(ref name))
             {
                 //mod.AddPrefix("name", new AccessoryPrefix(damage, crit, moveSpeed, meleeSpeed, defense, manaReduction, ammoReduction, throwVel, rangedVel, dashPower, recovery));
-                mod.AddPrefix("Displacive", new AccessoryPrefix(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                //mod.AddPrefix("Displacive", new AccessoryPrefix(1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
                 mod.AddPrefix("Destructive", new AccessoryPrefix(2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Buffeted", new AccessoryPrefix(1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1));
-                mod.AddPrefix("Agitated", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0));
+                //mod.AddPrefix("Buffeted", new AccessoryPrefix(1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1));
+                //mod.AddPrefix("Agitated", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0));
                 mod.AddPrefix("Mached", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0));
-                mod.AddPrefix("Accelerated", new AccessoryPrefix(0, 0, 2, 0, 0, 0, 0, 4, 4, 0, 0, 0));
-                mod.AddPrefix("Strong", new AccessoryPrefix(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0));
+                //mod.AddPrefix("Accelerated", new AccessoryPrefix(0, 0, 2, 0, 0, 0, 0, 4, 4, 0, 0, 0));
+                // mod.AddPrefix("Strong", new AccessoryPrefix(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0));
                 mod.AddPrefix("Mighty", new AccessoryPrefix(2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0));
 
-                mod.AddPrefix("Meditative", new AccessoryPrefix(0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Knowledgeable", new AccessoryPrefix(0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Wise", new AccessoryPrefix(0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Meditative", new AccessoryPrefix(0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Knowledgeable", new AccessoryPrefix(0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Wise", new AccessoryPrefix(0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0));
                 mod.AddPrefix("Enlightened", new AccessoryPrefix(0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Spectral", new AccessoryPrefix(0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Stable", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Spectral", new AccessoryPrefix(0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Stable", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0));
                 mod.AddPrefix("Quivered", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0));
 
-                mod.AddPrefix("Restless", new AccessoryPrefix(0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Energised", new AccessoryPrefix(0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0));
-                mod.AddPrefix("Rushed", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0));
-                mod.AddPrefix("Hyper", new AccessoryPrefix(0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 0, 0));
-                mod.AddPrefix("Stitched", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
-                mod.AddPrefix("Perscribed", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0));
-                mod.AddPrefix("Nursing", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0));
+                // mod.AddPrefix("Restless", new AccessoryPrefix(0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Energised", new AccessoryPrefix(0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0));
+                // mod.AddPrefix("Rushed", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0));
+                //  mod.AddPrefix("Hyper", new AccessoryPrefix(0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 0, 0));
+                //  mod.AddPrefix("Stitched", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0));
+                // mod.AddPrefix("Perscribed", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0));
+                //  mod.AddPrefix("Nursing", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0));
                 mod.AddPrefix("First Aid Trained", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0));
-                mod.AddPrefix("Ninja-Like", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1));
-                mod.AddPrefix("Blurred", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
-                mod.AddPrefix("Evasive", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2));
-                mod.AddPrefix("Dodgy", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3));
-                mod.AddPrefix("Quantum", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4));
+                //  mod.AddPrefix("Ninja-Like", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1));
+                //  mod.AddPrefix("Blurred", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1));
+                //  mod.AddPrefix("Evasive", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2));
+                mod.AddPrefix("Dodgy", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2));
+                mod.AddPrefix("Quantum", new AccessoryPrefix(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3));
             }
             return false;
         }

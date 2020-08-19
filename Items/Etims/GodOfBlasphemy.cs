@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.AbstractClasses;
 using QwertysRandomContent.Config;
 using System;
 using System.Collections.Generic;
@@ -33,13 +35,20 @@ namespace QwertysRandomContent.Items.Etims
             item.rare = 3;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.mountType = mod.MountType("GodOfBlasphemyShift");
+            //item.mountType = mod.MountType("GodOfBlasphemyShift");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
+            item.shoot = mod.ProjectileType("GodOfBlasphemyShift");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            player.AddBuff(mod.BuffType("GodOfBlasphemyB"), 2);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool CanUseItem(Player player)
@@ -75,146 +84,123 @@ namespace QwertysRandomContent.Items.Etims
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType("GodOfBlasphemyShift"), player);
-            player.buffTime[buffIndex] = 10;
+            if (player.GetModPlayer<ShapeShifterPlayer>().delayThing <= 0)
+            {
+                player.buffTime[buffIndex] = 2;
+            }
         }
     }
 
-    public class GodOfBlasphemyShift : ModMountData
+    public class GodOfBlasphemyShift : StableMorph
     {
-        public override void SetDefaults()
+        public override void SetSafeDefaults()
         {
-            mountData.buff = mod.BuffType("GodOfBlasphemyB");
-            mountData.spawnDust = 15;
-
-            mountData.heightBoost = 86;
-            mountData.flightTimeMax = 0;
-            mountData.fallDamage = 0f;
-            mountData.runSpeed = 0f;
-            mountData.dashSpeed = 0f;
-            mountData.acceleration = 0f;
-            mountData.jumpHeight = 0;
-            mountData.jumpSpeed = 0f;
-            mountData.totalFrames = 1;
-            mountData.constantJump = false;
-
-            int[] array = new int[mountData.totalFrames];
-            for (int l = 0; l < array.Length; l++)
-            {
-                array[l] = 0;
-            }
-            mountData.playerYOffsets = array;
-            mountData.xOffset = 0;
-            mountData.bodyFrame = 1;
-            mountData.yOffset = 2;
-            mountData.playerHeadOffset = 0;
-            mountData.standingFrameCount = 1;
-            mountData.standingFrameDelay = 10;
-            mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = 1;
-            mountData.runningFrameDelay = 10;
-            mountData.runningFrameStart = 0;
-            mountData.flyingFrameCount = 1;
-            mountData.flyingFrameDelay = 0;
-            mountData.flyingFrameStart = 0;
-            mountData.inAirFrameCount = 1;
-            mountData.inAirFrameDelay = 12;
-            mountData.inAirFrameStart = 0;
-            mountData.idleFrameCount = 1;
-            mountData.idleFrameDelay = 12;
-            mountData.idleFrameStart = 0;
-            mountData.idleFrameLoop = true;
-            mountData.swimFrameCount = mountData.inAirFrameCount;
-            mountData.swimFrameDelay = mountData.inAirFrameDelay;
-            mountData.swimFrameStart = mountData.inAirFrameStart;
-
-            if (Main.netMode != 2)
-            {
-                mountData.textureWidth = mountData.backTexture.Width;
-                mountData.textureHeight = mountData.backTexture.Height;
-            }
+            projectile.width = 166;
+            projectile.height = 128;
+            projectile.timeLeft = 2;
+            buffName = "GodOfBlasphemyB";
+            itemName = "GodOfBlasphemy";
         }
 
-        public override void UpdateEffects(Player player)
-        {
-            player.GetModPlayer<MorphFlightControl>().controlled = true;
-        }
-    }
-
-    public class MorphFlightControl : ModPlayer
-    {
         private float flySpeed = 6.2f;
-        private int shotCooldown = 0;
-        public bool controlled = false;
-
-        public override void ResetEffects()
-        {
-            controlled = false;
-        }
-
+        private int shotCooldown = 20;
         private float pupilDirection = 0f;
         private float greaterPupilRadius = 18;
         private float lesserPupilRadius = 6;
         public float scale = 1f;
         public Vector2 pupilPosition;
 
-        public override void PostUpdateMiscEffects()
+        public override void Effects(Player player)
         {
-            if (controlled)
-            {
-                Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
-                float pupilStareOutAmount = (LocalCursor - player.Center).Length() / 300f;
-                if (pupilStareOutAmount > 1f)
-                {
-                    pupilStareOutAmount = 1f;
-                }
-                scale = 1f + .05f * (float)Math.Sin(player.GetModPlayer<ShapeShifterPlayer>().pulseCounter);
-                pupilDirection = (LocalCursor - player.Center).ToRotation();
-                pupilPosition = new Vector2((float)Math.Cos(pupilDirection) * greaterPupilRadius * pupilStareOutAmount, (float)Math.Sin(pupilDirection) * lesserPupilRadius) * scale;
-                player.nightVision = true;
-                player.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy = true;
-                player.noFallDmg = true;
-                player.gravity = 0;
-                player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-                Mount mount = player.mount;
-                player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-                player.GetModPlayer<ShapeShifterPlayer>().overrideWidth = 166;
-                player.noItems = true;
-                player.statDefense = GodOfBlasphemy.def + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
-                player.velocity = Vector2.Zero;
-                if (player.controlUp)
-                {
-                    player.velocity.Y += -1;
-                }
-                if (player.controlDown)
-                {
-                    player.velocity.Y += 1;
-                }
-                if (player.controlLeft)
-                {
-                    player.velocity.X += -1;
-                }
-                if (player.controlRight)
-                {
-                    player.velocity.X += 1;
-                }
-                if (shotCooldown > 0)
-                {
-                    shotCooldown--;
-                }
-                if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
-                {
-                    shotCooldown = 20;
-                    Projectile p = Main.projectile[Projectile.NewProjectile(player.Center + pupilPosition, QwertyMethods.PolarVector(10, (LocalCursor - player.Center).ToRotation()), mod.ProjectileType("EtimsicRayFreindly"), (int)(GodOfBlasphemy.dmg * player.GetModPlayer<ShapeShifterPlayer>().morphDamage), GodOfBlasphemy.kb, player.whoAmI)];
+            player.nightVision = true;
+            //player.GetModPlayer<ShapeShifterPlayer>().drawGodOfBlasphemy = true;
+        }
 
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PewPew").WithVolume(3f).WithPitchVariance(.5f), player.Center);
-                }
-                if (player.velocity.Length() > 0)
-                {
-                    player.velocity = player.velocity.SafeNormalize(-Vector2.UnitY);
-                    player.velocity *= flySpeed;
-                }
+        public override void Movement(Player player)
+        {
+            player.gravity = 0f;
+            player.accRunSpeed = 0;
+
+            Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
+            float pupilStareOutAmount = (LocalCursor - player.Center).Length() / 300f;
+            if (pupilStareOutAmount > 1f)
+            {
+                pupilStareOutAmount = 1f;
             }
+            scale = 1f + .05f * (float)Math.Sin(player.GetModPlayer<ShapeShifterPlayer>().pulseCounter);
+            pupilDirection = (LocalCursor - player.Center).ToRotation();
+            pupilPosition = new Vector2((float)Math.Cos(pupilDirection) * greaterPupilRadius * pupilStareOutAmount, (float)Math.Sin(pupilDirection) * lesserPupilRadius) * scale;
+
+            projectile.velocity = Vector2.Zero;
+            if (player.controlUp)
+            {
+                projectile.velocity.Y += -1;
+            }
+            if (player.controlDown)
+            {
+                projectile.velocity.Y += 1;
+            }
+            if (player.controlLeft)
+            {
+                projectile.velocity.X += -1;
+            }
+            if (player.controlRight)
+            {
+                projectile.velocity.X += 1;
+            }
+            if (shotCooldown > 0)
+            {
+                shotCooldown--;
+            }
+            if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
+            {
+                shotCooldown = 20;
+                Projectile p = Main.projectile[Projectile.NewProjectile(player.Center + pupilPosition, QwertyMethods.PolarVector(10, (LocalCursor - player.Center).ToRotation()), mod.ProjectileType("EtimsicRayFreindly"), player.GetWeaponDamage(player.HeldItem), player.GetWeaponKnockback(player.HeldItem, projectile.knockBack), player.whoAmI)];
+
+                Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/SoundEffects/PewPew").WithVolume(3f).WithPitchVariance(.5f), player.Center);
+            }
+            if (projectile.velocity.Length() > 0)
+            {
+                projectile.velocity = projectile.velocity.SafeNormalize(-Vector2.UnitY);
+                projectile.velocity *= flySpeed;
+            }
+            player.direction = Math.Sign(LocalCursor.X - player.Center.X);
+        }
+
+        public override bool DrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
+        {
+            Player drawPlayer = Main.player[projectile.owner];
+            Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)drawPlayer.Center.X / 16, (int)drawPlayer.Center.Y / 16, Color.White), 0f);
+            Texture2D texture = mod.GetTexture("Items/Etims/GodOfBlasphemyShift" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
+            spriteBatch.Draw(texture,
+                drawPlayer.Center - Main.screenPosition,
+                null,
+                color12,
+                0,
+                texture.Size() * .5f,
+                scale,
+                0,
+                0);
+            /*
+            value.shader = drawPlayer.miscDyes[3].dye;
+            Main.playerDrawData.Add(value);
+            */
+
+            texture = mod.GetTexture("Items/Etims/Pupil" + (ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? "_Old" : ""));
+            spriteBatch.Draw(texture,
+                drawPlayer.Center + pupilPosition - Main.screenPosition,
+                null,
+                color12,
+                0,
+                texture.Size() * .5f,
+                scale,
+                0,
+                0);
+            /*
+            value.shader = drawPlayer.miscDyes[3].dye;
+            Main.playerDrawData.Add(value);
+            */
+            return false;
         }
     }
 

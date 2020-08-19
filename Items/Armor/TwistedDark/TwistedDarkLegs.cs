@@ -53,9 +53,9 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
                 }
                 end = "% morph damage";
             }
-            else if (!player.GetModPlayer<ShapeShifterPlayer>().EyeBlessing)
+            else
             {
-                b -= .125f;
+                b -= .05f;
                 if (b < 0)
                 {
                     b = 0;

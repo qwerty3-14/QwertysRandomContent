@@ -58,9 +58,10 @@ namespace QwertysRandomContent.Items.Weapons.Glass
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Glass, 1);
+            recipe.AddIngredient(ItemID.Glass, 30);
+            recipe.AddRecipeGroup("QwertysrandomContent:SilverBar", 6);
             recipe.AddTile(TileID.GlassKiln);
-            recipe.SetResult(this, 100);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
 

@@ -17,33 +17,22 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
 
         public override void SetDefaults()
         {
-            item.damage = 58;
-            item.mana = 4;
+            item.damage = 40;
+            item.mana = 10;
             item.width = 100;
             item.height = 100;
-            item.useTime = 24;
-            item.useAnimation = 24;
+            item.useTime = 28;
+            item.useAnimation = 28;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 1f;
-            item.value = 500000;
-            item.rare = 9;
+            item.value = 250000;
+            item.rare = 5;
             item.UseSound = SoundID.Item43;
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("HydraMissileBig");
             item.magic = true;
             item.shootSpeed = 8;
-        }
-
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
-            recipe.AddIngredient(mod.ItemType("HydraScale"), 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
         }
 
         public override Vector2? HoldoutOffset()
@@ -130,7 +119,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             }
             //Main.PlaySound(SoundID.Item62, projectile.position);
-            for (int g = 0; g < 3; g++)
+            for (int g = 0; g < 2; g++)
             {
                 float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2;
                 Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileMedium"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
@@ -211,7 +200,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("HydraBeamGlow"));
             }
             //Main.PlaySound(SoundID.Item62, projectile.position);
-            for (int g = 0; g < 3; g++)
+            for (int g = 0; g < 2; g++)
             {
                 float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2;
                 Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileSmall"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);

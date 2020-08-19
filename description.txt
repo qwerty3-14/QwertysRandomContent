@@ -6,33 +6,115 @@ Includes
 -8 bosses with custom AI!
 -A new sky fortress biome/strucutre with randomised layouts, and new enemeis with custom AI!
 -A new event the dino militia!
--28 new accesory prefixes!
--over 340 items total! including...
+-8 new accesory prefixes!
+-over 400 items total! including...
 -many new armor sets all with unique effects
 -LOADS of cool and unique weapons!
--A new 'shapeshifter' class! (WIP)
-
 
 I'm not that good of a spriter so here I'll give thanks to the spriters who helped!
--Havoc 
--Liquidated Assets 
+-Havoc
+-Liquidated Assets
 -SUS
 -Darkpuppey
--FazerGamer 
--GamingWithZack 
--ShockedHorizon5 
--FailureOfMankind 
--Raz 
+-FazerGamer
+-GamingWithZack
+-ShockedHorizon5
+-FailureOfMankind
+-Raz
 -Kerdo
--Phobostar 
+-Phobostar
+-Donmor
 
 Extra thanks
 -Turquiose (for writing custom themes)
+-musicman (polar exterminator theme)
 -Kerdo (Russian Translations)
+-Cerberus (Chinese Translations)
+
 
 
 
 changelog
+0.20.12
+-fixed stable morphs resetting flight time
+-fixed the spiked slime shift
+-fixed stable morph no longer being effected by dyes
+
+
+0.20.11
+
+-added a hotkey that will allow the player to quickly use quick morphs then switch back to whatever they were using
+-reworked stable morphs
+--stable morps are no longer mounts, and are now activated with a new 'quick stable morph' hotkey
+--quick heal, buf, and mana, now work when morphed
+--morph sickness has been done away witt, the fact that shapefiter equipment encourages staying morphed should be sufficient enough.
+--Due to the removal of morph sickeness the emeral eye and its upgrades have been removed.
+-etimsic armor has been tweaked
+-buffed tank commander's set bonus
+-clay plate effect changed
+-nefed glass cannon since you no longer need to be helpless for 3 seconds to start using it
+
+-new sprites for many dino militia enemies (thanks Donmor)
+-fixed shape shift: hydra barrage not making the player invulnerable
+-shape shift: Rhuthinium barrage now makes the player invulnerable while in use
+
+-fixed glass blade's recipe
+-fixed mythril prism and chloro sniper minion not orbiting player
+
+-Ancient machine's defense reduced 18->14
+-Imperious's defense lowers to 34 when entering its second phase
+-piercing potion armor penetration reduced 12->8
+-brutal necklace armor penetration 6->5
+
+-mini tank damage increased 30->32
+-mini tanks should be better at targeting large enemies that are slightly below them verticly
+
+
+0.20.10
+-tweaked arachnoyo's interaction's with the yoyo bag slightly
+-added arsenal (new Imperious drop)
+-Swordsman badge drop rate is now independent of weapon drops
+
+-When Imperious is spawned in it will start facing away from the player (should prevent Imperious from immediatly charging toward the player from offscreen at high speeds)
+-Imperious will no longer use swordlagmite or swordpocalypse in its second phase in singleplayer
+-Imperious's phantom ring attack will attack in 4 waves instead of 7
+-Imperious is now invulnerable when transitioning to the second phase
+
+0.21.9
+-Ancient miner is now a strictly 3x3 miner, since it would lose modifers when switching modes
+-Nerfed rhuthinium pickaxe and hamaxe mining speed and anmiation speed to be the same as molten tools
+-Reworked burst miner to act like a pre hardmode shroomite digging claw, renamed to stream miner
+
+
+-Added Hydrill
+-added Shape Shift: Hydra Barrage
+-hydra missile rod is now a hydra drop but has been nerfed to compensate for earlier progression
+-hydra misile rod damage reduced 58->40, use time increased 24->28, splits into 2 heads per split instead of 3, mana increased 4->10
+--Hydra arrows are now more expensive to craft rquiring 3 scales per 111 crafted.
+
+-Reworked hydra's drop rates
+--2(3 in expert) of the following items will be dropped: Fire hydrent, hydra javelin, hydra cannon, hydra beam, Hydra missile rod, hydra head staff, Shape shift: hydra barrage, Hydrill.  (it's the exact same drop formula that AM and Imperious use)
+--hydra no longer drops hydra arrows directly
+--drop chance on hydra hook and hydrator increased slightly
+
+
+
+0.21.8
+-fossil bow use time increased 14->18
+-added fortress harpy feather and fortress harpy wings
+-rebalanced hydra wings
+-removed a bunch of the mod's weaker redundent prefixes, and some that were considered too overpowered
+-Gale swift helm crit chnce increased 8%->12%
+
+
+0.21.7
+-Polar exterminator now has its own theme (no music box yet)
+
+0.21.6
+-fixed polar exterminator not updating on boss checklist
+-fixed bowyo arrow damage
+-molluskets now have a chnace of dropping an accesory.
+
 0.21.5
 -added a command to generate the frozen den.
 -fixed issue where the world couldn't generate with the mod

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -12,13 +13,13 @@ namespace QwertysRandomContent.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Great Tyrannosaurus");
-            Main.npcFrameCount[npc.type] = 10;
+            Main.npcFrameCount[npc.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            npc.width = 170;
-            npc.height = 148;
+            npc.width = 166;
+            npc.height = 154;
             npc.damage = 100;
             npc.defense = 22;
             npc.lifeMax = 28000;
@@ -92,34 +93,25 @@ namespace QwertysRandomContent.NPCs
 
         private const int moveFrameType = 0;
         private const int attackFrameType = 1;
-        private const int attackFrameUpType = 2;
-        private const int attackFrameAngleType = 3;
         private const int launchFrameType = 4;
-        public int AI_Timer = 0;
+        public int timer = 0;
         public int Pos = 1;
         public int damage = 35;
         public int walkTime = 300;
         public int moveCount = 0;
         public int fireCount = 0;
         public int frameType = 0;
-        public int climateReloadTime = 10;
-        public int diseaseReloadTime = 4;
-        public int climateTime = 0;
-        public int diseaseTime = 0;
-        public int attack;
-        public int runOnce = 0;
-        public int meteorTime = 0;
-        public int meteorReloadTime = 30;
+        public int attack = 0;
         public bool meteorsLaunched = false;
         public int multiplayerAttackCycle = 1;
+        private int[] attackreloadTimes = new int[] { 10, 4, 30 };
+        private Vector2 gunOffset = new Vector2(78, 76);
+        private float gunRot = 0f;
+        private int meteorTime;
+        private int gunFrame = 0;
 
         public override void AI()
         {
-            if (runOnce == 0)
-            {
-                runOnce = 1;
-            }
-            AI_Timer++;
             if (Main.expertMode)
             {
                 damage = 25;
@@ -142,166 +134,80 @@ namespace QwertysRandomContent.NPCs
                 }
             }
 
-            if (AI_Timer > walkTime)
+            timer++;
+            npc.frameCounter++;
+            gunOffset = npc.spriteDirection == 1 ? new Vector2(78, 76) : new Vector2(166 - 78, 76);
+            gunFrame = 0;
+            if (timer > walkTime)
             {
-                if (attack == 1)
-                {
-                    meteorsLaunched = false;
-                    climateTime++;
-                    if (climateTime > climateReloadTime)
-                    {
-                        Main.PlaySound(16, npc.position, 0);
-                        if (Main.netMode != 1)
-                        {
-                            if (frameType == attackFrameType)
-                            {
-                                int spread = Main.rand.Next(-15, 15);
-                                Projectile.NewProjectile(npc.Center.X + (55f * npc.direction), npc.Center.Y, (float)Math.Cos(MathHelper.ToRadians(spread)) * 10f * npc.direction, -10f * (float)Math.Sin(MathHelper.ToRadians(spread)), mod.ProjectileType("SnowFlake"), damage, 3f, Main.myPlayer);
-                            }
-                            else if (frameType == attackFrameUpType)
-                            {
-                                int spread = Main.rand.Next(-15, 15);
-                                Projectile.NewProjectile(npc.Center.X + (30f * npc.direction), npc.Center.Y - 30f, (float)Math.Cos(Math.PI / 2 + MathHelper.ToRadians(spread)) * 10f, -10f * (float)Math.Sin(Math.PI / 2 + MathHelper.ToRadians(spread)), mod.ProjectileType("SnowFlake"), damage, 3f, Main.myPlayer);
-                            }
-                            else if (frameType == attackFrameAngleType)
-                            {
-                                int spread = Main.rand.Next(-15, 15);
-                                Projectile.NewProjectile(npc.Center.X + (41f * npc.direction), npc.Center.Y - 24f, (float)Math.Cos(Math.PI / 4 + MathHelper.ToRadians(spread)) * 10f * npc.direction, -10f * (float)Math.Sin(Math.PI / 4 + MathHelper.ToRadians(spread)), mod.ProjectileType("SnowFlake"), damage, 3f, Main.myPlayer);
-                            }
-                        }
-                        climateTime = 0;
-                    }
-
-                    float playerPositionSummery = (player.Center.X - npc.Center.X) * npc.direction + (player.Center.Y - npc.Center.Y);
-                    if (playerPositionSummery > 200f)
-                    {
-                        frameType = attackFrameType;
-                    }
-                    else if (playerPositionSummery < -200f)
-                    {
-                        frameType = attackFrameUpType;
-                    }
-                    else
-                    {
-                        frameType = attackFrameAngleType;
-                    }
-
-                    npc.velocity.X = (0);
-                    npc.velocity.Y = (0);
-                    if (AI_Timer > walkTime * 2)
-                    {
-                        multiplayerAttackCycle = 2;
-                        AI_Timer = 0;
-                    }
-                }
+                npc.aiStyle = -1;
+                npc.directionY = -Math.Sign(player.Center.X - npc.Center.X);
+                meteorsLaunched = attack == 2;
+                npc.velocity.X = 0;
+                npc.velocity.Y += 4.3f;
 
                 if (attack == 2)
                 {
-                    meteorsLaunched = false;
-                    diseaseTime++;
-                    if (diseaseTime > diseaseReloadTime)
+                    gunRot = npc.spriteDirection == 1 ? 0f : (float)Math.PI;
+                }
+                else
+                {
+                    gunRot = (player.Center - (npc.position + gunOffset)).ToRotation();
+                    if (npc.frameCounter % 4 > 1)
                     {
-                        Main.PlaySound(16, npc.position, 0);
-                        if (Main.netMode != 1)
-                        {
-                            if (frameType == attackFrameType)
-                            {
-                                int spread = Main.rand.Next(-15, 15);
-
-                                NPC.NewNPC((int)npc.Center.X + 55 * npc.direction, (int)npc.Center.Y, mod.NPCType("Mosquitto"), 0, (float)MathHelper.ToRadians(spread), npc.direction);
-                            }
-                            else if (frameType == attackFrameUpType)
-                            {
-                                int spread = Main.rand.Next(-15, 15);
-
-                                NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y - 30, mod.NPCType("Mosquitto"), 0, (float)Math.PI / 2 + MathHelper.ToRadians(spread), npc.direction);
-                            }
-                            else if (frameType == attackFrameAngleType)
-                            {
-                                int spread = Main.rand.Next(-15, 15);
-
-                                NPC.NewNPC((int)npc.Center.X + 31 * npc.direction, (int)npc.Center.Y - 24, mod.NPCType("Mosquitto"), 0, (float)Math.PI / 4 + MathHelper.ToRadians(spread), npc.direction);
-                                //NPC.NewNPC(int X, int Y, int Type, [int start = 0], [float ai0 = 0], [float ai1 = 0], [float ai2 = 0], [float ai3 = 0], [int target = 255])
-                            }
-                        }
-                        diseaseTime = 0;
-                    }
-
-                    float playerPositionSummery = (player.Center.X - npc.Center.X) * npc.direction + (player.Center.Y - npc.Center.Y);
-                    if (playerPositionSummery > 200f)
-                    {
-                        frameType = attackFrameType;
-                    }
-                    else if (playerPositionSummery < -200f)
-                    {
-                        frameType = attackFrameUpType;
-                    }
-                    else
-                    {
-                        frameType = attackFrameAngleType;
-                    }
-
-                    npc.velocity.X = (0);
-                    npc.velocity.Y = (0);
-                    if (AI_Timer > walkTime * 2)
-                    {
-                        multiplayerAttackCycle = 3;
-                        AI_Timer = 0;
+                        gunFrame = 1;
                     }
                 }
-                if (attack == 3)
+                if ((timer - walkTime) % attackreloadTimes[attack] == 0)
                 {
-                    meteorsLaunched = false;
-                    meteorTime++;
-                    if (meteorTime > meteorReloadTime)
+                    Main.PlaySound(16, npc.position + gunOffset, 0);
+                    if (Main.netMode != 1)
                     {
-                        if (Main.netMode != 1)
+                        float spread = MathHelper.ToRadians(Main.rand.Next(-15, 15));
+
+                        switch (attack)
                         {
-                            Projectile.NewProjectile(npc.Center.X + (-28f * npc.direction), npc.Center.Y - 74f, 0f, -40f, mod.ProjectileType("MeteorLaunch"), damage, 3f, Main.myPlayer);
+                            case 0:
+                                Projectile.NewProjectile(npc.position + gunOffset + QwertyMethods.PolarVector(56, gunRot), QwertyMethods.PolarVector(10f, gunRot + spread), mod.ProjectileType("SnowFlake"), damage, 3f, Main.myPlayer);
+                                break;
+
+                            case 1:
+                                NPC.NewNPC((int)(npc.position + gunOffset + QwertyMethods.PolarVector(56, gunRot)).X, (int)(npc.position + gunOffset + QwertyMethods.PolarVector(56, gunRot)).Y, mod.NPCType("Mosquitto"), 0, spread, npc.direction);
+                                break;
+
+                            case 2:
+                                Projectile.NewProjectile(npc.Center + new Vector2(-24 * npc.direction, -74f), Vector2.UnitY * -40f, mod.ProjectileType("MeteorLaunch"), damage, 3f, Main.myPlayer);
+
+                                break;
                         }
-                        meteorTime = 0;
                     }
-
-                    frameType = launchFrameType;
-
-                    npc.velocity.X = (0);
-                    npc.velocity.Y = (0);
-                    if (AI_Timer > walkTime * 2)
-                    {
-                        multiplayerAttackCycle = 1;
-                        AI_Timer = 0;
-                        meteorsLaunched = true;
-                    }
+                }
+                if (timer >= walkTime * 2)
+                {
+                    timer = 0;
+                    attack = Main.rand.Next(3);
                 }
             }
             else
             {
-                frameType = moveFrameType;
-                if (Main.netMode == 0)
+                if (npc.frameCounter >= 10)
                 {
-                    if (Main.netMode != 1)
-                    {
-                        npc.ai[1] = Main.rand.Next(1, 4);
-                        npc.netUpdate = true;
-                    }
-                    attack = (int)npc.ai[1];
+                    gunOffset.Y += 2;
                 }
-                else
+                npc.aiStyle = 3;
+                gunRot = npc.spriteDirection == 1 ? 0f : (float)Math.PI;
+                if (meteorsLaunched)
                 {
-                    attack = multiplayerAttackCycle;
-                }
-            }
-            if (meteorsLaunched)
-            {
-                meteorTime++;
-                if (meteorTime > 10)
-                {
-                    if (Main.netMode != 1)
+                    meteorTime++;
+                    if (meteorTime > 10)
                     {
-                        int Xvar = Main.rand.Next(-750, 750);
-                        Projectile.NewProjectile(player.Center.X + Xvar * 1.0f, player.Center.Y - 800f, 0f, 10f, mod.ProjectileType("MeteorFall"), damage, 3f, Main.myPlayer);
+                        if (Main.netMode != 1)
+                        {
+                            int Xvar = Main.rand.Next(-750, 750);
+                            Projectile.NewProjectile(player.Center.X + Xvar * 1.0f, player.Center.Y - 800f, 0f, 10f, mod.ProjectileType("MeteorFall"), damage, 3f, Main.myPlayer);
+                        }
+                        meteorTime = 0;
                     }
-                    meteorTime = 0;
                 }
             }
         }
@@ -314,11 +220,6 @@ namespace QwertysRandomContent.NPCs
                 NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
             if (Main.netMode != 1)
             {
-                int centerX = (int)(npc.position.X + npc.width / 2) / 16;
-                int centerY = (int)(npc.position.Y + npc.height / 2) / 16;
-                int halfLength = npc.width / 2 / 16 + 1;
-                //int weaponLoot = Main.rand.Next(1, 5);
-                //int trophyChance = Main.rand.Next(0, 10);
                 switch (Main.rand.Next(3))
                 {
                     case 0:
@@ -338,59 +239,20 @@ namespace QwertysRandomContent.NPCs
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WornPrehistoricBow"));
                 }
-                /*
-				if (Main.expertMode)
-				{
-					npc.DropBossBags();
-				}
-				else
-				{
-					if (weaponLoot == 1)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
-					}
-					if (weaponLoot == 2)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
-					}
-					if (weaponLoot == 3)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
-					}
-					if (weaponLoot == 4)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
-					}
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, 73, 8);
-				}
-					if (trophyChance == 1)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType(""));
-				}
-				*/
             }
         }
 
         public int moveFrame = 0;
         public int moveFrame2 = 1;
 
-        public int attackFrame = 2;
-        public int attackFrame2 = 3;
-
-        public int attackFrameUp = 4;
-        public int attackFrameUp2 = 5;
-
-        public int attackFrameAngle = 6;
-        public int attackFrameAngle2 = 7;
-
-        public int launchFrame = 8;
-        public int launchFrame2 = 9;
+        public int launchFrame = 3;
+        public int launchFrame2 = 4;
 
         public override void FindFrame(int frameHeight)
         {
             // This makes the sprite flip horizontally in conjunction with the npc.direction.
             npc.spriteDirection = npc.direction;
-            npc.frameCounter++;
+
             if (frameType == moveFrameType)
             {
                 if (npc.frameCounter < 10)
@@ -408,48 +270,7 @@ namespace QwertysRandomContent.NPCs
             }
             if (frameType == attackFrameType)
             {
-                if (npc.frameCounter < 10)
-                {
-                    npc.frame.Y = (attackFrame * frameHeight);
-                }
-                else if (npc.frameCounter < 20)
-                {
-                    npc.frame.Y = (attackFrame2 * frameHeight);
-                }
-                else
-                {
-                    npc.frameCounter = 0;
-                }
-            }
-            if (frameType == attackFrameUpType)
-            {
-                if (npc.frameCounter < 10)
-                {
-                    npc.frame.Y = (attackFrameUp * frameHeight);
-                }
-                else if (npc.frameCounter < 20)
-                {
-                    npc.frame.Y = (attackFrameUp2 * frameHeight);
-                }
-                else
-                {
-                    npc.frameCounter = 0;
-                }
-            }
-            if (frameType == attackFrameAngleType)
-            {
-                if (npc.frameCounter < 10)
-                {
-                    npc.frame.Y = (attackFrameAngle * frameHeight);
-                }
-                else if (npc.frameCounter < 20)
-                {
-                    npc.frame.Y = (attackFrameAngle2 * frameHeight);
-                }
-                else
-                {
-                    npc.frameCounter = 0;
-                }
+                npc.frame.Y = (moveFrame * frameHeight);
             }
             if (frameType == launchFrameType)
             {
@@ -470,6 +291,16 @@ namespace QwertysRandomContent.NPCs
                     npc.frameCounter = 0;
                 }
             }
+        }
+
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            int frameHeight = 28;
+            bool flip = npc.spriteDirection == 1;
+            Texture2D gun = mod.GetTexture("NPCs/TheTyrantsExtinctionGun");
+            spriteBatch.Draw(gun, npc.position + gunOffset - Main.screenPosition,
+                       new Rectangle(0, frameHeight * gunFrame, 80, frameHeight), drawColor, gunRot + (float)Math.PI,
+                       new Vector2(70, 14), 1f, flip ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
         }
     }
 

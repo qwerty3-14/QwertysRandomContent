@@ -46,6 +46,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             npc.alpha = 255;
             npc.behindTiles = true;
             npc.buffImmune[BuffID.Ichor] = true;
+            npc.buffImmune[BuffID.Poisoned] = true;
         }
 
         public override bool? CanBeHitByItem(Player player, Item item)
@@ -105,7 +106,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 }
             }
             ClearPhantoms();
-            /*
+
             if (!QwertyWorld.downedBlade)
             {
                 QwertyWorld.downedBlade = true;
@@ -114,46 +115,19 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                     NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state
                 }
             }
-            */
+
             if (Main.expertMode)
             {
                 npc.DropBossBags();
             }
             else
             {
-                switch (Main.rand.Next(8))
+                string[] spawnThese = QwertysRandomContent.ImperiousLoot.Draw(2);
+                Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType(spawnThese[0]));
+                Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType(spawnThese[1]));
+                if (Main.rand.Next(20) < 3)
                 {
-                    case 0:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("SwordStormStaff"));
-                        break;
-
-                    case 1:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("ImperiousTheIV"));
-                        break;
-
-                    case 2:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("FlailSword"));
-                        break;
-
-                    case 3:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("SwordMinionStaff"));
-                        break;
-
-                    case 4:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("SwordsmanBadge"));
-                        break;
-
-                    case 5:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("BladedArrowShaft"));
-                        break;
-
-                    case 6:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("Imperium"));
-                        break;
-
-                    case 7:
-                        Item.NewItem(npc.Center, Vector2.Zero, mod.ItemType("Swordquake"));
-                        break;
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SwordsmanBadge"));
                 }
             }
             if (Main.rand.Next(10) == 0)
@@ -196,6 +170,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
         private bool secondPhase = false;
         private List<int> PhantomBladeIds = new List<int>();
         private Vector3[] trailingEffect = new Vector3[10];
+        private bool runOnce = true;
 
         private void CreatePhantom()
         {
@@ -250,6 +225,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
 
         public override void AI()
         {
+            npc.defense = (secondPhase ? 34 : 42);
             followupSwordlagmiteDelay2 = secondPhase ? 90 : 120;
             npc.frameCounter++;
             if (npc.frameCounter % 2 == 0)
@@ -263,6 +239,11 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             trailingEffect[0] = new Vector3(npc.Center.X, npc.Center.Y, npc.rotation);
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
+            if (runOnce)
+            {
+                npc.rotation = (npc.Center - player.Center).ToRotation();
+                runOnce = false;
+            }
             if (!player.active || player.dead)
             {
                 npc.TargetClosest(false);
@@ -289,6 +270,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                     SpecialAttackTimer = 0;
                     if (npc.ai[2] > 120)
                     {
+                        SpecialAttackTimer += 10;
                         npc.dontTakeDamage = false;
                         secondPhase = true;
                     }
@@ -352,7 +334,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                                         npc.netUpdate = true;
                                         if (Main.netMode != 1)
                                         {
-                                            switch (Main.rand.Next((secondPhase && Main.netMode == 0) ? 3 : 2))
+                                            switch ((secondPhase && Main.netMode == 0) ? 2 : Main.rand.Next(2))
                                             {
                                                 case 0:
                                                     AddPosition(new Vector3(pos.X, pos.Y, (float)Math.PI / 2));
@@ -452,7 +434,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                                         }
                                         int starDirection = (player.Center.X - npc.Center.X > 0 ? 1 : -1);
                                         npc.rotation += (float)Math.PI / 30 * starDirection;
-                                        npc.velocity = (player.Center - npc.Center).SafeNormalize(-Vector2.UnitY) * (secondPhase ? 4f : 2f);
+                                        npc.velocity = (player.Center - npc.Center).SafeNormalize(-Vector2.UnitY) * (Main.expertMode ? 4f : 2f);
                                         int impactZoneWidth = 1000;
                                         int startAwayAmount = 800;
                                         float shootSpeed = 10f;
@@ -478,7 +460,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                                 int circleSpeed = 14;
                                 int cicrleRange = 1400;
                                 float swordCount = 7f;
-                                int waveCount = 7;
+                                int waveCount = 4;
                                 if (SpecialAttackTimer >= circleDelay * waveCount + (cicrleRange - bladeLength + 18) / circleSpeed)
                                 {
                                     SpecialAttackTimer = 0;
@@ -547,6 +529,8 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                 {
                     Main.npc[hitBoxSegmentIds[h]].Center = spot;
                     Main.npc[hitBoxSegmentIds[h]].timeLeft = 10;
+                    Main.npc[hitBoxSegmentIds[h]].dontTakeDamage = npc.dontTakeDamage;
+                    Main.npc[hitBoxSegmentIds[h]].defense = npc.defense;
                     Lighting.AddLight(spot, 1f, 1f, 1f);
                     Lighting.AddLight(spot + QwertyMethods.PolarVector(bladeWidth / 2, npc.rotation), 1f, 1f, 1f);
                 }
@@ -686,6 +670,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
             npc.noTileCollide = true;
             npc.lifeMax = 25000;
             npc.buffImmune[BuffID.Ichor] = true;
+            npc.buffImmune[BuffID.Poisoned] = true;
             music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/BladeOfAGod");
         }
 
@@ -693,7 +678,7 @@ namespace QwertysRandomContent.NPCs.BladeBoss
 
         public override bool CheckActive()
         {
-            return false;
+            return !NPC.AnyNPCs(mod.NPCType("Imperious"));
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -704,6 +689,10 @@ namespace QwertysRandomContent.NPCs.BladeBoss
 
         public override void AI()
         {
+            if (!NPC.AnyNPCs(mod.NPCType("Imperious")))
+            {
+                npc.position.Y -= 100;
+            }
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
             if (!player.active || player.dead)

@@ -27,13 +27,11 @@ namespace QwertysRandomContent.Tiles
 
             Main.tileLavaDeath[Type] = true;
 
-            ModTranslation name = CreateMapEntryName();
-
             soundType = 21;
             soundStyle = 2;
-
-            AddMapEntry(new Color(162, 184, 185));
-            name.SetDefault("Fortress Carving");
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Mirror");
+            AddMapEntry(new Color(162, 184, 185), name);
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

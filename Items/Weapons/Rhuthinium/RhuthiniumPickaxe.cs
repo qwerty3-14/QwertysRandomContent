@@ -19,8 +19,8 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.damage = 11;
             item.melee = true;
 
-            item.useTime = 17;
-            item.useAnimation = 17;
+            item.useTime = 18;
+            item.useAnimation = 23;
             item.useStyle = 1;
             item.knockBack = 3;
             item.value = 25000;

@@ -40,8 +40,6 @@ namespace QwertysRandomContent
             ShieldMinion = false;
             SwordMinion = false;
             TileMinion = false;
-
-            mythrilPrismRotation = 0;
         }
 
         public override void PreUpdate()

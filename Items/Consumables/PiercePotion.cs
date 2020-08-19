@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Consumables
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pierce Potion");
-            Tooltip.SetDefault("Increases armor penetration by 12");
+            Tooltip.SetDefault("Increases armor penetration by 8");
         }
 
         public override void SetDefaults()

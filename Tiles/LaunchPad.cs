@@ -29,13 +29,14 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, 0, 0);
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("CaeliteDust");
             soundType = 21;
             soundStyle = 2;
             minPick = 1;
-            AddMapEntry(new Color(162, 184, 185));
+
+            ModTranslation name = CreateMapEntryName();
             name.SetDefault("Launchpad");
+            AddMapEntry(new Color(162, 184, 185), name);
         }
 
         public override bool CanPlace(int i, int j)

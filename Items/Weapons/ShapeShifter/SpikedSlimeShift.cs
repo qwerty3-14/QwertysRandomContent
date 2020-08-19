@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.AbstractClasses;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -38,13 +39,20 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             item.rare = 1;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.mountType = mod.MountType("SpikedSlimeMorph");
+            //item.mountType = mod.MountType("SpikedSlimeMorph");
             item.damage = dmg;
             item.crit = crt;
             item.knockBack = kb;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
             item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
+            item.shoot = mod.ProjectileType("SpikedSlimeMorph");
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            player.AddBuff(mod.BuffType("SpikedSlimeMorphB"), 2);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool GrabStyle(Player player)
@@ -79,109 +87,81 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.mount.SetMount(mod.MountType("SpikedSlimeMorph"), player);
-            player.buffTime[buffIndex] = 10;
+            if (player.GetModPlayer<ShapeShifterPlayer>().delayThing <= 0)
+            {
+                player.buffTime[buffIndex] = 2;
+            }
         }
     }
 
-    public class SpikedSlimeMorph : ModMountData
+    public class SpikedSlimeMorph : StableMorph
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            mountData.buff = mod.BuffType("SpikedSlimeMorphB");
-            mountData.spawnDust = 15;
-
-            mountData.heightBoost = -8;
-            mountData.flightTimeMax = 0;
-            mountData.fallDamage = 0.4f;
-
-            mountData.acceleration = 0.13f;
-            mountData.jumpHeight = 15;
-            mountData.jumpSpeed = 6f;
-
-            mountData.totalFrames = 2;
-            mountData.constantJump = true;
-            int[] array = new int[mountData.totalFrames];
-            for (int l = 0; l < array.Length; l++)
-            {
-                array[l] = 0;
-            }
-            mountData.playerYOffsets = array;
-            mountData.xOffset = 0;
-            mountData.bodyFrame = 1;
-            mountData.yOffset = 2;
-            mountData.playerHeadOffset = 0;
-            mountData.standingFrameCount = 2;
-            mountData.standingFrameDelay = 10;
-            mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = mountData.standingFrameCount;
-            mountData.runningFrameDelay = mountData.standingFrameDelay;
-            mountData.runningFrameStart = mountData.standingFrameStart;
-            mountData.flyingFrameCount = mountData.standingFrameCount;
-            mountData.flyingFrameDelay = mountData.standingFrameDelay;
-            mountData.flyingFrameStart = mountData.standingFrameStart;
-            mountData.inAirFrameCount = mountData.standingFrameCount;
-            mountData.inAirFrameDelay = mountData.standingFrameDelay;
-            mountData.inAirFrameStart = mountData.standingFrameStart;
-            mountData.idleFrameCount = mountData.standingFrameCount;
-            mountData.idleFrameDelay = mountData.standingFrameDelay;
-            mountData.idleFrameStart = mountData.standingFrameStart;
-            mountData.idleFrameLoop = true;
-            mountData.swimFrameCount = mountData.inAirFrameCount;
-            mountData.swimFrameDelay = mountData.inAirFrameDelay;
-            mountData.swimFrameStart = mountData.inAirFrameStart;
-
-            if (Main.netMode != 2)
-            {
-                mountData.textureWidth = mountData.backTexture.Width;
-                mountData.textureHeight = mountData.backTexture.Height;
-            }
+            Main.projFrames[projectile.type] = 2;
         }
 
-        public override void UpdateEffects(Player player)
+        public override void SetSafeDefaults()
         {
-            player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-            Mount mount = player.mount;
-            player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
-
-            player.noItems = true;
-            player.statDefense = SpikedSlimeShift.def + player.GetModPlayer<ShapeShifterPlayer>().morphDef;
+            projectile.width = 40;
+            projectile.height = 34;
+            buffName = "SpikedSlimeMorphB";
+            itemName = "SpikedSlimeShift";
         }
 
-        public override bool UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
+        public override void Effects(Player player)
         {
-            if (mountedPlayer.GetModPlayer<SpikedSlimeControl>().count > 0)
+            if (projectile.velocity.Y == 0)
             {
-                mountedPlayer.GetModPlayer<SpikedSlimeControl>().count--;
-            }
-            if (mountedPlayer.wet)
-            {
-                mountedPlayer.velocity.Y = -7f;
-            }
-            if (state == 2 || state == 4)
-            {
-                mountData.runSpeed = 8f;
-                mountData.dashSpeed = 8f;
+                if (player.controlJump)
+                {
+                    projectile.velocity.Y -= 8f;
+                }
+                else
+                {
+                    if (count <= 0 && player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")))
+                    {
+                        count = 12;
+                        Projectile.NewProjectile(player.Center, QwertyMethods.PolarVector(10, (Main.MouseWorld - player.Center).ToRotation() + Main.rand.NextFloat(-1, 1) * (float)Math.PI / 16), mod.ProjectileType("PlayerSlimeSpike"), (int)projectile.damage, projectile.knockBack, player.whoAmI);
+                    }
+                    projectile.velocity.X = 0;
+                }
             }
             else
             {
-                mountData.runSpeed = 0f;
-                mountData.dashSpeed = 0f;
-                mountedPlayer.velocity.X *= .9f;
-                if (mountedPlayer.GetModPlayer<SpikedSlimeControl>().count <= 0 && mountedPlayer.whoAmI == Main.myPlayer && Main.mouseLeft && !mountedPlayer.HasBuff(mod.BuffType("MorphSickness")))
-                {
-                    mountedPlayer.GetModPlayer<SpikedSlimeControl>().count = 12;
-                    Projectile.NewProjectile(mountedPlayer.Center, QwertyMethods.PolarVector(10, (Main.MouseWorld - mountedPlayer.Center).ToRotation() + Main.rand.NextFloat(-1, 1) * (float)Math.PI / 16), mod.ProjectileType("PlayerSlimeSpike"), SpikedSlimeShift.dmg, SpikedSlimeShift.kb, mountedPlayer.whoAmI);
-                }
             }
-
-            return base.UpdateFrame(mountedPlayer, state, velocity);
+            base.Effects(player);
         }
-    }
 
-    public class SpikedSlimeControl : ModPlayer
-    {
-        public int count = 0;
+        private int count = 12;
+
+        public override void Movement(Player player)
+        {
+            count--;
+            projectile.frameCounter++;
+            projectile.frame = (projectile.frameCounter % 20 < 10 ? 0 : 1);
+            if (projectile.wet)
+            {
+                projectile.velocity.Y = -7f;
+            }
+        }
+
+        public override bool Running()
+        {
+            jumpSpeed = 6f;
+            jumpHeight = 15;
+            if (projectile.velocity.Y == 0)
+            {
+                acceleration = 0;
+                speed = 0;
+            }
+            else
+            {
+                acceleration = 1f;
+                speed = 8f;
+            }
+            return true;
+        }
     }
 
     public class PlayerSlimeSpike : ModProjectile

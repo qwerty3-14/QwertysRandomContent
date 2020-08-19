@@ -34,20 +34,14 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override void OpenBossBag(Player player)
         {
-            Deck<string> itemNames = new Deck<string>();
-            itemNames.Add("SwordStormStaff");
-            itemNames.Add("ImperiousTheIV");
-            itemNames.Add("FlailSword");
-            itemNames.Add("SwordMinionStaff");
-            itemNames.Add("SwordsmanBadge");
-            itemNames.Add("BladedArrowShaft");
-            itemNames.Add("Imperium");
-            itemNames.Add("Swordquake");
-
-            string[] spawnThese = itemNames.Draw(3);
+            string[] spawnThese = QwertysRandomContent.ImperiousLoot.Draw(3);
             player.QuickSpawnItem(mod.ItemType(spawnThese[0]));
             player.QuickSpawnItem(mod.ItemType(spawnThese[1]));
             player.QuickSpawnItem(mod.ItemType(spawnThese[2]));
+            if (Main.rand.Next(5) == 0)
+            {
+                player.QuickSpawnItem(mod.ItemType("SwordsmanBadge"));
+            }
 
             player.QuickSpawnItem(73, 15);
 

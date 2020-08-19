@@ -27,7 +27,7 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.wingTimeMax = 15;
+            player.wingTimeMax = 50;
             var modPlayer = player.GetModPlayer<QwertyPlayer>();
             if (modPlayer.customDashSpeed < 5f)
             {
@@ -38,17 +38,21 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
             ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
-            ascentWhenFalling = 0.85f;
-            ascentWhenRising = 0.15f;
-            maxCanAscendMultiplier = 1f;
-            maxAscentMultiplier = 3f; //max speed
-            constantAscend = 1f; //acceleration
+            ascentWhenFalling = 0.5f;
+            ascentWhenRising = 0.1f;
+            maxCanAscendMultiplier = .5f;
+            maxAscentMultiplier = 1.8f;
+            constantAscend = 0.1f;
         }
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            speed = 9f;
-            acceleration *= 2.5f;
+            speed = 8f;
+        }
+
+        public override bool WingUpdate(Player player, bool inUse)
+        {
+            return base.WingUpdate(player, inUse);
         }
     }
 

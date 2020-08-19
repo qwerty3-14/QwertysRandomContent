@@ -5,7 +5,7 @@ using Terraria.ObjectData;
 
 namespace QwertysRandomContent.Tiles
 {
-    public class VarguleBar : ModTile
+    public class RhuthiniumBar : ModTile
     {
         public override void SetDefaults()
         {
@@ -18,12 +18,12 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.addTile(Type);
 
-            dustType = mod.DustType("VarguleDust");
+            dustType = mod.DustType("RhuthiniumDust");
             soundType = 21;
             soundStyle = 2;
             minPick = 1;
             AddMapEntry(new Color(81, 97, 66));
-            drop = mod.ItemType("VarguleBar");
+            drop = mod.ItemType("RhuthiniumBar");
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

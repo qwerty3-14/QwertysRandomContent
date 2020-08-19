@@ -8,7 +8,7 @@ namespace QwertysRandomContent.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Pierce");
-            Description.SetDefault("Increased armor penetration by 12");
+            Description.SetDefault("Increased armor penetration by 8");
             Main.debuff[Type] = false;
             Main.pvpBuff[Type] = false;
             Main.buffNoSave[Type] = true;
@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.armorPenetration += 12;
+            player.armorPenetration += 8;
         }
     }
 }

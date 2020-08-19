@@ -13,13 +13,14 @@ namespace QwertysRandomContent.Tiles
             Main.tileSpelunker[Type] = true;
             Main.tileValue[Type] = 550;
 
-            ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("RhuthiniumDust");
             soundType = 21;
             soundStyle = 2;
 
-            AddMapEntry(new Color(39, 129, 129), name);
+            ModTranslation name = CreateMapEntryName();
             name.SetDefault("Rhuthinium Ore");
+            AddMapEntry(new Color(39, 129, 129), name);
+
             drop = mod.ItemType("RhuthiniumOre");
 
             minPick = 1;

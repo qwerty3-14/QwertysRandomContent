@@ -50,7 +50,7 @@ namespace QwertysRandomContent.Items.HydraItems
         {
             Player player = Main.player[projectile.owner];
             QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (player.maxMinions - player.numMinions >= projectile.minionSlots && Main.netMode != 2 && projectile.minionSlots > 0 && projectile.active && modPlayer.hydraCharm && projectile.type != mod.ProjectileType("SwordMinion") && (projectile.type < ProjectileID.StardustDragon1 || projectile.type > ProjectileID.StardustDragon4))
+            if (projectile.owner == player.whoAmI && player.maxMinions - player.numMinions >= projectile.minionSlots && Main.netMode != 2 && projectile.minionSlots > 0 && projectile.active && modPlayer.hydraCharm && projectile.type != mod.ProjectileType("SwordMinion") && (projectile.type < ProjectileID.StardustDragon1 || projectile.type > ProjectileID.StardustDragon4))
             {
                 if (wait >= 20 && projectile.active)
                 {

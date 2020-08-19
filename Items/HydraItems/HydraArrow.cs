@@ -37,7 +37,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("HydraScale"), 1);
+            recipe.AddIngredient(mod.ItemType("HydraScale"), 3);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this, 111);
             recipe.AddRecipe();

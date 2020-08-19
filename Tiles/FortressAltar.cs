@@ -28,13 +28,15 @@ namespace QwertysRandomContent.Tiles
             TileObjectData.addTile(Type);
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
-            ModTranslation name = CreateMapEntryName();
+
             dustType = mod.DustType("CaeliteDust");
             soundType = 21;
             soundStyle = 2;
             minPick = 10000;
-            AddMapEntry(new Color(162, 184, 185));
+
+            ModTranslation name = CreateMapEntryName();
             name.SetDefault("Altar");
+            AddMapEntry(new Color(162, 184, 185), name);
         }
 
         public override void RightClick(int i, int j)

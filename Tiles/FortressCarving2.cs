@@ -33,13 +33,13 @@ namespace QwertysRandomContent.Tiles
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
 
-            ModTranslation name = CreateMapEntryName();
             dustType = mod.DustType("FortressDust");
             soundType = 21;
             soundStyle = 2;
 
-            AddMapEntry(new Color(162, 184, 185));
+            ModTranslation name = CreateMapEntryName();
             name.SetDefault("Fortress Carving");
+            AddMapEntry(new Color(162, 184, 185), name);
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

@@ -38,7 +38,6 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("GunChakramP");
             item.shootSpeed = 12;
-            item.useAmmo = AmmoID.Bullet;
         }
 
         public override bool ConsumeAmmo(Player player)
@@ -53,18 +52,6 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            //reset damage and knockback to avoid ammo modifing
-            damage = (int)(item.damage * player.meleeDamage);
-            knockBack = item.knockBack * knockBack;
-            Vector2 s = new Vector2(speedX, speedY).SafeNormalize(-Vector2.UnitY) * item.shootSpeed / player.meleeSpeed;
-            speedX = s.X;
-            speedY = s.Y;
-            type = mod.ProjectileType("GunChakramP");
-            return true;
         }
 
         public override bool CanUseItem(Player player)
@@ -160,18 +147,17 @@ namespace QwertysRandomContent.Items.Weapons.Shroomite
             float weaponKnockback = projectile.knockBack;
             int bulletCount = 8 + (int)((((1 / player.meleeSpeed) - 1) * 100) / 10);
 
-            //CombatText.NewText(player.getRect(), new Color(38, 126, 126), bulletCount, true, false);
-            Item sItem = QwertyMethods.MakeItemFromID(ItemID.FlintlockPistol);
-            sItem.damage = weaponDamage;
-            player.PickAmmo(sItem, ref bullet, ref speedB, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
-            List<Projectile> bullets = QwertyMethods.ProjectileSpread(projectile.Center, bulletCount, BulVel, bullet, weaponDamage, weaponKnockback, projectile.owner);
-            foreach (Projectile bul in bullets)
+            if (projectile.UseAmmo(AmmoID.Bullet, ref bullet, ref speedB, ref weaponDamage, ref weaponKnockback, false))
             {
-                bul.melee = true;
-                bul.ranged = false;
-                if (Main.netMode == 1)
+                List<Projectile> bullets = QwertyMethods.ProjectileSpread(projectile.Center, bulletCount, BulVel, bullet, weaponDamage, weaponKnockback, projectile.owner);
+                foreach (Projectile bul in bullets)
                 {
-                    QwertysRandomContent.UpdateProjectileClass(bul);
+                    bul.melee = true;
+                    bul.ranged = false;
+                    if (Main.netMode == 1)
+                    {
+                        QwertysRandomContent.UpdateProjectileClass(bul);
+                    }
                 }
             }
         }

@@ -265,7 +265,6 @@ namespace QwertysRandomContent
             }
         }
 
-
         public override void PreUpdate()
         {
             deflectCooldown--;

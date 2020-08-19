@@ -19,8 +19,8 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.damage = 16;
             item.ranged = true;
 
-            item.useTime = 14;
-            item.useAnimation = 14;
+            item.useTime = 18;
+            item.useAnimation = 18;
             item.useStyle = 5;
             item.knockBack = 2;
             item.value = 25000;

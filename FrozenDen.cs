@@ -19,6 +19,7 @@ namespace QwertysRandomContent
         public static Vector2 BearSpawn = new Vector2(-1, -1);
         public static bool activeSleeper = false;
         public static FrozenDen instance;
+
         public override void Initialize()
         {
             BearSpawn = new Vector2(-1, -1);
@@ -232,7 +233,8 @@ namespace QwertysRandomContent
             BearSpawn = reader.ReadPackedVector2();
         }
     }
-    class CreateDen : ModCommand
+
+    internal class CreateDen : ModCommand
     {
         public override CommandType Type
         {
