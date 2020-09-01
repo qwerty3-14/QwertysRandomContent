@@ -35,6 +35,9 @@ Extra thanks
 
 
 changelog
+0.20.13
+-Fixed a severe bug where using the old Rhuthinium sprite setting would prevent the mod from loading, which would prevent you from turning it back off...
+
 0.20.12
 -fixed stable morphs resetting flight time
 -fixed the spiked slime shift

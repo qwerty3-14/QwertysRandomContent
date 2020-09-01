@@ -1,4 +1,5 @@
 ﻿using System;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent
@@ -45,6 +46,7 @@ namespace QwertysRandomContent
         public override void PreUpdate()
         {
             mythrilPrismRotation += (float)Math.PI / 90f;
+            
         }
     }
 }

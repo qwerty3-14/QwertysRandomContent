@@ -11,12 +11,9 @@ namespace QwertysRandomContent.Items.TileItems.Bars
         {
             DisplayName.SetDefault("Rhuthinium Bar");
             Tooltip.SetDefault("");
-            if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
-            {
-                Main.itemTexture[item.type] = mod.GetTexture("Items/RhuthiniumBar_Old");
-            }
+            
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.width = 30;
