@@ -105,7 +105,10 @@ namespace QwertysRandomContent.Items.Weapons.Demonite       ///We need projectil
 
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            damage = (int)(damage * 1.5f);
+            if(projectile.ai[0] <= 0)
+            {
+                damage = (int)(damage * 1.5f);
+            }
         }
 
         public override void Kill(int timeLeft)

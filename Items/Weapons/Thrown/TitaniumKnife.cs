@@ -36,7 +36,7 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.TitaniumBar, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this, 333);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

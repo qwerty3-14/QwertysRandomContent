@@ -48,6 +48,7 @@ namespace QwertysRandomContent
         {
             return new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
         }
+        
 
         public static void BreakTiles(int i, int j, int width, int height)
         {
@@ -76,7 +77,7 @@ namespace QwertysRandomContent
             //If you want to prioritse a certain target this is where it's processed, mostly used by minions that haave a target priority
             if (overrideTarget != -1)
             {
-                if ((Main.npc[overrideTarget].Center - position).Length() < maxDistance)
+                if ((Main.npc[overrideTarget].Center - position).Length() < maxDistance && !Main.npc[overrideTarget].immortal && (Collision.CanHit(position, 0, 0, Main.npc[overrideTarget].Center, 0, 0) || ignoreTiles) && specialCondition(Main.npc[overrideTarget]))
                 {
                     target = Main.npc[overrideTarget];
                     return true;
@@ -415,6 +416,18 @@ namespace QwertysRandomContent
             }
             actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
             currentRotation = actDirection;
+        }
+        public static Vector2 MoveToward(this Vector2 currentPosition, Vector2 here, float speed)
+        {
+            Vector2 dif = here - currentPosition;
+            if(dif.Length() < speed)
+            {
+                return dif;
+            }
+            else
+            {
+                return dif.SafeNormalize(-Vector2.UnitY) * speed;
+            }
         }
     }
 

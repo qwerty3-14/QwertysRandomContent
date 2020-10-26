@@ -59,7 +59,7 @@ namespace QwertysRandomContent.Items.DinoItems
             mountData.acceleration = 0.19f;
             mountData.jumpSpeed = 4f;
             mountData.blockExtraJumps = false;
-            mountData.totalFrames = 4;
+            mountData.totalFrames = 6;
 
             mountData.constantJump = true;
             int[] array = new int[mountData.totalFrames];
@@ -75,7 +75,7 @@ namespace QwertysRandomContent.Items.DinoItems
             mountData.standingFrameCount = 1;
             mountData.standingFrameDelay = 12;
             mountData.standingFrameStart = 0;
-            mountData.runningFrameCount = 4;
+            mountData.runningFrameCount = 6;
             mountData.runningFrameDelay = 36;
             mountData.runningFrameStart = 0;
             mountData.flyingFrameCount = 0;

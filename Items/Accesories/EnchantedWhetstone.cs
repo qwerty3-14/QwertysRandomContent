@@ -85,7 +85,7 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            Player player = Main.player[item.owner];
+            Player player = Main.LocalPlayer;
             if (player.GetModPlayer<WhetStoneEffect>().effect > 0f && item.melee)
             {
                 int TLIndex = tooltips.FindIndex(TooltipLine => TooltipLine.Name.Equals("CritChance"));

@@ -80,8 +80,6 @@ namespace QwertysRandomContent.Items.AncientItems
                     return false;
                 }
             }
-            //player.AddBuff(mod.BuffType("MorphCooldown"), (int)(item.GetGlobalItem<ShapeShifterItem>().morphCooldown * 60 * player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration * item.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier));
-            //Main.PlaySound(SoundID.Roar, player.position, 0);
 
             return true;
         }
@@ -118,13 +116,13 @@ namespace QwertysRandomContent.Items.AncientItems
             Player player = Main.player[projectile.owner];
             player.Center = projectile.Center;
             player.immune = true;
-            player.immuneTime = 2;
+            player.immuneTime = 120;
             player.statDefense = 0;
             player.itemAnimation = 2;
             player.itemTime = 2;
             player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
             player.AddBuff(mod.BuffType("HealingHalt"), 10);
-            player.AddBuff(mod.BuffType("MorphCooldown"), (int)((18 * player.HeldItem.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier * player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration) * 60f));
+            player.AddBuff(mod.BuffType("MorphCooldown"), (int)((27 * player.HeldItem.GetGlobalItem<ShapeShifterItem>().PrefixorphCooldownModifier * player.GetModPlayer<ShapeShifterPlayer>().coolDownDuration) * 60f));
             //projectile.timeLeft = 2;
             //player.mount = null;
             //player.noItems = true;

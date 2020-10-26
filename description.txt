@@ -35,6 +35,34 @@ Extra thanks
 
 
 changelog
+0.20.14
+-added bionic armor
+-added shape shift: the spazer's eye
+-added shape shift: skull copter
+-added shape shift: thorn mass
+-added morph gem (sold by traveling merchent 20%)
+-added model bone (drops from skeletons in the dungeon)
+-added transmutation gem 
+
+-stable morps now have a tooltip that explains how to deactivate them 
+-questionable substance no longer works on summons and has its damage reduced 14%, its spread has been reduced
+-rhuthinium bracelet finally has a use!
+-tile staff damage reduced 28->26, attack cooldown increased 20->30
+-fixed fall damage bug with stable moprhs
+-fixed titanium knife crafting
+-fixed conspiritor emblem not being able to craft avenger emblem
+-orichalcum drifter ai overhauled, damage increased to 60
+
+-Fire hydrent has been tweaked to be a hardmode upgrade to the hydrospear, this should distinguish it from the hydra javelin better
+-hydra beem is now a channeled weapon controled by the cursor
+-reduced the lifetime of the hydra missile rod's hydra heads
+-fixed hydra barrage not granting invulnerability
+
+-Icon of the conqueror now uses hallowed bars instead of souls of might
+-nerfed the max crit and damage bonus on etimsic robes and facemassk
+
+
+
 0.20.13
 -Fixed a severe bug where using the old Rhuthinium sprite setting would prevent the mod from loading, which would prevent you from turning it back off...
 

@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Gemstone");
-            Tooltip.SetDefault("Halves you max health but avoiding damge for 5 sec after being hit will fully heal you");
+            Tooltip.SetDefault("Halves your max health but avoiding damage for 5 seconds after being hit will fully heal you");
         }
 
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;

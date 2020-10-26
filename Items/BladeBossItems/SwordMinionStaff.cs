@@ -44,14 +44,14 @@ namespace QwertysRandomContent.Items.BladeBossItems
             float minionCount = 0;
             foreach (Projectile projectile in Main.projectile)
             {
-                if (projectile.active && projectile.owner == item.owner)
+                if (projectile.active && projectile.owner == player.whoAmI)
                 {
                     minionCount += projectile.minionSlots;
                 }
             }
             foreach (Projectile projectile in Main.projectile)
             {
-                if (projectile.active && projectile.type == type && projectile.owner == item.owner)
+                if (projectile.active && projectile.type == type && projectile.owner == player.whoAmI)
                 {
                     if (player.maxMinions - minionCount >= 1)
                     {

@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Items.Accesories;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,21 +20,20 @@ namespace QwertysRandomContent.Items.HydraItems
 
         public override void SetDefaults()
         {
-            item.damage = 60;
+            item.damage = 50;
             item.magic = true;
 
             item.useTime = 28;
             item.useAnimation = 28;
             item.useStyle = 5;
-            item.knockBack = 40;
+            item.knockBack = 1;
             item.value = 250000;
             item.rare = 5;
             item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
             item.width = 28;
             item.height = 30;
-
-            item.mana = 80;
+            item.channel = true;
+            item.mana = 10;
             item.shoot = mod.ProjectileType("BeamHead");
             item.shootSpeed = 9;
             item.noMelee = true;
@@ -41,7 +42,7 @@ namespace QwertysRandomContent.Items.HydraItems
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             for (int l = 0; l < Main.projectile.Length; l++)
-            {                                                                  //this make so you can only spawn one of this projectile at the time,
+            {       
                 Projectile proj = Main.projectile[l];
                 if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
                 {
@@ -88,8 +89,38 @@ namespace QwertysRandomContent.Items.HydraItems
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, mod.ProjectileType("HeadBeam"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI, 0f);
             }
 
-            projectile.velocity.X = 10f * player.direction;
-            projectile.position.Y = player.Center.Y - 900;
+            if (Main.LocalPlayer == player)
+            {
+                if(Math.Abs(Main.MouseWorld.X - projectile.Center.X) < 6f)
+                {
+                    projectile.velocity.X = Main.MouseWorld.X - projectile.Center.X;
+                }
+                else
+                {
+                    projectile.velocity.X = 6f * Math.Sign(Main.MouseWorld.X - projectile.Center.X);
+                }
+                projectile.position.Y = player.Center.Y - 900;
+                
+            }
+            projectile.frameCounter++;
+            if (player.channel && player.CheckMana((int)((float)player.inventory[player.selectedItem].mana), !player.GetModPlayer<BloodMedalionEffect>().effect && projectile.frameCounter % 20 == 0))
+            {
+                if (player.GetModPlayer<BloodMedalionEffect>().effect)
+                {
+                    player.statLife -= (int)(player.inventory[player.selectedItem].mana * player.manaCost);
+                    if (player.statLife <= 0)
+                    {
+                        player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " madly drained " + (player.Male ? "his " : "her") + " lifeforce!"), (int)(player.inventory[player.selectedItem].mana * player.manaCost), 0);
+                    }
+                }
+                player.itemTime = player.itemAnimation = 10;
+                player.direction = Math.Sign(projectile.Center.X - player.Center.X);
+                projectile.timeLeft = 2;
+            }
+            else
+            {
+                projectile.Kill();
+            }
         }
     }
 
@@ -141,6 +172,7 @@ namespace QwertysRandomContent.Items.HydraItems
             {
                 projectile.Kill();
             }
+
 
             #region Set projectile position
 

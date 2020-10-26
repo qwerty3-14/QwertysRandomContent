@@ -79,6 +79,7 @@ namespace QwertysRandomContent
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(ItemID.AvengerEmblem);
+            recipe.AddRecipe();
         }
 
         public const string AncientMachineHead = "QwertysRandomContent/NPCs/AncientMachine/AncientMachine_Head_Boss";
@@ -240,6 +241,8 @@ namespace QwertysRandomContent
                 AddEquipTexture(GetItem("GaleSwiftRobes"), EquipType.Legs, "GaleSwiftRobes_Female", "QwertysRandomContent/Items/Fortress/GaleArmor/GaleSwiftRobes_FemaleLegs");
                 AddEquipTexture(new CaeliteGreavesMale(), GetItem("CaeliteGreaves"), EquipType.Legs, "CaeliteGreaves_Legs", "QwertysRandomContent/Items/Fortress/CaeliteArmor/CaeliteGreaves_Legs");
                 AddEquipTexture(new CaeliteGreavesFemale(), GetItem("CaeliteGreaves"), EquipType.Legs, "CaeliteGreaves_FemaleLegs", "QwertysRandomContent/Items/Fortress/CaeliteArmor/CaeliteGreaves_FemaleLegs");
+                AddEquipTexture(new BionicLimbs(), GetItem("BionicLimbs"), EquipType.Legs, "BionicLimbs_Legs", "QwertysRandomContent/Items/Armor/Bionic/BionicLimbs_Legs");
+                AddEquipTexture(new BionicLimbsFemale(), GetItem("BionicLimbs"), EquipType.Legs, "BionicLimbs_FemaleLegs", "QwertysRandomContent/Items/Armor/Bionic/BionicLimbs_FemaleLegs");
 
                 AddEquipTexture(new TwistedDarkLegs(), GetItem("TwistedDarkLegs"), EquipType.Legs, "TwistedDarkLegs_Legs", "QwertysRandomContent/Items/Armor/TwistedDark/TwistedDarkLegs_Legs");
                 AddEquipTexture(new TwistedDarkLegsFemale(), GetItem("TwistedDarkLegs"), EquipType.Legs, "TwistedDarkLegs_FemaleLegs", "QwertysRandomContent/Items/Armor/TwistedDark/TwistedDarkLegs_FemaleLegs");
@@ -1110,7 +1113,17 @@ namespace QwertysRandomContent
             return false;
         }
     }
+    public class BionicLimbs : EquipTexture
+    {
+    }
 
+    public class BionicLimbsFemale : EquipTexture
+    {
+        public override bool DrawLegs()
+        {
+            return false;
+        }
+    }
     public class RhuthiniumGreavesMale : EquipTexture
     {
     }

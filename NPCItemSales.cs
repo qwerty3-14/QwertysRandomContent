@@ -116,19 +116,10 @@ namespace QwertysRandomContent
             }
             if (type == NPCID.Clothier)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("SRobe"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("DressB"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("DressC"));
-                nextSlot++;
+               
                 shop.item[nextSlot].SetDefaults(mod.ItemType("Miniskirt"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("Shorts"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("SwimsuitTop"));
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("SwimsuitBottom"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("LeatherBelt"));
                 nextSlot++;
@@ -152,7 +143,7 @@ namespace QwertysRandomContent
                 shop[nextSlot] = mod.ItemType("Metronome");
                 nextSlot++;
             }
-            int selectAccesory = Main.rand.Next(4);
+            int selectAccesory = Main.rand.Next(5);
             switch (selectAccesory)
             {
                 case 0:
@@ -172,6 +163,10 @@ namespace QwertysRandomContent
 
                 case 4:
                     shop[nextSlot] = mod.ItemType("BookOfMinionTactics");
+                    nextSlot++;
+                    break;
+                case 5:
+                    shop[nextSlot] = mod.ItemType("MorphGem");
                     nextSlot++;
                     break;
             }

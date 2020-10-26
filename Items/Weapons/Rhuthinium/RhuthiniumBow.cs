@@ -47,8 +47,8 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float rot = new Vector2(speedX, speedY).ToRotation();
-            Projectile.NewProjectile(position + QwertyMethods.PolarVector(6, rot) + QwertyMethods.PolarVector(7.5f, rot + (float)Math.PI / 2), new Vector2(speedX, speedY), type, damage, knockBack, item.owner);
-            Projectile.NewProjectile(position + QwertyMethods.PolarVector(6, rot) + QwertyMethods.PolarVector(-7.5f, rot + (float)Math.PI / 2), new Vector2(speedX, speedY), type, damage, knockBack, item.owner);
+            Projectile.NewProjectile(position + QwertyMethods.PolarVector(6, rot) + QwertyMethods.PolarVector(7.5f, rot + (float)Math.PI / 2), new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
+            Projectile.NewProjectile(position + QwertyMethods.PolarVector(6, rot) + QwertyMethods.PolarVector(-7.5f, rot + (float)Math.PI / 2), new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
             return false;
         }
 

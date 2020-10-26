@@ -45,7 +45,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("RhuthiniumBar"), 8);
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
+            recipe.AddIngredient(ItemID.HallowedBar, 4);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();

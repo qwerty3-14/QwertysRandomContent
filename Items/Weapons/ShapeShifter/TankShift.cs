@@ -139,8 +139,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 shotCooldown = 26;
                 Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(112, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("TankCannonBallFreindly"), (int)projectile.damage, projectile.knockBack, player.whoAmI);
             }
-
-            if (projectile.velocity.Y == 0 && projectile.oldVelocity.Y == 0)
+            if (projectile.velocity.Y == .4f && projectile.oldVelocity.Y == 0)
             {
                 flightTime = 0;
             }

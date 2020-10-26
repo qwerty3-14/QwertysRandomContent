@@ -27,6 +27,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<BadAim>().intoxicated = true;
+            player.GetModPlayer<BadAim>().intoxicatedRate /= 2;
             player.GetModPlayer<Addiction>().hasHydra = true;
             player.allDamage += .35f;
         }
@@ -47,7 +48,7 @@ namespace QwertysRandomContent.Items.Accesories
             {
                 if (line.mod == "Terraria" && line.Name == "Tooltip0") //this checks if it's the line we're interested in
                 {
-                    line.text = 35 - (int)(((float)Main.player[item.owner].GetModPlayer<Addiction>().dependence / (float)Addiction.maxDependence) * 25) + "% increased thrown damage and velocity";//change tooltip
+                    line.text = 35 - (int)(((float)Main.LocalPlayer.GetModPlayer<Addiction>().dependence / (float)Addiction.maxDependence) * 25) + "% increased thrown damage and velocity";//change tooltip
                 }
             }
         }

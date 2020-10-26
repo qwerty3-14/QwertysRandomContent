@@ -61,6 +61,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             projectile.aiStyle = 0;
             projectile.magic = true;
             projectile.penetrate = 1;
+            projectile.timeLeft = 300;
             //projectile.usesLocalNPCImmunity = true;
         }
 
@@ -137,6 +138,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             projectile.aiStyle = 0;
             projectile.magic = true;
             projectile.penetrate = 1;
+            projectile.timeLeft = 300;
             //projectile.usesLocalNPCImmunity = true;
         }
 
@@ -218,6 +220,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             projectile.aiStyle = 0;
             projectile.magic = true;
             projectile.penetrate = 1;
+            projectile.timeLeft = 300;
             //projectile.usesLocalNPCImmunity = true;
         }
 

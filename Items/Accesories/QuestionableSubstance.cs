@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Questionable Substance");
-            Tooltip.SetDefault("25% increased damage " + "\nYou have trouble aiming straight" + "\nShould you really be taking this?");
+            Tooltip.SetDefault("14% increased non summon damage " + "\nYou have trouble aiming straight" + "\nShould you really be taking this?");
         }
 
         public override void SetDefaults()
@@ -26,18 +26,22 @@ namespace QwertysRandomContent.Items.Accesories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.allDamage += .25f;
+            player.allDamage += .14f;
+            player.minionDamage -= .14f;
             player.GetModPlayer<BadAim>().intoxicated = true;
+            player.GetModPlayer<BadAim>().intoxicatedRate /= 2;
         }
     }
 
     public class BadAim : ModPlayer
     {
         public bool intoxicated;
+        public int intoxicatedRate = 128;
 
         public override void ResetEffects()
         {
             intoxicated = false;
+            intoxicatedRate = 32;
         }
 
         private Vector2 oldMousePos;
@@ -47,7 +51,7 @@ namespace QwertysRandomContent.Items.Accesories
             if (intoxicated)
             {
                 oldMousePos = new Vector2(Main.mouseX, Main.mouseY);
-                float direction = (oldMousePos - (player.Center - Main.screenPosition)).ToRotation() + Main.rand.NextFloat(-(float)Math.PI / 8, (float)Math.PI / 8);
+                float direction = (oldMousePos - (player.Center - Main.screenPosition)).ToRotation() + Main.rand.NextFloat(-(float)Math.PI / intoxicatedRate, (float)Math.PI / intoxicatedRate);
                 float dist = (oldMousePos - (player.Center - Main.screenPosition)).Length();
                 Vector2 newMousePos = (player.Center - Main.screenPosition) + QwertyMethods.PolarVector(dist, direction);
                 Main.mouseX = (int)newMousePos.X;

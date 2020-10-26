@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Fortress
 
         public override void SetDefaults()
         {
-            item.damage = 28;
+            item.damage = 26;
             item.mana = 20;
             item.width = item.height = 32;
             item.useTime = 25;
@@ -76,7 +76,7 @@ namespace QwertysRandomContent.Items.Fortress
             projectile.hostile = false;
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 20;
+            projectile.localNPCHitCooldown = 30;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

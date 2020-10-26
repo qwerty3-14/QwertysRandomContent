@@ -22,7 +22,6 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             item.width = 22;
             item.height = 12;
             item.defense = 1;
-            item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 5;
             item.GetGlobalItem<ShapeShifterItem>().equipedMorphDefense = 7;
         }
 

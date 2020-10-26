@@ -55,29 +55,18 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = " ";
+            String s = "Please go to conrols and bind the 'Yet another special ability key'";
+            foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
+            {
+                s = "Set Bonus: You generate Vitallum hearts over time" + "\nEach active heart grants 4% damage." + "\nPress " + key + " to consume the hearts for health.";
+            }
+            player.setBonus = s;
             player.GetModPlayer<HeadressEffects>().setBonus = true;
         }
 
         public override void OnCraft(Recipe recipe)
         {
             Main.player[item.owner].QuickSpawnItem(mod.ItemType("VitallumCoreUncharged"), 1);
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            String s = "Please go to conrols and bind the 'Yet another special ability key'";
-            foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
-            {
-                s = "Set Bonus: You generate Vitallum hearts over time" + "\nEach active heart grants 4% damage." + "\nPress " + key + " to consume the hearts for health.";
-            }
-            foreach (TooltipLine line in tooltips) //runs through all tooltip lines
-            {
-                if (line.mod == "Terraria" && line.Name == "SetBonus") //this checks if it's the line we're interested in
-                {
-                    line.text = s;//change tooltip
-                }
-            }
         }
     }
 

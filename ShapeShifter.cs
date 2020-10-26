@@ -236,6 +236,10 @@ namespace QwertysRandomContent
                     {
                         player.ClearBuff(mod.BuffType("BunnyShiftB"));
                     }
+                    if (player.HasBuff(mod.BuffType("SkullCopterB")))
+                    {
+                        player.ClearBuff(mod.BuffType("SkullCopterB"));
+                    }
                 }
                 else
                 {
@@ -739,22 +743,31 @@ namespace QwertysRandomContent
                 }
                 else
                 {
-                    line = new TooltipLine(mod, "MorphDef", (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef + prefixMorphDef) + " defense when morphed");
+                    line = new TooltipLine(mod, "MorphDef", (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.LocalPlayer.GetModPlayer<ShapeShifterPlayer>().morphDef + prefixMorphDef) + " defense when morphed");
                     {
                         line.overrideColor = Color.Orange;
                         tooltips.Insert(KBIndex + 2, line);
                     }
-                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().morphDef + prefixMorphDef) + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
+                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphDef + Main.LocalPlayer.GetModPlayer<ShapeShifterPlayer>().morphDef + prefixMorphDef) + Language.GetTextValue("Mods.QwertysRandomContent.morphDefense");
                 }
 
                 if (item.GetGlobalItem<ShapeShifterItem>().morphCooldown != 0)
                 {
-                    line = new TooltipLine(mod, "MorphCool", (item.GetGlobalItem<ShapeShifterItem>().morphCooldown * PrefixorphCooldownModifier * Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().coolDownDuration) + " second cooldown");
+                    line = new TooltipLine(mod, "MorphCool", (item.GetGlobalItem<ShapeShifterItem>().morphCooldown * PrefixorphCooldownModifier * Main.LocalPlayer.GetModPlayer<ShapeShifterPlayer>().coolDownDuration) + " second cooldown");
                     {
                         line.overrideColor = Color.Orange;
                         tooltips.Insert(KBIndex + 3, line);
                     }
-                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphCooldown * PrefixorphCooldownModifier * Main.player[item.owner].GetModPlayer<ShapeShifterPlayer>().coolDownDuration) + Language.GetTextValue("Mods.QwertysRandomContent.Morphcooldown");
+                    line.text = (item.GetGlobalItem<ShapeShifterItem>().morphCooldown * PrefixorphCooldownModifier * Main.LocalPlayer.GetModPlayer<ShapeShifterPlayer>().coolDownDuration) + Language.GetTextValue("Mods.QwertysRandomContent.Morphcooldown");
+                }
+                if (item.GetGlobalItem<ShapeShifterItem>().morphType == StableShiftType)
+                {
+                    line = new TooltipLine(mod, "MorphCoolDisclaimer", "Cancel the buff or use the quick stable morph hotkey to deactivate the morph.");
+                    {
+                        line.overrideColor = Color.Orange;
+                        tooltips.Insert(KBIndex + 4, line);
+                    }
+                    line.text = "Cancel the buff or use the quick stable morph hotkey to deactivate the morph.";
                 }
             }
 

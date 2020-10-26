@@ -36,9 +36,9 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.CobaltBar, 1);
+            recipe.AddIngredient(ItemID.CobaltBar, 12);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this, 333);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rhuthinium Bracelet");
-            Tooltip.SetDefault("Many have tried to find any effect wearing this... none have found any");
+            Tooltip.SetDefault("8% increased attack speed \nAnd you thoguht this was useless?");
             if (ModContent.GetInstance<SpriteSettings>().ClassicRhuthinium && !Main.dedServ)
             {
                 Main.itemTexture[item.type] = mod.GetTexture("Items/Armor/Rhuthinium/RhuthiniumBracelet_Old");
@@ -27,10 +27,13 @@ namespace QwertysRandomContent.Items.Armor.Rhuthinium
 
             item.width = 28;
             item.height = 22;
-            item.vanity = true;
             item.accessory = true;
         }
-
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<AttackSpeedPlayer>().allSpeed += .08f;
+            base.UpdateAccessory(player, hideVisual);
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

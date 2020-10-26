@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Etimsic Robes");
-            Tooltip.SetDefault("Morph damage increases the longer you're morphed. Max: 30%" + "\n");
+            Tooltip.SetDefault("Morph damage increases the longer you're morphed. Max: 25%" + "\n");
         }
 
         public override void SetDefaults()
@@ -47,9 +47,9 @@ namespace QwertysRandomContent.Items.Armor.TwistedDark
             if (player.GetModPlayer<ShapeShifterPlayer>().morphTime > 0)
             {
                 b += .05f;
-                if (b > 30)
+                if (b > 25)
                 {
-                    b = 30;
+                    b = 25;
                 }
                 end = "% morph damage";
             }

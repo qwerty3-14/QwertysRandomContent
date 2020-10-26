@@ -50,7 +50,7 @@ namespace QwertysRandomContent.Items.Etims
             {
                 if (line.mod == "Terraria" && line.Name == "Damage") //this checks if it's the line we're interested in
                 {
-                    line.text = (int)(item.damage * Main.player[item.owner].magicDamage) + " damage per second";//change tooltip
+                    line.text = (int)(item.damage * Main.LocalPlayer.magicDamage) + " damage per second";//change tooltip
                 }
                 if (line.mod == "Terraria" && (line.Name == "CritChance" || line.Name == "Knockback" || line.Name == "Speed"))
                 {

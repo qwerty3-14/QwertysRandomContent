@@ -44,9 +44,9 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             recipe.AddRecipe();
         }
 
-        public bool HittingBlade(Projectile target)
+        public bool HittingBlade(Projectile target, Player player)
         {
-            Player player = Main.player[item.owner];
+            
             float swordLength = item.Size.Length() * item.scale;
             float r = player.direction == 1 ? player.itemRotation - (float)Math.PI / 4 : player.itemRotation + 5 * (float)Math.PI / 4;
             if (player.gravDir == -1)
@@ -68,13 +68,13 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 for (int p = 0; p < 1000; p++)
                 {
                     clearCheck = Main.projectile[p];
-                    if ((clearCheck.hostile || (clearCheck.friendly && !clearCheck.minion && (Main.player[clearCheck.owner].team != Main.player[item.owner].team) || (Main.player[item.owner].team == 0 && clearCheck.owner != item.owner))) && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck) && clearCheck.velocity.Length() > .1f)
+                    if ((clearCheck.hostile || (clearCheck.friendly && !clearCheck.minion && (Main.player[clearCheck.owner].team != player.team) || (player.team == 0 && clearCheck.owner != player.whoAmI))) && Collision.CheckAABBvAABBCollision(hitbox.TopLeft(), hitbox.Size(), clearCheck.position, clearCheck.Size) && HittingBlade(clearCheck, player) && clearCheck.velocity.Length() > .1f)
                     {
                         clearCheck.Kill();
                         player.GetModPlayer<QwertyPlayer>().deflectCooldown = 300;
                         if (clearCheck.velocity.Length() > 0f)
                         {
-                            Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity, mod.ProjectileType("FriendlyDeflected"), clearCheck.damage * 2, clearCheck.knockBack, item.owner);
+                            Projectile.NewProjectile(clearCheck.Center, -clearCheck.velocity, mod.ProjectileType("FriendlyDeflected"), clearCheck.damage * 2, clearCheck.knockBack, player.whoAmI);
                         }
                     }
                 }

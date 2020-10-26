@@ -92,7 +92,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override void AI()
         {
             projectile.frameCounter++;
-            if (projectile.frameCounter % 1 == 0)
+            if (projectile.frameCounter % 7 == 0)
             {
                 projectile.frame++;
                 if (projectile.frame >= 3)

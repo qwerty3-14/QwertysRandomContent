@@ -114,6 +114,7 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
             projectile.minionSlots = 1;
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
+
         }
 
         public const int minionRingRadius = 50;
@@ -159,7 +160,7 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
                 runOnce = false;
             }
 
-            if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, false, player.MinionAttackTargetNPC))
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, player.MinionAttackTargetNPC != -1, player.MinionAttackTargetNPC))
             {
                 timer++;
                 if (timer > waitTime + chargeTime)

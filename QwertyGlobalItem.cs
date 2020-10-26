@@ -71,7 +71,6 @@ namespace QwertysRandomContent
                 return true;
             }
         }
-
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             if (item.type > ItemID.Count && (item.summon || item.GetGlobalItem<ShapeShifterItem>().morph) && item.modItem.mod.Name == "QwertysRandomContent")

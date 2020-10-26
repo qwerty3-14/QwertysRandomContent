@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
@@ -43,7 +44,10 @@ namespace QwertysRandomContent.AbstractClasses
             if (player.HasBuff(mod.BuffType(buffName)) && player.HeldItem.type == mod.ItemType(itemName))
             {
                 projectile.timeLeft = 2;
+                projectile.extraUpdates = player.HasBuff(mod.BuffType("Overrdrive")) ? 1 : 0;
+                    
 
+                
                 player.GetModPlayer<ShapeShifterPlayer>().morphed = true;
                 player.GetModPlayer<ShapeShifterPlayer>().overrideWidth = projectile.width;
                 player.GetModPlayer<ShapeShifterPlayer>().overrideHeight = projectile.height;
@@ -56,6 +60,7 @@ namespace QwertysRandomContent.AbstractClasses
                 player.jumpSpeedBoost *= 0;
                 player.wingTime = 0;
                 player.rocketTime = 0;
+                player.fallStart = (int)projectile.Bottom.Y;
                 Effects(player);
 
                 for (int i = 0; i < 1000; i++)
@@ -156,10 +161,54 @@ namespace QwertysRandomContent.AbstractClasses
         {
             return false;
         }
-
+        List<Vector2>[] links;
+        int overdriveFrameCounter = 0;
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            // As mentioned above, be sure not to forget this step.
+            if (Main.player[projectile.owner].HasBuff(mod.BuffType("Overrdrive")))
+            {
+                Texture2D overdriveBolt = mod.GetTexture("Items/Armor/Bionic/Overdrive");
+                overdriveFrameCounter++;
+                if (overdriveFrameCounter % 3 == 0)
+                {
+                    links = new List<Vector2>[] { new List<Vector2>(), new List<Vector2>(), new List<Vector2>(), new List<Vector2>(), new List<Vector2>() };
+                    for (int i = 0; i < links.Length; i++)
+                    {
+                        float r = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                        links[i].Add(QwertyMethods.PolarVector(.25f, r));
+                        for (int n = 1; true; n++)
+                        {
+                            r += Main.rand.NextFloat(-(float)Math.PI / 4f, (float)Math.PI / 4f);
+                            Vector2 addThis = links[i][n - 1] + QwertyMethods.PolarVector(.25f, r);
+                            links[i].Add(addThis);
+                            if (addThis.Length() > 1f)
+                            {
+                                break;
+                            }
+                        }
+
+                        for (int d = 0; d < links[i].Count; d++)
+                        {
+                            links[i][d] = new Vector2(links[i][d].X * projectile.width * .5f, links[i][d].Y * projectile.height * .5f);
+                        }
+                    }
+                }
+                if (links != null)
+                {
+                    for (int i = 0; i < links.Length; i++)
+                    {
+                        for (int d = 0; d < links[i].Count; d++)
+                        {
+                            spriteBatch.Draw(overdriveBolt, projectile.Center + links[i][d] - Main.screenPosition, null, Color.White,
+                                d == 0 ? (links[i][d].ToRotation() + (float)Math.PI) : ((links[i][d - 1] - links[i][d]).ToRotation()),
+                                Vector2.UnitY * 3,
+                                new Vector2((d == 0 ? (links[i][d].Length()) : ((links[i][d - 1] - links[i][d]).Length())) * .5f, 1f),
+                                0, 0);
+                        }
+                    }
+                }
+            }
+
             Player player = Main.player[projectile.owner];
             if (shader != 0)
             {

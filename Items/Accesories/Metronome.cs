@@ -29,7 +29,7 @@ namespace QwertysRandomContent.Items.Accesories
             {
                 if (line.mod == "Terraria" && line.Name == "Tooltip2") //this checks if it's the line we're interested in
                 {
-                    line.text = "Current Bonus: " + (Main.player[item.owner].GetModPlayer<QwertyPlayer>().killCount * 2) + "% increased damage";//change tooltip
+                    line.text = "Current Bonus: " + (Main.LocalPlayer.GetModPlayer<QwertyPlayer>().killCount * 2) + "% increased damage";//change tooltip
                 }
             }
         }

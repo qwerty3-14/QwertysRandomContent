@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Config;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,7 +33,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             item.value = Item.sellPrice(silver: 54);
             item.rare = 2;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("RiptideP");
             item.summon = true;
             item.sentry = true;
@@ -40,6 +40,7 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            knockBack = 0f;
             position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
 
             return true;
@@ -57,6 +58,16 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
                 player.MinionNPCTargetAim();
             }
             return base.UseItem(player);
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.mod == "Terraria" && line.Name == "Knockback") //this checks if it's the line we're interested in
+                {
+                    line.text = "Absolutely no knockback";//change tooltip
+                }
+            }
         }
     }
 
@@ -83,7 +94,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.penetrate = -1;
             projectile.tileCollide = true;
             projectile.sentry = true;
-            projectile.minion = true;
             projectile.usesLocalNPCImmunity = true;
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }

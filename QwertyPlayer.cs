@@ -600,24 +600,12 @@ namespace QwertysRandomContent
                     CombatText.NewText(player.getRect(), Color.Purple, killCount, false, false);
                 }
             }
-            if (HydraCannon && !target.immortal && target.life <= 0 && proj.ranged == true && !target.SpawnedFromStatue)
+            if (HydraCannon && !target.immortal && target.life <= 0 && proj.ranged == true && proj.type != mod.ProjectileType("DoomBreath") && !target.SpawnedFromStatue)
             {
                 Main.PlaySound(SoundID.Roar, player.position, 0);
-                if (proj.type == mod.ProjectileType("DoomBreath"))
-                {
-                    if (crit)
-                    {
-                        Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage / 2, knockback, player.whoAmI);
-                    }
-                    else
-                    {
-                        Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage, knockback, player.whoAmI);
-                    }
-                }
-                else
-                {
-                    Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage * 5, knockback * 3, player.whoAmI);
-                }
+
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, target.Center.X - player.Center.X, target.Center.Y - player.Center.Y, mod.ProjectileType("DoomBreath"), damage * 5, knockback * 3, player.whoAmI);
+
                 Main.rand.NextFloat(player.width);
             }
             if (ninjaSabatoge)

@@ -66,12 +66,9 @@ namespace QwertysRandomContent.Items.B4Items
             player.QuickSpawnItem(73, 60);
             if (Main.rand.Next(99) < 30)
             {
-                int devItemSelect = Main.rand.Next(6);
+                int devItemSelect = Main.rand.Next(5)+1;
 
-                if (devItemSelect == 0)
-                {
-                    player.QuickSpawnItem(mod.ItemType("Toga"));
-                }
+                
                 if (devItemSelect == 1)
                 {
                     player.QuickSpawnItem(mod.ItemType("GodsSmite"));

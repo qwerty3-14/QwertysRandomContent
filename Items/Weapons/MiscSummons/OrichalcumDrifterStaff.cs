@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
         public override void SetDefaults()
         {
-            item.damage = 32;
+            item.damage = 60;
             item.mana = 20;
             item.width = 32;
             item.height = 32;
@@ -24,7 +24,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.useAnimation = 25;
             item.useStyle = 1;
             item.noMelee = true;
-            item.knockBack = 1f;
+            item.knockBack = 8f;
             item.value = 126500;
             item.rare = 4;
             item.UseSound = SoundID.Item44;
@@ -93,25 +93,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.localNPCHitCooldown = 20;
         }
 
-        private Vector2 flyTo;
         private int identity = 0;
         private int drifterCount = 0;
         private NPC target;
-        private NPC possibleTarget;
-        private bool foundTarget;
-        private float distance;
-        private float maxDistance = 1000f;
-        private Projectile Beam = new Projectile();
-        private bool runOnce = true;
-        private float flyDirection;
-        private float acceleration = .1f;
-        private float maxSpeed = 3f;
-        private float driftTimer = 0;
-        private float driftVariance = 1;
-        private bool flyBack;
-        private float speed = 3;
-        private float turnSpeed = 2;
-
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -135,52 +119,28 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                     }
                 }
             }
-            if ((player.Center - projectile.Center).Length() > 750 || flyBack)
-            {
-                flyTo = player.Center;
 
-                if (Collision.CheckAABBvAABBCollision(player.position, player.Size, projectile.position, projectile.Size))
+            if(QwertyMethods.ClosestNPC(ref target, 1000, projectile.Center, false, player.MinionAttackTargetNPC, 
+                delegate (NPC possibleTarget) 
                 {
-                    flyBack = false;
-                    speed = 3;
-                    turnSpeed = 2;
-                }
-                else
-                {
-                    flyBack = true;
-                    speed = 12;
-                    turnSpeed = 20;
-                }
+                    return QwertyMethods.AngularDifference((possibleTarget.Center - projectile.Center).ToRotation(), projectile.rotation) < (float)Math.PI/2f && Collision.CanHit(player.Center, 0, 0, possibleTarget.Center, 0, 0);
+                }))
+            {
+                projectile.rotation.SlowRotation((target.Center - projectile.Center).ToRotation(), (float)Math.PI/60f);
             }
             else
             {
-                if (QwertyMethods.ClosestNPC(ref target, maxDistance, projectile.Center, false, player.MinionAttackTargetNPC))
+                if(drifterCount != 0)
                 {
-                    flyTo = target.Center;
+                    projectile.rotation.SlowRotation((player.Center + QwertyMethods.PolarVector(40f, player.GetModPlayer<MinionManager>().mythrilPrismRotation + (2f * (float)Math.PI * identity) / drifterCount) - projectile.Center).ToRotation(), (float)Math.PI / 60f);
                 }
-                else
-                {
-                    if (drifterCount != 0)
-                    {
-                        projectile.ai[0] = 40f;
-                        flyTo = player.Center + QwertyMethods.PolarVector(projectile.ai[0], (2f * (float)Math.PI * identity) / drifterCount);
-                    }
-                    else
-                    {
-                        flyTo = player.Center;
-                    }
-                }
-                speed = 3;
-                turnSpeed = 2;
+                
             }
-            flyDirection = QwertyMethods.SlowRotation(flyDirection, (flyTo - projectile.Center).ToRotation(), turnSpeed);
 
-            projectile.velocity = QwertyMethods.PolarVector(speed, flyDirection);
-            driftTimer += (float)Math.PI / 120;
-            driftVariance = (float)Math.Cos(driftTimer);
-            projectile.velocity += QwertyMethods.PolarVector(driftVariance, flyDirection + (float)Math.PI / 2);
-            projectile.rotation = projectile.velocity.ToRotation();
-            // Main.NewText((player.Center - projectile.Center).Length());
+            projectile.velocity = QwertyMethods.PolarVector(6f, projectile.rotation);
+
+
+           
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
