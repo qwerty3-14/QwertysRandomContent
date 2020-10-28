@@ -141,7 +141,7 @@ namespace QwertysRandomContent
 
                 bossChecklist.Call("AddBoss", 4f, NPCType("FortressBoss"), this, "The Divine Light", (Func<bool>)(() => QwertyWorld.downedFortressBoss), ItemType("FortressBossSummon"),
                     new List<int> { ItemType("FortressBossTrophy"), ItemType("DivineLightMask"), ItemType("MusicBoxHigherBeing") },
-                    new List<int> { ItemType("FortressBossBag"), ItemType("CaeliteRainKnife"), ItemType("CaeliteMagicWeapon"), ItemType("HolyExiler"), ItemType("CaeliteMagicWeapon"), ItemType("PriestStaff"), ItemType("Lightling"), ItemType("SkywardHilt"), ItemType("CaeliteBar"), ItemType("CaeliteCore"), ItemID.LesserManaPotion },
+                    new List<int> { ItemType("FortressBossBag"), ItemType("ExpertChalice"), ItemType("Lightling"), ItemType("SkywardHilt"), ItemType("CaeliteBar"), ItemType("CaeliteCore"), ItemID.LesserManaPotion },
                     "Use a [i:" + ItemType("FortressBossSummon") + "]" + " at the altar in the sky fortress", null);
 
                 bossChecklist.Call("AddBoss", .7f, NPCType("PolarBear"), this, "Polar Exterminator", (Func<bool>)(() => QwertyWorld.downedBear), null,

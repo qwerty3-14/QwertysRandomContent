@@ -68,11 +68,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
 
     public class AshFell : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ash fell");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
-        }
         public override void SetDefaults()
         {
             projectile.width = 16; //Set the hitbox width

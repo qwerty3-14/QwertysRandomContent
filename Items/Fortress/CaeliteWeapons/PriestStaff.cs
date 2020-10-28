@@ -60,7 +60,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Priest Minion");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
             Main.projFrames[projectile.type] = 6;
         }
         public override void SetDefaults()

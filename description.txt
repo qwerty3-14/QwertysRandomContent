@@ -35,11 +35,6 @@ Extra thanks
 
 
 changelog
-0.20.16
--fixed divine light's new drops not being in boss checklist
--fixed holy exiler not recieiveing its intednded buff (damage 16->19)
--fixed some right clicking with summons not working.
-
 0.20.15
 - fixed transmutation gem recipe not needing avenger emblem
 -nurse can no longer cure morph cooldown

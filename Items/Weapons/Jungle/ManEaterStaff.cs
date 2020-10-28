@@ -66,19 +66,6 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
-
-        public override bool UseItem(Player player)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                player.MinionNPCTargetAim();
-            }
-            return base.UseItem(player);
-        }
     }
 
     public class ManEaterP : ModProjectile
@@ -86,7 +73,6 @@ namespace QwertysRandomContent.Items.Weapons.Jungle
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Man Eater");
-            ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
         }
 
         public override void SetDefaults()

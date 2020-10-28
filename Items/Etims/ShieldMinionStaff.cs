@@ -32,6 +32,7 @@ namespace QwertysRandomContent.Items.Etims
             item.rare = 3;
             item.value = 120000;
             item.UseSound = SoundID.Item44;
+            item.autoReuse = true;
             item.shoot = mod.ProjectileType("ShieldMinion");
             item.summon = true;
             item.buffType = mod.BuffType("ShieldMinion");
