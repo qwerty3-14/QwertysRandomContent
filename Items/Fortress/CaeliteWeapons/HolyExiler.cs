@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
         public override void SetDefaults()
         {
-            item.damage = 16;
+            item.damage = 19;
             item.ranged = true;
 
             item.useTime = 34;
