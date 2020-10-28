@@ -14,5 +14,10 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             Main.buffNoSave[Type] = true;
             longerExpertDebuff = false;
         }
+        public override bool ReApply(Player player, int time, int buffIndex)
+        {
+            player.GetModPlayer<ShapeShifterPlayer>().morphCooldownTime = time;
+            return base.ReApply(player, time, buffIndex);
+        }
     }
 }

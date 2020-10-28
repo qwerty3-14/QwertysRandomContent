@@ -41,7 +41,7 @@ namespace QwertysRandomContent
         private bool justMorphed = false;
         private bool noSick = false;
         public Vector2? stableMorphCenter = null;
-
+        public int morphCooldownTime = 0;
         public override void ResetEffects()
         {
             ResetVariables();
@@ -103,9 +103,14 @@ namespace QwertysRandomContent
             EyeEquiped = false;
             stableMorphCenter = null;
         }
-
+        
         public override void PreUpdate()
         {
+            if(morphCooldownTime > 0)
+            {
+                morphCooldownTime--;
+                player.AddBuff(mod.BuffType("MorphCooldown"), morphCooldownTime);
+            }
             pulseCounter += (float)Math.PI / 30;
             //player.gravControl2 = true;
             if (healMe)
@@ -133,25 +138,6 @@ namespace QwertysRandomContent
                 {
                     player.height = overrideHeight;
                     player.position.Y += 42 - overrideHeight;
-                    /*
-                    switch(overrideHeight)
-                    {
-                        case 128:
-                            player.position.Y += -85;
-                            break;
-
-                        case 42:
-                            player.position.Y += 0;
-                            break;
-
-                        case 16:
-                            player.position.Y += 26;
-                            break;
-
-                        case 34:
-                            player.position.Y += 8;
-                            break;
-                    }*/
                 }
                 else
                 {

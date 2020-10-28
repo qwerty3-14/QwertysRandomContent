@@ -173,7 +173,7 @@ namespace QwertysRandomContent.Items.Etims
                     if (chargeTimer <= 0)
                     {
                         projectile.ai[1] = cooling;
-                        chargeTimer = -180;
+                        chargeTimer = -120;
                     }
                     break;
 

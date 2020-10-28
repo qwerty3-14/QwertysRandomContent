@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Etims
             item.ranged = true;
             item.noMelee = true;
             item.autoReuse = true;
-            item.damage = 17;
+            item.damage = 20;
             item.knockBack = 5f;
             item.width = 46;
             item.height = 22;

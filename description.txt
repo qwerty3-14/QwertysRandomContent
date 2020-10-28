@@ -35,6 +35,28 @@ Extra thanks
 
 
 changelog
+0.20.15
+- fixed transmutation gem recipe not needing avenger emblem
+-nurse can no longer cure morph cooldown
+
+-added sky shot, it is crafted from caelite bars
+-added sacred daze, it is crafted from caelite bars
+-added priest staff, it is dropped from divine light
+
+-divine hail knife damage increased 13->15, is more acurrate, put no longer pierces.
+-divine hail knife is no longer crafted and is instead a divine light drop.
+-restless sun damage increased 18->20
+-restless sun is no longer crafted and is instead a divine light drop
+-holy exiler damage increased 16->19
+-holy exiler is no longer crafted and is instead a divine light drop
+
+-Staff of job now registers hits, and damge increased 200->250
+-shotgun of excessive force damage 17->20
+-The massacre damage increased 39->50
+-Time shield minions spend in 'cooldown' reduced 3sec->2sec
+
+
+
 0.20.14
 -added bionic armor
 -added shape shift: the spazer's eye

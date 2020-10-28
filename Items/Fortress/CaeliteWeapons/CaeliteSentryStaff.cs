@@ -26,7 +26,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.value = 25000;
             item.rare = 3;
             item.UseSound = SoundID.Item44;
-            item.autoReuse = true;
             item.shoot = mod.ProjectileType("CaeliteSentry");
             item.summon = true;
             item.sentry = true;
@@ -43,8 +42,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            position = Main.MouseWorld;   //this make so the projectile will spawn at the mouse cursor position
-
+            position = Main.MouseWorld;  
             return true;
         }
 

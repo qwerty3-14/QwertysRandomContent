@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
         public override void SetDefaults()
         {
-            item.damage = 18;
+            item.damage = 20;
             item.magic = true;
             item.knockBack = 1;
             item.value = 50000;
@@ -66,20 +66,13 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             return false;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 12);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+        
 
         public class CaeliteMagicProjectile : ModProjectile
         {
             public override void SetStaticDefaults()
             {
-                DisplayName.SetDefault("RestlessSun");
+                DisplayName.SetDefault("Restless Sun");
             }
 
             public override void SetDefaults()

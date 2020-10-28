@@ -36,6 +36,7 @@ namespace QwertysRandomContent.Items.Accesories
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("MorphGem"), 1);
             recipe.AddIngredient(mod.ItemType("ModelBone"), 1);
+            recipe.AddIngredient(ItemID.AvengerEmblem, 1);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();

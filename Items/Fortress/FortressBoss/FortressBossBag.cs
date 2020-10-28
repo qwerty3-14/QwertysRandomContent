@@ -45,6 +45,21 @@ namespace QwertysRandomContent.Items.Fortress.FortressBoss
             {
                 player.QuickSpawnItem(mod.ItemType("SkywardHilt"));
             }
+            switch (Main.rand.Next(4))
+            {
+                case 0:
+                    player.QuickSpawnItem(mod.ItemType("CaeliteMagicWeapon"));
+                    break;
+                case 1:
+                    player.QuickSpawnItem(mod.ItemType("HolyExiler"));
+                    break;
+                case 2:
+                    player.QuickSpawnItem(mod.ItemType("CaeliteRainKnife"));
+                    break;
+                case 3:
+                    player.QuickSpawnItem(mod.ItemType("PriestStaff"));
+                    break;
+            }
         }
     }
 }

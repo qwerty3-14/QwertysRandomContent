@@ -21,6 +21,9 @@ namespace QwertysRandomContent
         public bool ShieldMinion = false;
         public bool SwordMinion = false;
         public bool TileMinion = false;
+        public bool PriestMinion = false;
+        public int PriestSynchroniser = 0;
+        public float PriestAngle = 0f;
 
         public float mythrilPrismRotation = 0;
 
@@ -41,12 +44,14 @@ namespace QwertysRandomContent
             ShieldMinion = false;
             SwordMinion = false;
             TileMinion = false;
+            PriestMinion = false;
         }
 
         public override void PreUpdate()
         {
             mythrilPrismRotation += (float)Math.PI / 90f;
-            
+            PriestSynchroniser++;
+            PriestAngle = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
         public override void SetDefaults()
         {
-            item.damage = 13;
+            item.damage = 15;
             item.melee = true;
             item.knockBack = 1;
             item.value = 50000;
@@ -33,22 +33,13 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.autoReuse = true;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CaeliteBar"), 12);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-
         public int shotCounter = 2;
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            position = new Vector2(Main.MouseWorld.X + Main.rand.Next(-100, 100), position.Y - 600);
+            position = new Vector2((Main.MouseWorld.X + player.Center.X)/2f + Main.rand.Next(-100, 100), position.Y - 600);
             float trueSpeed = new Vector2(speedX, speedY).Length();
-            int shift = Main.rand.Next(-100, 100);
+            int shift = Main.rand.Next(-40, 40);
             speedX = (float)Math.Cos((new Vector2(Main.MouseWorld.X + shift, Main.MouseWorld.Y) - position).ToRotation()) * trueSpeed;
             speedY = (float)Math.Sin((new Vector2(Main.MouseWorld.X + shift, Main.MouseWorld.Y) - position).ToRotation()) * trueSpeed;
             shotCounter++;
@@ -69,11 +60,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 projectile.width = 18;
                 projectile.height = 18;
                 projectile.friendly = true;
-                projectile.penetrate = -1;
+                projectile.penetrate = 1;
                 projectile.melee = true;
-
-                projectile.usesLocalNPCImmunity = true;
-
                 projectile.tileCollide = false;
             }
 
@@ -86,8 +74,6 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
                 {
                     target.AddBuff(mod.BuffType("PowerDown"), 120);
                 }
-                projectile.localNPCImmunity[target.whoAmI] = -1;
-                target.immune[projectile.owner] = 0;
             }
 
             public override void AI()

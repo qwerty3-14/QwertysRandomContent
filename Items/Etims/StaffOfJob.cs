@@ -24,7 +24,7 @@ namespace QwertysRandomContent.Items.Etims
             item.noMelee = true;
             item.width = item.height = 48;
             item.useStyle = ItemUseStyleID.HoldingOut;
-            item.damage = 200;
+            item.damage = 250;
             item.mana = 4;
             item.shootSpeed = 1f;
             item.shoot = 1;
@@ -50,9 +50,9 @@ namespace QwertysRandomContent.Items.Etims
             {
                 if (line.mod == "Terraria" && line.Name == "Damage") //this checks if it's the line we're interested in
                 {
-                    line.text = (int)(item.damage * Main.LocalPlayer.magicDamage) + " damage per second";//change tooltip
+                    line.text = (int)(item.damage * Main.LocalPlayer.magicDamage) + " magic damage per second";//change tooltip
                 }
-                if (line.mod == "Terraria" && (line.Name == "CritChance" || line.Name == "Knockback" || line.Name == "Speed"))
+                if (line.mod == "Terraria" && ( line.Name == "Knockback" || line.Name == "Speed"))
                 {
                     line.text = "";
                 }
@@ -64,7 +64,9 @@ namespace QwertysRandomContent.Items.Etims
             NPC target = new NPC();
             if (QwertyMethods.ClosestNPC(ref target, 100, Main.MouseWorld, true))
             {
-                target.GetGlobalNPC<GraveMisery>().MiseryIntensity = (int)(item.damage * 2 * player.magicDamage);
+                target.GetGlobalNPC<GraveMisery>().MiseryIntensity = (int)(item.damage * player.magicDamage);
+                target.GetGlobalNPC<GraveMisery>().MiseryTime = 20;
+                target.GetGlobalNPC<GraveMisery>().MiseryCauser = player.whoAmI;
             }
             return false;
         }
@@ -74,7 +76,11 @@ namespace QwertysRandomContent.Items.Etims
     {
         public override bool InstancePerEntity => true;
         public int MiseryIntensity = 0;
+        public int MiseryTime = 0;
+        public int MiseryCauser = 0;
+        int miseryCounter = 0;
 
+        /*
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             if (MiseryIntensity > 0)
@@ -87,19 +93,31 @@ namespace QwertysRandomContent.Items.Etims
                 npc.lifeRegen -= MiseryIntensity;
             }
         }
-
+        */
         private float trigCounter = 0f;
 
         public override void AI(NPC npc)
         {
-            if (MiseryIntensity > 0)
+            if (MiseryTime > 0)
             {
-                MiseryIntensity--;
+                MiseryTime--;
                 trigCounter += MiseryIntensity * (float)Math.PI / (60f * 240f);
-                if (MiseryIntensity > 5)
+                miseryCounter += MiseryIntensity;
+                if(miseryCounter > 60)
                 {
-                    MiseryIntensity = 5;
+                    int miseryHits = miseryCounter / 60;
+                    miseryCounter -= miseryHits * 60;
+                    for (int m = 0; m < miseryHits; m++)
+                    {
+                        QwertyMethods.PokeNPC(Main.player[MiseryCauser], npc, 1, 0, magic: true);
+                    }
                 }
+            }
+            else
+            {
+                MiseryTime = 0;
+                MiseryIntensity = 0;
+                MiseryCauser = 0;
             }
         }
 

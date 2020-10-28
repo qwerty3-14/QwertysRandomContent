@@ -108,6 +108,21 @@ namespace QwertysRandomContent.NPCs.FortressBoss
                 {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SkywardHilt"));
                 }
+                switch(Main.rand.Next(4))
+                {
+                    case 0:
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteMagicWeapon"));
+                        break;
+                    case 1:
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HolyExiler"));
+                        break;
+                    case 2:
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CaeliteRainKnife"));
+                        break;
+                    case 3:
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PriestStaff"));
+                        break;
+                }
             }
 
             int trophyChance = Main.rand.Next(0, 10);
