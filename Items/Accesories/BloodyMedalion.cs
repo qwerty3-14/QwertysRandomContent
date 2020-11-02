@@ -61,8 +61,12 @@ namespace QwertysRandomContent.Items.Accesories
         {
             if (player.GetModPlayer<BloodMedalionEffect>().effect && item.mana > 0)
             {
-                int k = player.statMana += (int)(item.mana * player.manaCost);
-                player.statLife -= (int)(item.mana * player.manaCost);
+                int lifeCost = (int)(item.mana * Main.LocalPlayer.manaCost);
+                if (lifeCost < 0)
+                {
+                    lifeCost = 0;
+                }
+                player.statLife -= lifeCost;
                 if (player.statLife <= 0)
                 {
                     player.KillMe(PlayerDeathReason.ByCustomReason(player.name + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo1") + (player.Male ? Language.GetTextValue("Mods.QwertysRandomContent.his") : Language.GetTextValue("Mods.QwertysRandomContent.her")) + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo2")), (int)(item.mana * player.manaCost), 0);
@@ -81,7 +85,12 @@ namespace QwertysRandomContent.Items.Accesories
                 {
                     if (line.mod == "Terraria" && line.Name == "UseMana") //this checks if it's the line we're interested in
                     {
-                        line.text = Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo3") + (int)(item.mana * Main.LocalPlayer.manaCost) + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo4");//change tooltip
+                        int lifeCost = (int)(item.mana * Main.LocalPlayer.manaCost);
+                        if(lifeCost <0)
+                        {
+                            lifeCost = 0;
+                        }
+                        line.text = Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo3") + lifeCost + Language.GetTextValue("Mods.QwertysRandomContent.BloodyMedalionInfo4");//change tooltip
                         line.overrideColor = Color.Crimson;
                     }
                 }

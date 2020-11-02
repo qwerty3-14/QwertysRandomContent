@@ -30,7 +30,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override bool CanUseItem(Player player)
         {
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("RuneSpector"));
+            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("RuneGhost"));
             Main.PlaySound(SoundID.Roar, player.position, 0);
             item.stack--;
             return true;

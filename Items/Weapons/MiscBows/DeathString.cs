@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
         public override void SetDefaults()
         {
-            item.damage = 32;
+            item.damage = 38;
             item.ranged = true;
 
             item.useTime = 42;
@@ -24,7 +24,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.useStyle = 5;
             item.knockBack = 2;
             item.value = 54000;
-            item.rare = 3;
+            item.rare = 4;
             item.UseSound = SoundID.Item5;
             item.autoReuse = true;
             item.width = 24;
@@ -72,11 +72,9 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
         {
             ModRecipe recipe = new ModRecipe(mod);
 
-            recipe.AddRecipeGroup("QwertysrandomContent:EvilBows");
-            recipe.AddIngredient(ItemID.MoltenFury);
-            recipe.AddIngredient(mod.ItemType("RhuthiniumBow"));
             recipe.AddIngredient(mod.ItemType("FossilBow"));
-            recipe.AddTile(TileID.DemonAltar);
+            recipe.AddIngredient(ItemID.SoulofNight, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

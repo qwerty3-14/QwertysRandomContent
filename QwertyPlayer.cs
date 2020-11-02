@@ -11,14 +11,6 @@ namespace QwertysRandomContent
 {
     public class QwertyPlayer : ModPlayer
     {
-        public bool ninjaSabatoge = false;
-        public bool minionIchor = false;
-        public bool siphon = false;
-        public bool meleeSiphon = false;
-        public bool circletSetBonus = false;
-        public bool meleeCircletSetBonus = false;
-        public bool RhuthiniumMagic = false;
-        public bool RhuthiniumMight = false;
 
         public bool DinoPox = false;
         public bool HydraSetBonus = false;
@@ -35,11 +27,7 @@ namespace QwertysRandomContent
         public bool minionFang = false;
         public bool gemRegen = false;
         public int regenTimer = 301;
-        public bool iceScroll = false;
-        public bool pursuitScroll = false;
-        public int iceScrollCounter = 10;
-        public bool leechScroll = false;
-        public bool aggroScroll = false;
+       
         public int charge;
         public bool stormEnchantment = false;
         public int shotNumber = 0;
@@ -73,14 +61,7 @@ namespace QwertysRandomContent
 
         public override void ResetEffects()
         {
-            ninjaSabatoge = false;
-            minionIchor = false;
-            siphon = false;
-            meleeSiphon = false;
-            circletSetBonus = false;
-            meleeCircletSetBonus = false;
-            RhuthiniumMagic = false;
-            RhuthiniumMight = false;
+            
 
             DinoPox = false;
             HydraSetBonus = false;
@@ -90,10 +71,7 @@ namespace QwertysRandomContent
             hydraCharm = false;
             minionFang = false;
             gemRegen = false;
-            iceScroll = false;
-            pursuitScroll = false;
-            leechScroll = false;
-            aggroScroll = false;
+            
             stormEnchantment = false;
             customDashSpeed = 0;
             customDashRam = 0;
@@ -124,14 +102,10 @@ namespace QwertysRandomContent
 
         public override void UpdateDead()
         {
-            RhuthiniumMagic = false;
-            RhuthiniumMight = false;
+            
             usingVulcan = false;
             RhuthiniumCharge = 0;
-            iceScroll = false;
-            pursuitScroll = false;
-            leechScroll = false;
-            aggroScroll = false;
+           
             shotNumber = 0;
         }
 
@@ -334,17 +308,7 @@ namespace QwertysRandomContent
                 }
             }
 
-            if (iceScroll)
-            {
-                if (iceScrollCounter >= (int)(2 * Math.PI * 10))
-                {
-                    float startDistance = 100;
-                    Projectile.NewProjectile(player.Center.X + (float)Math.Cos(0) * startDistance, player.Center.Y + (float)Math.Sin(0) * startDistance, 0, 0, mod.ProjectileType("IceRuneFreindly"), (int)(300 * player.meleeDamage), 3f, Main.myPlayer);
-                    Projectile.NewProjectile(player.Center.X + (float)Math.Cos(Math.PI) * startDistance, player.Center.Y + (float)Math.Sin(Math.PI) * startDistance, 0, 0, mod.ProjectileType("IceRuneFreindly"), (int)(300 * player.meleeDamage), 3f, Main.myPlayer);
-                    iceScrollCounter = 0;
-                }
-                iceScrollCounter++;
-            }
+            
 
             if (heldItemOld != player.inventory[player.selectedItem])
             {
@@ -566,26 +530,7 @@ namespace QwertysRandomContent
                 }
             }
 
-            if (aggroScroll && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue && proj.magic && proj.type != mod.ProjectileType("AggroRuneFreindly"))
-            {
-                Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("AggroRuneFreindly"), (int)(420 * player.magicDamage), 3f, Main.myPlayer);
-            }
-            if (leechScroll && proj.ranged && proj.type != mod.ProjectileType("LeechRuneFreindly"))
-            {
-                runeRate = damage;
-
-                while (runeRate > 200)
-                {
-                    float theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
-                    Projectile.NewProjectile(target.Center.X + (float)Math.Cos(theta) * 150, target.Center.Y + (float)Math.Sin(theta) * 150, -(float)Math.Cos(theta) * 10, -(float)Math.Sin(theta) * 10, mod.ProjectileType("LeechRuneFreindly"), (int)(25 * player.rangedDamage), 3f, Main.myPlayer);
-                    runeRate -= 200;
-                }
-                if (runeRate >= Main.rand.Next(0, 199))
-                {
-                    float theta = MathHelper.ToRadians(Main.rand.Next(0, 360));
-                    Projectile.NewProjectile(target.Center.X + (float)Math.Cos(theta) * 150, target.Center.Y + (float)Math.Sin(theta) * 150, -(float)Math.Cos(theta) * 10, -(float)Math.Sin(theta) * 10, mod.ProjectileType("LeechRuneFreindly"), (int)(25 * player.rangedDamage), 3f, Main.myPlayer);
-                }
-            }
+           
 
             if (Metronome && !target.immortal && target.life <= 0 && !target.SpawnedFromStatue)
             {
@@ -608,47 +553,7 @@ namespace QwertysRandomContent
 
                 Main.rand.NextFloat(player.width);
             }
-            if (ninjaSabatoge)
-            {
-                if (proj.thrown == true)
-                {
-                    target.AddBuff(20, 999999);
-                    target.AddBuff(31, 999999);
-                }
-            }
-            if (minionIchor)
-            {
-                if (proj.minion)
-                {
-                    target.AddBuff(69, 120);
-                }
-            }
-            if (siphon)
-            {
-                if (!target.immortal && !target.SpawnedFromStatue)
-                {
-                    if (proj.melee == true)
-                    {
-                        player.statMana += (damage / 2);
-                        CombatText.NewText(player.getRect(), Color.Blue, damage / 2, false, false);
-                    }
-                }
-            }
-
-            if (circletSetBonus)
-            {
-                if (!target.immortal && !target.SpawnedFromStatue)
-                {
-                    if (proj.melee == true)
-                    {
-                        player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600);
-                    }
-                    if (proj.magic == true)
-                    {
-                        player.AddBuff(mod.BuffType("RhuthiniumMight"), 600);
-                    }
-                }
-            }
+           
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
@@ -664,32 +569,6 @@ namespace QwertysRandomContent
                 else
                 {
                     CombatText.NewText(player.getRect(), Color.Purple, killCount, false, false);
-                }
-            }
-            if (meleeSiphon)
-            {
-                if (!target.immortal && !target.SpawnedFromStatue)
-                {
-                    if (item.melee == true)
-                    {
-                        player.statMana += (damage);
-                        CombatText.NewText(player.getRect(), Color.Blue, damage / 2, false, false);
-                    }
-                }
-            }
-
-            if (meleeCircletSetBonus)
-            {
-                if (!target.immortal && !target.SpawnedFromStatue)
-                {
-                    if (item.melee == true)
-                    {
-                        player.AddBuff(mod.BuffType("RhuthiniumMagic"), 600);
-                    }
-                    if (item.magic == true)
-                    {
-                        player.AddBuff(mod.BuffType("RhuthiniumMight"), 600);
-                    }
                 }
             }
         }

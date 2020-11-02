@@ -16,17 +16,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
         public override void SetDefaults()
         {
-            item.damage = 30;
+            item.damage = 28;
             item.magic = true;
 
-            item.useTime = 5;
+            item.useTime = 45;
             item.useAnimation = 45;
             item.useStyle = 5;
             item.knockBack = 0;
             item.value = 54000;
-            item.rare = 3;
-
-            item.autoReuse = true;
+            item.rare = 4;
             item.width = 28;
             item.height = 30;
 
@@ -39,83 +37,27 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DemonScythe);
-            recipe.AddIngredient(ItemID.WaterBolt);
-            recipe.AddIngredient(mod.ItemType("AncientWave"));
-            recipe.AddTile(TileID.DemonAltar);
+            recipe.AddIngredient(ItemID.FrostCore);
+            recipe.AddIngredient(ItemID.SoulofLight, 3);
+            recipe.AddIngredient(ItemID.SoulofNight, 3);
+            recipe.AddIngredient(ItemID.SpellTome);
+            recipe.AddTile(TileID.Bookcases);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
 
         public int shotNumber = 0;
 
-        public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float angle = (new Vector2(speedX, speedY)).ToRotation();
             float trueSpeed = (new Vector2(speedX, speedY)).Length();
             position = player.Center;
-            if (shotNumber == 8)
+            for(int i = 0; i < 17; i++)
             {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(60)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(60)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-60)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-60)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber = 0;
-                return false;
+                Projectile.NewProjectile(position, QwertyMethods.PolarVector(trueSpeed, angle - (float)Math.PI / 4 + (i / 16f) * (float)Math.PI/2f), i == 8 ? mod.ProjectileType("LargeIcicle") : type, damage, knockBack, player.whoAmI);
             }
-            if (shotNumber == 7)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(52.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(52.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-52.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-52.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            if (shotNumber == 6)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(45)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(45)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-45)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-45)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            if (shotNumber == 5)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(37.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(37.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-37.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-37.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            if (shotNumber == 4)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(30)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(30)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-30)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-30)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            if (shotNumber == 3)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(22.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(22.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-22.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-22.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            if (shotNumber == 2)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(15)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(15)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-15)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-15)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            else if (shotNumber == 1)
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(7.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(7.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(-7.5f)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(-7.5f)) * trueSpeed, type, (int)(damage * .8f), knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber++;
-                return false;
-            }
-            else
-            {
-                Projectile.NewProjectile(player.MountedCenter.X, player.MountedCenter.Y, (float)Math.Cos(angle + MathHelper.ToRadians(0)) * trueSpeed, (float)Math.Sin(angle + MathHelper.ToRadians(0)) * trueSpeed, mod.ProjectileType("LargeIcicle"), damage, knockBack, Main.myPlayer, 0f, 0f);
-                shotNumber = 1;
-                return false;
-            }
+            return false;
         }
     }
 

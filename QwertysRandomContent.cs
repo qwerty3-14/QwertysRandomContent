@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Items.B4Items;
 using QwertysRandomContent.Items.Dyes;
+using QwertysRandomContent.NPCs.RuneGhost.RuneBuilder;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -129,7 +130,7 @@ namespace QwertysRandomContent
                     new List<int> { ItemType("HydraBag"), ItemType("HydraWings"), ItemType("Hydrent"), ItemType("HydraJavelin"), ItemType("HydraCannon"), ItemType("HydraBeam"), ItemType("HydraMissileStaff"), ItemType("HydraHeadStaff"), ItemType("HydraBarrage"), ItemType("Hydrill"), ItemType("Hydrator"), ItemType("HydraHook"), ItemType("HydraScale"), ItemID.GreaterHealingPotion },
                     "Tempt with [i:" + ItemType("HydraSummon") + "]", null, "QwertysRandomContent/NPCs/HydraBoss/Hydra_Checklist", "QwertysRandomContent/NPCs/HydraBoss/MapHead1");
 
-                bossChecklist.Call("AddBoss", 12.2f, NPCType("RuneSpector"), this, "Rune Ghost", (Func<bool>)(() => QwertyWorld.downedRuneGhost), ItemType("SummoningRune"),
+                bossChecklist.Call("AddBoss", 12.2f, NPCType("RuneGhost"), this, "Rune Ghost", (Func<bool>)(() => QwertyWorld.downedRuneGhost), ItemType("SummoningRune"),
                     new List<int> { ItemType("RuneGhostMask"), ItemType("RunicRobe"), ItemType("MusicBoxTheConjurer") },
                     new List<int> { ItemType("RuneGhostBag"), ItemType("ExpertItem"), ItemType("AggroScroll"), ItemType("IceScroll"), ItemType("LeechScroll"), ItemType("PursuitScroll"), ItemType("CraftingRune"), ItemID.GreaterHealingPotion },
                     "Use a [i:" + ItemType("SummoningRune") + "] to challenge its power. [i:" + ItemType("SummoningRune") + "] drops from the dungeon's sneaking ghosts", null, null, "QwertysRandomContent/NPCs/RuneSpectorBoss/RuneSpector_Head_Boss");
@@ -174,6 +175,8 @@ namespace QwertysRandomContent
                 bossChecklist.Call("AddToBossLoot", "Terraria", "KingSlime", new List<int> { ItemType("SpikedSlimeShift") });
                 bossChecklist.Call("AddToBossLoot", "Terraria", "EyeofCthulhu", new List<int> { ItemType("EoCShift") });
                 bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("ConspiratorEmblem") });
+                bossChecklist.Call("AddToBossLoot", "Terraria", "Plantera", new List<int> { ItemType("BloomingBow") });
+
                 if (ModLoader.GetMod("ThoriumMod") == null && ModLoader.GetMod("SpiriteMod") == null && ModLoader.GetMod("ElementsAwoken") == null)
                 {
                     bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("YetAnotherThrowerEmblem") });
@@ -202,6 +205,8 @@ namespace QwertysRandomContent
         public override void Load()
         {
             Instance = this;
+
+            
             AMLoot.Add("AncientBlade");
             AMLoot.Add("AncientSniper");
             AMLoot.Add("AncientWave");
@@ -236,6 +241,9 @@ namespace QwertysRandomContent
             QuickStableMorph = RegisterHotKey("Quick Stable Morph", "V");
             if (!Main.dedServ)
             {
+                RuneSprites.BuildRunes();
+
+
                 // Add the female leg variants
                 AddEquipTexture(GetItem("LuneLeggings"), EquipType.Legs, "LuneLeggings_Female", "QwertysRandomContent/Items/Armor/Lune/LuneLeggings_FemaleLegs");
                 AddEquipTexture(GetItem("GaleSwiftRobes"), EquipType.Legs, "GaleSwiftRobes_Female", "QwertysRandomContent/Items/Fortress/GaleArmor/GaleSwiftRobes_FemaleLegs");
@@ -735,6 +743,11 @@ namespace QwertysRandomContent
             AddTranslation(text);
 
             #endregion config
+
+
+            text = CreateTranslation("ArmsDealerStock");
+            text.SetDefault("The arms dealer has some new items for sale!");
+            AddTranslation(text);
 
             AddBossHeadTexture(AncientMachineHead);
             AddBossHeadTexture(HydraHead1);

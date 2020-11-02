@@ -751,7 +751,7 @@ namespace QwertysRandomContent
                     line = new TooltipLine(mod, "MorphCoolDisclaimer", "Cancel the buff or use the quick stable morph hotkey to deactivate the morph.");
                     {
                         line.overrideColor = Color.Orange;
-                        tooltips.Insert(KBIndex + 4, line);
+                        tooltips.Insert(KBIndex + 3, line);
                     }
                     line.text = "Cancel the buff or use the quick stable morph hotkey to deactivate the morph.";
                 }

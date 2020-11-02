@@ -35,12 +35,66 @@ Extra thanks
 
 
 changelog
-0.20.16
+0.22.0
+-overhauled Rune ghost boss fight
+--all the runes now have new animations when being drawn in
+--All runes have had thier behavior tweaked, aggro runes got completely reworked
+--fixed 'bug' where in multiplayer all runes were spawned client side, now only ice runes spawn clinet side as an inteded feature
+--rune ghost is now less vulnerable to kiting
+
+
+-rebalnced rune scrolls, leech scroll used to be absolutely busted while the others mostly useless
+-leech scroll's rate of spawning runes is fixed instead of scaling on dps. You can consider this adding 100 base dps to your ranged attacks and 1hp/s healing
+-aggro scroll has been completely cahnged just like the aggro runes themselves. You can consider this adding a 250 base dps infinte pierce beam, if you can learn to 'aim' it.
+-pursuit scroll will make minions actually aim thier runes instead of just scattering them. You can consider this scroll adding 20 base dps to all your minions
+-ice scroll is relatively unchanged aside from gaining local immunity. You can pull off 1200 base dps, if you can get both ice runes to constantly deal damage.
+
+-buffed runic weapons, these are supposed to be post golem weapons but only the leach rune staff seemed to be competitve with them
+-runic sniper damage 160->260
+-leech rune staff damage increased 24->50, but attacks much slower
+-runic wave damage increased 100->180, but now can only use the ice rune variant 
+-Runix blade damage increased 35-> 44
+-runic throw damage increased 110->130
+
+-added rune longbow, pursuit rune staff, rune nuke, and rune miner they are moreorless just upgrades to thier ancient counterparts.
+
+-non runic weapons crafted from runes are getting moved or removed
+-chaos rifle has been re-tiered to early hardmode and is sold by the arms dealer at the start of hardmode
+-changed shotgun and ring of guns are no longer crafted and are instead bought from the arms dealer after rune ghost is killed.
+-when ancient machine or rune ghost are defeated for the first time the game will notify the player about the arms dealer's new stock!
+-removed dragon fire 
+-removed bowyo
+
+
+-removed 'terra blade like progression for other classes' 
+-blooming bow is no longer sold by dryad and is now a plantera drop, dmage increased 19->31
+-death string is now crafted from the fossil bow and 10 souls of night, damage increased 32->38
+-cold front is now crafted with early hardmode materials and has been reworked
+-ash fell staff is no longer crafted and is instead found in shadow chests
+
+-removed worn prehistoric bow
+-removed aerous bow
+-removed true death string
+-removed true blooming bow
+
+
+-fixed gun arrows doing way too much damage with bullets they fired
+-fixed skull copter crash
+-fixed bug where the bloody medalion could be used for healing if you somehow obtained negative mana consumption
+
+
+
+
+
+
+
+
+0.21.16
 -fixed divine light's new drops not being in boss checklist
 -fixed holy exiler not recieiveing its intednded buff (damage 16->19)
 -fixed some right clicking with summons not working.
 
-0.20.15
+0.21.15
 - fixed transmutation gem recipe not needing avenger emblem
 -nurse can no longer cure morph cooldown
 
@@ -62,7 +116,7 @@ changelog
 
 
 
-0.20.14
+0.21.14
 -added bionic armor
 -added shape shift: the spazer's eye
 -added shape shift: skull copter
@@ -90,16 +144,16 @@ changelog
 
 
 
-0.20.13
+0.21.13
 -Fixed a severe bug where using the old Rhuthinium sprite setting would prevent the mod from loading, which would prevent you from turning it back off...
 
-0.20.12
+0.21.12
 -fixed stable morphs resetting flight time
 -fixed the spiked slime shift
 -fixed stable morph no longer being effected by dyes
 
 
-0.20.11
+0.21.11
 
 -added a hotkey that will allow the player to quickly use quick morphs then switch back to whatever they were using
 -reworked stable morphs
@@ -128,7 +182,7 @@ changelog
 -mini tanks should be better at targeting large enemies that are slightly below them verticly
 
 
-0.20.10
+0.21.10
 -tweaked arachnoyo's interaction's with the yoyo bag slightly
 -added arsenal (new Imperious drop)
 -Swordsman badge drop rate is now independent of weapon drops

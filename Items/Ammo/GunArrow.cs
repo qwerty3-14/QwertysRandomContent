@@ -72,33 +72,23 @@ namespace QwertysRandomContent.Items.Ammo
             Player player = Main.player[projectile.owner];
             timer++;
             int weaponDamage = projectile.damage;
-            float weaponKnockback = player.inventory[player.selectedItem].knockBack;
+            float weaponKnockback = projectile.knockBack;
 
             canShoot = player.HasAmmo(QwertyMethods.MakeItemFromID(mod.ItemType("GunArrow")), true) && player.inventory[player.selectedItem + 10].useAmmo == 97;
-            if (timer == 30)
+            if (timer == 30 || timer == 60)
             {
-                player.PickAmmo(QwertyMethods.MakeItemFromID(mod.ItemType("GunArrow")), ref bullet, ref speed, ref canShoot, ref weaponDamage, ref weaponKnockback, false);
-
-                Projectile b = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
-                if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
+                if(projectile.UseAmmo(AmmoID.Bullet, ref bullet, ref speed, ref weaponDamage, ref weaponKnockback, false))
                 {
-                    b.scale *= 3;
-
-                    b.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    Projectile b = Main.projectile[Projectile.NewProjectile(projectile.Center, projectile.velocity, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
+                    if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
+                    {
+                        b.scale *= 3;
+                        b.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
+                    }
                 }
+                
             }
-            if (timer == 60)
-            {
-                player.PickAmmo(QwertyMethods.MakeItemFromID(mod.ItemType("GunArrow")), ref bullet, ref speed, ref canShoot, ref weaponDamage, ref weaponKnockback, true);
-
-                Projectile b = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.velocity.X, projectile.velocity.Y, bullet, weaponDamage, weaponKnockback, Main.myPlayer)];
-                if (projectile.GetGlobalProjectile<arrowgigantism>().GiganticArrow)
-                {
-                    b.scale *= 3;
-
-                    b.GetGlobalProjectile<arrowgigantism>().GiganticArrow = true;
-                }
-            }
+            
         }
 
         public override void Kill(int timeLeft)

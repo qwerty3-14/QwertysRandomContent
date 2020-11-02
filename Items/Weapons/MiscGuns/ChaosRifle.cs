@@ -15,15 +15,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
 
         public override void SetDefaults()
         {
-            item.damage = 179;
+            item.damage = 42;
             item.ranged = true;
 
             item.useTime = 20;
             item.useAnimation = 20;
             item.useStyle = 5;
             item.knockBack = 5;
-            item.value = 500000;
-            item.rare = 9;
+            item.value = 25 * 100 * 100;
+            item.rare = 4;
             item.UseSound = SoundID.Item11;
 
             item.width = 82;
@@ -35,17 +35,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
             item.noMelee = true;
             item.autoReuse = true;
         }
-
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
-
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-28, -1);

@@ -51,11 +51,6 @@ namespace QwertysRandomContent
                 shop.item[nextSlot].SetDefaults(mod.ItemType("MinionFang"));
                 nextSlot++;
             }
-            if (type == NPCID.Dryad && NPC.downedMechBossAny)
-            {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("BloomingBow"));
-                nextSlot++;
-            }
             if (type == NPCID.Dryad)
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("DecorativePlant"));
@@ -83,6 +78,18 @@ namespace QwertysRandomContent
                     shop.item[nextSlot].SetDefaults(mod.ItemType("TankCommanderJacket"));
                     nextSlot++;
                     shop.item[nextSlot].SetDefaults(mod.ItemType("TankCommanderPants"));
+                    nextSlot++;
+                }
+                if(Main.hardMode)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("ChaosRifle"));
+                    nextSlot++;
+                }
+                if(QwertyWorld.downedRuneGhost)
+                {
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("ChargingShotgun"));
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(mod.ItemType("RingOfGuns"));
                     nextSlot++;
                 }
             }

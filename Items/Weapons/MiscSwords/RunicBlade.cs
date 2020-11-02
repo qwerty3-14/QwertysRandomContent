@@ -10,13 +10,13 @@ namespace QwertysRandomContent.Items.Weapons.MiscSwords
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Runic Blade");
+            DisplayName.SetDefault("Rune Blade");
             Tooltip.SetDefault("Launches a spread Mini Ice Runes");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 35;
+            item.damage = 44;
             item.melee = true;
 
             item.useTime = 35;

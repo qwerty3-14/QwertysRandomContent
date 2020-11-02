@@ -33,17 +33,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             item.shoot = mod.ProjectileType("AshFell");
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CaeliteSentryStaff"));
-            recipe.AddIngredient(mod.ItemType("Riptide"));
-            recipe.AddIngredient(mod.ItemType("ManEaterStaff"));
-            recipe.AddIngredient(mod.ItemType("RhuthiniumGuardianStaff"));
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
 
         public override bool Shoot(Player player, ref Microsoft.Xna.Framework.Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
@@ -218,6 +207,36 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                 projectile.timeLeft = finalTime;
             }
             return false;
+        }
+    }
+    class AshFellLoot : ModWorld
+    {
+        public override void PostWorldGen()
+        {
+            AddAshFell();
+        }
+
+        public static void AddAshFell()
+        {
+            for (int c = 0; c < Main.chest.Length; c++)
+            {
+                if (Main.chest[c] != null)
+                {
+                    if (Main.chest[c].item[0].type == ItemID.DarkLance || Main.chest[c].item[0].type == ItemID.Flamelash || Main.chest[c].item[0].type == ItemID.FlowerofFire || Main.chest[c].item[0].type == ItemID.Sunfury || Main.chest[c].item[0].type == ItemID.HellwingBow)
+                    {
+                        if(Main.rand.Next(4) == 0)
+                        {
+                            for (int i = 0; i < Main.chest[c].item.Length; i++)
+                            {
+                                if (Main.chest[c].item[i].IsAir)
+                                {
+                                    Main.chest[c].item[i].SetDefaults(QwertysRandomContent.Instance.ItemType("AshFellStaff"), false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

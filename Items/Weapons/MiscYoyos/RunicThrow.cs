@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscYoyos
             item.useTime = 25;
             item.shootSpeed = 16f;
             item.knockBack = 2.5f;
-            item.damage = 110;
+            item.damage = 130;
             item.value = 500000;
             item.rare = 9;
             item.melee = true;

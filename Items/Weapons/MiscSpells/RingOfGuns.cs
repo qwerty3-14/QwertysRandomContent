@@ -39,15 +39,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
             item.channel = true;
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-
         public override bool ConsumeAmmo(Player player)
         {
             return false;

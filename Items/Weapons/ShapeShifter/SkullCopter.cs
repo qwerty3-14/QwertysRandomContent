@@ -21,6 +21,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
         public override void SetDefaults()
         {
+
             item.damage = 90;
             item.knockBack = 1;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;

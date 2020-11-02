@@ -9,7 +9,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Leech Scroll");
-            Tooltip.SetDefault("Ranged attacks may summon leech runes that can heal you" + "\nHigher damaging attacks are more likely to summon leech runes");
+            Tooltip.SetDefault("Ranged attacks may summon leech runes that can heal you");
         }
 
         public override void SetDefaults()
@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.value = 500000;
             item.rare = 9;
             item.ranged = true;
-            item.damage = 25;
+            item.damage = 50;
 
             item.width = 54;
             item.height = 56;
@@ -27,9 +27,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>();
-
-            modPlayer.leechScroll = true;
+            player.GetModPlayer<ScrollEffects>().leech = true;
         }
     }
 
@@ -72,11 +70,15 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(0, 3) == 0)
+            if (!target.immortal && !target.SpawnedFromStatue)
             {
                 Player player = Main.player[projectile.owner];
-                player.statLife += damage / 10;
-                CombatText.NewText(player.getRect(), Color.Green, damage / 10, false, false);
+                if(Main.rand.Next(2) == 0)
+                {
+                    player.statLife++;
+                    player.HealEffect(1, true);
+                }
+                
             }
         }
     }

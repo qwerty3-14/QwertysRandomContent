@@ -24,7 +24,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             //bossBagNPC = mod.NPCType("RuneSpector");
         }
 
-        public override int BossBagNPC => mod.NPCType("RuneSpector");
+        public override int BossBagNPC => mod.NPCType("RuneGhost");
 
         public override bool CanRightClick()
         {

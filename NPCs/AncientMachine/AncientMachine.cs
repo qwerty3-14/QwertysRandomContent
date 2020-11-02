@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace QwertysRandomContent.NPCs.AncientMachine
@@ -468,6 +469,16 @@ namespace QwertysRandomContent.NPCs.AncientMachine
         {
             if (!QwertyWorld.downedAncient)
             {
+                string key = "Mods.QwertysRandomContent.ArmsDealerStock";
+                Color messageColor = Color.Lime;
+                if (Main.netMode == 2) // Server
+                {
+                    NetMessage.BroadcastChatMessage(NetworkText.FromKey(key), messageColor);
+                }
+                else if (Main.netMode == 0) // Single Player
+                {
+                    Main.NewText(Language.GetTextValue(key), messageColor);
+                }
                 QwertyWorld.downedAncient = true;
                 if (Main.netMode == NetmodeID.Server)
                 {

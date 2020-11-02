@@ -19,7 +19,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
             item.value = 500000;
             item.rare = 9;
             item.summon = true;
-            item.damage = 50;
+            item.damage = 40;
 
             item.width = 54;
             item.height = 56;
@@ -29,9 +29,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>();
-
-            modPlayer.pursuitScroll = true;
+            player.GetModPlayer<ScrollEffects>().pursuit = true;
         }
     }
 
@@ -99,31 +97,22 @@ namespace QwertysRandomContent.Items.RuneGhostItems
         public override bool InstancePerEntity => true;
         public int runeCounter;
         public float runeSpeed = 10;
-
+        NPC target;
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            QwertyPlayer modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (projectile.minion && projectile.minionSlots > 0 && modPlayer.pursuitScroll)
+            ScrollEffects modPlayer = player.GetModPlayer<ScrollEffects>();
+            if ((projectile.minion && projectile.minionSlots > 0 || projectile.sentry) && modPlayer.pursuit)
             {
                 runeCounter++;
-                if (runeCounter >= 180 / projectile.minionSlots)
+                if (runeCounter >= 120 / projectile.minionSlots || (runeCounter >= 120 && projectile.sentry))
                 {
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((1 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((1 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((2 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((2 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((3 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((3 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
-                    runeCounter = 0;
-                }
-            }
-            else if (projectile.minion && projectile.sentry && modPlayer.pursuitScroll)
-            {
-                runeCounter++;
-                if (runeCounter >= 90)
-                {
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((1 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((1 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((2 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((2 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
-                    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, (float)Math.Cos((3 * 2 * Math.PI) / 3) * runeSpeed, (float)Math.Sin((3 * 2 * Math.PI) / 3) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(50 * player.minionDamage), 3f, Main.myPlayer);
-                    runeCounter = 0;
+                    if(QwertyMethods.ClosestNPC(ref target, 1000, projectile.Center, false, player.MinionAttackTargetNPC ))
+                    {
+                        Projectile.NewProjectile(projectile.Center, (target.Center - projectile.Center).SafeNormalize(Vector2.UnitY) * runeSpeed, mod.ProjectileType("PursuitRuneFreindly"), (int)(40f * player.minionDamage), projectile.knockBack, projectile.owner);
+                        runeCounter = 0;
+                    }
+                    
                 }
             }
         }

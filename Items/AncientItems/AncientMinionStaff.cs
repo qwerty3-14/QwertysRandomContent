@@ -120,12 +120,6 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         public const int minionRingRadius = 50;
         public const int minionRingDustQty = 50;
         public int timer;
-        public int Pos = 1;
-        public int damage = 30;
-        public int switchTime = 300;
-        public int moveCount = 0;
-        public int fireCount = 0;
-        public int attackType = 1;
         public bool charging;
         public NPC target;
 
@@ -137,7 +131,6 @@ namespace QwertysRandomContent.Items.AncientItems       ///We need this to basic
         private bool runOnce = true;
 
         private float maxDistance = 1000f;
-        private int frame;
         private int noTargetTimer = 0;
 
         public override void AI()

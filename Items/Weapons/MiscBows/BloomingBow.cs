@@ -15,7 +15,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
 
         public override void SetDefaults()
         {
-            item.damage = 18;
+            item.damage = 31;
             item.ranged = true;
 
             item.useTime = 45;
@@ -23,7 +23,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
             item.useStyle = 5;
             item.knockBack = 5;
             item.value = 231426;
-            item.rare = 5;
+            item.rare = 7;
             item.UseSound = SoundID.Item5;
 
             item.width = 32;
@@ -58,6 +58,26 @@ namespace QwertysRandomContent.Items.Weapons.MiscBows
                 Projectile.NewProjectile(position.X + Main.rand.Next(-12, 12), position.Y + Main.rand.Next(-12, 12), trueSpeed.X, trueSpeed.Y, type, currentDmg, currentKnockBack, player.whoAmI);
             }
             return false;
+        }
+    }
+    public class BloomingBowDrop : GlobalNPC
+    {
+        public override void NPCLoot(NPC npc)
+        {
+            if(npc.type == NPCID.Plantera && !Main.expertMode && Main.rand.Next(4) == 0)
+            {
+                Item.NewItem(npc.getRect(), mod.ItemType("BloomingBow"));
+            }
+        }
+    }
+    public class BloomingBowBag : GlobalItem
+    {
+        public override void OpenVanillaBag(string context, Player player, int arg)
+        {
+            if (context == "bossBag" && arg == ItemID.PlanteraBossBag && Main.rand.Next(3) == 0)
+            {
+                player.QuickSpawnItem(mod.ItemType("BloomingBow"));
+            }
         }
     }
 }

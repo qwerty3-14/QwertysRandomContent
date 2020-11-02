@@ -124,16 +124,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
         {
             return new Vector2(-6, -0);
         }
-
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-
-            recipe.AddIngredient(ItemID.Shotgun);
-            recipe.AddIngredient(mod.ItemType("CraftingRune"), 20);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
     }
 }

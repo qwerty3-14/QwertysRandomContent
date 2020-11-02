@@ -42,6 +42,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             float minionCount = 0;
+            //Main.NewText(minionCount + ", " + player.maxMinions);
             foreach (Projectile projectile in Main.projectile)
             {
                 if (projectile.active && projectile.owner == player.whoAmI)
@@ -196,7 +197,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown;
             target.immune[projectile.owner] = 0;
         }
-
+        
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
             Texture2D texture = Main.projectileTexture[projectile.type];
@@ -218,6 +219,16 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             damage = (int)projectile.minionSlots * damage;
+        }
+        public override void Kill(int timeLeft)
+        {
+            Player player = Main.player[projectile.owner];
+            if (player.GetModPlayer<MinionManager>().SwordMinion)
+            {
+                Projectile p = Main.projectile[Projectile.NewProjectile(projectile.Center, projectile.velocity, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, projectile.ai[0], projectile.ai[1])];
+                p.minionSlots += player.maxMinions - player.slotsMinions - 1;
+                p.rotation = projectile.rotation;
+            }
         }
     }
 }

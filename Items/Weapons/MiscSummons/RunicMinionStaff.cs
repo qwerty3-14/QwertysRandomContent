@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.NPCs.RuneGhost.RuneBuilder;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -17,7 +18,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
 
         public override void SetDefaults()
         {
-            item.damage = 24;  //The damage stat for the Weapon.
+            item.damage = 50;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 72;    //The size of the width of the hitbox in pixels.
             item.height = 72;     //The size of the height of the hitbox in pixels.
@@ -118,30 +119,24 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
             projectile.timeLeft = 2;
             projectile.usesLocalNPCImmunity = true;
         }
-
+        public const int minionRingRadius = 50;
+        public const int minionRingDustQty = 50;
         public int timer;
-        public int Pos = 1;
-        public int damage = 30;
-        public int switchTime = 300;
-        public int moveCount = 0;
-        public int fireCount = 0;
-        public int attackType = 1;
         public bool charging;
         public NPC target;
-        private int waitTime = 5;
-        private int chargeTime = 15;
+
+        private int waitTime = 20;
+        private int chargeTime = 40;
         private Vector2 moveTo;
         private bool justTeleported;
         private float chargeSpeed = 12;
         private bool runOnce = true;
-        private float targetAngle;
 
+        private float maxDistance = 1000f;
+        private int noTargetTimer = 0;
+        float rot = 0;
         public override void AI()
         {
-            if (projectile.alpha > 0)
-            {
-                projectile.alpha -= 255 / 5;
-            }
             Player player = Main.player[projectile.owner];
             if (player.GetModPlayer<MinionManager>().AncientMinion)
             {
@@ -150,18 +145,15 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
 
             if (runOnce)
             {
-                //Main.PlaySound(SoundID.Item8);
-
                 if (Main.netMode != 2)
                 {
-                    moveTo.X = projectile.Center.X;
-                    moveTo.Y = projectile.Center.Y;
+                    moveTo = projectile.Center;
                     projectile.netUpdate = true;
                 }
                 runOnce = false;
             }
 
-            if (QwertyMethods.ClosestNPC(ref target, 1000, player.Center, true, player.MinionAttackTargetNPC))
+            if (QwertyMethods.ClosestNPC(ref target, maxDistance, player.Center, player.MinionAttackTargetNPC != -1, player.MinionAttackTargetNPC))
             {
                 timer++;
                 if (timer > waitTime + chargeTime)
@@ -170,22 +162,26 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                     {
                         projectile.localNPCImmunity[k] = 0;
                     }
-                    for (int i = 0; i < 100; i++)
+                    for (int i = 0; i < minionRingDustQty; i++)
                     {
-                        Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));
+                        float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+
+                        Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("LeechRuneDeath"), QwertyMethods.PolarVector(-minionRingRadius / 10, theta));
+                        dust.noGravity = true;
                     }
                     if (Main.netMode != 2)
                     {
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
-                    moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 100, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 100);
+                    moveTo = new Vector2(target.Center.X + (float)Math.Cos(projectile.ai[1]) * 120, target.Center.Y + (float)Math.Sin(projectile.ai[1]) * 180);
                     if (Main.netMode != 2)
                     {
                         projectile.netUpdate = true;
                     }
                     justTeleported = true;
                     timer = 0;
+                    noTargetTimer = 0;
                 }
                 else if (timer > waitTime)
                 {
@@ -193,23 +189,43 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                 }
                 else
                 {
+                    if (timer == 2)
+                    {
+                        Main.PlaySound(SoundID.Item8, projectile.Center);
+                        for (int i = 0; i < minionRingDustQty; i++)
+                        {
+                            float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                            Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("LeechRuneDeath"), QwertyMethods.PolarVector(minionRingRadius / 10, theta));
+                            dust.noGravity = true;
+                        }
+                    }
                     charging = false;
                 }
                 if (charging)
                 {
-                    projectile.rotation += MathHelper.ToRadians(3);
-                    projectile.velocity = new Vector2((float)Math.Cos(targetAngle) * chargeSpeed, (float)Math.Sin(targetAngle) * chargeSpeed);
+                    projectile.velocity = new Vector2((float)Math.Cos( rot), (float)Math.Sin( rot)) * chargeSpeed;
                 }
                 else
                 {
                     projectile.Center = new Vector2(moveTo.X, moveTo.Y);
                     projectile.velocity = new Vector2(0, 0);
-                    targetAngle = new Vector2(target.Center.X - projectile.Center.X, target.Center.Y - projectile.Center.Y).ToRotation();
-                    //projectile.rotation = targetAngle;
+                    float targetAngle = new Vector2(target.Center.X - projectile.Center.X, target.Center.Y - projectile.Center.Y).ToRotation();
+                     rot = targetAngle;
                 }
             }
             else
             {
+                noTargetTimer++;
+                if (noTargetTimer == 2)
+                {
+                    Main.PlaySound(SoundID.Item8);
+                    for (int i = 0; i < minionRingDustQty; i++)
+                    {
+                        float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                        Dust dust = Dust.NewDustPerfect(projectile.Center, mod.DustType("LeechRuneDeath"), QwertyMethods.PolarVector(minionRingRadius / 10, theta));
+                        dust.noGravity = true;
+                    }
+                }
                 if ((projectile.Center - player.Center).Length() > 300)
                 {
                     if (Main.netMode != 2)
@@ -217,41 +233,58 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons       ///We need this t
                         projectile.ai[1] = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
                         projectile.netUpdate = true;
                     }
-                    for (int d = 0; d < 300; d++)
+                    for (int i = 0; i < minionRingDustQty; i++)
                     {
-                        Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));
+                        float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+
+                        Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(minionRingRadius, theta), mod.DustType("LeechRuneDeath"), QwertyMethods.PolarVector(-minionRingRadius / 10, theta));
+                        dust.noGravity = true;
                     }
+                    noTargetTimer = 0;
                     moveTo = new Vector2(player.Center.X + (float)Math.Cos(projectile.ai[1]) * 100, player.Center.Y + (float)Math.Sin(projectile.ai[1]) * 100);
                     justTeleported = true;
                 }
 
                 projectile.Center = moveTo;
 
-                targetAngle = new Vector2(player.Center.X - projectile.Center.X, player.Center.Y - projectile.Center.Y).ToRotation();
-                //projectile.rotation = targetAngle;
+                float targetAngle = new Vector2(player.Center.X - projectile.Center.X, player.Center.Y - projectile.Center.Y).ToRotation();
+                 rot = targetAngle;
             }
             if (justTeleported)
             {
-                projectile.alpha = 255;
-                Main.PlaySound(SoundID.Item8, projectile.position);
-                for (int d = 0; d < 300; d++)
-                {
-                    Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("LeechRuneDeath"));
-                }
+                projectile.frameCounter=0;
                 justTeleported = false;
             }
+
+            projectile.frameCounter++;
+            projectile.rotation += Math.Sign(projectile.velocity.X) * (float)Math.PI / 60f;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(0, 3) == 0)
+            if (!target.immortal && !target.SpawnedFromStatue && Main.rand.Next(5) == 0)
             {
                 Player player = Main.player[projectile.owner];
-                player.statLife += damage / 10;
-                CombatText.NewText(player.getRect(), Color.Green, damage / 10, false, false);
+                player.statLife++;
+                player.HealEffect(1, true);
             }
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            float c = (projectile.frameCounter / 20f);
+            if (c > 1f)
+            {
+                c = 1f;
+            }
+            int frame = projectile.frameCounter ;
+            if (frame > 19)
+            {
+                frame = 19;
+            }
+            spriteBatch.Draw(RuneSprites.runeTransition[(int)Runes.Leech][frame], projectile.Center - Main.screenPosition, null, new Color(c, c, c, c), projectile.rotation, new Vector2(10, 10), Vector2.One * 2, 0, 0);
+            return false;
         }
     }
 }

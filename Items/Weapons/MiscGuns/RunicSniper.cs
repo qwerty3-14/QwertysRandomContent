@@ -18,7 +18,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscGuns
 
         public override void SetDefaults()
         {
-            item.damage = 190;
+            item.damage = 260;
             item.ranged = true;
             item.autoReuse = true;
             item.useTime = 35;

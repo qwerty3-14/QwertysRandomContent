@@ -2,6 +2,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using QwertysRandomContent.NPCs.RuneGhost.RuneBuilder;
 
 namespace QwertysRandomContent.Items.RuneGhostItems
 {
@@ -28,9 +31,7 @@ namespace QwertysRandomContent.Items.RuneGhostItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            var modPlayer = player.GetModPlayer<QwertyPlayer>();
-
-            modPlayer.iceScroll = true;
+            player.GetModPlayer<ScrollEffects>().ice = true;
         }
     }
 
@@ -38,51 +39,76 @@ namespace QwertysRandomContent.Items.RuneGhostItems
     {
         public override void SetDefaults()
         {
-            projectile.aiStyle = -1;
-
-            projectile.width = 42;
-            projectile.height = 42;
+            projectile.width = projectile.height = 36;
             projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.penetrate = -1;
-            projectile.alpha = 0;
             projectile.tileCollide = false;
-            projectile.timeLeft = (int)(2 * Math.PI * 10);
-            projectile.melee = true;
+            projectile.timeLeft = 2;
+            projectile.penetrate = -1;
+            projectile.usesLocalNPCImmunity = true;
         }
-
-        public int runeTimer;
-        public float startDistance = 200f;
-        public float direction;
-        public float runeSpeed = 10;
-        public bool runOnce = true;
-        public float aim;
-
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            projectile.localNPCImmunity[target.whoAmI] = 30;
+            target.immune[projectile.owner] = 0;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                if (Collision.CheckAABBvAABBCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center + QwertyMethods.PolarVector(dist, projectile.rotation + i * (float)Math.PI) + new Vector2(-18, -18), new Vector2(36, 36)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        float dist = 50;
+        int timer;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
-            var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            if (runOnce)
+            if (player.GetModPlayer<ScrollEffects>().ice)
             {
-                projectile.rotation = (player.Center - projectile.Center).ToRotation() - (float)Math.PI / 2;
-                runOnce = false;
+                projectile.timeLeft = 2;
             }
-
-            if (modPlayer.iceScroll)
-            {
-                projectile.rotation += (float)((2 * Math.PI) / (Math.PI * 2 * 100 / runeSpeed));
-                projectile.velocity.X = runeSpeed * (float)Math.Cos(projectile.rotation) + player.velocity.X;
-                projectile.velocity.Y = runeSpeed * (float)Math.Sin(projectile.rotation) + player.velocity.Y;
-            }
-            else
-            {
-                projectile.Kill();
-            }
+            timer++;
+            projectile.rotation += (float)Math.PI / 30f;
+            projectile.Center = player.Center;
         }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void Kill(int timeLeft)
         {
-            target.AddBuff(BuffID.Frostburn, 1200);
+            for (int i = 0; i < 2; i++)
+            {
+                Vector2 pos = projectile.Center + QwertyMethods.PolarVector(dist, projectile.rotation + i * (float)Math.PI) + new Vector2(-18, -18);
+                for (int d = 0; d <= 40; d++)
+                {
+                    Dust.NewDust(pos, 36, 36, mod.DustType("IceRuneDeath"));
+                }
+            }
+
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                float c = (timer / 60f);
+                if (c > 1f)
+                {
+                    c = 1f;
+                }
+                int frame = timer / 3;
+                if (frame > 19)
+                {
+                    frame = 19;
+                }
+                spriteBatch.Draw(RuneSprites.runeTransition[(int)Runes.IceRune][frame], projectile.Center + QwertyMethods.PolarVector(dist, projectile.rotation + i * (float)Math.PI) - Main.screenPosition, null, new Color(c, c, c, c), projectile.rotation, new Vector2(9, 9), Vector2.One * 2, 0, 0);
+            }
+
+            return false;
+        }
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(BuffID.Frostburn, 120);
         }
     }
 }
