@@ -231,6 +231,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
                                 if (Main.chest[c].item[i].IsAir)
                                 {
                                     Main.chest[c].item[i].SetDefaults(QwertysRandomContent.Instance.ItemType("AshFellStaff"), false);
+                                    break;
                                 }
                             }
                         }

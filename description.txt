@@ -35,6 +35,9 @@ Extra thanks
 
 
 changelog
+0.22.1
+-fixed bug where every empty slot in a shadow chest could be filled with an ash fell staff
+
 0.22.0
 -overhauled Rune ghost boss fight
 --all the runes now have new animations when being drawn in

@@ -24,7 +24,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells
 
         public override void SetDefaults()
         {
-            item.damage = 110;
+            item.damage = 160;
             item.magic = true;
 
             item.useTime = 20;
