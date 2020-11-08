@@ -93,7 +93,6 @@ namespace QwertysRandomContent.Items.Weapons.Dungeon
             projectile.timeLeft = Projectile.SentryLifeTime;
             projectile.penetrate = -1;
             projectile.tileCollide = true;
-            projectile.sentry = true;
             projectile.usesLocalNPCImmunity = true;
             //projectile.hide = true; // Prevents projectile from being drawn normally. Use in conjunction with DrawBehind.
         }

@@ -176,6 +176,7 @@ namespace QwertysRandomContent
                 bossChecklist.Call("AddToBossLoot", "Terraria", "EyeofCthulhu", new List<int> { ItemType("EoCShift") });
                 bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> { ItemType("ConspiratorEmblem") });
                 bossChecklist.Call("AddToBossLoot", "Terraria", "Plantera", new List<int> { ItemType("BloomingBow") });
+                bossChecklist.Call("AddToBossLoot", "Terraria", "DukeFishron", new List<int> { ItemType("Cyclone"), ItemType("Whirlpool"), ItemType("BubbleBrewerBaton") });
 
                 if (ModLoader.GetMod("ThoriumMod") == null && ModLoader.GetMod("SpiriteMod") == null && ModLoader.GetMod("ElementsAwoken") == null)
                 {

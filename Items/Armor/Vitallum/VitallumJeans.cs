@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vitallum Jeans");
-            Tooltip.SetDefault("Increases max life by 100 \n12% increased damage \nRegenerate 2 life/sec when on the ground");
+            Tooltip.SetDefault("Increases max life by 100 \n9% increased damage \nRegenerate 2 life/sec when on the ground");
         }
 
         public override void SetDefaults()
@@ -25,7 +25,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 100;
-            player.allDamage += .12f;
+            player.allDamage += .9f;
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .60f;
             Point origin = player.Bottom.ToTileCoordinates();
             Point point;

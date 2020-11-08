@@ -34,7 +34,19 @@ Extra thanks
 
 
 
-changelog
+changelo
+0.22.2
+-added some duke fishron drops
+--added whirlpool
+--added cyclone
+--added bubble brewer baton
+
+-added venom dart
+-added nano dart
+-rhuithinium dart damage reduced 11->7
+
+-tops now use static immunity
+
 0.22.1
 -fixed bug where every empty slot in a shadow chest could be filled with an ash fell staff
 

@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vitallum Headress");
-            Tooltip.SetDefault("Increases max life by 80 \n12% increased damage \nAttacks poison enemies. \nHealth nearby enemies lose from debuffs heals you.");
+            Tooltip.SetDefault("Increases max life by 80 \n9% increased damage \nAttacks poison enemies. \nHealth nearby enemies lose from debuffs heals you.");
         }
 
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 80;
-            player.allDamage += .12f;
+            player.allDamage += .9f;
             player.GetModPlayer<HeadressEffects>().poisonHeal = true;
         }
 

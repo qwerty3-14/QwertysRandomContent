@@ -1,4 +1,5 @@
 using QwertysRandomContent.AbstractClasses;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -61,6 +62,10 @@ namespace QwertysRandomContent.Items.Weapons.Lune
             projectile.tileCollide = true;
             friction = .004f;
             enemyFriction = .08f;
+        }
+        public override void TopHit(NPC target)
+        {
+            target.AddBuff(mod.BuffType("LuneCurse"), 180);
         }
     }
 }

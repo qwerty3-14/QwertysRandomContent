@@ -19,7 +19,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
         {
             item.width = 14;
             item.height = 18;
-            item.damage = 11;
+            item.damage = 7;
             item.ranged = true;
             item.ammo = AmmoID.Dart;
             item.shoot = mod.ProjectileType("RhuthiniumDartP");

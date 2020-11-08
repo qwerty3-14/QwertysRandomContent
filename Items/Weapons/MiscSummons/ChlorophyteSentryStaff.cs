@@ -81,7 +81,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             projectile.friendly = false;
             projectile.ignoreWater = true;
             projectile.timeLeft = Projectile.SentryLifeTime;
-            projectile.knockBack = 10f;
             projectile.penetrate = -1;
             projectile.tileCollide = true;
             projectile.sentry = true;
@@ -121,4 +120,5 @@ namespace QwertysRandomContent.Items.Weapons.MiscSummons
             }
         }
     }
+    
 }

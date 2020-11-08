@@ -11,7 +11,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vitallum Lifeguard");
-            Tooltip.SetDefault("Increases max life by 120 \n16% increased damage \nEvery 10 missing health increases damage by 1% \nGrants regeneration that recoveors 2% of your missing health every second.");
+            Tooltip.SetDefault("Increases max life by 120 \n12% increased damage \nEvery 10 missing health increases damage by 1% \nGrants regeneration that recoveors 2% of your missing health every second.");
         }
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 120;
-            player.allDamage += .16f;
+            player.allDamage += .12f;
             player.GetModPlayer<LifeGuardEffects>().effect = true;
         }
 
