@@ -34,7 +34,10 @@ Extra thanks
 
 
 
-changelo
+changelog
+0.22.3
+-fixed every npc dropping the new duke fishron weapons in normal mode
+
 0.22.2
 -added some duke fishron drops
 --added whirlpool

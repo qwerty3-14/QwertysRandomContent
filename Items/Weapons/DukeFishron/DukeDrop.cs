@@ -13,7 +13,7 @@ namespace QwertysRandomContent.Items.Weapons.DukeFishron
     {
         public override void NPCLoot(NPC npc)
         {
-            if(!Main.expertMode)
+            if(!Main.expertMode && npc.type == NPCID.DukeFishron)
             {
                 string itemName = "";
                 switch(Main.rand.Next(3))
