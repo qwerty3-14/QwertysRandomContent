@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -14,7 +15,7 @@ namespace QwertysRandomContent.Items.B4Items
             DisplayName.SetDefault("Jabber");
             Tooltip.SetDefault("The Darth Maul of spears!");
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 240;

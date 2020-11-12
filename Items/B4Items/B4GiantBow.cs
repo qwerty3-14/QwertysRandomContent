@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +14,7 @@ namespace QwertysRandomContent.Items.B4Items
             DisplayName.SetDefault("Giant Bow");
             Tooltip.SetDefault("Arrows fired from this are MASSIVE and split into more arrows");
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 112;

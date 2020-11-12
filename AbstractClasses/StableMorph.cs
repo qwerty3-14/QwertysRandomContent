@@ -56,7 +56,7 @@ namespace QwertysRandomContent.AbstractClasses
                 player.noFallDmg = true;
                 player.gravity = 0;
                 player.GetModPlayer<ShapeShifterPlayer>().noDraw = true;
-                player.statDefense = player.HeldItem.GetGlobalItem<ShapeShifterItem>().morphDef + player.GetModPlayer<ShapeShifterPlayer>().morphDef + player.HeldItem.GetGlobalItem<ShapeShifterItem>().prefixMorphDef;
+                //player.statDefense = player.HeldItem.GetGlobalItem<ShapeShifterItem>().morphDef + player.GetModPlayer<ShapeShifterPlayer>().morphDef + player.HeldItem.GetGlobalItem<ShapeShifterItem>().prefixMorphDef;
                 player.jumpSpeedBoost *= 0;
                 player.wingTime = 0;
                 player.rocketTime = 0;
@@ -98,10 +98,10 @@ namespace QwertysRandomContent.AbstractClasses
                     else
                     {
                         jumpTime = 0;
-                        projectile.velocity.Y += .4f;
-                        if (projectile.velocity.Y > 10)
+                        projectile.velocity.Y += gravity;
+                        if (projectile.velocity.Y > terminalVelocity)
                         {
-                            projectile.velocity.Y = 10;
+                            projectile.velocity.Y = terminalVelocity;
                         }
                     }
 
@@ -156,6 +156,8 @@ namespace QwertysRandomContent.AbstractClasses
         protected float acceleration;
         protected int jumpHeight;
         protected float jumpSpeed;
+        protected float gravity = .4f;
+        protected float terminalVelocity = 10;
 
         public virtual bool Running()
         {
@@ -165,6 +167,7 @@ namespace QwertysRandomContent.AbstractClasses
         int overdriveFrameCounter = 0;
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
+            PostDrawMorphExtras(spriteBatch, drawColor);
             if (Main.player[projectile.owner].HasBuff(mod.BuffType("Overrdrive")))
             {
                 Texture2D overdriveBolt = mod.GetTexture("Items/Armor/Bionic/Overdrive");
@@ -234,6 +237,9 @@ namespace QwertysRandomContent.AbstractClasses
         public virtual bool DrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
         {
             return true;
+        }
+        public virtual void PostDrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
+        { 
         }
     }
 }

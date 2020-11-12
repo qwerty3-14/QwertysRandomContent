@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 80;
-            player.allDamage += .9f;
+            player.allDamage += .09f;
             player.GetModPlayer<HeadressEffects>().poisonHeal = true;
         }
 

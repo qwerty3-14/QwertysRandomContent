@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -16,7 +17,7 @@ namespace QwertysRandomContent.Items.B4Items
             Item.staff[item.type] = true;
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(30, 29));
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 40;

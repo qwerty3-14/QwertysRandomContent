@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Weapons.DukeFishron
             if(!Main.expertMode && npc.type == NPCID.DukeFishron)
             {
                 string itemName = "";
-                switch(Main.rand.Next(3))
+                switch(Main.rand.Next(4))
                 {
                     case 0:
                         itemName = "Cyclone";
@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Weapons.DukeFishron
                         itemName = "BubbleBrewerBaton";
                         break;
                     case 3:
-                        //Planning to add a 4th weapon here
+                        itemName = "SSHurricaneItem";
                         break;
                 }
                 Item.NewItem(npc.getRect(), mod.ItemType(itemName));
@@ -42,7 +42,7 @@ namespace QwertysRandomContent.Items.Weapons.DukeFishron
             if (context == "bossBag" && arg == ItemID.FishronBossBag )
             {
                 string itemName = "";
-                switch (Main.rand.Next(3))
+                switch (Main.rand.Next(4))
                 {
                     case 0:
                         itemName = "Cyclone";
@@ -54,7 +54,7 @@ namespace QwertysRandomContent.Items.Weapons.DukeFishron
                         itemName = "BubbleBrewerBaton";
                         break;
                     case 3:
-                        //Planning to add a 4th weapon here
+                        itemName = "SSHurricaneItem";
                         break;
                 }
                 player.QuickSpawnItem(mod.ItemType(itemName));

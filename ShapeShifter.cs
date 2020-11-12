@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
@@ -68,7 +69,6 @@ namespace QwertysRandomContent
                 }
             }
         }
-
         public void justStableMorphed()
         {
             justMorphed = true;
@@ -92,7 +92,7 @@ namespace QwertysRandomContent
             drawGodOfBlasphemy = false;
             hovercraft = false;
             morphDamage = 1f;
-            morphed = false;
+           
             morphCrit = 4;
             morphDef = 0;
             coolDownDuration = 1f;
@@ -226,6 +226,10 @@ namespace QwertysRandomContent
                     {
                         player.ClearBuff(mod.BuffType("SkullCopterB"));
                     }
+                    if (player.HasBuff(mod.BuffType("SSHurricaneB")))
+                    {
+                        player.ClearBuff(mod.BuffType("SSHurricaneB"));
+                    }
                 }
                 else
                 {
@@ -321,6 +325,12 @@ namespace QwertysRandomContent
                 }
                 morphCrit += crits[smallest] - 4;
             }
+            if(morphed)
+            {
+                //player.statDefense = morphDef;
+                player.statDefense = player.HeldItem.GetGlobalItem<ShapeShifterItem>().morphDef + player.GetModPlayer<ShapeShifterPlayer>().morphDef + player.HeldItem.GetGlobalItem<ShapeShifterItem>().prefixMorphDef;
+            }
+            morphed = false;
         }
 
         public override void PostUpdateMiscEffects()
@@ -381,6 +391,7 @@ namespace QwertysRandomContent
 
         public override void PostUpdate()
         {
+            
         }
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

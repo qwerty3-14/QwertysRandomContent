@@ -24,6 +24,7 @@ I'm not that good of a spriter so here I'll give thanks to the spriters who help
 -Kerdo
 -Phobostar
 -Donmor
+-Olive
 
 Extra thanks
 -Turquiose (for writing custom themes)
@@ -35,6 +36,16 @@ Extra thanks
 
 
 changelog
+0.22.5
+-added shape shift: S.S. Hurricane
+
+-some resprites for O.L.O.R.D. items (thanks Olive)
+-fixed the classic noehtnap sprite setting preventing the mod from loading
+-fixed morph defense not working
+
+0.22.4
+-fixed vitalum headress and vitalum jeans adding 90% damage instead of 9% damage
+
 0.22.3
 -fixed every npc dropping the new duke fishron weapons in normal mode
 

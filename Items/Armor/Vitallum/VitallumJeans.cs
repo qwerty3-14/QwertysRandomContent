@@ -25,7 +25,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 100;
-            player.allDamage += .9f;
+            player.allDamage += .09f;
             player.GetModPlayer<QwertyPlayer>().throwReduction *= .60f;
             Point origin = player.Bottom.ToTileCoordinates();
             Point point;

@@ -19,10 +19,6 @@ namespace QwertysRandomContent.Items.Etims
         }
 
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
-        public const int dmg = 48;
-        public const int crt = 0;
-        public const float kb = 1f;
-        public const int def = 13;
 
         public override void SetDefaults()
         {
@@ -36,11 +32,11 @@ namespace QwertysRandomContent.Items.Etims
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
             //item.mountType = mod.MountType("GodOfBlasphemyShift");
-            item.damage = dmg;
-            item.crit = crt;
-            item.knockBack = kb;
+            item.damage = 48;
+            item.crit = 0;
+            item.knockBack = 1f;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
-            item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
+            item.GetGlobalItem<ShapeShifterItem>().morphDef = 13;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
             item.shoot = mod.ProjectileType("GodOfBlasphemyShift");
         }

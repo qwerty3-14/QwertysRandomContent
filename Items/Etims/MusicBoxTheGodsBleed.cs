@@ -10,7 +10,7 @@ namespace QwertysRandomContent.Items.Etims
             DisplayName.SetDefault("Music Box (The Gods Bleed)");
         }
 
-        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
+        //public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicNoehtnap ? base.Texture + "_Old" : base.Texture;
 
         public override void SetDefaults()
         {

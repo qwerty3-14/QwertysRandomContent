@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +13,7 @@ namespace QwertysRandomContent.Items.B4Items
             DisplayName.SetDefault("Possesing Bow");
             Tooltip.SetDefault("Arrows fired from this will chase your enemies!");
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 233;

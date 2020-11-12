@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +14,7 @@ namespace QwertysRandomContent.Items.B4Items
             Item.staff[item.type] = true;
             ItemID.Sets.SortingPriorityBossSpawns[item.type] = 13; // This helps sort inventory know this is a boss summoning item.
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.width = 78;

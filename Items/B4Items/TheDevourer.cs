@@ -1,3 +1,4 @@
+using QwertysRandomContent.Config;
 using QwertysRandomContent.Items.Fortress.CaeliteWeapons;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +12,7 @@ namespace QwertysRandomContent.Items.B4Items
             DisplayName.SetDefault("The Devourer");
             Tooltip.SetDefault("Mines a 9x9 area!");
         }
-
+        public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicOLORD ? base.Texture + "_Old" : base.Texture;
         public override void SetDefaults()
         {
             item.damage = 170;

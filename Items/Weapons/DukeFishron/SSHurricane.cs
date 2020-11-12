@@ -1,73 +1,71 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.AbstractClasses;
-using QwertysRandomContent.Items.Armor.TankCommander;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace QwertysRandomContent.Items.Weapons.ShapeShifter
+namespace QwertysRandomContent.Items.Weapons.DukeFishron
 {
-    public class TankShift : ModItem
+    public class SSHurricaneItem : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shape Shift: Tank!");
-            Tooltip.SetDefault("Turn into a tank with superior offense and defense!");
+            DisplayName.SetDefault("Shape Shifte: S.S. Hurricane");
+            Tooltip.SetDefault("");
         }
-
-        public const int dmg = 89;
-        public const int crt = 0;
-        public const float kb = 7f;
-        public const int def = 40;
 
         public override void SetDefaults()
         {
-            item.width = 42;
-            item.height = 42;
+            item.value = Item.sellPrice(gold: 5);
+            item.rare = 8;
+            item.width = 40;
+            item.height = 48;
             item.useTime = 20;
             item.useAnimation = 20;
             item.useStyle = 1;
-            item.value = 200000;
-            item.rare = 1;
+            item.value = 120000;
+            item.rare = 3;
             item.UseSound = SoundID.Item79;
             item.noMelee = true;
-            item.damage = dmg;
-            item.crit = crt;
-            item.knockBack = kb;
+            item.damage = 666;
+            item.crit = 0;
+            item.knockBack = 2f;
             item.GetGlobalItem<ShapeShifterItem>().morph = true;
-            item.GetGlobalItem<ShapeShifterItem>().morphDef = def;
+            item.GetGlobalItem<ShapeShifterItem>().morphDef = 100;
             item.GetGlobalItem<ShapeShifterItem>().morphType = ShapeShifterItem.StableShiftType;
-            item.shoot = mod.ProjectileType("TankMorph");
+            item.shoot = mod.ProjectileType("SSHurricane");
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            player.AddBuff(mod.BuffType("TankMorphB"), 2);
+            player.AddBuff(mod.BuffType("SSHurricaneB"), 2);
             return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return base.CanUseItem(player);
         }
 
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<ShapeShifterPlayer>().justStableMorphed();
-
             return base.UseItem(player);
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-        }
     }
-
-    public class TankMorphB : ModBuff
+    public class SSHurricaneB : ModBuff
     {
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Tank Shift");
-            Description.SetDefault("You're a tank!");
+            DisplayName.SetDefault("S.S. Huricane");
+            Description.SetDefault("Expect nothing less");
             Main.buffNoTimeDisplay[Type] = true;
             Main.buffNoSave[Type] = true;
         }
@@ -80,29 +78,28 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
         }
     }
-
-    public class TankMorph : StableMorph
+    public class SSHurricane : StableMorph
     {
         private int shotCooldown = 0;
-        private float flightTime = 0;
-
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[projectile.type] = 6;
+        }
         public override void SetSafeDefaults()
         {
-            projectile.width = 150;
-            projectile.height = 42;
-            buffName = "TankMorphB";
-            itemName = "TankShift";
+            projectile.width = 184;
+            projectile.height = 132;
+            buffName = "SSHurricaneB";
+            itemName = "SSHurricaneItem";
         }
 
         public override void Effects(Player player)
         {
             player.noKnockback = true;
         }
-
         public override void Movement(Player player)
         {
-            Vector2 shootFrom = projectile.Top;
-            shootFrom.Y -= 4;
+            Vector2 shootFrom = projectile.position + new Vector2(projectile.spriteDirection == 1 ? 110 : 184 - 110, 38);
             Vector2 LocalCursor = QwertysRandomContent.GetLocalCursor(player.whoAmI);
             float pointAt = (LocalCursor - shootFrom).ToRotation();
             if (LocalCursor.Y > projectile.Top.Y)
@@ -118,7 +115,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
             player.GetModPlayer<ShapeShifterPlayer>().drawTankCannon = true;
             player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation = QwertyMethods.SlowRotation(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation, pointAt, 3);
-            //Main.NewText(player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation);
             if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > 0)
             {
                 if (player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > (float)Math.PI / 2)
@@ -136,97 +132,58 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             }
             if (player.whoAmI == Main.myPlayer && Main.mouseLeft && !player.HasBuff(mod.BuffType("MorphSickness")) && shotCooldown == 0)
             {
-                shotCooldown = 26;
-                Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(112, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("TankCannonBallFreindly"), (int)projectile.damage, projectile.knockBack, player.whoAmI);
+                shotCooldown = 15;
+                Projectile.NewProjectile(shootFrom + QwertyMethods.PolarVector(50, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), QwertyMethods.PolarVector(16, player.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation), mod.ProjectileType("BattleshipShot"), (int)projectile.damage, projectile.knockBack, player.whoAmI);
             }
-            if (projectile.velocity.Y == .4f && projectile.oldVelocity.Y == 0)
-            {
-                flightTime = 0;
-            }
-            projectile.velocity.Y += .4f;
-            if (projectile.velocity.Y > 10)
-            {
-                projectile.velocity.Y = 10;
-            }
-            if (player.controlJump && player.GetModPlayer<TankComPantsEffects>().effect && flightTime < 120)
-            {
-                Main.PlaySound(SoundID.Item24, player.position);
-                if (projectile.velocity.Y > -2)
-                {
-                    projectile.velocity.Y = -2f;
-                    flightTime++;
-                }
-                for (int num104 = 0; num104 < 2; num104++)
-                {
-                    int type3 = 6;
-                    float scale2 = 2.5f;
-                    int alpha2 = 100;
-
-                    if (num104 == 0)
-                    {
-                        int num105 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
-                        Main.dust[num105].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
-                        Main.dust[num105].noGravity = true;
-
-                        Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-                    }
-                    else
-                    {
-                        int num106 = Dust.NewDust(new Vector2(player.Center.X + ((player.width / 2 - 15) * -player.direction), player.position.Y + (float)player.height - 10f), 8, 8, type3, 0f, 0f, alpha2, default(Color), scale2);
-                        Main.dust[num106].shader = GameShaders.Armor.GetSecondaryShader(player.cShoe, player);
-
-                        Main.dust[num106].noGravity = true;
-
-                        Main.dust[num106].velocity.Y = Main.dust[num106].velocity.Y * 1f + 2f * player.gravDir - player.velocity.Y * 0.3f;
-                    }
-                }
-            }
+            projectile.velocity.Y = 0f;
+            projectile.frameCounter++;
+            projectile.frame = (projectile.frameCounter / 10) % 6;
         }
 
         public override bool Running()
         {
-            speed = 6;
-            acceleration = .1f;
+            speed = 8;
+            acceleration = .2f;
             jumpHeight = 0;
             jumpSpeed = 0f;
-
+            gravity = 0;
+            terminalVelocity = 0;
             return true;
         }
 
-        public override bool DrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
+        public override void PostDrawMorphExtras(SpriteBatch spriteBatch, Color lightColor)
         {
             Player drawPlayer = Main.player[projectile.owner];
 
             //Main.NewText("Tank!!");
-            Texture2D texture = mod.GetTexture("Items/Weapons/ShapeShifter/TankMorph_Cannon");
+            Texture2D texture = mod.GetTexture("Items/Weapons/DukeFishron/HurricaneGun");
             Color color12 = drawPlayer.GetImmuneAlphaPure(Lighting.GetColor((int)drawPlayer.Center.X / 16, (int)drawPlayer.Center.Y / 16, Color.White), 0f);
             spriteBatch.Draw(texture,
-                new Vector2(projectile.position.X + 75, projectile.position.Y - 4) - Main.screenPosition,
-                new Rectangle(0, 0, 130, 34),
+                projectile.position + new Vector2(projectile.spriteDirection == 1 ? 110 : 184-110, 38) - Main.screenPosition,
+                null,
                 color12,
                 drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation,
-                new Vector2(18, 18),
+                drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > -(float)Math.PI / 2 ? new Vector2(20, 25) : new Vector2(20, 34-25),
                 1f,
-                0,
+                drawPlayer.GetModPlayer<ShapeShifterPlayer>().tankCannonRotation > -(float)Math.PI/2 ? SpriteEffects.None : SpriteEffects.FlipVertically,
                 0);
-
-            return true;
         }
     }
-
-    public class TankCannonBallFreindly : ModProjectile
+    public class BattleshipShot : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tank!!");
+            DisplayName.SetDefault("S.S. Hurricane");
+            Main.projFrames[projectile.type] = 3;
         }
 
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
 
-            projectile.width = 8;
-            projectile.height = 8;
+            projectile.width = 32;
+            projectile.height = 32;
+            projectile.extraUpdates = 2;
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.penetrate = 1;
@@ -243,24 +200,25 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             //Main.NewText(projectile.damage);
             if (runOnce)
             {
-                Main.PlaySound(SoundID.Item62, projectile.position);
-                for (int i = 0; i < 10; i++)
-                {
-                    int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 2f);
-                    Main.dust[dustIndex].velocity *= .6f;
-                    Main.dust[dustIndex].noGravity = true;
-                }
+                Main.PlaySound(4, (int)projectile.position.X, (int)projectile.position.Y, 19);
                 // Fire Dust spawn
                 for (int i = 0; i < 20; i++)
                 {
-                    int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 3f);
+                    int dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 217, 0f, 0f, 100, default(Color), 3f);
                     Main.dust[dustIndex].noGravity = true;
                     Main.dust[dustIndex].velocity *= 2f;
-                    dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0f, 0f, 100, default(Color), 2f);
+                    dustIndex = Dust.NewDust(projectile.position, projectile.width, projectile.height, 217, 0f, 0f, 100, default(Color), 2f);
                     Main.dust[dustIndex].velocity *= 1f;
                     Main.dust[dustIndex].noGravity = true;
                 }
                 runOnce = false;
+            }
+            projectile.frameCounter++;
+            projectile.frame = projectile.frameCounter % 3;
+            for(int i = 0; i < 5; i++)
+            {
+                int dustIndex2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 217, 0f, 0f, 100, default(Color), 2f);
+                Main.dust[dustIndex2].noGravity = true;
             }
         }
 
@@ -268,13 +226,13 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             projectile.localNPCImmunity[target.whoAmI] = -1;
             target.immune[projectile.owner] = 0;
-            Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("TankBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
+            Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("HurricaneBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             e.localNPCImmunity[target.whoAmI] = -1;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("TankBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
+            Projectile e = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("HurricaneBlast"), projectile.damage, projectile.knockBack, projectile.owner)];
             return true;
         }
 
@@ -282,39 +240,33 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         {
             Player player = Main.player[projectile.owner];
 
-            Main.PlaySound(SoundID.Item62, projectile.position);
-            for (int i = 0; i < 10; i++)
-            {
-                float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                Dust dust = Dust.NewDustPerfect(projectile.Center, 31, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
-                dust.noGravity = true;
-            }
+            Main.PlaySound(4, (int)projectile.position.X, (int)projectile.position.Y, 19);
             // Fire Dust spawn
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 30; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta));
+                Dust dustIndex = Dust.NewDustPerfect(projectile.Center, 217, QwertyMethods.PolarVector(Main.rand.NextFloat() * 8f, theta));
                 dustIndex.noGravity = true;
                 theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-                dustIndex = Dust.NewDustPerfect(projectile.Center, 6, QwertyMethods.PolarVector(Main.rand.NextFloat() * 4f, theta), Scale: 2f);
+                dustIndex = Dust.NewDustPerfect(projectile.Center, 217, QwertyMethods.PolarVector(Main.rand.NextFloat() * 8f, theta), Scale: 2f);
                 dustIndex.noGravity = true;
             }
         }
     }
 
-    public class TankBlast : ModProjectile
+    public class HurricaneBlast : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tank!!");
+            DisplayName.SetDefault("S.S. Hurricane");
         }
 
         public override void SetDefaults()
         {
             projectile.aiStyle = 1;
             aiType = ProjectileID.Bullet;
-            projectile.width = 100;
-            projectile.height = 100;
+            projectile.width = 140;
+            projectile.height = 140;
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.penetrate = -1;
@@ -337,3 +289,4 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         }
     }
 }
+
