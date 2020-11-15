@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
 
         public override void SetDefaults()
         {
-            item.damage = 30;
+            item.damage = 20;
             item.ranged = true;
 
             item.useTime = 30;
@@ -72,7 +72,7 @@ namespace QwertysRandomContent.Items.TundraBossItems
             projectile.penetrate = -1;
             projectile.ranged = true;
             projectile.tileCollide = true;
-            projectile.usesLocalNPCImmunity = true;
+            projectile.usesIDStaticNPCImmunity = true;
         }
 
         private bool runOnce = true;
@@ -125,13 +125,6 @@ namespace QwertysRandomContent.Items.TundraBossItems
             }
             projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            projectile.localNPCImmunity[target.whoAmI] = 10;
-            target.immune[projectile.owner] = 0;
-        }
-
         public override bool OnTileCollide(Vector2 velocityChange)
         {
             hitGround = true;
@@ -141,6 +134,10 @@ namespace QwertysRandomContent.Items.TundraBossItems
             }
 
             return false;
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = (uint)(Main.GameUpdateCount + 10);
         }
     }
 }

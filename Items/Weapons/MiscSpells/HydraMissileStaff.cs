@@ -123,7 +123,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             for (int g = 0; g < 2; g++)
             {
                 float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2;
-                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileMedium"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileMedium"), (int)(projectile.damage * .6f), projectile.knockBack * .6f, projectile.owner);
             }
         }
     }
@@ -205,7 +205,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need this to
             for (int g = 0; g < 2; g++)
             {
                 float launchDirection = Main.rand.NextFloat() * (float)Math.PI * 2;
-                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileSmall"), (int)(projectile.damage * .8f), projectile.knockBack * .8f, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, new Vector2((float)Math.Cos(launchDirection) * speed, (float)Math.Sin(launchDirection) * speed), mod.ProjectileType("HydraMissileSmall"), (int)(projectile.damage * .6f), projectile.knockBack * .6f, projectile.owner);
             }
         }
     }

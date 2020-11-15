@@ -134,7 +134,7 @@ namespace QwertysRandomContent.Items.HydraItems
                             streamCounter++;
                             if (streamCounter % 6 == 0)
                             {
-                                Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector((projectile.velocity * movementFactor).Length(), projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(-7f + (7f * ((streamCounter /6) % 3)), projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(16f, projectile.rotation - (3 * (float)Math.PI / 4)), mod.ProjectileType("HydrentBreath"), (int)(projectile.damage * .5f), projectile.knockBack, projectile.owner);
+                                Projectile.NewProjectile(projectile.Center + QwertyMethods.PolarVector((projectile.velocity * movementFactor).Length(), projectile.rotation - (3 * (float)Math.PI / 4)) + QwertyMethods.PolarVector(-7f + (7f * ((streamCounter /6) % 3)), projectile.rotation - (1 * (float)Math.PI / 4)), QwertyMethods.PolarVector(16f, projectile.rotation - (3 * (float)Math.PI / 4)), mod.ProjectileType("HydrentBreath"), (int)(projectile.damage * .4f), projectile.knockBack, projectile.owner);
                             }
                         }
                     }

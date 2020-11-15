@@ -70,6 +70,7 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             projectile.timeLeft = 360;
             projectile.ranged = true;
             projectile.noEnchantments = true;
+            projectile.usesIDStaticNPCImmunity = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -134,10 +135,6 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(BuffID.Frostburn, 240);
-        }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -151,6 +148,11 @@ namespace QwertysRandomContent.Items.Weapons.MiscSpells       ///We need project
             */
 
             return false;
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(BuffID.Frostburn, 240);
+            Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = (uint)(Main.GameUpdateCount + 10);
         }
     }
 }

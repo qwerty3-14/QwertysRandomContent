@@ -8,8 +8,8 @@ namespace QwertysRandomContent.Items.Accesories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Javelin Pincusin");
-            Tooltip.SetDefault("Doubles the amount of javelins you can stick into an enemy \nOnly works on javelins from this qwerty's bosses and items");
+            DisplayName.SetDefault("Javelin Pincushion");
+            Tooltip.SetDefault("Doubles the amount of javelins you can stick into an enemy \nOnly works with javelins from 'Qwerty's bosses and items'");
         }
 
         public override void SetDefaults()

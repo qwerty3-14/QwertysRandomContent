@@ -98,7 +98,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
             projectile.width = projectile.height = 10;
             projectile.penetrate = -1;
             projectile.usesLocalNPCImmunity = true;
-            projectile.localNPCHitCooldown = 15;
+            projectile.localNPCHitCooldown = 20;
             projectile.tileCollide = false;
             projectile.aiStyle = -1;
             projectile.hostile = false;
@@ -110,10 +110,10 @@ namespace QwertysRandomContent.Items.BladeBossItems
         private float yetAnotherTrigCounter;
         private NPC target;
         private bool returningToPlayer = false;
-        private float turnOffset = (float)Math.PI / 4;
+        private float turnOffset = 3 * (float)Math.PI / 4;
         private int counter = 0;
         private float bladeLength = 10;
-
+        float? toward = null;
         public override void AI()
         {
             bool spinAttack = false;
@@ -139,16 +139,16 @@ namespace QwertysRandomContent.Items.BladeBossItems
             }
             Vector2 flyTo = player.Center + new Vector2(-50 * player.direction, -50 - 14 * projectile.minionSlots) + Vector2.UnitY * (float)Math.Sin(yetAnotherTrigCounter) * 20;
             float turnTo = (float)Math.PI / 2;
-            float speed = 10f;
+            float speed = 12f;
             if (returningToPlayer)
             {
                 speed = (player.Center - projectile.Center).Length() / 30f;
             }
-            if (QwertyMethods.ClosestNPC(ref target, 800, projectile.Center, false, player.MinionAttackTargetNPC) && !returningToPlayer)
+            if (QwertyMethods.ClosestNPC(ref target, 1000, projectile.Center, false, player.MinionAttackTargetNPC) && !returningToPlayer)
             {
                 Vector2 difference2 = projectile.Center - target.Center;
                 flyTo = target.Center + QwertyMethods.PolarVector(bladeLength / 2, difference2.ToRotation());
-                turnTo = (target.Center - projectile.Center).ToRotation();
+                toward = turnTo = (target.Center - projectile.Center).ToRotation();
                 int nerabyEnemies = 0;
                 foreach (NPC npc in Main.npc)
                 {
@@ -166,6 +166,26 @@ namespace QwertysRandomContent.Items.BladeBossItems
                     turnTo += turnOffset;
                 }
             }
+            else
+            {
+                toward = null;
+            }
+            
+            if (spinAttack)
+            {
+                projectile.rotation += ((float)Math.PI * 2) / projectile.localNPCHitCooldown;
+            }
+            else
+            {
+                if(toward == null)
+                {
+                    projectile.rotation.SlowRotation(turnTo, ((float)Math.PI * 2) / projectile.localNPCHitCooldown);
+                }
+                else
+                {
+                    projectile.rotation.SlowRotWhileAvoid(turnTo, ((float)Math.PI * 2) / projectile.localNPCHitCooldown, (float)toward + (float)Math.PI);
+                }
+            }
             Vector2 difference = flyTo - projectile.Center;
             if (difference.Length() < speed)
             {
@@ -175,14 +195,6 @@ namespace QwertysRandomContent.Items.BladeBossItems
             else
             {
                 projectile.velocity = difference.SafeNormalize(Vector2.UnitY) * speed;
-            }
-            if (spinAttack)
-            {
-                projectile.rotation += (float)Math.PI / 15;
-            }
-            else
-            {
-                projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, turnTo, 6);
             }
         }
 

@@ -417,6 +417,56 @@ namespace QwertysRandomContent
             actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
             currentRotation = actDirection;
         }
+        public static void SlowRotWhileAvoid(this ref float currentRotation, float targetAngle, float speed, float avoid)
+        {
+            float actDirection = new Vector2((float)Math.Cos(currentRotation), (float)Math.Sin(currentRotation)).ToRotation();
+            targetAngle = new Vector2((float)Math.Cos(targetAngle), (float)Math.Sin(targetAngle)).ToRotation();
+            avoid = new Vector2((float)Math.Cos(avoid), (float)Math.Sin(avoid)).ToRotation();
+
+
+            if (actDirection < 0)
+            {
+                actDirection += (float)Math.PI * 2;
+            }
+            if (targetAngle < 0)
+            {
+                targetAngle += (float)Math.PI * 2;
+            }
+
+            actDirection -= avoid;
+            targetAngle -= avoid;
+
+            actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
+            targetAngle = new Vector2((float)Math.Cos(targetAngle), (float)Math.Sin(targetAngle)).ToRotation();
+
+            if (actDirection < 0)
+            {
+                actDirection += (float)Math.PI * 2;
+            }
+            if (targetAngle < 0)
+            {
+                targetAngle += (float)Math.PI * 2;
+            }
+
+            if (actDirection <= targetAngle + speed * 2 && actDirection >= targetAngle - speed * 2)
+            {
+                actDirection = targetAngle;
+            }
+            else if (actDirection <= targetAngle)
+            {
+                actDirection += speed;
+            }
+            else if (actDirection >= targetAngle)
+            {
+                actDirection -= speed;
+            }
+
+            actDirection += avoid;
+
+            actDirection = new Vector2((float)Math.Cos(actDirection), (float)Math.Sin(actDirection)).ToRotation();
+            currentRotation = actDirection;
+
+        }
         public static Vector2 MoveToward(this Vector2 currentPosition, Vector2 here, float speed)
         {
             Vector2 dif = here - currentPosition;

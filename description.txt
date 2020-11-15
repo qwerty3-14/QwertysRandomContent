@@ -36,6 +36,18 @@ Extra thanks
 
 
 changelog
+0.22.6
+-hydra beam attack rate reduced 12hps->5hps, doesn't pierce through tiles below the player
+-hydra javeling damage reduced 40->35
+-hydra head staff damage reduced 30->28, will now stop firing when the player stops attacking
+-hydrator fishing power reduced 30%->10%
+-fire hydrent's breath now does 40% of the spear's damage intstead of 50%
+-hydra missile rod's spitting heads now do 60% of the damage of the head the came from instead of 80%
+
+
+-tweaked longsword minion's ai a bit
+-glass spike, cobalt shuriken, frostburn staff, and sliding penguins now use static immunity
+
 0.22.5
 -added shape shift: S.S. Hurricane
 

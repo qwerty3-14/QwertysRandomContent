@@ -70,7 +70,7 @@ namespace QwertysRandomContent.Items.HydraItems
             projectile.aiStyle = -1;
             projectile.timeLeft = 300;
             projectile.width = 72;
-            projectile.height = 112;
+            projectile.height = 94;
             projectile.friendly = false;
             projectile.penetrate = -1;
             projectile.magic = true;
@@ -156,8 +156,13 @@ namespace QwertysRandomContent.Items.HydraItems
             projectile.hostile = false;
             projectile.hide = false;
             projectile.magic = true;
+            projectile.usesLocalNPCImmunity = true;
         }
-
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            projectile.localNPCImmunity[target.whoAmI] = 12;
+            target.immune[projectile.owner] = 0;
+        }
         // The AI of the projectile
         public bool runOnce = true;
 
@@ -212,7 +217,12 @@ namespace QwertysRandomContent.Items.HydraItems
             unit *= -1;
             for (Distance = MoveDistance; Distance <= 2200f; Distance += 5f)
             {
-                start = new Vector2(shooter.Center.X, shooter.Center.Y) + projectile.velocity * Distance;
+                start = shooter.Center + projectile.velocity * Distance;
+                if (!Collision.CanHit(new Vector2(shooter.Center.X, player.Center.Y), 1, 1, start, 1, 1) && start.Y > player.Center.Y)
+                {
+                    Distance -= 5f;
+                    break;
+                }
             }
         }
 
@@ -277,11 +287,6 @@ namespace QwertysRandomContent.Items.HydraItems
             return false;
         }
 
-        // Set custom immunity time on hitting an NPC
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.immune[projectile.owner] = 5;
-        }
 
         public override void CutTiles()
         {

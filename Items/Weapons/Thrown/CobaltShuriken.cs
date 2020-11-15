@@ -59,8 +59,9 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.friendly = true;
             projectile.penetrate = 7;
             projectile.melee = true;
-
+            projectile.timeLeft = 600;
             projectile.tileCollide = true;
+            projectile.usesIDStaticNPCImmunity = true;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -77,6 +78,10 @@ namespace QwertysRandomContent.Items.Weapons.Thrown
             projectile.velocity = Vector2.Zero;
             projectile.aiStyle = 0;
             return false;
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = (uint)(Main.GameUpdateCount + 10);
         }
     }
 }

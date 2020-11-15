@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
 
         public override void SetDefaults()
         {
-            item.damage = 30;  //The damage stat for the Weapon.
+            item.damage = 28;  //The damage stat for the Weapon.
             item.mana = 20;      //this defines how many mana this weapon use
             item.width = 80;    //The size of the width of the hitbox in pixels.
             item.height = 80;     //The size of the height of the hitbox in pixels.
@@ -91,7 +91,7 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
         public float s = 1;
         public float tarX;
         public float tarY;
-
+        int cooldown = 0;
         public override void AI()
         {
             Player player = Main.player[projectile.owner];
@@ -105,15 +105,23 @@ namespace QwertysRandomContent.Items.HydraItems       ///We need this to basical
             {
                 Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projectile.Center.X, projectile.Center.Y, mod.ProjectileType("MinionHead"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
-
-            varTime++;
-            if (varTime == 30 && projectile.owner == Main.myPlayer)
+            if(cooldown > 0)
             {
+                cooldown--;
+            }
+            if(player.itemTime > 0)
+            {
+                cooldown = 120;
+            }
+            varTime++;
+            if (varTime == 30 && projectile.owner == Main.myPlayer && cooldown > 0)
+            {
+                
                 Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(10, projectile.rotation), mod.ProjectileType("MinionBreath"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
             }
             if (varTime >= 60)
             {
-                if (projectile.owner == Main.myPlayer)
+                if (projectile.owner == Main.myPlayer && cooldown > 0)
                 {
                     Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(10, projectile.rotation), mod.ProjectileType("MinionBreath"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
                 }

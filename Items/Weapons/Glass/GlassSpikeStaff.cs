@@ -97,7 +97,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
             projectile.minionSlots = 1;
             projectile.timeLeft = 2;
             projectile.aiStyle = -1;
-            projectile.usesLocalNPCImmunity = true;
+            projectile.usesIDStaticNPCImmunity = true;
         }
 
         private float orientation = 0;
@@ -166,8 +166,7 @@ namespace QwertysRandomContent.Items.Weapons.Glass
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.localNPCImmunity[target.whoAmI] = 20;
-            target.immune[projectile.owner] = 0;
+            Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = (uint)(Main.GameUpdateCount + 10);
         }
     }
 }
