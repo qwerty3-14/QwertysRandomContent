@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using QwertysRandomContent.Config;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,7 +12,7 @@ namespace QwertysRandomContent.Items.AncientItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Gemstone");
-            Tooltip.SetDefault("Halves your max health but avoiding damage for 5 seconds after being hit will fully heal you");
+            Tooltip.SetDefault("Avoiding damage for 10 damage will heal half the health lost from the last attack");
         }
 
         public override string Texture => ModContent.GetInstance<SpriteSettings>().ClassicAncient ? base.Texture + "_Old" : base.Texture;
@@ -50,11 +51,45 @@ namespace QwertysRandomContent.Items.AncientItems
             );
         }
 
-        public override void UpdateEquip(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 /= 2;
-            var modPlayer = player.GetModPlayer<QwertyPlayer>();
-            modPlayer.gemRegen = true;
+            player.GetModPlayer<GemEffect>().hasEffect = true;
+            base.UpdateAccessory(player, hideVisual);
+        }
+    }
+    public class GemEffect : ModPlayer
+    {
+        public bool hasEffect = false;
+        int damageToRecover = -1;
+        int timerToRecover = -1;
+        public override void ResetEffects()
+        {
+            hasEffect = false;
+        }
+        public override void PreUpdate()
+        {
+            if(timerToRecover > -1)
+            {
+                timerToRecover--;
+            }
+            if(hasEffect && damageToRecover != -1 && timerToRecover == 0)
+            {
+                player.statLife += damageToRecover;
+                player.HealEffect(damageToRecover, true);
+                for (int i = 0; i < 200; i++)
+                {
+                    float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+
+                    Dust dust = Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(200, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-200 / 10, theta));
+                    dust.noGravity = true;
+                }
+            }
+        }
+        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            damageToRecover = (int)(damage / 2);
+            timerToRecover = 600;
+            base.PostHurt(pvp, quiet, damage, hitDirection, crit);
         }
     }
 }

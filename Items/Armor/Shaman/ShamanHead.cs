@@ -57,8 +57,8 @@ namespace QwertysRandomContent.Items.Armor.Shaman
 
         public override void UpdateArmorSet(Player player)
         {
-            String s = Language.GetTextValue("Mods.QwertysRandomContent.BindKey");
-            foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
+            string s = Language.GetTextValue("Mods.QwertysRandomContent.BindKey");
+            foreach (string key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
                 s = Language.GetTextValue("Mods.QwertysRandomContent.ShamanSet1") + key + Language.GetTextValue("Mods.QwertysRandomContent.ShamanSet2");
             }

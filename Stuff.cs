@@ -98,6 +98,27 @@ namespace QwertysRandomContent
             }
             return foundTarget;
         }
+        public static bool NPCsInRange(ref List<NPC> targets, float maxDistance, Vector2 position, bool ignoreTiles = false, SpecialCondition specialCondition = null)
+        {
+            //very advance users can use a delegate to insert special condition into the function like only targetting enemies not currently having local iFrames, but if a special condition isn't added then just return it true
+            if (specialCondition == null)
+            {
+                specialCondition = delegate (NPC possibleTarget) { return true; };
+            }
+            bool foundTarget = false;
+            targets = new List<NPC>();
+            for (int k = 0; k < Main.npc.Length; k++)
+            {
+                NPC possibleTarget = Main.npc[k];
+                float distance = (possibleTarget.Center - position).Length();
+                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0) || ignoreTiles) && specialCondition(possibleTarget))
+                {
+                    targets.Add(possibleTarget);
+                    foundTarget = true;
+                }
+            }
+            return foundTarget;
+        }
 
         //used by minions to give each minion of the same type a unique identifier so they don't stack
         public static int MinionHordeIdentity(Projectile projectile)

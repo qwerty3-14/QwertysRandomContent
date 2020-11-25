@@ -18,10 +18,10 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
 
         public override void SetDefaults()
         {
-            item.damage = 19;
+            item.damage = 35;
             item.width = 54;
             item.height = 22;
-            item.mana = 12;
+            item.mana = 8;
             item.useTime = 10;
             item.useAnimation = 10;
             item.shootSpeed = 1f;
@@ -35,7 +35,7 @@ namespace QwertysRandomContent.Items.Weapons.Rhuthinium
             item.noMelee = true;
             item.noUseGraphic = true;
             item.crit = 5;
-            item.knockBack = 0f;
+            item.knockBack = .5f;
         }
 
         public override void AddRecipes()

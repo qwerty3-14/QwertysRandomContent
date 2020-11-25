@@ -30,6 +30,7 @@ namespace QwertysRandomContent.Items.Fortress
             item.buffType = mod.BuffType("TileMinion");
             item.buffTime = 3600;
             item.knockBack = 2.5f;
+            item.value = Item.sellPrice(gold: 3); 
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

@@ -65,7 +65,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
     {
         public float PrismTrigonometryCounterOfAwsomenessWowThisIsAVeryLongVariableName;
         public bool helmEffect = false;
-        public int prismDazzleCounter = 60;
+        public int prismDazzleCounter = 90;
         public bool setBonus = false;
 
         public override void ResetEffects()
@@ -73,7 +73,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
             setBonus = false;
             if (!helmEffect)
             {
-                prismDazzleCounter = 60;
+                prismDazzleCounter = 90;
             }
             helmEffect = false;
         }
@@ -89,7 +89,7 @@ namespace QwertysRandomContent.Items.Armor.Glass
                 if (QwertyMethods.ClosestNPC(ref target, 4000, prismCenter) && prismDazzleCounter <= 0)
                 {
                     Projectile.NewProjectile(prismCenter, QwertyMethods.PolarVector(1, (target.Center - prismCenter).ToRotation()), mod.ProjectileType("PrismDazzle"), (int)(10f * player.magicDamage), 0f, player.whoAmI);
-                    prismDazzleCounter = 60;
+                    prismDazzleCounter = 90;
                 }
             }
         }

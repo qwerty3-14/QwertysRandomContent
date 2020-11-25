@@ -69,6 +69,7 @@ namespace QwertysRandomContent.NPCs.Fortress
 
         public override void AI()
         {
+            npc.chaseable = npc.life < npc.lifeMax;
             npc.GetGlobalNPC<FortressNPCGeneral>().fortressNPC = true;
             if (npc.life < npc.lifeMax)
             {

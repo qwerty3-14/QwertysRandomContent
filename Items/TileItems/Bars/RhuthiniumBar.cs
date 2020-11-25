@@ -33,7 +33,7 @@ namespace QwertysRandomContent.Items.TileItems.Bars
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod, "RhuthiniumOre", 6);
+            recipe.AddIngredient(mod, "RhuthiniumOre", 3);
             recipe.AddTile(TileID.Furnaces);
             recipe.SetResult(this);
             recipe.AddRecipe();

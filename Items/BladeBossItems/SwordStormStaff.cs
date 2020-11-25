@@ -14,18 +14,18 @@ namespace QwertysRandomContent.Items.BladeBossItems
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Swordpocalypse");
-            Tooltip.SetDefault("Covers the screen in swords!");
+            Tooltip.SetDefault("Unleashes a barrage of swords!");
             Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
         }
 
         public override void SetDefaults()
         {
             item.damage = 30;
-            item.mana = 4;
+            item.mana = 10;
             item.width = 46;
             item.height = 46;
-            item.useTime = 9;
-            item.useAnimation = 9;
+            item.useTime = 4;
+            item.useAnimation = 20;
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 1f;
@@ -45,26 +45,18 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            float trueSpeed = new Vector2(speedX, speedY).Length();
-            Vector2 Rposition = new Vector2(position.X, position.Y - 500);
-            for (int i = 0; i < 15; i++)
+            for(int i = 0; i < 1; i++)
             {
-                int shift = Main.rand.Next(-600, 600);
-                int Yshift = Main.rand.Next(50);
-                float sX = 0;
-                float sY = trueSpeed / 3;
-                Projectile.NewProjectile(new Vector2(Rposition.X + shift, Rposition.Y - Yshift), new Vector2(sX, sY).RotatedByRandom(Math.PI / 16), type, damage, knockBack, player.whoAmI);
+                float trueSpeed = new Vector2(speedX, speedY).Length();
+                float rot = new Vector2(speedX, speedY).ToRotation();
+                Vector2 Rposition = position + QwertyMethods.PolarVector(-1200, rot + Main.rand.NextFloat(-(float)Math.PI / 32, (float)Math.PI / 32));
+                Vector2 goHere = Main.MouseWorld + QwertyMethods.PolarVector(Main.rand.NextFloat(-40, 40), rot + (float)Math.PI / 2);
+                Vector2 diff = goHere - Rposition;
+                float dist = diff.Length();
+               
+                Projectile.NewProjectile(Rposition, diff.SafeNormalize(-Vector2.UnitY) * trueSpeed, type, damage, knockBack, player.whoAmI, dist);
             }
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 65f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                Projectile.NewProjectile(position, new Vector2(speedX, speedY).RotatedByRandom(Math.PI / 16), type, damage, knockBack, player.whoAmI);
-            }
-
+            
             return false;
         }
     }
@@ -80,7 +72,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
         public override void SetDefaults()
         {
-            projectile.aiStyle = 1;
+            //projectile.aiStyle = 1;
             //aiType = ProjectileID.Bullet;
             projectile.width = 22;
             projectile.height = 22;
@@ -90,13 +82,20 @@ namespace QwertysRandomContent.Items.BladeBossItems
 
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 30;
-            projectile.tileCollide = true;
+            projectile.tileCollide = false;
+            projectile.extraUpdates = 2;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.localNPCImmunity[target.whoAmI] = projectile.localNPCHitCooldown; //set local immunity
             target.immune[projectile.owner] = 0; //disable normal immune mechanic
+        }
+        public override void AI()
+        {
+            projectile.ai[0] -= projectile.velocity.Length();
+            projectile.tileCollide = projectile.ai[0] <= 0;
+            projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
         }
     }
 }

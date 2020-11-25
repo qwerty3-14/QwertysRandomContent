@@ -120,7 +120,7 @@ namespace QwertysRandomContent.Items.Weapons.Meteor
                 projectile.rotation = QwertyMethods.SlowRotation(projectile.rotation, (target.Center - projectile.Center).ToRotation(), 6);
                 if ((target.Center - projectile.Center).Length() < 300)
                 {
-                    if (shotCounter >= 20)
+                    if (shotCounter >= 30)
                     {
                         shotCounter = 0;
                         Projectile l = Main.projectile[Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(12f, projectile.rotation), ProjectileID.GreenLaser, projectile.damage, projectile.knockBack, projectile.owner)];

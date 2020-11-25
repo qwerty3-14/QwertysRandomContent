@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace QwertysRandomContent.Items.Accesories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bloody Medallion");
-            Tooltip.SetDefault("Doubles magic damage" + "\nWhat normaly drains mana drains you instead!");
+            Tooltip.SetDefault("Doubles magic damage" + "\nWhat normaly drains mana drains you instead!" + "\nLess effective with certain weapons");
         }
 
         public override void SetDefaults()
@@ -45,7 +46,16 @@ namespace QwertysRandomContent.Items.Accesories
         {
             if (effect)
             {
-                player.magicDamage *= 2;
+                player.spaceGun = false;
+                if(player.HeldItem.type == ItemID.CrimsonRod || player.HeldItem.type == ItemID.NimbusRod || player.HeldItem.type == ItemID.MagnetSphere)
+                {
+                    player.magicDamage = (int)(player.magicDamage  * 1.4f);
+                }
+                else
+                {
+                    player.magicDamage *= 2;
+                }
+                
             }
             return base.PreItemCheck();
         }

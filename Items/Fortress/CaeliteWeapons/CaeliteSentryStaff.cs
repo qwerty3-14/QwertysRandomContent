@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -86,11 +87,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             projectile.minion = true;
         }
 
-        private NPC target;
-        private NPC possibleTarget;
-        private bool foundTarget;
-        private float maxDistance = 800f;
-        private float distance;
+        private List<NPC> targets;
+        private float maxDistance = 700f;
         private int timer;
 
         public override void AI()
@@ -100,18 +98,15 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             timer++;
             if (timer % 120 == 0)
             {
-                for (int k = 0; k < 200; k++)
+                if (QwertyMethods.NPCsInRange(ref targets, maxDistance, projectile.Center))
                 {
-                    possibleTarget = Main.npc[k];
-                    distance = (possibleTarget.Center - projectile.Center).Length();
-                    if (distance < maxDistance && possibleTarget.active && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && !possibleTarget.immortal && Collision.CanHit(projectile.Center, 0, 0, possibleTarget.Center, 0, 0))
+                    for(int n =0; n < targets.Count; n++)
                     {
-                        possibleTarget.StrikeNPC(projectile.damage, projectile.knockBack, 0, false, false);
-
-                        //Projectile.NewProjectile(possibleTarget.Center, Vector2.Zero, mod.ProjectileType("CaeliteZap"), projectile.damage, 0, projectile.owner, k);
+                        targets[n].StrikeNPC(projectile.damage, projectile.knockBack, 0, false, false);
+                        float distance = (targets[n].Center - projectile.Center).Length();
                         for (int d = 0; d < distance; d += 4)
                         {
-                            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(d, (possibleTarget.Center - projectile.Center).ToRotation()), mod.DustType("CaeliteDust"));
+                            Dust dust = Dust.NewDustPerfect(projectile.Center + QwertyMethods.PolarVector(d, (targets[n].Center - projectile.Center).ToRotation()), mod.DustType("CaeliteDust"));
                             dust.frame.Y = 0;
                         }
                     }

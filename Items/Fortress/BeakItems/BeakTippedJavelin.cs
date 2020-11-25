@@ -20,7 +20,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
         {
             // Alter any of these values as you see fit, but you should probably keep useStyle on 1, as well as the noUseGraphic and noMelee bools
             item.shootSpeed = 11f;
-            item.damage = 110;
+            item.damage = 100;
             item.knockBack = 5f;
             item.useStyle = 1;
             item.useAnimation = 38;
@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Fortress.BeakItems
             item.width = 68;
             item.height = 68;
             item.rare = 4;
-            item.value = 100;
+            item.value = Item.sellPrice(gold: 3); ;
             item.noUseGraphic = true;
             item.noMelee = true;
             item.autoReuse = true;

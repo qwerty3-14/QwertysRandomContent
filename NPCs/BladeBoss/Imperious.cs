@@ -729,6 +729,14 @@ namespace QwertysRandomContent.NPCs.BladeBoss
                     Main.npc[who].immune[projectile.owner] = npc.immune[projectile.owner];
                 }
             }
+            else if(projectile.usesIDStaticNPCImmunity)
+            {
+                foreach (int who in hitboxIds)
+                {
+
+                    Projectile.perIDStaticNPCImmunity[projectile.type][who] = Projectile.perIDStaticNPCImmunity[projectile.type][npc.whoAmI];
+                }
+            }
             else
             {
                 foreach (int who in hitboxIds)

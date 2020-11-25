@@ -36,6 +36,22 @@ Extra thanks
 
 
 changelog
+0.22.9
+-rhuthinium vaporizer mana cost 12->8, damage 19 -> 35, knockback 0-> 0.5
+-beak javelin damage 110->100
+-fixed Imperious being vulnerable to projectiles with static immunity
+-fixed bug where reloading the mod multiple times could cause Ancient Machine, Imperious, and Hydra's loot pools to repeat
+
+
+0.22.8
+-reduced the fire rate of space fighter 3aps->2aps
+-homing weapons like miniond won't attack high priests at full health, anfd thus potentially anger them unintentionally
+-fixed boss checklist loot table for divine light displaying restless sun twice and not diving hail knife
+-reduced fire rate of glass helm's glass prism
+-ancient gemstone no longere halves max life, healing effect is now requires 10 seconds of avoiding damage, and heals an amount equal to half the damage recieved from the previus attack instead of fully healing
+-reduced the cost of rhuthinium bars 6->3 ore
+
+
 0.22.6
 -hydra beam attack rate reduced 12hps->5hps, doesn't pierce through tiles below the player
 -hydra javeling damage reduced 40->35

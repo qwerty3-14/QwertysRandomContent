@@ -25,7 +25,6 @@ namespace QwertysRandomContent
         public Item heldItemOld = new Item();
         public int RhuthiniumCharge = 0;
         public bool minionFang = false;
-        public bool gemRegen = false;
         public int regenTimer = 301;
        
         public int charge;
@@ -70,7 +69,6 @@ namespace QwertysRandomContent
             Metronome = false;
             hydraCharm = false;
             minionFang = false;
-            gemRegen = false;
             
             stormEnchantment = false;
             customDashSpeed = 0;
@@ -273,22 +271,7 @@ namespace QwertysRandomContent
                 }
             }
 
-            if (gemRegen)
-            {
-                regenTimer++;
-                if (regenTimer == 300)
-                {
-                    for (int i = 0; i < 200; i++)
-                    {
-                        float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-
-                        Dust dust = Dust.NewDustPerfect(player.Center + QwertyMethods.PolarVector(200, theta), mod.DustType("AncientGlow"), QwertyMethods.PolarVector(-200 / 10, theta));
-                        dust.noGravity = true;
-                    }
-                    //CombatText.NewText(player.getRect(), Color.Green, "Reconstructed", true, false);
-                    player.statLife += 999;
-                }
-            }
+            
 
             if (usingVulcan)
             {
@@ -492,10 +475,6 @@ namespace QwertysRandomContent
             if (Metronome && killCount != 0)
             {
                 CombatText.NewText(player.getRect(), Color.DarkRed, "Reset!", true, false);
-            }
-            if (gemRegen)
-            {
-                regenTimer = 0;
             }
             killCount = 0;
             return true;
