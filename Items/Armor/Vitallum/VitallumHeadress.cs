@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Vitallum Headress");
-            Tooltip.SetDefault("Increases max life by 80 \n9% increased damage \nAttacks poison enemies. \nHealth nearby enemies lose from debuffs heals you.");
+            Tooltip.SetDefault("Increases max life by 80 \n7% increased damage \n Drain life from nearby enemies");
         }
 
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
         public override void UpdateEquip(Player player)
         {
             player.statLifeMax2 += 80;
-            player.allDamage += .09f;
+            player.allDamage += .07f;
             player.GetModPlayer<HeadressEffects>().poisonHeal = true;
         }
 
@@ -58,7 +58,7 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
             String s = "Please go to conrols and bind the 'Yet another special ability key'";
             foreach (String key in QwertysRandomContent.YetAnotherSpecialAbility.GetAssignedKeys()) //get's the string of the hotkey's name
             {
-                s = "Set Bonus: You generate Vitallum hearts over time" + "\nEach active heart grants 4% damage." + "\nPress " + key + " to consume the hearts for health.";
+                s = "Set Bonus: You generate Vitallum hearts over time" + "\nPress " + key + " to consume the hearts for health.";
             }
             player.setBonus = s;
             player.GetModPlayer<HeadressEffects>().setBonus = true;
@@ -143,42 +143,27 @@ namespace QwertysRandomContent.Items.Armor.Vitallum
 
         public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
         {
-            player.allDamage += .04f * heartCount;
             if (poisonHeal)
             {
-                for (int d = 0; d < leechDusts.Count; d++)
-                {
-                    if ((player.Center - leechDusts[d].position).Length() < 11)
-                    {
-                        leechDusts.RemoveAt(d);
-                    }
-                    else
-                    {
-                        leechDusts[d].scale = 1;
-                        leechDusts[d].velocity = QwertyMethods.PolarVector(10f, (player.Center - leechDusts[d].position).ToRotation());
-                    }
-                }
-                counter++;
-                int regenBoost = 0;
                 for (int i = 0; i < Main.npc.Length; i++)
                 {
-                    if (Main.npc[i].active && !Main.npc[i].immortal && !Main.npc[i].dontTakeDamage && Main.npc[i].lifeRegen < 0 && (Main.npc[i].Center - player.Center).Length() < 400)
+                    if (Main.npc[i].active && !Main.npc[i].immortal && !Main.npc[i].dontTakeDamage && (Main.npc[i].Center - player.Center).Length() < 400)
                     {
-                        regenBoost -= Main.npc[i].lifeRegen;
-                        Dust dust = Dust.NewDustPerfect(Main.npc[i].position + new Vector2(Main.rand.Next(Main.npc[i].width), Main.rand.Next(Main.npc[i].height)), mod.DustType("VitallumDust"));
-                        dust.frame.Y = 0;
-                        leechDusts.Add(dust);
+                        Main.npc[i].AddBuff(151, 30);
+                        player.soulDrain++;
+                        if (Main.rand.Next(3) != 0)
+                        {
+                            Vector2 center = Main.npc[i].Center;
+                            center.X += (float)Main.rand.Next(-100, 100) * 0.05f;
+                            center.Y += (float)Main.rand.Next(-100, 100) * 0.05f;
+                            center += Main.npc[i].velocity;
+                            int num = Dust.NewDust(center, 1, 1, 235);
+                            Main.dust[num].velocity *= 0f;
+                            Main.dust[num].scale = (float)Main.rand.Next(70, 85) * 0.01f;
+                            Main.dust[num].fadeIn = player.whoAmI + 1;
+                        }
                     }
                 }
-                if (regenBoost > 20)
-                {
-                    regenBoost = 20;
-                }
-                if (counter % 30 == 0 && regenBoost / 4 > 0)
-                {
-                    player.HealEffect(regenBoost / 4);
-                }
-                player.lifeRegen += regenBoost;
             }
         }
 

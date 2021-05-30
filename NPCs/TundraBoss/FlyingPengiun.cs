@@ -53,8 +53,9 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             Vector2 flyTo = new Vector2(player.Center.X + (penguinPoliteness * npc.ai[0]), player.Center.Y - flyAboveHeight);
             if (timer > 180)
             {
+                bool inGround = npc.collideX || npc.collideY;
                 npc.velocity = new Vector2(0, 10);
-                npc.noTileCollide = false;
+                npc.noTileCollide = npc.Bottom.Y < player.Bottom.Y;
                 if (Main.expertMode)
                 {
                     npc.damage = 30;
@@ -66,7 +67,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                 npc.TargetClosest(false);
                 npc.spriteDirection = -npc.direction;
                 npc.rotation = (float)Math.PI;
-                if (timer % 10 == 0)
+                if (!inGround && timer % 10 == 0)
                 {
                     if (frame == 1)
                     {
@@ -97,9 +98,10 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             }
             else
             {
+                
                 npc.TargetClosest(true);
                 npc.spriteDirection = npc.direction;
-                if (timer % 10 == 0)
+                if ( timer % 10 == 0)
                 {
                     if (frame == 3)
                     {
@@ -116,11 +118,24 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     npc.velocity = npc.velocity.SafeNormalize(-Vector2.UnitY) * flySpeed;
                 }
             }
+            if(timer > 360)
+            {
+                NPC Penguin = Main.npc[NPC.NewNPC((int)npc.Top.X, (int)npc.Top.Y, NPCID.Penguin)];
+                npc.active = false;
+            }
         }
 
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
+        }
+        public override void HitEffect(int hitDirection, double damage)
+        {
+            if (npc.life <= 0)
+            {
+                Gore.NewGore(npc.position, npc.velocity, 160);
+                Gore.NewGore(new Vector2(npc.position.X, npc.position.Y), npc.velocity, 161);
+            }
         }
     }
 }

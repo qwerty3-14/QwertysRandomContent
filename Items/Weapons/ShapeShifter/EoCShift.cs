@@ -124,8 +124,9 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.localNPCImmunity[target.whoAmI] = -1;
+            projectile.localNPCImmunity[target.whoAmI] = 20;
             target.immune[projectile.owner] = 0;
+            damage = (int)(damage * .85f);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -143,10 +144,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-            for (int k = 0; k < 200; k++)
-            {
-                projectile.localNPCImmunity[k] = 0;
-            }
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;

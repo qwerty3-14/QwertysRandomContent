@@ -16,7 +16,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
 
         public override void SetDefaults()
         {
-            item.damage = 15;
+            item.damage = 13;
             item.melee = true;
             item.knockBack = 1;
             item.value = 50000;
@@ -25,8 +25,8 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
             item.height = 34;
             item.useStyle = 1;
             item.shootSpeed = 12f;
-            item.useTime = 4;
-            item.useAnimation = 12;
+            item.useTime = 5;
+            item.useAnimation = 15;
             item.shoot = mod.ProjectileType("CaeliteRainKnifeP");
             item.noUseGraphic = true;
             item.noMelee = true;
@@ -39,7 +39,7 @@ namespace QwertysRandomContent.Items.Fortress.CaeliteWeapons
         {
             position = new Vector2((Main.MouseWorld.X + player.Center.X)/2f + Main.rand.Next(-100, 100), position.Y - 600);
             float trueSpeed = new Vector2(speedX, speedY).Length();
-            int shift = Main.rand.Next(-40, 40);
+            int shift = Main.rand.Next(-50, 50);
             speedX = (float)Math.Cos((new Vector2(Main.MouseWorld.X + shift, Main.MouseWorld.Y) - position).ToRotation()) * trueSpeed;
             speedY = (float)Math.Sin((new Vector2(Main.MouseWorld.X + shift, Main.MouseWorld.Y) - position).ToRotation()) * trueSpeed;
             shotCounter++;

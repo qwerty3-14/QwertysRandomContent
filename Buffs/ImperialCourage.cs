@@ -8,7 +8,7 @@ namespace QwertysRandomContent.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Imperial Courage");
-            Description.SetDefault("35% increased attack speed");
+            Description.SetDefault("25% increased attack speed");
             Main.debuff[Type] = false;
             Main.pvpBuff[Type] = false;
             Main.buffNoSave[Type] = true;
@@ -17,7 +17,7 @@ namespace QwertysRandomContent.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<AttackSpeedPlayer>().allSpeed += .35f;
+            player.GetModPlayer<AttackSpeedPlayer>().allSpeed += .25f;
         }
     }
 }

@@ -91,15 +91,16 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             buffName = "AnvilMorphB";
             itemName = "AnvilShift";
         }
-
+        int cooldown = 0;
         public override void Effects(Player player)
         {
-            if (projectile.velocity.Y > 0)
+            if (projectile.velocity.Y > 2)
             {
                 player.immune = true;
                 player.immuneTime = 2;
                 player.immuneNoBlink = true;
-                if (player.ownedProjectileCounts[mod.ProjectileType("AnvilImpact")] <= 0)
+                cooldown--;
+                if (player.ownedProjectileCounts[mod.ProjectileType("AnvilImpact")] <= 0 && cooldown <=0)
                 {
                     Projectile.NewProjectile(projectile.Center + projectile.velocity, Vector2.Zero, mod.ProjectileType("AnvilImpact"), projectile.damage, projectile.knockBack, player.whoAmI);
                 }
@@ -113,6 +114,15 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             {
                 projectile.velocity.Y = 20;
             }
+        }
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (projectile.velocity.Y != oldVelocity.Y)
+            {
+                projectile.velocity.Y = 0;
+                cooldown = 10;
+            }
+            return false;
         }
     }
 
@@ -141,7 +151,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
         public override void AI()
         {
             projectile.Center = Main.player[projectile.owner].Center;
-            if (Main.player[projectile.owner].velocity.Y > 0f)
+            if (Main.player[projectile.owner].velocity.Y > 2f)
             {
                 projectile.timeLeft = 2;
             }

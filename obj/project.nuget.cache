@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6GnPWQd5Msz7czUmJn7r66auvK3TaSD0RnFwJajmkwgEh6vDjIODmUle6nHttu+9a2kS4IQaf3ui6rHXmBw/yA==",
+  "dgSpecHash": "QoDPLkWHGc+iWTWz8mrYY7WZv292YJby2yGCHQ+yoYMZalFCcgFemY+ZYfQAsZ5I3KyN/ncIBZl/si5ntZJUUg==",
   "success": true,
   "projectFilePath": "C:\\Users\\noahg\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\QwertysRandomContent\\QwertysRandomContent.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\noahg\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
+  ],
   "logs": []
 }

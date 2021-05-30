@@ -48,6 +48,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
         public override void FindFrame(int frameHeight)
         {
+            npc.spriteDirection = 1;
             npc.frameCounter++;
             if (npc.frameCounter > 10)
             {

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
@@ -24,7 +25,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             //npc.value = 6000f;
             npc.knockBackResist = 0f;
             npc.aiStyle = -1;
-            npc.lifeMax = 2100;
+            npc.lifeMax = 1600;
             npc.defense = 8;
             npc.damage = 40;
             npc.boss = true;
@@ -42,7 +43,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.damage = 60;
-            npc.lifeMax = (int)(2400 * bossLifeScale);
+            npc.lifeMax = (int)(2000 * bossLifeScale);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -94,13 +95,14 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             }
         }
 
-        private int timer;
+        private float timer;
         private int attackDelay = 60;
         private int resetAttacks = 360;
         private int attackCounter;
         private bool landed;
         private int frame = 4;
-
+        int attackCycle = 0;
+        int agentCooldown = 0;
         public override void AI()
         {
             npc.TargetClosest(true);
@@ -126,7 +128,15 @@ namespace QwertysRandomContent.NPCs.TundraBoss
             }
             else
             {
-                timer++;
+                if(Main.expertMode && landed)
+                {
+                    timer+= 1 + 2 * (1f - (float)npc.life/npc.lifeMax);
+                }
+                else
+                {
+                    timer++;
+                }
+                
                 if (timer > resetAttacks)
                 {
                     npc.velocity.X = 10 * npc.direction;
@@ -139,9 +149,14 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                         npc.netUpdate = true;
                     }
                     attackCounter = 0;
+                    attackCycle++;
+                    if(attackCycle == 7)
+                    {
+                        attackCycle = 0;
+                    }
                     if (Main.netMode != 1)
                     {
-                        npc.ai[0] = Main.rand.Next(2);
+                        npc.ai[0] = (attackCycle == 0 || attackCycle == 1 || attackCycle == 3 || attackCycle == 4) ? 0 : 1;
                         npc.netUpdate = true;
                     }
                 }
@@ -154,12 +169,12 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     if (npc.ai[0] == 0)
                     {
                         frame = ShootSliderFrame;
-                        if (timer % 60 == 0 && attackCounter < 3)
+                        if (timer > (attackCounter + 1) * 90 + attackDelay && attackCounter < 2)
                         {
                             attackCounter++;
                             if (Main.netMode != 1)
                             {
-                                NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y + 14, mod.NPCType("SlidingPenguin"), ai0: npc.direction);
+                                NPC.NewNPC((int)npc.Center.X + 30 * npc.direction, (int)npc.Center.Y + 14, mod.NPCType("SlidingPenguin"), ai0: npc.direction, ai1: (player.Bottom.Y < npc.Center.Y + 14) ? 1 : 0);
                             }
                             Main.PlaySound(SoundID.Item11, npc.position);
                             for (int i = 0; i < 8; i++)
@@ -171,7 +186,7 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                     else if (npc.ai[0] == 1)
                     {
                         frame = ShootFlierFrame;
-                        if (timer == attackDelay + 60)
+                        if (timer > attackDelay + 90 && attackCounter == 0)
                         {
                             attackCounter++;
                             for (int i = -2; i < 3; i++)
@@ -214,9 +229,50 @@ namespace QwertysRandomContent.NPCs.TundraBoss
                 }
                 */
                 //Main.NewText(npc.collideY);
+                npc.noTileCollide = false;
+                if (npc.velocity.Y < 0 || player.Bottom.Y > npc.Bottom.Y + 32)
+                {
+                    npc.noTileCollide = true;
+                    npc.collideY = false;
+                }
+                else
+                {
+                    npc.noTileCollide = true;
+                    Point bottomLeft = npc.BottomLeft.ToTileCoordinates();
+                    Texture2D texture = Main.extraTexture[2];
+                    for (int i = 0; i < (npc.width / 16) + 1; i++)
+                    {
+                        Vector2 p = bottomLeft.ToVector2() + new Vector2(i, 0);
+                        if (Main.tileSolid[Main.tile[(int)p.X, (int)p.Y].type] && !Main.tileSolidTop[Main.tile[(int)p.X, (int)p.Y].type])
+                        {
+                            npc.noTileCollide = false;
+                        }
+                    }
+                }
+                if (Main.netMode != 1)
+                {
+                    if (Main.expertMode && (float)npc.life / (float)npc.lifeMax < .5f && agentCooldown <= 0)
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            float x = Main.rand.NextFloat(7, 24) * (i == 0 ? 1 : -1);
+                            int denLength = 101;
+                            int denUpperHeight = 40;
+                            int ceilingHeight = (int)((float)Math.Sin(((float)(x + (denLength / 2)) / (float)denLength) * (float)Math.PI) * (float)denUpperHeight);
+                            Vector2 spawnPos = FrozenDen.BearSpawn + new Vector2(x * 16, ceilingHeight * -16);
+                            NPC.NewNPC((int)spawnPos.X, (int)spawnPos.Y, mod.NPCType("AgentPenguin"));
+                            
+                        }
+                        agentCooldown = 600;
+                    }
+                    if (agentCooldown > 0)
+                    {
+                        agentCooldown--;
+                    }
+                }
+                
             }
         }
-
         public override void FindFrame(int frameHeight)
         {
             npc.frame.Y = frame * frameHeight;
@@ -230,7 +286,19 @@ namespace QwertysRandomContent.NPCs.TundraBoss
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            timer = reader.ReadInt32();
+            timer = reader.ReadSingle();
         }
+        /*
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Point bottomLeft = npc.BottomLeft.ToTileCoordinates();
+            Texture2D texture = Main.extraTexture[2];
+            for (int i = 0; i < (npc.width / 16)+1; i++)
+            {
+                spriteBatch.Draw(texture, (bottomLeft.ToVector2() * 16) + Vector2.UnitX * i * 16 - Main.screenPosition, new Rectangle(0, 0, 16, 16), Color.White, 0, Vector2.Zero, Vector2.One, 0, 0);
+            }
+            return base.PreDraw(spriteBatch, drawColor);
+        }
+        */
     }
 }

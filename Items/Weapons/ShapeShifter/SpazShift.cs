@@ -109,15 +109,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
             
             if (projectile.timeLeft < 60)
             {
-                
-                projectile.velocity = QwertyMethods.PolarVector( 15f, projectile.rotation - (float)Math.PI / 2);
+
+                projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
             }
             else
             {
-                if (projectile.timeLeft == 60)
-                {
-                    Main.PlaySound(SoundID.Roar, player.Center, 0);
-                }
                 projectile.velocity = Vector2.Zero;
                 float r = (QwertysRandomContent.GetLocalCursor(projectile.owner) - projectile.Center).ToRotation();
                 projectile.rotation =  r + (float)Math.PI / 2;
@@ -133,6 +129,11 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
                 if (projectile.timeLeft == 299 && player.GetModPlayer<BionicEffects>().eyeEquiped)
                 {
                    reti = Main.projectile[ Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("RetiMorph"), projectile.damage, 0f, projectile.owner, r)];
+                }
+                if (projectile.timeLeft == 60)
+                {
+                    Main.PlaySound(SoundID.Roar, player.Center, 0);
+                    projectile.velocity = QwertyMethods.PolarVector(15f, projectile.rotation - (float)Math.PI / 2);
                 }
             }
             
@@ -170,7 +171,7 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.localNPCImmunity[target.whoAmI] = -1;
+            projectile.localNPCImmunity[target.whoAmI] = 20;
             target.immune[projectile.owner] = 0;
         }
 
@@ -203,10 +204,6 @@ namespace QwertysRandomContent.Items.Weapons.ShapeShifter
 
         public override bool OnTileCollide(Vector2 velocityChange)
         {
-            for (int k = 0; k < 200; k++)
-            {
-                projectile.localNPCImmunity[k] = 0;
-            }
             if (projectile.velocity.X != velocityChange.X)
             {
                 projectile.velocity.X = -velocityChange.X;

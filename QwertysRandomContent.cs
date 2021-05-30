@@ -238,6 +238,9 @@ namespace QwertysRandomContent
             HydraLoot.Add("Hydrill");
             HydraLoot.Add("HydraMissileStaff");
 
+
+
+
             // Registers a new hotkey
             YetAnotherSpecialAbility = RegisterHotKey("Yet Another Special Ability", "Mouse3");
             QuickQuickMorph = RegisterHotKey("Quick Quick Morph", "F");

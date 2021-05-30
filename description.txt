@@ -36,6 +36,33 @@ Extra thanks
 
 
 changelog
+0.23.0
+-new world gen for the polar exterminator's den
+-the polar exterminator fight has been overhauled
+
+
+-nerfed divine hail knife, damage 15->13, useTime 4->5, and is a little less acurrate
+-the frenzied quick morph prefix now only reduces cooldown by 25% instead of 50%
+-adjusted biomass's ammo creation rate
+-Imperial courage buff attack speed bonus reduced 35%->25%
+-EoC shift no longer resets iFrames when bouncing and has 15% droppoff for each enemy hit
+-nerfed vitalum armor... a lot
+
+-fixed traveling merchant never selling morph gem
+-fixed anvil morph dealing damage when sitting on the ground
+-fixed spazzer's eye not bouncing off tiles
+
+
+0.22.11
+-fixed severe bug where mod wouldn't be able to create a server
+
+0.22.10
+-fixed severe bug that caused the mod not to load when 'classic Impererious' sprite setting was enabled
+-tops now inflict more iFrames 10->20
+-reduced nano dart's nano probe damage 50%->40%
+-longsword staff damage reduced 22->19 (It was better than the f*cking xeno staff)
+
+
 0.22.9
 -rhuthinium vaporizer mana cost 12->8, damage 19 -> 35, knockback 0-> 0.5
 -beak javelin damage 110->100

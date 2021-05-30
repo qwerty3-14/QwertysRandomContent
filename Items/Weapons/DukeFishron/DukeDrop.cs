@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -35,7 +30,7 @@ namespace QwertysRandomContent.Items.Weapons.DukeFishron
             }
         }
     }
-    public class BloomingBag : GlobalItem
+    public class DukeBag : GlobalItem
     {
         public override void OpenVanillaBag(string context, Player player, int arg)
         {

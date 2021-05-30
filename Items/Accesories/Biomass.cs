@@ -48,7 +48,7 @@ namespace QwertysRandomContent.Items.Accesories
                 {
                     if (!player.inventory[i].IsAir)
                     {
-                        if (player.inventory[i].ammo != AmmoID.None && player.inventory[i].stack < player.inventory[i].maxStack)
+                        if ((player.inventory[i].ammo != AmmoID.None || player.inventory[i].thrown) && player.inventory[i].stack < player.inventory[i].maxStack)
                         {
                             possibleStacks.Add(i);
                             attemptGrowth = true;
@@ -58,13 +58,13 @@ namespace QwertysRandomContent.Items.Accesories
                 if (attemptGrowth)
                 {
                     item = player.inventory[possibleStacks[Main.rand.Next(possibleStacks.Count)]];
-                    int valueStat = 60;
+                    int valueStat = 5;
                     if (item.value > valueStat)
                     {
                         valueStat = item.value;
                         valueStat = (int)(valueStat / effect);
                     }
-                    if (Main.rand.Next(valueStat * 2) == 0)
+                    if (Main.rand.Next(valueStat * 4) == 0)
                     {
                         item.stack++;
                     }

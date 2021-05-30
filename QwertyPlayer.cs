@@ -306,6 +306,11 @@ namespace QwertysRandomContent
 
         public override void PostUpdateEquips()
         {
+            //for debugging
+            //Main.NewText(player.position.Y / 16);
+            //Main.NewText(Main.worldSurface);
+
+
             if (forcedAntiGravity > 0)
             {
                 player.gravDir = -1f;

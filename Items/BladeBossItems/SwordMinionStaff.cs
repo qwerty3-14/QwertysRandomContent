@@ -22,7 +22,7 @@ namespace QwertysRandomContent.Items.BladeBossItems
         {
             item.summon = true;
             item.mana = 4;
-            item.damage = 22;
+            item.damage = 19;
             item.rare = 7;
             item.value = Item.sellPrice(0, 10, 0, 0);
             item.knockBack = 2f;

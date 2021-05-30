@@ -380,7 +380,41 @@ namespace QwertysRandomContent
             caller.Player.GetModPlayer<RoomPlacement>().placeAltar = true;
         }
     }
+    public class ExportIgloo : ModCommand
+    {
+        public override CommandType Type
+        {
+            get { return CommandType.Chat; }
+        }
 
+        public override string Command
+        {
+            get { return "exportIgloo"; }
+        }
+
+        public override string Usage
+        {
+            get { return "/exportIgloo name"; }
+        }
+
+        public override string Description
+        {
+            get { return "Exports the room so it's easy to add into the mod's code!"; }
+        }
+
+        public override void Action(CommandCaller caller, string input, string[] args)
+        {
+            if (input == "/exportIgloo")
+            {
+                Main.NewText("This command requires you give a name");
+            }
+            else
+            {
+                caller.Player.GetModPlayer<RoomPlacement>().exportIgloo = true;
+                caller.Player.GetModPlayer<RoomPlacement>().roomName = args[0];
+            }
+        }
+    }
     public class RoomPlacement : ModPlayer
     {
         public Vector2 UIDimensions = Vector2.Zero;
@@ -397,6 +431,7 @@ namespace QwertysRandomContent
         public bool placeAltarRoom = false;
         public bool exportAltarRoom = false;
         public bool placeAltar = false;
+        public bool exportIgloo = false;
 
         private void PlaceUpdate()
         {
@@ -596,6 +631,15 @@ namespace QwertysRandomContent
                 {
                     Vector2 position = Main.MouseWorld / 16f;
                     ExportRoom(position, Fortress2Blueprints.AltarRooms);
+                }
+            }
+            if (exportIgloo)
+            {
+                UIDimensions = new Vector2(29, 10);
+                if (Main.mouseLeft)
+                {
+                    Vector2 position = Main.MouseWorld / 16f;
+                    ExportRoom(position, new int[1,1,10,29]);
                 }
             }
         }

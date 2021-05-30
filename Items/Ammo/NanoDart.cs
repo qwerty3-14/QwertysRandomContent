@@ -64,7 +64,7 @@ namespace QwertysRandomContent.Items.Ammo
         {
             for (int r = 0; r < 5; r++)
             {
-                Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(1f, (r / 5f) * (float)Math.PI * 2 + projectile.velocity.ToRotation()), mod.ProjectileType("Nanoprobe"), (int)(.5f * projectile.damage), 0, projectile.owner);
+                Projectile.NewProjectile(projectile.Center, QwertyMethods.PolarVector(1f, (r / 5f) * (float)Math.PI * 2 + projectile.velocity.ToRotation()), mod.ProjectileType("Nanoprobe"), (int)(.4f * projectile.damage), 0, projectile.owner);
             }
         }
     }

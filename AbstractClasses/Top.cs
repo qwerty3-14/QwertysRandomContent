@@ -108,9 +108,8 @@ namespace QwertysRandomContent.AbstractClasses
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             projectile.usesIDStaticNPCImmunity = true;
-            int immutime = 10;
+            int immutime = 20;
             Projectile.perIDStaticNPCImmunity[projectile.type][target.whoAmI] = (uint)(Main.GameUpdateCount + immutime);
-            //target.immune[projectile.owner] = immutime;
 
             initVel -= enemyFriction;
         }

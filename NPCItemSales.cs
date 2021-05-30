@@ -150,7 +150,7 @@ namespace QwertysRandomContent
                 shop[nextSlot] = mod.ItemType("Metronome");
                 nextSlot++;
             }
-            int selectAccesory = Main.rand.Next(5);
+            int selectAccesory = Main.rand.Next(6);
             switch (selectAccesory)
             {
                 case 0:

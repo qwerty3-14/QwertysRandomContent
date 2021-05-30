@@ -929,7 +929,7 @@ namespace QwertysRandomContent
             {
                 mod.AddPrefix("Refreshing", new QuickMorphPrefix(1f, 0, 1f, .9f));
                 mod.AddPrefix("Rejuvenating", new QuickMorphPrefix(1f, 0, 1f, .8f));
-                mod.AddPrefix("Frenzied", new QuickMorphPrefix(.5f, 0, 1f, .5f));
+                mod.AddPrefix("Frenzied", new QuickMorphPrefix(.6f, 0, 1f, .75f));
                 mod.AddPrefix("Powerful", new QuickMorphPrefix(1.5f, 0, 1f, 1.5f));
                 mod.AddPrefix("Aggressive", new QuickMorphPrefix(1f, 5, 1.15f, .9f));
                 mod.AddPrefix("Rigorous", new QuickMorphPrefix(1.15f, 5, 1.15f, .8f));

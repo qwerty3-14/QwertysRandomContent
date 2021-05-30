@@ -19,12 +19,33 @@ namespace QwertysRandomContent
         public static Vector2 BearSpawn = new Vector2(-1, -1);
         public static bool activeSleeper = false;
         public static FrozenDen instance;
-
+        int entryWidth = 11;
+        int enntryWallWidth = 9;
         public override void Initialize()
         {
             BearSpawn = new Vector2(-1, -1);
+
+            IglooTileTypes = new List<int[]>[]
+            {
+                //Tiles
+                new List<int[]>()
+                {
+                  new int[] {-1, 148, 34, 4, 15, 14, 19}
+                },
+                //walls
+                new List<int[]>()
+                {
+                  new int[] {-1, 0, 31}
+                }
+            };
         }
 
+        public static int[,,,] iglooBlueprints = new int[,,,]
+        {
+            { { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0},{0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},{0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 5, 0, 4, 0, 0, 1, 0, 0, 0},{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0} }, { {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1},{1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1},{1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1},{1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1},{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1} }, { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 0, 0, 0, 0},{0, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} }, { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} }, { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} }, { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 18, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 144, 126, 54, 54, 36, 108, 144, 144, 18, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 108, 54, 0, 0, 0, 0, 18, 36, 0, 0, 0, 36, 144, 18, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 36, 54, 0, 0, 0, 0, 0, 0, 18, 36, 0, 0, 0, 0, 0, 36, 18, 0, 0, 0, 0},{0, 72, 54, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 18, 36, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0},{0, 72, 36, 144, 144, 144, 108, 108, 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 18, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1296, 1314, 1332, 0, 0, 0, 90, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1296, 1314, 1332, 0, 0, 0, 90, 0, 0, 0},{0, 0, 18, 18, 18, 54, 36, 54, 36, 108, 126, 126, 216, 54, 0, 0, 72, 162, 144, 126, 36, 36, 18, 18, 36, 72, 0, 0, 0} }, { {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 72, 72, 72, 36, 36, 36, 72, 72, 72, 54, 0, 0, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 72, 72, 0, 0, 0, 594, 594, 594, 0, 0, 0, 72, 72, 54, 0, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 54, 72, 0, 0, 0, 0, 0, 612, 612, 612, 0, 0, 0, 0, 0, 72, 54, 0, 0, 0, 0},{0, 54, 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 630, 630, 630, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0},{0, 72, 36, 72, 72, 72, 72, 72, 72, 0, 198, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 198, 0, 18, 0, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 54, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1120, 0, 0, 0, 1120, 0, 0, 36, 0, 0, 0},{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1138, 18, 18, 18, 1138, 0, 0, 36, 0, 0, 0},{0, 54, 0, 0, 0, 0, 0, 0, 0, 72, 72, 72, 0, 630, 630, 630, 630, 0, 72, 72, 0, 0, 0, 0, 0, 36, 0, 0, 0} } }
+        };
+        public static List<int[]>[] IglooTileTypes;
+        
         public override TagCompound Save()
         {
             return new TagCompound
@@ -143,66 +164,155 @@ namespace QwertysRandomContent
                     }
                 }
             }
-            //int[] rocks = new int[] { 97, 92, 81, 60 };
-            /*
-            for (int i = 0; i < 10; i++)
+            
+            for (int l = ((denLength - 1) / 2) - (entryWidth-1)/2; l< ((denLength - 1) / 2) + (entryWidth +1) / 2; l++)
             {
-                if (Main.rand.Next(2) == 0)
+                for (int h = 0; h < 10; h++)
                 {
-                    WorldGen.PlaceSmallPile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y - 1, Main.rand.Next(42, 48), 0);
+                    WorldGen.KillTile(x - ((denLength - 1) / 2) + l, y - denUpperHeight+h, false, false, true);
+                }
+            }
+
+            int m = ((denLength - 1) / 2) - (entryWidth - 1) / 2;
+            GenerateTunnel(x - ((denLength - 1) / 2) + m - enntryWallWidth, y - denUpperHeight);
+        }
+        public void GenerateTunnel(int x, int y)
+        {
+            int layer = 0;
+            int xOffset = 0;
+            int xDir = WorldGen.genRand.Next(2) == 0 ? -1 : 1;
+            for (;true; layer++)
+            {
+                bool doubleBreak = false;
+
+
+                for (int i = 0; i < enntryWallWidth * 2 + entryWidth; i++)
+                {
+                    //kill some trees!
+                    for (int j = 0; j < 20; j++)
+                    {
+                        if (y - layer - j < Main.tile.GetLength(1) && Main.tile[x + i + xOffset, y - layer - j].active() && Main.tile[x + i + xOffset, y - layer - j].type == TileID.Trees)
+                        {
+                            WorldGen.KillTile(x + i + xOffset, y - layer - j, false, false, true);
+                        }
+                    }
+
+                    for (int j = 0; j < 20; j++)
+                    {
+                        if (y - layer - j < Main.tile.GetLength(1) && Main.tile[x + i + xOffset, y - layer - j].active())
+                        {
+                            doubleBreak = true;
+                            break;
+                        }
+                    }
+                    if (doubleBreak)
+                    {
+                        break;
+                    }
+
+                }
+                if (!doubleBreak)
+                {
+                    int iglooX = x + xOffset;
+                    int iglooY = y - layer - 9;
+                    Fortress2Blueprints.BuildRoom(iglooX, iglooY, IglooTileTypes, iglooBlueprints);
+                    WorldGen.PlaceTile(iglooX + 16, iglooY + 2, TileID.Chandeliers, style: 11);
+                    WorldGen.PlaceTile(iglooX + 20, iglooY + 8, TileID.Tables, style: 24);
+                   //WorldGen.PlaceTile(iglooX + 18, iglooY + 8, TileID.Chairs, style: 1);
+                    WorldGen.PlaceTile(iglooX + 22, iglooY + 8, TileID.Chairs, style: 28);
+                    return;
                 }
                 else
                 {
-                    WorldGen.PlaceSmallPile(x - ((denLength - 1) / 2) + Main.rand.Next(denLength), y - 1, Main.rand.Next(25, 31), 1);
-                }
-            }*/
-        }
-
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
-        {
-            int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Tile Cleanup"));
-
-            if (ShiniesIndex != -1)
-            {
-                tasks.Insert(ShiniesIndex + 1, new PassLegacy("Hiding true compasses!", delegate (GenerationProgress progress)
-                {
-                    for (int c = 0; c < Main.chest.Length; c++)
+                    for (int k = 0; k < enntryWallWidth * 2 + entryWidth; k++)
                     {
-                        if (Main.chest[c] != null)
+                        if (k < enntryWallWidth || k >= enntryWallWidth + entryWidth)
                         {
-                            if ((Main.chest[c].item[0].type == ItemID.IceBlade || Main.chest[c].item[0].type == ItemID.SnowballCannon || Main.chest[c].item[0].type == ItemID.IceBoomerang || Main.chest[c].item[0].type == ItemID.IceSkates || Main.chest[c].item[0].type == ItemID.FlurryBoots || Main.chest[c].item[0].type == ItemID.BlizzardinaBottle) && Main.rand.Next(4) == 0)
-                            {
-                                for (int i = 0; i < Main.chest[c].item.Length; i++)
-                                {
-                                    if (Main.chest[c].item[i].type == 0)
-                                    {
-                                        Main.chest[c].item[i].SetDefaults(mod.ItemType("FrostCompass"), false);
-                                        break;
-                                    }
-                                }
-                            }
+                            WorldGen.PlaceTile(x + k + xOffset, y - layer, TileID.SnowBlock);
                         }
+                        else
+                        {
+                            WorldGen.KillTile(x + k + xOffset, y - layer, false, false, true);
+                        }
+                        if (k >= enntryWallWidth - 1 || k < enntryWallWidth + entryWidth + 1)
+                        {
+                            WorldGen.PlaceWall(x + k + xOffset, y - layer, WallID.SnowWallUnsafe);
+                        }
+                        WorldGen.SlopeTile(x + enntryWallWidth - 1 + xOffset, y - layer, xDir == 1 ? 3 : 1);
+                        WorldGen.SlopeTile(x + enntryWallWidth + entryWidth  + xOffset, y - layer, xDir == 1 ? 2 : 5);
+
                     }
-                }));
+                }
+
+                xOffset += xDir;
+                if(WorldGen.genRand.Next(25) == 0)
+                {
+                    xDir *= -1;
+                }
+                if(xOffset < -50)
+                {
+                    xDir = 1;
+                }
+                if(xOffset > 50)
+                {
+                    xDir = -1;
+                }
             }
         }
 
-        public override void PostWorldGen()
+        
+        public void RunDenGenerator()
         {
-            for (int i = 0; i < 1000; i++)
+            int leftOfSnow = 0;
+            int rightOfSnow = Main.maxTilesX - 1;
+            bool doubleBreak = false;
+            for (; leftOfSnow < Main.maxTilesX; leftOfSnow++)
             {
-                int x = WorldGen.genRand.Next(Main.maxTilesX);
-                int y = WorldGen.genRand.Next(Main.maxTilesY);
-                if ((Main.tile[x, y].type == TileID.SnowBlock || Main.tile[x, y].type == TileID.IceBlock) && y > WorldGen.rockLayer)
+                for (int y = 0; y < Main.worldSurface; y++)
                 {
-                    BearSpawn = new Vector2(x * 16, (y - 2) * 16);
-                    activeSleeper = true;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-                    GenerateDen(x, y);
+                    if (Main.tile[leftOfSnow, y].type == TileID.SnowBlock || Main.tile[leftOfSnow, y].type == TileID.IceBlock)
+                    {
+                        doubleBreak = true;
+                        break;
+                    }
+                }
+                if (doubleBreak)
+                {
                     break;
                 }
             }
+            doubleBreak = false;
+            for (; rightOfSnow > 0; rightOfSnow--)
+            {
+                for (int y = 0; y < Main.worldSurface; y++)
+                {
+                    if (Main.tile[rightOfSnow, y].type == TileID.SnowBlock || Main.tile[rightOfSnow, y].type == TileID.IceBlock)
+                    {
+                        doubleBreak = true;
+                        break;
+                    }
+                }
+                if (doubleBreak)
+                {
+                    break;
+                }
+            }
+
+            int snowWidth = rightOfSnow - leftOfSnow;
+            float portion = WorldGen.genRand.NextFloat() * .5f + .25f;
+            int denX = (int)(leftOfSnow + snowWidth * portion);
+            int denY = (int)(Main.worldSurface + 80 + WorldGen.genRand.Next(50));
+
+            BearSpawn = new Vector2(denX * 16, (denY - 2) * 16);
+            activeSleeper = true;
+            if (Main.netMode == NetmodeID.Server)
+                NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
+            GenerateDen(denX, denY);
+
+        }
+        public override void PostWorldGen()
+        {
+            RunDenGenerator();
         }
 
         public override void PreUpdate()
@@ -253,20 +363,7 @@ namespace QwertysRandomContent
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            for (int i = 0; i < 1000; i++)
-            {
-                int x = WorldGen.genRand.Next(Main.maxTilesX);
-                int y = WorldGen.genRand.Next(Main.maxTilesY);
-                if ((Main.tile[x, y].type == TileID.SnowBlock || Main.tile[x, y].type == TileID.IceBlock) && y > WorldGen.rockLayer)
-                {
-                    FrozenDen.BearSpawn = new Vector2(x * 16, (y - 2) * 16);
-                    FrozenDen.activeSleeper = true;
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendData(MessageID.WorldData); // Immediately inform clients of new world state.
-                    FrozenDen.instance.GenerateDen(x, y);
-                    break;
-                }
-            }
+            FrozenDen.instance.RunDenGenerator();
         }
     }
 }
